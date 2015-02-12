@@ -1,9 +1,11 @@
 Package: xml2
 Type: Package
-Title: What the package does (short line)
+Title: Bindings to libxml2
 Version: 0.1
 Date: 2015-02-12
-Author: Who wrote it
-Maintainer: Who to complain to <jeroenooms@gmail.com>
-Description: More about what it does (maybe more than one line)
-License: GPL
+Author: Hadley Wickham, Jeroen Ooms
+Maintainer: Hadley Wickham <hadley@rstudio.com>
+Description: Tools and utilities for working with XML data in R.
+License: MIT + file LICENSE
+Imports: Rcpp (>= 0.11.0)
+LinkingTo: Rcpp
