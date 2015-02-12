@@ -7,6 +7,7 @@ elif [ -r "/usr/local/include/libxml2/libxml/parser.h" ]; then
   LIBXML_INCDIR="/usr/local/include/libxml2/"
 elif [ -r "/opt/csw/include/libxml2/libxml/parser.h" ]; then
   LIBXML_INCDIR="/opt/csw/include/libxml2/"
+  LIBXML_LIBDIR="/opt/csw/lib/"
 elif [ $(echo "$OSTYPE" | grep "darwin") ]; then
   DYNLIB=$(xcodebuild -find-library xml2)
   LIBDIR=$(dirname $DYNLIB)
