@@ -1,0 +1,33 @@
+# Custom libxml2 path for compatibility with old XML package
+if [ "$LIBXML_INCDIR" ]; then
+  echo "PKG_CPPFLAGS= -I$LIBXML_INCDIR" > src/Makevars
+  if [ "$LIBXML_LIBDIR" ]; then
+    echo "PKG_LIBS=-L$LIBXML_LIBDIR -lxml2" >> src/Makevars  
+  else
+    echo "PKG_LIBS=-lxml2" >> src/Makevars    
+  fi
+  exit 0
+fi
+
+# System libxml2
+if [ -r "/usr/include/libxml2/libxml/parser.h" ] || [ -r "/usr/local/include/libxml2/libxml/parser.h" ]; then
+  echo "PKG_LIBS=-lxml2" > src/Makevars
+  exit 0;
+fi
+
+# Find headers in xcode
+if [ $(echo "$OSTYPE" | grep "darwin") ]; then
+  DYNLIB=$(xcodebuild -find-library xml2)
+  LIBDIR=$(dirname $DYNLIB)
+  XCODE=$(dirname $LIBDIR)
+  LIBXML_INCDIR="$XCODE/include/libxml2"
+  if [ -r "$LIBXML_INCDIR/libxml/parser.h" ]; then
+    echo "PKG_CPPFLAGS= -I$LIBXML_INCDIR" > src/Makevars  
+    echo "PKG_LIBS=-lxml2" >> src/Makevars
+    exit 0
+  fi
+fi
+
+echo "Could not find libxml2."
+exit 1
+
