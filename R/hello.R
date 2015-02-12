@@ -2,6 +2,7 @@
 #' 
 #' @useDynLib xml2 R_xml_parse
 #' @export
+#' @param x an xml string
 #' @examples xml_parse("<foo> 123 </foo>")
 xml_parse <- function(x){
   .Call(R_xml_parse, x)

@@ -6,6 +6,9 @@
 \usage{
 xml_parse(x)
 }
+\arguments{
+\item{x}{an xml string}
+}
 \description{
 Parse XML string
 }
