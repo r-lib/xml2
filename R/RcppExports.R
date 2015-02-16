@@ -13,3 +13,11 @@ xml_doc_format <- function(x) {
     .Call('xml2_xml_doc_format', PACKAGE = 'xml2', x)
 }
 
+xml_doc_root <- function(x) {
+    .Call('xml2_xml_doc_root', PACKAGE = 'xml2', x)
+}
+
+xml_name <- function(node) {
+    .Call('xml2_xml_name', PACKAGE = 'xml2', node)
+}
+

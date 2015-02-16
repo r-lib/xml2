@@ -42,6 +42,10 @@ public:
     } catch (...) {}
   }
 
+  xmlNode* root() {
+    return xmlDocGetRootElement(pDoc_);
+  }
+
   Rcpp::CharacterVector format() {
     xmlChar *s;
     xmlDocDumpMemory(pDoc_, &s, NULL);
