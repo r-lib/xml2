@@ -3,5 +3,4 @@
 S3method(print,xmlDocPtr)
 export(xml_parse)
 useDynLib(xml2,R_doc_to_string)
-useDynLib(xml2,R_xml_init)
 useDynLib(xml2,R_xml_parse)
