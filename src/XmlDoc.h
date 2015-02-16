@@ -5,8 +5,9 @@
 #include <boost/noncopyable.hpp>
 #include <boost/shared_ptr.hpp>
 #include <libxml/parser.h>
+#include "xml-utils.h"
 
-// convenience typedef for shared_ptr to PqConnection
+// convenience typedef for shared_ptr to XmlDoc
 class XmlDoc;
 typedef boost::shared_ptr<XmlDoc> XmlDocPtr;
 
@@ -50,11 +51,7 @@ public:
     xmlChar *s;
     xmlDocDumpMemory(pDoc_, &s, NULL);
 
-    if (s == NULL)
-      Rcpp::stop("Failed to format xml as string");
-
-    Rcpp::CharacterVector out(1);
-    out[0] = Rf_mkCharCE((char*) s, CE_UTF8);
+    Rcpp::CharacterVector out = xmlCharToRChar(s);
     xmlFree(s);
 
     return out;
