@@ -8,4 +8,4 @@ Maintainer: Hadley Wickham <hadley@rstudio.com>
 Description: Tools and utilities for working with XML data in R.
 License: MIT + file LICENSE
 Imports: Rcpp (>= 0.11.4.4)
-LinkingTo: Rcpp
+LinkingTo: Rcpp, BH
