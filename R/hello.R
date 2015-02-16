@@ -1,5 +1,9 @@
+#' @useDynLib xml2
+#' @importFrom Rcpp sourceCpp
+NULL
+
 #' Parse XML string
-#' 
+#'
 #' @useDynLib xml2 R_xml_parse
 #' @export
 #' @param x an xml string
