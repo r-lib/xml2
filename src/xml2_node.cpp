@@ -12,6 +12,19 @@ CharacterVector node_name(XPtrNode node) {
 CharacterVector node_text(XPtrNode node) {
   xmlChar* s = xmlNodeGetContent(node.get());
   CharacterVector out = xmlCharToRChar(s);
+  if (s != NULL)
+    xmlFree(s);
+
+  return out;
+}
+
+// [[Rcpp::export]]
+CharacterVector node_attr(XPtrNode node, std::string name) {
+  xmlChar* s = xmlGetProp(node.get(), (xmlChar*) name.c_str());
+
+  CharacterVector out = xmlCharToRChar(s);
+  if (s != NULL)
+    xmlFree(s);
 
   return out;
 }

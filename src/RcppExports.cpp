@@ -135,6 +135,18 @@ BEGIN_RCPP
     return __result;
 END_RCPP
 }
+// node_attr
+CharacterVector node_attr(XPtrNode node, std::string name);
+RcppExport SEXP xml2_node_attr(SEXP nodeSEXP, SEXP nameSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject __result;
+    Rcpp::RNGScope __rngScope;
+    Rcpp::traits::input_parameter< XPtrNode >::type node(nodeSEXP);
+    Rcpp::traits::input_parameter< std::string >::type name(nameSEXP);
+    __result = Rcpp::wrap(node_attr(node, name));
+    return __result;
+END_RCPP
+}
 // node_format
 CharacterVector node_format(XPtrDoc doc, XPtrNode node, bool format = true, int indent = 0);
 RcppExport SEXP xml2_node_format(SEXP docSEXP, SEXP nodeSEXP, SEXP formatSEXP, SEXP indentSEXP) {
