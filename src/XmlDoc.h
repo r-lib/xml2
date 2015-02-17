@@ -8,55 +8,6 @@
 #include "xml-utils.h"
 
 // convenience typedef for shared_ptr to XmlDoc
-class XmlDoc;
-typedef boost::shared_ptr<XmlDoc> XmlDocPtr;
-
-class XmlDoc : boost::noncopyable {
-  xmlDoc* pDoc_;
-
-public:
-
-  XmlDoc(std::string filename, std::string encoding, int options = 0) {
-    pDoc_ = xmlReadFile(filename.c_str(),
-      encoding == "" ? NULL : encoding.c_str(),
-      options
-    );
-    if (pDoc_ == NULL)
-      Rcpp::stop("Failed to parse %s", filename);
-  }
-
-  XmlDoc(const char* text, int size, std::string base_url, std::string encoding,
-         int options = 0) {
-
-    pDoc_ = xmlReadMemory(text, size,
-      base_url == "" ? NULL : base_url.c_str(),
-      encoding == "" ? NULL : encoding.c_str(),
-      options
-    );
-    if (pDoc_ == NULL)
-      Rcpp::stop("Failed to parse text");
-  }
-
-  ~XmlDoc() {
-    try {
-      xmlFreeDoc(pDoc_);
-    } catch (...) {}
-  }
-
-  xmlNode* root() {
-    return xmlDocGetRootElement(pDoc_);
-  }
-
-  Rcpp::CharacterVector format() {
-    xmlChar *s;
-    xmlDocDumpMemory(pDoc_, &s, NULL);
-
-    Rcpp::CharacterVector out = xmlCharToRChar(s);
-    xmlFree(s);
-
-    return out;
-  }
-
-};
+typedef boost::shared_ptr<xmlDoc> Xml2DocumentPtr;
 
 #endif

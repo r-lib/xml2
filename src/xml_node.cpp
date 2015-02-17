@@ -4,8 +4,11 @@ using namespace Rcpp;
 #include "XmlNode.h"
 
 // [[Rcpp::export]]
-XPtr<XmlNode> xml_doc_root(XPtr<XmlDocPtr> x) {
-  return XPtr<XmlNode>(new XmlNode(*x, (*x)->root()), true);
+XPtr<XmlNode> xml_doc_root(XPtr<Xml2DocumentPtr> x) {
+  xmlDoc* doc = x.get()->get();
+  xmlNode* root = xmlDocGetRootElement(doc);
+
+  return XPtr<XmlNode>(new XmlNode(*x, root));
 }
 
 // [[Rcpp::export]]

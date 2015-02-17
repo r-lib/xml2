@@ -5,15 +5,14 @@
 #include <boost/noncopyable.hpp>
 #include "xml-utils.h"
 #include <libxml/tree.h>
-#include "XmlDoc.h"
 
 class XmlNode {
-  XmlDocPtr pDoc_;
+  Xml2DocumentPtr pDoc_;
   xmlNode* pNode_;
 
 public:
 
-  XmlNode(XmlDocPtr pDoc, xmlNode* pNode): pDoc_(pDoc), pNode_(pNode) {
+  XmlNode(Xml2DocumentPtr pDoc, xmlNode* pNode): pDoc_(pDoc), pNode_(pNode) {
   }
 
   Rcpp::CharacterVector name() {
