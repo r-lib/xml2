@@ -1,11 +1,3 @@
-#' @useDynLib xml2
-#' @importFrom Rcpp sourceCpp
-NULL
-
-xml_doc <- function(doc) {
-  structure(list(doc = doc), class = "xml_doc")
-}
-
 #' Parse XML string
 #'
 #' @export
@@ -18,9 +10,4 @@ xml_doc <- function(doc) {
 #' xml_parse("<foo> 123 </foo>")
 xml_parse <- function(x, base_url = NULL, encoding = NULL, options = NULL){
   xml_doc(doc_parse_string(x, encoding %||% "", base_url %||% "", options %||% 0))
-}
-
-#' @export
-print.xml_doc <- function(x, ...){
-  cat(doc_format(x$doc), "\n")
 }
