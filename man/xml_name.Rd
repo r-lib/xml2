@@ -4,10 +4,13 @@
 \alias{xml_name}
 \title{The (tag) name of an xml element.}
 \usage{
-xml_name(x)
+xml_name(x, ...)
 }
 \arguments{
 \item{x}{A document, node, or node set.}
+}
+\value{
+A character vector.
 }
 \description{
 The (tag) name of an xml element.
@@ -15,5 +18,9 @@ The (tag) name of an xml element.
 \examples{
 x <- xml_parse("<bar>123</bar>")
 xml_name(x)
+
+y <- xml_parse("<bar><baz>1</baz>abc<foo /></bar>")
+z <- xml_children(y)
+xml_name(xml_children(y))
 }
 
