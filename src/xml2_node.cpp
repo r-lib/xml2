@@ -4,9 +4,8 @@ using namespace Rcpp;
 #include "xml2_utils.h"
 
 // [[Rcpp::export]]
-List xml_doc_root(XPtr<Xml2DocumentPtr> x) {
-  xmlDoc* doc = x.get()->get();
-  xmlNode* root = xmlDocGetRootElement(doc);
+List xml_doc_root(XPtr<xmlDoc> x) {
+  xmlNode* root = xmlDocGetRootElement(x.get());
 
   return List::create(
     _["doc"] = x,

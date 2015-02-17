@@ -4,9 +4,9 @@ using namespace Rcpp;
 #include "xml2_utils.h"
 
 // [[Rcpp::export]]
-XPtr<Xml2DocumentPtr> parse_xml_file(std::string path,
-                                     std::string encoding = "",
-                                     int options = 0) {
+XPtr<xmlDoc> parse_xml_file(std::string path,
+                            std::string encoding = "",
+                            int options = 0) {
   xmlDoc* pDoc = xmlReadFile(
     path.c_str(),
     encoding == "" ? NULL : encoding.c_str(),
@@ -15,15 +15,13 @@ XPtr<Xml2DocumentPtr> parse_xml_file(std::string path,
   if (pDoc == NULL)
     Rcpp::stop("Failed to parse %s", path);
 
-  Xml2DocumentPtr* pDoc2_ = new Xml2DocumentPtr(pDoc, xmlFreeDoc);
-  return XPtr<Xml2DocumentPtr>(pDoc2_, true);
+  return XPtr<xmlDoc>(pDoc, &xmlFreeDoc);
 }
 
 // [[Rcpp::export]]
-XPtr<Xml2DocumentPtr> parse_xml_string(CharacterVector x, std::string encoding,
-                                       std::string base_url = "",
-                                       int options = 0) {
-
+XPtr<xmlDoc> parse_xml_string(CharacterVector x, std::string encoding,
+                              std::string base_url = "",
+                              int options = 0) {
   SEXP x1 = x[0];
 
   xmlDoc* pDoc = xmlReadMemory(
@@ -36,14 +34,13 @@ XPtr<Xml2DocumentPtr> parse_xml_string(CharacterVector x, std::string encoding,
   if (pDoc == NULL)
     Rcpp::stop("Failed to parse text");
 
-  Xml2DocumentPtr* pDoc2_ = new Xml2DocumentPtr(pDoc, xmlFreeDoc);
-  return XPtr<Xml2DocumentPtr>(pDoc2_, true);
+  return XPtr<xmlDoc>(pDoc, &xmlFreeDoc);
 }
 
 // [[Rcpp::export]]
-CharacterVector xml_doc_format(XPtr<Xml2DocumentPtr> x) {
+CharacterVector xml_doc_format(XPtr<xmlDoc> x) {
   xmlChar *s;
-  xmlDocDumpMemory(x->get(), &s, NULL);
+  xmlDocDumpMemory(x.get(), &s, NULL);
 
   Rcpp::CharacterVector out = xmlCharToRChar(s);
   xmlFree(s);
