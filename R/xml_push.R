@@ -8,7 +8,8 @@
 #' @param verbose output some info to the console
 #' @examples catalog <- xml_parse_con(url("http://www.xmlfiles.com/examples/cd_catalog.xml"))
 #' yeastxml <- system.file("examples/yeast_small-01.xml", package= "XML")
-#' yeast <- xml_parse_con(file(yeastxml))
+#' if(file.exists(yeastxml))
+#'   yeast <- xml_parse_con(file(yeastxml))
 xml_parse_con <- function(con, n = 1000, verbose = TRUE){
   stopifnot(is(con, "connection"))
   if(!isOpen(con)){
