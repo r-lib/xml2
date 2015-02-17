@@ -2,14 +2,23 @@
 % Please edit documentation in R/xml_root.R
 \name{xml_root}
 \alias{xml_root}
-\title{Extract the root node from a document}
+\title{Extract the root node.}
 \usage{
-xml_root(x)
+xml_root(x, ...)
 }
 \arguments{
-\item{x}{An xml_doc}
+\item{x}{A document, a node or a nodeset.}
+}
+\value{
+If \code{x} is a document, returns the root node. If \code{x}
+  is a node or nodeset, returns the input unchanged.
 }
 \description{
-Extract the root node from a document
+Extract the root node.
+}
+\examples{
+x <- xml_parse("<foo> <bar> 1 </bar> </foo>")
+xml_root(x)
+xml_root(x)
 }
 
