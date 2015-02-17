@@ -2,11 +2,22 @@
 % Please edit documentation in R/xml_children.R
 \name{xml_children}
 \alias{xml_children}
-\title{Collect children nodes}
+\title{Extract children.}
 \usage{
-xml_children(x)
+xml_children(x, ...)
+}
+\arguments{
+\item{x}{A document, node or nodeset.}
+}
+\value{
+A nodeset
 }
 \description{
-Collect children nodes
+Extract children.
+}
+\examples{
+x <- xml_parse("<foo> <bar><boo /></bar> 123 <baz/> </foo>")
+(kids <- xml_children(x))
+(grand_kids <- xml_children(kids))
 }
 
