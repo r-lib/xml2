@@ -13,10 +13,27 @@ CharacterVector node_format(XPtr<xmlDoc> doc, XPtr<xmlNode> node,
                             bool format = true,
                             int indent = 0) {
   xmlBufferPtr buffer = xmlBufferCreate();
-  int size = xmlNodeDump(buffer, doc.get(), node.get(), indent, format);
+  xmlNodeDump(buffer, doc.get(), node.get(), indent, format);
 
   CharacterVector out = xmlCharToRChar(buffer->content);
   xmlFree(buffer);
+
+  return out;
+}
+
+// [[Rcpp::export]]
+Rcpp::List node_children(XPtr<xmlNode> node) {
+
+  int n = 0;
+  for(xmlNode* cur = node->xmlChildrenNode; cur != NULL; cur = cur->next)
+    n++;
+
+  Rcpp::List out(n);
+  int i = 0;
+  for(xmlNode* cur = node->xmlChildrenNode; cur != NULL; cur = cur->next) {
+    out[i] = XPtr<xmlNode>(cur);
+    i++;
+  }
 
   return out;
 }

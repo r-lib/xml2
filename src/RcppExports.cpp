@@ -80,3 +80,14 @@ BEGIN_RCPP
     return __result;
 END_RCPP
 }
+// node_children
+Rcpp::List node_children(XPtr<xmlNode> node);
+RcppExport SEXP xml2_node_children(SEXP nodeSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject __result;
+    Rcpp::RNGScope __rngScope;
+    Rcpp::traits::input_parameter< XPtr<xmlNode> >::type node(nodeSEXP);
+    __result = Rcpp::wrap(node_children(node));
+    return __result;
+END_RCPP
+}
