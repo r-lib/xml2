@@ -8,6 +8,8 @@ xml_name(x, ...)
 }
 \arguments{
 \item{x}{A document, node, or node set.}
+
+\item{...}{Additional arguments passed down to methods. (Not currently used).}
 }
 \value{
 A character vector.

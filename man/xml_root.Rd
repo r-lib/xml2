@@ -8,6 +8,8 @@ xml_root(x, ...)
 }
 \arguments{
 \item{x}{A document, a node or a nodeset.}
+
+\item{...}{Additional arguments passed down to methods. (Not currently used).}
 }
 \value{
 If \code{x} is a document, returns the root node. If \code{x}

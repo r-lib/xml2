@@ -1,6 +1,7 @@
 #' Extract children.
 #'
 #' @param x A document, node or nodeset.
+#' @param ... Additional arguments passed down to methods. (Not currently used).
 #' @return A nodeset
 #' @export
 #' @examples

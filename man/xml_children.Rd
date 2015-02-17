@@ -8,6 +8,8 @@ xml_children(x, ...)
 }
 \arguments{
 \item{x}{A document, node or nodeset.}
+
+\item{...}{Additional arguments passed down to methods. (Not currently used).}
 }
 \value{
 A nodeset

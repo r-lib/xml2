@@ -1,6 +1,7 @@
 #' The (tag) name of an xml element.
 #'
 #' @param x A document, node, or node set.
+#' @param ... Additional arguments passed down to methods. (Not currently used).
 #' @return A character vector.
 #' @export
 #' @examples
