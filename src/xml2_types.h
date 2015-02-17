@@ -9,6 +9,4 @@
 // by libxml2 is cleaned up.
 typedef boost::shared_ptr<xmlDoc> Xml2DocumentPtr;
 
-#include "XmlNode.h"
-
 #endif

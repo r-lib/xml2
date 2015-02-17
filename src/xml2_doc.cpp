@@ -1,6 +1,7 @@
 #include <Rcpp.h>
 using namespace Rcpp;
-#include "XmlDoc.h"
+#include "xml2_types.h"
+#include "xml2_utils.h"
 
 // [[Rcpp::export]]
 XPtr<Xml2DocumentPtr> parse_xml_file(std::string path,
@@ -42,7 +43,7 @@ XPtr<Xml2DocumentPtr> parse_xml_string(CharacterVector x, std::string encoding,
 // [[Rcpp::export]]
 CharacterVector xml_doc_format(XPtr<Xml2DocumentPtr> x) {
   xmlChar *s;
-  xmlDocDumpMemory(x.get()->get(), &s, NULL);
+  xmlDocDumpMemory(x->get(), &s, NULL);
 
   Rcpp::CharacterVector out = xmlCharToRChar(s);
   xmlFree(s);

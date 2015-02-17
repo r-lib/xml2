@@ -45,7 +45,7 @@ BEGIN_RCPP
 END_RCPP
 }
 // xml_doc_root
-XPtr<XmlNode> xml_doc_root(XPtr<Xml2DocumentPtr> x);
+List xml_doc_root(XPtr<Xml2DocumentPtr> x);
 RcppExport SEXP xml2_xml_doc_root(SEXP xSEXP) {
 BEGIN_RCPP
     Rcpp::RObject __result;
@@ -56,12 +56,12 @@ BEGIN_RCPP
 END_RCPP
 }
 // xml_name
-CharacterVector xml_name(XPtr<XmlNode> node);
+CharacterVector xml_name(XPtr<xmlNode> node);
 RcppExport SEXP xml2_xml_name(SEXP nodeSEXP) {
 BEGIN_RCPP
     Rcpp::RObject __result;
     Rcpp::RNGScope __rngScope;
-    Rcpp::traits::input_parameter< XPtr<XmlNode> >::type node(nodeSEXP);
+    Rcpp::traits::input_parameter< XPtr<xmlNode> >::type node(nodeSEXP);
     __result = Rcpp::wrap(xml_name(node));
     return __result;
 END_RCPP
