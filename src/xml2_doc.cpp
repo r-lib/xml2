@@ -15,7 +15,7 @@ XPtr<xmlDoc> doc_parse_file(std::string path,
   if (pDoc == NULL)
     Rcpp::stop("Failed to parse %s", path);
 
-  return XPtr<xmlDoc>(pDoc, &xmlFreeDoc);
+  return XPtr<xmlDoc>(pDoc, false);
 }
 
 // [[Rcpp::export]]
@@ -34,7 +34,7 @@ XPtr<xmlDoc> doc_parse_string(CharacterVector x, std::string encoding,
   if (pDoc == NULL)
     Rcpp::stop("Failed to parse text");
 
-  return XPtr<xmlDoc>(pDoc, &xmlFreeDoc);
+  return XPtr<xmlDoc>(pDoc, false);
 }
 
 // [[Rcpp::export]]
@@ -52,6 +52,6 @@ CharacterVector doc_format(XPtr<xmlDoc> x) {
 XPtr<xmlNode> doc_root(XPtr<xmlDoc> x) {
   xmlNode* root = xmlDocGetRootElement(x.get());
 
-  return XPtr<xmlNode>(root);
+  return XPtr<xmlNode>(root, false);
 }
 

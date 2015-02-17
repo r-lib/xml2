@@ -31,7 +31,7 @@ Rcpp::List node_children(XPtr<xmlNode> node) {
   Rcpp::List out(n);
   int i = 0;
   for(xmlNode* cur = node->xmlChildrenNode; cur != NULL; cur = cur->next) {
-    out[i] = XPtr<xmlNode>(cur);
+    out[i] = XPtr<xmlNode>(cur, false);
     i++;
   }
 
