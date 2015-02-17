@@ -114,35 +114,35 @@ BEGIN_RCPP
 END_RCPP
 }
 // node_name
-CharacterVector node_name(XPtr<xmlNode> node);
+CharacterVector node_name(XPtrNode node);
 RcppExport SEXP xml2_node_name(SEXP nodeSEXP) {
 BEGIN_RCPP
     Rcpp::RObject __result;
     Rcpp::RNGScope __rngScope;
-    Rcpp::traits::input_parameter< XPtr<xmlNode> >::type node(nodeSEXP);
+    Rcpp::traits::input_parameter< XPtrNode >::type node(nodeSEXP);
     __result = Rcpp::wrap(node_name(node));
     return __result;
 END_RCPP
 }
 // node_text
-CharacterVector node_text(XPtr<xmlNode> node);
+CharacterVector node_text(XPtrNode node);
 RcppExport SEXP xml2_node_text(SEXP nodeSEXP) {
 BEGIN_RCPP
     Rcpp::RObject __result;
     Rcpp::RNGScope __rngScope;
-    Rcpp::traits::input_parameter< XPtr<xmlNode> >::type node(nodeSEXP);
+    Rcpp::traits::input_parameter< XPtrNode >::type node(nodeSEXP);
     __result = Rcpp::wrap(node_text(node));
     return __result;
 END_RCPP
 }
 // node_format
-CharacterVector node_format(XPtr<xmlDoc> doc, XPtr<xmlNode> node, bool format = true, int indent = 0);
+CharacterVector node_format(XPtrDoc doc, XPtrNode node, bool format = true, int indent = 0);
 RcppExport SEXP xml2_node_format(SEXP docSEXP, SEXP nodeSEXP, SEXP formatSEXP, SEXP indentSEXP) {
 BEGIN_RCPP
     Rcpp::RObject __result;
     Rcpp::RNGScope __rngScope;
-    Rcpp::traits::input_parameter< XPtr<xmlDoc> >::type doc(docSEXP);
-    Rcpp::traits::input_parameter< XPtr<xmlNode> >::type node(nodeSEXP);
+    Rcpp::traits::input_parameter< XPtrDoc >::type doc(docSEXP);
+    Rcpp::traits::input_parameter< XPtrNode >::type node(nodeSEXP);
     Rcpp::traits::input_parameter< bool >::type format(formatSEXP);
     Rcpp::traits::input_parameter< int >::type indent(indentSEXP);
     __result = Rcpp::wrap(node_format(doc, node, format, indent));

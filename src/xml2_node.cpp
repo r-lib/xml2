@@ -4,12 +4,12 @@ using namespace Rcpp;
 #include "xml2_utils.h"
 
 // [[Rcpp::export]]
-CharacterVector node_name(XPtr<xmlNode> node) {
+CharacterVector node_name(XPtrNode node) {
   return xmlCharToRChar(node->name);
 }
 
 // [[Rcpp::export]]
-CharacterVector node_text(XPtr<xmlNode> node) {
+CharacterVector node_text(XPtrNode node) {
   xmlChar* s = xmlNodeGetContent(node.get());
   CharacterVector out = xmlCharToRChar(s);
 
@@ -17,7 +17,7 @@ CharacterVector node_text(XPtr<xmlNode> node) {
 }
 
 // [[Rcpp::export]]
-CharacterVector node_format(XPtr<xmlDoc> doc, XPtr<xmlNode> node,
+CharacterVector node_format(XPtrDoc doc, XPtrNode node,
                             bool format = true,
                             int indent = 0) {
   xmlBufferPtr buffer = xmlBufferCreate();
