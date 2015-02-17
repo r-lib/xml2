@@ -65,7 +65,7 @@ BEGIN_RCPP
 END_RCPP
 }
 // doc_parse_file
-XPtr<xmlDoc> doc_parse_file(std::string path, std::string encoding = "", int options = 0);
+XPtrDoc doc_parse_file(std::string path, std::string encoding = "", int options = 0);
 RcppExport SEXP xml2_doc_parse_file(SEXP pathSEXP, SEXP encodingSEXP, SEXP optionsSEXP) {
 BEGIN_RCPP
     Rcpp::RObject __result;
@@ -78,7 +78,7 @@ BEGIN_RCPP
 END_RCPP
 }
 // doc_parse_string
-XPtr<xmlDoc> doc_parse_string(CharacterVector x, std::string encoding, std::string base_url = "", int options = 0);
+XPtrDoc doc_parse_string(CharacterVector x, std::string encoding, std::string base_url = "", int options = 0);
 RcppExport SEXP xml2_doc_parse_string(SEXP xSEXP, SEXP encodingSEXP, SEXP base_urlSEXP, SEXP optionsSEXP) {
 BEGIN_RCPP
     Rcpp::RObject __result;
@@ -103,7 +103,7 @@ BEGIN_RCPP
 END_RCPP
 }
 // doc_root
-XPtr<xmlNode> doc_root(XPtr<xmlDoc> x);
+XPtrNode doc_root(XPtr<xmlDoc> x);
 RcppExport SEXP xml2_doc_root(SEXP xSEXP) {
 BEGIN_RCPP
     Rcpp::RObject __result;
@@ -139,12 +139,12 @@ BEGIN_RCPP
 END_RCPP
 }
 // node_children
-Rcpp::List node_children(XPtr<xmlNode> node);
+Rcpp::List node_children(XPtrNode node);
 RcppExport SEXP xml2_node_children(SEXP nodeSEXP) {
 BEGIN_RCPP
     Rcpp::RObject __result;
     Rcpp::RNGScope __rngScope;
-    Rcpp::traits::input_parameter< XPtr<xmlNode> >::type node(nodeSEXP);
+    Rcpp::traits::input_parameter< XPtrNode >::type node(nodeSEXP);
     __result = Rcpp::wrap(node_children(node));
     return __result;
 END_RCPP

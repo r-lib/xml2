@@ -22,7 +22,7 @@ CharacterVector node_format(XPtr<xmlDoc> doc, XPtr<xmlNode> node,
 }
 
 // [[Rcpp::export]]
-Rcpp::List node_children(XPtr<xmlNode> node) {
+Rcpp::List node_children(XPtrNode node) {
 
   int n = 0;
   for(xmlNode* cur = node->xmlChildrenNode; cur != NULL; cur = cur->next)
@@ -31,7 +31,7 @@ Rcpp::List node_children(XPtr<xmlNode> node) {
   Rcpp::List out(n);
   int i = 0;
   for(xmlNode* cur = node->xmlChildrenNode; cur != NULL; cur = cur->next) {
-    out[i] = XPtr<xmlNode>(cur, false);
+    out[i] = XPtrNode(cur);
     i++;
   }
 
