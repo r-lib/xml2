@@ -17,10 +17,8 @@ xml_parse_con(con, n = 1000, verbose = TRUE)
 Stream parse XML from a connection interface.
 }
 \examples{
-con <- url("http://www.xmlfiles.com/examples/cd_catalog.xml")
-doc <- xml_parse_con(con)
-
-#https
-library(curl)
+catalog <- xml_parse_con(url("http://www.xmlfiles.com/examples/cd_catalog.xml"))
+yeastxml <- system.file("examples/yeast_small-01.xml", package= "XML")
+yeast <- xml_parse_con(file(yeastxml))
 }
 
