@@ -4,7 +4,7 @@ using namespace Rcpp;
 #include "xml2_utils.h"
 
 // [[Rcpp::export]]
-XPtr<xmlDoc> parse_xml_file(std::string path,
+XPtr<xmlDoc> doc_parse_file(std::string path,
                             std::string encoding = "",
                             int options = 0) {
   xmlDoc* pDoc = xmlReadFile(
@@ -19,7 +19,7 @@ XPtr<xmlDoc> parse_xml_file(std::string path,
 }
 
 // [[Rcpp::export]]
-XPtr<xmlDoc> parse_xml_string(CharacterVector x, std::string encoding,
+XPtr<xmlDoc> doc_parse_string(CharacterVector x, std::string encoding,
                               std::string base_url = "",
                               int options = 0) {
   SEXP x1 = x[0];
@@ -38,7 +38,7 @@ XPtr<xmlDoc> parse_xml_string(CharacterVector x, std::string encoding,
 }
 
 // [[Rcpp::export]]
-CharacterVector xml_doc_format(XPtr<xmlDoc> x) {
+CharacterVector doc_format(XPtr<xmlDoc> x) {
   xmlChar *s;
   xmlDocDumpMemory(x.get(), &s, NULL);
 
@@ -47,3 +47,11 @@ CharacterVector xml_doc_format(XPtr<xmlDoc> x) {
 
   return out;
 }
+
+// [[Rcpp::export]]
+XPtr<xmlNode> doc_root(XPtr<xmlDoc> x) {
+  xmlNode* root = xmlDocGetRootElement(x.get());
+
+  return XPtr<xmlNode>(root);
+}
+

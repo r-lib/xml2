@@ -6,7 +6,7 @@
 
 inline Rcpp::CharacterVector xmlCharToRChar(const xmlChar* x) {
   if (x == NULL)
-    Rcpp::stop("Invalid string");
+    Rcpp::stop("Null string");
 
   Rcpp::CharacterVector out(1);
   out[0] = Rf_mkCharCE((char*) x, CE_UTF8);

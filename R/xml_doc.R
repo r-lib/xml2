@@ -2,6 +2,10 @@
 #' @importFrom Rcpp sourceCpp
 NULL
 
+xml_doc <- function(doc) {
+  structure(list(doc = doc), class = "xml_doc")
+}
+
 #' Parse XML string
 #'
 #' @export
@@ -13,14 +17,10 @@ NULL
 #' @examples
 #' xml_parse("<foo> 123 </foo>")
 xml_parse <- function(x, base_url = NULL, encoding = NULL, options = NULL){
-  xml_doc(parse_xml_string(x, encoding %||% "", base_url %||% "", options %||% 0))
-}
-
-xml_doc <- function(x) {
-  structure(list(x), class = "xml_doc")
+  xml_doc(doc_parse_string(x, encoding %||% "", base_url %||% "", options %||% 0))
 }
 
 #' @export
 print.xml_doc <- function(x, ...){
-  cat(xml_doc_format(x[[1]]), "\n")
+  cat(doc_format(x$doc), "\n")
 }

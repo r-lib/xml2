@@ -4,17 +4,19 @@ using namespace Rcpp;
 #include "xml2_utils.h"
 
 // [[Rcpp::export]]
-List xml_doc_root(XPtr<xmlDoc> x) {
-  xmlNode* root = xmlDocGetRootElement(x.get());
-
-  return List::create(
-    _["doc"] = x,
-    _["node"] = XPtr<xmlNode>(root)
-  );
-}
-
-// [[Rcpp::export]]
-CharacterVector xml_name(XPtr<xmlNode> node) {
+CharacterVector node_name(XPtr<xmlNode> node) {
   return xmlCharToRChar(node->name);
 }
 
+// [[Rcpp::export]]
+CharacterVector node_format(XPtr<xmlDoc> doc, XPtr<xmlNode> node,
+                            bool format = true,
+                            int indent = 0) {
+  xmlBufferPtr buffer = xmlBufferCreate();
+  int size = xmlNodeDump(buffer, doc.get(), node.get(), indent, format);
+
+  CharacterVector out = xmlCharToRChar(buffer->content);
+  xmlFree(buffer);
+
+  return out;
+}
