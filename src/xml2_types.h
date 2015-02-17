@@ -3,5 +3,6 @@
 
 #include <RcppCommon.h>
 #include <libxml/parser.h>
+#include "XmlPushParser.h"
 
 #endif
