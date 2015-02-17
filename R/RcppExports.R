@@ -41,6 +41,10 @@ node_name <- function(node) {
     .Call('xml2_node_name', PACKAGE = 'xml2', node)
 }
 
+node_text <- function(node) {
+    .Call('xml2_node_text', PACKAGE = 'xml2', node)
+}
+
 node_format <- function(doc, node, format = TRUE, indent = 0L) {
     .Call('xml2_node_format', PACKAGE = 'xml2', doc, node, format, indent)
 }

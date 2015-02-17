@@ -15,11 +15,12 @@ devtools::install_github("hadley/xml2")
 
 ```R
 library(xml2)
-x <- xml_parse("<foo> <bar> <baz/> </bar> </foo>")
+x <- xml_parse("<foo> <bar> text <baz/> </bar> </foo>")
 x
 
 xml_name(x)
 xml_children(x)
+xml_text(x)
 ```
 
 ## Compared to the XML package

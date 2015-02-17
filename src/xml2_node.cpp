@@ -9,6 +9,14 @@ CharacterVector node_name(XPtr<xmlNode> node) {
 }
 
 // [[Rcpp::export]]
+CharacterVector node_text(XPtr<xmlNode> node) {
+  xmlChar* s = xmlNodeGetContent(node.get());
+  CharacterVector out = xmlCharToRChar(s);
+
+  return out;
+}
+
+// [[Rcpp::export]]
 CharacterVector node_format(XPtr<xmlDoc> doc, XPtr<xmlNode> node,
                             bool format = true,
                             int indent = 0) {
