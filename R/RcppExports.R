@@ -21,3 +21,23 @@ xml_name <- function(node) {
     .Call('xml2_xml_name', PACKAGE = 'xml2', node)
 }
 
+new_push_parser <- function(filename) {
+    .Call('xml2_new_push_parser', PACKAGE = 'xml2', filename)
+}
+
+feed_push_parser_text <- function(x, text, size) {
+    .Call('xml2_feed_push_parser_text', PACKAGE = 'xml2', x, text, size)
+}
+
+feed_push_parser_raw <- function(x, data) {
+    .Call('xml2_feed_push_parser_raw', PACKAGE = 'xml2', x, data)
+}
+
+close_push_parser <- function(x) {
+    .Call('xml2_close_push_parser', PACKAGE = 'xml2', x)
+}
+
+get_push_parser_doc <- function(x) {
+    .Call('xml2_get_push_parser_doc', PACKAGE = 'xml2', x)
+}
+

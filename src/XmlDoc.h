@@ -36,6 +36,10 @@ public:
       Rcpp::stop("Failed to parse text");
   }
 
+  XmlDoc(xmlDoc* doc){
+    pDoc_ = doc;
+  }
+
   ~XmlDoc() {
     try {
       xmlFreeDoc(pDoc_);
