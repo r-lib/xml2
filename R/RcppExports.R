@@ -65,3 +65,7 @@ node_write <- function(n, d, path) {
     invisible(.Call('xml2_node_write', PACKAGE = 'xml2', n, d, path))
 }
 
+node_search <- function(node, doc, xpath) {
+    .Call('xml2_node_search', PACKAGE = 'xml2', node, doc, xpath)
+}
+

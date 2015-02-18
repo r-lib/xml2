@@ -175,7 +175,7 @@ BEGIN_RCPP
 END_RCPP
 }
 // node_children
-Rcpp::ListOf<XPtrNode> node_children(XPtrNode node);
+Rcpp::List node_children(XPtrNode node);
 RcppExport SEXP xml2_node_children(SEXP nodeSEXP) {
 BEGIN_RCPP
     Rcpp::RObject __result;
@@ -195,5 +195,18 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< std::string >::type path(pathSEXP);
     node_write(n, d, path);
     return R_NilValue;
+END_RCPP
+}
+// node_search
+Rcpp::List node_search(XPtrNode node, XPtrDoc doc, std::string xpath);
+RcppExport SEXP xml2_node_search(SEXP nodeSEXP, SEXP docSEXP, SEXP xpathSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject __result;
+    Rcpp::RNGScope __rngScope;
+    Rcpp::traits::input_parameter< XPtrNode >::type node(nodeSEXP);
+    Rcpp::traits::input_parameter< XPtrDoc >::type doc(docSEXP);
+    Rcpp::traits::input_parameter< std::string >::type xpath(xpathSEXP);
+    __result = Rcpp::wrap(node_search(node, doc, xpath));
+    return __result;
 END_RCPP
 }

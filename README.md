@@ -21,6 +21,7 @@ x
 xml_name(x)
 xml_children(x)
 xml_text(x)
+xml_search(x, ".//baz")
 
 h <- html("<html><p>Hi <b>!")
 xml_root(h)

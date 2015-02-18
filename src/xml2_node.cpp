@@ -1,4 +1,6 @@
 #include <Rcpp.h>
+#include <libxml/tree.h>
+
 using namespace Rcpp;
 #include "xml2_types.h"
 #include "xml2_utils.h"
@@ -43,13 +45,13 @@ CharacterVector node_format(XPtrDoc doc, XPtrNode node,
 }
 
 // [[Rcpp::export]]
-Rcpp::ListOf<XPtrNode> node_children(XPtrNode node) {
+Rcpp::List node_children(XPtrNode node) {
 
   int n = 0;
   for(xmlNode* cur = node->xmlChildrenNode; cur != NULL; cur = cur->next)
     n++;
 
-  Rcpp::ListOf<XPtrNode> out(n);
+  Rcpp::List out(n);
   int i = 0;
   for(xmlNode* cur = node->xmlChildrenNode; cur != NULL; cur = cur->next) {
     out[i] = XPtrNode(cur);
@@ -58,8 +60,6 @@ Rcpp::ListOf<XPtrNode> node_children(XPtrNode node) {
 
   return out;
 }
-
-
 
 // [[Rcpp::export]]
 void node_write(XPtrNode n, XPtrDoc d, std::string path) {
