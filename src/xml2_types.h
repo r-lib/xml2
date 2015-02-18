@@ -2,8 +2,8 @@
 #define __XML2_XML2_TYPES__
 
 #include "xml2_utils.h"
-#include "XmlPushParser.h"
 #include <libxml/tree.h>
+#include <libxml/parser.h>
 #include <Rcpp.h>
 
 inline void finaliseNode(xmlNode* node) {
@@ -12,5 +12,6 @@ inline void finaliseNode(xmlNode* node) {
 
 typedef Rcpp::XPtr<xmlDoc,Rcpp::PreserveStorage,xmlFreeDoc> XPtrDoc;
 typedef Rcpp::XPtr<xmlNode,Rcpp::PreserveStorage,finaliseNode> XPtrNode;
+typedef Rcpp::XPtr<xmlParserCtxt,Rcpp::PreserveStorage,xmlFreeParserCtxt> XPtrParser;
 
 #endif

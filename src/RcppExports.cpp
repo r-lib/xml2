@@ -7,7 +7,7 @@
 using namespace Rcpp;
 
 // new_push_parser
-XPtr<XmlPushParserPtr> new_push_parser(std::string filename);
+XPtrParser new_push_parser(std::string filename);
 RcppExport SEXP xml2_new_push_parser(SEXP filenameSEXP) {
 BEGIN_RCPP
     Rcpp::RObject __result;
@@ -18,49 +18,49 @@ BEGIN_RCPP
 END_RCPP
 }
 // feed_push_parser_text
-bool feed_push_parser_text(XPtr<XmlPushParserPtr> x, const char* text, int size);
-RcppExport SEXP xml2_feed_push_parser_text(SEXP xSEXP, SEXP textSEXP, SEXP sizeSEXP) {
+bool feed_push_parser_text(XPtrParser parser, const char* text, int size);
+RcppExport SEXP xml2_feed_push_parser_text(SEXP parserSEXP, SEXP textSEXP, SEXP sizeSEXP) {
 BEGIN_RCPP
     Rcpp::RObject __result;
     Rcpp::RNGScope __rngScope;
-    Rcpp::traits::input_parameter< XPtr<XmlPushParserPtr> >::type x(xSEXP);
+    Rcpp::traits::input_parameter< XPtrParser >::type parser(parserSEXP);
     Rcpp::traits::input_parameter< const char* >::type text(textSEXP);
     Rcpp::traits::input_parameter< int >::type size(sizeSEXP);
-    __result = Rcpp::wrap(feed_push_parser_text(x, text, size));
+    __result = Rcpp::wrap(feed_push_parser_text(parser, text, size));
     return __result;
 END_RCPP
 }
 // feed_push_parser_raw
-bool feed_push_parser_raw(XPtr<XmlPushParserPtr> x, SEXP data);
-RcppExport SEXP xml2_feed_push_parser_raw(SEXP xSEXP, SEXP dataSEXP) {
+bool feed_push_parser_raw(XPtrParser parser, SEXP data);
+RcppExport SEXP xml2_feed_push_parser_raw(SEXP parserSEXP, SEXP dataSEXP) {
 BEGIN_RCPP
     Rcpp::RObject __result;
     Rcpp::RNGScope __rngScope;
-    Rcpp::traits::input_parameter< XPtr<XmlPushParserPtr> >::type x(xSEXP);
+    Rcpp::traits::input_parameter< XPtrParser >::type parser(parserSEXP);
     Rcpp::traits::input_parameter< SEXP >::type data(dataSEXP);
-    __result = Rcpp::wrap(feed_push_parser_raw(x, data));
+    __result = Rcpp::wrap(feed_push_parser_raw(parser, data));
     return __result;
 END_RCPP
 }
 // close_push_parser
-bool close_push_parser(XPtr<XmlPushParserPtr> x);
-RcppExport SEXP xml2_close_push_parser(SEXP xSEXP) {
+bool close_push_parser(XPtrParser parser);
+RcppExport SEXP xml2_close_push_parser(SEXP parserSEXP) {
 BEGIN_RCPP
     Rcpp::RObject __result;
     Rcpp::RNGScope __rngScope;
-    Rcpp::traits::input_parameter< XPtr<XmlPushParserPtr> >::type x(xSEXP);
-    __result = Rcpp::wrap(close_push_parser(x));
+    Rcpp::traits::input_parameter< XPtrParser >::type parser(parserSEXP);
+    __result = Rcpp::wrap(close_push_parser(parser));
     return __result;
 END_RCPP
 }
 // get_push_parser_doc
-XPtr<XmlDocPtr> get_push_parser_doc(XPtr<XmlPushParserPtr> x);
-RcppExport SEXP xml2_get_push_parser_doc(SEXP xSEXP) {
+XPtrDoc get_push_parser_doc(XPtrParser parser);
+RcppExport SEXP xml2_get_push_parser_doc(SEXP parserSEXP) {
 BEGIN_RCPP
     Rcpp::RObject __result;
     Rcpp::RNGScope __rngScope;
-    Rcpp::traits::input_parameter< XPtr<XmlPushParserPtr> >::type x(xSEXP);
-    __result = Rcpp::wrap(get_push_parser_doc(x));
+    Rcpp::traits::input_parameter< XPtrParser >::type parser(parserSEXP);
+    __result = Rcpp::wrap(get_push_parser_doc(parser));
     return __result;
 END_RCPP
 }

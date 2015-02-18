@@ -5,20 +5,20 @@ new_push_parser <- function(filename) {
     .Call('xml2_new_push_parser', PACKAGE = 'xml2', filename)
 }
 
-feed_push_parser_text <- function(x, text, size) {
-    .Call('xml2_feed_push_parser_text', PACKAGE = 'xml2', x, text, size)
+feed_push_parser_text <- function(parser, text, size) {
+    .Call('xml2_feed_push_parser_text', PACKAGE = 'xml2', parser, text, size)
 }
 
-feed_push_parser_raw <- function(x, data) {
-    .Call('xml2_feed_push_parser_raw', PACKAGE = 'xml2', x, data)
+feed_push_parser_raw <- function(parser, data) {
+    .Call('xml2_feed_push_parser_raw', PACKAGE = 'xml2', parser, data)
 }
 
-close_push_parser <- function(x) {
-    .Call('xml2_close_push_parser', PACKAGE = 'xml2', x)
+close_push_parser <- function(parser) {
+    .Call('xml2_close_push_parser', PACKAGE = 'xml2', parser)
 }
 
-get_push_parser_doc <- function(x) {
-    .Call('xml2_get_push_parser_doc', PACKAGE = 'xml2', x)
+get_push_parser_doc <- function(parser) {
+    .Call('xml2_get_push_parser_doc', PACKAGE = 'xml2', parser)
 }
 
 doc_parse_file <- function(path, encoding = "", options = 0L, html = FALSE) {
