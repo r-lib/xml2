@@ -94,34 +94,34 @@ BEGIN_RCPP
 END_RCPP
 }
 // doc_format
-CharacterVector doc_format(XPtr<xmlDoc> x);
+CharacterVector doc_format(XPtrDoc x);
 RcppExport SEXP xml2_doc_format(SEXP xSEXP) {
 BEGIN_RCPP
     Rcpp::RObject __result;
     Rcpp::RNGScope __rngScope;
-    Rcpp::traits::input_parameter< XPtr<xmlDoc> >::type x(xSEXP);
+    Rcpp::traits::input_parameter< XPtrDoc >::type x(xSEXP);
     __result = Rcpp::wrap(doc_format(x));
     return __result;
 END_RCPP
 }
 // doc_write
-void doc_write(XPtr<xmlDoc> x, std::string path);
+void doc_write(XPtrDoc x, std::string path);
 RcppExport SEXP xml2_doc_write(SEXP xSEXP, SEXP pathSEXP) {
 BEGIN_RCPP
     Rcpp::RNGScope __rngScope;
-    Rcpp::traits::input_parameter< XPtr<xmlDoc> >::type x(xSEXP);
+    Rcpp::traits::input_parameter< XPtrDoc >::type x(xSEXP);
     Rcpp::traits::input_parameter< std::string >::type path(pathSEXP);
     doc_write(x, path);
     return R_NilValue;
 END_RCPP
 }
 // doc_root
-XPtrNode doc_root(XPtr<xmlDoc> x);
+XPtrNode doc_root(XPtrDoc x);
 RcppExport SEXP xml2_doc_root(SEXP xSEXP) {
 BEGIN_RCPP
     Rcpp::RObject __result;
     Rcpp::RNGScope __rngScope;
-    Rcpp::traits::input_parameter< XPtr<xmlDoc> >::type x(xSEXP);
+    Rcpp::traits::input_parameter< XPtrDoc >::type x(xSEXP);
     __result = Rcpp::wrap(doc_root(x));
     return __result;
 END_RCPP

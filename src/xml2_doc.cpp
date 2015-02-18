@@ -66,7 +66,7 @@ XPtrDoc doc_parse_string(CharacterVector x, std::string encoding,
 }
 
 // [[Rcpp::export]]
-CharacterVector doc_format(XPtr<xmlDoc> x) {
+CharacterVector doc_format(XPtrDoc x) {
   xmlChar *s;
   xmlDocDumpMemory(x.get(), &s, NULL);
 
@@ -77,7 +77,7 @@ CharacterVector doc_format(XPtr<xmlDoc> x) {
 }
 
 // [[Rcpp::export]]
-void doc_write(XPtr<xmlDoc> x, std::string path) {
+void doc_write(XPtrDoc x, std::string path) {
   FILE* f = fopen(path.c_str(), "wb");
 
   int res = xmlDocDump(f, x.get());
@@ -88,11 +88,8 @@ void doc_write(XPtr<xmlDoc> x, std::string path) {
   }
 }
 
-
 // [[Rcpp::export]]
-XPtrNode doc_root(XPtr<xmlDoc> x) {
-  xmlNode* root = xmlDocGetRootElement(x.get());
-
-  return XPtrNode(root);
+XPtrNode doc_root(XPtrDoc x) {
+  return XPtrNode(xmlDocGetRootElement(x.get()));
 }
 
