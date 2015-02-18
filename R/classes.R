@@ -37,10 +37,11 @@ print.xml_nodeset <- function(x, width = getOption("width"), max_n = 20, ...) {
   n <- length(x$nodes)
   cat("{xml_nodeset (", n, ")}\n", sep = "")
 
-  show_nodes(x, width = width, max_n = max_n)
+  if (n > 0)
+    show_nodes(x, width = width, max_n = max_n)
 }
 
-show_nodes <- function(x, width = getOptions("width"), max_n = 20) {
+show_nodes <- function(x, width = getOption("width"), max_n = 20) {
   n <- length(x$nodes)
   if (n > max_n) {
     n <- max_n
@@ -68,4 +69,27 @@ nodeset_apply <- function(x, fun, ...) {
   out <- unlist(out, recursive = FALSE)
   out <- out[!nodes_duplicated(out)]
   xml_nodeset(out, x$doc)
+}
+
+# Subsetting -------------------------------------------------------------------
+
+#' @export
+`[.xml_nodeset` <- function(x, i, ...) {
+  x$nodes <- x$nodes[i]
+  x
+}
+
+#' @export
+`[[.xml_nodeset` <- function(x, i, ...) {
+  xml_children(xml_nodeset(list(x$nodes[[i]]), x$doc))
+}
+
+#' @export
+`[[.xml_document` <- function(x, i, ...) {
+  xml_children(x)[[i]]
+}
+
+#' @export
+`[.xml_document` <- function(x, i, ...) {
+  xml_children(x)[i]
 }
