@@ -28,7 +28,7 @@ xml_root(h)
 xml_name(h)
 ```
 
-There are three key classes:
+There are two key classes:
 
 * `xml_doc()`: the complete document. Acting on a document is usually the same 
   as acting on the root node of the document.
