@@ -5,14 +5,15 @@
 #include <libxml/tree.h>
 #include <boost/shared_ptr.hpp>
 
-inline Rcpp::CharacterVector xmlCharToRChar(const xmlChar* x) {
+inline SEXP asCHARSXP(const xmlChar* x) {
   if (x == NULL)
-    return Rcpp::CharacterVector::create(NA_STRING);
+    return NA_STRING;
 
-  Rcpp::CharacterVector out(1);
-  out[0] = Rf_mkCharCE((char*) x, CE_UTF8);
+  return Rf_mkCharCE((char*) x, CE_UTF8);
+}
 
-  return out;
+inline Rcpp::CharacterVector xmlCharToRChar(const xmlChar* x) {
+  return Rcpp::CharacterVector::create(asCHARSXP(x));
 }
 
 // A wrapper around xmlChar* that always frees memory

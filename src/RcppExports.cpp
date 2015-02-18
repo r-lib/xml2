@@ -172,6 +172,17 @@ BEGIN_RCPP
     return __result;
 END_RCPP
 }
+// node_attrs
+CharacterVector node_attrs(XPtrNode node);
+RcppExport SEXP xml2_node_attrs(SEXP nodeSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject __result;
+    Rcpp::RNGScope __rngScope;
+    Rcpp::traits::input_parameter< XPtrNode >::type node(nodeSEXP);
+    __result = Rcpp::wrap(node_attrs(node));
+    return __result;
+END_RCPP
+}
 // node_format
 CharacterVector node_format(XPtrDoc doc, XPtrNode node, bool format = true, int indent = 0);
 RcppExport SEXP xml2_node_format(SEXP docSEXP, SEXP nodeSEXP, SEXP formatSEXP, SEXP indentSEXP) {
