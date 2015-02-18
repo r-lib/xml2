@@ -175,7 +175,7 @@ BEGIN_RCPP
 END_RCPP
 }
 // node_children
-Rcpp::List node_children(XPtrNode node);
+Rcpp::ListOf<XPtrNode> node_children(XPtrNode node);
 RcppExport SEXP xml2_node_children(SEXP nodeSEXP) {
 BEGIN_RCPP
     Rcpp::RObject __result;
