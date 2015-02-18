@@ -77,6 +77,10 @@ node_path <- function(n) {
     .Call('xml2_node_path', PACKAGE = 'xml2', n)
 }
 
+nodes_duplicated <- function(nodes) {
+    .Call('xml2_nodes_duplicated', PACKAGE = 'xml2', nodes)
+}
+
 node_search <- function(node, doc, xpath) {
     .Call('xml2_node_search', PACKAGE = 'xml2', node, doc, xpath)
 }

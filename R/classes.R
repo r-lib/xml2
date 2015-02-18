@@ -39,5 +39,6 @@ print.xml_nodeset <- function(x, ...) {
 nodeset_apply <- function(x, fun, ...) {
   out <- lapply(x$nodes, fun, ...)
   out <- unlist(out, recursive = FALSE)
+  out <- out[!nodes_duplicated(out)]
   xml_nodeset(out, x$doc)
 }

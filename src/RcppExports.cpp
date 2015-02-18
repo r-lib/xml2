@@ -231,6 +231,17 @@ BEGIN_RCPP
     return __result;
 END_RCPP
 }
+// nodes_duplicated
+LogicalVector nodes_duplicated(ListOf<XPtrNode> nodes);
+RcppExport SEXP xml2_nodes_duplicated(SEXP nodesSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject __result;
+    Rcpp::RNGScope __rngScope;
+    Rcpp::traits::input_parameter< ListOf<XPtrNode> >::type nodes(nodesSEXP);
+    __result = Rcpp::wrap(nodes_duplicated(nodes));
+    return __result;
+END_RCPP
+}
 // node_search
 Rcpp::List node_search(XPtrNode node, XPtrDoc doc, std::string xpath);
 RcppExport SEXP xml2_node_search(SEXP nodeSEXP, SEXP docSEXP, SEXP xpathSEXP) {

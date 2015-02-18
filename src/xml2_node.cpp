@@ -69,3 +69,17 @@ CharacterVector node_path(XPtrNode n) {
   return Xml2Char(xmlGetNodePath(n.get())).string();
 }
 
+// [[Rcpp::export]]
+LogicalVector nodes_duplicated(ListOf<XPtrNode> nodes) {
+  std::set<xmlNode*> seen;
+
+  int n = nodes.size();
+  LogicalVector out(n);
+
+  for (int i = 0; i < n; ++i) {
+    XPtrNode node = nodes[i];
+    out[i] = !seen.insert(node.get()).second;
+  }
+
+  return out;
+}
