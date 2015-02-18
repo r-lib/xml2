@@ -65,6 +65,10 @@ node_format <- function(doc, node, format = TRUE, indent = 0L) {
     .Call('xml2_node_format', PACKAGE = 'xml2', doc, node, format, indent)
 }
 
+node_count_children <- function(node) {
+    .Call('xml2_node_count_children', PACKAGE = 'xml2', node)
+}
+
 node_children <- function(node) {
     .Call('xml2_node_children', PACKAGE = 'xml2', node)
 }

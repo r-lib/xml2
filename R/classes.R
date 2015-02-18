@@ -93,3 +93,19 @@ nodeset_apply <- function(x, fun, ...) {
 `[.xml_document` <- function(x, i, ...) {
   xml_children(x)[i]
 }
+
+# Pretend to be a vector -------------------------------------------------------
+
+#' @export
+names.xml_nodset <- function(x) NULL
+
+#' @export
+length.xml_nodeset <- function(x) length(x$nodes)
+
+#' @export
+length.xml_document <- function(x) node_count_children(x$nodes[[1]])
+
+#' @export
+str.xml_nodeset <- function(object, indent.str = " ", ...) {
+  cat(indent.str, class(object)[1], "[", length(object), "]\n", sep = "")
+}
