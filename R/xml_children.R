@@ -5,7 +5,7 @@
 #' @return A nodeset
 #' @export
 #' @examples
-#' x <- xml_parse("<foo> <bar><boo /></bar> 123 <baz/> </foo>")
+#' x <- xml("<foo> <bar><boo /></bar> 123 <baz/> </foo>")
 #' (kids <- xml_children(x))
 #' (grand_kids <- xml_children(kids))
 xml_children <- function(x, ...) {

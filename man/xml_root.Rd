@@ -19,7 +19,7 @@ If \code{x} is a document, returns the root node. If \code{x}
 Extract the root node.
 }
 \examples{
-x <- xml_parse("<foo> <bar> 1 </bar> </foo>")
+x <- xml("<foo> <bar> 1 </bar> </foo>")
 xml_root(x)
 xml_root(x)
 }

@@ -3,7 +3,7 @@
 #' @inheritParams xml_name
 #' @return A character vector, the same length as x.
 #' @examples
-#' x <- xml_parse("<p>This is some text. This is <b>bold!</b></p>")
+#' x <- xml("<p>This is some text. This is <b>bold!</b></p>")
 #' xml_text(x)
 #' xml_text(xml_children(x))
 #' @export

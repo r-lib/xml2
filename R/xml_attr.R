@@ -6,7 +6,7 @@
 #'  value will be missing.
 #' @export
 #' @examples
-#' x <- xml_parse("<root id='1'><child id ='a' /><child id='b' d='b'/></root>")
+#' x <- xml("<root id='1'><child id ='a' /><child id='b' d='b'/></root>")
 #' xml_attr(x, "id")
 #' xml_attr(xml_children(x), "id")
 #' xml_attr(xml_children(x), "d")
