@@ -67,3 +67,13 @@ void node_write(XPtrNode n, XPtrDoc d, std::string path) {
   xmlElemDump(f, d.get(), n.get());
   fclose(f);
 }
+
+// [[Rcpp::export]]
+CharacterVector node_path(XPtrNode n) {
+  xmlChar* s = xmlGetNodePath(n.get());
+  CharacterVector out = xmlCharToRChar(s);
+  if (s != NULL)
+    xmlFree(s);
+
+  return out;
+}

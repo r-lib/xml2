@@ -6,6 +6,7 @@
 #' @examples
 #' x <- xml("<foo><bar><baz/></bar><baz/></foo>")
 #' xml_search(x, ".//baz")
+#' xml_path(xml_search(x, ".//baz"))
 #'
 #' # Note the difference between .// and //
 #' # //  finds anywhere in the document (ignoring the current node)
