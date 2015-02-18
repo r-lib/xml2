@@ -5,14 +5,9 @@
 #' @examples
 #' x <- xml("<foo> a <b /> <![CDATA[ blah]]></foo>")
 #' xml_type(x)
-#' xml_type(xml_children(x))
+#' xml_type(xml_contents(x))
 xml_type <- function(x) {
   UseMethod("xml_type")
-}
-
-#' @export
-xml_type.xml_document <- function(x) {
-  "document"
 }
 
 #' @export

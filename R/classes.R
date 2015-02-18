@@ -81,17 +81,17 @@ nodeset_apply <- function(x, fun, ...) {
 
 #' @export
 `[[.xml_nodeset` <- function(x, i, ...) {
-  xml_children(xml_nodeset(list(x$nodes[[i]]), x$doc))
+  xml_nodeset(list(x$nodes[[i]]), x$doc)
 }
 
 #' @export
 `[[.xml_document` <- function(x, i, ...) {
-  xml_children(x)[[i]]
+  xml_contents(x)[[i]]
 }
 
 #' @export
 `[.xml_document` <- function(x, i, ...) {
-  xml_children(x)[i]
+  xml_contents(x)[i]
 }
 
 # Pretend to be a vector -------------------------------------------------------
