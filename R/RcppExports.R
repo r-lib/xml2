@@ -21,12 +21,12 @@ get_push_parser_doc <- function(x) {
     .Call('xml2_get_push_parser_doc', PACKAGE = 'xml2', x)
 }
 
-doc_parse_file <- function(path, encoding = "", options = 0L) {
-    .Call('xml2_doc_parse_file', PACKAGE = 'xml2', path, encoding, options)
+doc_parse_file <- function(path, encoding = "", options = 0L, html = FALSE) {
+    .Call('xml2_doc_parse_file', PACKAGE = 'xml2', path, encoding, options, html)
 }
 
-doc_parse_string <- function(x, encoding, base_url = "", options = 0L) {
-    .Call('xml2_doc_parse_string', PACKAGE = 'xml2', x, encoding, base_url, options)
+doc_parse_string <- function(x, encoding, base_url = "", options = 0L, html = FALSE) {
+    .Call('xml2_doc_parse_string', PACKAGE = 'xml2', x, encoding, base_url, options, html)
 }
 
 doc_format <- function(x) {

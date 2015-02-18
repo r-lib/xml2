@@ -65,21 +65,22 @@ BEGIN_RCPP
 END_RCPP
 }
 // doc_parse_file
-XPtrDoc doc_parse_file(std::string path, std::string encoding = "", int options = 0);
-RcppExport SEXP xml2_doc_parse_file(SEXP pathSEXP, SEXP encodingSEXP, SEXP optionsSEXP) {
+XPtrDoc doc_parse_file(std::string path, std::string encoding = "", int options = 0, bool html = false);
+RcppExport SEXP xml2_doc_parse_file(SEXP pathSEXP, SEXP encodingSEXP, SEXP optionsSEXP, SEXP htmlSEXP) {
 BEGIN_RCPP
     Rcpp::RObject __result;
     Rcpp::RNGScope __rngScope;
     Rcpp::traits::input_parameter< std::string >::type path(pathSEXP);
     Rcpp::traits::input_parameter< std::string >::type encoding(encodingSEXP);
     Rcpp::traits::input_parameter< int >::type options(optionsSEXP);
-    __result = Rcpp::wrap(doc_parse_file(path, encoding, options));
+    Rcpp::traits::input_parameter< bool >::type html(htmlSEXP);
+    __result = Rcpp::wrap(doc_parse_file(path, encoding, options, html));
     return __result;
 END_RCPP
 }
 // doc_parse_string
-XPtrDoc doc_parse_string(CharacterVector x, std::string encoding, std::string base_url = "", int options = 0);
-RcppExport SEXP xml2_doc_parse_string(SEXP xSEXP, SEXP encodingSEXP, SEXP base_urlSEXP, SEXP optionsSEXP) {
+XPtrDoc doc_parse_string(CharacterVector x, std::string encoding, std::string base_url = "", int options = 0, bool html = false);
+RcppExport SEXP xml2_doc_parse_string(SEXP xSEXP, SEXP encodingSEXP, SEXP base_urlSEXP, SEXP optionsSEXP, SEXP htmlSEXP) {
 BEGIN_RCPP
     Rcpp::RObject __result;
     Rcpp::RNGScope __rngScope;
@@ -87,7 +88,8 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< std::string >::type encoding(encodingSEXP);
     Rcpp::traits::input_parameter< std::string >::type base_url(base_urlSEXP);
     Rcpp::traits::input_parameter< int >::type options(optionsSEXP);
-    __result = Rcpp::wrap(doc_parse_string(x, encoding, base_url, options));
+    Rcpp::traits::input_parameter< bool >::type html(htmlSEXP);
+    __result = Rcpp::wrap(doc_parse_string(x, encoding, base_url, options, html));
     return __result;
 END_RCPP
 }

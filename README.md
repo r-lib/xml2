@@ -1,6 +1,6 @@
 # xml2
 
-The xml2 package is a binding to [libxml2](http://xmlsoft.org), making it easy to use XML from R.
+The xml2 package is a binding to [libxml2](http://xmlsoft.org), making it easy to work with HTML and XML from R.
 
 ## Installation
 
@@ -21,6 +21,10 @@ x
 xml_name(x)
 xml_children(x)
 xml_text(x)
+
+h <- html("<html><p>Hi <b>!")
+xml_root(h)
+xml_name(h)
 ```
 
 ## Compared to the XML package

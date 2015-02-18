@@ -1,16 +1,26 @@
-#' Create XML from a string.
+#' Create HTML or XML from a string.
 #'
 #' @export
-#' @param x an xml string
+#' @param x A string containing XML or HTML.
 #' @param base_url A base url to use for relative links.
+#' @return Both functions return a xml_doc
 #' @examples
 #' xml("<foo> 123 </foo>")
 #' xml("<foo> \u00e5 </foo>")
+#'
+#' # The html parser converts potential malformed HTML into valid XML
+#' html("<html> 123 </html>")
 xml <- function(x, base_url = NULL) {
   xml_doc(doc_parse_string(enc2utf8(x), "UTF-8", base_url %||% ""))
 }
 
-#' Read XML from a stream or file.
+#' @export
+#' @rdname xml
+html <- function(x, base_url = NULL) {
+  xml_doc(doc_parse_string(enc2utf8(x), "UTF-8", base_url %||% "", html = TRUE))
+}
+
+#' Read HTML or XML from a stream or file.
 #'
 #' @param file A file, url or a connection object. Character vectors are
 #'   passed on to libxml, which supports both local paths and urls.
@@ -30,6 +40,9 @@ xml <- function(x, base_url = NULL) {
 #' catalog <- read_xml("http://www.xmlfiles.com/examples/cd_catalog.xml")
 #' # Read via R's connection interface
 #' catalog <- read_xml(url("http://www.xmlfiles.com/examples/cd_catalog.xml"))
+#'
+#' # Read an HTML file
+#' html <- read_html("http://google.com")
 read_xml <- function(file, encoding = NULL, n = 16384, verbose = FALSE) {
   encoding <- encoding %||% ""
   if (is.character(file)) {
@@ -39,8 +52,20 @@ read_xml <- function(file, encoding = NULL, n = 16384, verbose = FALSE) {
   }
 }
 
-read_xml_file <- function(path, encoding) {
-  xml_doc(doc_parse_file(path, encoding))
+#' @export
+#' @rdname read_xml
+read_html <- function(file, encoding = NULL, n = 16384, verbose = FALSE) {
+  encoding <- encoding %||% ""
+  if (is.character(file)) {
+    read_xml_file(file, encoding, TRUE)
+  } else {
+    stop("Reading HTML from a connection not currently supported")
+  }
+}
+
+
+read_xml_file <- function(path, encoding, html = FALSE) {
+  xml_doc(doc_parse_file(path, encoding, html = html))
 }
 
 read_xml_con <- function(con, n = 1000, verbose = TRUE){
