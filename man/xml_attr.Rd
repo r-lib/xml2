@@ -2,9 +2,12 @@
 % Please edit documentation in R/xml_attr.R
 \name{xml_attr}
 \alias{xml_attr}
+\alias{xml_attr_exists}
 \title{Retrieve an attribute.}
 \usage{
 xml_attr(x, attr, ...)
+
+xml_attr_exists(x, attr, ...)
 }
 \arguments{
 \item{x}{A document, node, or node set.}
@@ -14,16 +17,24 @@ xml_attr(x, attr, ...)
 \item{...}{Additional arguments passed down to methods. (Not currently used).}
 }
 \value{
-A character vector. If an attribute is not presented, its
- value will be missing.
+For \code{xml_attr}, a character vector. If an attribute is not
+ presented, its value will be missing. For \code{xml_attr_exists},
+ a logical vector.
 }
 \description{
-Retrieve an attribute.
+Use \code{xml_attr} to retrieve attribute values. If the attribute doesn't
+exist, it will be return as an \code{NA}. Use \code{xml_attr_exists} to
+test if an attribute is present.
 }
 \examples{
 x <- xml("<root id='1'><child id ='a' /><child id='b' d='b'/></root>")
 xml_attr(x, "id")
+
 xml_attr(xml_children(x), "id")
+xml_attr_exists(xml_children(x), "id")
+
+# Missing attributes give missing values
 xml_attr(xml_children(x), "d")
+xml_attr_exists(xml_children(x), "d")
 }
 

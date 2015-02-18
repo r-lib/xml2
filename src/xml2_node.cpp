@@ -21,6 +21,11 @@ CharacterVector node_attr(XPtrNode node, std::string name) {
 }
 
 // [[Rcpp::export]]
+bool node_attr_exists(XPtrNode node, std::string name) {
+  return xmlHasProp(node.get(), (xmlChar*) name.c_str()) != NULL;
+}
+
+// [[Rcpp::export]]
 CharacterVector node_format(XPtrDoc doc, XPtrNode node,
                             bool format = true,
                             int indent = 0) {
