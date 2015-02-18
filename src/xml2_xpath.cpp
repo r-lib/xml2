@@ -6,13 +6,16 @@ using namespace Rcpp;
 
 // [[Rcpp::export]]
 Rcpp::List node_find(XPtrNode node, XPtrDoc doc, std::string xpath) {
-
   boost::shared_ptr<xmlXPathContext> context(
       xmlXPathNewContext(doc.get()),
       xmlXPathFreeContext
   );
+
+  // Set context to current node
+  context->node = node.get();
+
   boost::shared_ptr<xmlXPathObject> result(
-    xmlXPathNodeEval(node.get(), (xmlChar*) xpath.c_str(), context.get()),
+    xmlXPathEval((xmlChar*) xpath.c_str(), context.get()),
     xmlXPathFreeObject
   );
 
