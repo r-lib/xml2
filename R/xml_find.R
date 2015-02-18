@@ -5,20 +5,20 @@
 #' @export
 #' @examples
 #' x <- xml("<foo><bar><baz/></bar><baz/></foo>")
-#' xml_search(x, ".//baz")
-#' xml_path(xml_search(x, ".//baz"))
+#' xml_find(x, ".//baz")
+#' xml_path(xml_find(x, ".//baz"))
 #'
 #' # Note the difference between .// and //
 #' # //  finds anywhere in the document (ignoring the current node)
 #' # .// finds anywhere beneath the current node
-#' (bar <- xml_search(x, ".//bar"))
-#' xml_search(bar, ".//baz")
-#' xml_search(bar, "//baz")
-xml_search <- function(x, xpath, ...) {
-  UseMethod("xml_search")
+#' (bar <- xml_find(x, ".//bar"))
+#' xml_find(bar, ".//baz")
+#' xml_find(bar, "//baz")
+xml_find <- function(x, xpath, ...) {
+  UseMethod("xml_find")
 }
 
 #' @export
-xml_search.xml_nodeset <- function(x, xpath, ...) {
+xml_find.xml_nodeset <- function(x, xpath, ...) {
   nodeset_apply(x, node_search, doc = x$doc, xpath = xpath)
 }

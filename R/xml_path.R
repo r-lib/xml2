@@ -8,7 +8,7 @@
 #' @export
 #' @examples
 #' x <- xml("<foo><bar><baz /></bar><baz /></foo>")
-#' xml_path(xml_search(x, ".//baz"))
+#' xml_path(xml_find(x, ".//baz"))
 xml_path <- function(x, ...) {
   UseMethod("xml_path")
 }

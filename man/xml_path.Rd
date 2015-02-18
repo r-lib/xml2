@@ -20,6 +20,6 @@ xpath expression live in a document.
 }
 \examples{
 x <- xml("<foo><bar><baz /></bar><baz /></foo>")
-xml_path(xml_search(x, ".//baz"))
+xml_path(xml_find(x, ".//baz"))
 }
 
