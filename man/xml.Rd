@@ -2,24 +2,20 @@
 % Please edit documentation in R/xml_parse.R
 \name{xml}
 \alias{xml}
-\title{Parse XML string}
+\title{Create XML from a string.}
 \usage{
-xml(x, base_url = NULL, encoding = NULL, options = NULL)
+xml(x, base_url = NULL)
 }
 \arguments{
 \item{x}{an xml string}
 
 \item{base_url}{A base url to use for relative links.}
-
-\item{encoding}{A default encoding to use.}
-
-\item{options}{Additional options passed on to \code{xmlRead*}.
-For expert use only.}
 }
 \description{
-Parse XML string
+Create XML from a string.
 }
 \examples{
 xml("<foo> 123 </foo>")
+xml("<foo> \\u00e5 </foo>")
 }
 
