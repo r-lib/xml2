@@ -208,6 +208,17 @@ BEGIN_RCPP
     return __result;
 END_RCPP
 }
+// node_contents
+Rcpp::List node_contents(XPtrNode node);
+RcppExport SEXP xml2_node_contents(SEXP nodeSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject __result;
+    Rcpp::RNGScope __rngScope;
+    Rcpp::traits::input_parameter< XPtrNode >::type node(nodeSEXP);
+    __result = Rcpp::wrap(node_contents(node));
+    return __result;
+END_RCPP
+}
 // node_parent
 XPtrNode node_parent(XPtrNode n);
 RcppExport SEXP xml2_node_parent(SEXP nSEXP) {

@@ -69,6 +69,10 @@ node_children <- function(node) {
     .Call('xml2_node_children', PACKAGE = 'xml2', node)
 }
 
+node_contents <- function(node) {
+    .Call('xml2_node_contents', PACKAGE = 'xml2', node)
+}
+
 node_parent <- function(n) {
     .Call('xml2_node_parent', PACKAGE = 'xml2', n)
 }

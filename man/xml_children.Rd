@@ -2,33 +2,36 @@
 % Please edit documentation in R/xml_children.R
 \name{xml_children}
 \alias{xml_children}
+\alias{xml_contents}
 \alias{xml_parent}
 \title{Navigate around the family tree.}
 \usage{
-xml_children(x, ...)
+xml_children(x)
 
-xml_parent(x, ...)
+xml_contents(x)
+
+xml_parent(x)
 }
 \arguments{
 \item{x}{A document, node, or node set.}
-
-\item{...}{Additional arguments passed down to methods. (Not currently used).}
 }
 \value{
 A node or nodeset (possibly empty).
 }
 \description{
-Navigate around the family tree.
+\code{xml_children} returns only elements, \code{xml_contents} returns
+all nodes. \code{xml_parent} returns the parent node.
 }
 \examples{
-x <- xml("<foo> <bar><boo /></bar> 123 <baz/> </foo>")
-(kids <- xml_children(x))
-(grand_kids <- xml_children(kids))
-
-xml_parent(kids)
+x <- xml("<foo> <bar><boo /></bar> <baz/> </foo>")
+xml_children(x)
+xml_children(xml_children(x))
+xml_parent(xml_children(x))
 
 # Mixed content
-x <- xml_children(xml("<foo> a <b/> c <d>e</d> f</foo>"))
+x <- xml("<foo> a <b/> c <d>e</d> f</foo>")
+# Childen gets the elements, contents gets all node types
 xml_children(x)
+xml_contents(x)
 }
 
