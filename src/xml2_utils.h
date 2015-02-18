@@ -3,6 +3,7 @@
 
 #include <Rcpp.h>
 #include <libxml/tree.h>
+#include <boost/shared_ptr.hpp>
 
 inline Rcpp::CharacterVector xmlCharToRChar(const xmlChar* x) {
   if (x == NULL)
@@ -13,5 +14,17 @@ inline Rcpp::CharacterVector xmlCharToRChar(const xmlChar* x) {
 
   return out;
 }
+
+// A wrapper around xmlChar* that always frees memory
+class Xml2Char {
+  boost::shared_ptr<xmlChar> string_;
+
+public:
+  Xml2Char(xmlChar* string): string_(string, xmlFree) {}
+
+  Rcpp::CharacterVector string() {
+    return xmlCharToRChar(string_.get());
+  }
+};
 
 #endif

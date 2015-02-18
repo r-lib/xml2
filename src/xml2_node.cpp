@@ -1,9 +1,9 @@
 #include <Rcpp.h>
 #include <libxml/tree.h>
+#include <boost/shared_ptr.hpp>
 
 using namespace Rcpp;
 #include "xml2_types.h"
-#include "xml2_utils.h"
 
 // [[Rcpp::export]]
 CharacterVector node_name(XPtrNode node) {
@@ -12,36 +12,22 @@ CharacterVector node_name(XPtrNode node) {
 
 // [[Rcpp::export]]
 CharacterVector node_text(XPtrNode node) {
-  xmlChar* s = xmlNodeGetContent(node.get());
-  CharacterVector out = xmlCharToRChar(s);
-  if (s != NULL)
-    xmlFree(s);
-
-  return out;
+  return Xml2Char(xmlNodeGetContent(node.get())).string();
 }
 
 // [[Rcpp::export]]
 CharacterVector node_attr(XPtrNode node, std::string name) {
-  xmlChar* s = xmlGetProp(node.get(), (xmlChar*) name.c_str());
-
-  CharacterVector out = xmlCharToRChar(s);
-  if (s != NULL)
-    xmlFree(s);
-
-  return out;
+  return Xml2Char(xmlGetProp(node.get(), (xmlChar*) name.c_str())).string();
 }
 
 // [[Rcpp::export]]
 CharacterVector node_format(XPtrDoc doc, XPtrNode node,
                             bool format = true,
                             int indent = 0) {
-  xmlBufferPtr buffer = xmlBufferCreate();
-  xmlNodeDump(buffer, doc.get(), node.get(), indent, format);
+  boost::shared_ptr<xmlBuffer> buffer(xmlBufferCreate(), xmlFree);
+  xmlNodeDump(buffer.get(), doc.get(), node.get(), indent, format);
 
-  CharacterVector out = xmlCharToRChar(buffer->content);
-  xmlFree(buffer);
-
-  return out;
+  return xmlCharToRChar(buffer->content);
 }
 
 // [[Rcpp::export]]
@@ -70,10 +56,6 @@ void node_write(XPtrNode n, XPtrDoc d, std::string path) {
 
 // [[Rcpp::export]]
 CharacterVector node_path(XPtrNode n) {
-  xmlChar* s = xmlGetNodePath(n.get());
-  CharacterVector out = xmlCharToRChar(s);
-  if (s != NULL)
-    xmlFree(s);
-
-  return out;
+  return Xml2Char(xmlGetNodePath(n.get())).string();
 }
+
