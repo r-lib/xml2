@@ -83,3 +83,8 @@ LogicalVector nodes_duplicated(ListOf<XPtrNode> nodes) {
 
   return out;
 }
+
+// [[Rcpp::export]]
+int node_type(XPtrNode node) {
+  return node->type;
+}

@@ -26,5 +26,9 @@ x <- xml("<foo> <bar><boo /></bar> 123 <baz/> </foo>")
 (grand_kids <- xml_children(kids))
 
 xml_parent(kids)
+
+# Mixed content
+x <- xml_children(xml("<foo> a <b/> c <d>e</d> f</foo>"))
+xml_children(x)
 }
 

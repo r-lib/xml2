@@ -242,6 +242,17 @@ BEGIN_RCPP
     return __result;
 END_RCPP
 }
+// node_type
+int node_type(XPtrNode node);
+RcppExport SEXP xml2_node_type(SEXP nodeSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject __result;
+    Rcpp::RNGScope __rngScope;
+    Rcpp::traits::input_parameter< XPtrNode >::type node(nodeSEXP);
+    __result = Rcpp::wrap(node_type(node));
+    return __result;
+END_RCPP
+}
 // node_search
 Rcpp::List node_search(XPtrNode node, XPtrDoc doc, std::string xpath);
 RcppExport SEXP xml2_node_search(SEXP nodeSEXP, SEXP docSEXP, SEXP xpathSEXP) {
