@@ -104,6 +104,17 @@ BEGIN_RCPP
     return __result;
 END_RCPP
 }
+// doc_write
+void doc_write(XPtr<xmlDoc> x, std::string path);
+RcppExport SEXP xml2_doc_write(SEXP xSEXP, SEXP pathSEXP) {
+BEGIN_RCPP
+    Rcpp::RNGScope __rngScope;
+    Rcpp::traits::input_parameter< XPtr<xmlDoc> >::type x(xSEXP);
+    Rcpp::traits::input_parameter< std::string >::type path(pathSEXP);
+    doc_write(x, path);
+    return R_NilValue;
+END_RCPP
+}
 // doc_root
 XPtrNode doc_root(XPtr<xmlDoc> x);
 RcppExport SEXP xml2_doc_root(SEXP xSEXP) {
@@ -172,5 +183,17 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< XPtrNode >::type node(nodeSEXP);
     __result = Rcpp::wrap(node_children(node));
     return __result;
+END_RCPP
+}
+// node_write
+void node_write(XPtrNode n, XPtrDoc d, std::string path);
+RcppExport SEXP xml2_node_write(SEXP nSEXP, SEXP dSEXP, SEXP pathSEXP) {
+BEGIN_RCPP
+    Rcpp::RNGScope __rngScope;
+    Rcpp::traits::input_parameter< XPtrNode >::type n(nSEXP);
+    Rcpp::traits::input_parameter< XPtrDoc >::type d(dSEXP);
+    Rcpp::traits::input_parameter< std::string >::type path(pathSEXP);
+    node_write(n, d, path);
+    return R_NilValue;
 END_RCPP
 }

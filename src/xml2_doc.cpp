@@ -77,6 +77,19 @@ CharacterVector doc_format(XPtr<xmlDoc> x) {
 }
 
 // [[Rcpp::export]]
+void doc_write(XPtr<xmlDoc> x, std::string path) {
+  FILE* f = fopen(path.c_str(), "wb");
+
+  int res = xmlDocDump(f, x.get());
+  fclose(f);
+
+  if (res == -1) {
+    Rcpp::stop("Failed to write to %s", path);
+  }
+}
+
+
+// [[Rcpp::export]]
 XPtrNode doc_root(XPtr<xmlDoc> x) {
   xmlNode* root = xmlDocGetRootElement(x.get());
 

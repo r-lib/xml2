@@ -33,6 +33,10 @@ doc_format <- function(x) {
     .Call('xml2_doc_format', PACKAGE = 'xml2', x)
 }
 
+doc_write <- function(x, path) {
+    invisible(.Call('xml2_doc_write', PACKAGE = 'xml2', x, path))
+}
+
 doc_root <- function(x) {
     .Call('xml2_doc_root', PACKAGE = 'xml2', x)
 }
@@ -55,5 +59,9 @@ node_format <- function(doc, node, format = TRUE, indent = 0L) {
 
 node_children <- function(node) {
     .Call('xml2_node_children', PACKAGE = 'xml2', node)
+}
+
+node_write <- function(n, d, path) {
+    invisible(.Call('xml2_node_write', PACKAGE = 'xml2', n, d, path))
 }
 
