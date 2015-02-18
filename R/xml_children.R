@@ -1,26 +1,30 @@
-#' Extract children.
+#' Navigate around the family tree.
 #'
-#' @param x A document, node or nodeset.
-#' @param ... Additional arguments passed down to methods. (Not currently used).
-#' @return A nodeset
+#' @inheritParams xml_name
+#' @return A node or nodeset (possibly empty).
 #' @export
 #' @examples
 #' x <- xml("<foo> <bar><boo /></bar> 123 <baz/> </foo>")
 #' (kids <- xml_children(x))
 #' (grand_kids <- xml_children(kids))
+#'
+#' xml_parent(kids)
 xml_children <- function(x, ...) {
   UseMethod("xml_children")
 }
 
 #' @export
-xml_children.xml_node <- function(x, ...) {
-  xml_nodeset(node_children(x$node), x$doc)
-}
-#' @export
 xml_children.xml_nodeset <- function(x, ...) {
-  unlist(lapply(x, xml_children), recursive = FALSE)
+  nodeset_apply(x, node_children)
 }
+
 #' @export
-xml_children.xml_doc <- function(x, ...) {
-  xml_children(xml_root(x))
+#' @rdname xml_children
+xml_parent <- function(x, ...) {
+  UseMethod("xml_parent")
+}
+
+#' @export
+xml_parent.xml_nodeset <- function(x, ...) {
+  nodeset_apply(x, node_parent)
 }

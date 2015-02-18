@@ -4,44 +4,40 @@ NULL
 
 # document ---------------------------------------------------------------------
 
-xml_doc <- function(doc) {
-  structure(list(doc = doc), class = "xml_doc")
+xml_document <- function(doc) {
+  structure(
+    list(
+      doc = doc,
+      nodes = list(doc_root(doc))
+    ),
+    class = c("xml_document", "xml_nodeset")
+  )
 }
 
 #' @export
-print.xml_doc <- function(x, ...){
-  cat(doc_format(x$doc), "\n")
+print.xml_document <- function(x, ...) {
+  cat("<xml_document>\n")
 }
 
 # node -------------------------------------------------------------------------
 
-xml_node <- function(node, doc) {
-  structure(list(
-    node = node,
-    doc = doc
-  ), class = "xml_node")
-}
-
-#' @export
-print.xml_node <- function(x, ...) {
-  cat(node_format(x$doc, x$node), "\n", sep = "")
-}
-
-# nodeset -----------------------------------------------------------------
-
 xml_nodeset <- function(nodes, doc) {
   structure(
-    lapply(nodes, xml_node, doc = doc),
+    list(
+      doc = doc,
+      nodes = nodes
+    ),
     class = "xml_nodeset"
   )
 }
 
 #' @export
 print.xml_nodeset <- function(x, ...) {
-  if (length(x) == 0) {
-    cat("<Empty nodeset>\n")
-    return()
-  }
+  cat("<xml_nodeset [", length(x$nodes), "]>\n", sep = "")
+}
 
-  NextMethod()
+nodeset_apply <- function(x, fun, ...) {
+  out <- lapply(x$nodes, fun, ...)
+  out <- unlist(out, recursive = FALSE)
+  xml_nodeset(out, x$doc)
 }

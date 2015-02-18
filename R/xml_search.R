@@ -19,17 +19,6 @@ xml_search <- function(x, xpath, ...) {
 }
 
 #' @export
-xml_search.xml_node <- function(x, xpath, ...) {
-  xml_nodeset(node_search(x$node, x$doc, xpath), x$doc)
-}
-
-#' @export
-xml_search.xml_doc <- function(x, xpath, ...) {
-  xml_search(xml_root(x), xpath)
-}
-
-#' @export
 xml_search.xml_nodeset <- function(x, xpath, ...) {
-  unlist(lapply(x, xml_search, xpath, ...), recursive = FALSE)
+  nodeset_apply(x, node_search, doc = x$doc, xpath = xpath)
 }
-

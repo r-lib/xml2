@@ -3,8 +3,7 @@
 #' This writes out both XML and normalised HTML.
 #'
 #' @param x A document or node to write to disk. It's not possible to
-#'   save a nodeset, because that would not create a valid XML file (there's
-#'   no root node)
+#'   save nodesets containing more than one nodes.
 #' @param file Path to file to write.
 #' @param ... Other arguments used by methods.
 #' @export
@@ -19,11 +18,15 @@ write_xml <- function(x, file, ...) {
 }
 
 #' @export
-write_xml.xml_doc <- function(x, file, ...) {
+write_xml.xml_document <- function(x, file, ...) {
   doc_write(x$doc, file)
 }
 
 #' @export
-write_xml.xml_node <- function(x, file, ...) {
-  node_write(x$node, x$doc, file)
+write_xml.xml_nodeset <- function(x, file, ...) {
+  if (length(x$nodeset) != 1) {
+    stop("Can only save length 1 node sets")
+  }
+
+  node_write(x$nodes[[1]], x$doc, file)
 }

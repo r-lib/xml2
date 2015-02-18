@@ -14,16 +14,6 @@ xml_path <- function(x, ...) {
 }
 
 #' @export
-xml_path.xml_node <- function(x, ...) {
-  node_path(x$node)
-}
-
-#' @export
-xml_path.xml_doc <- function(x, ...) {
-  node_path(xml_root(x)$node)
-}
-
-#' @export
 xml_path.xml_nodeset <- function(x, ...) {
-  vapply(x, xml_path, ..., FUN.VALUE = character(1))
+  vapply(x$nodes, node_path, ..., FUN.VALUE = character(1))
 }

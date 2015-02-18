@@ -8,8 +8,7 @@ write_xml(x, file, ...)
 }
 \arguments{
 \item{x}{A document or node to write to disk. It's not possible to
-save a nodeset, because that would not create a valid XML file (there's
-no root node)}
+save nodesets containing more than one nodes.}
 
 \item{file}{Path to file to write.}
 

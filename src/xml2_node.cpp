@@ -53,6 +53,11 @@ Rcpp::List node_children(XPtrNode node) {
 }
 
 // [[Rcpp::export]]
+XPtrNode node_parent(XPtrNode n) {
+  return XPtrNode(n->parent);
+}
+
+// [[Rcpp::export]]
 void node_write(XPtrNode n, XPtrDoc d, std::string path) {
   FILE* f = fopen(path.c_str(), "wb");
   xmlElemDump(f, d.get(), n.get());

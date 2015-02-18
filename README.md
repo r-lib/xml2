@@ -28,6 +28,13 @@ xml_root(h)
 xml_name(h)
 ```
 
+There are three key classes:
+
+* `xml_doc()`: the complete document. Acting on a document is usually the same 
+  as acting on the root node of the document.
+
+* `xml_nodeset()`: a __set__ of nodes within the document.
+
 ## Compared to the XML package
 
 The XML package has similar goals to xml2. The main differences are:

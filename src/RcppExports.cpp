@@ -197,6 +197,17 @@ BEGIN_RCPP
     return __result;
 END_RCPP
 }
+// node_parent
+XPtrNode node_parent(XPtrNode n);
+RcppExport SEXP xml2_node_parent(SEXP nSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject __result;
+    Rcpp::RNGScope __rngScope;
+    Rcpp::traits::input_parameter< XPtrNode >::type n(nSEXP);
+    __result = Rcpp::wrap(node_parent(n));
+    return __result;
+END_RCPP
+}
 // node_write
 void node_write(XPtrNode n, XPtrDoc d, std::string path);
 RcppExport SEXP xml2_node_write(SEXP nSEXP, SEXP dSEXP, SEXP pathSEXP) {

@@ -16,16 +16,6 @@ xml_name <- function(x, ...) {
 }
 
 #' @export
-xml_name.xml_node <- function(x, ...) {
-  node_name(x$node)
-}
-
-#' @export
-xml_name.xml_doc <- function(x, ...) {
-  node_name(xml_root(x)$node)
-}
-
-#' @export
 xml_name.xml_nodeset <- function(x, ...) {
-  vapply(x, xml_name, character(1))
+  vapply(x$nodes, node_name, FUN.VALUE = character(1))
 }

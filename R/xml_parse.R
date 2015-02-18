@@ -11,13 +11,13 @@
 #' # The html parser converts potential malformed HTML into valid XML
 #' html("<html> 123 </html>")
 xml <- function(x, base_url = NULL) {
-  xml_doc(doc_parse_string(enc2utf8(x), "UTF-8", base_url %||% ""))
+  xml_document(doc_parse_string(enc2utf8(x), "UTF-8", base_url %||% ""))
 }
 
 #' @export
 #' @rdname xml
 html <- function(x, base_url = NULL) {
-  xml_doc(doc_parse_string(enc2utf8(x), "UTF-8", base_url %||% "", html = TRUE))
+  xml_document(doc_parse_string(enc2utf8(x), "UTF-8", base_url %||% "", html = TRUE))
 }
 
 #' Read HTML or XML from a stream or file.
@@ -65,7 +65,7 @@ read_html <- function(file, encoding = NULL, n = 16384, verbose = FALSE) {
 
 
 read_xml_file <- function(path, encoding, html = FALSE) {
-  xml_doc(doc_parse_file(path, encoding, html = html))
+  xml_document(doc_parse_file(path, encoding, html = html))
 }
 
 read_xml_con <- function(con, n = 1000, verbose = TRUE){
@@ -91,5 +91,5 @@ read_xml_con <- function(con, n = 1000, verbose = TRUE){
   close_push_parser(p)
   if(verbose)
     cat("done!\n")
-  xml_doc(get_push_parser_doc(p))
+  xml_document(get_push_parser_doc(p))
 }

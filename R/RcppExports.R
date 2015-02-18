@@ -65,6 +65,10 @@ node_children <- function(node) {
     .Call('xml2_node_children', PACKAGE = 'xml2', node)
 }
 
+node_parent <- function(n) {
+    .Call('xml2_node_parent', PACKAGE = 'xml2', n)
+}
+
 node_write <- function(n, d, path) {
     invisible(.Call('xml2_node_write', PACKAGE = 'xml2', n, d, path))
 }

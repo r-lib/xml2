@@ -12,16 +12,6 @@ xml_text <- function(x, ...) {
 }
 
 #' @export
-xml_text.xml_doc <- function(x, ...) {
-  node_text(doc_root(x$doc))
-}
-
-#' @export
-xml_text.xml_node <- function(x, ...) {
-  node_text(x$node)
-}
-
-#' @export
 xml_text.xml_nodeset <- function(x, ...) {
-  vapply(x, xml_text, ..., FUN.VALUE = character(1))
+  vapply(x$node, node_text, FUN.VALUE = character(1))
 }

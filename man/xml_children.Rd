@@ -2,24 +2,29 @@
 % Please edit documentation in R/xml_children.R
 \name{xml_children}
 \alias{xml_children}
-\title{Extract children.}
+\alias{xml_parent}
+\title{Navigate around the family tree.}
 \usage{
 xml_children(x, ...)
+
+xml_parent(x, ...)
 }
 \arguments{
-\item{x}{A document, node or nodeset.}
+\item{x}{A document, node, or node set.}
 
 \item{...}{Additional arguments passed down to methods. (Not currently used).}
 }
 \value{
-A nodeset
+A node or nodeset (possibly empty).
 }
 \description{
-Extract children.
+Navigate around the family tree.
 }
 \examples{
 x <- xml("<foo> <bar><boo /></bar> 123 <baz/> </foo>")
 (kids <- xml_children(x))
 (grand_kids <- xml_children(kids))
+
+xml_parent(kids)
 }
 

@@ -25,18 +25,8 @@ xml_attr <- function(x, attr, ...) {
 }
 
 #' @export
-xml_attr.xml_node <- function(x, attr, ...) {
-  node_attr(x$node, attr)
-}
-
-#' @export
-xml_attr.xml_doc <- function(x, attr, ...) {
-  node_attr(doc_root(x$doc), attr)
-}
-
-#' @export
 xml_attr.xml_nodeset <- function(x, attr, ...) {
-  vapply(x, xml_attr, attr = attr, ..., FUN.VALUE = character(1))
+  vapply(x$nodes, node_attr, name = attr, FUN.VALUE = character(1))
 }
 
 
@@ -47,16 +37,6 @@ xml_attr_exists <- function(x, attr, ...) {
 }
 
 #' @export
-xml_attr_exists.xml_node <- function(x, attr, ...) {
-  node_attr_exists(x$node, attr)
-}
-
-#' @export
-xml_attr_exists.xml_doc <- function(x, attr, ...) {
-  node_attr_exists(doc_root(x$doc), attr)
-}
-
-#' @export
 xml_attr_exists.xml_nodeset <- function(x, attr, ...) {
-  vapply(x, xml_attr_exists, attr = attr, ..., FUN.VALUE = logical(1))
+  vapply(x$nodes, node_attr_exists, name = attr, FUN.VALUE = logical(1))
 }
