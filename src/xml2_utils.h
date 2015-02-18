@@ -17,13 +17,20 @@ inline Rcpp::CharacterVector xmlCharToRChar(const xmlChar* x) {
 
 // A wrapper around xmlChar* that always frees memory
 class Xml2Char {
-  boost::shared_ptr<xmlChar> string_;
+  xmlChar* string_;
 
 public:
-  Xml2Char(xmlChar* string): string_(string, xmlFree) {}
+  Xml2Char(xmlChar* string): string_(string) {}
+
+  ~Xml2Char() {
+    try {
+      if (string_ != NULL)
+        xmlFree(string_);
+    } catch (...) {}
+  }
 
   Rcpp::CharacterVector string() {
-    return xmlCharToRChar(string_.get());
+    return xmlCharToRChar(string_);
   }
 };
 
