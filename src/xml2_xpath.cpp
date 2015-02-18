@@ -5,7 +5,7 @@
 using namespace Rcpp;
 
 // [[Rcpp::export]]
-Rcpp::List node_search(XPtrNode node, XPtrDoc doc, std::string xpath) {
+Rcpp::List node_find(XPtrNode node, XPtrDoc doc, std::string xpath) {
 
   boost::shared_ptr<xmlXPathContext> context(
       xmlXPathNewContext(doc.get()),

@@ -275,16 +275,16 @@ BEGIN_RCPP
     return __result;
 END_RCPP
 }
-// node_search
-Rcpp::List node_search(XPtrNode node, XPtrDoc doc, std::string xpath);
-RcppExport SEXP xml2_node_search(SEXP nodeSEXP, SEXP docSEXP, SEXP xpathSEXP) {
+// node_find
+Rcpp::List node_find(XPtrNode node, XPtrDoc doc, std::string xpath);
+RcppExport SEXP xml2_node_find(SEXP nodeSEXP, SEXP docSEXP, SEXP xpathSEXP) {
 BEGIN_RCPP
     Rcpp::RObject __result;
     Rcpp::RNGScope __rngScope;
     Rcpp::traits::input_parameter< XPtrNode >::type node(nodeSEXP);
     Rcpp::traits::input_parameter< XPtrDoc >::type doc(docSEXP);
     Rcpp::traits::input_parameter< std::string >::type xpath(xpathSEXP);
-    __result = Rcpp::wrap(node_search(node, doc, xpath));
+    __result = Rcpp::wrap(node_find(node, doc, xpath));
     return __result;
 END_RCPP
 }

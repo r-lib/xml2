@@ -20,5 +20,5 @@ xml_find <- function(x, xpath, ...) {
 
 #' @export
 xml_find.xml_nodeset <- function(x, xpath, ...) {
-  nodeset_apply(x, node_search, doc = x$doc, xpath = xpath)
+  nodeset_apply(x, node_find, doc = x$doc, xpath = xpath)
 }
