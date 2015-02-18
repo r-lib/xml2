@@ -15,8 +15,9 @@ xml_document <- function(doc) {
 }
 
 #' @export
-print.xml_document <- function(x, ...) {
-  cat("<xml_document>\n")
+print.xml_document <- function(x, width = getOption("width"), max_n = 20, ...) {
+  cat("{xml_document}\n")
+  show_nodes(xml_children(x), width = width, max_n = max_n)
 }
 
 # node -------------------------------------------------------------------------
@@ -32,8 +33,34 @@ xml_nodeset <- function(nodes, doc) {
 }
 
 #' @export
-print.xml_nodeset <- function(x, ...) {
-  cat("<xml_nodeset [", length(x$nodes), "]>\n", sep = "")
+print.xml_nodeset <- function(x, width = getOption("width"), max_n = 20, ...) {
+  n <- length(x$nodes)
+  cat("{xml_nodeset (", n, ")}\n", sep = "")
+
+  show_nodes(x, width = width, max_n = max_n)
+}
+
+show_nodes <- function(x, width = getOptions("width"), max_n = 20) {
+  n <- length(x$nodes)
+  if (n > max_n) {
+    n <- max_n
+    trunc <- TRUE
+  } else {
+    trunc <- FALSE
+  }
+
+  label <- format(paste0("[", seq_len(n), "]"), justify = "right")
+  contents <- encodeString(vapply(x$nodes, node_format, doc = x$doc,
+    FUN.VALUE = character(1)))
+
+  desc <- paste0(label, " ", contents)
+  needs_trunc <- nchar(desc) > width
+  desc[needs_trunc] <- paste(substr(desc[needs_trunc], 1, width - 3), "...")
+
+  cat(desc, sep = "\n")
+  if (trunc) {
+    cat("...\n")
+  }
 }
 
 nodeset_apply <- function(x, fun, ...) {
