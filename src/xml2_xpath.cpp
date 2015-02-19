@@ -32,18 +32,14 @@ Rcpp::List node_find(XPtrNode node, XPtrDoc doc, std::string xpath, CharacterVec
     xmlXPathEval((xmlChar*) xpath.c_str(), context.get()),
     xmlXPathFreeObject
   );
+  // Return an empty list if there are no matches
   if (result.get() == NULL)
-    Rcpp::stop("Xpath failed to execute");
+    return Rcpp::List::create();
 
   if (result->type != XPATH_NODESET)
     Rcpp::stop("Currently only nodeset results are supported");
 
-  // Return an empty list if there are no matches
   xmlNodeSetPtr nodes = result->nodesetval;
-  if (xmlXPathNodeSetIsEmpty(nodes)) {
-    return Rcpp::List::create();
-  }
-
   int n = nodes->nodeNr;
   List out(n);
   for (int i = 0; i < nodes->nodeNr; i++) {

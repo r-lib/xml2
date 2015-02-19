@@ -12,5 +12,14 @@ test_that("qualified names matches to namespace", {
 
   expect_equal(length(xml_find(x, "//d1:bar", ns)), 1)
   expect_equal(length(xml_find(x, "//d2:bar", ns)), 1)
-  expect_error(length(xml_find(x, "//g:bar", ns)), "Xpath failed")
+})
+
+test_that("warning if unknown namespace", {
+  x <- xml("<foo><bar /></foo>")
+  expect_warning(xml_find(x, "//g:bar"), "Undefined namespace prefix")
+})
+
+test_that("no matches returns empty nodeset", {
+  x <- xml("<foo><bar /></foo>")
+  expect_equal(length(xml_find(x, "//baz")), 0)
 })
