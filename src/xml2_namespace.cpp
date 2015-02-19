@@ -48,14 +48,6 @@ public:
     return true;
   }
 
-  bool add(const xmlChar* prefix, const xmlChar* url) {
-    String
-      rPrefix = prefix == NULL ? NA_STRING : Rf_mkCharCE((char*) prefix, CE_UTF8),
-      rUrl = url == NULL ? NA_STRING : Rf_mkCharCE((char*) url, CE_UTF8);
-
-    return add(Xml, rUrl);
-  }
-
   void resize(int n) {
     prefix_ = Rf_lengthgets(prefix_, n);
     url_ = Rf_lengthgets(url_, n);
@@ -84,7 +76,7 @@ CharacterVector unique_ns(CharacterVector ns) {
 void cache_namespace(xmlNode* node, NsMap* nsMap) {
   // Iterate over namespace definitions
   for(xmlNs* cur = node->nsDef; cur != NULL; cur = cur->next) {
-    nsMap->add(cur->prefix, cur->href);
+    nsMap->add(Xml2Char(cur->prefix), Xml2Char(cur->href));
   }
 
   // Iterate over children, calling this function recursively
