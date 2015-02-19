@@ -72,8 +72,7 @@ public:
 
   Rcpp::String find_prefix(Rcpp::String url) {
     for (int i = 0; i < n_; ++i) {
-      Rcpp::String cur_url = url_[i];
-      if (cur_url == url)
+      if (Rcpp::String(url_[i]) == url)
         return prefix_[i];
     }
 
@@ -83,8 +82,7 @@ public:
 
   Rcpp::String find_url(Rcpp::String prefix) {
     for (int i = 0; i < n_; ++i) {
-      Rcpp::String cur_prefix(url_[i]);
-      if (cur_prefix == prefix)
+      if (Rcpp::String(prefix_[i]) == prefix)
         return url_[i];
     }
 
