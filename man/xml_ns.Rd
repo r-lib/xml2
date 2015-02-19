@@ -23,6 +23,32 @@ A character vector with class \code{xml_namespace} so the
 \code{xml_ns} extracts all namespaces from a document, matching each
 unique namespace url with the prefix it was first associated with. Default
 namespaces are named \code{d1}, \code{d2} etc. Use \code{xml_ns_rename}
-to change the prefixes.
+to change the prefixes. Once you have a namespace object, you can pass it to
+other functions to work with fully qualified names instead of local names.
+}
+\examples{
+x <- xml('
+ <root>
+   <doc1 xmlns = "http://foo.com"><baz /></doc1>
+   <doc2 xmlns = "http://bar.com"><baz /></doc2>
+ </root>
+')
+xml_ns(x)
+
+# When there are default namespaces, it's a good idea to rename
+# them to give informative names:
+ns <- xml_ns_rename(xml_ns(x), d1 = "foo", d2 = "bar")
+ns
+
+# Now we can pass ns to other xml function to use fully qualified names
+baz <- xml_children(xml_children(x))
+xml_name(baz)
+xml_name(baz, ns)
+
+xml_find(x, "//baz")
+xml_find(x, "//foo:baz", ns)
+
+str(as.list(x))
+str(as.list(x, ns))
 }
 
