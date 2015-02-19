@@ -38,8 +38,11 @@ as.list.xml_nodeset <- function(x, ...) {
     out <- list()
   } else {
     out <- lapply(seq_along(contents), function(i) as.list(contents[[i]]))
-    names(out) <- xml_name(contents)
-    names(out)[xml_type(contents) != "element"] <- ""
+
+    nms <- ifelse(xml_type(contents) == "element", xml_name(contents), "")
+    if (any(nms != "")) {
+      names(out) <- nms
+    }
   }
 
   # Add attributes as .attr element - that's an invalid xml attribute name
