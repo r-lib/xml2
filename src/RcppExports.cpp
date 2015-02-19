@@ -126,6 +126,17 @@ BEGIN_RCPP
     return __result;
 END_RCPP
 }
+// unique_ns
+CharacterVector unique_ns(CharacterVector ns);
+RcppExport SEXP xml2_unique_ns(SEXP nsSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject __result;
+    Rcpp::RNGScope __rngScope;
+    Rcpp::traits::input_parameter< CharacterVector >::type ns(nsSEXP);
+    __result = Rcpp::wrap(unique_ns(ns));
+    return __result;
+END_RCPP
+}
 // node_name
 CharacterVector node_name(XPtrNode node);
 RcppExport SEXP xml2_node_name(SEXP nodeSEXP) {
