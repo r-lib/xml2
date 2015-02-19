@@ -94,7 +94,7 @@ BEGIN_RCPP
 END_RCPP
 }
 // doc_format
-CharacterVector doc_format(XPtrDoc x);
+std::string doc_format(XPtrDoc x);
 RcppExport SEXP xml2_doc_format(SEXP xSEXP) {
 BEGIN_RCPP
     Rcpp::RObject __result;
@@ -161,7 +161,7 @@ BEGIN_RCPP
 END_RCPP
 }
 // node_text
-CharacterVector node_text(XPtrNode node);
+std::string node_text(XPtrNode node);
 RcppExport SEXP xml2_node_text(SEXP nodeSEXP) {
 BEGIN_RCPP
     Rcpp::RObject __result;
@@ -172,7 +172,7 @@ BEGIN_RCPP
 END_RCPP
 }
 // node_attr
-CharacterVector node_attr(XPtrNode node, std::string name, CharacterVector nsMap);
+std::string node_attr(XPtrNode node, std::string name, CharacterVector nsMap);
 RcppExport SEXP xml2_node_attr(SEXP nodeSEXP, SEXP nameSEXP, SEXP nsMapSEXP) {
 BEGIN_RCPP
     Rcpp::RObject __result;
@@ -209,7 +209,7 @@ BEGIN_RCPP
 END_RCPP
 }
 // node_format
-CharacterVector node_format(XPtrDoc doc, XPtrNode node, bool format = true, int indent = 0);
+std::string node_format(XPtrDoc doc, XPtrNode node, bool format = true, int indent = 0);
 RcppExport SEXP xml2_node_format(SEXP docSEXP, SEXP nodeSEXP, SEXP formatSEXP, SEXP indentSEXP) {
 BEGIN_RCPP
     Rcpp::RObject __result;
@@ -279,7 +279,7 @@ BEGIN_RCPP
 END_RCPP
 }
 // node_path
-CharacterVector node_path(XPtrNode n);
+std::string node_path(XPtrNode n);
 RcppExport SEXP xml2_node_path(SEXP nSEXP) {
 BEGIN_RCPP
     Rcpp::RObject __result;

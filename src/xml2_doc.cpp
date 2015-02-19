@@ -66,14 +66,11 @@ XPtrDoc doc_parse_string(CharacterVector x, std::string encoding,
 }
 
 // [[Rcpp::export]]
-CharacterVector doc_format(XPtrDoc x) {
+std::string doc_format(XPtrDoc x) {
   xmlChar *s;
   xmlDocDumpMemory(x.get(), &s, NULL);
 
-  Rcpp::CharacterVector out = xmlCharToRChar(s);
-  xmlFree(s);
-
-  return out;
+  return Xml2Char(s);
 }
 
 // [[Rcpp::export]]

@@ -6,7 +6,7 @@ using namespace Rcpp;
 #include "xml2_types.h"
 
 std::string findPrefix(xmlNs* ns, CharacterVector nsMap) {
-  String url = asCHARSXP(ns->href);
+  String url = Xml2Char(ns->href);
 
   int pos = -1;
   for (int i = 0; i < nsMap.length(); ++i) {
@@ -34,7 +34,7 @@ std::string findUrl(std::string prefix, CharacterVector nsMap) {
 
 template<typename T> // for xmlAttr and xmlNode
 std::string nodeName(T* node, CharacterVector nsMap) {
-  std::string name = std::string((char *) node->name);
+  std::string name = Xml2Char(node->name);
   if (nsMap.size() == 0)
     return name;
 
@@ -51,20 +51,20 @@ std::string node_name(XPtrNode node, CharacterVector nsMap) {
 }
 
 // [[Rcpp::export]]
-CharacterVector node_text(XPtrNode node) {
-  return Xml2Char(xmlNodeGetContent(node.get())).string();
+std::string node_text(XPtrNode node) {
+  return Xml2Char(xmlNodeGetContent(node.get()));
 }
 
 // [[Rcpp::export]]
-CharacterVector node_attr(XPtrNode node, std::string name, CharacterVector nsMap) {
+std::string node_attr(XPtrNode node, std::string name, CharacterVector nsMap) {
   if (nsMap.size() == 0)
-    return Xml2Char(xmlGetProp(node.get(), (xmlChar*) name.c_str())).string();
+    return Xml2Char(xmlGetProp(node.get(), (xmlChar*) name.c_str()));
 
   size_t colon = name.find(":");
   if (colon == std::string::npos) {
     // Has namespace spec, but attribute not qualified, so look for attribute
     // without namespace
-    return Xml2Char(xmlGetNoNsProp(node.get(), (xmlChar*) name.c_str())).string();
+    return Xml2Char(xmlGetNoNsProp(node.get(), (xmlChar*) name.c_str()));
   } else {
     // Split name into prefix & attr, then look up full url
     std::string
@@ -73,7 +73,7 @@ CharacterVector node_attr(XPtrNode node, std::string name, CharacterVector nsMap
 
     std::string url = findUrl(prefix, nsMap);
 
-    return Xml2Char(xmlGetNsProp(node.get(), (xmlChar*) attr.c_str(), (xmlChar*) url.c_str())).string();
+    return Xml2Char(xmlGetNsProp(node.get(), (xmlChar*) attr.c_str(), (xmlChar*) url.c_str()));
   }
 }
 
@@ -98,12 +98,12 @@ CharacterVector node_attrs(XPtrNode node, CharacterVector nsMap) {
     xmlNs* ns = cur->ns;
     if (ns == NULL) {
       if (nsMap.size() > 0) {
-        values[i] = asCHARSXP(xmlGetNoNsProp(node.get(), cur->name));
+        values[i] = Xml2Char(xmlGetNoNsProp(node.get(), cur->name));
       } else {
-        values[i] = asCHARSXP(xmlGetProp(node.get(), cur->name));
+        values[i] = Xml2Char(xmlGetProp(node.get(), cur->name));
       }
     } else {
-      values[i] = asCHARSXP(xmlGetNsProp(node.get(), cur->name, ns->href));
+      values[i] = Xml2Char(xmlGetNsProp(node.get(), cur->name, ns->href));
     }
 
     ++i;
@@ -114,13 +114,13 @@ CharacterVector node_attrs(XPtrNode node, CharacterVector nsMap) {
 }
 
 // [[Rcpp::export]]
-CharacterVector node_format(XPtrDoc doc, XPtrNode node,
-                            bool format = true,
-                            int indent = 0) {
+std::string node_format(XPtrDoc doc, XPtrNode node,
+                        bool format = true,
+                        int indent = 0) {
   boost::shared_ptr<xmlBuffer> buffer(xmlBufferCreate(), xmlFree);
   xmlNodeDump(buffer.get(), doc.get(), node.get(), indent, format);
 
-  return xmlCharToRChar(buffer->content);
+  return Xml2Char(buffer->content);
 }
 
 
@@ -182,8 +182,8 @@ void node_write(XPtrNode n, XPtrDoc d, std::string path) {
 }
 
 // [[Rcpp::export]]
-CharacterVector node_path(XPtrNode n) {
-  return Xml2Char(xmlGetNodePath(n.get())).string();
+std::string node_path(XPtrNode n) {
+  return Xml2Char(xmlGetNodePath(n.get()));
 }
 
 // [[Rcpp::export]]

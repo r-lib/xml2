@@ -49,9 +49,11 @@ public:
   }
 
   bool add(const xmlChar* prefix, const xmlChar* url) {
-    // SEXP rUrl = Rf_mkCharCE(url.c_str(), CE_UTF8);
+    String
+      rPrefix = prefix == NULL ? NA_STRING : Rf_mkCharCE((char*) prefix, CE_UTF8),
+      rUrl = url == NULL ? NA_STRING : Rf_mkCharCE((char*) url, CE_UTF8);
 
-    return add(asCHARSXP(prefix), asCHARSXP(url));
+    return add(Xml, rUrl);
   }
 
   void resize(int n) {

@@ -5,41 +5,37 @@
 #include <libxml/tree.h>
 #include <boost/shared_ptr.hpp>
 
-inline SEXP asCHARSXP(const xmlChar* x) {
-  if (x == NULL)
-    return NA_STRING;
-
-  return Rf_mkCharCE((char*) x, CE_UTF8);
-}
-
-inline std::string asStdString(const xmlChar* x) {
-  if (x == NULL)
-    return "";
-
-  return std::string((char*) x );
-}
-
-inline Rcpp::CharacterVector xmlCharToRChar(const xmlChar* x) {
-  return Rcpp::CharacterVector::create(asCHARSXP(x));
-}
-
-// A wrapper around xmlChar* that always frees memory
+// A wrapper around xmlChar* that frees memory if necessary
 class Xml2Char {
   xmlChar* string_;
+  bool free_;
 
 public:
-  Xml2Char(xmlChar* string): string_(string) {}
+  Xml2Char(xmlChar* string): string_(string), free_(true) {}
+
+  // Pointers into structs are const, so don't need to be freed
+  Xml2Char(const xmlChar* string): string_((xmlChar*) string), free_(false) {}
 
   ~Xml2Char() {
     try {
-      if (string_ != NULL)
+      if (free_ && string_ != NULL)
         xmlFree(string_);
     } catch (...) {}
   }
 
-  Rcpp::CharacterVector string() {
-    return xmlCharToRChar(string_);
+  operator std::string() {
+    if (string_ == NULL)
+      return "";
+
+    return std::string((char*) string_);
   }
+
+  operator Rcpp::String() {
+    if (string_ == NULL)
+      return NA_STRING;
+
+    return Rf_mkCharCE((char*) string_, CE_UTF8);
+  };
 };
 
 #endif
