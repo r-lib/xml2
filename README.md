@@ -8,6 +8,7 @@ xml2 is not yet available from CRAN, but you can install it from github with:
 
 ```R
 # install.packages("devtools")
+devtools::install_github("RcppCore/Rcpp")
 devtools::install_github("hadley/xml2")
 ```
 
