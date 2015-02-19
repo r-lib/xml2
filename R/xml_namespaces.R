@@ -18,6 +18,9 @@ xml_ns <- function(x) {
   is_default <- is.na(names(x))
   names(x)[is_default] <- paste0("d", seq_len(sum(is_default)))
 
+  # Make prefixes unique
+  names(x) <- make.unique(names(x), "")
+
   class(x) <- "xml_namespace"
   x
 }

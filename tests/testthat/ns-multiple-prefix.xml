@@ -1,0 +1,4 @@
+<root>
+  <doc1 xmlns:b="http://baz.com"><b:bar /></doc1>
+  <doc2 xmlns:b="http://bar.com"><b:bar /></doc2>
+</root>
