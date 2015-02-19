@@ -14,11 +14,11 @@
 #' (bar <- xml_find(x, ".//bar"))
 #' xml_find(bar, ".//baz")
 #' xml_find(bar, "//baz")
-xml_find <- function(x, xpath, ...) {
+xml_find <- function(x, xpath, ns = character(), ...) {
   UseMethod("xml_find")
 }
 
 #' @export
-xml_find.xml_nodeset <- function(x, xpath, ...) {
-  nodeset_apply(x, node_find, doc = x$doc, xpath = xpath)
+xml_find.xml_nodeset <- function(x, xpath, ns = character(), ...) {
+  nodeset_apply(x, node_find, doc = x$doc, xpath = xpath, ns = ns)
 }

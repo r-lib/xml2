@@ -4,12 +4,19 @@
 \alias{xml_find}
 \title{Search for matching xpath expressions.}
 \usage{
-xml_find(x, xpath, ...)
+xml_find(x, xpath, ns = character(), ...)
 }
 \arguments{
 \item{x}{A document, node, or node set.}
 
 \item{xpath}{A string containing a xpath expression.}
+
+\item{ns}{Optionally, a named vector giving prefix-url pairs, as produced
+by \code{\link{xml_ns}}. If provided, all names will be explicitly
+qualified with the ns prefix, i.e. if the element \code{bar} is defined
+in namespace \code{foo}, it will be called \code{foo:bar}. (And
+similarly for atttributes). Default namespaces must be given an explicit
+name.}
 
 \item{...}{Additional arguments passed down to methods. (Not currently used).}
 }

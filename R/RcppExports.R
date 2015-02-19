@@ -105,7 +105,7 @@ node_type <- function(node) {
     .Call('xml2_node_type', PACKAGE = 'xml2', node)
 }
 
-node_find <- function(node, doc, xpath) {
-    .Call('xml2_node_find', PACKAGE = 'xml2', node, doc, xpath)
+node_find <- function(node, doc, xpath, nsMap) {
+    .Call('xml2_node_find', PACKAGE = 'xml2', node, doc, xpath, nsMap)
 }
 
