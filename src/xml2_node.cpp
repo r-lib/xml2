@@ -4,33 +4,7 @@
 
 using namespace Rcpp;
 #include "xml2_types.h"
-
-std::string findPrefix(xmlNs* ns, CharacterVector nsMap) {
-  String url = Xml2Char(ns->href);
-
-  int pos = -1;
-  for (int i = 0; i < nsMap.length(); ++i) {
-    String urli = nsMap[i];
-    if (urli == url) {
-      pos = i;
-      continue;
-    }
-  }
-  if (pos == -1)
-    stop("Couldn't find prefix for url %s", (char *) ns->href);
-
-  return std::string(as<CharacterVector>(nsMap.attr("names"))[pos]);
-}
-std::string findUrl(std::string prefix, CharacterVector nsMap) {
-  CharacterVector prefixes = as<CharacterVector>(nsMap.attr("names"));
-
-  for (int i = 0; i < nsMap.length(); ++i) {
-    if (prefix == std::string(prefixes[i]))
-      return std::string(nsMap[i]);
-  }
-  stop("Couldn't find prefix for prefix %s", prefix);
-  return "";
-}
+#include "xml2_utils.h"
 
 template<typename T> // for xmlAttr and xmlNode
 std::string nodeName(T* node, CharacterVector nsMap) {
@@ -42,7 +16,8 @@ std::string nodeName(T* node, CharacterVector nsMap) {
   if (ns == NULL)
     return name;
 
-  return findPrefix(ns, nsMap) + ":" + name;
+  std::string prefix = NsMap(nsMap).findPrefix(Xml2Char(ns->href));
+  return prefix + ":" + name;
 }
 
 // [[Rcpp::export]]
@@ -71,7 +46,7 @@ std::string node_attr(XPtrNode node, std::string name, CharacterVector nsMap) {
       prefix = name.substr(0, colon),
       attr = name.substr(colon + 1, name.size() - 1);
 
-    std::string url = findUrl(prefix, nsMap);
+    std::string url = NsMap(nsMap).findUrl(prefix);
 
     return Xml2Char(xmlGetNsProp(node.get(), (xmlChar*) attr.c_str(), (xmlChar*) url.c_str()));
   }

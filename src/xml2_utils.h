@@ -17,6 +17,9 @@ public:
   // Pointers into structs are const, so don't need to be freed
   Xml2Char(const xmlChar* string): string_((xmlChar*) string), free_(false) {}
 
+  // Some strings are regular strings
+  Xml2Char(const char* string): string_((xmlChar*) string), free_(false) {}
+
   ~Xml2Char() {
     try {
       if (free_ && string_ != NULL)
@@ -56,11 +59,11 @@ public:
   NsMap(Rcpp::CharacterVector x) {
     url_ = x;
     prefix_ = Rcpp::as<Rcpp::CharacterVector>(x.attr("names"));
-    n_ = x.size();
     capacity_ = x.size();
+    n_ = x.size() + 1;
   }
 
-  bool has_url(Rcpp::String url) {
+  bool hasUrl(Rcpp::String url) {
     for (int i = 0; i < n_; ++i) {
       Rcpp::String cur_url(url_[i]);
       if (cur_url == url)
@@ -70,29 +73,29 @@ public:
     return false;
   }
 
-  Rcpp::String find_prefix(Rcpp::String url) {
+  Rcpp::String findPrefix(Rcpp::String url) {
     for (int i = 0; i < n_; ++i) {
       if (Rcpp::String(url_[i]) == url)
         return prefix_[i];
     }
 
-    Rcpp::stop("Could not find ns url %s", url.get_cstring());
+    Rcpp::stop("Couldn't find prefix for url %s", url.get_cstring());
     return "";
   }
 
-  Rcpp::String find_url(Rcpp::String prefix) {
+  Rcpp::String findUrl(Rcpp::String prefix) {
     for (int i = 0; i < n_; ++i) {
       if (Rcpp::String(prefix_[i]) == prefix)
         return url_[i];
     }
 
-    Rcpp::stop("Could not find ns prefix %s", prefix.get_cstring());
+    Rcpp::stop("Couldn't find url for prefix %s", prefix.get_cstring());
     return "";
   }
 
 
   bool add(Rcpp::String prefix, Rcpp::String url) {
-    if (has_url(url))
+    if (hasUrl(url))
       return false;
 
     if (n_ >= capacity_) {
