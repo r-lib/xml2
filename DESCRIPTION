@@ -1,12 +1,17 @@
 Package: xml2
-Type: Package
-Title: Bindings to libxml2
 Version: 0.1
-Date: 2015-02-12
-Author: Hadley Wickham, Jeroen Ooms
-Maintainer: Hadley Wickham <hadley@rstudio.com>
+Title: Bindings to libxml2
 Description: Tools and utilities for working with XML data in R.
+Authors@R: c(
+    person("Hadley", "Wickham", , "hadley@rstudio.com", c("aut", "cre")),
+    person("Jeroen", "Ooms", role = "ctb"),
+    person("RStudio", role = "cph")
+    )
 License: MIT + file LICENSE
-Imports: Rcpp (>= 0.11.4.4)
-LinkingTo: Rcpp, BH
+Depends:
+    R (>= 3.1.0)
+Imports: Rcpp
+LinkingTo:
+    Rcpp (>= 0.11.4.6),
+    BH
 Suggests: testthat
