@@ -50,7 +50,8 @@ xml_attrs(xml_children(x))
 xml_attr(xml_children(x), "d")
 xml_attr_exists(xml_children(x), "d")
 
-# If the document has a namespace, use the ns argument
+# If the document has a namespace, use the ns argument and
+# qualified attribute names
 x <- xml('
  <root xmlns:b="http://bar.com" xmlns:f="http://foo.com">
    <doc b:id="b" f:id="f" id="" />
@@ -62,6 +63,7 @@ ns <- xml_ns(x)
 xml_attrs(doc)
 xml_attrs(doc, ns)
 
+# If you don't supply a ns spec, you get the first matching attribute
 xml_attr(doc, "id")
 xml_attr(doc, "b:id", ns)
 xml_attr(doc, "id", ns)
