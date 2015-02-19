@@ -64,9 +64,15 @@ read_html <- function(file, encoding = NULL, n = 16384, verbose = FALSE) {
 }
 
 
+
 read_xml_file <- function(path, encoding, html = FALSE) {
+  if (!is_url(path)) {
+    path <- normalizePath(path, mustWork = TRUE)
+  }
   xml_document(doc_parse_file(path, encoding, html = html))
 }
+
+is_url <- function(x) grepl("^(file|http|ftp|https):", x)
 
 read_xml_con <- function(con, n = 1000, verbose = TRUE){
   stopifnot(is(con, "connection"))
