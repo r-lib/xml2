@@ -10,7 +10,7 @@ class NsMap {
   int n_, capacity_;
 
 public:
-  NsMap(int capacity = 10): capacity_(capacity), n_(0) {
+  NsMap(int capacity = 10): n_(0), capacity_(capacity) {
     url_ = CharacterVector(capacity_);
     prefix_ = CharacterVector(capacity_);
   }
@@ -23,11 +23,12 @@ public:
     capacity_ = x.size();
   }
 
-  bool has_url(std::string url) {
-    SEXP rUrl = Rf_mkCharCE(url.c_str(), CE_UTF8);
-    for (int i = 0; i < n_; ++i)
-      if (url_[i] == rUrl)
+  bool has_url(String url) {
+    for (int i = 0; i < n_; ++i) {
+      String cur_url(url_[i]);
+      if (cur_url == url)
         return true;
+    }
 
     return false;
   }
@@ -45,6 +46,12 @@ public:
     n_++;
 
     return true;
+  }
+
+  bool add(const xmlChar* prefix, const xmlChar* url) {
+    // SEXP rUrl = Rf_mkCharCE(url.c_str(), CE_UTF8);
+
+    return add(asCHARSXP(prefix), asCHARSXP(url));
   }
 
   void resize(int n) {
@@ -68,6 +75,28 @@ CharacterVector unique_ns(CharacterVector ns) {
   NsMap nsMap(1);
   for (int i = 0; i < prefix.size(); ++i)
     nsMap.add(prefix[i], ns[i]);
+
+  return nsMap.out();
+}
+
+void cache_namespace(xmlNode* node, NsMap* nsMap) {
+  // Iterate over namespace definitions
+  for(xmlNs* cur = node->nsDef; cur != NULL; cur = cur->next) {
+    nsMap->add(cur->prefix, cur->href);
+  }
+
+  // Iterate over children, calling this function recursively
+  for(xmlNode* cur = node->children; cur != NULL; cur = cur->next) {
+    cache_namespace(cur, nsMap);
+  }
+}
+
+// [[Rcpp::export]]
+CharacterVector doc_namespaces(XPtrDoc doc) {
+  NsMap nsMap;
+
+  xmlNode* root = xmlDocGetRootElement(doc.get());
+  cache_namespace(root, &nsMap);
 
   return nsMap.out();
 }

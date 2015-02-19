@@ -45,6 +45,10 @@ unique_ns <- function(ns) {
     .Call('xml2_unique_ns', PACKAGE = 'xml2', ns)
 }
 
+doc_namespaces <- function(doc) {
+    .Call('xml2_doc_namespaces', PACKAGE = 'xml2', doc)
+}
+
 node_name <- function(node) {
     .Call('xml2_node_name', PACKAGE = 'xml2', node)
 }

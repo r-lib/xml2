@@ -137,6 +137,17 @@ BEGIN_RCPP
     return __result;
 END_RCPP
 }
+// doc_namespaces
+CharacterVector doc_namespaces(XPtrDoc doc);
+RcppExport SEXP xml2_doc_namespaces(SEXP docSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject __result;
+    Rcpp::RNGScope __rngScope;
+    Rcpp::traits::input_parameter< XPtrDoc >::type doc(docSEXP);
+    __result = Rcpp::wrap(doc_namespaces(doc));
+    return __result;
+END_RCPP
+}
 // node_name
 CharacterVector node_name(XPtrNode node);
 RcppExport SEXP xml2_node_name(SEXP nodeSEXP) {
