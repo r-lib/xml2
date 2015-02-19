@@ -19,10 +19,10 @@
 #' as.list(xml("<foo> <bar><baz /></bar> </foo>"))
 #' as.list(xml("<foo id = 'a'></foo>"))
 #' as.list(xml("<foo><bar id='a'/><bar id='b'/></foo>"))
-as.list.xml_nodeset <- function(x, ...) {
+as.list.xml_nodeset <- function(x, ns = character(), ...) {
   if (length(x$nodes) > 1) {
     # Deal with nodesets
-    return(lapply(seq_along(x), function(i) as.list(x[[i]])))
+    return(lapply(seq_along(x), function(i) as.list(x[[i]], ns = ns)))
   }
 
   contents <- xml_contents(x)
@@ -37,9 +37,9 @@ as.list.xml_nodeset <- function(x, ...) {
 
     out <- list()
   } else {
-    out <- lapply(seq_along(contents), function(i) as.list(contents[[i]]))
+    out <- lapply(seq_along(contents), function(i) as.list(contents[[i]], ns = ns))
 
-    nms <- ifelse(xml_type(contents) == "element", xml_name(contents), "")
+    nms <- ifelse(xml_type(contents) == "element", xml_name(contents, ns = ns), "")
     if (any(nms != "")) {
       names(out) <- nms
     }
@@ -47,7 +47,7 @@ as.list.xml_nodeset <- function(x, ...) {
 
   # Add attributes as .attr element - that's an invalid xml attribute name
   # so there shouldn't be a clash.
-  attr <- xml_attrs(x)[[1]]
+  attr <- xml_attrs(x, ns = ns)[[1]]
   if (length(attr) > 0)
     attributes(out) <- as.list(attr)
 
