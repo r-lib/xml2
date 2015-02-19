@@ -37,7 +37,7 @@ There are two key classes:
 
 ## Compared to the XML package
 
-The XML package has similar goals to xml2. The main differences are:
+xml2 has similar goals to the XML package. The main differences are:
 
 * xml2 takes care of memory management for you. It will automatically
   free the memory used by an XML document as soon as the last reference
