@@ -47,7 +47,5 @@ xml2 has similar goals to the XML package. The main differences are:
   the biggest difference is that xml2 provides no way to modify an existing
   xml document or create a new one.
 
-* xml2 uses S3, not S4. Every function is generic, with methods for 
-  documents, nodes and nodesets. This should mean you don't need to think
-  about exactly what type of object you have, xml2 will just do the write
-  thing.
+* xml2 has a very simple class hierarchy so don't need to think about exactly 
+  what type of object you have, xml2 will just do the right thing.
