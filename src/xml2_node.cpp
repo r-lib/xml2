@@ -21,6 +21,16 @@ std::string findPrefix(xmlNs* ns, CharacterVector nsMap) {
 
   return std::string(as<CharacterVector>(nsMap.attr("names"))[pos]);
 }
+std::string findUrl(std::string prefix, CharacterVector nsMap) {
+  CharacterVector prefixes = as<CharacterVector>(nsMap.attr("names"));
+
+  for (int i = 0; i < nsMap.length(); ++i) {
+    if (prefix == std::string(prefixes[i]))
+      return std::string(nsMap[i]);
+  }
+  stop("Couldn't find prefix for prefix %s", prefix);
+  return "";
+}
 
 template<typename T> // for xmlAttr and xmlNode
 std::string nodeName(T* node, CharacterVector nsMap) {
@@ -46,8 +56,25 @@ CharacterVector node_text(XPtrNode node) {
 }
 
 // [[Rcpp::export]]
-CharacterVector node_attr(XPtrNode node, std::string name) {
-  return Xml2Char(xmlGetProp(node.get(), (xmlChar*) name.c_str())).string();
+CharacterVector node_attr(XPtrNode node, std::string name, CharacterVector nsMap) {
+  if (nsMap.size() == 0)
+    return Xml2Char(xmlGetProp(node.get(), (xmlChar*) name.c_str())).string();
+
+  size_t colon = name.find(":");
+  if (colon == std::string::npos) {
+    // Has namespace spec, but attribute not qualified, so look for attribute
+    // without namespace
+    return Xml2Char(xmlGetNoNsProp(node.get(), (xmlChar*) name.c_str())).string();
+  } else {
+    // Split name into prefix & attr, then look up full url
+    std::string
+      prefix = name.substr(0, colon),
+      attr = name.substr(colon + 1, name.size() - 1);
+
+    std::string url = findUrl(prefix, nsMap);
+
+    return Xml2Char(xmlGetNsProp(node.get(), (xmlChar*) attr.c_str(), (xmlChar*) url.c_str())).string();
+  }
 }
 
 // [[Rcpp::export]]
@@ -67,7 +94,17 @@ CharacterVector node_attrs(XPtrNode node, CharacterVector nsMap) {
   int i = 0;
   for(xmlAttr* cur = node->properties; cur != NULL; cur = cur->next) {
     names[i] = nodeName(cur, nsMap);
-    values[i] = asCHARSXP(xmlGetProp(node.get(), cur->name));
+
+    xmlNs* ns = cur->ns;
+    if (ns == NULL) {
+      if (nsMap.size() > 0) {
+        values[i] = asCHARSXP(xmlGetNoNsProp(node.get(), cur->name));
+      } else {
+        values[i] = asCHARSXP(xmlGetProp(node.get(), cur->name));
+      }
+    } else {
+      values[i] = asCHARSXP(xmlGetNsProp(node.get(), cur->name, ns->href));
+    }
 
     ++i;
   }

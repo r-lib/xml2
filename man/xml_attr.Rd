@@ -6,9 +6,9 @@
 \alias{xml_attrs}
 \title{Retrieve an attribute.}
 \usage{
-xml_attr(x, attr)
+xml_attr(x, attr, ns = character())
 
-xml_attr_exists(x, attr)
+xml_attr_exists(x, attr, ns = character())
 
 xml_attrs(x, ns = character())
 }
@@ -49,5 +49,21 @@ xml_attrs(xml_children(x))
 # Missing attributes give missing values
 xml_attr(xml_children(x), "d")
 xml_attr_exists(xml_children(x), "d")
+
+# If the document has a namespace, use the ns argument
+x <- xml('
+ <root xmlns:b="http://bar.com" xmlns:f="http://foo.com">
+   <doc b:id="b" f:id="f" id="" />
+ </root>
+')
+doc <- xml_children(x)[[1]]
+ns <- xml_ns(x)
+
+xml_attrs(doc)
+xml_attrs(doc, ns)
+
+xml_attr(doc, "id")
+xml_attr(doc, "b:id", ns)
+xml_attr(doc, "id", ns)
 }
 

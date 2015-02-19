@@ -25,24 +25,43 @@
 #' # Missing attributes give missing values
 #' xml_attr(xml_children(x), "d")
 #' xml_attr_exists(xml_children(x), "d")
-xml_attr <- function(x, attr) {
+#'
+#' # If the document has a namespace, use the ns argument and
+#' # qualified attribute names
+#' x <- xml('
+#'  <root xmlns:b="http://bar.com" xmlns:f="http://foo.com">
+#'    <doc b:id="b" f:id="f" id="" />
+#'  </root>
+#' ')
+#' doc <- xml_children(x)[[1]]
+#' ns <- xml_ns(x)
+#'
+#' xml_attrs(doc)
+#' xml_attrs(doc, ns)
+#'
+#' # If you don't supply a ns spec, you get the first matching attribute
+#' xml_attr(doc, "id")
+#' xml_attr(doc, "b:id", ns)
+#' xml_attr(doc, "id", ns)
+xml_attr <- function(x, attr, ns = character()) {
   UseMethod("xml_attr")
 }
 
 #' @export
-xml_attr.xml_nodeset <- function(x, attr) {
-  vapply(x$nodes, node_attr, name = attr, FUN.VALUE = character(1))
+xml_attr.xml_nodeset <- function(x, attr, ns = character()) {
+  vapply(x$nodes, node_attr, name = attr, ns = ns,
+    FUN.VALUE = character(1))
 }
 
 
 #' @export
 #' @rdname xml_attr
-xml_attr_exists <- function(x, attr) {
+xml_attr_exists <- function(x, attr, ns = character()) {
   UseMethod("xml_attr_exists")
 }
 
 #' @export
-xml_attr_exists.xml_nodeset <- function(x, attr, ...) {
+xml_attr_exists.xml_nodeset <- function(x, attr, ns = character(), ...) {
   vapply(x$nodes, node_attr_exists, name = attr, FUN.VALUE = logical(1))
 }
 

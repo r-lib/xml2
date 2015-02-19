@@ -172,14 +172,15 @@ BEGIN_RCPP
 END_RCPP
 }
 // node_attr
-CharacterVector node_attr(XPtrNode node, std::string name);
-RcppExport SEXP xml2_node_attr(SEXP nodeSEXP, SEXP nameSEXP) {
+CharacterVector node_attr(XPtrNode node, std::string name, CharacterVector nsMap);
+RcppExport SEXP xml2_node_attr(SEXP nodeSEXP, SEXP nameSEXP, SEXP nsMapSEXP) {
 BEGIN_RCPP
     Rcpp::RObject __result;
     Rcpp::RNGScope __rngScope;
     Rcpp::traits::input_parameter< XPtrNode >::type node(nodeSEXP);
     Rcpp::traits::input_parameter< std::string >::type name(nameSEXP);
-    __result = Rcpp::wrap(node_attr(node, name));
+    Rcpp::traits::input_parameter< CharacterVector >::type nsMap(nsMapSEXP);
+    __result = Rcpp::wrap(node_attr(node, name, nsMap));
     return __result;
 END_RCPP
 }
