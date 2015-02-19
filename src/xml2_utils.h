@@ -5,6 +5,10 @@
 #include <libxml/tree.h>
 #include <boost/shared_ptr.hpp>
 
+inline xmlChar* asXmlChar(std::string x) {
+  return (xmlChar*) x.c_str();
+}
+
 // ----------------------------------------------------------------------------
 // A wrapper around xmlChar* that frees memory if necessary
 class Xml2Char {

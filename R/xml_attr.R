@@ -3,12 +3,12 @@
 #' Use \code{xml_attrs} to retrieve all attributes values as a character vector.
 #' Use \code{xml_attr} to retrieve the value of single attribute. If the
 #' attribute doesn't exist, it will be returned as an \code{NA}.
-#' Use \code{xml_attr_exists} to test if an attribute is present.
+#' Use \code{xml_has_attr} to test if an attribute is present.
 #'
 #' @inheritParams xml_name
 #' @param attr Name of attribute to extract.
 #' @return For \code{xml_attr}, a character vector. If an attribute is not
-#'  presented, its value will be missing. For \code{xml_attr_exists},
+#'  presented, its value will be missing. For \code{xml_has_attr},
 #'  a logical vector. For \code{xml_attr} a list of named character vectors.
 #'  If any attrbutes have an associated namespace, the vector will have
 #'  a \code{ns} attribute.
@@ -19,12 +19,12 @@
 #' xml_attrs(x)
 #'
 #' xml_attr(xml_children(x), "id")
-#' xml_attr_exists(xml_children(x), "id")
+#' xml_has_attr(xml_children(x), "id")
 #' xml_attrs(xml_children(x))
 #'
 #' # Missing attributes give missing values
 #' xml_attr(xml_children(x), "d")
-#' xml_attr_exists(xml_children(x), "d")
+#' xml_has_attr(xml_children(x), "d")
 #'
 #' # If the document has a namespace, use the ns argument and
 #' # qualified attribute names
@@ -56,13 +56,8 @@ xml_attr.xml_nodeset <- function(x, attr, ns = character()) {
 
 #' @export
 #' @rdname xml_attr
-xml_attr_exists <- function(x, attr, ns = character()) {
-  UseMethod("xml_attr_exists")
-}
-
-#' @export
-xml_attr_exists.xml_nodeset <- function(x, attr, ns = character(), ...) {
-  vapply(x$nodes, node_attr_exists, name = attr, FUN.VALUE = logical(1))
+xml_has_attr <- function(x, attr, ns = character()) {
+  !is.na(xml_attr(x, attr, ns = ns))
 }
 
 #' @export

@@ -33,13 +33,13 @@ std::string node_text(XPtrNode node) {
 // [[Rcpp::export]]
 std::string node_attr(XPtrNode node, std::string name, CharacterVector nsMap) {
   if (nsMap.size() == 0)
-    return Xml2Char(xmlGetProp(node.get(), (xmlChar*) name.c_str()));
+    return Xml2Char(xmlGetProp(node.get(), asXmlChar(name)));
 
   size_t colon = name.find(":");
   if (colon == std::string::npos) {
     // Has namespace spec, but attribute not qualified, so look for attribute
     // without namespace
-    return Xml2Char(xmlGetNoNsProp(node.get(), (xmlChar*) name.c_str()));
+    return Xml2Char(xmlGetNoNsProp(node.get(), asXmlChar(name)));
   } else {
     // Split name into prefix & attr, then look up full url
     std::string
@@ -48,13 +48,8 @@ std::string node_attr(XPtrNode node, std::string name, CharacterVector nsMap) {
 
     std::string url = NsMap(nsMap).findUrl(prefix);
 
-    return Xml2Char(xmlGetNsProp(node.get(), (xmlChar*) attr.c_str(), (xmlChar*) url.c_str()));
+    return Xml2Char(xmlGetNsProp(node.get(), asXmlChar(attr), asXmlChar(url)));
   }
-}
-
-// [[Rcpp::export]]
-bool node_attr_exists(XPtrNode node, std::string name) {
-  return xmlHasProp(node.get(), (xmlChar*) name.c_str()) != NULL;
 }
 
 // [[Rcpp::export]]

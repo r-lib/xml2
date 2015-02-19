@@ -2,13 +2,13 @@
 % Please edit documentation in R/xml_attr.R
 \name{xml_attr}
 \alias{xml_attr}
-\alias{xml_attr_exists}
 \alias{xml_attrs}
+\alias{xml_has_attr}
 \title{Retrieve an attribute.}
 \usage{
 xml_attr(x, attr, ns = character())
 
-xml_attr_exists(x, attr, ns = character())
+xml_has_attr(x, attr, ns = character())
 
 xml_attrs(x, ns = character())
 }
@@ -26,7 +26,7 @@ name.}
 }
 \value{
 For \code{xml_attr}, a character vector. If an attribute is not
- presented, its value will be missing. For \code{xml_attr_exists},
+ presented, its value will be missing. For \code{xml_has_attr},
  a logical vector. For \code{xml_attr} a list of named character vectors.
  If any attrbutes have an associated namespace, the vector will have
  a \code{ns} attribute.
@@ -35,7 +35,7 @@ For \code{xml_attr}, a character vector. If an attribute is not
 Use \code{xml_attrs} to retrieve all attributes values as a character vector.
 Use \code{xml_attr} to retrieve the value of single attribute. If the
 attribute doesn't exist, it will be returned as an \code{NA}.
-Use \code{xml_attr_exists} to test if an attribute is present.
+Use \code{xml_has_attr} to test if an attribute is present.
 }
 \examples{
 x <- xml("<root id='1'><child id ='a' /><child id='b' d='b'/></root>")
@@ -43,12 +43,12 @@ xml_attr(x, "id")
 xml_attrs(x)
 
 xml_attr(xml_children(x), "id")
-xml_attr_exists(xml_children(x), "id")
+xml_has_attr(xml_children(x), "id")
 xml_attrs(xml_children(x))
 
 # Missing attributes give missing values
 xml_attr(xml_children(x), "d")
-xml_attr_exists(xml_children(x), "d")
+xml_has_attr(xml_children(x), "d")
 
 # If the document has a namespace, use the ns argument and
 # qualified attribute names

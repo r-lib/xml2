@@ -61,10 +61,6 @@ node_attr <- function(node, name, nsMap) {
     .Call('xml2_node_attr', PACKAGE = 'xml2', node, name, nsMap)
 }
 
-node_attr_exists <- function(node, name) {
-    .Call('xml2_node_attr_exists', PACKAGE = 'xml2', node, name)
-}
-
 node_attrs <- function(node, nsMap) {
     .Call('xml2_node_attrs', PACKAGE = 'xml2', node, nsMap)
 }
