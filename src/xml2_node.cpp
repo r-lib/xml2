@@ -22,8 +22,8 @@ std::string findPrefix(xmlNs* ns, CharacterVector nsMap) {
   return std::string(as<CharacterVector>(nsMap.attr("names"))[pos]);
 }
 
-// [[Rcpp::export]]
-std::string node_name(XPtrNode node, CharacterVector nsMap) {
+template<typename T> // for xmlAttr and xmlNode
+std::string nodeName(T* node, CharacterVector nsMap) {
   std::string name = std::string((char *) node->name);
   if (nsMap.size() == 0)
     return name;
@@ -33,6 +33,11 @@ std::string node_name(XPtrNode node, CharacterVector nsMap) {
     return name;
 
   return findPrefix(ns, nsMap) + ":" + name;
+}
+
+// [[Rcpp::export]]
+std::string node_name(XPtrNode node, CharacterVector nsMap) {
+  return nodeName(node.get(), nsMap);
 }
 
 // [[Rcpp::export]]
@@ -51,31 +56,23 @@ bool node_attr_exists(XPtrNode node, std::string name) {
 }
 
 // [[Rcpp::export]]
-CharacterVector node_attrs(XPtrNode node) {
+CharacterVector node_attrs(XPtrNode node, CharacterVector nsMap) {
 
   int n = 0;
   for(xmlAttr* cur = node->properties; cur != NULL; cur = cur->next)
     n++;
 
-  CharacterVector names(n), values(n), namespaces(n);
+  CharacterVector names(n), values(n);
 
-  bool hasNs = false;
   int i = 0;
   for(xmlAttr* cur = node->properties; cur != NULL; cur = cur->next) {
-    names[i] = asCHARSXP(cur->name);
+    names[i] = nodeName(cur, nsMap);
     values[i] = asCHARSXP(xmlGetProp(node.get(), cur->name));
 
-    xmlNs* ns = cur->ns;
-    if (ns != NULL)
-      hasNs = true;
-    namespaces[i] = asCHARSXP(ns == NULL ? NULL : ns->href);
     ++i;
   }
 
   values.attr("names") = wrap<CharacterVector>(names);
-  if (hasNs)
-    values.attr("ns") = wrap<CharacterVector>(namespaces);
-
   return values;
 }
 

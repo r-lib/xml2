@@ -48,6 +48,6 @@ xml_attr_exists.xml_nodeset <- function(x, attr, ...) {
 
 #' @export
 #' @rdname xml_attr
-xml_attrs <- function(x) {
-  lapply(x$nodes, node_attrs)
+xml_attrs <- function(x, ns = character()) {
+  lapply(x$nodes, node_attrs, ns = ns)
 }

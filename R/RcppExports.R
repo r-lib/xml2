@@ -65,8 +65,8 @@ node_attr_exists <- function(node, name) {
     .Call('xml2_node_attr_exists', PACKAGE = 'xml2', node, name)
 }
 
-node_attrs <- function(node) {
-    .Call('xml2_node_attrs', PACKAGE = 'xml2', node)
+node_attrs <- function(node, nsMap) {
+    .Call('xml2_node_attrs', PACKAGE = 'xml2', node, nsMap)
 }
 
 node_format <- function(doc, node, format = TRUE, indent = 0L) {

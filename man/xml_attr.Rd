@@ -10,7 +10,7 @@ xml_attr(x, attr, ...)
 
 xml_attr_exists(x, attr, ...)
 
-xml_attrs(x)
+xml_attrs(x, ns = character())
 }
 \arguments{
 \item{x}{A document, node, or node set.}
@@ -18,6 +18,13 @@ xml_attrs(x)
 \item{attr}{Name of attribute to extract.}
 
 \item{...}{Additional arguments passed down to methods. (Not currently used).}
+
+\item{ns}{Optionally, a named vector giving prefix-url pairs, as produced
+by \code{\link{xml_ns}}. If provided, all names will be explicitly
+qualified with the ns prefix, i.e. if the element \code{bar} is defined
+in namespace \code{foo}, it will be called \code{foo:bar}. (And
+similarly for atttributes). Default namespaces must be given an explicit
+name.}
 }
 \value{
 For \code{xml_attr}, a character vector. If an attribute is not

@@ -1,0 +1,4 @@
+<root xmlns:f="http://foo.com" xmlns:g = "http://bar.com">
+  <doc1><f:bar f:id="a" /></doc1>
+  <doc2><g:bar g:id="b" /></doc2>
+</root>
