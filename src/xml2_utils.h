@@ -12,6 +12,13 @@ inline SEXP asCHARSXP(const xmlChar* x) {
   return Rf_mkCharCE((char*) x, CE_UTF8);
 }
 
+inline std::string asStdString(const xmlChar* x) {
+  if (x == NULL)
+    return "";
+
+  return std::string((char*) x );
+}
+
 inline Rcpp::CharacterVector xmlCharToRChar(const xmlChar* x) {
   return Rcpp::CharacterVector::create(asCHARSXP(x));
 }

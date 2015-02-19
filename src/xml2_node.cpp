@@ -5,9 +5,34 @@
 using namespace Rcpp;
 #include "xml2_types.h"
 
+std::string findPrefix(xmlNs* ns, CharacterVector nsMap) {
+  String url = asCHARSXP(ns->href);
+
+  int pos = -1;
+  for (int i = 0; i < nsMap.length(); ++i) {
+    String urli = nsMap[i];
+    if (urli == url) {
+      pos = i;
+      continue;
+    }
+  }
+  if (pos == -1)
+    stop("Couldn't find prefix for url %s", (char *) ns->href);
+
+  return std::string(as<CharacterVector>(nsMap.attr("names"))[pos]);
+}
+
 // [[Rcpp::export]]
-CharacterVector node_name(XPtrNode node) {
-  return xmlCharToRChar(node->name);
+std::string node_name(XPtrNode node, CharacterVector nsMap) {
+  std::string name = std::string((char *) node->name);
+  if (nsMap.size() == 0)
+    return name;
+
+  xmlNs* ns = node->ns;
+  if (ns == NULL)
+    return name;
+
+  return findPrefix(ns, nsMap) + ":" + name;
 }
 
 // [[Rcpp::export]]

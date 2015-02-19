@@ -49,8 +49,8 @@ doc_namespaces <- function(doc) {
     .Call('xml2_doc_namespaces', PACKAGE = 'xml2', doc)
 }
 
-node_name <- function(node) {
-    .Call('xml2_node_name', PACKAGE = 'xml2', node)
+node_name <- function(node, nsMap) {
+    .Call('xml2_node_name', PACKAGE = 'xml2', node, nsMap)
 }
 
 node_text <- function(node) {

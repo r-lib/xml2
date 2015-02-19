@@ -149,13 +149,14 @@ BEGIN_RCPP
 END_RCPP
 }
 // node_name
-CharacterVector node_name(XPtrNode node);
-RcppExport SEXP xml2_node_name(SEXP nodeSEXP) {
+std::string node_name(XPtrNode node, CharacterVector nsMap);
+RcppExport SEXP xml2_node_name(SEXP nodeSEXP, SEXP nsMapSEXP) {
 BEGIN_RCPP
     Rcpp::RObject __result;
     Rcpp::RNGScope __rngScope;
     Rcpp::traits::input_parameter< XPtrNode >::type node(nodeSEXP);
-    __result = Rcpp::wrap(node_name(node));
+    Rcpp::traits::input_parameter< CharacterVector >::type nsMap(nsMapSEXP);
+    __result = Rcpp::wrap(node_name(node, nsMap));
     return __result;
 END_RCPP
 }
