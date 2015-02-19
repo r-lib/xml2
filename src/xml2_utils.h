@@ -11,20 +11,20 @@ inline xmlChar* asXmlChar(std::string x) {
 
 // ----------------------------------------------------------------------------
 // A wrapper around xmlChar* that frees memory if necessary
-class Xml2Char {
+class Xml2String {
   xmlChar* string_;
   bool free_;
 
 public:
-  Xml2Char(xmlChar* string): string_(string), free_(true) {}
+  Xml2String(xmlChar* string): string_(string), free_(true) {}
 
   // Pointers into structs are const, so don't need to be freed
-  Xml2Char(const xmlChar* string): string_((xmlChar*) string), free_(false) {}
+  Xml2String(const xmlChar* string): string_((xmlChar*) string), free_(false) {}
 
   // Some strings are regular strings
-  Xml2Char(const char* string): string_((xmlChar*) string), free_(false) {}
+  Xml2String(const char* string): string_((xmlChar*) string), free_(false) {}
 
-  ~Xml2Char() {
+  ~Xml2String() {
     try {
       if (free_ && string_ != NULL)
         xmlFree(string_);

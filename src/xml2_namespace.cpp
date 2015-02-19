@@ -19,7 +19,7 @@ CharacterVector unique_ns(CharacterVector ns) {
 void cache_namespace(xmlNode* node, NsMap* nsMap) {
   // Iterate over namespace definitions
   for(xmlNs* cur = node->nsDef; cur != NULL; cur = cur->next) {
-    nsMap->add(Xml2Char(cur->prefix), Xml2Char(cur->href));
+    nsMap->add(Xml2String(cur->prefix), Xml2String(cur->href));
   }
 
   // Iterate over children, calling this function recursively
