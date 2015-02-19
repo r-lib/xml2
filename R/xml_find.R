@@ -27,11 +27,11 @@
 #' ')
 #' xml_find(x, ".//f:doc")
 #' xml_find(x, ".//f:doc", xml_ns(x))
-xml_find <- function(x, xpath, ns = character(), ...) {
+xml_find <- function(x, xpath, ns = character()) {
   UseMethod("xml_find")
 }
 
 #' @export
-xml_find.xml_nodeset <- function(x, xpath, ns = character(), ...) {
+xml_find.xml_nodeset <- function(x, xpath, ns = character()) {
   nodeset_apply(x, node_find, doc = x$doc, xpath = xpath, ns = ns)
 }

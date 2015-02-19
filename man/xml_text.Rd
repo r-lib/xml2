@@ -4,12 +4,10 @@
 \alias{xml_text}
 \title{Extract the text}
 \usage{
-xml_text(x, ...)
+xml_text(x)
 }
 \arguments{
 \item{x}{A document, node, or node set.}
-
-\item{...}{Additional arguments passed down to methods. (Not currently used).}
 }
 \value{
 A character vector, the same length as x.

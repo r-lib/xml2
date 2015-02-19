@@ -25,19 +25,19 @@
 #' # Missing attributes give missing values
 #' xml_attr(xml_children(x), "d")
 #' xml_attr_exists(xml_children(x), "d")
-xml_attr <- function(x, attr, ...) {
+xml_attr <- function(x, attr) {
   UseMethod("xml_attr")
 }
 
 #' @export
-xml_attr.xml_nodeset <- function(x, attr, ...) {
+xml_attr.xml_nodeset <- function(x, attr) {
   vapply(x$nodes, node_attr, name = attr, FUN.VALUE = character(1))
 }
 
 
 #' @export
 #' @rdname xml_attr
-xml_attr_exists <- function(x, attr, ...) {
+xml_attr_exists <- function(x, attr) {
   UseMethod("xml_attr_exists")
 }
 

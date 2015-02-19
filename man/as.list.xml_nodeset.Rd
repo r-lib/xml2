@@ -16,7 +16,7 @@ in namespace \code{foo}, it will be called \code{foo:bar}. (And
 similarly for atttributes). Default namespaces must be given an explicit
 name.}
 
-\item{...}{Additional arguments passed down to methods. (Not currently used).}
+\item{...}{Needed for compatability with generic. Unused.}
 }
 \description{
 This turns an XML document (or node or nodeset) into the equivalent R

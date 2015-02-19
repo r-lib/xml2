@@ -3,9 +3,8 @@
 #' This writes out both XML and normalised HTML.
 #'
 #' @param x A document or node to write to disk. It's not possible to
-#'   save nodesets containing more than one nodes.
+#'   save nodesets containing more than one node.
 #' @param file Path to file to write.
-#' @param ... Other arguments used by methods.
 #' @export
 #' @examples
 #' h <- html("<p>Hi!</p>")
@@ -13,12 +12,12 @@
 #' tmp <- tempfile(fileext = ".xml")
 #' write_xml(h, tmp)
 #' read_xml(tmp)
-write_xml <- function(x, file, ...) {
+write_xml <- function(x, file) {
   UseMethod("write_xml")
 }
 
 #' @export
-write_xml.xml_document <- function(x, file, ...) {
+write_xml.xml_document <- function(x, file) {
   doc_write(x$doc, file)
 }
 

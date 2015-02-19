@@ -6,9 +6,9 @@
 \alias{xml_attrs}
 \title{Retrieve an attribute.}
 \usage{
-xml_attr(x, attr, ...)
+xml_attr(x, attr)
 
-xml_attr_exists(x, attr, ...)
+xml_attr_exists(x, attr)
 
 xml_attrs(x, ns = character())
 }
@@ -16,8 +16,6 @@ xml_attrs(x, ns = character())
 \item{x}{A document, node, or node set.}
 
 \item{attr}{Name of attribute to extract.}
-
-\item{...}{Additional arguments passed down to methods. (Not currently used).}
 
 \item{ns}{Optionally, a named vector giving prefix-url pairs, as produced
 by \code{\link{xml_ns}}. If provided, all names will be explicitly

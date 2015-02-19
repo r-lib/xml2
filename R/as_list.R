@@ -13,6 +13,7 @@
 #' }
 #'
 #' @inheritParams xml_name
+#' @param ... Needed for compatability with generic. Unused.
 #' @export
 #' @examples
 #' as.list(xml("<foo> a <b /><c><![CDATA[<d></d>]]></c></foo>"))

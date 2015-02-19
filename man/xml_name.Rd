@@ -4,7 +4,7 @@
 \alias{xml_name}
 \title{The (tag) name of an xml element.}
 \usage{
-xml_name(x, ns = character(), ...)
+xml_name(x, ns = character())
 }
 \arguments{
 \item{x}{A document, node, or node set.}
@@ -15,8 +15,6 @@ qualified with the ns prefix, i.e. if the element \code{bar} is defined
 in namespace \code{foo}, it will be called \code{foo:bar}. (And
 similarly for atttributes). Default namespaces must be given an explicit
 name.}
-
-\item{...}{Additional arguments passed down to methods. (Not currently used).}
 }
 \value{
 A character vector.

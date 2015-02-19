@@ -4,15 +4,13 @@
 \alias{write_xml}
 \title{Write XML to disk.}
 \usage{
-write_xml(x, file, ...)
+write_xml(x, file)
 }
 \arguments{
 \item{x}{A document or node to write to disk. It's not possible to
-save nodesets containing more than one nodes.}
+save nodesets containing more than one node.}
 
 \item{file}{Path to file to write.}
-
-\item{...}{Other arguments used by methods.}
 }
 \description{
 This writes out both XML and normalised HTML.

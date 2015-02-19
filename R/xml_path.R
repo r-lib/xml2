@@ -9,11 +9,11 @@
 #' @examples
 #' x <- xml("<foo><bar><baz /></bar><baz /></foo>")
 #' xml_path(xml_find(x, ".//baz"))
-xml_path <- function(x, ...) {
+xml_path <- function(x) {
   UseMethod("xml_path")
 }
 
 #' @export
-xml_path.xml_nodeset <- function(x, ...) {
-  vapply(x$nodes, node_path, ..., FUN.VALUE = character(1))
+xml_path.xml_nodeset <- function(x) {
+  vapply(x$nodes, node_path, FUN.VALUE = character(1))
 }
