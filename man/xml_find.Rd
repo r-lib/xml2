@@ -2,14 +2,14 @@
 % Please edit documentation in R/xml_find.R
 \name{xml_find}
 \alias{xml_find}
-\title{Search for matching xpath expressions.}
+\title{Find nodes that match an xpath expression.}
 \usage{
 xml_find(x, xpath, ns = character(), ...)
 }
 \arguments{
 \item{x}{A document, node, or node set.}
 
-\item{xpath}{A string containing a xpath expression.}
+\item{xpath}{A string containing a xpath (1.0) expression.}
 
 \item{ns}{Optionally, a named vector giving prefix-url pairs, as produced
 by \code{\link{xml_ns}}. If provided, all names will be explicitly
@@ -21,7 +21,8 @@ name.}
 \item{...}{Additional arguments passed down to methods. (Not currently used).}
 }
 \description{
-Search for matching xpath expressions.
+Xpath is like regular expressions for trees - it's worth learning if
+you're trying to extract nodes from arbitrary locations in a document.
 }
 \examples{
 x <- xml("<foo><bar><baz/></bar><baz/></foo>")
@@ -34,5 +35,15 @@ xml_path(xml_find(x, ".//baz"))
 (bar <- xml_find(x, ".//bar"))
 xml_find(bar, ".//baz")
 xml_find(bar, "//baz")
+
+# If the document uses namespaces, you'll need use xml_ns:
+x <- xml('
+ <root xmlns:f = "http://foo.com" xmlns:g = "http://bar.com">
+   <f:doc><g:baz /></f:doc>
+   <f:doc><g:baz /></f:doc>
+ </root>
+')
+xml_find(x, ".//f:doc")
+xml_find(x, ".//f:doc", xml_ns(x))
 }
 
