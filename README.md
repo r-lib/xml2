@@ -25,8 +25,9 @@ xml_text(x)
 xml_find(x, ".//baz")
 
 h <- html("<html><p>Hi <b>!")
-xml_root(h)
+h
 xml_name(h)
+xml_text(h)
 ```
 
 There are two key classes:
