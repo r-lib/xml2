@@ -15,7 +15,7 @@ devtools::install_github("hadley/xml2")
 ## Usage
 
 ```R
-library("xml2"")
+library("xml2")
 x <- xml("<foo> <bar> text <baz/> </bar> </foo>")
 x
 
