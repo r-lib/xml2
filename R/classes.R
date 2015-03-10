@@ -98,7 +98,7 @@ nodeset_apply <- function(x, fun, ...) {
 # Pretend to be a vector -------------------------------------------------------
 
 #' @export
-names.xml_nodset <- function(x) NULL
+names.xml_nodeset <- function(x) NULL
 
 #' @export
 length.xml_nodeset <- function(x) length(x$nodes)
