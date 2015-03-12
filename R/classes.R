@@ -21,6 +21,11 @@ print.xml_document <- function(x, width = getOption("width"), max_n = 20, ...) {
   show_nodes(xml_children(x), width = width, max_n = max_n)
 }
 
+#' @export
+as.character.xml_document <- function(x, ...) {
+  doc_format(x$doc)
+}
+
 # node -------------------------------------------------------------------------
 
 xml_nodeset <- function(nodes, doc) {
@@ -40,6 +45,11 @@ print.xml_nodeset <- function(x, width = getOption("width"), max_n = 20, ...) {
 
   if (n > 0)
     show_nodes(x, width = width, max_n = max_n)
+}
+
+#' @export
+as.character.xml_nodeset <- function(x, ...) {
+  vapply(x$nodes, node_format, doc = x$doc, FUN.VALUE = character(1))
 }
 
 show_nodes <- function(x, width = getOption("width"), max_n = 20) {
