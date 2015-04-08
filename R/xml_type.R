@@ -11,8 +11,13 @@ xml_type <- function(x) {
 }
 
 #' @export
+xml_type.xml_node <- function(x) {
+  xmlElementType[node_type(x$node)]
+}
+
+#' @export
 xml_type.xml_nodeset <- function(x) {
-  types <- vapply(x$nodes, node_type, integer(1))
+  types <- vapply(x, function(x) node_type(x$node), integer(1))
   xmlElementType[types]
 }
 
