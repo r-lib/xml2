@@ -314,6 +314,41 @@ BEGIN_RCPP
     return __result;
 END_RCPP
 }
+// url_absolute
+CharacterVector url_absolute(CharacterVector x, CharacterVector base);
+RcppExport SEXP xml2_url_absolute(SEXP xSEXP, SEXP baseSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject __result;
+    Rcpp::RNGScope __rngScope;
+    Rcpp::traits::input_parameter< CharacterVector >::type x(xSEXP);
+    Rcpp::traits::input_parameter< CharacterVector >::type base(baseSEXP);
+    __result = Rcpp::wrap(url_absolute(x, base));
+    return __result;
+END_RCPP
+}
+// url_relative
+CharacterVector url_relative(CharacterVector x, CharacterVector base);
+RcppExport SEXP xml2_url_relative(SEXP xSEXP, SEXP baseSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject __result;
+    Rcpp::RNGScope __rngScope;
+    Rcpp::traits::input_parameter< CharacterVector >::type x(xSEXP);
+    Rcpp::traits::input_parameter< CharacterVector >::type base(baseSEXP);
+    __result = Rcpp::wrap(url_relative(x, base));
+    return __result;
+END_RCPP
+}
+// url_parse
+List url_parse(CharacterVector x);
+RcppExport SEXP xml2_url_parse(SEXP xSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject __result;
+    Rcpp::RNGScope __rngScope;
+    Rcpp::traits::input_parameter< CharacterVector >::type x(xSEXP);
+    __result = Rcpp::wrap(url_parse(x));
+    return __result;
+END_RCPP
+}
 // node_find
 Rcpp::List node_find(XPtrNode node, XPtrDoc doc, std::string xpath, CharacterVector nsMap);
 RcppExport SEXP xml2_node_find(SEXP nodeSEXP, SEXP docSEXP, SEXP xpathSEXP, SEXP nsMapSEXP) {

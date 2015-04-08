@@ -105,6 +105,44 @@ node_type <- function(node) {
     .Call('xml2_node_type', PACKAGE = 'xml2', node)
 }
 
+#' Convert between relative and absolute urls.
+#'
+#' @param x A character vector of urls relative to that base
+#' @param base A string giving a base url.
+#' @return A character vector of urls
+#' @export
+#' @examples
+#' url_absolute(c(".", "..", "/", "/x"), "http://hadley.nz/a/b/c/d")
+#'
+#' url_relative("http://hadley.nz/a/c", "http://hadley.nz")
+#' url_relative("http://hadley.nz/a/c", "http://hadley.nz/")
+#' url_relative("http://hadley.nz/a/c", "http://hadley.nz/a/b")
+#' url_relative("http://hadley.nz/a/c", "http://hadley.nz/a/b/")
+url_absolute <- function(x, base) {
+    .Call('xml2_url_absolute', PACKAGE = 'xml2', x, base)
+}
+
+#' @export
+#' @rdname url_absolute
+url_relative <- function(x, base) {
+    .Call('xml2_url_relative', PACKAGE = 'xml2', x, base)
+}
+
+#' Parse a url into its component pieces.
+#'
+#' @param x A character vector of urls.
+#' @return A dataframe with one row for each element of \code{x} and
+#'   columns: scheme, server, port, user, path, query, fragment.
+#' @export
+#' @examples
+#' url_parse("http://had.co.nz/")
+#' url_parse("http://had.co.nz:1234/")
+#' url_parse("http://had.co.nz:1234/?a=1&b=2")
+#' url_parse("http://had.co.nz:1234/?a=1&b=2#def")
+url_parse <- function(x) {
+    .Call('xml2_url_parse', PACKAGE = 'xml2', x)
+}
+
 node_find <- function(node, doc, xpath, nsMap) {
     .Call('xml2_node_find', PACKAGE = 'xml2', node, doc, xpath, nsMap)
 }
