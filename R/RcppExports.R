@@ -29,6 +29,10 @@ doc_parse_string <- function(x, encoding, base_url = "", options = 0L, html = FA
     .Call('xml2_doc_parse_string', PACKAGE = 'xml2', x, encoding, base_url, options, html)
 }
 
+doc_parse_raw <- function(x, encoding, base_url = "", options = 0L, html = FALSE) {
+    .Call('xml2_doc_parse_raw', PACKAGE = 'xml2', x, encoding, base_url, options, html)
+}
+
 doc_format <- function(x) {
     .Call('xml2_doc_format', PACKAGE = 'xml2', x)
 }

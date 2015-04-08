@@ -58,6 +58,36 @@ XPtrDoc doc_parse_string(CharacterVector x, std::string encoding,
     );
   }
 
+  if (pDoc == NULL)
+    Rcpp::stop("Failed to parse text");
+
+  return XPtrDoc(pDoc);
+}
+
+// [[Rcpp::export]]
+XPtrDoc doc_parse_raw(RawVector x, std::string encoding,
+                      std::string base_url = "",
+                      int options = 0,
+                      bool html = false) {
+  xmlDoc* pDoc;
+  if (html) {
+    pDoc = htmlReadMemory(
+      (const char *) RAW(x),
+      Rf_length(x),
+      base_url == "" ? NULL : base_url.c_str(),
+      encoding == "" ? NULL : encoding.c_str(),
+      options
+    );
+  } else {
+    pDoc = xmlReadMemory(
+      (const char *) RAW(x),
+      Rf_length(x),
+      base_url == "" ? NULL : base_url.c_str(),
+      encoding == "" ? NULL : encoding.c_str(),
+      options
+    );
+  }
+
 
   if (pDoc == NULL)
     Rcpp::stop("Failed to parse text");

@@ -5,20 +5,26 @@
 \alias{read_xml}
 \title{Read HTML or XML from a stream or file.}
 \usage{
-read_xml(file, encoding = NULL, n = 16384, verbose = FALSE)
+read_xml(file, encoding = NULL, base_url = NULL, n = 16384,
+  verbose = FALSE)
 
-read_html(file, encoding = NULL, n = 16384, verbose = FALSE)
+read_html(file, encoding = NULL, base_url = NULL, n = 16384,
+  verbose = FALSE)
 }
 \arguments{
-\item{file}{A file, url or a connection object. Character vectors are
+\item{file}{A file, url, a connection, or a raw vector. Character vectors are
 passed on to libxml, which supports both local paths and urls.
 Connections are read in a chunk at a time; this is slower, but allows
 you to use any R connection.}
 
 \item{encoding}{Specify a default encoding for the document. Unless
-otherwise specified XML documented are assumed to be in UTF-8 or
+otherwise specified XML documents are assumed to be in UTF-8 or
 UTF-16. If the document is not UTF-8/16, and lacks an explicit
 encoding directive, this allows you to supply a default.}
+
+\item{base_url}{When loading from a connection or a raw vector, this allows
+you to specify a base url. Base urls are used to turn relative urls into
+absolute.}
 
 \item{n}{If \code{file} is a connection, the number of bytes to read per
 iteration. Defaults to 16kb.}
@@ -35,7 +41,14 @@ catalog <- read_xml("http://www.xmlfiles.com/examples/cd_catalog.xml")
 # Read via R's connection interface
 catalog <- read_xml(url("http://www.xmlfiles.com/examples/cd_catalog.xml"))
 
+# Or read from a raw vector
+raw <- charToRaw("<x><y/></x>")
+read_xml(raw)
+
 # Read an HTML file
 html <- read_html("http://google.com")
+}
+\seealso{
+\code{\link{xml}()} to create an xml object from a string.
 }
 

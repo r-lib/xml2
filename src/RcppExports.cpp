@@ -93,6 +93,21 @@ BEGIN_RCPP
     return __result;
 END_RCPP
 }
+// doc_parse_raw
+XPtrDoc doc_parse_raw(RawVector x, std::string encoding, std::string base_url, int options, bool html);
+RcppExport SEXP xml2_doc_parse_raw(SEXP xSEXP, SEXP encodingSEXP, SEXP base_urlSEXP, SEXP optionsSEXP, SEXP htmlSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject __result;
+    Rcpp::RNGScope __rngScope;
+    Rcpp::traits::input_parameter< RawVector >::type x(xSEXP);
+    Rcpp::traits::input_parameter< std::string >::type encoding(encodingSEXP);
+    Rcpp::traits::input_parameter< std::string >::type base_url(base_urlSEXP);
+    Rcpp::traits::input_parameter< int >::type options(optionsSEXP);
+    Rcpp::traits::input_parameter< bool >::type html(htmlSEXP);
+    __result = Rcpp::wrap(doc_parse_raw(x, encoding, base_url, options, html));
+    return __result;
+END_RCPP
+}
 // doc_format
 std::string doc_format(XPtrDoc x);
 RcppExport SEXP xml2_doc_format(SEXP xSEXP) {
