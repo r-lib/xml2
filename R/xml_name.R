@@ -22,5 +22,10 @@ xml_name <- function(x, ns = character()) {
 
 #' @export
 xml_name.xml_nodeset <- function(x, ns = character()) {
-  vapply(x$nodes, node_name, ns = ns, FUN.VALUE = character(1))
+  vapply(x, xml_name, ns = ns, FUN.VALUE = character(1))
+}
+
+#' @export
+xml_name.xml_node <- function(x, ns = character()) {
+  node_name(x$node, ns = ns)
 }

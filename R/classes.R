@@ -2,16 +2,23 @@
 #' @importFrom Rcpp sourceCpp
 NULL
 
+xml_node <- function(node, doc) {
+  structure(list(node = node, doc = doc), class = "xml_node")
+}
+
+#' @export
+print.xml_node <- function(x, width = getOption("width"), max_n = 20, ...) {
+  cat("{xml_node}\n")
+  cat("<", xml_name(x), ">\n", sep = "")
+  show_nodes(xml_children(x), width = width, max_n = max_n)
+}
+
 # document ---------------------------------------------------------------------
 
 xml_document <- function(doc) {
-  structure(
-    list(
-      doc = doc,
-      nodes = list(doc_root(doc))
-    ),
-    class = c("xml_document", "xml_nodeset")
-  )
+  x <- xml_node(doc_root(doc), doc)
+  class(x) <- c("xml_document", class(x))
+  x
 }
 
 #' @export
@@ -23,19 +30,13 @@ print.xml_document <- function(x, width = getOption("width"), max_n = 20, ...) {
 
 # node -------------------------------------------------------------------------
 
-xml_nodeset <- function(nodes, doc) {
-  structure(
-    list(
-      doc = doc,
-      nodes = nodes
-    ),
-    class = "xml_nodeset"
-  )
+xml_nodeset <- function(nodes) {
+  structure(nodes, class = "xml_nodeset")
 }
 
 #' @export
 print.xml_nodeset <- function(x, width = getOption("width"), max_n = 20, ...) {
-  n <- length(x$nodes)
+  n <- length(x)
   cat("{xml_nodeset (", n, ")}\n", sep = "")
 
   if (n > 0)
@@ -43,7 +44,12 @@ print.xml_nodeset <- function(x, width = getOption("width"), max_n = 20, ...) {
 }
 
 show_nodes <- function(x, width = getOption("width"), max_n = 20) {
-  n <- length(x$nodes)
+  stopifnot(inherits(x, "xml_nodeset"))
+
+  n <- length(x)
+  if (n == 0)
+    return()
+
   if (n > max_n) {
     n <- max_n
     trunc <- TRUE
@@ -52,7 +58,7 @@ show_nodes <- function(x, width = getOption("width"), max_n = 20) {
   }
 
   label <- format(paste0("[", seq_len(n), "]"), justify = "right")
-  contents <- encodeString(vapply(x$nodes, node_format, doc = x$doc,
+  contents <- encodeString(vapply(x, function(x) node_format(x$doc, x$node),
     FUN.VALUE = character(1)))
 
   desc <- paste0(label, " ", contents)
@@ -65,48 +71,19 @@ show_nodes <- function(x, width = getOption("width"), max_n = 20) {
   }
 }
 
-nodeset_apply <- function(x, fun, ...) {
-  out <- lapply(x$nodes, fun, ...)
+nodeset_apply <- function(x, fun, ...) UseMethod("nodeset_apply")
+#' @export
+nodeset_apply.xml_nodeset <- function(x, fun, ...) {
+  out <- lapply(x, function(x) fun(x$node, ...))
+  browser()
   out <- unlist(out, recursive = FALSE)
-  out <- out[!nodes_duplicated(out)]
-  xml_nodeset(out, x$doc)
+
+  node_ptrs <- lapply(out, "[[", "node")
+  out <- out[!nodes_duplicated(node_ptrs)]
+  xml_nodeset(out)
 }
-
-# Subsetting -------------------------------------------------------------------
-
 #' @export
-`[.xml_nodeset` <- function(x, i, ...) {
-  x$nodes <- x$nodes[i]
-  x
-}
-
-#' @export
-`[[.xml_nodeset` <- function(x, i, ...) {
-  xml_nodeset(list(x$nodes[[i]]), x$doc)
-}
-
-#' @export
-`[[.xml_document` <- function(x, i, ...) {
-  xml_contents(x)[[i]]
-}
-
-#' @export
-`[.xml_document` <- function(x, i, ...) {
-  xml_contents(x)[i]
-}
-
-# Pretend to be a vector -------------------------------------------------------
-
-#' @export
-names.xml_nodset <- function(x) NULL
-
-#' @export
-length.xml_nodeset <- function(x) length(x$nodes)
-
-#' @export
-length.xml_document <- function(x) node_count_children(x$nodes[[1]])
-
-#' @export
-str.xml_nodeset <- function(object, indent.str = " ", ...) {
-  cat(indent.str, class(object)[1], "[", length(object), "]\n", sep = "")
+nodeset_apply.xml_node <- function(x, fun, ...) {
+  nodes <- fun(x$node, ...)
+  xml_nodeset(lapply(nodes, xml_node, doc = x$doc))
 }

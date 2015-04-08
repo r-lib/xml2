@@ -1,9 +1,11 @@
 #' Coerce xml nodes to a list.
 #'
 #' This turns an XML document (or node or nodeset) into the equivalent R
-#' list.
+#' list. Note that this is \code{as_list()}, not \code{as.list()}:
+#' \code{lapply()} automatically calls \code{as.list()} on its inputs, so
+#' we can't override the default.
 #'
-#' \code{as.list} currently only handles the four most common types of
+#' \code{as_list} currently only handles the four most common types of
 #' children that an element might have:
 #'
 #' \itemize{
@@ -16,11 +18,11 @@
 #' @param ... Needed for compatability with generic. Unused.
 #' @export
 #' @examples
-#' as.list(xml("<foo> a <b /><c><![CDATA[<d></d>]]></c></foo>"))
-#' as.list(xml("<foo> <bar><baz /></bar> </foo>"))
-#' as.list(xml("<foo id = 'a'></foo>"))
-#' as.list(xml("<foo><bar id='a'/><bar id='b'/></foo>"))
-as.list.xml_nodeset <- function(x, ns = character(), ...) {
+#' as_list(xml("<foo> a <b /><c><![CDATA[<d></d>]]></c></foo>"))
+#' as_list(xml("<foo> <bar><baz /></bar> </foo>"))
+#' as_list(xml("<foo id = 'a'></foo>"))
+#' as_list(xml("<foo><bar id='a'/><bar id='b'/></foo>"))
+as_list <- function(x, ns = character(), ...) {
   if (length(x$nodes) > 1) {
     # Deal with nodesets
     return(lapply(seq_along(x), function(i) as.list(x[[i]], ns = ns)))
