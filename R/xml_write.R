@@ -27,5 +27,10 @@ write_xml.xml_nodeset <- function(x, file, ...) {
     stop("Can only save length 1 node sets")
   }
 
-  node_write(x$nodes[[1]], x$doc, file)
+  node_write(x[[1]]$node, x$doc, file)
+}
+
+#' @export
+write_xml.xml_node <- function(x, file, ...) {
+  node_write(x$node, x$doc, file)
 }
