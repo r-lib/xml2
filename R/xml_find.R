@@ -5,6 +5,8 @@
 #'
 #' @param xpath A string containing a xpath (1.0) expression.
 #' @inheritParams xml_name
+#' @return Always returns a nodeset. If \code{x} was a nodeset, the output
+#'   is automatically de-duplicated.
 #' @export
 #' @examples
 #' x <- xml("<foo><bar><baz/></bar><baz/></foo>")
@@ -18,7 +20,8 @@
 #' xml_find(bar, ".//baz")
 #' xml_find(bar, "//baz")
 #'
-#' # If the document uses namespaces, you'll need use xml_ns:
+#' # If the document uses namespaces, you'll need use xml_ns to form
+#' # a unique mapping between full namespace url and a short prefix
 #' x <- xml('
 #'  <root xmlns:f = "http://foo.com" xmlns:g = "http://bar.com">
 #'    <f:doc><g:baz /></f:doc>
@@ -32,6 +35,16 @@ xml_find <- function(x, xpath, ns = character()) {
 }
 
 #' @export
+xml_find.xml_node <- function(x, xpath, ns = character()) {
+  nodes <- node_find(x$node, x$doc, xpath = xpath, nsMap = ns)
+  make_nodeset(nodes, x$doc)
+}
+
+#' @export
 xml_find.xml_nodeset <- function(x, xpath, ns = character()) {
-  nodeset_apply(x, node_find, doc = x$doc, xpath = xpath, ns = ns)
+  if (length(x) == 0)
+    return(xml_nodeset())
+
+  nodes <- lapply(x, function(x) node_find(x$node, x$doc, xpath = xpath, nsMap = ns))
+  make_nodeset(nodes, x[[1]]$doc)
 }

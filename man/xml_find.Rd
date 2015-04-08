@@ -18,6 +18,10 @@ in namespace \code{foo}, it will be called \code{foo:bar}. (And
 similarly for atttributes). Default namespaces must be given an explicit
 name.}
 }
+\value{
+Always returns a nodeset. If \code{x} was a nodeset, the output
+  is automatically de-duplicated.
+}
 \description{
 Xpath is like regular expressions for trees - it's worth learning if
 you're trying to extract nodes from arbitrary locations in a document.
@@ -34,7 +38,8 @@ xml_path(xml_find(x, ".//baz"))
 xml_find(bar, ".//baz")
 xml_find(bar, "//baz")
 
-# If the document uses namespaces, you'll need use xml_ns:
+# If the document uses namespaces, you'll need use xml_ns to form
+# a unique mapping between full namespace url and a short prefix
 x <- xml('
  <root xmlns:f = "http://foo.com" xmlns:g = "http://bar.com">
    <f:doc><g:baz /></f:doc>

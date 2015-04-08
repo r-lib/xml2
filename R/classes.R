@@ -34,6 +34,17 @@ xml_nodeset <- function(nodes = list()) {
   structure(nodes, class = "xml_nodeset")
 }
 
+
+#' @param nodes A list (possible nested) of external pointers to nodes
+#' @return a nodeset
+#' @noRd
+make_nodeset <- function(nodes, doc) {
+  nodes <- unlist(nodes, recursive = FALSE)
+  nodes <- nodes[!nodes_duplicated(nodes)]
+
+  xml_nodeset(lapply(nodes, xml_node, doc = doc))
+}
+
 #' @export
 print.xml_nodeset <- function(x, width = getOption("width"), max_n = 20, ...) {
   n <- length(x)
@@ -77,11 +88,7 @@ nodeset_apply.xml_nodeset <- function(x, fun, ...) {
   if (length(x) == 0)
     return(xml_nodeset())
 
-  out <- lapply(x, function(x) fun(x$node, ...))
-  out <- unlist(out, recursive = FALSE)
-  out <- out[!nodes_duplicated(out)]
-
-  xml_nodeset(lapply(out, xml_node, doc = x[[1]]$doc))
+  make_nodeset(lapply(x, function(x) fun(x$node, ...)), x[[1]]$doc)
 }
 #' @export
 nodeset_apply.xml_node <- function(x, fun, ...) {
