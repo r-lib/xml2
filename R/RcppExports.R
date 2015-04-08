@@ -143,6 +143,27 @@ url_parse <- function(x) {
     .Call('xml2_url_parse', PACKAGE = 'xml2', x)
 }
 
+#' Escape and unescape urls.
+#'
+#' @param x A character vector of urls.
+#' @param reserved A string containing additional characters to avoid escaping.
+#' @export
+#' @examples
+#' url_escape("a b c")
+#' url_escape("a b c", "")
+#'
+#' url_unescape("a%20b%2fc")
+#' url_unescape("%C2%B5")
+url_escape <- function(x, reserved = "") {
+    .Call('xml2_url_escape', PACKAGE = 'xml2', x, reserved)
+}
+
+#' @export
+#' @rdname url_escape
+url_unescape <- function(x) {
+    .Call('xml2_url_unescape', PACKAGE = 'xml2', x)
+}
+
 node_find <- function(node, doc, xpath, nsMap) {
     .Call('xml2_node_find', PACKAGE = 'xml2', node, doc, xpath, nsMap)
 }

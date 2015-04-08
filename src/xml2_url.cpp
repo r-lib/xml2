@@ -102,3 +102,49 @@ List url_parse(CharacterVector x) {
   return out;
 }
 
+//' Escape and unescape urls.
+//'
+//' @param x A character vector of urls.
+//' @param reserved A string containing additional characters to avoid escaping.
+//' @export
+//' @examples
+//' url_escape("a b c")
+//' url_escape("a b c", "")
+//'
+//' url_unescape("a%20b%2fc")
+//' url_unescape("%C2%B5")
+// [[Rcpp::export]]
+CharacterVector url_escape(CharacterVector x, CharacterVector reserved = "") {
+  int n = x.size();
+  CharacterVector out(n);
+
+  if (reserved.size() != 1)
+    stop("`reserved` must be character vector of length 1");
+  xmlChar* xReserved = (xmlChar*) Rf_translateCharUTF8(reserved[0]);
+
+  for (int i = 0; i < n; ++i) {
+    const xmlChar* xx = (xmlChar*) Rf_translateCharUTF8(x[i]);
+    out[i] = Xml2String(xmlURIEscapeStr(xx, xReserved));
+  }
+
+  return out;
+}
+
+//' @export
+//' @rdname url_escape
+// [[Rcpp::export]]
+CharacterVector url_unescape(CharacterVector x) {
+  int n = x.size();
+  CharacterVector out(n);
+
+  std::string buffer;
+
+  for (int i = 0; i < n; ++i) {
+    const char* xx = Rf_translateCharUTF8(x[i]);
+
+    const char* unescaped = xmlURIUnescapeString(xx, 0, NULL);
+    out[i] = (unescaped == NULL) ? NA_STRING : Rf_mkCharCE(unescaped, CE_UTF8);
+  }
+
+  return out;
+}

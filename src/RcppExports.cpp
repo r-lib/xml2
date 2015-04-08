@@ -349,6 +349,29 @@ BEGIN_RCPP
     return __result;
 END_RCPP
 }
+// url_escape
+CharacterVector url_escape(CharacterVector x, CharacterVector reserved);
+RcppExport SEXP xml2_url_escape(SEXP xSEXP, SEXP reservedSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject __result;
+    Rcpp::RNGScope __rngScope;
+    Rcpp::traits::input_parameter< CharacterVector >::type x(xSEXP);
+    Rcpp::traits::input_parameter< CharacterVector >::type reserved(reservedSEXP);
+    __result = Rcpp::wrap(url_escape(x, reserved));
+    return __result;
+END_RCPP
+}
+// url_unescape
+CharacterVector url_unescape(CharacterVector x);
+RcppExport SEXP xml2_url_unescape(SEXP xSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject __result;
+    Rcpp::RNGScope __rngScope;
+    Rcpp::traits::input_parameter< CharacterVector >::type x(xSEXP);
+    __result = Rcpp::wrap(url_unescape(x));
+    return __result;
+END_RCPP
+}
 // node_find
 Rcpp::List node_find(XPtrNode node, XPtrDoc doc, std::string xpath, CharacterVector nsMap);
 RcppExport SEXP xml2_node_find(SEXP nodeSEXP, SEXP docSEXP, SEXP xpathSEXP, SEXP nsMapSEXP) {
