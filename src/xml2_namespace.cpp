@@ -7,25 +7,19 @@ using namespace Rcpp;
 
 // [[Rcpp::export]]
 CharacterVector unique_ns(CharacterVector ns) {
-  CharacterVector prefix = as<CharacterVector>(ns.attr("names"));
-
-  NsMap nsMap(1);
-  for (int i = 0; i < prefix.size(); ++i)
-    nsMap.add(prefix[i], ns[i]);
-
-  return nsMap.out();
+  return NsMap(ns).out();
 }
 
 void cache_namespace(xmlNode* node, NsMap* nsMap) {
   // Iterate over namespace definitions
   for(xmlNs* cur = node->nsDef; cur != NULL; cur = cur->next) {
-    nsMap->add(Xml2String(cur->prefix), Xml2String(cur->href));
+    nsMap->add(cur->prefix, cur->href);
   }
 
+
   // Iterate over children, calling this function recursively
-  for(xmlNode* cur = node->children; cur != NULL; cur = cur->next) {
+  for(xmlNode* cur = node->children; cur != NULL; cur = cur->next)
     cache_namespace(cur, nsMap);
-  }
 }
 
 // [[Rcpp::export]]

@@ -50,82 +50,67 @@ public:
 // A wrapper around a pair of character vectors used to namespaces to prefixes
 
 class NsMap {
-  Rcpp::CharacterVector prefix_, url_;
-  int n_, capacity_;
+  std::vector<std::string> prefix_, url_;
 
 public:
-  NsMap(int capacity = 10): n_(0), capacity_(capacity) {
-    url_ = Rcpp::CharacterVector(capacity_);
-    prefix_ = Rcpp::CharacterVector(capacity_);
+  NsMap() {
   }
 
   // Initialise from an existing character vector
   NsMap(Rcpp::CharacterVector x) {
-    url_ = x;
-    prefix_ = Rcpp::as<Rcpp::CharacterVector>(x.attr("names"));
-    capacity_ = x.size();
-    n_ = x.size() + 1;
+    Rcpp::CharacterVector names =  Rcpp::as<Rcpp::CharacterVector>(x.attr("names"));
+    for (int i = 0; i < x.size(); ++i) {
+      add(std::string(names[i]), std::string(x[i]));
+    }
   }
 
-  bool hasUrl(Rcpp::String url) {
-    for (int i = 0; i < n_; ++i) {
-      Rcpp::String cur_url(url_[i]);
-      if (cur_url == url)
+  bool hasUrl(std::string url) {
+    for (int i = 0; i < url_.size(); ++i) {
+      if (url_[i] == url)
         return true;
     }
-
     return false;
   }
 
-  Rcpp::String findPrefix(Rcpp::String url) {
-    for (int i = 0; i < n_; ++i) {
-      if (Rcpp::String(url_[i]) == url)
+  std::string findPrefix(std::string url) {
+    for (int i = 0; i < url_.size(); ++i) {
+      if (url_[i] == url)
         return prefix_[i];
     }
 
-    Rcpp::stop("Couldn't find prefix for url %s", url.get_cstring());
+    Rcpp::stop("Couldn't find prefix for url %s", url);
     return "";
   }
 
-  Rcpp::String findUrl(Rcpp::String prefix) {
-    for (int i = 0; i < n_; ++i) {
-      if (Rcpp::String(prefix_[i]) == prefix)
+  std::string findUrl(std::string prefix) {
+    for (int i = 0; i < prefix_.size(); ++i) {
+      if (prefix_[i] == prefix)
         return url_[i];
     }
 
-    Rcpp::stop("Couldn't find url for prefix %s", prefix.get_cstring());
+    Rcpp::stop("Couldn't find url for prefix %s", prefix);
     return "";
   }
 
+  bool add(const xmlChar* prefix, const xmlChar* url) {
+    return add(Xml2String(prefix), Xml2String(url));
+  }
 
-  bool add(Rcpp::String prefix, Rcpp::String url) {
+  bool add(std::string prefix, std::string url) {
     if (hasUrl(url))
       return false;
 
-    if (n_ >= capacity_) {
-      resize(capacity_ * 2);
-    }
-
-    prefix_[n_] = prefix;
-    url_[n_] = url;
-    n_++;
+    prefix_.push_back(prefix);
+    url_.push_back(url);
 
     return true;
   }
 
-  void resize(int n) {
-    prefix_ = Rf_lengthgets(prefix_, n);
-    url_ = Rf_lengthgets(url_, n);
-    capacity_ = n;
-  }
-
   Rcpp::CharacterVector out() {
-    resize(n_);
-
-    url_.attr("names") = prefix_;
-    return url_;
+    Rcpp::CharacterVector out = Rcpp::wrap(url_);
+    out.attr("names") = Rcpp::wrap(prefix_);
+    return out;
   }
 };
-
 
 #endif

@@ -41,7 +41,7 @@ xml_ns <- function(x) {
   x <- doc_namespaces(x$doc)
 
   # Number default namespaces
-  is_default <- is.na(names(x))
+  is_default <- names(x) == ""
   names(x)[is_default] <- paste0("d", seq_len(sum(is_default)))
 
   # Make prefixes unique
