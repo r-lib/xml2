@@ -65,7 +65,7 @@ BEGIN_RCPP
 END_RCPP
 }
 // doc_parse_file
-XPtrDoc doc_parse_file(std::string path, std::string encoding = "", int options = 0, bool html = false);
+XPtrDoc doc_parse_file(std::string path, std::string encoding, int options, bool html);
 RcppExport SEXP xml2_doc_parse_file(SEXP pathSEXP, SEXP encodingSEXP, SEXP optionsSEXP, SEXP htmlSEXP) {
 BEGIN_RCPP
     Rcpp::RObject __result;
@@ -79,7 +79,7 @@ BEGIN_RCPP
 END_RCPP
 }
 // doc_parse_string
-XPtrDoc doc_parse_string(CharacterVector x, std::string encoding, std::string base_url = "", int options = 0, bool html = false);
+XPtrDoc doc_parse_string(CharacterVector x, std::string encoding, std::string base_url, int options, bool html);
 RcppExport SEXP xml2_doc_parse_string(SEXP xSEXP, SEXP encodingSEXP, SEXP base_urlSEXP, SEXP optionsSEXP, SEXP htmlSEXP) {
 BEGIN_RCPP
     Rcpp::RObject __result;
@@ -197,7 +197,7 @@ BEGIN_RCPP
 END_RCPP
 }
 // node_format
-std::string node_format(XPtrDoc doc, XPtrNode node, bool format = true, int indent = 0);
+std::string node_format(XPtrDoc doc, XPtrNode node, bool format, int indent);
 RcppExport SEXP xml2_node_format(SEXP docSEXP, SEXP nodeSEXP, SEXP formatSEXP, SEXP indentSEXP) {
 BEGIN_RCPP
     Rcpp::RObject __result;
