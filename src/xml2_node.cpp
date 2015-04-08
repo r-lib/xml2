@@ -141,6 +141,8 @@ Rcpp::List node_contents(XPtrNode node) {
 
 // [[Rcpp::export]]
 XPtrNode node_parent(XPtrNode n) {
+  if (n->parent == NULL)
+    Rcpp::stop("Parent does not exist");
   return XPtrNode(n->parent);
 }
 

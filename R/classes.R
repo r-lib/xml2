@@ -30,7 +30,7 @@ print.xml_document <- function(x, width = getOption("width"), max_n = 20, ...) {
 
 # node -------------------------------------------------------------------------
 
-xml_nodeset <- function(nodes) {
+xml_nodeset <- function(nodes = list()) {
   structure(nodes, class = "xml_nodeset")
 }
 
@@ -74,13 +74,14 @@ show_nodes <- function(x, width = getOption("width"), max_n = 20) {
 nodeset_apply <- function(x, fun, ...) UseMethod("nodeset_apply")
 #' @export
 nodeset_apply.xml_nodeset <- function(x, fun, ...) {
-  out <- lapply(x, function(x) fun(x$node, ...))
-  browser()
-  out <- unlist(out, recursive = FALSE)
+  if (length(x) == 0)
+    return(xml_nodeset())
 
-  node_ptrs <- lapply(out, "[[", "node")
-  out <- out[!nodes_duplicated(node_ptrs)]
-  xml_nodeset(out)
+  out <- lapply(x, function(x) fun(x$node, ...))
+  out <- unlist(out, recursive = FALSE)
+  out <- out[!nodes_duplicated(out)]
+
+  xml_nodeset(lapply(out, xml_node, doc = x[[1]]$doc))
 }
 #' @export
 nodeset_apply.xml_node <- function(x, fun, ...) {

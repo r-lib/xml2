@@ -16,7 +16,7 @@ xml_parent(x)
 \item{x}{A document, node, or node set.}
 }
 \value{
-A node or nodeset (possibly empty).
+A node or nodeset (possibly empty). Results are always de-duplicated.
 }
 \description{
 \code{xml_children} returns only elements, \code{xml_contents} returns
@@ -26,6 +26,8 @@ all nodes. \code{xml_parent} returns the parent node.
 x <- xml("<foo> <bar><boo /></bar> <baz/> </foo>")
 xml_children(x)
 xml_children(xml_children(x))
+
+# Note the each unique node only appears once in the output
 xml_parent(xml_children(x))
 
 # Mixed content
