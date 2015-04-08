@@ -4,11 +4,14 @@
 \alias{xml_children}
 \alias{xml_contents}
 \alias{xml_parent}
+\alias{xml_parents}
 \title{Navigate around the family tree.}
 \usage{
 xml_children(x)
 
 xml_contents(x)
+
+xml_parents(x)
 
 xml_parent(x)
 }
@@ -20,7 +23,8 @@ A node or nodeset (possibly empty). Results are always de-duplicated.
 }
 \description{
 \code{xml_children} returns only elements, \code{xml_contents} returns
-all nodes. \code{xml_parent} returns the parent node.
+all nodes. \code{xml_parent} returns the parent node, \code{xml_parents}
+returns all parents up to the root.
 }
 \examples{
 x <- xml("<foo> <bar><boo /></bar> <baz/> </foo>")

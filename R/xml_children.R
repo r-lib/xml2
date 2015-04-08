@@ -1,7 +1,8 @@
 #' Navigate around the family tree.
 #'
 #' \code{xml_children} returns only elements, \code{xml_contents} returns
-#' all nodes. \code{xml_parent} returns the parent node.
+#' all nodes. \code{xml_parent} returns the parent node, \code{xml_parents}
+#' returns all parents up to the root.
 #'
 #' @inheritParams xml_name
 #' @return A node or nodeset (possibly empty). Results are always de-duplicated.
@@ -26,8 +27,15 @@ xml_children <- function(x) {
 #' @export
 #' @rdname xml_children
 xml_contents <- function(x) {
-  nodeset_apply(x, node_contents)
+  nodeset_apply(x, node_children, onlyNode = FALSE)
 }
+
+#' @export
+#' @rdname xml_children
+xml_parents <- function(x) {
+  nodeset_apply(x, node_parents)
+}
+
 
 #' @export
 #' @rdname xml_children

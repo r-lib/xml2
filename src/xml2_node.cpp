@@ -93,49 +93,38 @@ std::string node_format(XPtrDoc doc, XPtrNode node,
   return Xml2String(buffer->content);
 }
 
-
-// [[Rcpp::export]]
-int node_count_children(XPtrNode node) {
-
-  int n = 0;
-  for(xmlNode* cur = node->xmlChildrenNode; cur != NULL; cur = cur->next) {
-    if (cur->type != XML_ELEMENT_NODE)
-      continue;
-    n++;
-  }
-
-  return n;
-}
-
-// [[Rcpp::export]]
-Rcpp::List node_children(XPtrNode node) {
-  Rcpp::List out(node_count_children(node));
-  int i = 0;
-  for(xmlNode* cur = node->xmlChildrenNode; cur != NULL; cur = cur->next) {
-    if (cur->type != XML_ELEMENT_NODE)
-      continue;
-    out[i] = XPtrNode(cur);
-    i++;
-  }
+List asList(std::vector<xmlNode*> nodes) {
+  List out(nodes.size());
+  for (int i = 0; i < nodes.size(); ++i)
+    out[i] = XPtrNode(nodes[i]);
 
   return out;
 }
 
 // [[Rcpp::export]]
-Rcpp::List node_contents(XPtrNode node) {
+Rcpp::List node_children(XPtrNode node, bool onlyNode = true) {
+  std::vector<xmlNode*> out;
 
-  int n = 0;
-  for(xmlNode* cur = node->xmlChildrenNode; cur != NULL; cur = cur->next)
-    n++;
-
-  Rcpp::List out(n);
-  int i = 0;
   for(xmlNode* cur = node->xmlChildrenNode; cur != NULL; cur = cur->next) {
-    out[i] = XPtrNode(cur);
-    i++;
+    if (onlyNode && cur->type != XML_ELEMENT_NODE)
+      continue;
+    out.push_back(cur);
   }
 
-  return out;
+  return asList(out);
+}
+
+// [[Rcpp::export]]
+Rcpp::List node_parents(XPtrNode node) {
+  std::vector<xmlNode*> out;
+
+  for(xmlNode* cur = node->parent; cur != NULL; cur = cur->parent) {
+    if (cur->type != XML_ELEMENT_NODE)
+      continue;
+    out.push_back(cur);
+  }
+
+  return asList(out);
 }
 
 
