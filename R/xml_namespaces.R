@@ -34,9 +34,10 @@
 #' xml_find(x, "//baz")
 #' xml_find(x, "//foo:baz", ns)
 #'
-#' str(as.list(x))
-#' str(as.list(x, ns))
+#' str(as_list(x))
+#' str(as_list(x, ns))
 xml_ns <- function(x) {
+  stopifnot(inherits(x, "xml_document"))
   x <- doc_namespaces(x$doc)
 
   # Number default namespaces

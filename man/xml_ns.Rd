@@ -48,7 +48,7 @@ xml_name(baz, ns)
 xml_find(x, "//baz")
 xml_find(x, "//foo:baz", ns)
 
-str(as.list(x))
-str(as.list(x, ns))
+str(as_list(x))
+str(as_list(x, ns))
 }
 
