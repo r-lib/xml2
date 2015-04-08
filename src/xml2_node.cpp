@@ -31,7 +31,7 @@ std::string node_text(XPtrNode node) {
 }
 
 // [[Rcpp::export]]
-std::string node_attr(XPtrNode node, std::string name, CharacterVector nsMap) {
+String node_attr(XPtrNode node, std::string name, CharacterVector nsMap) {
   if (nsMap.size() == 0)
     return Xml2String(xmlGetProp(node.get(), asXmlChar(name)));
 

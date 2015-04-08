@@ -172,7 +172,7 @@ BEGIN_RCPP
 END_RCPP
 }
 // node_attr
-std::string node_attr(XPtrNode node, std::string name, CharacterVector nsMap);
+String node_attr(XPtrNode node, std::string name, CharacterVector nsMap);
 RcppExport SEXP xml2_node_attr(SEXP nodeSEXP, SEXP nameSEXP, SEXP nsMapSEXP) {
 BEGIN_RCPP
     Rcpp::RObject __result;

@@ -1,5 +1,13 @@
 context("xml_attrs")
 
+test_that("missing attributes returned as NA", {
+  x <- xml("<x/>")
+  expect_equal(xml_attr(x, "id"), NA_character_)
+})
+
+
+# Namespaces -------------------------------------------------------------------
+
 # Default namespace doesn't apply to attributes
 
 test_that("qualified names returned when ns given", {
