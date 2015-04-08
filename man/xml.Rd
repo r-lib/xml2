@@ -23,6 +23,7 @@ Create HTML or XML from a string.
 \examples{
 xml("<foo> 123 </foo>")
 xml("<foo> \\u00e5 </foo>")
+xml("<foo><bar><baz /></bar><baz/></foo>")
 
 # The html parser converts potential malformed HTML into valid XML
 html("<html> 123 </html>")
