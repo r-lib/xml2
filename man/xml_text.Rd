@@ -19,5 +19,9 @@ Extract the text
 x <- xml("<p>This is some text. This is <b>bold!</b></p>")
 xml_text(x)
 xml_text(xml_children(x))
+
+x <- xml("<x>This is some text. <x>This is some nested text.</x></x>")
+xml_text(x)
+xml_text(xml_find(x, "//x"))
 }
 
