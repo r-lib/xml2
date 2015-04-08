@@ -2,8 +2,15 @@
 #' @importFrom Rcpp sourceCpp
 NULL
 
+# node -------------------------------------------------------------------------
+
 xml_node <- function(node, doc) {
   structure(list(node = node, doc = doc), class = "xml_node")
+}
+
+#' @export
+as.character.xml_node <- function(x, ...) {
+  node_format(x$doc, x$node)
 }
 
 #' @export
@@ -33,12 +40,11 @@ as.character.xml_document <- function(x, ...) {
   doc_format(x$doc)
 }
 
-# node -------------------------------------------------------------------------
+# nodeset ----------------------------------------------------------------------
 
 xml_nodeset <- function(nodes = list()) {
   structure(nodes, class = "xml_nodeset")
 }
-
 
 #' @param nodes A list (possible nested) of external pointers to nodes
 #' @return a nodeset
@@ -65,8 +71,8 @@ as.character.xml_nodeset <- function(x, ...) {
 }
 
 #' @export
-as.character.xml_node <- function(x, ...) {
-  node_format(x$doc, x$node)
+`[.xml_nodeset` <- function(x, i, ...) {
+  xml_nodeset(NextMethod())
 }
 
 show_nodes <- function(x, width = getOption("width"), max_n = 20) {
@@ -97,7 +103,9 @@ show_nodes <- function(x, width = getOption("width"), max_n = 20) {
   }
 }
 
+
 nodeset_apply <- function(x, fun, ...) UseMethod("nodeset_apply")
+
 #' @export
 nodeset_apply.xml_nodeset <- function(x, fun, ...) {
   if (length(x) == 0)
@@ -105,6 +113,7 @@ nodeset_apply.xml_nodeset <- function(x, fun, ...) {
 
   make_nodeset(lapply(x, function(x) fun(x$node, ...)), x[[1]]$doc)
 }
+
 #' @export
 nodeset_apply.xml_node <- function(x, fun, ...) {
   nodes <- fun(x$node, ...)
