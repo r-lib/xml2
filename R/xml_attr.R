@@ -1,26 +1,31 @@
 #' Retrieve an attribute.
 #'
-#' Use \code{xml_attrs} to retrieve all attributes values as a character vector.
-#' Use \code{xml_attr} to retrieve the value of single attribute. If the
-#' attribute doesn't exist, it will be returned as an \code{NA}.
-#' Use \code{xml_has_attr} to test if an attribute is present.
+#' \code{xml_attrs()} retrieves all attributes values as a named character
+#' vector. \code{xml_attr()} retrieves the value of single attribute. If the
+#' attribute doesn't exist, it will an \code{NA}. \code{xml_has_attr()} tests
+#' if an attribute is present.
 #'
 #' @inheritParams xml_name
 #' @param attr Name of attribute to extract.
-#' @return For \code{xml_attr}, a character vector. If an attribute is not
-#'  presented, its value will be missing. For \code{xml_has_attr},
-#'  a logical vector. For \code{xml_attr} a list of named character vectors.
-#'  If any attrbutes have an associated namespace, the vector will have
-#'  a \code{ns} attribute.
+#' @return \code{xml_attr()} returns a character vector. \code{NA} is used
+#'  to represent of attributes that aren't defined.
+#'
+#'  \code{xml_has_attr()} returns a logical vector.
+#'
+#'  \code{xml_attrs()} returns a named character vector if \code{x} x is single
+#'  node, or a list of character vectors if given a nodeset
 #' @export
 #' @examples
 #' x <- xml("<root id='1'><child id ='a' /><child id='b' d='b'/></root>")
 #' xml_attr(x, "id")
+#' xml_attr(x, "apple")
 #' xml_attrs(x)
 #'
-#' xml_attr(xml_children(x), "id")
-#' xml_has_attr(xml_children(x), "id")
-#' xml_attrs(xml_children(x))
+#' kids <- xml_children(x)
+#' kids
+#' xml_attr(kids, "id")
+#' xml_has_attr(kids, "id")
+#' xml_attrs(kids)
 #'
 #' # Missing attributes give missing values
 #' xml_attr(xml_children(x), "d")
@@ -48,11 +53,15 @@ xml_attr <- function(x, attr, ns = character()) {
 }
 
 #' @export
-xml_attr.xml_nodeset <- function(x, attr, ns = character()) {
-  vapply(x$nodes, node_attr, name = attr, ns = ns,
-    FUN.VALUE = character(1))
+xml_attr.xml_node <- function(x, attr, ns = character()) {
+  node_attr(x$node, name = attr, nsMap = ns)
 }
 
+#' @export
+xml_attr.xml_nodeset <- function(x, attr, ns = character()) {
+  vapply(x, xml_attr, attr = attr, ns = ns,
+    FUN.VALUE = character(1))
+}
 
 #' @export
 #' @rdname xml_attr
@@ -62,6 +71,14 @@ xml_has_attr <- function(x, attr, ns = character()) {
 
 #' @export
 #' @rdname xml_attr
-xml_attrs <- function(x, ns = character()) {
-  lapply(x$nodes, node_attrs, ns = ns)
+xml_attrs <- function(x, ns = character()) UseMethod("xml_attrs")
+
+#' @export
+xml_attrs.xml_node <- function(x, ns = character()) {
+  node_attrs(x$node, nsMap = ns)
+}
+
+#' @export
+xml_attrs.xml_nodeset <- function(x, ns = character()) {
+  lapply(x, xml_attrs, ns = ns)
 }

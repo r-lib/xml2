@@ -25,26 +25,31 @@ similarly for atttributes). Default namespaces must be given an explicit
 name.}
 }
 \value{
-For \code{xml_attr}, a character vector. If an attribute is not
- presented, its value will be missing. For \code{xml_has_attr},
- a logical vector. For \code{xml_attr} a list of named character vectors.
- If any attrbutes have an associated namespace, the vector will have
- a \code{ns} attribute.
+\code{xml_attr()} returns a character vector. \code{NA} is used
+ to represent of attributes that aren't defined.
+
+ \code{xml_has_attr()} returns a logical vector.
+
+ \code{xml_attrs()} returns a named character vector if \code{x} x is single
+ node, or a list of character vectors if given a nodeset
 }
 \description{
-Use \code{xml_attrs} to retrieve all attributes values as a character vector.
-Use \code{xml_attr} to retrieve the value of single attribute. If the
-attribute doesn't exist, it will be returned as an \code{NA}.
-Use \code{xml_has_attr} to test if an attribute is present.
+\code{xml_attrs()} retrieves all attributes values as a named character
+vector. \code{xml_attr()} retrieves the value of single attribute. If the
+attribute doesn't exist, it will an \code{NA}. \code{xml_has_attr()} tests
+if an attribute is present.
 }
 \examples{
 x <- xml("<root id='1'><child id ='a' /><child id='b' d='b'/></root>")
 xml_attr(x, "id")
+xml_attr(x, "apple")
 xml_attrs(x)
 
-xml_attr(xml_children(x), "id")
-xml_has_attr(xml_children(x), "id")
-xml_attrs(xml_children(x))
+kids <- xml_children(x)
+kids
+xml_attr(kids, "id")
+xml_has_attr(kids, "id")
+xml_attrs(kids)
 
 # Missing attributes give missing values
 xml_attr(xml_children(x), "d")
