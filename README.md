@@ -30,12 +30,15 @@ xml_name(h)
 xml_text(h)
 ```
 
-There are two key classes:
+There are three key classes:
 
-* `xml_doc()`: the complete document. Acting on a document is usually the same 
+* `xml_node`: a single node in a document.
+
+* `xml_doc`: the complete document. Acting on a document is usually the same 
   as acting on the root node of the document.
 
-* `xml_nodeset()`: a __set__ of nodes within the document.
+* `xml_nodeset`: a __set__ of nodes within the document. Operations on 
+  `xml_nodeset`s are vectorised, apply the operation over each node in the set.
 
 ## Compared to the XML package
 

@@ -27,5 +27,5 @@ xml_name.xml_nodeset <- function(x, ns = character()) {
 
 #' @export
 xml_name.xml_node <- function(x, ns = character()) {
-  node_name(x$node, ns = ns)
+  node_name(x$node, nsMap = ns)
 }
