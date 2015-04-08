@@ -23,7 +23,7 @@ doc <- xml_children(x)[[1]]
 ns <- xml_ns(x)
 
 test_that("qualified attributes get own values", {
-  expect_equal(xml_attrs(doc, ns)[[1]], c("b:id" = "b", "f:id" = "f", "id" = ""))
+  expect_equal(xml_attrs(doc, ns), c("b:id" = "b", "f:id" = "f", "id" = ""))
 })
 
 test_that("unqualified name gets unnamespace attribute", {

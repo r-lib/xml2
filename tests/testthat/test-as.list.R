@@ -1,6 +1,6 @@
-context("as.list")
+context("as_list")
 
-list_xml <- function(x) as.list(xml(x))
+list_xml <- function(x) as_list(xml(x))
 
 test_that("empty elements become empty lists", {
   expect_equal(list_xml("<x></x>"), list())
