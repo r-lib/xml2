@@ -127,6 +127,26 @@ Rcpp::List node_parents(XPtrNode node) {
   return asList(out);
 }
 
+// [[Rcpp::export]]
+Rcpp::List node_siblings(XPtrNode node, bool onlyNode = true) {
+  std::vector<xmlNode*> out;
+
+  xmlNode* parent = node->parent;
+  if (parent == NULL)
+    return List();
+
+  for(xmlNode* cur = parent->xmlChildrenNode; cur != NULL; cur = cur->next) {
+    if (cur == node)
+      continue;
+    if (onlyNode && cur->type != XML_ELEMENT_NODE)
+      continue;
+
+    out.push_back(cur);
+  }
+
+  return asList(out);
+}
+
 
 // [[Rcpp::export]]
 XPtrNode node_parent(XPtrNode n) {
