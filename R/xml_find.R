@@ -10,15 +10,15 @@
 #' @export
 #' @examples
 #' x <- xml("<foo><bar><baz/></bar><baz/></foo>")
-#' xml_find(x, ".//baz")
-#' xml_path(xml_find(x, ".//baz"))
+#' xml_find_all(x, ".//baz")
+#' xml_path(xml_find_all(x, ".//baz"))
 #'
 #' # Note the difference between .// and //
 #' # //  finds anywhere in the document (ignoring the current node)
 #' # .// finds anywhere beneath the current node
-#' (bar <- xml_find(x, ".//bar"))
-#' xml_find(bar, ".//baz")
-#' xml_find(bar, "//baz")
+#' (bar <- xml_find_all(x, ".//bar"))
+#' xml_find_all(bar, ".//baz")
+#' xml_find_all(bar, "//baz")
 #'
 #' # If the document uses namespaces, you'll need use xml_ns to form
 #' # a unique mapping between full namespace url and a short prefix
@@ -28,23 +28,23 @@
 #'    <f:doc><g:baz /></f:doc>
 #'  </root>
 #' ')
-#' xml_find(x, ".//f:doc")
-#' xml_find(x, ".//f:doc", xml_ns(x))
-xml_find <- function(x, xpath, ns = character()) {
-  UseMethod("xml_find")
+#' xml_find_all(x, ".//f:doc")
+#' xml_find_all(x, ".//f:doc", xml_ns(x))
+xml_find_all <- function(x, xpath, ns = character()) {
+  UseMethod("xml_find_all")
 }
 
 #' @export
-xml_find.xml_node <- function(x, xpath, ns = character()) {
-  nodes <- node_find(x$node, x$doc, xpath = xpath, nsMap = ns)
+xml_find_all.xml_node <- function(x, xpath, ns = character()) {
+  nodes <- node_find_all(x$node, x$doc, xpath = xpath, nsMap = ns)
   make_nodeset(nodes, x$doc)
 }
 
 #' @export
-xml_find.xml_nodeset <- function(x, xpath, ns = character()) {
+xml_find_all.xml_nodeset <- function(x, xpath, ns = character()) {
   if (length(x) == 0)
     return(xml_nodeset())
 
-  nodes <- lapply(x, function(x) node_find(x$node, x$doc, xpath = xpath, nsMap = ns))
+  nodes <- lapply(x, function(x) node_find_all(x$node, x$doc, xpath = xpath, nsMap = ns))
   make_nodeset(nodes, x[[1]]$doc)
 }

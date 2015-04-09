@@ -9,7 +9,7 @@
 #'
 #' x <- xml("<x>This is some text. <x>This is some nested text.</x></x>")
 #' xml_text(x)
-#' xml_text(xml_find(x, "//x"))
+#' xml_text(xml_find_all(x, "//x"))
 #' @export
 xml_text <- function(x) {
   UseMethod("xml_text")

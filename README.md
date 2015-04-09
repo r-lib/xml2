@@ -22,7 +22,7 @@ x
 xml_name(x)
 xml_children(x)
 xml_text(x)
-xml_find(x, ".//baz")
+xml_find_all(x, ".//baz")
 
 h <- html("<html><p>Hi <b>!")
 h

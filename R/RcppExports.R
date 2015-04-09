@@ -164,7 +164,7 @@ url_unescape <- function(x) {
     .Call('xml2_url_unescape', PACKAGE = 'xml2', x)
 }
 
-node_find <- function(node, doc, xpath, nsMap) {
-    .Call('xml2_node_find', PACKAGE = 'xml2', node, doc, xpath, nsMap)
+node_find_all <- function(node, doc, xpath, nsMap) {
+    .Call('xml2_node_find_all', PACKAGE = 'xml2', node, doc, xpath, nsMap)
 }
 

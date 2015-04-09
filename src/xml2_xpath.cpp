@@ -69,7 +69,7 @@ public:
 };
 
 // [[Rcpp::export]]
-Rcpp::List node_find(XPtrNode node, XPtrDoc doc, std::string xpath, CharacterVector nsMap) {
+Rcpp::List node_find_all(XPtrNode node, XPtrDoc doc, std::string xpath, CharacterVector nsMap) {
   XmlSeeker seeker(doc.get(), node.get());
   seeker.registerNamespace(nsMap);
   seeker.search(xpath);

@@ -31,8 +31,8 @@
 #' xml_name(baz)
 #' xml_name(baz, ns)
 #'
-#' xml_find(x, "//baz")
-#' xml_find(x, "//foo:baz", ns)
+#' xml_find_all(x, "//baz")
+#' xml_find_all(x, "//foo:baz", ns)
 #'
 #' str(as_list(x))
 #' str(as_list(x, ns))
