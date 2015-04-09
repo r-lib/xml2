@@ -67,7 +67,7 @@ public:
   }
 
   bool hasUrl(std::string url) {
-    for (int i = 0; i < url_.size(); ++i) {
+    for (size_t i = 0; i < url_.size(); ++i) {
       if (url_[i] == url)
         return true;
     }
@@ -75,7 +75,7 @@ public:
   }
 
   std::string findPrefix(std::string url) {
-    for (int i = 0; i < url_.size(); ++i) {
+    for (size_t i = 0; i < url_.size(); ++i) {
       if (url_[i] == url)
         return prefix_[i];
     }
@@ -85,7 +85,7 @@ public:
   }
 
   std::string findUrl(std::string prefix) {
-    for (int i = 0; i < prefix_.size(); ++i) {
+    for (size_t i = 0; i < prefix_.size(); ++i) {
       if (prefix_[i] == prefix)
         return url_[i];
     }
