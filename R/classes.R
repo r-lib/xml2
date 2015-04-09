@@ -84,6 +84,7 @@ show_nodes <- function(x, width = getOption("width"), max_n = 20) {
 
   if (n > max_n) {
     n <- max_n
+    x <- x[seq_len(n)]
     trunc <- TRUE
   } else {
     trunc <- FALSE

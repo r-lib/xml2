@@ -69,7 +69,7 @@ read_xml.character <- function(file, encoding = "", ..., as_html = FALSE) {
   if (inherits(con, "connection")) {
     read_xml.connection(con, encoding = encoding, ..., as_html = as_html, xml_url = file)
   } else {
-    doc <- doc_parse_file(file, encoding = encoding, html = as_html)
+    doc <- doc_parse_file(con, encoding = encoding, html = as_html)
     xml_document(doc)
   }
 }
