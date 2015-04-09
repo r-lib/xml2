@@ -6,61 +6,93 @@
 
 using namespace Rcpp;
 
-// new_push_parser
-XPtrParser new_push_parser(std::string filename);
-RcppExport SEXP xml2_new_push_parser(SEXP filenameSEXP) {
+// xml_push_parser_create
+XPtrXmlParser xml_push_parser_create(std::string uri);
+RcppExport SEXP xml2_xml_push_parser_create(SEXP uriSEXP) {
 BEGIN_RCPP
     Rcpp::RObject __result;
     Rcpp::RNGScope __rngScope;
-    Rcpp::traits::input_parameter< std::string >::type filename(filenameSEXP);
-    __result = Rcpp::wrap(new_push_parser(filename));
+    Rcpp::traits::input_parameter< std::string >::type uri(uriSEXP);
+    __result = Rcpp::wrap(xml_push_parser_create(uri));
     return __result;
 END_RCPP
 }
-// feed_push_parser_text
-bool feed_push_parser_text(XPtrParser parser, const char* text, int size);
-RcppExport SEXP xml2_feed_push_parser_text(SEXP parserSEXP, SEXP textSEXP, SEXP sizeSEXP) {
+// xml_push_parser_feed
+bool xml_push_parser_feed(XPtrXmlParser parser, SEXP data);
+RcppExport SEXP xml2_xml_push_parser_feed(SEXP parserSEXP, SEXP dataSEXP) {
 BEGIN_RCPP
     Rcpp::RObject __result;
     Rcpp::RNGScope __rngScope;
-    Rcpp::traits::input_parameter< XPtrParser >::type parser(parserSEXP);
-    Rcpp::traits::input_parameter< const char* >::type text(textSEXP);
-    Rcpp::traits::input_parameter< int >::type size(sizeSEXP);
-    __result = Rcpp::wrap(feed_push_parser_text(parser, text, size));
-    return __result;
-END_RCPP
-}
-// feed_push_parser_raw
-bool feed_push_parser_raw(XPtrParser parser, SEXP data);
-RcppExport SEXP xml2_feed_push_parser_raw(SEXP parserSEXP, SEXP dataSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject __result;
-    Rcpp::RNGScope __rngScope;
-    Rcpp::traits::input_parameter< XPtrParser >::type parser(parserSEXP);
+    Rcpp::traits::input_parameter< XPtrXmlParser >::type parser(parserSEXP);
     Rcpp::traits::input_parameter< SEXP >::type data(dataSEXP);
-    __result = Rcpp::wrap(feed_push_parser_raw(parser, data));
+    __result = Rcpp::wrap(xml_push_parser_feed(parser, data));
     return __result;
 END_RCPP
 }
-// close_push_parser
-bool close_push_parser(XPtrParser parser);
-RcppExport SEXP xml2_close_push_parser(SEXP parserSEXP) {
+// xml_push_parser_complete
+bool xml_push_parser_complete(XPtrXmlParser parser);
+RcppExport SEXP xml2_xml_push_parser_complete(SEXP parserSEXP) {
 BEGIN_RCPP
     Rcpp::RObject __result;
     Rcpp::RNGScope __rngScope;
-    Rcpp::traits::input_parameter< XPtrParser >::type parser(parserSEXP);
-    __result = Rcpp::wrap(close_push_parser(parser));
+    Rcpp::traits::input_parameter< XPtrXmlParser >::type parser(parserSEXP);
+    __result = Rcpp::wrap(xml_push_parser_complete(parser));
     return __result;
 END_RCPP
 }
-// get_push_parser_doc
-XPtrDoc get_push_parser_doc(XPtrParser parser);
-RcppExport SEXP xml2_get_push_parser_doc(SEXP parserSEXP) {
+// xml_push_parser_doc
+XPtrDoc xml_push_parser_doc(XPtrXmlParser parser);
+RcppExport SEXP xml2_xml_push_parser_doc(SEXP parserSEXP) {
 BEGIN_RCPP
     Rcpp::RObject __result;
     Rcpp::RNGScope __rngScope;
-    Rcpp::traits::input_parameter< XPtrParser >::type parser(parserSEXP);
-    __result = Rcpp::wrap(get_push_parser_doc(parser));
+    Rcpp::traits::input_parameter< XPtrXmlParser >::type parser(parserSEXP);
+    __result = Rcpp::wrap(xml_push_parser_doc(parser));
+    return __result;
+END_RCPP
+}
+// html_push_parser_create
+XPtrHtmlParser html_push_parser_create(std::string uri);
+RcppExport SEXP xml2_html_push_parser_create(SEXP uriSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject __result;
+    Rcpp::RNGScope __rngScope;
+    Rcpp::traits::input_parameter< std::string >::type uri(uriSEXP);
+    __result = Rcpp::wrap(html_push_parser_create(uri));
+    return __result;
+END_RCPP
+}
+// html_push_parser_feed
+bool html_push_parser_feed(XPtrHtmlParser parser, SEXP data);
+RcppExport SEXP xml2_html_push_parser_feed(SEXP parserSEXP, SEXP dataSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject __result;
+    Rcpp::RNGScope __rngScope;
+    Rcpp::traits::input_parameter< XPtrHtmlParser >::type parser(parserSEXP);
+    Rcpp::traits::input_parameter< SEXP >::type data(dataSEXP);
+    __result = Rcpp::wrap(html_push_parser_feed(parser, data));
+    return __result;
+END_RCPP
+}
+// html_push_parser_complete
+bool html_push_parser_complete(XPtrHtmlParser parser);
+RcppExport SEXP xml2_html_push_parser_complete(SEXP parserSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject __result;
+    Rcpp::RNGScope __rngScope;
+    Rcpp::traits::input_parameter< XPtrHtmlParser >::type parser(parserSEXP);
+    __result = Rcpp::wrap(html_push_parser_complete(parser));
+    return __result;
+END_RCPP
+}
+// html_push_parser_doc
+XPtrDoc html_push_parser_doc(XPtrHtmlParser parser);
+RcppExport SEXP xml2_html_push_parser_doc(SEXP parserSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject __result;
+    Rcpp::RNGScope __rngScope;
+    Rcpp::traits::input_parameter< XPtrHtmlParser >::type parser(parserSEXP);
+    __result = Rcpp::wrap(html_push_parser_doc(parser));
     return __result;
 END_RCPP
 }

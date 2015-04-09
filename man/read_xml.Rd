@@ -3,13 +3,22 @@
 \name{read_xml}
 \alias{read_html}
 \alias{read_xml}
+\alias{read_xml.character}
+\alias{read_xml.connection}
+\alias{read_xml.raw}
 \title{Read HTML or XML from a stream or file.}
 \usage{
-read_xml(file, encoding = NULL, base_url = NULL, n = 16384,
-  verbose = FALSE)
+read_xml(file, encoding = "", ..., as_html = FALSE)
 
-read_html(file, encoding = NULL, base_url = NULL, n = 16384,
-  verbose = FALSE)
+read_html(file, encoding = "", ...)
+
+\method{read_xml}{character}(file, encoding = "", ..., as_html = FALSE)
+
+\method{read_xml}{raw}(file, encoding = "", xml_url = "", ...,
+  as_html = FALSE)
+
+\method{read_xml}{connection}(file, encoding = "", n = 16384,
+  verbose = FALSE, ..., xml_url = "", as_html = FALSE)
 }
 \arguments{
 \item{file}{A file, url, a connection, or a raw vector. Character vectors are
@@ -22,7 +31,11 @@ otherwise specified XML documents are assumed to be in UTF-8 or
 UTF-16. If the document is not UTF-8/16, and lacks an explicit
 encoding directive, this allows you to supply a default.}
 
-\item{base_url}{When loading from a connection or a raw vector, this allows
+\item{...}{Additional arguments passed on to methods.}
+
+\item{as_html}{Optionally parse an xml file as if it's html.}
+
+\item{xml_url}{When loading from a connection or a raw vector, this allows
 you to specify a base url. Base urls are used to turn relative urls into
 absolute.}
 
@@ -36,17 +49,15 @@ output on every iteration so you know its working.}
 Read HTML or XML from a stream or file.
 }
 \examples{
-# Read directly with libxml
+# You can read from a url:
 catalog <- read_xml("http://www.xmlfiles.com/examples/cd_catalog.xml")
-# Read via R's connection interface
-catalog <- read_xml(url("http://www.xmlfiles.com/examples/cd_catalog.xml"))
+me <- read_html("http://had.co.nz")
 
 # Or read from a raw vector
 raw <- charToRaw("<x><y/></x>")
 read_xml(raw)
 
 # Read an HTML file
-html <- read_html("http://google.com")
 }
 \seealso{
 \code{\link{xml}()} to create an xml object from a string.
