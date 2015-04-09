@@ -168,3 +168,7 @@ node_find_all <- function(node, doc, xpath, nsMap) {
     .Call('xml2_node_find_all', PACKAGE = 'xml2', node, doc, xpath, nsMap)
 }
 
+node_find_one <- function(node, doc, xpath, nsMap) {
+    .Call('xml2_node_find_one', PACKAGE = 'xml2', node, doc, xpath, nsMap)
+}
+
