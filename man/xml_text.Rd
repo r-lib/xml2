@@ -8,6 +8,8 @@ xml_text(x, trim = FALSE)
 }
 \arguments{
 \item{x}{A document, node, or node set.}
+
+\item{trim}{If \code{TRUE} will trim leading and trailing spaces.}
 }
 \value{
 A character vector, the same length as x.

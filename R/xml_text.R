@@ -1,6 +1,7 @@
 #' Extract the text
 #'
 #' @inheritParams xml_name
+#' @param trim If \code{TRUE} will trim leading and trailing spaces.
 #' @return A character vector, the same length as x.
 #' @examples
 #' x <- xml("<p>This is some text. This is <b>bold!</b></p>")
