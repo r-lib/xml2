@@ -4,7 +4,7 @@
 \alias{xml_text}
 \title{Extract the text}
 \usage{
-xml_text(x)
+xml_text(x, trim = FALSE)
 }
 \arguments{
 \item{x}{A document, node, or node set.}
@@ -23,5 +23,8 @@ xml_text(xml_children(x))
 x <- xml("<x>This is some text. <x>This is some nested text.</x></x>")
 xml_text(x)
 xml_text(xml_find_all(x, "//x"))
+
+x <- xml("<p>   Some text    </p>")
+xml_text(x, trim = TRUE)
 }
 

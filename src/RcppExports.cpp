@@ -219,13 +219,14 @@ BEGIN_RCPP
 END_RCPP
 }
 // node_text
-std::string node_text(XPtrNode node);
-RcppExport SEXP xml2_node_text(SEXP nodeSEXP) {
+std::string node_text(XPtrNode node, bool trim);
+RcppExport SEXP xml2_node_text(SEXP nodeSEXP, SEXP trimSEXP) {
 BEGIN_RCPP
     Rcpp::RObject __result;
     Rcpp::RNGScope __rngScope;
     Rcpp::traits::input_parameter< XPtrNode >::type node(nodeSEXP);
-    __result = Rcpp::wrap(node_text(node));
+    Rcpp::traits::input_parameter< bool >::type trim(trimSEXP);
+    __result = Rcpp::wrap(node_text(node, trim));
     return __result;
 END_RCPP
 }

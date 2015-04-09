@@ -1,6 +1,7 @@
 #include <Rcpp.h>
 #include <libxml/tree.h>
 #include <boost/shared_ptr.hpp>
+#include <boost/algorithm/string/trim.hpp>
 
 using namespace Rcpp;
 #include "xml2_types.h"
@@ -26,8 +27,13 @@ std::string node_name(XPtrNode node, CharacterVector nsMap) {
 }
 
 // [[Rcpp::export]]
-std::string node_text(XPtrNode node) {
-  return Xml2String(xmlNodeGetContent(node.get())).asStdString();
+std::string node_text(XPtrNode node, bool trim) {
+  std::string text = Xml2String(xmlNodeGetContent(node.get())).asStdString();
+
+  if (trim)
+    boost::algorithm::trim(text);
+
+  return text;
 }
 
 // [[Rcpp::export]]

@@ -10,17 +10,20 @@
 #' x <- xml("<x>This is some text. <x>This is some nested text.</x></x>")
 #' xml_text(x)
 #' xml_text(xml_find_all(x, "//x"))
+#'
+#' x <- xml("<p>   Some text    </p>")
+#' xml_text(x, trim = TRUE)
 #' @export
-xml_text <- function(x) {
+xml_text <- function(x, trim = FALSE) {
   UseMethod("xml_text")
 }
 
 #' @export
-xml_text.xml_node <- function(x) {
-  node_text(x$node)
+xml_text.xml_node <- function(x, trim = FALSE) {
+  node_text(x$node, trim = trim)
 }
 
 #' @export
-xml_text.xml_nodeset <- function(x) {
-  vapply(x, xml_text, FUN.VALUE = character(1))
+xml_text.xml_nodeset <- function(x, trim = FALSE) {
+  vapply(x, xml_text, trim = trim, FUN.VALUE = character(1))
 }

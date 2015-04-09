@@ -73,8 +73,8 @@ node_name <- function(node, nsMap) {
     .Call('xml2_node_name', PACKAGE = 'xml2', node, nsMap)
 }
 
-node_text <- function(node) {
-    .Call('xml2_node_text', PACKAGE = 'xml2', node)
+node_text <- function(node, trim) {
+    .Call('xml2_node_text', PACKAGE = 'xml2', node, trim)
 }
 
 node_attr <- function(node, name, missing, nsMap) {

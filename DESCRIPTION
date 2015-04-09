@@ -5,7 +5,9 @@ Description: Tools and utilities for working with XML data in R.
 Authors@R: c(
     person("Hadley", "Wickham", , "hadley@rstudio.com", c("aut", "cre")),
     person("Jeroen", "Ooms", role = "ctb"),
-    person("RStudio", role = "cph")
+    person("RStudio", role = "cph"),
+    person("R Foundation", role = "ctb",
+      comment = "Copy of R-project homepage cache as example")
     )
 License: MIT + file LICENSE
 Depends:
