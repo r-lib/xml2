@@ -45,6 +45,10 @@ doc_root <- function(x) {
     .Call('xml2_doc_root', PACKAGE = 'xml2', x)
 }
 
+doc_url <- function(x) {
+    .Call('xml2_doc_url', PACKAGE = 'xml2', x)
+}
+
 unique_ns <- function(ns) {
     .Call('xml2_unique_ns', PACKAGE = 'xml2', ns)
 }
@@ -110,6 +114,7 @@ node_type <- function(node) {
 #' @param x A character vector of urls relative to that base
 #' @param base A string giving a base url.
 #' @return A character vector of urls
+#' @seealso \code{\link{xml_url}} to retrieve the URL associated with a document
 #' @export
 #' @examples
 #' url_absolute(c(".", "..", "/", "/x"), "http://hadley.nz/a/b/c/d")

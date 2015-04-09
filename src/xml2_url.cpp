@@ -9,6 +9,7 @@ using namespace Rcpp;
 //' @param x A character vector of urls relative to that base
 //' @param base A string giving a base url.
 //' @return A character vector of urls
+//' @seealso \code{\link{xml_url}} to retrieve the URL associated with a document
 //' @export
 //' @examples
 //' url_absolute(c(".", "..", "/", "/x"), "http://hadley.nz/a/b/c/d")
