@@ -5,8 +5,13 @@ path_to_connection <- function(path) {
   if (grepl("\n", path))
     return(path)
 
-  if (is_url(path))
-    return(curl::curl(path))
+  if (is_url(path)) {
+    if (requireNamespace("curl", quietly = TRUE)) {
+      return(curl::curl(path))
+    } else {
+      return(url(path))
+    }
+  }
 
   path <- check_path(path)
   switch(tools::file_ext(path),
