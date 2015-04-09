@@ -100,7 +100,7 @@ std::string doc_format(XPtrDoc x) {
   xmlChar *s;
   xmlDocDumpMemory(x.get(), &s, NULL);
 
-  return Xml2String(s);
+  return Xml2String(s).asStdString();
 }
 
 // [[Rcpp::export]]

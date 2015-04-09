@@ -1,10 +1,14 @@
 context("xml_attrs")
 
-test_that("missing attributes returned as NA", {
+test_that("missing attributes returned as NA by default", {
   x <- xml("<x/>")
   expect_equal(xml_attr(x, "id"), NA_character_)
 })
 
+test_that("missing attributes returned as NA", {
+  x <- xml("<x/>")
+  expect_equal(xml_attr(x, "id", default = 1), "1")
+})
 
 # Namespaces -------------------------------------------------------------------
 

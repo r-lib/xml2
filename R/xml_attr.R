@@ -2,11 +2,12 @@
 #'
 #' \code{xml_attrs()} retrieves all attributes values as a named character
 #' vector. \code{xml_attr()} retrieves the value of single attribute. If the
-#' attribute doesn't exist, it will an \code{NA}. \code{xml_has_attr()} tests
-#' if an attribute is present.
+#' attribute doesn't exist, it will return \code{default}, which defaults to
+#' \code{NA}. \code{xml_has_attr()} tests if an attribute is present.
 #'
 #' @inheritParams xml_name
 #' @param attr Name of attribute to extract.
+#' @param default Default value to use when attribute is not present.
 #' @return \code{xml_attr()} returns a character vector. \code{NA} is used
 #'  to represent of attributes that aren't defined.
 #'
@@ -48,18 +49,20 @@
 #' xml_attr(doc, "id")
 #' xml_attr(doc, "b:id", ns)
 #' xml_attr(doc, "id", ns)
-xml_attr <- function(x, attr, ns = character()) {
+xml_attr <- function(x, attr, ns = character(), default = NA_character_) {
   UseMethod("xml_attr")
 }
 
 #' @export
-xml_attr.xml_node <- function(x, attr, ns = character()) {
-  node_attr(x$node, name = attr, nsMap = ns)
+xml_attr.xml_node <- function(x, attr, ns = character(),
+                              default = NA_character_) {
+  node_attr(x$node, name = attr, missing = default, nsMap = ns)
 }
 
 #' @export
-xml_attr.xml_nodeset <- function(x, attr, ns = character()) {
-  vapply(x, xml_attr, attr = attr, ns = ns,
+xml_attr.xml_nodeset <- function(x, attr,  ns = character(),
+                                 default = NA_character_) {
+  vapply(x, xml_attr, attr = attr, default = default, ns = ns,
     FUN.VALUE = character(1))
 }
 

@@ -28,7 +28,7 @@ CharacterVector url_absolute(CharacterVector x, CharacterVector base) {
 
   for (int i = 0; i < n; ++i) {
     const xmlChar* uri = (xmlChar*) Rf_translateCharUTF8(x[i]);
-    out[i] = Xml2String(xmlBuildURI(uri, base_uri));
+    out[i] = Xml2String(xmlBuildURI(uri, base_uri)).asRString();
   }
 
   return out;
@@ -47,7 +47,7 @@ CharacterVector url_relative(CharacterVector x, CharacterVector base) {
 
   for (int i = 0; i < n; ++i) {
     const xmlChar* uri = (xmlChar*) Rf_translateCharUTF8(x[i]);
-    out[i] = Xml2String(xmlBuildRelativeURI(uri, base_uri));
+    out[i] = Xml2String(xmlBuildRelativeURI(uri, base_uri)).asRString();
   }
 
   return out;
@@ -124,7 +124,7 @@ CharacterVector url_escape(CharacterVector x, CharacterVector reserved = "") {
 
   for (int i = 0; i < n; ++i) {
     const xmlChar* xx = (xmlChar*) Rf_translateCharUTF8(x[i]);
-    out[i] = Xml2String(xmlURIEscapeStr(xx, xReserved));
+    out[i] = Xml2String(xmlURIEscapeStr(xx, xReserved)).asRString();
   }
 
   return out;

@@ -16,6 +16,8 @@ class Xml2String {
   bool free_;
 
 public:
+  Xml2String(): string_(NULL), free_(false) {}
+
   Xml2String(xmlChar* string): string_(string), free_(true) {}
 
   // Pointers into structs are const, so don't need to be freed
@@ -31,16 +33,16 @@ public:
     } catch (...) {}
   }
 
-  operator std::string() {
+  std::string asStdString(std::string missing = "") {
     if (string_ == NULL)
-      return "";
+      return missing;
 
     return std::string((char*) string_);
   }
 
-  operator Rcpp::String() {
+  SEXP asRString(SEXP missing = NA_STRING) {
     if (string_ == NULL)
-      return NA_STRING;
+      return missing;
 
     return Rf_mkCharCE((char*) string_, CE_UTF8);
   };
@@ -93,7 +95,7 @@ public:
   }
 
   bool add(const xmlChar* prefix, const xmlChar* url) {
-    return add(Xml2String(prefix), Xml2String(url));
+    return add(Xml2String(prefix).asStdString(), Xml2String(url).asStdString());
   }
 
   bool add(std::string prefix, std::string url) {
