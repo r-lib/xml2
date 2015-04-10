@@ -4,7 +4,7 @@
 \alias{xml_structure}
 \title{Show the structure of an html/xml document.}
 \usage{
-xml_structure(x, indent = 0)
+xml_structure(x, indent = 2)
 }
 \arguments{
 \item{x}{HTML/XML document (or part there of)}
