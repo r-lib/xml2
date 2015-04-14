@@ -17,7 +17,7 @@ read_html(file, encoding = "", ...)
 \method{read_xml}{raw}(file, encoding = "", xml_url = "", ...,
   as_html = FALSE)
 
-\method{read_xml}{connection}(file, encoding = "", n = 16384,
+\method{read_xml}{connection}(file, encoding = "", n = 64 * 1024,
   verbose = FALSE, ..., xml_url = "", as_html = FALSE)
 }
 \arguments{

@@ -6,6 +6,18 @@
 
 using namespace Rcpp;
 
+// read_connection_
+RawVector read_connection_(RObject con, int chunk_size);
+RcppExport SEXP xml2_read_connection_(SEXP conSEXP, SEXP chunk_sizeSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject __result;
+    Rcpp::RNGScope __rngScope;
+    Rcpp::traits::input_parameter< RObject >::type con(conSEXP);
+    Rcpp::traits::input_parameter< int >::type chunk_size(chunk_sizeSEXP);
+    __result = Rcpp::wrap(read_connection_(con, chunk_size));
+    return __result;
+END_RCPP
+}
 // xml_push_parser_create
 XPtrXmlParser xml_push_parser_create(std::string uri);
 RcppExport SEXP xml2_xml_push_parser_create(SEXP uriSEXP) {

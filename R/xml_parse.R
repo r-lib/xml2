@@ -84,15 +84,16 @@ read_xml.raw <- function(file, encoding = "", xml_url = "", ...,
 
 #' @export
 #' @rdname read_xml
-read_xml.connection <- function(file, encoding = "", n = 16384, verbose = FALSE,
+read_xml.connection <- function(file, encoding = "", n = 64 * 1024, verbose = FALSE,
                                  ..., xml_url = "", as_html = FALSE) {
   if (!isOpen(file)){
     open(file, "rb")
     on.exit(close(file))
   }
 
-  parser <- if (as_html) html_push_parse else xml_push_parse
-  parser(file, uri = xml_url, n = n, verbose = verbose)
+  raw <- read_connection_(file, n)
+  doc <- doc_parse_raw(raw, encoding = encoding, base_url = xml_url, html = as_html)
+  xml_document(doc)
 }
 
 xml_push_parse <- function(con, uri = "", n = 16384, verbose = FALSE) {
