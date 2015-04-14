@@ -110,7 +110,7 @@ std::string node_format(XPtrDoc doc, XPtrNode node,
 
 List asList(std::vector<xmlNode*> nodes) {
   List out(nodes.size());
-  for (int i = 0; i < nodes.size(); ++i)
+  for (size_t i = 0; i < nodes.size(); ++i)
     out[i] = XPtrNode(nodes[i]);
 
   return out;
