@@ -5,12 +5,12 @@ read_connection_ <- function(con, chunk_size = 64 * 1024L) {
     .Call('xml2_read_connection_', PACKAGE = 'xml2', con, chunk_size)
 }
 
-doc_parse_file <- function(path, encoding = "", options = 0L, as_html = FALSE) {
-    .Call('xml2_doc_parse_file', PACKAGE = 'xml2', path, encoding, options, as_html)
+doc_parse_file <- function(path, encoding = "", as_html = FALSE) {
+    .Call('xml2_doc_parse_file', PACKAGE = 'xml2', path, encoding, as_html)
 }
 
-doc_parse_raw <- function(x, encoding, base_url = "", options = 0L, as_html = FALSE) {
-    .Call('xml2_doc_parse_raw', PACKAGE = 'xml2', x, encoding, base_url, options, as_html)
+doc_parse_raw <- function(x, encoding, base_url = "", as_html = FALSE) {
+    .Call('xml2_doc_parse_raw', PACKAGE = 'xml2', x, encoding, base_url, as_html)
 }
 
 doc_format <- function(x) {

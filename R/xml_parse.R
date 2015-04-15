@@ -1,6 +1,6 @@
-#' Read HTML or XML from a stream or file.
+#' Read HTML or XML.
 #'
-#' @param file A string, a connection, or a raw vector.
+#' @param x A string, a connection, or a raw vector.
 #'
 #'   A string can be either a path, a url or literal xml. Urls will
 #'   be converted into connections either using \code{base::url} or, if
@@ -38,26 +38,26 @@
 #' # From a url
 #' cd <- read_xml("http://www.xmlfiles.com/examples/cd_catalog.xml")
 #' me <- read_html("http://had.co.nz")
-read_xml <- function(file, encoding = "", ..., as_html = FALSE) {
+read_xml <- function(x, encoding = "", ..., as_html = FALSE) {
   UseMethod("read_xml")
 }
 
 #' @export
 #' @rdname read_xml
-read_html <- function(file, encoding = "", ...) {
-  read_xml(file, encoding, ..., as_html = TRUE)
+read_html <- function(x, encoding = "", ...) {
+  suppressWarnings(read_xml(x, encoding, ..., as_html = TRUE))
 }
 
 #' @export
 #' @rdname read_xml
-read_xml.character <- function(file, encoding = "", ..., as_html = FALSE) {
-  if (grepl("<|>", file)) {
-    read_xml.raw(charToRaw(enc2utf8(file)), "UTF-8", ..., as_html = as_html)
+read_xml.character <- function(x, encoding = "", ..., as_html = FALSE) {
+  if (grepl("<|>", x)) {
+    read_xml.raw(charToRaw(enc2utf8(x)), "UTF-8", ..., as_html = as_html)
   } else {
-    con <- path_to_connection(file)
+    con <- path_to_connection(x)
     if (inherits(con, "connection")) {
       read_xml.connection(con, encoding = encoding, ..., as_html = as_html,
-        base_url = file)
+        base_url = x)
     } else {
       doc <- doc_parse_file(con, encoding = encoding, as_html = as_html)
       xml_document(doc)
@@ -67,23 +67,22 @@ read_xml.character <- function(file, encoding = "", ..., as_html = FALSE) {
 
 #' @export
 #' @rdname read_xml
-read_xml.raw <- function(file, encoding = "", base_url = "", ...,
+read_xml.raw <- function(x, encoding = "", base_url = "", ...,
                          as_html = FALSE) {
-  doc <- doc_parse_raw(file, encoding = encoding, base_url = base_url, as_html = as_html)
+  doc <- doc_parse_raw(x, encoding = encoding, base_url = base_url, as_html = as_html)
   xml_document(doc)
 }
 
 #' @export
 #' @rdname read_xml
-read_xml.connection <- function(file, encoding = "", n = 64 * 1024,
+read_xml.connection <- function(x, encoding = "", n = 64 * 1024,
                                 verbose = FALSE, ..., base_url = "",
                                 as_html = FALSE) {
-  if (!isOpen(file)){
-    open(file, "rb")
-    on.exit(close(file))
+  if (!isOpen(x)){
+    open(x, "rb")
+    on.exit(close(x))
   }
 
-  raw <- read_connection_(file, n)
+  raw <- read_connection_(x, n)
   read_xml.raw(raw, encoding = encoding, base_url = base_url, as_html = as_html)
 }
-

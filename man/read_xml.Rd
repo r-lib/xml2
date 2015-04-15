@@ -6,22 +6,22 @@
 \alias{read_xml.character}
 \alias{read_xml.connection}
 \alias{read_xml.raw}
-\title{Read HTML or XML from a stream or file.}
+\title{Read HTML or XML.}
 \usage{
-read_xml(file, encoding = "", ..., as_html = FALSE)
+read_xml(x, encoding = "", ..., as_html = FALSE)
 
-read_html(file, encoding = "", ...)
+read_html(x, encoding = "", ...)
 
-\method{read_xml}{character}(file, encoding = "", ..., as_html = FALSE)
+\method{read_xml}{character}(x, encoding = "", ..., as_html = FALSE)
 
-\method{read_xml}{raw}(file, encoding = "", base_url = "", ...,
+\method{read_xml}{raw}(x, encoding = "", base_url = "", ...,
   as_html = FALSE)
 
-\method{read_xml}{connection}(file, encoding = "", n = 64 * 1024,
+\method{read_xml}{connection}(x, encoding = "", n = 64 * 1024,
   verbose = FALSE, ..., base_url = "", as_html = FALSE)
 }
 \arguments{
-\item{file}{A string, a connection, or a raw vector.
+\item{x}{A string, a connection, or a raw vector.
 
   A string can be either a path, a url or literal xml. Urls will
   be converted into connections either using \code{base::url} or, if
@@ -56,7 +56,7 @@ An XML document. HTML is normalised to valid XML - this may not
   a reasonable approximation.
 }
 \description{
-Read HTML or XML from a stream or file.
+Read HTML or XML.
 }
 \examples{
 # Literal xml/html is useful for small examples

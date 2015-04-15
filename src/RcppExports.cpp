@@ -19,31 +19,29 @@ BEGIN_RCPP
 END_RCPP
 }
 // doc_parse_file
-XPtrDoc doc_parse_file(std::string path, std::string encoding, int options, bool as_html);
-RcppExport SEXP xml2_doc_parse_file(SEXP pathSEXP, SEXP encodingSEXP, SEXP optionsSEXP, SEXP as_htmlSEXP) {
+XPtrDoc doc_parse_file(std::string path, std::string encoding, bool as_html);
+RcppExport SEXP xml2_doc_parse_file(SEXP pathSEXP, SEXP encodingSEXP, SEXP as_htmlSEXP) {
 BEGIN_RCPP
     Rcpp::RObject __result;
     Rcpp::RNGScope __rngScope;
     Rcpp::traits::input_parameter< std::string >::type path(pathSEXP);
     Rcpp::traits::input_parameter< std::string >::type encoding(encodingSEXP);
-    Rcpp::traits::input_parameter< int >::type options(optionsSEXP);
     Rcpp::traits::input_parameter< bool >::type as_html(as_htmlSEXP);
-    __result = Rcpp::wrap(doc_parse_file(path, encoding, options, as_html));
+    __result = Rcpp::wrap(doc_parse_file(path, encoding, as_html));
     return __result;
 END_RCPP
 }
 // doc_parse_raw
-XPtrDoc doc_parse_raw(RawVector x, std::string encoding, std::string base_url, int options, bool as_html);
-RcppExport SEXP xml2_doc_parse_raw(SEXP xSEXP, SEXP encodingSEXP, SEXP base_urlSEXP, SEXP optionsSEXP, SEXP as_htmlSEXP) {
+XPtrDoc doc_parse_raw(RawVector x, std::string encoding, std::string base_url, bool as_html);
+RcppExport SEXP xml2_doc_parse_raw(SEXP xSEXP, SEXP encodingSEXP, SEXP base_urlSEXP, SEXP as_htmlSEXP) {
 BEGIN_RCPP
     Rcpp::RObject __result;
     Rcpp::RNGScope __rngScope;
     Rcpp::traits::input_parameter< RawVector >::type x(xSEXP);
     Rcpp::traits::input_parameter< std::string >::type encoding(encodingSEXP);
     Rcpp::traits::input_parameter< std::string >::type base_url(base_urlSEXP);
-    Rcpp::traits::input_parameter< int >::type options(optionsSEXP);
     Rcpp::traits::input_parameter< bool >::type as_html(as_htmlSEXP);
-    __result = Rcpp::wrap(doc_parse_raw(x, encoding, base_url, options, as_html));
+    __result = Rcpp::wrap(doc_parse_raw(x, encoding, base_url, as_html));
     return __result;
 END_RCPP
 }
