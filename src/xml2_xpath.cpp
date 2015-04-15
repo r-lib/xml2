@@ -9,6 +9,7 @@ class XmlSeeker {
   xmlXPathContext* context_;
   xmlXPathObject* result_;
   xmlNodeSet* nodes_; // Component of result, so doesn't need to be cleaned up
+  std::string xpath_;
 
 public:
 
@@ -34,6 +35,7 @@ public:
   }
 
   void search(std::string xpath) {
+    xpath_ = xpath;
     result_ = xmlXPathEval((xmlChar*) xpath.c_str(), context_);
     if (result_ == NULL)
       return;
@@ -67,7 +69,7 @@ public:
       Rcpp::stop("No matches");
 
     if (n > 1)
-      Rcpp::warning("%i matches: using first", n);
+      Rcpp::warning("%i matches for %s: using first", n, xpath_);
 
     return XPtrNode(nodes_->nodeTab[0]);
   }
