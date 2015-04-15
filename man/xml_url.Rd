@@ -20,7 +20,7 @@ This is useful for interpreting relative urls with \code{\link{url_relative}}.
 catalog <- read_xml("http://www.xmlfiles.com/examples/cd_catalog.xml")
 xml_url(catalog)
 
-x <- xml("<foo/>")
+x <- read_xml("<foo/>")
 xml_url(x)
 }
 

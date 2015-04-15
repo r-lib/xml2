@@ -1,12 +1,12 @@
 context("xml_attrs")
 
 test_that("missing attributes returned as NA by default", {
-  x <- xml("<x/>")
+  x <- read_xml("<x/>")
   expect_equal(xml_attr(x, "id"), NA_character_)
 })
 
 test_that("missing attributes returned as NA", {
-  x <- xml("<x/>")
+  x <- read_xml("<x/>")
   expect_equal(xml_attr(x, "id", default = 1), "1")
 })
 
@@ -26,7 +26,7 @@ test_that("qualified names returned when ns given", {
 })
 
 
-x <- xml('
+x <- read_xml('
  <root xmlns:b="http://bar.com" xmlns:f="http://foo.com">
    <doc b:id="b" f:id="f" id="" />
  </root>

@@ -16,7 +16,7 @@ save nodesets containing more than one node.}
 This writes out both XML and normalised HTML.
 }
 \examples{
-h <- html("<p>Hi!</p>")
+h <- read_html("<p>Hi!</p>")
 
 tmp <- tempfile(fileext = ".xml")
 write_xml(h, tmp)

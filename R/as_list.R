@@ -18,10 +18,10 @@
 #' @param ... Needed for compatability with generic. Unused.
 #' @export
 #' @examples
-#' as_list(xml("<foo> a <b /><c><![CDATA[<d></d>]]></c></foo>"))
-#' as_list(xml("<foo> <bar><baz /></bar> </foo>"))
-#' as_list(xml("<foo id = 'a'></foo>"))
-#' as_list(xml("<foo><bar id='a'/><bar id='b'/></foo>"))
+#' as_list(read_xml("<foo> a <b /><c><![CDATA[<d></d>]]></c></foo>"))
+#' as_list(read_xml("<foo> <bar><baz /></bar> </foo>"))
+#' as_list(read_xml("<foo id = 'a'></foo>"))
+#' as_list(read_xml("<foo><bar id='a'/><bar id='b'/></foo>"))
 as_list <- function(x, ns = character(), ...) {
   UseMethod("as_list")
 }

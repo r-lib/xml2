@@ -8,7 +8,7 @@
 #' @param indent Number of spaces to ident
 #' @export
 #' @examples
-#' xml_structure(xml("<a><b><c/><c/></b><d/></a>"))
+#' xml_structure(read_xml("<a><b><c/><c/></b><d/></a>"))
 #'
 #' rproj <- read_html(system.file("extdata","r-project.html", package = "xml2"))
 #' xml_structure(rproj)

@@ -7,7 +7,7 @@
 #' @return A character vector.
 #' @export
 #' @examples
-#' x <- xml("<foo><bar><baz /></bar><baz /></foo>")
+#' x <- read_xml("<foo><bar><baz /></bar><baz /></foo>")
 #' xml_path(xml_find_all(x, ".//baz"))
 xml_path <- function(x) {
   UseMethod("xml_path")

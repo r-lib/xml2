@@ -17,7 +17,7 @@ the values. This is useful if you want to get a high level view of the
 way a document is organised.
 }
 \examples{
-xml_structure(xml("<a><b><c/><c/></b><d/></a>"))
+xml_structure(read_xml("<a><b><c/><c/></b><d/></a>"))
 
 rproj <- read_html(system.file("extdata","r-project.html", package = "xml2"))
 xml_structure(rproj)

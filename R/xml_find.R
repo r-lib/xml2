@@ -18,7 +18,7 @@
 #'   error; if there are multiple matches, it will use the first with a warning.
 #' @export
 #' @examples
-#' x <- xml("<foo><bar><baz/></bar><baz/></foo>")
+#' x <- read_xml("<foo><bar><baz/></bar><baz/></foo>")
 #' xml_find_all(x, ".//baz")
 #' xml_path(xml_find_all(x, ".//baz"))
 #'
@@ -30,7 +30,7 @@
 #' xml_find_all(bar, "//baz")
 #'
 #' # Find all vs find one -----------------------------------------------------
-#' x <- xml("<body>
+#' x <- read_xml("<body>
 #'   <p>Some <b>text</b>.</p>
 #'   <p>Some <b>other</b> <b>text</b>.</p>
 #'</body>")
@@ -49,7 +49,7 @@
 #' # Namespaces ---------------------------------------------------------------
 #' # If the document uses namespaces, you'll need use xml_ns to form
 #' # a unique mapping between full namespace url and a short prefix
-#' x <- xml('
+#' x <- read_xml('
 #'  <root xmlns:f = "http://foo.com" xmlns:g = "http://bar.com">
 #'    <f:doc><g:baz /></f:doc>
 #'    <f:doc><g:baz /></f:doc>

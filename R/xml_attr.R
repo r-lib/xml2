@@ -17,7 +17,7 @@
 #'  node, or a list of character vectors if given a nodeset
 #' @export
 #' @examples
-#' x <- xml("<root id='1'><child id ='a' /><child id='b' d='b'/></root>")
+#' x <- read_xml("<root id='1'><child id ='a' /><child id='b' d='b'/></root>")
 #' xml_attr(x, "id")
 #' xml_attr(x, "apple")
 #' xml_attrs(x)
@@ -34,7 +34,7 @@
 #'
 #' # If the document has a namespace, use the ns argument and
 #' # qualified attribute names
-#' x <- xml('
+#' x <- read_xml('
 #'  <root xmlns:b="http://bar.com" xmlns:f="http://foo.com">
 #'    <doc b:id="b" f:id="f" id="" />
 #'  </root>

@@ -10,10 +10,10 @@
 #' @return A character vector.
 #' @export
 #' @examples
-#' x <- xml("<bar>123</bar>")
+#' x <- read_xml("<bar>123</bar>")
 #' xml_name(x)
 #'
-#' y <- xml("<bar><baz>1</baz>abc<foo /></bar>")
+#' y <- read_xml("<bar><baz>1</baz>abc<foo /></bar>")
 #' z <- xml_children(y)
 #' xml_name(xml_children(y))
 xml_name <- function(x, ns = character()) {

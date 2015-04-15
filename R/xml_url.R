@@ -10,7 +10,7 @@
 #' catalog <- read_xml("http://www.xmlfiles.com/examples/cd_catalog.xml")
 #' xml_url(catalog)
 #'
-#' x <- xml("<foo/>")
+#' x <- read_xml("<foo/>")
 #' xml_url(x)
 xml_url <- function(x) {
   UseMethod("xml_url")

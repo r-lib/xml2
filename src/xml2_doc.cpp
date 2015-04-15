@@ -10,9 +10,9 @@ using namespace Rcpp;
 XPtrDoc doc_parse_file(std::string path,
                             std::string encoding = "",
                             int options = 0,
-                            bool html = false) {
+                            bool as_html = false) {
   xmlDoc* pDoc;
-  if (html) {
+  if (as_html) {
     pDoc = htmlReadFile(
       path.c_str(),
       encoding == "" ? NULL : encoding.c_str(),
@@ -33,44 +33,12 @@ XPtrDoc doc_parse_file(std::string path,
 }
 
 // [[Rcpp::export]]
-XPtrDoc doc_parse_string(CharacterVector x, std::string encoding,
-                              std::string base_url = "",
-                              int options = 0,
-                              bool html = false) {
-  SEXP x1 = x[0];
-
-  xmlDoc* pDoc;
-  if (html) {
-    pDoc = htmlReadMemory(
-      CHAR(x1),
-      Rf_length(x1),
-      base_url == "" ? NULL : base_url.c_str(),
-      encoding == "" ? NULL : encoding.c_str(),
-      options
-    );
-  } else {
-   pDoc = xmlReadMemory(
-      CHAR(x1),
-      Rf_length(x1),
-      base_url == "" ? NULL : base_url.c_str(),
-      encoding == "" ? NULL : encoding.c_str(),
-      options
-    );
-  }
-
-  if (pDoc == NULL)
-    Rcpp::stop("Failed to parse text");
-
-  return XPtrDoc(pDoc);
-}
-
-// [[Rcpp::export]]
 XPtrDoc doc_parse_raw(RawVector x, std::string encoding,
                       std::string base_url = "",
                       int options = 0,
-                      bool html = false) {
+                      bool as_html = false) {
   xmlDoc* pDoc;
-  if (html) {
+  if (as_html) {
     pDoc = htmlReadMemory(
       (const char *) RAW(x),
       Rf_length(x),
@@ -87,7 +55,6 @@ XPtrDoc doc_parse_raw(RawVector x, std::string encoding,
       options
     );
   }
-
 
   if (pDoc == NULL)
     Rcpp::stop("Failed to parse text");

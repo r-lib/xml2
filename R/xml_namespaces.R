@@ -13,7 +13,7 @@
 #' @return A character vector with class \code{xml_namespace} so the
 #'   default display is a little nicer.
 #' @examples
-#' x <- xml('
+#' x <- read_xml('
 #'  <root>
 #'    <doc1 xmlns = "http://foo.com"><baz /></doc1>
 #'    <doc2 xmlns = "http://bar.com"><baz /></doc2>

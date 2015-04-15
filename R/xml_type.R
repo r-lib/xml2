@@ -3,7 +3,7 @@
 #' @inheritParams xml_name
 #' @export
 #' @examples
-#' x <- xml("<foo> a <b /> <![CDATA[ blah]]></foo>")
+#' x <- read_xml("<foo> a <b /> <![CDATA[ blah]]></foo>")
 #' xml_type(x)
 #' xml_type(xml_contents(x))
 xml_type <- function(x) {

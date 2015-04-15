@@ -42,7 +42,7 @@ attribute doesn't exist, it will return \code{default}, which defaults to
 \code{NA}. \code{xml_has_attr()} tests if an attribute is present.
 }
 \examples{
-x <- xml("<root id='1'><child id ='a' /><child id='b' d='b'/></root>")
+x <- read_xml("<root id='1'><child id ='a' /><child id='b' d='b'/></root>")
 xml_attr(x, "id")
 xml_attr(x, "apple")
 xml_attrs(x)
@@ -59,7 +59,7 @@ xml_has_attr(xml_children(x), "d")
 
 # If the document has a namespace, use the ns argument and
 # qualified attribute names
-x <- xml('
+x <- read_xml('
  <root xmlns:b="http://bar.com" xmlns:f="http://foo.com">
    <doc b:id="b" f:id="f" id="" />
  </root>

@@ -31,7 +31,7 @@ returns all parents up to the root. \code{xml_siblings} returns all nodes
 at the same level.
 }
 \examples{
-x <- xml("<foo> <bar><boo /></bar> <baz/> </foo>")
+x <- read_xml("<foo> <bar><boo /></bar> <baz/> </foo>")
 xml_children(x)
 xml_children(xml_children(x))
 xml_siblings(xml_children(x)[[1]])
@@ -40,7 +40,7 @@ xml_siblings(xml_children(x)[[1]])
 xml_parent(xml_children(x))
 
 # Mixed content
-x <- xml("<foo> a <b/> c <d>e</d> f</foo>")
+x <- read_xml("<foo> a <b/> c <d>e</d> f</foo>")
 # Childen gets the elements, contents gets all node types
 xml_children(x)
 xml_contents(x)

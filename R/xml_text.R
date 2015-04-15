@@ -4,15 +4,15 @@
 #' @param trim If \code{TRUE} will trim leading and trailing spaces.
 #' @return A character vector, the same length as x.
 #' @examples
-#' x <- xml("<p>This is some text. This is <b>bold!</b></p>")
+#' x <- read_xml("<p>This is some text. This is <b>bold!</b></p>")
 #' xml_text(x)
 #' xml_text(xml_children(x))
 #'
-#' x <- xml("<x>This is some text. <x>This is some nested text.</x></x>")
+#' x <- read_xml("<x>This is some text. <x>This is some nested text.</x></x>")
 #' xml_text(x)
 #' xml_text(xml_find_all(x, "//x"))
 #'
-#' x <- xml("<p>   Some text    </p>")
+#' x <- read_xml("<p>   Some text    </p>")
 #' xml_text(x, trim = TRUE)
 #' @export
 xml_text <- function(x, trim = FALSE) {

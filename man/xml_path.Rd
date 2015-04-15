@@ -17,7 +17,7 @@ This is useful when you want to figure out where nodes matching an
 xpath expression live in a document.
 }
 \examples{
-x <- xml("<foo><bar><baz /></bar><baz /></foo>")
+x <- read_xml("<foo><bar><baz /></bar><baz /></foo>")
 xml_path(xml_find_all(x, ".//baz"))
 }
 

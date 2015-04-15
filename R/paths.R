@@ -2,9 +2,6 @@ path_to_connection <- function(path) {
   if (!is.character(path))
     return(path)
 
-  if (grepl("\n", path))
-    return(path)
-
   if (is_url(path)) {
     if (requireNamespace("curl", quietly = TRUE)) {
       return(curl::curl(path))

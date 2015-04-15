@@ -27,7 +27,7 @@ to change the prefixes. Once you have a namespace object, you can pass it to
 other functions to work with fully qualified names instead of local names.
 }
 \examples{
-x <- xml('
+x <- read_xml('
  <root>
    <doc1 xmlns = "http://foo.com"><baz /></doc1>
    <doc2 xmlns = "http://bar.com"><baz /></doc2>

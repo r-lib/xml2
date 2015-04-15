@@ -3,12 +3,12 @@ context("xml_find")
 # Find one ---------------------------------------------------------------------
 
 test_that("xml_find_one throws error if no match", {
-  x <- xml("<x><y/></x>")
+  x <- read_xml("<x><y/></x>")
   expect_error(xml_find_one(x, ".//z"), "No matches")
 })
 
 test_that("xml_find_one gives warning if more than one match", {
-  x <- xml("<x><y/><y/></x>")
+  x <- read_xml("<x><y/><y/></x>")
   expect_warning(y <- xml_find_one(x, ".//y"), "using first")
   expect_is(y, "xml_node")
 })
@@ -30,11 +30,11 @@ test_that("qualified names matches to namespace", {
 })
 
 test_that("warning if unknown namespace", {
-  x <- xml("<foo><bar /></foo>")
+  x <- read_xml("<foo><bar /></foo>")
   expect_warning(xml_find_all(x, "//g:bar"), "Undefined namespace prefix")
 })
 
 test_that("no matches returns empty nodeset", {
-  x <- xml("<foo><bar /></foo>")
+  x <- read_xml("<foo><bar /></foo>")
   expect_equal(length(xml_find_all(x, "//baz")), 0)
 })
