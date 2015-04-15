@@ -1,8 +1,12 @@
 #include <Rcpp.h>
 using namespace Rcpp;
 
-#include <libxml/parser.h>
 #include "xml2_types.h"
+#include <libxml/parser.h>
+#include <libxml/HTMLparser.h>
+
+typedef Rcpp::XPtr<xmlParserCtxt,Rcpp::PreserveStorage,xmlFreeParserCtxt> XPtrXmlParser;
+typedef Rcpp::XPtr<htmlParserCtxt,Rcpp::PreserveStorage,htmlFreeParserCtxt> XPtrHtmlParser;
 
 // The push parser seems to give different results to parsing as one big
 // chunk, so it's not currently used.
