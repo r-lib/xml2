@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <libxml/xmlversion.h>
 #include <libxml/xmlerror.h>
+#include <libxml/parser.h>
 
 void handleError(void* userData, xmlError* error) {
   std::string message = std::string(error->message);
@@ -21,7 +22,12 @@ extern "C" {
     // Check that header and libs are compatible
     LIBXML_TEST_VERSION
 
+    xmlInitParser();
     xmlSetStructuredErrorFunc(NULL, handleError);
+  }
+
+  void R_unload_xml2(DllInfo *info) {
+    xmlCleanupParser();
   }
 
 };
