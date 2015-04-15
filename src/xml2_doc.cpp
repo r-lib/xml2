@@ -9,20 +9,19 @@ using namespace Rcpp;
 // [[Rcpp::export]]
 XPtrDoc doc_parse_file(std::string path,
                             std::string encoding = "",
-                            int options = 0,
                             bool as_html = false) {
   xmlDoc* pDoc;
   if (as_html) {
     pDoc = htmlReadFile(
       path.c_str(),
       encoding == "" ? NULL : encoding.c_str(),
-      options
+      HTML_PARSE_RECOVER | HTML_PARSE_NOERROR
     );
   } else {
     pDoc = xmlReadFile(
       path.c_str(),
       encoding == "" ? NULL : encoding.c_str(),
-      options
+      0
     );
   }
 
@@ -35,7 +34,6 @@ XPtrDoc doc_parse_file(std::string path,
 // [[Rcpp::export]]
 XPtrDoc doc_parse_raw(RawVector x, std::string encoding,
                       std::string base_url = "",
-                      int options = 0,
                       bool as_html = false) {
   xmlDoc* pDoc;
   if (as_html) {
@@ -44,7 +42,7 @@ XPtrDoc doc_parse_raw(RawVector x, std::string encoding,
       Rf_length(x),
       base_url == "" ? NULL : base_url.c_str(),
       encoding == "" ? NULL : encoding.c_str(),
-      options
+      HTML_PARSE_RECOVER | HTML_PARSE_NOERROR
     );
   } else {
     pDoc = xmlReadMemory(
@@ -52,7 +50,7 @@ XPtrDoc doc_parse_raw(RawVector x, std::string encoding,
       Rf_length(x),
       base_url == "" ? NULL : base_url.c_str(),
       encoding == "" ? NULL : encoding.c_str(),
-      options
+      0
     );
   }
 

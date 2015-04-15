@@ -45,7 +45,7 @@ read_xml <- function(file, encoding = "", ..., as_html = FALSE) {
 #' @export
 #' @rdname read_xml
 read_html <- function(file, encoding = "", ...) {
-  read_xml(file, encoding, ..., as_html = TRUE)
+  suppressWarnings(read_xml(file, encoding, ..., as_html = TRUE))
 }
 
 #' @export
