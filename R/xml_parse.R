@@ -78,7 +78,7 @@ read_xml.raw <- function(x, encoding = "", base_url = "", ...,
 read_xml.connection <- function(x, encoding = "", n = 64 * 1024,
                                 verbose = FALSE, ..., base_url = "",
                                 as_html = FALSE) {
-  if (!isOpen(x)){
+  if (!isOpen(x)) {
     open(x, "rb")
     on.exit(close(x))
   }
