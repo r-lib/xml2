@@ -1,15 +1,15 @@
 Package: xml2
-Version: 0.1
-Title: Bindings to libxml2
-Description: Tools and utilities for working with XML data in R.
+Version: 0.1.0
+Title: Parse XML
+Description: Work with XML files using a simple, consistent interface. Built on
+  top of the 'libxml2' C library.
 Authors@R: c(
     person("Hadley", "Wickham", , "hadley@rstudio.com", c("aut", "cre")),
     person("Jeroen", "Ooms", role = "ctb"),
     person("RStudio", role = "cph"),
     person("R Foundation", role = "ctb",
-      comment = "Copy of R-project homepage cache as example")
+      comment = "Copy of R-project homepage cached as example")
     )
-License: MIT + file LICENSE
 Depends:
     R (>= 3.1.0)
 Imports:
@@ -20,3 +20,4 @@ LinkingTo:
 Suggests:
     testthat,
     curl
+License: GPL (>= 2)

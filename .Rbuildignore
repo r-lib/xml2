@@ -2,3 +2,4 @@
 ^\.Rproj\.user$
 windows
 .travis.yml
+^cran-comments\.md$
