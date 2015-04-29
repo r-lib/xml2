@@ -41,7 +41,7 @@
 #' # never know how many results you'll get
 #' xml_find_all(para, ".//b")
 #'
-#' # xml_find_all only returns one match per input node. If there are 0
+#' # xml_find_one only returns one match per input node. If there are 0
 #' # matches it will throw an error; if there are more than one it picks
 #' # the first with a warning
 #' xml_find_one(para, ".//b")
