@@ -19,7 +19,7 @@ devtools::install_github("hadley/xml2")
 
 ```R
 library("xml2")
-x <- xml("<foo> <bar> text <baz/> </bar> </foo>")
+x <- read_xml("<foo> <bar> text <baz/> </bar> </foo>")
 x
 
 xml_name(x)
