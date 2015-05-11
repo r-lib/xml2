@@ -27,7 +27,7 @@ xml_children(x)
 xml_text(x)
 xml_find_all(x, ".//baz")
 
-h <- html("<html><p>Hi <b>!")
+h <- read_html("<html><p>Hi <b>!")
 h
 xml_name(h)
 xml_text(h)
