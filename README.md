@@ -4,8 +4,11 @@ The xml2 package is a binding to [libxml2](http://xmlsoft.org), making it easy t
 
 ## Installation
 
-xml2 is not yet available from CRAN, but you can install it from github with:
-
+You can install xml2 from CRAN, 
+```R
+install.packages("xml2")
+```
+or you can install the development version from github, using `devtools`:
 ```R
 # install.packages("devtools")
 devtools::install_github("RcppCore/Rcpp")
