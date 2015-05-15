@@ -130,6 +130,19 @@ Rcpp::List node_children(XPtrNode node, bool onlyNode = true) {
 }
 
 // [[Rcpp::export]]
+int node_length(XPtrNode node, bool onlyNode = true) {
+  int i = 0;
+  for(xmlNode* cur = node->xmlChildrenNode; cur != NULL; cur = cur->next) {
+    if (onlyNode && cur->type != XML_ELEMENT_NODE)
+      continue;
+    ++i;
+  }
+
+  return i;
+}
+
+
+// [[Rcpp::export]]
 Rcpp::List node_parents(XPtrNode node) {
   std::vector<xmlNode*> out;
 

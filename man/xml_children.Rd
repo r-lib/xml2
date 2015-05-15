@@ -3,6 +3,7 @@
 \name{xml_children}
 \alias{xml_children}
 \alias{xml_contents}
+\alias{xml_length}
 \alias{xml_parent}
 \alias{xml_parents}
 \alias{xml_siblings}
@@ -17,16 +18,22 @@ xml_parents(x)
 xml_siblings(x)
 
 xml_parent(x)
+
+xml_length(x, only_elements = TRUE)
 }
 \arguments{
 \item{x}{A document, node, or node set.}
+
+\item{only_elements}{For \code{xml_length}, should it count all children,
+or just children that are elements (the default)?}
 }
 \value{
 A node or nodeset (possibly empty). Results are always de-duplicated.
 }
 \description{
 \code{xml_children} returns only elements, \code{xml_contents} returns
-all nodes. \code{xml_parent} returns the parent node, \code{xml_parents}
+all nodes. \code{xml_length} returns the number of children.
+\code{xml_parent} returns the parent node, \code{xml_parents}
 returns all parents up to the root. \code{xml_siblings} returns all nodes
 at the same level.
 }
@@ -44,5 +51,8 @@ x <- read_xml("<foo> a <b/> c <d>e</d> f</foo>")
 # Childen gets the elements, contents gets all node types
 xml_children(x)
 xml_contents(x)
+
+xml_length(x)
+xml_length(x, only_elements = FALSE)
 }
 

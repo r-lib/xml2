@@ -187,6 +187,18 @@ BEGIN_RCPP
     return __result;
 END_RCPP
 }
+// node_length
+int node_length(XPtrNode node, bool onlyNode);
+RcppExport SEXP xml2_node_length(SEXP nodeSEXP, SEXP onlyNodeSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject __result;
+    Rcpp::RNGScope __rngScope;
+    Rcpp::traits::input_parameter< XPtrNode >::type node(nodeSEXP);
+    Rcpp::traits::input_parameter< bool >::type onlyNode(onlyNodeSEXP);
+    __result = Rcpp::wrap(node_length(node, onlyNode));
+    return __result;
+END_RCPP
+}
 // node_parents
 Rcpp::List node_parents(XPtrNode node);
 RcppExport SEXP xml2_node_parents(SEXP nodeSEXP) {
