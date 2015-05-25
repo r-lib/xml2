@@ -1,6 +1,8 @@
 # Custom libxml2 path for compatibility with old XML package
 if [ "$LIBXML_INCDIR" ]; then
   echo "User specified xml2 headers in $LIBXML_INCDIR."
+elif [ $(command -v pkg-config) ]; then
+  LIBXML_INCDIR=$(pkg-config --cflags libxml-2.0)
 elif [ -r "/usr/include/libxml2/libxml/parser.h" ]; then
   LIBXML_INCDIR="/usr/include/libxml2/"
 elif [ -r "/usr/local/include/libxml2/libxml/parser.h" ]; then
