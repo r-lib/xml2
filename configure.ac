@@ -4,7 +4,8 @@ AC_INIT(DESCRIPTION)
 
 
 PKGCONFIG=`command -v pkg-config`
-ISMAC=`echo "$OSTYPE" | grep "darwin"`
+ISMAC=`uname | grep "[Dd]arwin"`
+
 
 # Custom libxml2 path for compatibility with old XML package
 if test -n "${LIBXML_INCDIR}"; then

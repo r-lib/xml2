@@ -1665,7 +1665,9 @@ ac_compiler_gnu=$ac_cv_c_compiler_gnu
 
 
 PKGCONFIG=`command -v pkg-config`
-ISMAC=`echo "$OSTYPE" | grep "darwin"`
+ISMAC=`uname | grep "Ddarwin"`
+
+echo "X$ISMAC"
 
 # Custom libxml2 path for compatibility with old XML package
 if test -n "${LIBXML_INCDIR}"; then
