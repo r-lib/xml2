@@ -4,7 +4,7 @@ AC_INIT(DESCRIPTION)
 
 
 PKGCONFIG=`command -v pkg-config`
-ISMAC=`uname | grep "[Dd]arwin"`
+ISMAC=`uname | grep "Darwin"`
 
 
 # Custom libxml2 path for compatibility with old XML package
