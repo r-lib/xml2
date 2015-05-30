@@ -1,10 +1,13 @@
+# Use backticks to be bourne compliant
+PKGCONFIG=`command -v pkg-config`
+
 # Custom libxml2 path for compatibility with old XML package
 if [ "$LIBXML_INCDIR" ]; then
   LIBXML_CFLAGS="-I$LIBXML_INCDIR"
   echo "User specified xml2 headers in $LIBXML_INCDIR."
-elif [ $(command -v pkg-config) ]; then
-  LIBXML_CFLAGS=$(pkg-config --cflags libxml-2.0)
-  LIBXML_LIBS=$(pkg-config --libs libxml-2.0)
+elif [ "$PKGCONFIG" ]; then
+  LIBXML_CFLAGS=`pkg-config --cflags libxml-2.0`
+  LIBXML_LIBS=`pkg-config --libs libxml-2.0`
 elif [ -r "/usr/include/libxml2/libxml/parser.h" ]; then
   LIBXML_CFLAGS="-I/usr/include/libxml2/"
 elif [ -r "/usr/local/include/libxml2/libxml/parser.h" ]; then
@@ -12,11 +15,6 @@ elif [ -r "/usr/local/include/libxml2/libxml/parser.h" ]; then
 elif [ -r "/opt/csw/include/libxml2/libxml/parser.h" ]; then
   LIBXML_CFLAGS="-I/opt/csw/include/libxml2/"
   LIBXML_LIBS="-L/opt/csw/lib/ -lxml2"
-elif [ $(echo "$OSTYPE" | grep "darwin") ]; then
-  DYNLIB=$(xcodebuild -find-library xml2)
-  LIBDIR=$(dirname $DYNLIB)
-  XCODE=$(dirname $LIBDIR)
-  LIBXML_CFLAGS="-I$XCODE/include/libxml2"
 fi
 
 if [ "$LIBXML_CFLAGS" ]; then
