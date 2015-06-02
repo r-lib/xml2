@@ -1,3 +1,5 @@
+# xml2 0.1.1.9000
+
 # xml2 0.1.1
 
 * Make configure script more cross platform.
