@@ -30,7 +30,7 @@ extern "C" {
     xmlCleanupParser();
   }
 
-};
+}
 
 // [[Rcpp::export]]
 std::string libxml2_version(){
