@@ -82,8 +82,18 @@ List url_parse(CharacterVector x) {
     port[i] = uri->port == 0 ? NA_INTEGER : uri->port;
     user[i] = uri->user == NULL ? "" : uri->user;
     path[i] = uri->path  == NULL ? "" : uri->path;
-    query[i] = uri->query_raw  == NULL ? "" : uri->query_raw;
     fragment[i] = uri->fragment == NULL ? "" : uri->fragment;
+
+    /* * *
+     * Thu Apr 26 10:36:26 CEST 2007 Daniel Veillard
+     * svn path=/trunk/; revision=3607
+     * https://github.com/GNOME/libxml2/commit/a1413b84f7163d57c6251d5f4251186368efd859
+     */
+    #if defined(LIBXML_VERSION) && (LIBXML_VERSION >= 20629)
+    query[i] = uri->query_raw  == NULL ? "" : uri->query_raw;
+    #else
+    query[i] = uri->query  == NULL ? "" : uri->query;
+    #endif
 
     xmlFreeURI(uri);
   }
