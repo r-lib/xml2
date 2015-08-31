@@ -5,3 +5,4 @@ windows
 ^cran-comments\.md$
 ^NEWS\.md$
 ^revdep$
+^src/Makevars$
