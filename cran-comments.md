@@ -1,6 +1,10 @@
+## Release summary
+
+This release fixes configure problems on windows (it may also fix on solaris, but we haven't been able to recreate the problem locally).
+
 ## Test environments
-* local OS X install, R 3.2.0.
-* ubuntu 12.04 (on travis-ci), R 3.2.0.
+* local OS X install, R 3.2.1.
+* ubuntu 12.04 (on travis-ci), R 3.2.2.
 * win-builder (devel and release)
 
 ## R CMD check results
@@ -13,4 +17,4 @@ There was 1 NOTE:
   do about this.
 
 ## Downstream dependencies
-None. This package was archived.
+I ran `R CMD check` on all 6 reverse dependencies (https://github.com/hadley/xml2/tree/master/revdep/summary.md).  As far as I can tell, there are no new problems related to xml2.
