@@ -1,3 +1,5 @@
+# xml2 0.1.2.9000
+
 # xml2 0.1.2
 
 * Improved configure script - now works again on R-devel on windows.
