@@ -99,13 +99,13 @@ CharacterVector node_attrs(XPtrNode node, CharacterVector nsMap) {
 }
 
 // [[Rcpp::export]]
-std::string node_format(XPtrDoc doc, XPtrNode node,
+CharacterVector node_format(XPtrDoc doc, XPtrNode node,
                         bool format = true,
                         int indent = 0) {
   boost::shared_ptr<xmlBuffer> buffer(xmlBufferCreate(), xmlFree);
   xmlNodeDump(buffer.get(), doc.get(), node.get(), indent, format);
 
-  return Xml2String(buffer->content).asStdString();
+  return Xml2String(buffer->content).asRString();
 }
 
 List asList(std::vector<xmlNode*> nodes) {

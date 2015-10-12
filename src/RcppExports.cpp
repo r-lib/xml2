@@ -46,7 +46,7 @@ BEGIN_RCPP
 END_RCPP
 }
 // doc_format
-std::string doc_format(XPtrDoc x);
+CharacterVector doc_format(XPtrDoc x);
 RcppExport SEXP xml2_doc_format(SEXP xSEXP) {
 BEGIN_RCPP
     Rcpp::RObject __result;
@@ -172,7 +172,7 @@ BEGIN_RCPP
 END_RCPP
 }
 // node_format
-std::string node_format(XPtrDoc doc, XPtrNode node, bool format, int indent);
+CharacterVector node_format(XPtrDoc doc, XPtrNode node, bool format, int indent);
 RcppExport SEXP xml2_node_format(SEXP docSEXP, SEXP nodeSEXP, SEXP formatSEXP, SEXP indentSEXP) {
 BEGIN_RCPP
     Rcpp::RObject __result;
