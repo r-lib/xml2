@@ -122,7 +122,7 @@ BEGIN_RCPP
 END_RCPP
 }
 // node_name
-std::string node_name(XPtrNode node, CharacterVector nsMap);
+CharacterVector node_name(XPtrNode node, CharacterVector nsMap);
 RcppExport SEXP xml2_node_name(SEXP nodeSEXP, SEXP nsMapSEXP) {
 BEGIN_RCPP
     Rcpp::RObject __result;
@@ -134,7 +134,7 @@ BEGIN_RCPP
 END_RCPP
 }
 // node_text
-std::string node_text(XPtrNode node, bool trim);
+CharacterVector node_text(XPtrNode node, bool trim);
 RcppExport SEXP xml2_node_text(SEXP nodeSEXP, SEXP trimSEXP) {
 BEGIN_RCPP
     Rcpp::RObject __result;

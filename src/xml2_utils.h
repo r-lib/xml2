@@ -9,6 +9,10 @@ inline xmlChar* asXmlChar(std::string x) {
   return (xmlChar*) x.c_str();
 }
 
+inline Rcpp::CharacterVector asCharacterVector(std::string x) {
+  return Rcpp::CharacterVector(Rf_mkCharCE(x.c_str(), CE_UTF8));
+}
+
 // ----------------------------------------------------------------------------
 // A wrapper around xmlChar* that frees memory if necessary
 class Xml2String {

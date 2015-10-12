@@ -22,18 +22,18 @@ std::string nodeName(T* node, CharacterVector nsMap) {
 }
 
 // [[Rcpp::export]]
-std::string node_name(XPtrNode node, CharacterVector nsMap) {
-  return nodeName(node.get(), nsMap);
+CharacterVector node_name(XPtrNode node, CharacterVector nsMap) {
+  return asCharacterVector(nodeName(node.get(), nsMap));
 }
 
 // [[Rcpp::export]]
-std::string node_text(XPtrNode node, bool trim) {
+CharacterVector node_text(XPtrNode node, bool trim) {
   std::string text = Xml2String(xmlNodeGetContent(node.get())).asStdString();
 
   if (trim)
     boost::algorithm::trim(text);
 
-  return text;
+  return asCharacterVector(text.c_str());
 }
 
 // [[Rcpp::export]]
