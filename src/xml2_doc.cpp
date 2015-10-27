@@ -15,7 +15,7 @@ XPtrDoc doc_parse_file(std::string path,
     pDoc = htmlReadFile(
       path.c_str(),
       encoding == "" ? NULL : encoding.c_str(),
-      HTML_PARSE_RECOVER | HTML_PARSE_NOERROR
+      HTML_PARSE_RECOVER | HTML_PARSE_NOERROR | XML_PARSE_HUGE
     );
   } else {
     pDoc = xmlReadFile(
