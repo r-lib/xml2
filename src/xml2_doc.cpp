@@ -21,7 +21,7 @@ XPtrDoc doc_parse_file(std::string path,
     pDoc = xmlReadFile(
       path.c_str(),
       encoding == "" ? NULL : encoding.c_str(),
-      0
+      XML_PARSE_HUGE
     );
   }
 
@@ -42,7 +42,7 @@ XPtrDoc doc_parse_raw(RawVector x, std::string encoding,
       Rf_length(x),
       base_url == "" ? NULL : base_url.c_str(),
       encoding == "" ? NULL : encoding.c_str(),
-      HTML_PARSE_RECOVER | HTML_PARSE_NOERROR
+      HTML_PARSE_RECOVER | HTML_PARSE_NOERROR | XML_PARSE_HUGE
     );
   } else {
     pDoc = xmlReadMemory(
@@ -50,7 +50,7 @@ XPtrDoc doc_parse_raw(RawVector x, std::string encoding,
       Rf_length(x),
       base_url == "" ? NULL : base_url.c_str(),
       encoding == "" ? NULL : encoding.c_str(),
-      0
+      XML_PARSE_HUGE
     );
   }
 
