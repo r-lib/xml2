@@ -37,14 +37,18 @@ public:
   Rcpp::RObject search(std::string xpath, int num_results) {
     xpath_ = xpath;
     result_ = xmlXPathEval((xmlChar*) xpath.c_str(), context_);
-    if (result_ == NULL || result_->nodesetval == NULL)
+    if (result_ == NULL) {
       return List();
+    }
 
     switch (result_->type) {
       case XPATH_NODESET:
         {
-          int n = std::min(result_->nodesetval->nodeNr, num_results);
           xmlNodeSet* nodes = result_->nodesetval;
+          if (nodes == NULL) {
+            return List();
+          }
+          int n = std::min(result_->nodesetval->nodeNr, num_results);
           if (n < nodes->nodeNr) {
             Rcpp::warning("%d results found, but only returning first %d", nodes->nodeNr, n);
           }
