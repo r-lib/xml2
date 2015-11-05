@@ -64,7 +64,7 @@ xml_find_all <- function(x, xpath, ns = character()) {
 #' @export
 xml_find_all.xml_node <- function(x, xpath, ns = character()) {
   nodes <- xpath_search(x$node, x$doc, xpath = xpath, nsMap = ns, num_results = Inf)
-  make_nodeset(nodes)
+  xml_nodeset(nodes[!nodes_duplicated(nodes)])
 }
 
 #' @export
@@ -72,8 +72,11 @@ xml_find_all.xml_nodeset <- function(x, xpath, ns = character()) {
   if (length(x) == 0)
     return(xml_nodeset())
 
-  nodes <- lapply(x, function(x) xpath_search(x$node, x$doc, xpath = xpath, nsMap = ns, num_results = Inf))
-  make_nodeset(unlist(nodes, recursive = FALSE))
+  nodes <- unlist(recursive = FALSE,
+    lapply(x, function(x)
+      xpath_search(x$node, x$doc, xpath = xpath, nsMap = ns, num_results = Inf)))
+
+  xml_nodeset(nodes[!nodes_duplicated(nodes)])
 }
 
 #' @export
@@ -96,5 +99,6 @@ xml_find_one.xml_nodeset <- function(x, xpath, ns = character()) {
   if (length(x) == 0)
     return(xml_nodeset())
 
-  xml_nodeset(lapply(x, function(x) xpath_search(x$node, x$doc, xpath = xpath, nsMap = ns, num_results = 1)[[1]]))
+  xml_nodeset(lapply(x, function(x)
+      xml_find_one.xml_node(x$node, x$doc, xpath = xpath, nsMap = ns, num_results = 1)))
 }
