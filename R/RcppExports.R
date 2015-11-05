@@ -90,7 +90,10 @@ node_path <- function(n) {
 }
 
 nodes_duplicated <- function(nodes) {
-    .Call('xml2_nodes_duplicated', PACKAGE = 'xml2', nodes)
+  if (all(vapply(nodes, inherits, logical(1), "xml_node"))) {
+    nodes <- lapply(nodes, `[[`, "node")
+  }
+  .Call('xml2_nodes_duplicated', PACKAGE = 'xml2', nodes)
 }
 
 node_type <- function(node) {

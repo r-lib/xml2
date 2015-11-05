@@ -5,7 +5,11 @@ NULL
 # node -------------------------------------------------------------------------
 
 xml_node <- function(node, doc) {
-  structure(list(node = node, doc = doc), class = "xml_node")
+  if (inherits(node, "xml_node")) {
+    node
+  } else {
+    structure(list(node = node, doc = doc), class = "xml_node")
+  }
 }
 
 #' @export
@@ -49,10 +53,11 @@ xml_nodeset <- function(nodes = list()) {
 #' @param nodes A list (possible nested) of external pointers to nodes
 #' @return a nodeset
 #' @noRd
-make_nodeset <- function(nodes) {
-  nodes <- nodes[!nodes_duplicated(lapply(nodes, `[[`, "node"))]
+make_nodeset <- function(nodes, doc) {
+  nodes <- unlist(nodes, recursive = FALSE)
+  nodes <- nodes[!nodes_duplicated(nodes)]
 
-  xml_nodeset(nodes)
+  xml_nodeset(lapply(nodes, xml_node, doc = doc))
 }
 
 #' @export
