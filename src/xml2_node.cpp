@@ -196,15 +196,23 @@ std::string node_path(XPtrNode n) {
 }
 
 // [[Rcpp::export]]
-LogicalVector nodes_duplicated(ListOf<XPtrNode> nodes) {
+LogicalVector nodes_duplicated(List nodes) {
+
   std::set<xmlNode*> seen;
 
   int n = nodes.size();
   LogicalVector out(n);
 
   for (int i = 0; i < n; ++i) {
-    XPtrNode node = nodes[i];
-    out[i] = !seen.insert(node.get()).second;
+    bool result;
+    if (RObject(nodes[i]).inherits("xml_node")) {
+      XPtrNode node = as<XPtrNode>(List(nodes[i])["node"]);
+      result = !seen.insert(node.get()).second;
+    } else {
+      XPtrNode node = nodes[i];
+      result = !seen.insert(node.get()).second;
+    }
+    out[i] = result;
   }
 
   return out;

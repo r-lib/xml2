@@ -267,12 +267,12 @@ BEGIN_RCPP
 END_RCPP
 }
 // nodes_duplicated
-LogicalVector nodes_duplicated(ListOf<XPtrNode> nodes);
+LogicalVector nodes_duplicated(List nodes);
 RcppExport SEXP xml2_nodes_duplicated(SEXP nodesSEXP) {
 BEGIN_RCPP
     Rcpp::RObject __result;
     Rcpp::RNGScope __rngScope;
-    Rcpp::traits::input_parameter< ListOf<XPtrNode> >::type nodes(nodesSEXP);
+    Rcpp::traits::input_parameter< List >::type nodes(nodesSEXP);
     __result = Rcpp::wrap(nodes_duplicated(nodes));
     return __result;
 END_RCPP
