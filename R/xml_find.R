@@ -63,8 +63,8 @@ xml_find_all <- function(x, xpath, ns = character()) {
 
 #' @export
 xml_find_all.xml_node <- function(x, xpath, ns = character()) {
-  nodes <- node_find_all(x$node, x$doc, xpath = xpath, nsMap = ns)
-  make_nodeset(nodes, x$doc)
+  nodes <- xpath_search(x$node, x$doc, xpath = xpath, nsMap = ns, num_results = Inf)
+  make_nodeset(nodes)
 }
 
 #' @export
@@ -72,8 +72,8 @@ xml_find_all.xml_nodeset <- function(x, xpath, ns = character()) {
   if (length(x) == 0)
     return(xml_nodeset())
 
-  nodes <- lapply(x, function(x) node_find_all(x$node, x$doc, xpath = xpath, nsMap = ns))
-  make_nodeset(nodes, x[[1]]$doc)
+  nodes <- lapply(x, function(x) xpath_search(x$node, x$doc, xpath = xpath, nsMap = ns, num_results = Inf))
+  make_nodeset(unlist(nodes, recursive = FALSE))
 }
 
 #' @export
@@ -84,8 +84,11 @@ xml_find_one <- function(x, xpath, ns = character()) {
 
 #' @export
 xml_find_one.xml_node <- function(x, xpath, ns = character()) {
-  node <- node_find_one(x$node, x$doc, xpath = xpath, nsMap = ns)
-  xml_node(node, x$doc)
+  res <- xpath_search(x$node, x$doc, xpath = xpath, nsMap = ns, num_results = 1)
+  if (length(res) == 0) {
+    stop("No matches")
+  }
+  res[[1]]
 }
 
 #' @export
@@ -93,6 +96,5 @@ xml_find_one.xml_nodeset <- function(x, xpath, ns = character()) {
   if (length(x) == 0)
     return(xml_nodeset())
 
-  nodes <- lapply(x, function(x) node_find_one(x$node, x$doc, xpath = xpath, nsMap = ns))
-  xml_nodeset(lapply(nodes, function(y) xml_node(y, x[[1]]$doc)))
+  xml_nodeset(lapply(x, function(x) xpath_search(x$node, x$doc, xpath = xpath, nsMap = ns, num_results = 1)[[1]]))
 }
