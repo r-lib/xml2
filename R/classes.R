@@ -49,11 +49,10 @@ xml_nodeset <- function(nodes = list()) {
 #' @param nodes A list (possible nested) of external pointers to nodes
 #' @return a nodeset
 #' @noRd
-make_nodeset <- function(nodes, doc) {
-  nodes <- unlist(nodes, recursive = FALSE)
-  nodes <- nodes[!nodes_duplicated(nodes)]
+make_nodeset <- function(nodes) {
+  nodes <- nodes[!nodes_duplicated(lapply(nodes, `[[`, "node"))]
 
-  xml_nodeset(lapply(nodes, xml_node, doc = doc))
+  xml_nodeset(nodes)
 }
 
 #' @export

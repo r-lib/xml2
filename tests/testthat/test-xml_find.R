@@ -9,7 +9,7 @@ test_that("xml_find_one throws error if no match", {
 
 test_that("xml_find_one gives warning if more than one match", {
   x <- read_xml("<x><y/><y/></x>")
-  expect_warning(y <- xml_find_one(x, ".//y"), "using first")
+  expect_warning(y <- xml_find_one(x, ".//y"), "2 results found, but only returning first 1")
   expect_is(y, "xml_node")
 })
 
