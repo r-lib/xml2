@@ -64,7 +64,7 @@ public:
         }
       case XPATH_NUMBER: { return Rcpp::NumericVector(1, result_->floatval); }
       case XPATH_BOOLEAN: { return Rcpp::LogicalVector(1, result_->boolval); }
-      //case XPATH_STRING: { return Rcpp::CharacterVector(1, result_->stringval); }
+      case XPATH_STRING: { return Rcpp::CharacterVector(1, reinterpret_cast<const char*>(result_->stringval)); }
       default:
         Rcpp::stop("XPath result type: %d not supported", result_->type);
     }
