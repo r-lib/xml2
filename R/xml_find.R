@@ -100,5 +100,5 @@ xml_find_one.xml_nodeset <- function(x, xpath, ns = character()) {
     return(xml_nodeset())
 
   xml_nodeset(lapply(x, function(x)
-      xml_find_one.xml_node(x$node, x$doc, xpath = xpath, nsMap = ns, num_results = 1)))
+      xml_find_one.xml_node(x, xpath = xpath, ns = ns)))
 }
