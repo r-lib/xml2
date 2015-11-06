@@ -32,7 +32,12 @@ tree_structure <- function(x, indent = 2, html = FALSE) {
 }
 
 #' @export
-tree_structure.xml_nodeset <-  function(x, indent = 2, html = FALSE) {
+tree_structure.default <- function(x, indent = 2, html = FALSE) {
+  NA_character_
+}
+
+#' @export
+tree_structure.xml_nodeset <- function(x, indent = 2, html = FALSE) {
   for (i in seq_along(x)) {
     cat("[[", i, "]]\n", sep = "")
     print_xml_structure(x[[i]], indent = indent, html = html)

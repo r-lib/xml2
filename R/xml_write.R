@@ -17,6 +17,11 @@ write_xml <- function(x, file) {
 }
 
 #' @export
+write_xml.default <- function(x, file) {
+  stop("Missing data cannot be written")
+}
+
+#' @export
 write_xml.xml_document <- function(x, file) {
   doc_write(x$doc, file)
 }

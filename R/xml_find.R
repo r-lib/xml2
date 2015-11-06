@@ -18,7 +18,7 @@
 #'   error; if there are multiple matches, it will use the first with a warning.
 #' @export
 #' @examples
-#' x <- read_xml("<foo><bar><baz/></bar><baz/></foo>")
+#' x <- read_xml("<foo><bar>hi<baz/></bar><baz/></foo>")
 #' xml_find_all(x, ".//baz")
 #' xml_path(xml_find_all(x, ".//baz"))
 #'
@@ -62,6 +62,11 @@ xml_find_all <- function(x, xpath, ns = character()) {
 }
 
 #' @export
+xml_find_all.default <- function(x, xpath, ns = character()) {
+  xml_nodeset()
+}
+
+#' @export
 xml_find_all.xml_node <- function(x, xpath, ns = character()) {
   nodes <- xpath_search(x$node, x$doc, xpath = xpath, nsMap = ns, num_results = Inf)
   xml_nodeset(nodes[!nodes_duplicated(nodes)])
@@ -85,11 +90,15 @@ xml_find_one <- function(x, xpath, ns = character()) {
   UseMethod("xml_find_one")
 }
 
+xml_find_one.default <- function(x, xpath, ns = character()) {
+  list()
+}
+
 #' @export
 xml_find_one.xml_node <- function(x, xpath, ns = character()) {
   res <- xpath_search(x$node, x$doc, xpath = xpath, nsMap = ns, num_results = 1)
   if (length(res) == 0) {
-    stop("No matches")
+    return(list())
   }
   res[[1]]
 }

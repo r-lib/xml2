@@ -4,7 +4,7 @@ NULL
 
 # node -------------------------------------------------------------------------
 
-xml_node <- function(node, doc) {
+xml_node <- function(node = NULL, doc = NULL) {
   if (inherits(node, "xml_node")) {
     node
   } else {
@@ -110,6 +110,11 @@ show_nodes <- function(x, width = getOption("width"), max_n = 20) {
 
 
 nodeset_apply <- function(x, fun, ...) UseMethod("nodeset_apply")
+
+#' @export
+nodeset_apply.default <- function(x, fun, ...) {
+  xml_nodeset()
+}
 
 #' @export
 nodeset_apply.xml_nodeset <- function(x, fun, ...) {
