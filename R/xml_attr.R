@@ -54,6 +54,11 @@ xml_attr <- function(x, attr, ns = character(), default = NA_character_) {
 }
 
 #' @export
+xml_attr.default <- function(x, attr, ns = character(), default = NA_character_) {
+  default
+}
+
+#' @export
 xml_attr.xml_node <- function(x, attr, ns = character(),
                               default = NA_character_) {
   node_attr(x$node, name = attr, missing = default, nsMap = ns)
@@ -75,6 +80,11 @@ xml_has_attr <- function(x, attr, ns = character()) {
 #' @export
 #' @rdname xml_attr
 xml_attrs <- function(x, ns = character()) UseMethod("xml_attrs")
+
+#' @export
+xml_attrs.default <- function(x, ns = character()) {
+  NA_character_
+}
 
 #' @export
 xml_attrs.xml_node <- function(x, ns = character()) {

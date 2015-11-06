@@ -13,6 +13,10 @@ xml_path <- function(x) {
   UseMethod("xml_path")
 }
 
+xml_path.default <- function(x) {
+  NA_character_
+}
+
 #' @export
 xml_path.xml_node <- function(x) {
   node_path(x$node)
