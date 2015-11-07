@@ -69,7 +69,7 @@ xml_find_all.xm1_missing <- function(x, xpath, ns = character()) {
 #' @export
 xml_find_all.xml_node <- function(x, xpath, ns = character()) {
   nodes <- xpath_search(x$node, x$doc, xpath = xpath, nsMap = ns, num_results = Inf)
-  xml_nodeset(nodes[!nodes_duplicated(nodes)])
+  xml_nodeset(nodes)
 }
 
 #' @export
@@ -81,7 +81,7 @@ xml_find_all.xml_nodeset <- function(x, xpath, ns = character()) {
     lapply(x, function(x)
       xpath_search(x$node, x$doc, xpath = xpath, nsMap = ns, num_results = Inf)))
 
-  xml_nodeset(nodes[!nodes_duplicated(nodes)])
+  xml_nodeset(nodes)
 }
 
 #' @export
