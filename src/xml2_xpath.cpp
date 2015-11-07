@@ -34,7 +34,7 @@ public:
     }
   }
 
-  Rcpp::RObject search(std::string xpath, int num_results) {
+  RObject search(std::string xpath, int num_results) {
     xpath_ = xpath;
     result_ = xmlXPathEval((xmlChar*) xpath.c_str(), context_);
     if (result_ == NULL) {
@@ -54,7 +54,7 @@ public:
           }
           int n = std::min(result_->nodesetval->nodeNr, num_results);
           if (n < nodes->nodeNr) {
-            Rcpp::warning("%d results found, but only returning first %d", nodes->nodeNr, n);
+            warning("%d results found, but only returning first %d", nodes->nodeNr, n);
           }
           List out(n);
           for (int i = 0; i < n; i++) {
@@ -66,11 +66,11 @@ public:
           }
           return out;
         }
-      case XPATH_NUMBER: { return Rcpp::NumericVector(1, result_->floatval); }
-      case XPATH_BOOLEAN: { return Rcpp::LogicalVector(1, result_->boolval); }
-      case XPATH_STRING: { return Rcpp::CharacterVector(1, reinterpret_cast<const char*>(result_->stringval)); }
+      case XPATH_NUMBER: { return NumericVector(1, result_->floatval); }
+      case XPATH_BOOLEAN: { return LogicalVector(1, result_->boolval); }
+      case XPATH_STRING: { return CharacterVector(1, reinterpret_cast<const char*>(result_->stringval)); }
       default:
-        Rcpp::stop("XPath result type: %d not supported", result_->type);
+        stop("XPath result type: %d not supported", result_->type);
     }
 
     return R_NilValue;
@@ -87,7 +87,7 @@ public:
 };
 
 // [[Rcpp::export]]
-Rcpp::RObject xpath_search(XPtrNode node, XPtrDoc doc, std::string xpath, CharacterVector nsMap, double num_results) {
+RObject xpath_search(XPtrNode node, XPtrDoc doc, std::string xpath, CharacterVector nsMap, double num_results) {
 
   if (num_results == R_PosInf) {
     num_results = INT_MAX;
