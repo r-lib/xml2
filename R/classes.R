@@ -52,6 +52,7 @@ as.character.xml_document <- function(x, ...) {
 # nodeset ----------------------------------------------------------------------
 
 xml_nodeset <- function(nodes = list()) {
+  nodes <- nodes[!nodes_duplicated(nodes)]
   structure(nodes, class = "xml_nodeset")
 }
 
@@ -60,7 +61,6 @@ xml_nodeset <- function(nodes = list()) {
 #' @noRd
 make_nodeset <- function(nodes, doc) {
   nodes <- unlist(nodes, recursive = FALSE)
-  nodes <- nodes[!nodes_duplicated(nodes)]
 
   xml_nodeset(lapply(nodes, xml_node, doc = doc))
 }
