@@ -347,7 +347,7 @@ BEGIN_RCPP
 END_RCPP
 }
 // xpath_search
-Rcpp::RObject xpath_search(XPtrNode node, XPtrDoc doc, std::string xpath, CharacterVector nsMap, double num_results);
+RObject xpath_search(XPtrNode node, XPtrDoc doc, std::string xpath, CharacterVector nsMap, double num_results);
 RcppExport SEXP xml2_xpath_search(SEXP nodeSEXP, SEXP docSEXP, SEXP xpathSEXP, SEXP nsMapSEXP, SEXP num_resultsSEXP) {
 BEGIN_RCPP
     Rcpp::RObject __result;
