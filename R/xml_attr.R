@@ -54,7 +54,7 @@ xml_attr <- function(x, attr, ns = character(), default = NA_character_) {
 }
 
 #' @export
-xml_attr.default <- function(x, attr, ns = character(), default = NA_character_) {
+xml_attr.xml_missing <- function(x, attr, ns = character(), default = NA_character_) {
   default
 }
 
@@ -82,7 +82,7 @@ xml_has_attr <- function(x, attr, ns = character()) {
 xml_attrs <- function(x, ns = character()) UseMethod("xml_attrs")
 
 #' @export
-xml_attrs.default <- function(x, ns = character()) {
+xml_attrs.xml_missing <- function(x, ns = character()) {
   NA_character_
 }
 

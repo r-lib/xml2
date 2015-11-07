@@ -62,7 +62,7 @@ xml_find_all <- function(x, xpath, ns = character()) {
 }
 
 #' @export
-xml_find_all.default <- function(x, xpath, ns = character()) {
+xml_find_all.xm1_missing <- function(x, xpath, ns = character()) {
   xml_nodeset()
 }
 
@@ -90,17 +90,18 @@ xml_find_one <- function(x, xpath, ns = character()) {
   UseMethod("xml_find_one")
 }
 
-xml_find_one.default <- function(x, xpath, ns = character()) {
+xml_find_one.xml_missing <- function(x, xpath, ns = character()) {
   list()
 }
 
 #' @export
 xml_find_one.xml_node <- function(x, xpath, ns = character()) {
   res <- xpath_search(x$node, x$doc, xpath = xpath, nsMap = ns, num_results = 1)
-  if (length(res) == 0) {
-    return(list())
+  if (length(res) == 1) {
+     res[[1]]
+  } else {
+    res
   }
-  res[[1]]
 }
 
 #' @export

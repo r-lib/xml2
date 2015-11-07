@@ -17,7 +17,7 @@ xml_url <- function(x) {
 }
 
 #' @export
-xml_url.default <- function(x) {
+xml_url.missing <- function(x) {
   NA_character_
 }
 

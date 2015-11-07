@@ -21,7 +21,7 @@ xml_name <- function(x, ns = character()) {
 }
 
 #' @export
-xml_name.default <- function(x, ns = character()) {
+xml_name.xml_missing <- function(x, ns = character()) {
   NA_character_
 }
 

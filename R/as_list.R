@@ -27,7 +27,7 @@ as_list <- function(x, ns = character(), ...) {
 }
 
 #' @export
-as_list.default <- function(x, ns = character(), ...) {
+as_list.xml_missing <- function(x, ns = character(), ...) {
   list()
 }
 
