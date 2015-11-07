@@ -57,7 +57,7 @@ xml_parent <- function(x) {
 }
 
 #' @export
-xml_parent.default <- function(x) {
+xml_parent.xml_missing <- function(x) {
   list()
 }
 
@@ -79,7 +79,7 @@ xml_length <- function(x, only_elements = TRUE) {
 }
 
 #' @export
-xml_length.default <- function(x, only_elements = TRUE) {
+xml_length.xml_missing <- function(x, only_elements = TRUE) {
   integer(0)
 }
 

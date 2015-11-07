@@ -11,7 +11,7 @@ xml_type <- function(x) {
 }
 
 #' @export
-xml_type.default <- function(x) {
+xml_type.missing <- function(x) {
   NA_character_
 }
 

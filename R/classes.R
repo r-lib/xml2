@@ -18,6 +18,11 @@ as.character.xml_node <- function(x, ...) {
 }
 
 #' @export
+print.xml_missing <- function(x, ...) {
+  cat("{xml_missing}\n")
+}
+
+#' @export
 print.xml_node <- function(x, width = getOption("width"), max_n = 20, ...) {
   cat("{xml_node}\n")
   cat("<", xml_name(x), ">\n", sep = "")
@@ -112,7 +117,7 @@ show_nodes <- function(x, width = getOption("width"), max_n = 20) {
 nodeset_apply <- function(x, fun, ...) UseMethod("nodeset_apply")
 
 #' @export
-nodeset_apply.default <- function(x, fun, ...) {
+nodeset_apply.xml_missing <- function(x, fun, ...) {
   xml_nodeset()
 }
 

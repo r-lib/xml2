@@ -20,7 +20,7 @@ xml_text <- function(x, trim = FALSE) {
 }
 
 #' @export
-xml_text.default <- function(x, trim = FALSE) {
+xml_text.missing <- function(x, trim = FALSE) {
   NA_character_
 }
 

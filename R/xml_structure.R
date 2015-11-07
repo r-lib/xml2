@@ -32,7 +32,7 @@ tree_structure <- function(x, indent = 2, html = FALSE) {
 }
 
 #' @export
-tree_structure.default <- function(x, indent = 2, html = FALSE) {
+tree_structure.xml_missing <- function(x, indent = 2, html = FALSE) {
   NA_character_
 }
 

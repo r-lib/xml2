@@ -2,9 +2,9 @@ context("xml_find")
 
 # Find one ---------------------------------------------------------------------
 
-test_that("xml_find_one returns empty object if no match", {
+test_that("xml_find_one returns a missing object if no match", {
   x <- read_xml("<x><y/></x>")
-  expect_equal(xml_find_one(x, ".//z"), list())
+  expect_equal(xml_find_one(x, ".//z"), structure(list(), class = "xml_missing"))
 })
 
 test_that("xml_find_one gives warning if more than one match", {

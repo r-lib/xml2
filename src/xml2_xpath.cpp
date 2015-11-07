@@ -38,15 +38,19 @@ public:
     xpath_ = xpath;
     result_ = xmlXPathEval((xmlChar*) xpath.c_str(), context_);
     if (result_ == NULL) {
-      return List();
+      List ret = List();
+      ret.attr("class") = "xml_missing";
+      return ret;
     }
 
     switch (result_->type) {
       case XPATH_NODESET:
         {
           xmlNodeSet* nodes = result_->nodesetval;
-          if (nodes == NULL) {
-            return List();
+          if (nodes == NULL || nodes->nodeNr == 0) {
+            List ret = List();
+            ret.attr("class") = "xml_missing";
+            return ret;
           }
           int n = std::min(result_->nodesetval->nodeNr, num_results);
           if (n < nodes->nodeNr) {
