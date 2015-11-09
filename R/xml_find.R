@@ -18,7 +18,7 @@
 #'   error; if there are multiple matches, it will use the first with a warning.
 #' @export
 #' @examples
-#' x <- read_xml("<foo><bar>hi<baz/></bar><baz/></foo>")
+#' x <- read_xml("<foo><bar><baz/></bar><baz/></foo>")
 #' xml_find_all(x, ".//baz")
 #' xml_path(xml_find_all(x, ".//baz"))
 #'
