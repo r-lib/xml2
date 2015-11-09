@@ -1,4 +1,5 @@
 # xml2
+[![Coverage Status](https://img.shields.io/codecov/c/github/jimhester/xml2/master.svg)](https://codecov.io/github/jimhester/xml2?branch=master)
 
 The xml2 package is a binding to [libxml2](http://xmlsoft.org), making it easy to work with HTML and XML from R. The API is somewhat inspired by [jQuery](http://jquery.com).
 
