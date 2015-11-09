@@ -27,6 +27,11 @@ as_list <- function(x, ns = character(), ...) {
 }
 
 #' @export
+as_list.xml_missing <- function(x, ns = character(), ...) {
+  list()
+}
+
+#' @export
 as_list.xml_node <- function(x, ns = character(), ...) {
   contents <- xml_contents(x)
   if (length(contents) == 0) {

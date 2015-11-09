@@ -17,6 +17,11 @@ xml_url <- function(x) {
 }
 
 #' @export
+xml_url.missing <- function(x) {
+  NA_character_
+}
+
+#' @export
 xml_url.xml_node <- function(x) {
   doc_url(x$doc)
 }

@@ -4,13 +4,22 @@ NULL
 
 # node -------------------------------------------------------------------------
 
-xml_node <- function(node, doc) {
-  structure(list(node = node, doc = doc), class = "xml_node")
+xml_node <- function(node = NULL, doc = NULL) {
+  if (inherits(node, "xml_node")) {
+    node
+  } else {
+    structure(list(node = node, doc = doc), class = "xml_node")
+  }
 }
 
 #' @export
 as.character.xml_node <- function(x, ...) {
   node_format(x$doc, x$node)
+}
+
+#' @export
+print.xml_missing <- function(x, ...) {
+  cat("{xml_missing}\n")
 }
 
 #' @export
@@ -43,6 +52,7 @@ as.character.xml_document <- function(x, ...) {
 # nodeset ----------------------------------------------------------------------
 
 xml_nodeset <- function(nodes = list()) {
+  nodes <- nodes[!nodes_duplicated(nodes)]
   structure(nodes, class = "xml_nodeset")
 }
 
@@ -51,7 +61,6 @@ xml_nodeset <- function(nodes = list()) {
 #' @noRd
 make_nodeset <- function(nodes, doc) {
   nodes <- unlist(nodes, recursive = FALSE)
-  nodes <- nodes[!nodes_duplicated(nodes)]
 
   xml_nodeset(lapply(nodes, xml_node, doc = doc))
 }
@@ -106,6 +115,11 @@ show_nodes <- function(x, width = getOption("width"), max_n = 20) {
 
 
 nodeset_apply <- function(x, fun, ...) UseMethod("nodeset_apply")
+
+#' @export
+nodeset_apply.xml_missing <- function(x, fun, ...) {
+  xml_nodeset()
+}
 
 #' @export
 nodeset_apply.xml_nodeset <- function(x, fun, ...) {

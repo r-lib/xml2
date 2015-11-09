@@ -62,9 +62,14 @@ xml_find_all <- function(x, xpath, ns = character()) {
 }
 
 #' @export
+xml_find_all.xm1_missing <- function(x, xpath, ns = character()) {
+  xml_nodeset()
+}
+
+#' @export
 xml_find_all.xml_node <- function(x, xpath, ns = character()) {
-  nodes <- node_find_all(x$node, x$doc, xpath = xpath, nsMap = ns)
-  make_nodeset(nodes, x$doc)
+  nodes <- xpath_search(x$node, x$doc, xpath = xpath, nsMap = ns, num_results = Inf)
+  xml_nodeset(nodes)
 }
 
 #' @export
@@ -72,8 +77,11 @@ xml_find_all.xml_nodeset <- function(x, xpath, ns = character()) {
   if (length(x) == 0)
     return(xml_nodeset())
 
-  nodes <- lapply(x, function(x) node_find_all(x$node, x$doc, xpath = xpath, nsMap = ns))
-  make_nodeset(nodes, x[[1]]$doc)
+  nodes <- unlist(recursive = FALSE,
+    lapply(x, function(x)
+      xpath_search(x$node, x$doc, xpath = xpath, nsMap = ns, num_results = Inf)))
+
+  xml_nodeset(nodes)
 }
 
 #' @export
@@ -82,10 +90,18 @@ xml_find_one <- function(x, xpath, ns = character()) {
   UseMethod("xml_find_one")
 }
 
+xml_find_one.xml_missing <- function(x, xpath, ns = character()) {
+  structure(list(), class = "xml_missing")
+}
+
 #' @export
 xml_find_one.xml_node <- function(x, xpath, ns = character()) {
-  node <- node_find_one(x$node, x$doc, xpath = xpath, nsMap = ns)
-  xml_node(node, x$doc)
+  res <- xpath_search(x$node, x$doc, xpath = xpath, nsMap = ns, num_results = 1)
+  if (length(res) == 1) {
+     res[[1]]
+  } else {
+    res
+  }
 }
 
 #' @export
@@ -93,6 +109,6 @@ xml_find_one.xml_nodeset <- function(x, xpath, ns = character()) {
   if (length(x) == 0)
     return(xml_nodeset())
 
-  nodes <- lapply(x, function(x) node_find_one(x$node, x$doc, xpath = xpath, nsMap = ns))
-  xml_nodeset(lapply(nodes, function(y) xml_node(y, x[[1]]$doc)))
+  xml_nodeset(lapply(x, function(x)
+      xml_find_one.xml_node(x, xpath = xpath, ns = ns)))
 }
