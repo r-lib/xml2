@@ -91,7 +91,7 @@ xml_find_one <- function(x, xpath, ns = character()) {
 }
 
 xml_find_one.xml_missing <- function(x, xpath, ns = character()) {
-  list()
+  structure(list(), class = "xml_missing")
 }
 
 #' @export

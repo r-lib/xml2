@@ -58,7 +58,7 @@ xml_parent <- function(x) {
 
 #' @export
 xml_parent.xml_missing <- function(x) {
-  list()
+  structure(list(), class = "xml_missing")
 }
 
 #' @export
