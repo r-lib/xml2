@@ -16,6 +16,9 @@
 #'   if applied to a nodeset. The output is \emph{always} the same size as
 #'   the input. If there are no matches, \code{xml_find_one} will throw an
 #'   error; if there are multiple matches, it will use the first with a warning.
+#'
+#'   \code{xml_find_num}, \code{xml_find_chr}, \code{xml_find_lgl} return
+#'   numeric, character and logical results respectively.
 #' @export
 #' @examples
 #' x <- read_xml("<foo><bar><baz/></bar><baz/></foo>")
@@ -134,8 +137,7 @@ xml_find_num.xml_nodeset <- function(x, xpath, ns = character()) {
   if (length(x) == 0)
     return(list())
 
-  lapply(x, function(x)
-    xml_find_num(x, xpath = xpath, ns = ns))
+  vapply(x, function(x) xml_find_num(x, xpath = xpath, ns = ns), numeric(1))
 }
 
 #' @export
@@ -147,7 +149,6 @@ xml_find_chr <- function(x, xpath, ns = character()) {
 #' @export
 xml_find_chr.xml_node <- function(x, xpath, ns = character()) {
   res <- xpath_search(x$node, x$doc, xpath = xpath, nsMap = ns, num_results = Inf)
-  str(res)
   if (!is.character(res)) {
     stop("result: ", sQuote(res), " is not character", call. = FALSE)
   }
@@ -159,8 +160,7 @@ xml_find_chr.xml_nodeset <- function(x, xpath, ns = character()) {
   if (length(x) == 0)
     return(list())
 
-  lapply(x, function(x)
-    xml_find_chr(x, xpath = xpath, ns = ns))
+  vapply(x, function(x) xml_find_chr(x, xpath = xpath, ns = ns), character(1))
 }
 
 
@@ -184,6 +184,5 @@ xml_find_lgl.xml_nodeset <- function(x, xpath, ns = character()) {
   if (length(x) == 0)
     return(list())
 
-  lapply(x, function(x)
-    xml_find_lgl(x, xpath = xpath, ns = ns))
+  vapply(x, function(x) xml_find_lgl(x, xpath = xpath, ns = ns), logical(1))
 }
