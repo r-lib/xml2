@@ -66,8 +66,8 @@ public:
           }
           return out;
         }
-      case XPATH_NUMBER: { return NumericVector(1, result_->floatval); }
-      case XPATH_BOOLEAN: { return LogicalVector(1, result_->boolval); }
+     case XPATH_NUMBER: { return NumericVector::create(result_->floatval); }
+      case XPATH_BOOLEAN: { return LogicalVector::create(result_->boolval); }
       case XPATH_STRING: { return CharacterVector(1, reinterpret_cast<const char*>(result_->stringval)); }
       default:
         stop("XPath result type: %d not supported", result_->type);
