@@ -1,4 +1,3 @@
-# Sample .travis.yml for R projects from https://github.com/craigcitro/r-travis
 language: c
 sudo: false
 
