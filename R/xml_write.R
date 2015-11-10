@@ -18,7 +18,7 @@ write_xml <- function(x, file) {
 
 #' @export
 write_xml.missing <- function(x, file) {
-  stop("Missing data cannot be written")
+  stop("Missing data cannot be written", call. = FALSE)
 }
 
 #' @export
@@ -29,7 +29,7 @@ write_xml.xml_document <- function(x, file) {
 #' @export
 write_xml.xml_nodeset <- function(x, file, ...) {
   if (length(x$nodeset) != 1) {
-    stop("Can only save length 1 node sets")
+    stop("Can only save length 1 node sets", call. = FALSE)
   }
 
   node_write(x[[1]]$node, x$doc, file)
