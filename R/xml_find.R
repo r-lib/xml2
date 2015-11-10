@@ -127,7 +127,7 @@ xml_find_num <- function(x, xpath, ns = character()) {
 xml_find_num.xml_node <- function(x, xpath, ns = character()) {
   res <- xpath_search(x$node, x$doc, xpath = xpath, nsMap = ns, num_results = Inf)
   if (!is.numeric(res)) {
-    stop("result: ", sQuote(res), " is not numeric", call. = FALSE)
+    stop("result of type: ", sQuote(class(res)), ", not numeric", call. = FALSE)
   }
   res
 }
@@ -150,7 +150,7 @@ xml_find_chr <- function(x, xpath, ns = character()) {
 xml_find_chr.xml_node <- function(x, xpath, ns = character()) {
   res <- xpath_search(x$node, x$doc, xpath = xpath, nsMap = ns, num_results = Inf)
   if (!is.character(res)) {
-    stop("result: ", sQuote(res), " is not character", call. = FALSE)
+    stop("result of type: ", sQuote(class(res)), ", not character", call. = FALSE)
   }
   res
 }
@@ -174,7 +174,7 @@ xml_find_lgl <- function(x, xpath, ns = character()) {
 xml_find_lgl.xml_node <- function(x, xpath, ns = character()) {
   res <- xpath_search(x$node, x$doc, xpath = xpath, nsMap = ns, num_results = Inf)
   if (!is.logical(res)) {
-    stop("result: ", sQuote(res), " is not logical", call. = FALSE)
+    stop("result of type: ", sQuote(class(res)), ", not logical", call. = FALSE)
   }
   res
 }
