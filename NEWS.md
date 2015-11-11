@@ -1,5 +1,11 @@
 # xml2 0.1.2.9000
 
+* `xml_find_one()` now returns a 'xml_missing' node object if there are 0
+  matches (@jimhester, #55, #53, hadley/rvest#82).
+
+* `xml_find_num()`, `xml_find_chr()`, `xml_find_lgl()` functions added to
+  return numeric, character and logical results from XPath expressions. (@jimhester, #55)
+
 * `xml_name()` and `xml_text()` always correctly encode returned value as
   UTF-8 (#54).
 
