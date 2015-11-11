@@ -208,6 +208,8 @@ LogicalVector nodes_duplicated(List nodes) {
     if (RObject(nodes[i]).inherits("xml_node")) {
       XPtrNode node = as<XPtrNode>(List(nodes[i])["node"]);
       result = !seen.insert(node.get()).second;
+    } else if (RObject(nodes[i]).inherits("xml_missing")){
+      result = false;
     } else {
       XPtrNode node = nodes[i];
       result = !seen.insert(node.get()).second;

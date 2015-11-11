@@ -18,13 +18,20 @@ as.character.xml_node <- function(x, ...) {
 }
 
 #' @export
-print.xml_missing <- function(x, ...) {
-  cat("{xml_missing}\n")
+as.character.xml_missing <- function(x, ...) {
+  NA_character_
 }
 
 #' @export
 print.xml_node <- function(x, width = getOption("width"), max_n = 20, ...) {
   cat("{xml_node}\n")
+  cat("<", xml_name(x), ">\n", sep = "")
+  show_nodes(xml_children(x), width = width, max_n = max_n)
+}
+
+#' @export
+print.xml_missing <- function(x, ...) {
+  cat("{xml_missing}\n")
   cat("<", xml_name(x), ">\n", sep = "")
   show_nodes(xml_children(x), width = width, max_n = max_n)
 }
@@ -100,8 +107,7 @@ show_nodes <- function(x, width = getOption("width"), max_n = 20) {
   }
 
   label <- format(paste0("[", seq_len(n), "]"), justify = "right")
-  contents <- encodeString(vapply(x, function(x) node_format(x$doc, x$node),
-    FUN.VALUE = character(1)))
+  contents <- encodeString(vapply(x, as.character, FUN.VALUE = character(1)))
 
   desc <- paste0(label, " ", contents)
   needs_trunc <- nchar(desc) > width

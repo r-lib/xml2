@@ -80,7 +80,7 @@ xml_length <- function(x, only_elements = TRUE) {
 
 #' @export
 xml_length.xml_missing <- function(x, only_elements = TRUE) {
-  integer(0)
+  0L
 }
 
 #' @export
@@ -91,7 +91,7 @@ xml_length.xml_node <- function(x, only_elements = TRUE) {
 #' @export
 xml_length.xml_nodeset <- function(x, only_elements = TRUE) {
   if (length(x) == 0)
-    return(integer(0))
+    return(0L)
 
   vapply(x, node_length, onlyNode = only_elements, FUN.VALUE = integer(1))
 }

@@ -22,4 +22,4 @@ Suggests:
     testthat,
     curl
 License: GPL (>= 2)
-RoxygenNote: 5.0.0
+RoxygenNote: 5.0.1

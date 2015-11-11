@@ -2,12 +2,21 @@
 % Please edit documentation in R/xml_find.R
 \name{xml_find_all}
 \alias{xml_find_all}
+\alias{xml_find_chr}
+\alias{xml_find_lgl}
+\alias{xml_find_num}
 \alias{xml_find_one}
 \title{Find nodes that match an xpath expression.}
 \usage{
 xml_find_all(x, xpath, ns = character())
 
 xml_find_one(x, xpath, ns = character())
+
+xml_find_num(x, xpath, ns = character())
+
+xml_find_chr(x, xpath, ns = character())
+
+xml_find_lgl(x, xpath, ns = character())
 }
 \arguments{
 \item{x}{A document, node, or node set.}
@@ -30,6 +39,9 @@ name.}
   if applied to a nodeset. The output is \emph{always} the same size as
   the input. If there are no matches, \code{xml_find_one} will throw an
   error; if there are multiple matches, it will use the first with a warning.
+
+  \code{xml_find_num}, \code{xml_find_chr}, \code{xml_find_lgl} return
+  numeric, character and logical results respectively.
 }
 \description{
 Xpath is like regular expressions for trees - it's worth learning if

@@ -65,7 +65,7 @@ xml_find_all <- function(x, xpath, ns = character()) {
 }
 
 #' @export
-xml_find_all.xm1_missing <- function(x, xpath, ns = character()) {
+xml_find_all.xml_missing <- function(x, xpath, ns = character()) {
   xml_nodeset()
 }
 
@@ -141,6 +141,11 @@ xml_find_num.xml_nodeset <- function(x, xpath, ns = character()) {
 }
 
 #' @export
+xml_find_num.xml_missing <- function(x, xpath, ns = character()) {
+   numeric(0)
+}
+
+#' @export
 #' @rdname xml_find_all
 xml_find_chr <- function(x, xpath, ns = character()) {
   UseMethod("xml_find_chr")
@@ -163,6 +168,10 @@ xml_find_chr.xml_nodeset <- function(x, xpath, ns = character()) {
   vapply(x, function(x) xml_find_chr(x, xpath = xpath, ns = ns), character(1))
 }
 
+#' @export
+xml_find_chr.xml_missing <- function(x, xpath, ns = character()) {
+   character(0)
+}
 
 #' @export
 #' @rdname xml_find_all
@@ -185,4 +194,9 @@ xml_find_lgl.xml_nodeset <- function(x, xpath, ns = character()) {
     return(list())
 
   vapply(x, function(x) xml_find_lgl(x, xpath = xpath, ns = ns), logical(1))
+}
+
+#' @export
+xml_find_lgl.xml_missing <- function(x, xpath, ns = character()) {
+   logical(0)
 }
