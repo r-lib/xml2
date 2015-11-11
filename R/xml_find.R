@@ -36,7 +36,8 @@
 #' x <- read_xml("<body>
 #'   <p>Some <b>text</b>.</p>
 #'   <p>Some <b>other</b> <b>text</b>.</p>
-#'</body>")
+#'   <p>No bold here!</p>
+#' </body>")
 #' para <- xml_find_all(x, ".//p")
 #'
 #' # If you apply xml_find_all to a nodeset, it finds all matches,
@@ -45,9 +46,10 @@
 #' xml_find_all(para, ".//b")
 #'
 #' # xml_find_one only returns one match per input node. If there are 0
-#' # matches it will throw an error; if there are more than one it picks
+#' # matches it will return a missing node; if there are more than one it picks
 #' # the first with a warning
 #' xml_find_one(para, ".//b")
+#' xml_text(xml_find_one(para, ".//b"))
 #'
 #' # Namespaces ---------------------------------------------------------------
 #' # If the document uses namespaces, you'll need use xml_ns to form
