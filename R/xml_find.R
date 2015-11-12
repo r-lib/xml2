@@ -16,6 +16,9 @@
 #'   if applied to a nodeset. The output is \emph{always} the same size as
 #'   the input. If there are no matches, \code{xml_find_one} will throw an
 #'   error; if there are multiple matches, it will use the first with a warning.
+#'
+#'   \code{xml_find_num}, \code{xml_find_chr}, \code{xml_find_lgl} return
+#'   numeric, character and logical results respectively.
 #' @export
 #' @examples
 #' x <- read_xml("<foo><bar><baz/></bar><baz/></foo>")
@@ -33,7 +36,8 @@
 #' x <- read_xml("<body>
 #'   <p>Some <b>text</b>.</p>
 #'   <p>Some <b>other</b> <b>text</b>.</p>
-#'</body>")
+#'   <p>No bold here!</p>
+#' </body>")
 #' para <- xml_find_all(x, ".//p")
 #'
 #' # If you apply xml_find_all to a nodeset, it finds all matches,
@@ -42,9 +46,10 @@
 #' xml_find_all(para, ".//b")
 #'
 #' # xml_find_one only returns one match per input node. If there are 0
-#' # matches it will throw an error; if there are more than one it picks
+#' # matches it will return a missing node; if there are more than one it picks
 #' # the first with a warning
 #' xml_find_one(para, ".//b")
+#' xml_text(xml_find_one(para, ".//b"))
 #'
 #' # Namespaces ---------------------------------------------------------------
 #' # If the document uses namespaces, you'll need use xml_ns to form
@@ -62,9 +67,14 @@ xml_find_all <- function(x, xpath, ns = character()) {
 }
 
 #' @export
+xml_find_all.xml_missing <- function(x, xpath, ns = character()) {
+  xml_nodeset()
+}
+
+#' @export
 xml_find_all.xml_node <- function(x, xpath, ns = character()) {
-  nodes <- node_find_all(x$node, x$doc, xpath = xpath, nsMap = ns)
-  make_nodeset(nodes, x$doc)
+  nodes <- xpath_search(x$node, x$doc, xpath = xpath, nsMap = ns, num_results = Inf)
+  xml_nodeset(nodes)
 }
 
 #' @export
@@ -72,8 +82,11 @@ xml_find_all.xml_nodeset <- function(x, xpath, ns = character()) {
   if (length(x) == 0)
     return(xml_nodeset())
 
-  nodes <- lapply(x, function(x) node_find_all(x$node, x$doc, xpath = xpath, nsMap = ns))
-  make_nodeset(nodes, x[[1]]$doc)
+  nodes <- unlist(recursive = FALSE,
+    lapply(x, function(x)
+      xpath_search(x$node, x$doc, xpath = xpath, nsMap = ns, num_results = Inf)))
+
+  xml_nodeset(nodes)
 }
 
 #' @export
@@ -82,10 +95,18 @@ xml_find_one <- function(x, xpath, ns = character()) {
   UseMethod("xml_find_one")
 }
 
+xml_find_one.xml_missing <- function(x, xpath, ns = character()) {
+  structure(list(), class = "xml_missing")
+}
+
 #' @export
 xml_find_one.xml_node <- function(x, xpath, ns = character()) {
-  node <- node_find_one(x$node, x$doc, xpath = xpath, nsMap = ns)
-  xml_node(node, x$doc)
+  res <- xpath_search(x$node, x$doc, xpath = xpath, nsMap = ns, num_results = 1)
+  if (length(res) == 1) {
+     res[[1]]
+  } else {
+    res
+  }
 }
 
 #' @export
@@ -93,6 +114,91 @@ xml_find_one.xml_nodeset <- function(x, xpath, ns = character()) {
   if (length(x) == 0)
     return(xml_nodeset())
 
-  nodes <- lapply(x, function(x) node_find_one(x$node, x$doc, xpath = xpath, nsMap = ns))
-  xml_nodeset(lapply(nodes, function(y) xml_node(y, x[[1]]$doc)))
+  xml_nodeset(lapply(x, function(x)
+      xml_find_one.xml_node(x, xpath = xpath, ns = ns)))
+}
+
+
+#' @export
+#' @rdname xml_find_all
+xml_find_num <- function(x, xpath, ns = character()) {
+  UseMethod("xml_find_num")
+}
+
+#' @export
+xml_find_num.xml_node <- function(x, xpath, ns = character()) {
+  res <- xpath_search(x$node, x$doc, xpath = xpath, nsMap = ns, num_results = Inf)
+  if (!is.numeric(res)) {
+    stop("result of type: ", sQuote(class(res)), ", not numeric", call. = FALSE)
+  }
+  res
+}
+
+#' @export
+xml_find_num.xml_nodeset <- function(x, xpath, ns = character()) {
+  if (length(x) == 0)
+    return(list())
+
+  vapply(x, function(x) xml_find_num(x, xpath = xpath, ns = ns), numeric(1))
+}
+
+#' @export
+xml_find_num.xml_missing <- function(x, xpath, ns = character()) {
+   numeric(0)
+}
+
+#' @export
+#' @rdname xml_find_all
+xml_find_chr <- function(x, xpath, ns = character()) {
+  UseMethod("xml_find_chr")
+}
+
+#' @export
+xml_find_chr.xml_node <- function(x, xpath, ns = character()) {
+  res <- xpath_search(x$node, x$doc, xpath = xpath, nsMap = ns, num_results = Inf)
+  if (!is.character(res)) {
+    stop("result of type: ", sQuote(class(res)), ", not character", call. = FALSE)
+  }
+  res
+}
+
+#' @export
+xml_find_chr.xml_nodeset <- function(x, xpath, ns = character()) {
+  if (length(x) == 0)
+    return(list())
+
+  vapply(x, function(x) xml_find_chr(x, xpath = xpath, ns = ns), character(1))
+}
+
+#' @export
+xml_find_chr.xml_missing <- function(x, xpath, ns = character()) {
+   character(0)
+}
+
+#' @export
+#' @rdname xml_find_all
+xml_find_lgl <- function(x, xpath, ns = character()) {
+  UseMethod("xml_find_lgl")
+}
+
+#' @export
+xml_find_lgl.xml_node <- function(x, xpath, ns = character()) {
+  res <- xpath_search(x$node, x$doc, xpath = xpath, nsMap = ns, num_results = Inf)
+  if (!is.logical(res)) {
+    stop("result of type: ", sQuote(class(res)), ", not logical", call. = FALSE)
+  }
+  res
+}
+
+#' @export
+xml_find_lgl.xml_nodeset <- function(x, xpath, ns = character()) {
+  if (length(x) == 0)
+    return(list())
+
+  vapply(x, function(x) xml_find_lgl(x, xpath = xpath, ns = ns), logical(1))
+}
+
+#' @export
+xml_find_lgl.xml_missing <- function(x, xpath, ns = character()) {
+   logical(0)
 }

@@ -157,11 +157,7 @@ url_unescape <- function(x) {
     .Call('xml2_url_unescape', PACKAGE = 'xml2', x)
 }
 
-node_find_all <- function(node, doc, xpath, nsMap) {
-    .Call('xml2_node_find_all', PACKAGE = 'xml2', node, doc, xpath, nsMap)
-}
-
-node_find_one <- function(node, doc, xpath, nsMap) {
-    .Call('xml2_node_find_one', PACKAGE = 'xml2', node, doc, xpath, nsMap)
+xpath_search <- function(node, doc, xpath, nsMap, num_results) {
+    .Call('xml2_xpath_search', PACKAGE = 'xml2', node, doc, xpath, nsMap, num_results)
 }
 

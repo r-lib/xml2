@@ -21,6 +21,11 @@ xml_name <- function(x, ns = character()) {
 }
 
 #' @export
+xml_name.xml_missing <- function(x, ns = character()) {
+  NA_character_
+}
+
+#' @export
 xml_name.xml_nodeset <- function(x, ns = character()) {
   vapply(x, xml_name, ns = ns, FUN.VALUE = character(1))
 }
