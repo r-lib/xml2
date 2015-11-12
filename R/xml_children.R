@@ -57,6 +57,11 @@ xml_parent <- function(x) {
 }
 
 #' @export
+xml_parent.xml_missing <- function(x) {
+  structure(list(), class = "xml_missing")
+}
+
+#' @export
 xml_parent.xml_node <- function(x) {
   xml_node(node_parent(x$node), x$doc)
 }
@@ -74,6 +79,11 @@ xml_length <- function(x, only_elements = TRUE) {
 }
 
 #' @export
+xml_length.xml_missing <- function(x, only_elements = TRUE) {
+  0L
+}
+
+#' @export
 xml_length.xml_node <- function(x, only_elements = TRUE) {
   node_length(x$node, onlyNode = only_elements)
 }
@@ -81,7 +91,7 @@ xml_length.xml_node <- function(x, only_elements = TRUE) {
 #' @export
 xml_length.xml_nodeset <- function(x, only_elements = TRUE) {
   if (length(x) == 0)
-    return(integer)
+    return(0L)
 
   vapply(x, node_length, onlyNode = only_elements, FUN.VALUE = integer(1))
 }

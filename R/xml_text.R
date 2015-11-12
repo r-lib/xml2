@@ -20,6 +20,11 @@ xml_text <- function(x, trim = FALSE) {
 }
 
 #' @export
+xml_text.xml_missing <- function(x, trim = FALSE) {
+  NA_character_
+}
+
+#' @export
 xml_text.xml_node <- function(x, trim = FALSE) {
   node_text(x$node, trim = trim)
 }

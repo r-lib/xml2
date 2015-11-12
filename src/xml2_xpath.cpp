@@ -8,13 +8,13 @@ using namespace Rcpp;
 class XmlSeeker {
   xmlXPathContext* context_;
   xmlXPathObject* result_;
-  xmlNodeSet* nodes_; // Component of result, so doesn't need to be cleaned up
   std::string xpath_;
+  XPtrDoc doc_;
 
 public:
 
-  XmlSeeker(xmlDoc* doc, xmlNode* node) : result_(NULL) {
-    context_ = xmlXPathNewContext(doc);
+  XmlSeeker(XPtrDoc doc, xmlNode* node) : result_(NULL), doc_(doc) {
+    context_ = xmlXPathNewContext(doc.get());
     // Set context to current node
     context_->node = node;
   }
@@ -34,44 +34,46 @@ public:
     }
   }
 
-  void search(std::string xpath) {
+  RObject search(std::string xpath, int num_results) {
     xpath_ = xpath;
     result_ = xmlXPathEval((xmlChar*) xpath.c_str(), context_);
-    if (result_ == NULL)
-      return;
-
-    if (result_->type != XPATH_NODESET)
-      Rcpp::stop("Currently only nodeset results are supported");
-
-    nodes_ = result_->nodesetval;
-  }
-
-  int n_matches() {
-    if (result_ == NULL || nodes_ == NULL)
-      return 0;
-
-    return nodes_->nodeNr;
-  }
-
-  List matches() {
-    int n = n_matches();
-    List out(n);
-
-    for (int i = 0; i < n; i++) {
-      out[i] = XPtrNode(nodes_->nodeTab[i]);
+    if (result_ == NULL) {
+      List ret = List();
+      ret.attr("class") = "xml_missing";
+      return ret;
     }
-    return out;
-  }
 
-  XPtrNode firstMatch() {
-    int n = n_matches();
-    if (n == 0)
-      Rcpp::stop("No matches");
+    switch (result_->type) {
+      case XPATH_NODESET:
+        {
+          xmlNodeSet* nodes = result_->nodesetval;
+          if (nodes == NULL || nodes->nodeNr == 0) {
+            List ret = List();
+            ret.attr("class") = "xml_missing";
+            return ret;
+          }
+          int n = std::min(result_->nodesetval->nodeNr, num_results);
+          if (n < nodes->nodeNr) {
+            warning("%d results found, but only returning first %d", nodes->nodeNr, n);
+          }
+          List out(n);
+          for (int i = 0; i < n; i++) {
+            List ret;
+            ret["node"] = XPtrNode(nodes->nodeTab[i]);
+            ret["doc"] = doc_;
+            ret.attr("class") = "xml_node";
+            out[i] = ret;
+          }
+          return out;
+        }
+      case XPATH_NUMBER: { return NumericVector::create(result_->floatval); }
+      case XPATH_BOOLEAN: { return LogicalVector::create(result_->boolval); }
+      case XPATH_STRING: { return CharacterVector::create(Rf_mkCharCE((char *) result_->stringval, CE_UTF8)); }
+      default:
+        stop("XPath result type: %d not supported", result_->type);
+    }
 
-    if (n > 1)
-      Rcpp::warning("%i matches for %s: using first", n, xpath_);
-
-    return XPtrNode(nodes_->nodeTab[0]);
+    return R_NilValue;
   }
 
   ~XmlSeeker() {
@@ -85,22 +87,12 @@ public:
 };
 
 // [[Rcpp::export]]
-Rcpp::List node_find_all(XPtrNode node, XPtrDoc doc, std::string xpath, CharacterVector nsMap) {
-  XmlSeeker seeker(doc.get(), node.get());
+RObject xpath_search(XPtrNode node, XPtrDoc doc, std::string xpath, CharacterVector nsMap, double num_results) {
+
+  if (num_results == R_PosInf) {
+    num_results = INT_MAX;
+  }
+  XmlSeeker seeker(doc, node.get());
   seeker.registerNamespace(nsMap);
-  seeker.search(xpath);
-
-  if (seeker.n_matches() == 0)
-    return List();
-
-  return seeker.matches();
-}
-
-// [[Rcpp::export]]
-XPtrNode node_find_one(XPtrNode node, XPtrDoc doc, std::string xpath, CharacterVector nsMap) {
-  XmlSeeker seeker(doc.get(), node.get());
-  seeker.registerNamespace(nsMap);
-  seeker.search(xpath);
-
-  return seeker.firstMatch();
+  return seeker.search(xpath, num_results);
 }

@@ -11,6 +11,11 @@ xml_type <- function(x) {
 }
 
 #' @export
+xml_type.xml_missing <- function(x) {
+  NA_character_
+}
+
+#' @export
 xml_type.xml_node <- function(x) {
   xmlElementType[node_type(x$node)]
 }
