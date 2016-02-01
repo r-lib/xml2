@@ -137,7 +137,7 @@ xml_find_num.xml_node <- function(x, xpath, ns = character()) {
 #' @export
 xml_find_num.xml_nodeset <- function(x, xpath, ns = character()) {
   if (length(x) == 0)
-    return(list())
+    return(numeric())
 
   vapply(x, function(x) xml_find_num(x, xpath = xpath, ns = ns), numeric(1))
 }
@@ -165,7 +165,7 @@ xml_find_chr.xml_node <- function(x, xpath, ns = character()) {
 #' @export
 xml_find_chr.xml_nodeset <- function(x, xpath, ns = character()) {
   if (length(x) == 0)
-    return(list())
+    return(character())
 
   vapply(x, function(x) xml_find_chr(x, xpath = xpath, ns = ns), character(1))
 }
@@ -193,7 +193,7 @@ xml_find_lgl.xml_node <- function(x, xpath, ns = character()) {
 #' @export
 xml_find_lgl.xml_nodeset <- function(x, xpath, ns = character()) {
   if (length(x) == 0)
-    return(list())
+    return(logical())
 
   vapply(x, function(x) xml_find_lgl(x, xpath = xpath, ns = ns), logical(1))
 }
