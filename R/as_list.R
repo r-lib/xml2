@@ -15,6 +15,7 @@
 #' }
 #'
 #' @inheritParams xml_name
+#' @param only_leaves Should only content from leaf nodes be included?
 #' @param ... Needed for compatability with generic. Unused.
 #' @export
 #' @examples
@@ -22,18 +23,22 @@
 #' as_list(read_xml("<foo> <bar><baz /></bar> </foo>"))
 #' as_list(read_xml("<foo id = 'a'></foo>"))
 #' as_list(read_xml("<foo><bar id='a'/><bar id='b'/></foo>"))
-as_list <- function(x, ns = character(), ...) {
+as_list <- function(x, ns = character(), only_leaves = FALSE, ...) {
   UseMethod("as_list")
 }
 
 #' @export
-as_list.xml_missing <- function(x, ns = character(), ...) {
+as_list.xml_missing <- function(x, ns = character(), only_leaves = FALSE, ...) {
   list()
 }
 
 #' @export
-as_list.xml_node <- function(x, ns = character(), ...) {
-  contents <- xml_contents(x)
+as_list.xml_node <- function(x, ns = character(), only_leaves = FALSE, ...) {
+  if (only_leaves && length(xml_children(x)) > 0)
+    contents <- xml_children(x)
+  else
+    contents <- xml_contents(x)
+
   if (length(contents) == 0) {
     # Base case - contents
     type <- xml_type(x)
@@ -45,7 +50,7 @@ as_list.xml_node <- function(x, ns = character(), ...) {
 
     out <- list()
   } else {
-    out <- lapply(seq_along(contents), function(i) as_list(contents[[i]], ns = ns))
+    out <- lapply(seq_along(contents), function(i) as_list(contents[[i]], ns = ns, only_leaves = only_leaves))
 
     nms <- ifelse(xml_type(contents) == "element", xml_name(contents, ns = ns), "")
     if (any(nms != "")) {
@@ -62,6 +67,6 @@ as_list.xml_node <- function(x, ns = character(), ...) {
 }
 
 #' @export
-as_list.xml_nodeset <- function(x, ns = character(), ...) {
-  lapply(seq_along(x), function(i) as.list(x[[i]], ns = ns))
+as_list.xml_nodeset <- function(x, ns = character(), only_leaves = FALSE, ...) {
+  lapply(seq_along(x), function(i) as.list(x[[i]], ns = ns, only_leaves = only_leaves))
 }

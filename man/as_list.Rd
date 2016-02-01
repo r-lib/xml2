@@ -4,7 +4,7 @@
 \alias{as_list}
 \title{Coerce xml nodes to a list.}
 \usage{
-as_list(x, ns = character(), ...)
+as_list(x, ns = character(), only_leaves = FALSE, ...)
 }
 \arguments{
 \item{x}{A document, node, or node set.}
@@ -15,6 +15,8 @@ qualified with the ns prefix, i.e. if the element \code{bar} is defined
 in namespace \code{foo}, it will be called \code{foo:bar}. (And
 similarly for atttributes). Default namespaces must be given an explicit
 name.}
+
+\item{only_leaves}{Should only content from leaf nodes be included?}
 
 \item{...}{Needed for compatability with generic. Unused.}
 }
