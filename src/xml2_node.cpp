@@ -2,6 +2,7 @@
 #include <libxml/tree.h>
 #include <boost/shared_ptr.hpp>
 #include <boost/algorithm/string/trim.hpp>
+#include <boost/unordered_set.hpp>
 
 using namespace Rcpp;
 #include "xml2_types.h"
@@ -198,7 +199,7 @@ std::string node_path(XPtrNode n) {
 // [[Rcpp::export]]
 LogicalVector nodes_duplicated(List nodes) {
 
-  std::set<xmlNode*> seen;
+  boost::unordered_set<xmlNode*> seen;
 
   int n = nodes.size();
   LogicalVector out(n);
