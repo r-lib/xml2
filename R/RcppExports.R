@@ -97,6 +97,14 @@ node_type <- function(node) {
     .Call('xml2_node_type', PACKAGE = 'xml2', node)
 }
 
+node_set_content <- function(node, content) {
+    invisible(.Call('xml2_node_set_content', PACKAGE = 'xml2', node, content))
+}
+
+node_set_name <- function(node, name) {
+    invisible(.Call('xml2_node_set_name', PACKAGE = 'xml2', node, name))
+}
+
 #' Convert between relative and absolute urls.
 #'
 #' @param x A character vector of urls relative to that base

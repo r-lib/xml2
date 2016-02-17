@@ -288,6 +288,28 @@ BEGIN_RCPP
     return __result;
 END_RCPP
 }
+// node_set_content
+void node_set_content(XPtrNode node, std::string content);
+RcppExport SEXP xml2_node_set_content(SEXP nodeSEXP, SEXP contentSEXP) {
+BEGIN_RCPP
+    Rcpp::RNGScope __rngScope;
+    Rcpp::traits::input_parameter< XPtrNode >::type node(nodeSEXP);
+    Rcpp::traits::input_parameter< std::string >::type content(contentSEXP);
+    node_set_content(node, content);
+    return R_NilValue;
+END_RCPP
+}
+// node_set_name
+void node_set_name(XPtrNode node, std::string name);
+RcppExport SEXP xml2_node_set_name(SEXP nodeSEXP, SEXP nameSEXP) {
+BEGIN_RCPP
+    Rcpp::RNGScope __rngScope;
+    Rcpp::traits::input_parameter< XPtrNode >::type node(nodeSEXP);
+    Rcpp::traits::input_parameter< std::string >::type name(nameSEXP);
+    node_set_name(node, name);
+    return R_NilValue;
+END_RCPP
+}
 // url_absolute
 CharacterVector url_absolute(CharacterVector x, CharacterVector base);
 RcppExport SEXP xml2_url_absolute(SEXP xSEXP, SEXP baseSEXP) {

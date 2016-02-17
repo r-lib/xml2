@@ -224,3 +224,13 @@ LogicalVector nodes_duplicated(List nodes) {
 int node_type(XPtrNode node) {
   return node->type;
 }
+
+// [[Rcpp::export]]
+void node_set_content(XPtrNode node, std::string content) {
+  xmlNodeSetContentLen(node, asXmlChar(content), content.size());
+}
+
+// [[Rcpp::export]]
+void node_set_name(XPtrNode node, std::string name) {
+  xmlNodeSetName(node, asXmlChar(name));
+}
