@@ -227,10 +227,31 @@ int node_type(XPtrNode node) {
 
 // [[Rcpp::export]]
 void node_set_content(XPtrNode node, std::string content) {
-  xmlNodeSetContentLen(node, asXmlChar(content), content.size());
+  return xmlNodeSetContentLen(node, asXmlChar(content), content.size());
 }
 
 // [[Rcpp::export]]
 void node_set_name(XPtrNode node, std::string name) {
-  xmlNodeSetName(node, asXmlChar(name));
+  return xmlNodeSetName(node, asXmlChar(name));
+}
+
+// TODO: how do we handle the NS parameter? Use NsMap in some way to lookup the namespace?
+// This is mainly for root nodes
+// [[Rcpp::export]]
+XPtrNode node_new(std::string name) {
+  return XPtrNode(xmlNewNode(NULL, asXmlChar(name)));
+}
+
+// TODO: xmlCreateIntSubset (Add a DTD name to the document...)
+
+
+// TODO: namespace???
+// [[Rcpp::export]]
+XPtrNode node_new_child(XPtrNode parent, std::string name, std::string content) {
+  return XPtrNode(xmlNewChild(parent, NULL, asXmlChar(name), asXmlChar(content)));
+}
+
+// [[Rcpp::export]]
+XPtrNode node_new_prop(XPtrNode node, std::string name, std::string value) {
+  return XPtrNode(xmlNewProp(node, asXmlChar(name), asXmlChar(value))->parent);
 }

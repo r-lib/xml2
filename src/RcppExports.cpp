@@ -89,6 +89,29 @@ BEGIN_RCPP
     return __result;
 END_RCPP
 }
+// doc_new
+XPtrDoc doc_new(std::string version);
+RcppExport SEXP xml2_doc_new(SEXP versionSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject __result;
+    Rcpp::RNGScope __rngScope;
+    Rcpp::traits::input_parameter< std::string >::type version(versionSEXP);
+    __result = Rcpp::wrap(doc_new(version));
+    return __result;
+END_RCPP
+}
+// doc_set_root
+XPtrNode doc_set_root(XPtrDoc doc, XPtrNode root);
+RcppExport SEXP xml2_doc_set_root(SEXP docSEXP, SEXP rootSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject __result;
+    Rcpp::RNGScope __rngScope;
+    Rcpp::traits::input_parameter< XPtrDoc >::type doc(docSEXP);
+    Rcpp::traits::input_parameter< XPtrNode >::type root(rootSEXP);
+    __result = Rcpp::wrap(doc_set_root(doc, root));
+    return __result;
+END_RCPP
+}
 // libxml2_version
 std::string libxml2_version();
 RcppExport SEXP xml2_libxml2_version() {
@@ -308,6 +331,43 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< std::string >::type name(nameSEXP);
     node_set_name(node, name);
     return R_NilValue;
+END_RCPP
+}
+// node_new
+XPtrNode node_new(std::string name);
+RcppExport SEXP xml2_node_new(SEXP nameSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject __result;
+    Rcpp::RNGScope __rngScope;
+    Rcpp::traits::input_parameter< std::string >::type name(nameSEXP);
+    __result = Rcpp::wrap(node_new(name));
+    return __result;
+END_RCPP
+}
+// node_new_child
+XPtrNode node_new_child(XPtrNode parent, std::string name, std::string content);
+RcppExport SEXP xml2_node_new_child(SEXP parentSEXP, SEXP nameSEXP, SEXP contentSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject __result;
+    Rcpp::RNGScope __rngScope;
+    Rcpp::traits::input_parameter< XPtrNode >::type parent(parentSEXP);
+    Rcpp::traits::input_parameter< std::string >::type name(nameSEXP);
+    Rcpp::traits::input_parameter< std::string >::type content(contentSEXP);
+    __result = Rcpp::wrap(node_new_child(parent, name, content));
+    return __result;
+END_RCPP
+}
+// node_new_prop
+XPtrNode node_new_prop(XPtrNode node, std::string name, std::string value);
+RcppExport SEXP xml2_node_new_prop(SEXP nodeSEXP, SEXP nameSEXP, SEXP valueSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject __result;
+    Rcpp::RNGScope __rngScope;
+    Rcpp::traits::input_parameter< XPtrNode >::type node(nodeSEXP);
+    Rcpp::traits::input_parameter< std::string >::type name(nameSEXP);
+    Rcpp::traits::input_parameter< std::string >::type value(valueSEXP);
+    __result = Rcpp::wrap(node_new_prop(node, name, value));
+    return __result;
 END_RCPP
 }
 // url_absolute

@@ -29,6 +29,14 @@ doc_url <- function(x) {
     .Call('xml2_doc_url', PACKAGE = 'xml2', x)
 }
 
+doc_new <- function(version) {
+    .Call('xml2_doc_new', PACKAGE = 'xml2', version)
+}
+
+doc_set_root <- function(doc, root) {
+    .Call('xml2_doc_set_root', PACKAGE = 'xml2', doc, root)
+}
+
 libxml2_version <- function() {
     .Call('xml2_libxml2_version', PACKAGE = 'xml2')
 }
@@ -103,6 +111,18 @@ node_set_content <- function(node, content) {
 
 node_set_name <- function(node, name) {
     invisible(.Call('xml2_node_set_name', PACKAGE = 'xml2', node, name))
+}
+
+node_new <- function(name) {
+    .Call('xml2_node_new', PACKAGE = 'xml2', name)
+}
+
+node_new_child <- function(parent, name, content) {
+    .Call('xml2_node_new_child', PACKAGE = 'xml2', parent, name, content)
+}
+
+node_new_prop <- function(node, name, value) {
+    .Call('xml2_node_new_prop', PACKAGE = 'xml2', node, name, value)
 }
 
 #' Convert between relative and absolute urls.

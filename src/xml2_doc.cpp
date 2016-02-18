@@ -90,3 +90,13 @@ CharacterVector doc_url(XPtrDoc x) {
   SEXP string = (x->URL == NULL) ? NA_STRING : Rf_mkCharCE((const char*) x->URL, CE_UTF8);
   return CharacterVector(string);
 }
+
+// [[Rcpp::export]]
+XPtrDoc doc_new(std::string version) {
+   return XPtrDoc(xmlNewDoc(asXmlChar(version)));
+}
+
+// [[Rcpp::export]]
+XPtrNode doc_set_root(XPtrDoc doc, XPtrNode root) {
+  return XPtrNode(xmlDocSetRootElement(doc, root));
+}
