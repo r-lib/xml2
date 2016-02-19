@@ -4,6 +4,8 @@
 #include <Rcpp.h>
 #include <libxml/tree.h>
 #include <boost/shared_ptr.hpp>
+#include <boost/typeof/typeof.hpp>
+#include <map>
 
 inline xmlChar* asXmlChar(std::string x) {
   return (xmlChar*) x.c_str();
@@ -56,32 +58,34 @@ public:
 // A wrapper around a pair of character vectors used to namespaces to prefixes
 
 class NsMap {
-  std::vector<std::string> prefix_, url_;
 
-public:
+  // We only store a pointer to the strings in url2prefix to avoid an extra duplication.
+  typedef std::multimap<std::string, std::string> prefix2url_t;
+  typedef std::map<std::string, const std::string*> url2prefix_t;
+
+  prefix2url_t prefix2url;
+  url2prefix_t url2prefix;
+
+  public:
   NsMap() {
   }
 
   // Initialise from an existing character vector
   NsMap(Rcpp::CharacterVector x) {
-    Rcpp::CharacterVector names =  Rcpp::as<Rcpp::CharacterVector>(x.attr("names"));
+    BOOST_AUTO(names, Rcpp::as<Rcpp::CharacterVector>(x.attr("names")));
     for (int i = 0; i < x.size(); ++i) {
       add(std::string(names[i]), std::string(x[i]));
     }
   }
 
   bool hasUrl(std::string url) {
-    for (size_t i = 0; i < url_.size(); ++i) {
-      if (url_[i] == url)
-        return true;
-    }
-    return false;
+    return url2prefix.find(url) != url2prefix.end();
   }
 
   std::string findPrefix(std::string url) {
-    for (size_t i = 0; i < url_.size(); ++i) {
-      if (url_[i] == url)
-        return prefix_[i];
+    BOOST_AUTO(it, url2prefix.find(url));
+    if (it != url2prefix.end()) {
+      return *it->second;
     }
 
     Rcpp::stop("Couldn't find prefix for url %s", url);
@@ -89,9 +93,9 @@ public:
   }
 
   std::string findUrl(std::string prefix) {
-    for (size_t i = 0; i < prefix_.size(); ++i) {
-      if (prefix_[i] == prefix)
-        return url_[i];
+    BOOST_AUTO(it, prefix2url.find(prefix));
+    if (it != prefix2url.end()) {
+      return it->second;
     }
 
     Rcpp::stop("Couldn't find url for prefix %s", prefix);
@@ -106,16 +110,17 @@ public:
     if (hasUrl(url))
       return false;
 
-    prefix_.push_back(prefix);
-    url_.push_back(url);
+    // The return value of multimap.insert is an iterator of the inserted
+    // element. We store the address of the key string as the value in
+    // url2prefix to avoid duplicating the data.
+    BOOST_AUTO(p, prefix2url.insert(prefix2url_t::value_type(prefix, url)));
+    url2prefix.insert(url2prefix_t::value_type(url, &(p->first)));
 
     return true;
   }
 
   Rcpp::CharacterVector out() {
-    Rcpp::CharacterVector out = Rcpp::wrap(url_);
-    out.attr("names") = Rcpp::wrap(prefix_);
-    return out;
+    return Rcpp::wrap(prefix2url);
   }
 };
 
