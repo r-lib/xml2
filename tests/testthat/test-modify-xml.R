@@ -23,8 +23,8 @@ test_that("Creating nodes works", {
   node_new_prop(n, "href", "http://www.zombo.com")
 
   top <- xml_node(root_node, d)
-  expect_equal(xml_length(res), 1L)
-  expect_equal(xml_name(res), "html")
+  expect_equal(xml_length(top), 1L)
+  expect_equal(xml_name(top), "html")
 
   child <- xml_children(top)[[1L]]
   expect_equal(xml_name(child), "a")
