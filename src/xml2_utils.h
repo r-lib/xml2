@@ -59,15 +59,15 @@ public:
 
 class NsMap {
 
+  std::vector<std::string> prefix_;
+  std::vector<std::string> url_;
+
   // We only store the index to avoid duplicating the data
-  typedef boost::unordered_multimap<std::string, std::size_t> prefix2url_t;
-  typedef boost::unordered_multimap<std::string, std::size_t> url2prefix_t;
+  typedef boost::unordered_multimap<std::string, std::vector<std::string>::size_type> prefix2url_t;
+  typedef boost::unordered_multimap<std::string, std::vector<std::string>::size_type> url2prefix_t;
 
   prefix2url_t prefix2url;
   url2prefix_t url2prefix;
-
-  std::vector<std::string> prefix_;
-  std::vector<std::string> url_;
 
   public:
   NsMap() {
@@ -76,7 +76,7 @@ class NsMap {
   // Initialise from an existing character vector
   NsMap(Rcpp::CharacterVector x) {
     BOOST_AUTO(names, Rcpp::as<Rcpp::CharacterVector>(x.attr("names")));
-    for (std::size_t i = 0; i < x.size(); ++i) {
+    for (BOOST_AUTO(i, 0); i < x.size(); ++i) {
       add(std::string(names[i]), std::string(x[i]));
     }
   }
@@ -116,11 +116,11 @@ class NsMap {
     // Add the valuse to the vectors and add the index to the maps.
     // We never delete values so we don't have to worry about keeping the
     // indexes updated.
-    std::size_t i = prefix_.size();
-    prefix_.push_back(prefix);
     url_.push_back(url);
-    prefix2url.insert(prefix2url_t::value_type(prefix, i));
-    url2prefix.insert(url2prefix_t::value_type(url, i));
+    prefix2url.insert(prefix2url_t::value_type(prefix, url_.size() - 1));
+
+    prefix_.push_back(prefix);
+    url2prefix.insert(url2prefix_t::value_type(url, prefix_.size() - 1));
 
     return true;
   }
