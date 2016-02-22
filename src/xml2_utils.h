@@ -5,7 +5,7 @@
 #include <libxml/tree.h>
 #include <boost/shared_ptr.hpp>
 #include <boost/typeof/typeof.hpp>
-#include <boost/unordered_map.hpp>
+#include <unordered_map>
 
 inline xmlChar* asXmlChar(std::string x) {
   return (xmlChar*) x.c_str();
@@ -59,15 +59,11 @@ public:
 
 class NsMap {
 
-  std::vector<std::string> prefix_;
-  std::vector<std::string> url_;
-
   // We only store the index to avoid duplicating the data
-  typedef boost::unordered_multimap<std::string, std::vector<std::string>::size_type> prefix2url_t;
-  typedef boost::unordered_multimap<std::string, std::vector<std::string>::size_type> url2prefix_t;
+  typedef std::unordered_map<std::string, std::string> url2prefix_t;
 
-  prefix2url_t prefix2url;
   url2prefix_t url2prefix;
+  std::vector<std::string> order;
 
   public:
   NsMap() {
@@ -88,21 +84,22 @@ class NsMap {
   std::string findPrefix(std::string url) {
     BOOST_AUTO(it, url2prefix.find(url));
     if (it != url2prefix.end()) {
-      return prefix_.at(it->second);
+      return it->second;
     }
 
     Rcpp::stop("Couldn't find prefix for url %s", url);
-    return "";
+    return std::string();
   }
 
   std::string findUrl(std::string prefix) {
-    BOOST_AUTO(it, prefix2url.find(prefix));
-    if (it != prefix2url.end()) {
-      return url_.at(it->second);
+    for (BOOST_AUTO(it, url2prefix.begin()); it != url2prefix.end(); ++it) {
+      if (it->second == prefix) {
+        return it->first;
+      }
     }
 
     Rcpp::stop("Couldn't find url for prefix %s", prefix);
-    return "";
+    return std::string();
   }
 
   bool add(const xmlChar* prefix, const xmlChar* url) {
@@ -116,19 +113,20 @@ class NsMap {
     // Add the valuse to the vectors and add the index to the maps.
     // We never delete values so we don't have to worry about keeping the
     // indexes updated.
-    url_.push_back(url);
-    prefix2url.insert(prefix2url_t::value_type(prefix, url_.size() - 1));
-
-    prefix_.push_back(prefix);
-    url2prefix.insert(url2prefix_t::value_type(url, prefix_.size() - 1));
-
+    order.push_back(url);
+    url2prefix.insert(url2prefix_t::value_type(url, prefix));
     return true;
   }
 
   Rcpp::CharacterVector out() {
-    Rcpp::CharacterVector out = Rcpp::wrap(url_);
-    out.attr("names") = Rcpp::wrap(prefix_);
+    Rcpp::CharacterVector out = Rcpp::wrap(order);
+    std::vector<std::string> name;
+    name.reserve(order.size());
 
+    for(BOOST_AUTO(it, order.begin());it != order.end(); ++it) {
+      name.push_back(url2prefix.at(*it));
+    }
+    out.attr("names") = Rcpp::wrap(name);
     return out;
   }
 };
