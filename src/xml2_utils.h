@@ -4,7 +4,6 @@
 #include <Rcpp.h>
 #include <libxml/tree.h>
 #include <boost/shared_ptr.hpp>
-#include <boost/typeof/typeof.hpp>
 #include <boost/unordered_map.hpp>
 
 inline xmlChar* asXmlChar(std::string x) {
@@ -71,8 +70,8 @@ class NsMap {
 
   // Initialise from an existing character vector
   NsMap(Rcpp::CharacterVector x) {
-    BOOST_AUTO(names, Rcpp::as<Rcpp::CharacterVector>(x.attr("names")));
-    for (BOOST_AUTO(i, 0); i < x.size(); ++i) {
+    Rcpp::CharacterVector names = Rcpp::as<Rcpp::CharacterVector>(x.attr("names"));
+    for (std::vector<std::string>::size_type i = 0; i < x.size(); ++i) {
       add(std::string(names[i]), std::string(x[i]));
     }
   }
@@ -82,7 +81,7 @@ class NsMap {
   }
 
   std::string findPrefix(std::string url) {
-    BOOST_AUTO(it, url2prefix.find(url));
+    url2prefix_t::const_iterator it = url2prefix.find(url);
     if (it != url2prefix.end()) {
       return it->second;
     }
@@ -92,7 +91,7 @@ class NsMap {
   }
 
   std::string findUrl(std::string prefix) {
-    for (BOOST_AUTO(it, url2prefix.begin()); it != url2prefix.end(); ++it) {
+    for (url2prefix_t::const_iterator it = url2prefix.begin(); it != url2prefix.end(); ++it) {
       if (it->second == prefix) {
         return it->first;
       }
@@ -121,7 +120,7 @@ class NsMap {
     std::vector<std::string> name;
     name.reserve(order.size());
 
-    for(BOOST_AUTO(it, order.begin());it != order.end(); ++it) {
+    for(std::vector<std::string>::const_iterator it = order.begin();it != order.end(); ++it) {
       name.push_back(url2prefix.at(*it));
     }
     out.attr("names") = Rcpp::wrap(name);
