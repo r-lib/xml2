@@ -5,7 +5,7 @@
 #include <libxml/tree.h>
 #include <boost/shared_ptr.hpp>
 #include <boost/typeof/typeof.hpp>
-#include <unordered_map>
+#include <boost/unordered_map.hpp>
 
 inline xmlChar* asXmlChar(std::string x) {
   return (xmlChar*) x.c_str();
@@ -60,7 +60,7 @@ public:
 class NsMap {
 
   // We only store the index to avoid duplicating the data
-  typedef std::unordered_map<std::string, std::string> url2prefix_t;
+  typedef boost::unordered_map<std::string, std::string> url2prefix_t;
 
   url2prefix_t url2prefix;
   std::vector<std::string> order;
@@ -110,9 +110,7 @@ class NsMap {
     if (hasUrl(url))
       return false;
 
-    // Add the valuse to the vectors and add the index to the maps.
-    // We never delete values so we don't have to worry about keeping the
-    // indexes updated.
+    // Add the value to the vector and store the order.
     order.push_back(url);
     url2prefix.insert(url2prefix_t::value_type(url, prefix));
     return true;
