@@ -357,6 +357,42 @@ BEGIN_RCPP
     return __result;
 END_RCPP
 }
+// node_add_previous_sibling
+XPtrNode node_add_previous_sibling(XPtrNode cur, XPtrNode elem);
+RcppExport SEXP xml2_node_add_previous_sibling(SEXP curSEXP, SEXP elemSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject __result;
+    Rcpp::RNGScope __rngScope;
+    Rcpp::traits::input_parameter< XPtrNode >::type cur(curSEXP);
+    Rcpp::traits::input_parameter< XPtrNode >::type elem(elemSEXP);
+    __result = Rcpp::wrap(node_add_previous_sibling(cur, elem));
+    return __result;
+END_RCPP
+}
+// node_add_sibling
+XPtrNode node_add_sibling(XPtrNode cur, XPtrNode elem);
+RcppExport SEXP xml2_node_add_sibling(SEXP curSEXP, SEXP elemSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject __result;
+    Rcpp::RNGScope __rngScope;
+    Rcpp::traits::input_parameter< XPtrNode >::type cur(curSEXP);
+    Rcpp::traits::input_parameter< XPtrNode >::type elem(elemSEXP);
+    __result = Rcpp::wrap(node_add_sibling(cur, elem));
+    return __result;
+END_RCPP
+}
+// node_add_next_sibling
+XPtrNode node_add_next_sibling(XPtrNode cur, XPtrNode elem);
+RcppExport SEXP xml2_node_add_next_sibling(SEXP curSEXP, SEXP elemSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject __result;
+    Rcpp::RNGScope __rngScope;
+    Rcpp::traits::input_parameter< XPtrNode >::type cur(curSEXP);
+    Rcpp::traits::input_parameter< XPtrNode >::type elem(elemSEXP);
+    __result = Rcpp::wrap(node_add_next_sibling(cur, elem));
+    return __result;
+END_RCPP
+}
 // node_new_prop
 XPtrNode node_new_prop(XPtrNode node, std::string name, std::string value);
 RcppExport SEXP xml2_node_new_prop(SEXP nodeSEXP, SEXP nameSEXP, SEXP valueSEXP) {

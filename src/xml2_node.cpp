@@ -251,7 +251,29 @@ XPtrNode node_new_child(XPtrNode parent, std::string name, std::string content) 
   return XPtrNode(xmlNewChild(parent, NULL, asXmlChar(name), asXmlChar(content)));
 }
 
+// Previous sibling
+// [[Rcpp::export]]
+XPtrNode node_add_previous_sibling(XPtrNode cur, XPtrNode elem) {
+  return XPtrNode(xmlAddPrevSibling(cur, elem));
+}
+
+// Append sibling
+// [[Rcpp::export]]
+XPtrNode node_add_sibling(XPtrNode cur, XPtrNode elem) {
+  return XPtrNode(xmlAddSibling(cur, elem));
+}
+
+// Prepend sibling
+// [[Rcpp::export]]
+XPtrNode node_add_next_sibling(XPtrNode cur, XPtrNode elem) {
+  return XPtrNode(xmlAddNextSibling(cur, elem));
+}
+
 // [[Rcpp::export]]
 XPtrNode node_new_prop(XPtrNode node, std::string name, std::string value) {
   return XPtrNode(xmlNewProp(node, asXmlChar(name), asXmlChar(value))->parent);
+}
+
+XPtrNode node_new_text(std::string content) {
+   return XPtrNode(xmlNewTextLen(asXmlChar(content), content.size()));
 }
