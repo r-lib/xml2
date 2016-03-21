@@ -111,3 +111,13 @@ test_that("xml_find_lgl returns a logical result", {
 
   expect_equal(xml_find_lgl(x, "'test'='test'"), TRUE)
 })
+
+test_that("Searches with empty inputs retain type stability", {
+  empty <- xml_nodeset()
+
+  expect_equal(xml_find_num(empty, "1 div 0"), integer())
+
+  expect_equal(xml_find_chr(empty, "string(0.5)"), character())
+
+  expect_equal(xml_find_lgl(empty, "1=1"), logical())
+})
