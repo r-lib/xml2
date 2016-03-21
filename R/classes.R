@@ -30,7 +30,7 @@ print.xml_node <- function(x, width = getOption("width"), max_n = 20, ...) {
 }
 
 #' @export
-print.xml_missing <- function(x, ...) {
+print.xml_missing <- function(x, width = getOption("width"), max_n = 20, ...) {
   cat("{xml_missing}\n")
   cat("<", xml_name(x), ">\n", sep = "")
   show_nodes(xml_children(x), width = width, max_n = max_n)
