@@ -22,5 +22,6 @@ Suggests:
     testthat,
     curl,
     covr
+SystemRequirements: libxml2: libxml2-dev (deb), libxml2-devel (rpm)
 License: GPL (>= 2)
 RoxygenNote: 5.0.1
