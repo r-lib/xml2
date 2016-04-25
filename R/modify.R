@@ -21,3 +21,10 @@
   node_set_content(x$node, value)
   x
 }
+
+`xml_attr<-` <- function(x, ...) UseMethod("xml_attr<-")
+
+`xml_attr<-.xml_node` <- function(x, attr, ns = character(), value) {
+  node_set_attr(x$node, name = attr, nsMap = ns, value)
+  x
+}

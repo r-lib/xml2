@@ -67,6 +67,34 @@ SEXP node_attr(XPtrNode node, std::string name, CharacterVector missing,
   return CharacterVector(Xml2String(string).asRString(missingVal));
 }
 
+
+// [[Rcpp::export]]
+void node_set_attr(XPtrNode node, std::string name, std::string value, CharacterVector nsMap) {
+
+  if (nsMap.size() == 0) {
+    xmlSetProp(node.get(), asXmlChar(name), asXmlChar(value));
+  } else {
+    size_t colon = name.find(":");
+    if (colon == std::string::npos) {
+      // Has namespace spec, but attribute not qualified, so just set the attribute with that name
+      xmlSetProp(node.get(), asXmlChar(name), asXmlChar(value));
+    } else {
+      // Split name into prefix & attr, then look up full url
+      std::string
+      prefix = name.substr(0, colon),
+        attr = name.substr(colon + 1, name.size() - 1);
+
+      xmlNodePtr node_ = node.get();
+      std::string url = NsMap(nsMap).findUrl(prefix);
+
+      xmlNsPtr ns = xmlSearchNsByHref(node_->doc, node_, asXmlChar(url));
+
+      xmlSetNsProp(node_, ns, asXmlChar(attr), asXmlChar(value));
+    }
+  }
+}
+
+
 // [[Rcpp::export]]
 CharacterVector node_attrs(XPtrNode node, CharacterVector nsMap) {
 

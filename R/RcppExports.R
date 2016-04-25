@@ -61,6 +61,10 @@ node_attr <- function(node, name, missing, nsMap) {
     .Call('xml2_node_attr', PACKAGE = 'xml2', node, name, missing, nsMap)
 }
 
+node_set_attr <- function(node, name, value, nsMap) {
+    invisible(.Call('xml2_node_set_attr', PACKAGE = 'xml2', node, name, value, nsMap))
+}
+
 node_attrs <- function(node, nsMap) {
     .Call('xml2_node_attrs', PACKAGE = 'xml2', node, nsMap)
 }
