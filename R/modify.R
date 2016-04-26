@@ -8,12 +8,13 @@
 # be safe once we modify a node we have to return a NULL nodeset.
 # See
 # https://github.com/GNOME/libxml2/blob/e28939036281969477d3913a51c001bb7635fe54/doc/examples/xpath2.c#L163-L179
-# for more details. In general invalidating previous pointers is going to be an
-# issue for all mutation functions.
 `xml_contents<-.xml_nodeset` <- function(x, value) {
   # We need to do the modification in reverse order as the modification can
   # potentially delete nodes
   lapply(rev(x), `xml_contents<-`, value = value)
+
+  # what to return here, setting the contents could invalidate some nodes in
+  # the nodeset having pointers to free'd memory.
   NULL
 }
 
@@ -25,6 +26,10 @@
 `xml_attr<-` <- function(x, ...) UseMethod("xml_attr<-")
 
 `xml_attr<-.xml_node` <- function(x, attr, ns = character(), value) {
-  node_set_attr(x$node, name = attr, nsMap = ns, value)
+  if (is.null(value)) {
+    node_remove_attr(x$node, name = attr, nsMap = ns)
+  } else {
+    node_set_attr(x$node, name = attr, nsMap = ns, value)
+  }
   x
 }

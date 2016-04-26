@@ -94,6 +94,37 @@ void node_set_attr(XPtrNode node, std::string name, std::string value, Character
   }
 }
 
+// [[Rcpp::export]]
+void node_remove_attr(XPtrNode node, std::string name, CharacterVector nsMap) {
+
+  bool found = false;
+  if (nsMap.size() == 0) {
+    found = xmlUnsetProp(node.get(), asXmlChar(name)) == 0;
+  } else {
+    size_t colon = name.find(":");
+    if (colon == std::string::npos) {
+      // Has namespace spec, but attribute not qualified, so look for attribute
+      // without namespace
+      found = xmlUnsetNsProp(node.get(), NULL, asXmlChar(name)) == 0;
+    } else {
+      // Split name into prefix & attr, then look up full url
+      std::string
+      prefix = name.substr(0, colon),
+        attr = name.substr(colon + 1, name.size() - 1);
+
+      xmlNodePtr node_ = node.get();
+      std::string url = NsMap(nsMap).findUrl(prefix);
+
+      xmlNsPtr ns = xmlSearchNsByHref(node_->doc, node_, asXmlChar(url));
+
+      found = xmlUnsetNsProp(node_, ns, asXmlChar(attr)) == 0;
+    }
+  }
+
+  if (!found) {
+    Rcpp::stop("`attr` '%s' not found", name);
+  }
+}
 
 // [[Rcpp::export]]
 CharacterVector node_attrs(XPtrNode node, CharacterVector nsMap) {
