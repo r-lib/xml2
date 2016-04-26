@@ -156,6 +156,18 @@ BEGIN_RCPP
     return __result;
 END_RCPP
 }
+// node_set_name
+void node_set_name(XPtrNode node, CharacterVector nsMap, std::string value);
+RcppExport SEXP xml2_node_set_name(SEXP nodeSEXP, SEXP nsMapSEXP, SEXP valueSEXP) {
+BEGIN_RCPP
+    Rcpp::RNGScope __rngScope;
+    Rcpp::traits::input_parameter< XPtrNode >::type node(nodeSEXP);
+    Rcpp::traits::input_parameter< CharacterVector >::type nsMap(nsMapSEXP);
+    Rcpp::traits::input_parameter< std::string >::type value(valueSEXP);
+    node_set_name(node, nsMap, value);
+    return R_NilValue;
+END_RCPP
+}
 // node_text
 CharacterVector node_text(XPtrNode node, bool trim);
 RcppExport SEXP xml2_node_text(SEXP nodeSEXP, SEXP trimSEXP) {
@@ -344,17 +356,6 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< XPtrNode >::type node(nodeSEXP);
     Rcpp::traits::input_parameter< std::string >::type content(contentSEXP);
     node_set_content(node, content);
-    return R_NilValue;
-END_RCPP
-}
-// node_set_name
-void node_set_name(XPtrNode node, std::string name);
-RcppExport SEXP xml2_node_set_name(SEXP nodeSEXP, SEXP nameSEXP) {
-BEGIN_RCPP
-    Rcpp::RNGScope __rngScope;
-    Rcpp::traits::input_parameter< XPtrNode >::type node(nodeSEXP);
-    Rcpp::traits::input_parameter< std::string >::type name(nameSEXP);
-    node_set_name(node, name);
     return R_NilValue;
 END_RCPP
 }

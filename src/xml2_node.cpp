@@ -27,6 +27,11 @@ CharacterVector node_name(XPtrNode node, CharacterVector nsMap) {
 }
 
 // [[Rcpp::export]]
+void node_set_name(XPtrNode node, std::string value) {
+  return xmlNodeSetName(node, asXmlChar(value));
+}
+
+// [[Rcpp::export]]
 CharacterVector node_text(XPtrNode node, bool trim) {
   std::string text = Xml2String(xmlNodeGetContent(node.get())).asStdString();
 
@@ -122,6 +127,8 @@ void node_set_attr(XPtrNode node, std::string name, std::string value, Character
       xmlSetNsProp(node_, ns, asXmlChar(attr), asXmlChar(value));
     }
   }
+
+  return;
 }
 
 // [[Rcpp::export]]
@@ -154,6 +161,8 @@ void node_remove_attr(XPtrNode node, std::string name, CharacterVector nsMap) {
   if (!found) {
     Rcpp::stop("`attr` '%s' not found", name);
   }
+
+  return;
 }
 
 // [[Rcpp::export]]
@@ -286,11 +295,6 @@ int node_type(XPtrNode node) {
 // [[Rcpp::export]]
 void node_set_content(XPtrNode node, std::string content) {
   return xmlNodeSetContentLen(node, asXmlChar(content), content.size());
-}
-
-// [[Rcpp::export]]
-void node_set_name(XPtrNode node, std::string name) {
-  return xmlNodeSetName(node, asXmlChar(name));
 }
 
 // TODO: how do we handle the NS parameter? Use NsMap in some way to lookup the namespace?

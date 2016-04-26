@@ -78,3 +78,14 @@
 
   x
 }
+
+#' @param ns ignored for assignment
+#' @export
+`xml_name<-` <- function(x, ns = character(), value) {
+   UseMethod("xml_name<-")
+}
+
+#' @export
+`xml_name<-.xml_node` <- function(x, ns = character(), value) {
+  node_set_name(x$node, value)
+}

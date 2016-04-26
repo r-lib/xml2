@@ -53,6 +53,10 @@ node_name <- function(node, nsMap) {
     .Call('xml2_node_name', PACKAGE = 'xml2', node, nsMap)
 }
 
+node_set_name <- function(node, nsMap, value) {
+    invisible(.Call('xml2_node_set_name', PACKAGE = 'xml2', node, nsMap, value))
+}
+
 node_text <- function(node, trim) {
     .Call('xml2_node_text', PACKAGE = 'xml2', node, trim)
 }
@@ -115,10 +119,6 @@ node_type <- function(node) {
 
 node_set_content <- function(node, content) {
     invisible(.Call('xml2_node_set_content', PACKAGE = 'xml2', node, content))
-}
-
-node_set_name <- function(node, name) {
-    invisible(.Call('xml2_node_set_name', PACKAGE = 'xml2', node, name))
 }
 
 node_new <- function(name) {
