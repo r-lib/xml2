@@ -33,3 +33,40 @@
   }
   x
 }
+
+`xml_attr<-.xml_nodeset` <- function(x, attr, ns = character(), value) {
+  lapply(x, `xml_attr<-`, value = value)
+  x
+}
+
+`xml_attrs<-` <- function(x, ...) UseMethod("xml_attrs<-")
+
+`xml_attrs<-.xml_node` <- function(x, ns = character(), value) {
+  if (!is_named(value)) {
+    stop("`value` must be a named vector", call. = FALSE)
+  }
+
+  attrs <- names(value)
+
+  current_attrs <- names(xml_attrs(x, ns = ns))
+
+  existing <- intersect(current_attrs, attrs)
+  new <- setdiff(attrs, current_attrs)
+  removed <- setdiff(current_attrs, attrs)
+
+  Map(function(attr, val) {
+      xml_attr(x, attr, ns) <- val
+  }, attr = c(existing, new), value[c(existing, new)])
+
+
+  Map(function(attr, val) {
+    xml_attr(x, attr, ns) <- NULL
+  }, attr = removed)
+
+  x
+}
+
+`xml_attr<-.xml_nodeset` <- function(x, attr, ns = character(), value) {
+  lapply(x, `xml_attr<-`, value = value)
+  x
+}
