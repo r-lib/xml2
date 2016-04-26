@@ -38,7 +38,7 @@
 }
 
 `xml_attr<-.xml_nodeset` <- function(x, attr, ns = character(), value) {
-  lapply(x, `xml_attr<-`, value = value)
+  lapply(x, `xml_attr<-`, ns = ns, value = value)
   x
 }
 
@@ -46,7 +46,7 @@
 
 `xml_attrs<-.xml_node` <- function(x, ns = character(), value) {
   if (!is_named(value)) {
-    stop("`value` must be a named vector", call. = FALSE)
+    stop("`value` must be a named character vector", call. = FALSE)
   }
 
   attrs <- names(value)
@@ -69,12 +69,12 @@
   x
 }
 
-`xml_attr<-.xml_nodeset` <- function(x, attr, ns = character(), value) {
-  lapply(x, `xml_attr<-`, value = value)
-  x
-}
+`xml_attrs<-.xml_nodeset` <- function(x, ns = character(), value) {
+  if (!is.list(value) || all(vapply(value, is_named, logical(1)))) {
+     stop("`value` must be a list of named character vectors")
+  }
 
-is_named <- function(x) {
-   nm <- names(x)
-  !is.null(nm) && all(nm != "")
+  lapply(x, `xml_attrs<-`, ns = ns, value = value)
+
+  x
 }
