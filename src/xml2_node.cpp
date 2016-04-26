@@ -67,6 +67,36 @@ SEXP node_attr(XPtrNode node, std::string name, CharacterVector missing,
   return CharacterVector(Xml2String(string).asRString(missingVal));
 }
 
+// [[Rcpp::export]]
+CharacterVector node_attrs(XPtrNode node, CharacterVector nsMap) {
+
+  int n = 0;
+  for(xmlAttr* cur = node->properties; cur != NULL; cur = cur->next)
+    n++;
+
+  CharacterVector names(n), values(n);
+
+  int i = 0;
+  for(xmlAttr* cur = node->properties; cur != NULL; cur = cur->next) {
+    names[i] = nodeName(cur, nsMap);
+
+    xmlNs* ns = cur->ns;
+    if (ns == NULL) {
+      if (nsMap.size() > 0) {
+        values[i] = Xml2String(xmlGetNoNsProp(node.get(), cur->name)).asRString();
+      } else {
+        values[i] = Xml2String(xmlGetProp(node.get(), cur->name)).asRString();
+      }
+    } else {
+      values[i] = Xml2String(xmlGetNsProp(node.get(), cur->name, ns->href)).asRString();
+    }
+
+    ++i;
+  }
+
+  values.attr("names") = wrap<CharacterVector>(names);
+  return values;
+}
 
 // [[Rcpp::export]]
 void node_set_attr(XPtrNode node, std::string name, std::string value, CharacterVector nsMap) {
@@ -124,37 +154,6 @@ void node_remove_attr(XPtrNode node, std::string name, CharacterVector nsMap) {
   if (!found) {
     Rcpp::stop("`attr` '%s' not found", name);
   }
-}
-
-// [[Rcpp::export]]
-CharacterVector node_attrs(XPtrNode node, CharacterVector nsMap) {
-
-  int n = 0;
-  for(xmlAttr* cur = node->properties; cur != NULL; cur = cur->next)
-    n++;
-
-  CharacterVector names(n), values(n);
-
-  int i = 0;
-  for(xmlAttr* cur = node->properties; cur != NULL; cur = cur->next) {
-    names[i] = nodeName(cur, nsMap);
-
-    xmlNs* ns = cur->ns;
-    if (ns == NULL) {
-      if (nsMap.size() > 0) {
-        values[i] = Xml2String(xmlGetNoNsProp(node.get(), cur->name)).asRString();
-      } else {
-        values[i] = Xml2String(xmlGetProp(node.get(), cur->name)).asRString();
-      }
-    } else {
-      values[i] = Xml2String(xmlGetNsProp(node.get(), cur->name, ns->href)).asRString();
-    }
-
-    ++i;
-  }
-
-  values.attr("names") = wrap<CharacterVector>(names);
-  return values;
 }
 
 // [[Rcpp::export]]

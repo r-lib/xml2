@@ -61,16 +61,16 @@ node_attr <- function(node, name, missing, nsMap) {
     .Call('xml2_node_attr', PACKAGE = 'xml2', node, name, missing, nsMap)
 }
 
+node_attrs <- function(node, nsMap) {
+    .Call('xml2_node_attrs', PACKAGE = 'xml2', node, nsMap)
+}
+
 node_set_attr <- function(node, name, value, nsMap) {
     invisible(.Call('xml2_node_set_attr', PACKAGE = 'xml2', node, name, value, nsMap))
 }
 
 node_remove_attr <- function(node, name, nsMap) {
     invisible(.Call('xml2_node_remove_attr', PACKAGE = 'xml2', node, name, nsMap))
-}
-
-node_attrs <- function(node, nsMap) {
-    .Call('xml2_node_attrs', PACKAGE = 'xml2', node, nsMap)
 }
 
 node_format <- function(doc, node, format = TRUE, indent = 0L) {

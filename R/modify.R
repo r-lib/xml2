@@ -1,3 +1,6 @@
+## Questions
+# 1. Assignment methods for xml_missing objects? Error, warning or identity
+
 `xml_contents<-` <- function(x, value) UseMethod("xml_contents<-")
 
 `xml_contents<-.default` <- function(x, value) {
@@ -69,4 +72,9 @@
 `xml_attr<-.xml_nodeset` <- function(x, attr, ns = character(), value) {
   lapply(x, `xml_attr<-`, value = value)
   x
+}
+
+is_named <- function(x) {
+   nm <- names(x)
+  !is.null(nm) && all(nm != "")
 }
