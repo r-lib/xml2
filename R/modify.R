@@ -1,8 +1,10 @@
 ## Questions
 # 1. Assignment methods for xml_missing objects? Error, warning or identity
 
+#' @export
 `xml_contents<-` <- function(x, value) UseMethod("xml_contents<-")
 
+#' @export
 `xml_contents<-.default` <- function(x, value) {
   stop("`xml_contents<-` must be run on a `xml_node` or `xml_nodeset`", call. = FALSE)
 }
@@ -11,6 +13,7 @@
 # be safe once we modify a node we have to return a NULL nodeset.
 # See
 # https://github.com/GNOME/libxml2/blob/e28939036281969477d3913a51c001bb7635fe54/doc/examples/xpath2.c#L163-L179
+#' @export
 `xml_contents<-.xml_nodeset` <- function(x, value) {
   # We need to do the modification in reverse order as the modification can
   # potentially delete nodes
@@ -21,13 +24,16 @@
   NULL
 }
 
+#' @export
 `xml_contents<-.xml_node` <- function(x, value) {
   node_set_content(x$node, value)
   x
 }
 
+#' @export
 `xml_attr<-` <- function(x, ...) UseMethod("xml_attr<-")
 
+#' @export
 `xml_attr<-.xml_node` <- function(x, attr, ns = character(), value) {
   if (is.null(value)) {
     node_remove_attr(x$node, name = attr, nsMap = ns)
@@ -37,13 +43,16 @@
   x
 }
 
+#' @export
 `xml_attr<-.xml_nodeset` <- function(x, attr, ns = character(), value) {
   lapply(x, `xml_attr<-`, ns = ns, value = value)
   x
 }
 
+#' @export
 `xml_attrs<-` <- function(x, ...) UseMethod("xml_attrs<-")
 
+#' @export
 `xml_attrs<-.xml_node` <- function(x, ns = character(), value) {
   if (!is_named(value)) {
     stop("`value` must be a named character vector", call. = FALSE)
@@ -69,6 +78,7 @@
   x
 }
 
+#' @export
 `xml_attrs<-.xml_nodeset` <- function(x, ns = character(), value) {
   if (!is.list(value) || all(vapply(value, is_named, logical(1)))) {
      stop("`value` must be a list of named character vectors")
@@ -88,4 +98,11 @@
 #' @export
 `xml_name<-.xml_node` <- function(x, ns = character(), value) {
   node_set_name(x$node, value)
+  x
+}
+
+#' @export
+`xml_name<-.xml_nodeset` <- function(x, ns = character(), value) {
+  lapply(x, `xml_name<-`, value)
+  x
 }
