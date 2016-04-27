@@ -117,6 +117,7 @@ show_nodes <- function(x, width = getOption("width"), max_n = 20) {
   if (trunc) {
     cat("...\n")
   }
+  invisible()
 }
 
 

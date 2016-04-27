@@ -45,7 +45,7 @@
 
 #' @export
 `xml_attr<-.xml_nodeset` <- function(x, attr, ns = character(), value) {
-  lapply(x, `xml_attr<-`, ns = ns, value = value)
+  lapply(x, `xml_attr<-`, attr = attr, ns = ns, value = value)
   x
 }
 
@@ -54,8 +54,8 @@
 
 #' @export
 `xml_attrs<-.xml_node` <- function(x, ns = character(), value) {
-  if (!is_named(value)) {
-    stop("`value` must be a named character vector", call. = FALSE)
+  if (!is_named_or_null(value)) {
+    stop("`value` must be a named character vector or `NULL`", call. = FALSE)
   }
 
   attrs <- names(value)
@@ -71,7 +71,7 @@
   }, attr = c(existing, new), value[c(existing, new)])
 
 
-  Map(function(attr, val) {
+  Map(function(attr) {
     xml_attr(x, attr, ns) <- NULL
   }, attr = removed)
 
@@ -80,16 +80,23 @@
 
 #' @export
 `xml_attrs<-.xml_nodeset` <- function(x, ns = character(), value) {
-  if (!is.list(value) || all(vapply(value, is_named, logical(1)))) {
-     stop("`value` must be a list of named character vectors")
+  if (!is.list(value)) {
+     value <- list(value)
+  }
+  if (!all(vapply(value, is_named_or_null, logical(1)))) {
+    stop("`value` must be a list of named character vectors")
   }
 
-  lapply(x, `xml_attrs<-`, ns = ns, value = value)
+  for (i in seq_along(x)) {
+
+    # recycle value if necessary
+    xml_attrs(x[[i]], ns) <- value[[((i - 1) %% length(value)) + 1]]
+  }
 
   x
 }
 
-#' @param ns ignored for assignment
+# @param ns ignored for assignment
 #' @export
 `xml_name<-` <- function(x, ns = character(), value) {
    UseMethod("xml_name<-")
