@@ -2,35 +2,6 @@
 # 1. Assignment methods for xml_missing objects? Error, warning or identity
 
 #' @export
-`xml_contents<-` <- function(x, value) UseMethod("xml_contents<-")
-
-#' @export
-`xml_contents<-.default` <- function(x, value) {
-  stop("`xml_contents<-` must be run on a `xml_node` or `xml_nodeset`", call. = FALSE)
-}
-
-# node_set_content can modify the node such that it is no longer valid, so to
-# be safe once we modify a node we have to return a NULL nodeset.
-# See
-# https://github.com/GNOME/libxml2/blob/e28939036281969477d3913a51c001bb7635fe54/doc/examples/xpath2.c#L163-L179
-#' @export
-`xml_contents<-.xml_nodeset` <- function(x, value) {
-  # We need to do the modification in reverse order as the modification can
-  # potentially delete nodes
-  lapply(rev(x), `xml_contents<-`, value = value)
-
-  # what to return here, setting the contents could invalidate some nodes in
-  # the nodeset having pointers to free'd memory.
-  NULL
-}
-
-#' @export
-`xml_contents<-.xml_node` <- function(x, value) {
-  node_set_content(x$node, value)
-  x
-}
-
-#' @export
 `xml_attr<-` <- function(x, ...) UseMethod("xml_attr<-")
 
 #' @export

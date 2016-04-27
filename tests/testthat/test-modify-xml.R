@@ -35,10 +35,10 @@ test_that("Creating nodes works", {
   expect_equal(xml_attrs(child), c(href = "http://www.zombo.com"))
 })
 
-test_that("xml_contents<- modifies xml content", {
+test_that("xml_text<- modifies xml content", {
   x <- read_xml("test3.xml")
   y <- xml_find_all(x, "//discarded")
-  xml_contents(y) <- "discarded"
+  xml_text(y) <- "discarded"
   tmp_file <- tempfile()
 
   write_xml(x, tmp_file)
