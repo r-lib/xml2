@@ -16,3 +16,22 @@ test_that("error if missing ns spec", {
   bars <- xml_children(xml_children(x))
   expect_error(xml_name(bars, ns), "Couldn't find prefix")
 })
+
+test_that("xml_name<- modifies the name", {
+  x <- read_xml("ns-multiple-default.xml")
+
+  bars <- xml_children(xml_children(x))
+  bar <- bars[[1]]
+
+  xml_name(bar) <- "foo"
+  expect_equal(xml_name(bar), "foo")
+  expect_equal(xml_name(bar, ns), "d1:foo")
+
+  # ns is ignored
+  xml_name(bar, ns) <- "bar"
+  expect_equal(xml_name(bar), "bar")
+  expect_equal(xml_name(bar, ns), "d1:bar")
+
+  xml_name(bars) <- "foo"
+  expect_equal(xml_name(bars), c("foo", "foo"))
+})

@@ -110,6 +110,6 @@
 
 #' @export
 `xml_name<-.xml_nodeset` <- function(x, ns = character(), value) {
-  lapply(x, `xml_name<-`, value)
+  lapply(x, `xml_name<-`, ns = ns, value)
   x
 }
