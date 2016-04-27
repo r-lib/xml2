@@ -1,0 +1,40 @@
+---
+title: "Node Modification"
+author: "Jim Hester"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Node Modification}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+# Modifying Existing XML
+
+Modifying existing XML can be done in xml2 by using the assignment forms of the
+regular accessor functions.
+
+## Text Modification ##
+
+Text modification should be done carefully as it remove child nodes. Explicitly
+selecting just text nodes with `/text()` is the best way to avoid this
+occurring inadvertently.
+
+```{r}
+x <- read_xml("<p>This is some text. This is <b>bold!</b></p>")
+xml_structure(x)
+xml_text(x)
+
+# Changing the text directly on the parent is destructive and will also delete the <b> child node!
+xml_text(x) <- "This is some other text."
+xml_text(x)
+xml_structure(x)
+
+# You can avoid this by explicitly selecting the text node.
+x <- read_xml("<p>This is some text. This is <b>bold!</b></p>")
+text_only <- xml_find_all(x, "//text()")
+
+xml_text(text_only) <- c("This is some other text. ", "Still bold!")
+xml_text(x)
+xml_structure(x)
+```
