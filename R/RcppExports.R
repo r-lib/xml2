@@ -129,12 +129,12 @@ node_new_child <- function(parent, name, content) {
     .Call('xml2_node_new_child', PACKAGE = 'xml2', parent, name, content)
 }
 
-node_add_previous_sibling <- function(cur, elem) {
-    .Call('xml2_node_add_previous_sibling', PACKAGE = 'xml2', cur, elem)
+node_prepend_sibling <- function(cur, elem, copy) {
+    .Call('xml2_node_prepend_sibling', PACKAGE = 'xml2', cur, elem, copy)
 }
 
-node_add_sibling <- function(cur, elem) {
-    .Call('xml2_node_add_sibling', PACKAGE = 'xml2', cur, elem)
+node_append_sibling <- function(cur, elem, copy) {
+    .Call('xml2_node_append_sibling', PACKAGE = 'xml2', cur, elem, copy)
 }
 
 node_add_next_sibling <- function(cur, elem) {
@@ -143,6 +143,10 @@ node_add_next_sibling <- function(cur, elem) {
 
 node_new_prop <- function(node, name, value) {
     .Call('xml2_node_new_prop', PACKAGE = 'xml2', node, name, value)
+}
+
+node_replace <- function(old, cur, copy) {
+    .Call('xml2_node_replace', PACKAGE = 'xml2', old, cur, copy)
 }
 
 #' Convert between relative and absolute urls.

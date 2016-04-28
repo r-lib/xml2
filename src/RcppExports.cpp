@@ -382,27 +382,29 @@ BEGIN_RCPP
     return __result;
 END_RCPP
 }
-// node_add_previous_sibling
-XPtrNode node_add_previous_sibling(XPtrNode cur, XPtrNode elem);
-RcppExport SEXP xml2_node_add_previous_sibling(SEXP curSEXP, SEXP elemSEXP) {
+// node_prepend_sibling
+XPtrNode node_prepend_sibling(XPtrNode cur, XPtrNode elem, bool copy);
+RcppExport SEXP xml2_node_prepend_sibling(SEXP curSEXP, SEXP elemSEXP, SEXP copySEXP) {
 BEGIN_RCPP
     Rcpp::RObject __result;
     Rcpp::RNGScope __rngScope;
     Rcpp::traits::input_parameter< XPtrNode >::type cur(curSEXP);
     Rcpp::traits::input_parameter< XPtrNode >::type elem(elemSEXP);
-    __result = Rcpp::wrap(node_add_previous_sibling(cur, elem));
+    Rcpp::traits::input_parameter< bool >::type copy(copySEXP);
+    __result = Rcpp::wrap(node_prepend_sibling(cur, elem, copy));
     return __result;
 END_RCPP
 }
-// node_add_sibling
-XPtrNode node_add_sibling(XPtrNode cur, XPtrNode elem);
-RcppExport SEXP xml2_node_add_sibling(SEXP curSEXP, SEXP elemSEXP) {
+// node_append_sibling
+XPtrNode node_append_sibling(XPtrNode cur, XPtrNode elem, bool copy);
+RcppExport SEXP xml2_node_append_sibling(SEXP curSEXP, SEXP elemSEXP, SEXP copySEXP) {
 BEGIN_RCPP
     Rcpp::RObject __result;
     Rcpp::RNGScope __rngScope;
     Rcpp::traits::input_parameter< XPtrNode >::type cur(curSEXP);
     Rcpp::traits::input_parameter< XPtrNode >::type elem(elemSEXP);
-    __result = Rcpp::wrap(node_add_sibling(cur, elem));
+    Rcpp::traits::input_parameter< bool >::type copy(copySEXP);
+    __result = Rcpp::wrap(node_append_sibling(cur, elem, copy));
     return __result;
 END_RCPP
 }
@@ -428,6 +430,19 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< std::string >::type name(nameSEXP);
     Rcpp::traits::input_parameter< std::string >::type value(valueSEXP);
     __result = Rcpp::wrap(node_new_prop(node, name, value));
+    return __result;
+END_RCPP
+}
+// node_replace
+XPtrNode node_replace(XPtrNode old, XPtrNode cur, bool copy);
+RcppExport SEXP xml2_node_replace(SEXP oldSEXP, SEXP curSEXP, SEXP copySEXP) {
+BEGIN_RCPP
+    Rcpp::RObject __result;
+    Rcpp::RNGScope __rngScope;
+    Rcpp::traits::input_parameter< XPtrNode >::type old(oldSEXP);
+    Rcpp::traits::input_parameter< XPtrNode >::type cur(curSEXP);
+    Rcpp::traits::input_parameter< bool >::type copy(copySEXP);
+    __result = Rcpp::wrap(node_replace(old, cur, copy));
     return __result;
 END_RCPP
 }

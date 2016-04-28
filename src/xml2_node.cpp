@@ -315,14 +315,26 @@ XPtrNode node_new_child(XPtrNode parent, std::string name, std::string content) 
 
 // Previous sibling
 // [[Rcpp::export]]
-XPtrNode node_add_previous_sibling(XPtrNode cur, XPtrNode elem) {
-  return XPtrNode(xmlAddPrevSibling(cur, elem));
+XPtrNode node_prepend_sibling(XPtrNode cur, XPtrNode elem, bool copy) {
+  xmlNodePtr node = NULL;
+  if (copy) {
+    node = xmlCopyNode(elem.get(), 1);
+  } else {
+    node = elem.get();
+  }
+  return XPtrNode(xmlAddPrevSibling(cur.get(), node));
 }
 
 // Append sibling
 // [[Rcpp::export]]
-XPtrNode node_add_sibling(XPtrNode cur, XPtrNode elem) {
-  return XPtrNode(xmlAddSibling(cur, elem));
+XPtrNode node_append_sibling(XPtrNode cur, XPtrNode elem, bool copy) {
+  xmlNodePtr node = NULL;
+  if (copy) {
+    node = xmlCopyNode(elem.get(), 1);
+  } else {
+    node = elem.get();
+  }
+  return XPtrNode(xmlAddSibling(cur.get(), node));
 }
 
 // Prepend sibling
@@ -338,4 +350,15 @@ XPtrNode node_new_prop(XPtrNode node, std::string name, std::string value) {
 
 XPtrNode node_new_text(std::string content) {
    return XPtrNode(xmlNewTextLen(asXmlChar(content), content.size()));
+}
+
+// [[Rcpp::export]]
+XPtrNode node_replace(XPtrNode old, XPtrNode cur, bool copy) {
+  xmlNodePtr node = NULL;
+  if (copy) {
+    node = xmlCopyNode(cur.get(), 1);
+  } else {
+    node = cur.get();
+  }
+  return XPtrNode(xmlReplaceNode(old.get(), node));
 }

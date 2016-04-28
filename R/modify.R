@@ -67,20 +67,50 @@
   x
 }
 
-# @param ns ignored for assignment
+#' Replace a node with another node
+#'
+#' @param x a document, node or nodeset.
+#' @param copy whether to copy the \code{value} before replacing. If this is \code{FALSE}
+#'   then the node will be moved from it's current location.
+#' @param value node or nodeset to replace with.
 #' @export
-`xml_name<-` <- function(x, ns = character(), value) {
-   UseMethod("xml_name<-")
-}
+`xml_replace<-` <- function(x, copy = TRUE, value) UseMethod("xml_replace<-")
 
 #' @export
-`xml_name<-.xml_node` <- function(x, ns = character(), value) {
-  node_set_name(x$node, value)
+`xml_replace<-.xml_node` <- function(x, copy = TRUE, value) {
+  x$node <- node_replace(x$node, value$node, copy)
   x
 }
 
 #' @export
-`xml_name<-.xml_nodeset` <- function(x, ns = character(), value) {
-  lapply(x, `xml_name<-`, ns = ns, value)
+`xml_replace<-.xml_nodeset` <- function(x, copy = TRUE, value) {
+  Map(`xml_replace<-`, x, copy, value)
+}
+
+#' Append a sibling onto another node
+#'
+#' @param x a document, node or nodeset.
+#' @param copy whether to copy the \code{value} before replacing. If this is \code{FALSE}
+#'   then the node will be moved from it's current location.
+#' @param value node or nodeset to replace with.
+#' @return the added element
+#' @export
+xml_add_sibling <- function(x, value, where = c("after", "before"), copy = TRUE) UseMethod("xml_add_sibling")
+
+#' @export
+xml_add_sibling.xml_node <- function(x, value, where = c("after", "before"), copy = TRUE) {
+  where <- match.arg(where)
+
+  x$node <- switch(where,
+    before = node_prepend_sibling(x$node, value$node, copy),
+    after = node_append_sibling(x$node, value$node, copy))
+
   x
+}
+
+#' @export
+xml_add_sibling.xml_nodeset <- function(x, value, where = c("after", "before"), copy = TRUE) {
+  where <- match.arg(where)
+
+  Map(`xml_replace<-`, x, value, where, copy)
 }
