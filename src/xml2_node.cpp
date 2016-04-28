@@ -306,6 +306,16 @@ XPtrNode node_new(std::string name) {
 
 // TODO: xmlCreateIntSubset (Add a DTD name to the document...)
 
+// [[Rcpp::export]]
+XPtrNode node_add_child(XPtrNode parent, XPtrNode cur, bool copy) {
+  xmlNodePtr node = NULL;
+  if (copy) {
+    node = xmlCopyNode(cur.get(), 1);
+  } else {
+    node = cur.get();
+  }
+  return XPtrNode(xmlAddChild(parent.get(), node));
+}
 
 // TODO: namespace???
 // [[Rcpp::export]]

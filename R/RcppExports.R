@@ -125,6 +125,10 @@ node_new <- function(name) {
     .Call('xml2_node_new', PACKAGE = 'xml2', name)
 }
 
+node_add_child <- function(parent, cur, copy) {
+    .Call('xml2_node_add_child', PACKAGE = 'xml2', parent, cur, copy)
+}
+
 node_new_child <- function(parent, name, content) {
     .Call('xml2_node_new_child', PACKAGE = 'xml2', parent, name, content)
 }

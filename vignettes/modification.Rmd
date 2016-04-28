@@ -91,7 +91,7 @@ xml_replace(t1) <- t3
 x
 ```
 
-# Append sibling #
+## Append sibling ##
 ```{r}
 x <- read_xml("<parent><child>1</child><child>2<child>3</child></child></parent>")
 children <- xml_children(x)
@@ -99,9 +99,21 @@ t1 <- children[[1]]
 t2 <- children[[2]]
 t3 <- xml_children(children[[2]])[[1]]
 
-xml_add_sibling(t1) <- t3
+xml_add_sibling(t1, t3)
 x
 
-xml_add_sibling(t3) <- t3
+xml_add_sibling(t3, t1, where = "before")
+x
+```
+
+## Add a child ##
+```{r}
+x <- read_xml("<parent><child>1</child><child>2<child>3</child></child></parent>")
+children <- xml_children(x)
+t1 <- children[[1]]
+t2 <- children[[2]]
+t3 <- xml_children(children[[2]])[[1]]
+
+xml_add_child(t1, t3)
 x
 ```
