@@ -19,6 +19,7 @@ test_that("error if missing ns spec", {
 
 test_that("xml_name<- modifies the name", {
   x <- read_xml("ns-multiple-default.xml")
+  ns <- xml_ns(x)
 
   bars <- xml_children(xml_children(x))
   bar <- bars[[1]]

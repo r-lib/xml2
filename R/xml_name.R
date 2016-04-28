@@ -52,7 +52,7 @@ xml_name.xml_node <- function(x, ns = character()) {
 }
 
 #' @export
-`xml_name<-.xml_nodeset` <- function(x, ns = character(), value) {
-  lapply(x, `xml_name<-`, ns = ns, value)
+`xml_name<-.xml_nodeset` <- function(x, ns = list(character()), value) {
+  Map(`xml_name<-`, x, ns, value)
   x
 }
