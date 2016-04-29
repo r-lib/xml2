@@ -1,6 +1,8 @@
 language: R
 cache: packages
 
+github_packages: jimhester/covr
+
 addons:
   apt:
     packages:

@@ -10,6 +10,14 @@ test_that("missing attributes returned as NA", {
   expect_equal(xml_attr(x, "id", default = 1), "1")
 })
 
+test_that("attributes are correctly found", {
+  x <- read_xml("<x id='1' />")
+
+  expect_true(xml_has_attr(x, "id"))
+
+  expect_false(xml_has_attr(x, "id2"))
+})
+
 # Namespaces -------------------------------------------------------------------
 
 # Default namespace doesn't apply to attributes
@@ -67,6 +75,9 @@ test_that("xml_attr<- modifies properties", {
 })
 
 test_that("xml_attrs<- modifies all attributes", {
+  expect_error(xml_attrs(doc) <- 1, "`value` must be a named character vector or `NULL`")
+  expect_error(xml_attrs(doc) <- "test", "`value` must be a named character vector or `NULL`")
+
   xml_attrs(doc, ns) <- c("b:id" = "b", "f:id" = "f", "id" = "")
   expect_equal(xml_attrs(doc, ns), c("b:id" = "b", "id" = "", "f:id" = "f"))
 
@@ -75,6 +86,8 @@ test_that("xml_attrs<- modifies all attributes", {
 
   xml_attrs(doc, ns) <- c("b:id" = "b", "id" = "")
   expect_equal(xml_attrs(doc, ns), c("b:id" = "b", "id" = ""))
+
+  expect_error(xml_attrs(docs) <- "test", "`value` must be a list of named character vectors")
 
   xml_attrs(docs, ns) <- c("b:id" = "b", "id" = "")
   expect_equal(xml_attrs(docs, ns),

@@ -344,7 +344,7 @@ XPtrNode node_append_sibling(XPtrNode cur, XPtrNode elem, bool copy) {
   } else {
     node = elem.get();
   }
-  return XPtrNode(xmlAddSibling(cur.get(), node));
+  return XPtrNode(xmlAddNextSibling(cur.get(), node));
 }
 
 // Prepend sibling

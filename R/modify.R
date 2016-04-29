@@ -18,6 +18,12 @@
 
 #' @export
 `xml_replace<-.xml_nodeset` <- function(x, copy = TRUE, value) {
+
+  # Need to wrap this in a list if a bare xml_node so it is recycled properly
+  if (inherits(value, "xml_node")) {
+    value <- list(value)
+  }
+
   Map(`xml_replace<-`, x, copy, value)
 }
 
@@ -47,7 +53,12 @@ xml_add_sibling.xml_node <- function(x, value, where = c("after", "before"), cop
 xml_add_sibling.xml_nodeset <- function(x, value, where = c("after", "before"), copy = TRUE) {
   where <- match.arg(where)
 
-  Map(xml_add_sibling, x, value, where, copy)
+  # Need to wrap this in a list if a bare xml_node so it is recycled properly
+  if (inherits(value, "xml_node")) {
+    value <- list(value)
+  }
+
+  Map(xml_add_sibling, rev(x), rev(value), where, copy)
 }
 
 #' Add a child node
@@ -69,5 +80,11 @@ xml_add_child.xml_node <- function(x, value, copy = TRUE) {
 
 #' @export
 xml_add_child.xml_nodeset <- function(x, value, copy = TRUE) {
+
+  # Need to wrap this in a list if a bare xml_node so it is recycled properly
+  if (inherits(value, "xml_node")) {
+    value <- list(value)
+  }
+
   Map(xml_add_child, x, value, copy)
 }
