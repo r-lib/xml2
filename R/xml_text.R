@@ -1,4 +1,4 @@
-#' Extract the text
+#' Extract or modify the text
 #'
 #' @inheritParams xml_name
 #' @param trim If \code{TRUE} will trim leading and trailing spaces.
@@ -34,6 +34,8 @@ xml_text.xml_nodeset <- function(x, trim = FALSE) {
   vapply(x, xml_text, trim = trim, FUN.VALUE = character(1))
 }
 
+#' @rdname xml_text
+#' @param value character vector with replacement text.
 #' @export
 `xml_text<-` <- function(x, value) UseMethod("xml_text<-")
 
@@ -43,6 +45,7 @@ xml_text.xml_nodeset <- function(x, trim = FALSE) {
 # be safe once we modify a node we have to return a NULL nodeset.
 # See
 # https://github.com/GNOME/libxml2/blob/e28939036281969477d3913a51c001bb7635fe54/doc/examples/xpath2.c#L163-L179
+
 #' @export
 `xml_text<-.xml_nodeset` <- function(x, value) {
   # We need to do the modification in reverse order as the modification can
@@ -59,4 +62,3 @@ xml_text.xml_nodeset <- function(x, trim = FALSE) {
   node_set_content(x$node, value)
   x
 }
-
