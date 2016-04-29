@@ -23,6 +23,7 @@ selecting just text nodes with `/text()` is the best way to avoid this
 occurring inadvertently.
 
 ```{r}
+library(xml2)
 x <- read_xml("<p>This is some text. This is <b>bold!</b></p>")
 xml_structure(x)
 xml_text(x)
@@ -115,5 +116,8 @@ t2 <- children[[2]]
 t3 <- xml_children(children[[2]])[[1]]
 
 xml_add_child(t1, t3)
+x
+
+xml_add_child(t1, read_xml("<test/>"))
 x
 ```
