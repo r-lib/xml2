@@ -137,11 +137,13 @@ xml_attrs.xml_nodeset <- function(x, ns = character()) {
   new <- setdiff(attrs, current_attrs)
   removed <- setdiff(current_attrs, attrs)
 
+  # replace existing attributes and add new ones
   Map(function(attr, val) {
       xml_attr(x, attr, ns) <- val
   }, attr = c(existing, new), value[c(existing, new)])
 
 
+  # Remove attributes which no longer exist
   Map(function(attr) {
     xml_attr(x, attr, ns) <- NULL
   }, attr = removed)
