@@ -1,6 +1,3 @@
-## Questions
-# 1. Assignment methods for xml_missing objects? Error, warning or identity
-
 #' Replace a node with another node
 #'
 #' @param x a document, node or nodeset.
@@ -88,3 +85,6 @@ xml_add_child.xml_nodeset <- function(x, value, copy = TRUE) {
 
   Map(xml_add_child, x, value, copy)
 }
+
+## Questions
+# - Assignment methods for xml_missing objects? Error, warning or identity
