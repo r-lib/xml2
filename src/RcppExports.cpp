@@ -410,6 +410,16 @@ BEGIN_RCPP
     return __result;
 END_RCPP
 }
+// node_remove
+void node_remove(XPtrNode cur);
+RcppExport SEXP xml2_node_remove(SEXP curSEXP) {
+BEGIN_RCPP
+    Rcpp::RNGScope __rngScope;
+    Rcpp::traits::input_parameter< XPtrNode >::type cur(curSEXP);
+    node_remove(cur);
+    return R_NilValue;
+END_RCPP
+}
 // url_absolute
 CharacterVector url_absolute(CharacterVector x, CharacterVector base);
 RcppExport SEXP xml2_url_absolute(SEXP xSEXP, SEXP baseSEXP) {

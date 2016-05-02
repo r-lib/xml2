@@ -49,10 +49,6 @@ doc_namespaces <- function(doc) {
     .Call('xml2_doc_namespaces', PACKAGE = 'xml2', doc)
 }
 
-doc_add_namespace <- function(doc, prefix, href) {
-    invisible(.Call('xml2_doc_add_namespace', PACKAGE = 'xml2', doc, prefix, href))
-}
-
 node_name <- function(node, nsMap) {
     .Call('xml2_node_name', PACKAGE = 'xml2', node, nsMap)
 }
