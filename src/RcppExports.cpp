@@ -358,17 +358,6 @@ BEGIN_RCPP
     return R_NilValue;
 END_RCPP
 }
-// node_new
-XPtrNode node_new(std::string name);
-RcppExport SEXP xml2_node_new(SEXP nameSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject __result;
-    Rcpp::RNGScope __rngScope;
-    Rcpp::traits::input_parameter< std::string >::type name(nameSEXP);
-    __result = Rcpp::wrap(node_new(name));
-    return __result;
-END_RCPP
-}
 // node_add_child
 XPtrNode node_add_child(XPtrNode parent, XPtrNode cur, bool copy);
 RcppExport SEXP xml2_node_add_child(SEXP parentSEXP, SEXP curSEXP, SEXP copySEXP) {
@@ -379,19 +368,6 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< XPtrNode >::type cur(curSEXP);
     Rcpp::traits::input_parameter< bool >::type copy(copySEXP);
     __result = Rcpp::wrap(node_add_child(parent, cur, copy));
-    return __result;
-END_RCPP
-}
-// node_new_child
-XPtrNode node_new_child(XPtrNode parent, std::string name, std::string content);
-RcppExport SEXP xml2_node_new_child(SEXP parentSEXP, SEXP nameSEXP, SEXP contentSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject __result;
-    Rcpp::RNGScope __rngScope;
-    Rcpp::traits::input_parameter< XPtrNode >::type parent(parentSEXP);
-    Rcpp::traits::input_parameter< std::string >::type name(nameSEXP);
-    Rcpp::traits::input_parameter< std::string >::type content(contentSEXP);
-    __result = Rcpp::wrap(node_new_child(parent, name, content));
     return __result;
 END_RCPP
 }
@@ -418,31 +394,6 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< XPtrNode >::type elem(elemSEXP);
     Rcpp::traits::input_parameter< bool >::type copy(copySEXP);
     __result = Rcpp::wrap(node_append_sibling(cur, elem, copy));
-    return __result;
-END_RCPP
-}
-// node_add_next_sibling
-XPtrNode node_add_next_sibling(XPtrNode cur, XPtrNode elem);
-RcppExport SEXP xml2_node_add_next_sibling(SEXP curSEXP, SEXP elemSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject __result;
-    Rcpp::RNGScope __rngScope;
-    Rcpp::traits::input_parameter< XPtrNode >::type cur(curSEXP);
-    Rcpp::traits::input_parameter< XPtrNode >::type elem(elemSEXP);
-    __result = Rcpp::wrap(node_add_next_sibling(cur, elem));
-    return __result;
-END_RCPP
-}
-// node_new_prop
-XPtrNode node_new_prop(XPtrNode node, std::string name, std::string value);
-RcppExport SEXP xml2_node_new_prop(SEXP nodeSEXP, SEXP nameSEXP, SEXP valueSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject __result;
-    Rcpp::RNGScope __rngScope;
-    Rcpp::traits::input_parameter< XPtrNode >::type node(nodeSEXP);
-    Rcpp::traits::input_parameter< std::string >::type name(nameSEXP);
-    Rcpp::traits::input_parameter< std::string >::type value(valueSEXP);
-    __result = Rcpp::wrap(node_new_prop(node, name, value));
     return __result;
 END_RCPP
 }

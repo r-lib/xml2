@@ -121,16 +121,8 @@ node_set_content <- function(node, content) {
     invisible(.Call('xml2_node_set_content', PACKAGE = 'xml2', node, content))
 }
 
-node_new <- function(name) {
-    .Call('xml2_node_new', PACKAGE = 'xml2', name)
-}
-
 node_add_child <- function(parent, cur, copy) {
     .Call('xml2_node_add_child', PACKAGE = 'xml2', parent, cur, copy)
-}
-
-node_new_child <- function(parent, name, content) {
-    .Call('xml2_node_new_child', PACKAGE = 'xml2', parent, name, content)
 }
 
 node_prepend_sibling <- function(cur, elem, copy) {
@@ -139,14 +131,6 @@ node_prepend_sibling <- function(cur, elem, copy) {
 
 node_append_sibling <- function(cur, elem, copy) {
     .Call('xml2_node_append_sibling', PACKAGE = 'xml2', cur, elem, copy)
-}
-
-node_add_next_sibling <- function(cur, elem) {
-    .Call('xml2_node_add_next_sibling', PACKAGE = 'xml2', cur, elem)
-}
-
-node_new_prop <- function(node, name, value) {
-    .Call('xml2_node_new_prop', PACKAGE = 'xml2', node, name, value)
 }
 
 node_replace <- function(old, cur, copy) {

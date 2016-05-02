@@ -297,13 +297,6 @@ void node_set_content(XPtrNode node, std::string content) {
   return xmlNodeSetContentLen(node, asXmlChar(content), content.size());
 }
 
-// TODO: how do we handle the NS parameter? Use NsMap in some way to lookup the namespace?
-// This is mainly for root nodes
-// [[Rcpp::export]]
-XPtrNode node_new(std::string name) {
-  return XPtrNode(xmlNewNode(NULL, asXmlChar(name)));
-}
-
 // TODO: xmlCreateIntSubset (Add a DTD name to the document...)
 
 // [[Rcpp::export]]
@@ -315,12 +308,6 @@ XPtrNode node_add_child(XPtrNode parent, XPtrNode cur, bool copy) {
     node = cur.get();
   }
   return XPtrNode(xmlAddChild(parent.get(), node));
-}
-
-// TODO: namespace???
-// [[Rcpp::export]]
-XPtrNode node_new_child(XPtrNode parent, std::string name, std::string content) {
-  return XPtrNode(xmlNewChild(parent, NULL, asXmlChar(name), asXmlChar(content)));
 }
 
 // Previous sibling
@@ -347,21 +334,7 @@ XPtrNode node_append_sibling(XPtrNode cur, XPtrNode elem, bool copy) {
   return XPtrNode(xmlAddNextSibling(cur.get(), node));
 }
 
-// Prepend sibling
-// [[Rcpp::export]]
-XPtrNode node_add_next_sibling(XPtrNode cur, XPtrNode elem) {
-  return XPtrNode(xmlAddNextSibling(cur, elem));
-}
-
-// [[Rcpp::export]]
-XPtrNode node_new_prop(XPtrNode node, std::string name, std::string value) {
-  return XPtrNode(xmlNewProp(node, asXmlChar(name), asXmlChar(value))->parent);
-}
-
-XPtrNode node_new_text(std::string content) {
-   return XPtrNode(xmlNewTextLen(asXmlChar(content), content.size()));
-}
-
+// Replace node
 // [[Rcpp::export]]
 XPtrNode node_replace(XPtrNode old, XPtrNode cur, bool copy) {
   xmlNodePtr node = NULL;
