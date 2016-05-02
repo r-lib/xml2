@@ -81,7 +81,9 @@ xml_has_attr <- function(x, attr, ns = character()) {
 
 #' @export
 #' @rdname xml_attr
-xml_attrs <- function(x, ns = character()) UseMethod("xml_attrs")
+xml_attrs <- function(x, ns = character()) {
+  UseMethod("xml_attrs")
+}
 
 #' @export
 xml_attrs.xml_missing <- function(x, ns = character()) {
@@ -101,7 +103,9 @@ xml_attrs.xml_nodeset <- function(x, ns = character()) {
 #' @param value character vector of new value.
 #' @rdname xml_attr
 #' @export
-`xml_attr<-` <- function(x, attr, ns = character(), value) UseMethod("xml_attr<-")
+`xml_attr<-` <- function(x, attr, ns = character(), value) {
+  UseMethod("xml_attr<-")
+}
 
 #' @export
 `xml_attr<-.xml_node` <- function(x, attr, ns = character(), value) {
@@ -121,7 +125,9 @@ xml_attrs.xml_nodeset <- function(x, ns = character()) {
 
 #' @rdname xml_attr
 #' @export
-`xml_attrs<-` <- function(x, ns = character(), value) UseMethod("xml_attrs<-")
+`xml_attrs<-` <- function(x, ns = character(), value) {
+  UseMethod("xml_attrs<-")
+}
 
 #' @export
 `xml_attrs<-.xml_node` <- function(x, ns = character(), value) {
