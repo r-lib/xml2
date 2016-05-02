@@ -131,7 +131,7 @@ xml_attrs.xml_nodeset <- function(x, ns = character()) {
 
 #' @export
 `xml_attrs<-.xml_node` <- function(x, ns = character(), value) {
-  if (!is_named_or_null(value)) {
+  if (!is_named(value)) {
     stop("`value` must be a named character vector or `NULL`", call. = FALSE)
   }
 
@@ -165,7 +165,7 @@ xml_attrs.xml_nodeset <- function(x, ns = character()) {
   if (!is.list(value)) {
      value <- list(value)
   }
-  if (!all(vapply(value, is_named_or_null, logical(1)))) {
+  if (!all(vapply(value, is_named, logical(1)))) {
     stop("`value` must be a list of named character vectors")
   }
 
