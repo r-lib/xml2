@@ -1,9 +1,15 @@
-#' Replace a node with another node
+#' Modify a tree by inserting, replacing or removing nodes
+#'
+#' \code{xml_add_sbling()} and \code{xml_add_child()} are used to insert a node
+#' as a sibling or a child. \code{xml_replace()} replaces an existing node with
+#' a new node. \code{xml_remove()} removes a node from the tree, but does not
+#' free it's memory.
 #'
 #' @param x a document, node or nodeset.
 #' @param copy whether to copy the \code{value} before replacing. If this is \code{FALSE}
 #'   then the node will be moved from it's current location.
-#' @param value node or nodeset to replace with.
+#' @param where whether to add \code{value} before or after \code{x}.
+#' @param value node or nodeset to insert.
 #' @export
 xml_replace <- function(x, value, copy = TRUE) {
   UseMethod("xml_replace")
@@ -26,14 +32,7 @@ xml_replace.xml_nodeset <- function(x, value, copy = TRUE) {
   Map(xml_replace, x, value, copy)
 }
 
-#' Append a sibling onto another node
-#'
-#' @param x a document, node or nodeset.
-#' @param copy whether to copy the \code{value} before replacing. If this is \code{FALSE}
-#'   then the node will be moved from it's current location.
-#' @param value node or nodeset to replace with.
-#' @param where whether to add \code{value} before or after \code{x}.
-#' @return the added element
+#' @rdname xml_replace
 #' @export
 xml_add_sibling <- function(x, value, where = c("after", "before"), copy = TRUE) {
   UseMethod("xml_add_sibling")
@@ -62,13 +61,7 @@ xml_add_sibling.xml_nodeset <- function(x, value, where = c("after", "before"), 
   Map(xml_add_sibling, rev(x), rev(value), where, copy)
 }
 
-#' Add a child node
-#'
-#' @param x a document, node or nodeset.
-#' @param value node or nodeset.
-#' @param copy whether to copy the \code{value} before replacing. If this is \code{FALSE}
-#'   then the node will be moved from it's current location.
-#' @return the added element
+#' @rdname xml_replace
 #' @export
 xml_add_child <- function(x, value, copy = TRUE) {
   UseMethod("xml_add_child")
@@ -92,6 +85,7 @@ xml_add_child.xml_nodeset <- function(x, value, copy = TRUE) {
   Map(xml_add_child, x, value, copy)
 }
 
+#' @rdname xml_replace
 #' @export
 xml_remove_node <- function(x) {
    UseMethod("xml_remove_node")
@@ -99,7 +93,12 @@ xml_remove_node <- function(x) {
 
 #' @export
 xml_remove_node.xml_node <- function(x) {
-  node_remove(x$node)
+  node_remove_node(x$node)
+}
+
+#' @export
+xml_remove_node.xml_nodeset <- function(x) {
+  Map(xml_remove_node, rev(x))
 }
 
 ## Questions

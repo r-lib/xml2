@@ -49,6 +49,10 @@ doc_namespaces <- function(doc) {
     .Call('xml2_doc_namespaces', PACKAGE = 'xml2', doc)
 }
 
+doc_add_namespace <- function(doc, prefix, href) {
+    invisible(.Call('xml2_doc_add_namespace', PACKAGE = 'xml2', doc, prefix, href))
+}
+
 node_name <- function(node, nsMap) {
     .Call('xml2_node_name', PACKAGE = 'xml2', node, nsMap)
 }
@@ -135,6 +139,10 @@ node_append_sibling <- function(cur, elem, copy) {
 
 node_replace <- function(old, cur, copy) {
     .Call('xml2_node_replace', PACKAGE = 'xml2', old, cur, copy)
+}
+
+node_remove <- function(cur) {
+    invisible(.Call('xml2_node_remove', PACKAGE = 'xml2', cur))
 }
 
 #' Convert between relative and absolute urls.

@@ -88,7 +88,7 @@ t1 <- children[[1]]
 t2 <- children[[2]]
 t3 <- xml_children(children[[2]])[[1]]
 
-xml_replace(t1) <- t3
+xml_replace(t1, t3)
 x
 ```
 
