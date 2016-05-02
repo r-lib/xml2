@@ -151,6 +151,9 @@ xml_attrs.xml_nodeset <- function(x, ns = character()) {
 
 #' @export
 `xml_attrs<-.xml_nodeset` <- function(x, ns = character(), value) {
+  if (!is.list(ns)) {
+     ns <- list(ns)
+  }
   if (!is.list(value)) {
      value <- list(value)
   }
@@ -158,11 +161,7 @@ xml_attrs.xml_nodeset <- function(x, ns = character()) {
     stop("`value` must be a list of named character vectors")
   }
 
-  for (i in seq_along(x)) {
-
-    # recycle value if necessary
-    xml_attrs(x[[i]], ns) <- value[[((i - 1) %% length(value)) + 1]]
-  }
+  Map(`xml_attrs<-`, x, ns, value)
 
   x
 }
