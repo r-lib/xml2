@@ -38,15 +38,15 @@ test_that("xml_replace replaces nodes", {
   t3 <- xml_children(children[[2]])[[1]]
   expect_equal(xml_text(x), "123")
 
-  xml_replace(t1) <- t3
+  xml_replace(t1, t3)
   expect_equal(xml_text(x), "323")
 
   first_child <- xml_children(x)[[1]]
-  xml_replace(first_child) <- t1
+  xml_replace(first_child, t1)
   expect_equal(xml_text(x), "123")
 
   first_child <- xml_children(x)[[1]]
-  xml_replace(first_child, copy = FALSE) <- t3
+  xml_replace(first_child, t3, copy = FALSE)
   expect_equal(xml_text(x), "32")
 })
 
