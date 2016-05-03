@@ -351,3 +351,13 @@ void node_remove(XPtrNode cur) {
    xmlUnlinkNode(cur.get());
    return;
 }
+
+// [[Rcpp::export]]
+XPtrNode node_new(std::string name) {
+   return XPtrNode(xmlNewNode(NULL, asXmlChar(name)));
+}
+
+// [[Rcpp::export]]
+XPtrNode node_null() {
+  return XPtrNode(xmlNodePtr(NULL));
+}

@@ -105,28 +105,34 @@ xml_remove_node.xml_nodeset <- function(x) {
 # - Assignment methods for xml_missing objects? Error, warning or identity
 
 # xml_new_node("nodename", child1, child2, attr1 = "foo", attr3 = "bar")
-xml_new_node <- function(name, ..., .root = FALSE) {
+
+#' Create a new node
+#' @param name name of the node.
+#' @param ... Either named attributes or child nodes to add to the new node.
+#' @return A \code{xml_node} object.
+xml_new_node <- function(name, ...) {
 
   args <- list(...)
+
   named <- has_names(args)
-
-  node <- structure(list(node = node_new(name), doc = NULL), class = "xml_node")
-
-  if (isTRUE(.root)) {
-    node$doc <- doc_new("1.0")
-    doc_set_root(node$doc, node$node)
+  children <- args[!named]
+  if (length(children) > 0 && !all(vapply(children, inherits, logical(1), "xml_node"))) {
+    stop("All unnamed arguments must be `xml_node`s", call. = FALSE)
   }
 
-  attrs <- args[named]
+  node <- structure(list(node = node_new(name), doc = node_null()), class = "xml_node")
 
+  attrs <- args[named]
   xml_attrs(node) <- attrs
 
-  children <- args[!named]
   lapply(children, xml_add_child, x = node)
 
   node
 }
 
+#' Create a new document
+#' @param node The root node of the document.
+#' @param version The version number of the document.
 xml_new_document <- function(node, version = "1.0") {
   doc <- doc_new(version)
   doc_set_root(doc, node$node)
