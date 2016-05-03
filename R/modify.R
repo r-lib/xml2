@@ -103,3 +103,32 @@ xml_remove_node.xml_nodeset <- function(x) {
 
 ## Questions
 # - Assignment methods for xml_missing objects? Error, warning or identity
+
+# xml_new_node("nodename", child1, child2, attr1 = "foo", attr3 = "bar")
+xml_new_node <- function(name, ..., .root = FALSE) {
+
+  args <- list(...)
+  named <- has_names(args)
+
+  node <- structure(list(node = node_new(name), doc = NULL), class = "xml_node")
+
+  if (isTRUE(.root)) {
+    node$doc <- doc_new("1.0")
+    doc_set_root(node$doc, node$node)
+  }
+
+  attrs <- args[named]
+
+  xml_attrs(node) <- attrs
+
+  children <- args[!named]
+  lapply(children, xml_add_child, x = node)
+
+  node
+}
+
+xml_new_document <- function(node, version = "1.0") {
+  doc <- doc_new(version)
+  doc_set_root(doc, node$node)
+  xml_document(doc)
+}
