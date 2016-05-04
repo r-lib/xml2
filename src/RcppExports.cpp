@@ -420,6 +420,39 @@ BEGIN_RCPP
     return R_NilValue;
 END_RCPP
 }
+// node_new
+XPtrNode node_new(std::string name);
+RcppExport SEXP xml2_node_new(SEXP nameSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject __result;
+    Rcpp::RNGScope __rngScope;
+    Rcpp::traits::input_parameter< std::string >::type name(nameSEXP);
+    __result = Rcpp::wrap(node_new(name));
+    return __result;
+END_RCPP
+}
+// node_null
+XPtrNode node_null();
+RcppExport SEXP xml2_node_null() {
+BEGIN_RCPP
+    Rcpp::RObject __result;
+    Rcpp::RNGScope __rngScope;
+    __result = Rcpp::wrap(node_null());
+    return __result;
+END_RCPP
+}
+// node_add_namespace
+void node_add_namespace(XPtrNode node, std::string prefix, std::string url);
+RcppExport SEXP xml2_node_add_namespace(SEXP nodeSEXP, SEXP prefixSEXP, SEXP urlSEXP) {
+BEGIN_RCPP
+    Rcpp::RNGScope __rngScope;
+    Rcpp::traits::input_parameter< XPtrNode >::type node(nodeSEXP);
+    Rcpp::traits::input_parameter< std::string >::type prefix(prefixSEXP);
+    Rcpp::traits::input_parameter< std::string >::type url(urlSEXP);
+    node_add_namespace(node, prefix, url);
+    return R_NilValue;
+END_RCPP
+}
 // url_absolute
 CharacterVector url_absolute(CharacterVector x, CharacterVector base);
 RcppExport SEXP xml2_url_absolute(SEXP xSEXP, SEXP baseSEXP) {

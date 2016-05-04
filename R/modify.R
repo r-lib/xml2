@@ -107,10 +107,10 @@ xml_remove_node.xml_nodeset <- function(x) {
 # xml_new_node("nodename", child1, child2, attr1 = "foo", attr3 = "bar")
 
 #' Create a new node
-#' @param name name of the node.
+#' @param .name name of the node.
 #' @param ... Either named attributes or child nodes to add to the new node.
 #' @return A \code{xml_node} object.
-xml_new_node <- function(name, ...) {
+xml_new_node <- function(.name, ..., .ns = character()) {
 
   args <- list(...)
 
@@ -120,7 +120,7 @@ xml_new_node <- function(name, ...) {
     stop("All unnamed arguments must be `xml_node`s", call. = FALSE)
   }
 
-  node <- structure(list(node = node_new(name), doc = node_null()), class = "xml_node")
+  node <- structure(list(node = node_new(.name), doc = node_null()), class = "xml_node")
 
   attrs <- args[named]
   xml_attrs(node) <- attrs
@@ -138,3 +138,22 @@ xml_new_document <- function(node, version = "1.0") {
   doc_set_root(doc, node$node)
   xml_document(doc)
 }
+
+# Namespaces
+# - xmlNewNode() needs a xmlNsPtr to assign a namespace
+# - These need the node to already be inserted into the document
+  # - xmlSearchNsByHref() searches _parents_ of a node for a namespace (by URI).
+  # - xmlSearchNs() searches _parents_ of a node for a namespace (by prefix).
+# xml_ns() collects _all_ namespaces from a document together
+  # - What happens if we try to use a namespace that is not a parent?
+# xml_name() returns prefix:name if given ns, should we do allow assigning a prefix in the same fashion, e.g. xml_name(x, ns) <- "prefix:node"
+
+#<?xml version = "1.0" encoding="UTF-8"?>
+#<sld xmlns="http://www.o.net/sld" 
+     #xmlns:ogc="http://www.o.net/ogc" 
+     #xmlns:se="http://www.o.net/se"
+     #version="1.1.0" >
+#<layer>
+#<se:Name>My Layer</se:Name>
+#</layer>
+#</sld>

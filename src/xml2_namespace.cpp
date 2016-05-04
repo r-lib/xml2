@@ -31,3 +31,15 @@ CharacterVector doc_namespaces(XPtrDoc doc) {
 
   return nsMap.out();
 }
+
+//// [[Rcpp::export]]
+//void doc_add_namespace(XPtrDoc doc, std::string prefix, std::string href) {
+//  xmlNodePtr root = xmlDocGetRootElement(doc.get());
+//
+//  if (prefix.length() == 0) {
+//
+//    xmlNewNs(root, asXmlChar(href), NULL);
+//  } else {
+//    xmlNewNs(root, asXmlChar(href), asXmlChar(prefix));
+//  }
+//}

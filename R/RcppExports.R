@@ -141,6 +141,18 @@ node_remove <- function(cur) {
     invisible(.Call('xml2_node_remove', PACKAGE = 'xml2', cur))
 }
 
+node_new <- function(name) {
+    .Call('xml2_node_new', PACKAGE = 'xml2', name)
+}
+
+node_null <- function() {
+    .Call('xml2_node_null', PACKAGE = 'xml2')
+}
+
+node_add_namespace <- function(node, prefix, url) {
+    invisible(.Call('xml2_node_add_namespace', PACKAGE = 'xml2', node, prefix, url))
+}
+
 #' Convert between relative and absolute urls.
 #'
 #' @param x A character vector of urls relative to that base

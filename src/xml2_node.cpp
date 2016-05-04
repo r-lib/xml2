@@ -361,3 +361,12 @@ XPtrNode node_new(std::string name) {
 XPtrNode node_null() {
   return XPtrNode(xmlNodePtr(NULL));
 }
+
+// [[Rcpp::export]]
+void node_add_namespace(XPtrNode node, std::string prefix, std::string url) {
+  if (prefix.length() == 0) {
+    xmlNewNs(node.get(), asXmlChar(url), NULL);
+  } else {
+    xmlNewNs(node.get(), asXmlChar(url), asXmlChar(prefix));
+  }
+}
