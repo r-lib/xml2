@@ -348,8 +348,8 @@ XPtrNode node_replace(XPtrNode old, XPtrNode cur, bool copy) {
 
 // [[Rcpp::export]]
 void node_remove(XPtrNode cur) {
-   xmlUnlinkNode(cur.get());
-   return;
+  xmlUnlinkNode(cur.get());
+  return;
 }
 
 // [[Rcpp::export]]

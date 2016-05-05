@@ -93,7 +93,7 @@ xml_remove_node <- function(x) {
 
 #' @export
 xml_remove_node.xml_node <- function(x) {
-  node_remove_node(x$node)
+  node_remove(x$node)
 }
 
 #' @export
