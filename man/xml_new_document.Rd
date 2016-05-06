@@ -11,6 +11,9 @@ xml_new_document(node, version = "1.0")
 
 \item{version}{The version number of the document.}
 }
+\value{
+A \code{xml_document} object.
+}
 \description{
 Create a new document
 }

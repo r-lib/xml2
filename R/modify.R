@@ -179,8 +179,11 @@ xml_new_node <- function(.name, ..., .ns = character()) {
 }
 
 #' Create a new document
+#'
 #' @param node The root node of the document.
 #' @param version The version number of the document.
+#' @return A \code{xml_document} object.
+#' @export
 xml_new_document <- function(node, version = "1.0") {
   doc <- doc_new(version)
   doc_set_root(doc, node$node)
