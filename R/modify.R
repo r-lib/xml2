@@ -106,14 +106,41 @@ xml_remove_node.xml_nodeset <- function(x) {
 
 # xml_new_node("nodename", child1, child2, attr1 = "foo", attr3 = "bar")
 
+#' Create a new namespace and assign it to a node
+#'
+#' @param x a node
+#' @param namespaces A named character vector of prefixes and URIs for the
+#' namespaces. If one element is unnamed it is used as the default namespace.
+#' @return the node (invisibly)
 #' @export
-xml_new_namespace <- function(x, uri, prefix = "") {
+#' @examples
+#' d <- xml_new_document(xml_new_node("sld", version = "1.1.0", xml_new_node("layer", xml_new_node("Name"))))
+#' sld <- xml_find_one(d, "//sld")
+#' name <- xml_find_one(d, "//Name")
+#' xml_new_namespace(sld, c("http://www.o.net/sld", ogc = "http://www.o.net/ogc", se = "http://www.o.net/se"))
+#' xml_set_namespace(name, "se")
+xml_new_namespace <- function(x, namespaces) {
   stopifnot(inherits(x, "xml_node"))
 
-  node_new_namespace(x$node, uri, prefix)
+  named <- has_names(namespaces)
+
+  if (sum(!named) > 1) {
+    stop("`namespaces` can only contain one unnamed namespace", call. = FALSE)
+  }
+  names(namespaces)[!named] <- ""
+
+  Map(node_new_namespace, list(x$node), namespaces, names(namespaces))
+
   invisible(x)
 }
 
+#' Set the node's namespace
+#'
+#' The namespace to be set must be defined in one of the node's ancestors.
+#' @param a node
+#' @param prefix The namespace prefix to use
+#' @param uri The namespace URI to use
+#' @return the node (invisibly)
 xml_set_namespace <- function(x, prefix = "", uri = "") {
   stopifnot(inherits(x, "xml_node"))
 
@@ -126,6 +153,7 @@ xml_set_namespace <- function(x, prefix = "", uri = "") {
 }
 
 #' Create a new node
+#'
 #' @param .name name of the node.
 #' @param ... Either named attributes or child nodes to add to the new node.
 #' @return A \code{xml_node} object.
