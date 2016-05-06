@@ -11,8 +11,8 @@ inline void finaliseNode(xmlNodePtr node) {
   // them here, root nodes have their parent set to the document. Otherwise the
   // nodes will be free'd when their document is free'd.
   if (node->parent == NULL) {
-    xmlFreeNode(node);
-    node = NULL;
+    //xmlFreeNode(node);
+    //node = NULL;
   }
   // do nothing
 }

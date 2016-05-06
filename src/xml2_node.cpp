@@ -363,10 +363,29 @@ XPtrNode node_null() {
 }
 
 // [[Rcpp::export]]
-void node_add_namespace(XPtrNode node, std::string prefix, std::string url) {
+void node_new_namespace(XPtrNode node, std::string uri, std::string prefix) {
   if (prefix.length() == 0) {
-    xmlNewNs(node.get(), asXmlChar(url), NULL);
+    xmlNewNs(node.get(), asXmlChar(uri), NULL);
   } else {
-    xmlNewNs(node.get(), asXmlChar(url), asXmlChar(prefix));
+    xmlNewNs(node.get(), asXmlChar(uri), asXmlChar(prefix));
   }
+}
+
+// [[Rcpp::export]]
+void node_set_namespace_uri(XPtrDoc doc, XPtrNode node, std::string uri) {
+  xmlNsPtr ns = xmlSearchNsByHref(doc.get(), node.get(), asXmlChar(uri));
+
+  xmlSetNs(node.get(), ns);
+}
+
+// [[Rcpp::export]]
+void node_set_namespace_prefix(XPtrDoc doc, XPtrNode node, std::string prefix) {
+  xmlNsPtr ns = NULL;
+  if (prefix.length() == 0) {
+    ns = xmlSearchNs(doc.get(), node.get(), NULL);
+  } else {
+    ns = xmlSearchNs(doc.get(), node.get(), asXmlChar(prefix));
+  }
+
+  xmlSetNs(node.get(), ns);
 }

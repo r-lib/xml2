@@ -93,7 +93,7 @@ CharacterVector doc_url(XPtrDoc x) {
 
 // [[Rcpp::export]]
 XPtrDoc doc_new(std::string version) {
-   return XPtrDoc(xmlNewDoc(asXmlChar(version)));
+  return XPtrDoc(xmlNewDoc(asXmlChar(version)));
 }
 
 // [[Rcpp::export]]

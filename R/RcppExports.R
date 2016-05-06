@@ -149,8 +149,16 @@ node_null <- function() {
     .Call('xml2_node_null', PACKAGE = 'xml2')
 }
 
-node_add_namespace <- function(node, prefix, url) {
-    invisible(.Call('xml2_node_add_namespace', PACKAGE = 'xml2', node, prefix, url))
+node_new_namespace <- function(node, uri, prefix) {
+    invisible(.Call('xml2_node_new_namespace', PACKAGE = 'xml2', node, uri, prefix))
+}
+
+node_set_namespace_uri <- function(doc, node, uri) {
+    invisible(.Call('xml2_node_set_namespace_uri', PACKAGE = 'xml2', doc, node, uri))
+}
+
+node_set_namespace_prefix <- function(doc, node, prefix) {
+    invisible(.Call('xml2_node_set_namespace_prefix', PACKAGE = 'xml2', doc, node, prefix))
 }
 
 #' Convert between relative and absolute urls.

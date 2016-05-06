@@ -106,6 +106,24 @@ xml_remove_node.xml_nodeset <- function(x) {
 
 # xml_new_node("nodename", child1, child2, attr1 = "foo", attr3 = "bar")
 
+#' @export
+xml_new_namespace <- function(x, uri, prefix = "") {
+  stopifnot(inherits(x, "xml_node"))
+
+  node_new_namespace(x$node, uri, prefix)
+  x
+}
+
+xml_set_namespace <- function(x, prefix = "", uri = "") {
+  stopifnot(inherits(x, "xml_node"))
+
+  if (nzchar(uri)) {
+    node_set_namespace_uri(x$doc, x$node, uri)
+  } else {
+    node_set_namespace_prefix(x$doc, x$node, prefix)
+  }
+}
+
 #' Create a new node
 #' @param .name name of the node.
 #' @param ... Either named attributes or child nodes to add to the new node.
@@ -148,12 +166,5 @@ xml_new_document <- function(node, version = "1.0") {
   # - What happens if we try to use a namespace that is not a parent?
 # xml_name() returns prefix:name if given ns, should we do allow assigning a prefix in the same fashion, e.g. xml_name(x, ns) <- "prefix:node"
 
-#<?xml version = "1.0" encoding="UTF-8"?>
-#<sld xmlns="http://www.o.net/sld" 
-     #xmlns:ogc="http://www.o.net/ogc" 
-     #xmlns:se="http://www.o.net/se"
-     #version="1.1.0" >
-#<layer>
-#<se:Name>My Layer</se:Name>
-#</layer>
-#</sld>
+# 1. Create a new namespace(s) at the current node
+# 2. Assign the node to an existing namespace (assume all namespaces are at the root node?)
