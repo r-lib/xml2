@@ -111,7 +111,7 @@ xml_new_namespace <- function(x, uri, prefix = "") {
   stopifnot(inherits(x, "xml_node"))
 
   node_new_namespace(x$node, uri, prefix)
-  x
+  invisible(x)
 }
 
 xml_set_namespace <- function(x, prefix = "", uri = "") {
@@ -122,6 +122,7 @@ xml_set_namespace <- function(x, prefix = "", uri = "") {
   } else {
     node_set_namespace_prefix(x$doc, x$node, prefix)
   }
+  invisible(x)
 }
 
 #' Create a new node
