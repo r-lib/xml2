@@ -157,6 +157,7 @@ xml_set_namespace <- function(x, prefix = "", uri = "") {
 #' @param .name name of the node.
 #' @param ... Either named attributes or child nodes to add to the new node.
 #' @return A \code{xml_node} object.
+#' @export
 xml_new_node <- function(.name, ..., .ns = character()) {
 
   args <- list(...)
