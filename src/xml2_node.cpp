@@ -106,6 +106,16 @@ CharacterVector node_attrs(XPtrNode node, CharacterVector nsMap) {
 // [[Rcpp::export]]
 void node_set_attr(XPtrNode node, std::string name, std::string value, CharacterVector nsMap) {
 
+  if (name.find("xmlns") == 0) {
+    size_t colon = name.find(":");
+    xmlNsPtr ns = NULL;
+    if (colon == std::string::npos) {
+      ns = xmlNewNs(node.get(), asXmlChar(value), NULL);
+    } else {
+      ns = xmlNewNs(node.get(), asXmlChar(value), asXmlChar(name.substr(colon + 1)));
+    }
+    return;
+  }
   if (nsMap.size() == 0) {
     xmlSetProp(node.get(), asXmlChar(name), asXmlChar(value));
   } else {

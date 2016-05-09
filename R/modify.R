@@ -83,6 +83,7 @@ xml_add_child.xml_node <- function(x, value, ..., .copy = inherits(value, "xml_n
   } else if (is.character(value)) {
     parts <- strsplit(value, ":")[[1]]
     if (length(parts) == 2) {
+      # Should we fail if namespace is not found?
       namespace <- ns_lookup(x$doc, x$node, parts[[1]])
       node <- structure(list(node = node_new_ns(parts[[2]], namespace), doc = x$doc), class = "xml_node")
     } else {

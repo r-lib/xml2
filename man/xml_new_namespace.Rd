@@ -4,7 +4,7 @@
 \alias{xml_new_namespace}
 \title{Create a new namespace and assign it to a node}
 \usage{
-xml_new_namespace(x, namespaces)
+xml_new_namespace(x, ...)
 }
 \arguments{
 \item{x}{a node}
