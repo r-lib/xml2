@@ -63,7 +63,7 @@ xml_add_sibling.xml_nodeset <- function(x, value, where = c("after", "before"), 
 
 #' @rdname xml_replace
 #' @export
-xml_add_child <- function(x, value, copy = TRUE) {
+xml_add_child <- function(x, value, ..., copy = TRUE) {
   UseMethod("xml_add_child")
 }
 
@@ -91,6 +91,8 @@ xml_add_child.xml_node <- function(x, value, ..., .copy = inherits(value, "xml_n
     }
   }
   node_add_child(x$node, node$node, .copy)
+
+  xml_attrs(node) <- args[named]
 
   x #return self or child?
 }
@@ -182,7 +184,7 @@ xml_set_namespace <- function(x, prefix = "", uri = "") {
 #' @param ... Either named attributes or child nodes to add to the new node.
 #' @return A \code{xml_node} object.
 #' @export
-xml_new_node <- function(.name, ..., .ns = character()) {
+xml_new_node <- function(.name, ...) {
 
   args <- list(...)
 
