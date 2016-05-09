@@ -67,34 +67,47 @@ xml_add_child <- function(x, value, ..., copy = TRUE) {
   UseMethod("xml_add_child")
 }
 
+create_node <- function(value, parent) {
+  if (inherits(value, "xml_node")) {
+    return(value)
+  }
+
+  if (!is.character(value)) {
+    stop("`value` must be a character", call. = FALSE)
+  }
+
+  parts <- strsplit(value, ":")[[1]]
+  if (length(parts) == 2) {
+    # Should we fail if namespace is not found?
+    namespace <- ns_lookup(parent$doc, parent$node, parts[[1]])
+    node <- structure(list(node = node_new_ns(parts[[2]], namespace), doc = parent$doc), class = "xml_node")
+  } else {
+    node <- structure(list(node = node_new(value), doc = parent$doc), class = "xml_node")
+  }
+  node
+}
+
 #' @export
 xml_add_child.xml_node <- function(x, value, ..., .copy = inherits(value, "xml_node")) {
 
-  args <- list(...)
-
-  named <- has_names(args)
-  children <- args[!named]
-  if (length(children) > 0 && !all(vapply(children, inherits, logical(1), "xml_node"))) {
-    stop("All unnamed arguments must be `xml_node`s", call. = FALSE)
-  }
-
-  if (inherits(value, "xml_node")) {
-    node <- value
-  } else if (is.character(value)) {
-    parts <- strsplit(value, ":")[[1]]
-    if (length(parts) == 2) {
-      # Should we fail if namespace is not found?
-      namespace <- ns_lookup(x$doc, x$node, parts[[1]])
-      node <- structure(list(node = node_new_ns(parts[[2]], namespace), doc = x$doc), class = "xml_node")
-    } else {
-      node <- structure(list(node = node_new(value), doc = x$doc), class = "xml_node")
-    }
-  }
+  node <- create_node(value, x)
   node_add_child(x$node, node$node, .copy)
 
-  xml_attrs(node) <- args[named]
+  xml_attrs(node) <- list(...)
 
-  x #return self or child?
+  node #return self or child?
+}
+
+#' @export
+xml_add_child.xml_document <- function(x, value, ...) {
+  if (is.null(x$node)) {
+    node <- create_node(value, x)
+    doc_set_root(x$doc, node$node)
+    xml_attrs(node) <- list(...)
+    xml_document(x$doc)
+  } else {
+    NextMethod("xml_add_child")
+  }
 }
 
 #' @export
@@ -212,8 +225,7 @@ xml_new_node <- function(.name, ...) {
 #' @export
 xml_new_document <- function(node, version = "1.0") {
   doc <- doc_new(version)
-  doc_set_root(doc, node$node)
-  xml_document(doc)
+  structure(list(doc = doc), class = "xml_document")
 }
 
 # Namespaces

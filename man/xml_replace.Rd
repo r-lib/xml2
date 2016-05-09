@@ -11,7 +11,7 @@ xml_replace(x, value, copy = TRUE)
 
 xml_add_sibling(x, value, where = c("after", "before"), copy = TRUE)
 
-xml_add_child(x, value, copy = TRUE)
+xml_add_child(x, value, ..., copy = TRUE)
 
 xml_remove_node(x)
 }

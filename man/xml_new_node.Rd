@@ -4,7 +4,7 @@
 \alias{xml_new_node}
 \title{Create a new node}
 \usage{
-xml_new_node(.name, ..., .ns = character())
+xml_new_node(.name, ...)
 }
 \arguments{
 \item{.name}{name of the node.}
