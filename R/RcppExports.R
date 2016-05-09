@@ -145,12 +145,24 @@ node_new <- function(name) {
     .Call('xml2_node_new', PACKAGE = 'xml2', name)
 }
 
+node_new_ns <- function(name, ns) {
+    .Call('xml2_node_new_ns', PACKAGE = 'xml2', name, ns)
+}
+
 node_null <- function() {
     .Call('xml2_node_null', PACKAGE = 'xml2')
 }
 
 node_new_namespace <- function(node, uri, prefix) {
     invisible(.Call('xml2_node_new_namespace', PACKAGE = 'xml2', node, uri, prefix))
+}
+
+ns_lookup_uri <- function(doc, node, uri) {
+    .Call('xml2_ns_lookup_uri', PACKAGE = 'xml2', doc, node, uri)
+}
+
+ns_lookup <- function(doc, node, prefix) {
+    .Call('xml2_ns_lookup', PACKAGE = 'xml2', doc, node, prefix)
 }
 
 node_set_namespace_uri <- function(doc, node, uri) {

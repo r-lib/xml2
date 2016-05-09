@@ -68,10 +68,30 @@ xml_add_child <- function(x, value, copy = TRUE) {
 }
 
 #' @export
-xml_add_child.xml_node <- function(x, value, copy = TRUE) {
-  node_add_child(x$node, value$node, copy)
+xml_add_child.xml_node <- function(x, value, ..., .copy = inherits(value, "xml_node")) {
 
-  x
+  args <- list(...)
+
+  named <- has_names(args)
+  children <- args[!named]
+  if (length(children) > 0 && !all(vapply(children, inherits, logical(1), "xml_node"))) {
+    stop("All unnamed arguments must be `xml_node`s", call. = FALSE)
+  }
+
+  if (inherits(value, "xml_node")) {
+    node <- value
+  } else if (is.character(value)) {
+    parts <- strsplit(value, ":")[[1]]
+    if (length(parts) == 2) {
+      namespace <- ns_lookup(x$doc, x$node, parts[[1]])
+      node <- structure(list(node = node_new_ns(parts[[2]], namespace), doc = x$doc), class = "xml_node")
+    } else {
+      node <- structure(list(node = node_new(value), doc = x$doc), class = "xml_node")
+    }
+  }
+  node_add_child(x$node, node$node, .copy)
+
+  x #return self or child?
 }
 
 #' @export
@@ -119,8 +139,10 @@ xml_remove_node.xml_nodeset <- function(x) {
 #' name <- xml_find_one(d, "//Name")
 #' xml_new_namespace(sld, c("http://www.o.net/sld", ogc = "http://www.o.net/ogc", se = "http://www.o.net/se"))
 #' xml_set_namespace(name, "se")
-xml_new_namespace <- function(x, namespaces) {
+xml_new_namespace <- function(x, ...) {
   stopifnot(inherits(x, "xml_node"))
+
+  namespaces <- list(...)
 
   named <- has_names(namespaces)
 
@@ -141,6 +163,7 @@ xml_new_namespace <- function(x, namespaces) {
 #' @param prefix The namespace prefix to use
 #' @param uri The namespace URI to use
 #' @return the node (invisibly)
+#' @export
 xml_set_namespace <- function(x, prefix = "", uri = "") {
   stopifnot(inherits(x, "xml_node"))
 

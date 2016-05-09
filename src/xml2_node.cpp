@@ -354,7 +354,12 @@ void node_remove(XPtrNode cur) {
 
 // [[Rcpp::export]]
 XPtrNode node_new(std::string name) {
-   return XPtrNode(xmlNewNode(NULL, asXmlChar(name)));
+  return XPtrNode(xmlNewNode(NULL, asXmlChar(name)));
+}
+
+// [[Rcpp::export]]
+XPtrNode node_new_ns(std::string name, XPtrNs ns) {
+  return XPtrNode(xmlNewNode(ns.get(), asXmlChar(name)));
 }
 
 // [[Rcpp::export]]
@@ -369,6 +374,22 @@ void node_new_namespace(XPtrNode node, std::string uri, std::string prefix) {
   } else {
     xmlNewNs(node.get(), asXmlChar(uri), asXmlChar(prefix));
   }
+}
+
+// [[Rcpp::export]]
+XPtrNs ns_lookup_uri(XPtrDoc doc, XPtrNode node, std::string uri) {
+  return XPtrNs(xmlSearchNsByHref(doc.get(), node.get(), asXmlChar(uri)));
+}
+
+// [[Rcpp::export]]
+XPtrNs ns_lookup(XPtrDoc doc, XPtrNode node, std::string prefix) {
+  xmlNsPtr ns = NULL;
+  if (prefix.length() == 0) {
+    ns = xmlSearchNs(doc.get(), node.get(), NULL);
+  } else {
+    ns = xmlSearchNs(doc.get(), node.get(), asXmlChar(prefix));
+  }
+  return XPtrNs(ns);
 }
 
 // [[Rcpp::export]]
