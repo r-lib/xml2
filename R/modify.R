@@ -39,12 +39,14 @@ xml_add_sibling <- function(x, value, where = c("after", "before"), copy = TRUE)
 }
 
 #' @export
-xml_add_sibling.xml_node <- function(x, value, where = c("after", "before"), copy = TRUE) {
-  where <- match.arg(where)
+xml_add_sibling.xml_node <- function(x, value, ..., .where = c("after", "before"), .copy = TRUE) {
+  .where <- match.arg(.where)
 
-  x$node <- switch(where,
-    before = node_prepend_sibling(x$node, value$node, copy),
-    after = node_append_sibling(x$node, value$node, copy))
+  node <- create_node(value, x, ...)
+
+  x$node <- switch(.where,
+    before = node_prepend_sibling(x$node, node$node, .copy),
+    after = node_append_sibling(x$node, node$node, .copy))
 
   x
 }
@@ -67,7 +69,7 @@ xml_add_child <- function(x, value, ..., copy = TRUE) {
   UseMethod("xml_add_child")
 }
 
-create_node <- function(value, parent) {
+create_node <- function(value, parent, ...) {
   if (inherits(value, "xml_node")) {
     return(value)
   }
@@ -84,16 +86,26 @@ create_node <- function(value, parent) {
   } else {
     node <- structure(list(node = node_new(value), doc = parent$doc), class = "xml_node")
   }
+
+  args <- list(...)
+  named <- has_names(args)
+  xml_attrs(node) <- args[named]
+  xml_text(node) <- paste(args[!named], collapse = "")
+
   node
 }
 
 #' @export
 xml_add_child.xml_node <- function(x, value, ..., .copy = inherits(value, "xml_node")) {
 
-  node <- create_node(value, x)
+  node <- create_node(value, x, ...)
   node_add_child(x$node, node$node, .copy)
 
-  xml_attrs(node) <- list(...)
+  args <- list(...)
+  named <- has_names(args)
+  xml_attrs(node) <- args[named]
+
+  xml_text(node) <- paste(args[!named], collapse = "")
 
   node #return self or child?
 }
@@ -101,9 +113,9 @@ xml_add_child.xml_node <- function(x, value, ..., .copy = inherits(value, "xml_n
 #' @export
 xml_add_child.xml_document <- function(x, value, ...) {
   if (is.null(x$node)) {
-    node <- create_node(value, x)
+    node <- create_node(value, x, ...)
     doc_set_root(x$doc, node$node)
-    xml_attrs(node) <- list(...)
+
     xml_document(x$doc)
   } else {
     NextMethod("xml_add_child")
