@@ -49,15 +49,8 @@ xml_ns <- function(x) {
   names(x) <- make.unique(names(x), "")
 
   class(x) <- "xml_namespace"
-  attr(x, "document") <- doc
-  x
-}
 
-`[.xml_namespace` <- function(x, i, ...) {
-  r <- NextMethod("[")
-  mostattributes(r) <- attributes(x)
-  names(r) <- names(x)[i]
-  r
+  x
 }
 
 #' @export

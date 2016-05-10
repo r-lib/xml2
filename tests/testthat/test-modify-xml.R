@@ -61,7 +61,7 @@ test_that("xml_sibling adds a sibling node", {
   expect_length(xml_siblings(t1), 2)
   expect_equal(xml_text(x), "1323")
 
-  xml_add_sibling(t1, t3, where = "before")
+  xml_add_sibling(t1, t3, .where = "before")
   expect_length(xml_siblings(t1), 3)
   expect_equal(xml_text(x), "31323")
 

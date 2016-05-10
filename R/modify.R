@@ -34,7 +34,7 @@ xml_replace.xml_nodeset <- function(x, value, copy = TRUE) {
 
 #' @rdname xml_replace
 #' @export
-xml_add_sibling <- function(x, value, where = c("after", "before"), copy = TRUE) {
+xml_add_sibling <- function(x, value, ..., .where = c("after", "before"), .copy = TRUE) {
   UseMethod("xml_add_sibling")
 }
 
@@ -52,20 +52,20 @@ xml_add_sibling.xml_node <- function(x, value, ..., .where = c("after", "before"
 }
 
 #' @export
-xml_add_sibling.xml_nodeset <- function(x, value, where = c("after", "before"), copy = TRUE) {
-  where <- match.arg(where)
+xml_add_sibling.xml_nodeset <- function(x, value, ..., .where = c("after", "before"), .copy = TRUE) {
+  .where <- match.arg(.where)
 
   # Need to wrap this in a list if a bare xml_node so it is recycled properly
   if (inherits(value, "xml_node")) {
     value <- list(value)
   }
 
-  Map(xml_add_sibling, rev(x), rev(value), where, copy)
+  Map(xml_add_sibling, rev(x), rev(value), ..., .where = .where, .copy = .copy)
 }
 
 #' @rdname xml_replace
 #' @export
-xml_add_child <- function(x, value, ..., copy = TRUE) {
+xml_add_child <- function(x, value, ..., .copy = TRUE) {
   UseMethod("xml_add_child")
 }
 
@@ -103,9 +103,13 @@ xml_add_child.xml_node <- function(x, value, ..., .copy = inherits(value, "xml_n
 
   args <- list(...)
   named <- has_names(args)
-  xml_attrs(node) <- args[named]
+  if (any(named)) {
+    xml_attrs(node) <- args[named]
+  }
 
-  xml_text(node) <- paste(args[!named], collapse = "")
+  if (any(!named)) {
+    xml_text(node) <- paste(args[!named], collapse = "")
+  }
 
   node #return self or child?
 }
@@ -123,14 +127,14 @@ xml_add_child.xml_document <- function(x, value, ...) {
 }
 
 #' @export
-xml_add_child.xml_nodeset <- function(x, value, copy = TRUE) {
+xml_add_child.xml_nodeset <- function(x, value, ..., .copy = TRUE) {
 
   # Need to wrap this in a list if a bare xml_node so it is recycled properly
   if (inherits(value, "xml_node")) {
     value <- list(value)
   }
 
-  Map(xml_add_child, x, value, copy)
+  Map(xml_add_child, x, value, ..., .copy = .copy)
 }
 
 #' @rdname xml_replace
