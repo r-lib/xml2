@@ -130,9 +130,6 @@ x <- xml_new_node("parent",
 # Nodes have a NULL document until they are added to a document.
 x$doc
 
-d <- xml_new_document(x)
-xml_children(d)[[1]]$doc
-
 d2 <- xml_new_document(xml_new_node("parent", xml_new_node("child1"), xml_new_node("child2", foo = "bar")))
 ```
 
@@ -153,10 +150,16 @@ http://stackoverflow.com/questions/32939229/creating-xml-in-r-with-namespaces/32
 ```
 
 ```{r}
-d <- xml_new_document(xml_new_node("sld", version = "1.1.0", xml_new_node("layer", xml_new_node("Name"))))
-sld <- xml_find_one(d, "//sld")
-name <- xml_find_one(d, "//Name")
-xml_new_namespace(sld, c("http://www.o.net/sld", ogc = "http://www.o.net/ogc", se = "http://www.o.net/se"))
-xml_set_namespace(name, "se")
+library(magrittr)
+d <- xml_new_document() %>%
+  xml_add_child("sld",
+    xmlns = "http://www.o.net/sld",
+    "xmlns:ogc" = "http://www.o.net/ogc",
+    "xmlns:se" = "http://www.o.net/se",
+    version = "1.1.0") %>%
+  xml_add_child("layer") %>%
+  xml_add_child("se:Name") %>%
+  xml_root()
+
 cat(as.character(d))
 ```
