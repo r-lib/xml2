@@ -46,7 +46,7 @@ test_that("xml_replace replaces nodes", {
   expect_equal(xml_text(x), "123")
 
   first_child <- xml_children(x)[[1]]
-  xml_replace(first_child, t3, copy = FALSE)
+  xml_replace(first_child, t3, .copy = FALSE)
   expect_equal(xml_text(x), "32")
 })
 
@@ -79,7 +79,7 @@ test_that("xml_add_child adds a child node", {
 
   expect_length(xml_children(t1), 0)
 
-  xml_add_child(t1, t3)
+  xml_add_child(t1, t3, .copy = TRUE)
   expect_length(xml_children(t1), 1)
   expect_equal(xml_text(x), "1323")
 

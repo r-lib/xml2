@@ -122,17 +122,6 @@ xml_add_child(t1, read_xml("<test/>"))
 x
 ```
 
-# Creating new nodes and documents #
-```{r}
-x <- xml_new_node("parent",
-  xml_new_node("child1"),
-  xml_new_node("child2", foo = "bar"))
-# Nodes have a NULL document until they are added to a document.
-x$doc
-
-d2 <- xml_new_document(xml_new_node("parent", xml_new_node("child1"), xml_new_node("child2", foo = "bar")))
-```
-
 ## Namespaces ##
 
 We want to construct a document with the following namespace layout. (From

@@ -74,10 +74,3 @@ xml_ns_rename <- function(old, ...) {
   names(old)[m] <- new
   old
 }
-
-xml_set_ns <- function(x, value) {
-  stopifnot(inherits(x, "xml_node"))
-
-  node_add_namespace(x$node, names(value) %||% "", value)
-  x
-}

@@ -6,30 +6,35 @@
 #' free it's memory.
 #'
 #' @param x a document, node or nodeset.
-#' @param copy whether to copy the \code{value} before replacing. If this is \code{FALSE}
+#' @param .copy whether to copy the \code{value} before replacing. If this is \code{FALSE}
 #'   then the node will be moved from it's current location.
-#' @param where whether to add \code{value} before or after \code{x}.
+#' @param .where whether to add \code{value} before or after \code{x}.
+#' @param ... If named attributes or namespaces to set on the node, if unnamed
+#' text to assign to the node.
 #' @param value node or nodeset to insert.
 #' @export
-xml_replace <- function(x, value, copy = TRUE) {
+xml_replace <- function(x, value, ..., .copy = TRUE) {
   UseMethod("xml_replace")
 }
 
 #' @export
-xml_replace.xml_node <- function(x, value, copy = TRUE) {
-  x$node <- node_replace(x$node, value$node, copy)
+xml_replace.xml_node <- function(x, value, ..., .copy = TRUE) {
+
+  node <- create_node(value, x, ...)
+
+  x$node <- node_replace(x$node, node$node, .copy)
   x
 }
 
 #' @export
-xml_replace.xml_nodeset <- function(x, value, copy = TRUE) {
+xml_replace.xml_nodeset <- function(x, value, ..., .copy = TRUE) {
 
   # Need to wrap this in a list if a bare xml_node so it is recycled properly
   if (inherits(value, "xml_node")) {
     value <- list(value)
   }
 
-  Map(xml_replace, x, value, copy)
+  Map(xml_replace, x, value, ..., .copy = .copy)
 }
 
 #' @rdname xml_replace
@@ -156,42 +161,10 @@ xml_remove_node.xml_nodeset <- function(x) {
 ## Questions
 # - Assignment methods for xml_missing objects? Error, warning or identity
 
-# xml_new_node("nodename", child1, child2, attr1 = "foo", attr3 = "bar")
-
-#' Create a new namespace and assign it to a node
-#'
-#' @param x a node
-#' @param namespaces A named character vector of prefixes and URIs for the
-#' namespaces. If one element is unnamed it is used as the default namespace.
-#' @return the node (invisibly)
-#' @export
-#' @examples
-#' d <- xml_new_document(xml_new_node("sld", version = "1.1.0", xml_new_node("layer", xml_new_node("Name"))))
-#' sld <- xml_find_one(d, "//sld")
-#' name <- xml_find_one(d, "//Name")
-#' xml_new_namespace(sld, c("http://www.o.net/sld", ogc = "http://www.o.net/ogc", se = "http://www.o.net/se"))
-#' xml_set_namespace(name, "se")
-xml_new_namespace <- function(x, ...) {
-  stopifnot(inherits(x, "xml_node"))
-
-  namespaces <- list(...)
-
-  named <- has_names(namespaces)
-
-  if (sum(!named) > 1) {
-    stop("`namespaces` can only contain one unnamed namespace", call. = FALSE)
-  }
-  names(namespaces)[!named] <- ""
-
-  Map(node_new_namespace, list(x$node), namespaces, names(namespaces))
-
-  invisible(x)
-}
-
 #' Set the node's namespace
 #'
 #' The namespace to be set must be defined in one of the node's ancestors.
-#' @param a node
+#' @param x a node
 #' @param prefix The namespace prefix to use
 #' @param uri The namespace URI to use
 #' @return the node (invisibly)
@@ -205,32 +178,6 @@ xml_set_namespace <- function(x, prefix = "", uri = "") {
     node_set_namespace_prefix(x$doc, x$node, prefix)
   }
   invisible(x)
-}
-
-#' Create a new node
-#'
-#' @param .name name of the node.
-#' @param ... Either named attributes or child nodes to add to the new node.
-#' @return A \code{xml_node} object.
-#' @export
-xml_new_node <- function(.name, ...) {
-
-  args <- list(...)
-
-  named <- has_names(args)
-  children <- args[!named]
-  if (length(children) > 0 && !all(vapply(children, inherits, logical(1), "xml_node"))) {
-    stop("All unnamed arguments must be `xml_node`s", call. = FALSE)
-  }
-
-  node <- structure(list(node = node_new(.name), doc = node_null()), class = "xml_node")
-
-  attrs <- args[named]
-  xml_attrs(node) <- attrs
-
-  lapply(children, xml_add_child, x = node)
-
-  node
 }
 
 #' Create a new document
