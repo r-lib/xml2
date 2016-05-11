@@ -144,6 +144,32 @@ BEGIN_RCPP
     return __result;
 END_RCPP
 }
+// ns_lookup_uri
+XPtrNs ns_lookup_uri(XPtrDoc doc, XPtrNode node, std::string uri);
+RcppExport SEXP xml2_ns_lookup_uri(SEXP docSEXP, SEXP nodeSEXP, SEXP uriSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject __result;
+    Rcpp::RNGScope __rngScope;
+    Rcpp::traits::input_parameter< XPtrDoc >::type doc(docSEXP);
+    Rcpp::traits::input_parameter< XPtrNode >::type node(nodeSEXP);
+    Rcpp::traits::input_parameter< std::string >::type uri(uriSEXP);
+    __result = Rcpp::wrap(ns_lookup_uri(doc, node, uri));
+    return __result;
+END_RCPP
+}
+// ns_lookup
+XPtrNs ns_lookup(XPtrDoc doc, XPtrNode node, std::string prefix);
+RcppExport SEXP xml2_ns_lookup(SEXP docSEXP, SEXP nodeSEXP, SEXP prefixSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject __result;
+    Rcpp::RNGScope __rngScope;
+    Rcpp::traits::input_parameter< XPtrDoc >::type doc(docSEXP);
+    Rcpp::traits::input_parameter< XPtrNode >::type node(nodeSEXP);
+    Rcpp::traits::input_parameter< std::string >::type prefix(prefixSEXP);
+    __result = Rcpp::wrap(ns_lookup(doc, node, prefix));
+    return __result;
+END_RCPP
+}
 // node_name
 CharacterVector node_name(XPtrNode node, CharacterVector nsMap);
 RcppExport SEXP xml2_node_name(SEXP nodeSEXP, SEXP nsMapSEXP) {
@@ -463,32 +489,6 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< std::string >::type prefix(prefixSEXP);
     node_new_namespace(node, uri, prefix);
     return R_NilValue;
-END_RCPP
-}
-// ns_lookup_uri
-XPtrNs ns_lookup_uri(XPtrDoc doc, XPtrNode node, std::string uri);
-RcppExport SEXP xml2_ns_lookup_uri(SEXP docSEXP, SEXP nodeSEXP, SEXP uriSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject __result;
-    Rcpp::RNGScope __rngScope;
-    Rcpp::traits::input_parameter< XPtrDoc >::type doc(docSEXP);
-    Rcpp::traits::input_parameter< XPtrNode >::type node(nodeSEXP);
-    Rcpp::traits::input_parameter< std::string >::type uri(uriSEXP);
-    __result = Rcpp::wrap(ns_lookup_uri(doc, node, uri));
-    return __result;
-END_RCPP
-}
-// ns_lookup
-XPtrNs ns_lookup(XPtrDoc doc, XPtrNode node, std::string prefix);
-RcppExport SEXP xml2_ns_lookup(SEXP docSEXP, SEXP nodeSEXP, SEXP prefixSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject __result;
-    Rcpp::RNGScope __rngScope;
-    Rcpp::traits::input_parameter< XPtrDoc >::type doc(docSEXP);
-    Rcpp::traits::input_parameter< XPtrNode >::type node(nodeSEXP);
-    Rcpp::traits::input_parameter< std::string >::type prefix(prefixSEXP);
-    __result = Rcpp::wrap(ns_lookup(doc, node, prefix));
-    return __result;
 END_RCPP
 }
 // node_set_namespace_uri
