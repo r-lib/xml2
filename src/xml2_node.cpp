@@ -304,10 +304,13 @@ int node_type(XPtrNode node) {
 
 // [[Rcpp::export]]
 void node_set_content(XPtrNode node, std::string content) {
-  return xmlNodeSetContentLen(node, asXmlChar(content), content.size());
+  return xmlNodeSetContentLen(node.get(), asXmlChar(content), content.size());
 }
 
-// TODO: xmlCreateIntSubset (Add a DTD name to the document...)
+// [[Rcpp::export]]
+void node_append_content(XPtrNode node, std::string content) {
+  return xmlNodeAddContentLen(node.get(), asXmlChar(content), content.size());
+}
 
 // [[Rcpp::export]]
 XPtrNode node_add_child(XPtrNode parent, XPtrNode cur, bool copy) {

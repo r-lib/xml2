@@ -15,19 +15,20 @@ test_that("modifying nodes works", {
   expect_equal(xml_text(node), "test")
 })
 
-test_that("xml_text<- modifies xml content", {
-  x <- read_xml("test3.xml")
-  y <- xml_find_all(x, "//discarded")
-  xml_text(y) <- "discarded"
-  tmp_file <- tempfile()
+test_that("xml_text<- only modifies text content", {
+  x <- read_xml("<node>Text1<subnode/>text2</node>")
 
-  write_xml(x, tmp_file)
+  expect_equal(xml_text(x), "Text1text2")
 
-  # verify output matches that from the xpath2 utility in libxml2
-  # https://raw.githubusercontent.com/GNOME/libxml2/3eaedba1b64180668fdab7ad2eba549586017bf3/doc/examples/xpath2.res
-  expect_equal(readLines(tmp_file), readLines("xpath2.res"))
+  # will only change the first text by default
+  xml_text(x) <- "new_text1"
+  expect_equal(xml_text(x), "new_text1text2")
+
+  # You can change the second by explicitly selecting it
+  text_node <- xml_find_one(x, "//text()[2]")
+  xml_text(text_node) <- "new_text2"
+  expect_equal(xml_text(x), "new_text1new_text2")
 })
-
 
 test_that("xml_replace replaces nodes", {
 

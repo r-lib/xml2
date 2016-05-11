@@ -58,6 +58,16 @@ xml_text.xml_nodeset <- function(x, trim = FALSE) {
 
 #' @export
 `xml_text<-.xml_node` <- function(x, value) {
-  node_set_content(x$node, value)
+  if (xml_type(x) != "text") {
+    text_child <- xml_find_one(x, ".//text()[1]")
+    if (inherits(text_child, "xml_missing")) {
+      node_append_content(x$node, value)
+    } else {
+      node_set_content(text_child$node, value)
+    }
+  } else {
+    node_set_content(x$node, value)
+  }
+
   x
 }
