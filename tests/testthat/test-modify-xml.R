@@ -87,3 +87,41 @@ test_that("xml_add_child adds a child node", {
   xml_add_child(children, t1)
   expect_equal(xml_text(x), "1313231313")
 })
+
+test_that("xml_add_child can create a new default namespace", {
+  x <- xml_root(xml_add_child(xml_new_document(), "foo", xmlns = "bar"))
+
+  expect_equal(unclass(xml_ns(x)), c(d1 = "bar"))
+})
+
+test_that("xml_add_child can create a new prefixed namespace", {
+  x <- xml_root(xml_add_child(xml_new_document(), "foo", "xmlns:bar" = "baz"))
+
+  expect_equal(unclass(xml_ns(x)), c(bar = "baz"))
+})
+
+test_that("xml_add_child can create a new attribute", {
+  x <- xml_add_child(xml_new_document(), "foo", "bar" = "baz")
+
+  expect_equal(xml_attr(x, "bar"), "baz")
+})
+
+test_that("xml_add_child can create new text", {
+  x <- xml_add_child(xml_new_document(), "foo", "bar")
+
+  expect_equal(xml_text(x), "bar")
+})
+
+test_that("xml_add_child can create a new node with the specified prefix", {
+  x <- xml_root(xml_add_child(xml_new_document(), "foo", "xmlns:bar" = "baz"))
+
+  t1 <- xml_add_child(x, "bar:qux")
+  expect_equal(xml_name(t1), "qux")
+  expect_equal(xml_name(t1, xml_ns(x)), "bar:qux")
+})
+
+test_that("xml_add_child can create a new node with the specified prefix", {
+  x <- xml_root(xml_add_child(xml_new_document(), "foo", "xmlns:bar" = "baz"))
+
+  expect_error(xml_add_child(x, "bar2:qux"), "No namespace with prefix `bar2` found")
+})

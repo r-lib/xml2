@@ -85,7 +85,6 @@ create_node <- function(value, parent, ...) {
 
   parts <- strsplit(value, ":")[[1]]
   if (length(parts) == 2) {
-    # Should we fail if namespace is not found?
     namespace <- ns_lookup(parent$doc, parent$node, parts[[1]])
     node <- structure(list(node = node_new_ns(parts[[2]], namespace), doc = parent$doc), class = "xml_node")
   } else {
