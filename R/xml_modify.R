@@ -5,90 +5,85 @@
 #' a new node. \code{xml_remove()} removes a node from the tree, but does not
 #' free it's memory.
 #'
-#' @param x a document, node or nodeset.
-#' @param .copy whether to copy the \code{value} before replacing. If this is \code{FALSE}
+#' @param .x a document, node or nodeset.
+#' @param .copy whether to copy the \code{.value} before replacing. If this is \code{FALSE}
 #'   then the node will be moved from it's current location.
-#' @param .where whether to add \code{value} before or after \code{x}.
+#' @param .where whether to add \code{.value} before or after \code{.x}.
 #' @param ... If named attributes or namespaces to set on the node, if unnamed
 #' text to assign to the node.
-#' @param value node or nodeset to insert.
+#' @param .value node or nodeset to insert.
 #' @export
-xml_replace <- function(x, value, ..., .copy = TRUE) {
+xml_replace <- function(.x, .value, ..., .copy = TRUE) {
   UseMethod("xml_replace")
 }
 
 #' @export
-xml_replace.xml_node <- function(x, value, ..., .copy = TRUE) {
+xml_replace.xml_node <- function(.x, .value, ..., .copy = TRUE) {
 
-  node <- create_node(value, x, ...)
+  node <- create_node(.value, .x, ...)
 
-  x$node <- node_replace(x$node, node$node, .copy)
-  x
+  .x$node <- node_replace(.x$node, node$node, .copy)
+  .x
 }
 
 #' @export
-xml_replace.xml_nodeset <- function(x, value, ..., .copy = TRUE) {
+xml_replace.xml_nodeset <- function(.x, .value, ..., .copy = TRUE) {
 
   # Need to wrap this in a list if a bare xml_node so it is recycled properly
-  if (inherits(value, "xml_node")) {
-    value <- list(value)
+  if (inherits(.value, "xml_node")) {
+    .value <- list(.value)
   }
 
-  Map(xml_replace, x, value, ..., .copy = .copy)
+  Map(xml_replace, .x, .value, ..., .copy = .copy)
 }
 
 #' @rdname xml_replace
 #' @export
-xml_add_sibling <- function(x, value, ..., .where = c("after", "before"), .copy = TRUE) {
+xml_add_sibling <- function(.x, .value, ..., .where = c("after", "before"), .copy = TRUE) {
   UseMethod("xml_add_sibling")
 }
 
 #' @export
-xml_add_sibling.xml_node <- function(x, value, ..., .where = c("after", "before"), .copy = TRUE) {
+xml_add_sibling.xml_node <- function(.x, .value, ..., .where = c("after", "before"), .copy = TRUE) {
   .where <- match.arg(.where)
 
-  node <- create_node(value, x, ...)
+  node <- create_node(.value, .x, ...)
 
-  x$node <- switch(.where,
-    before = node_prepend_sibling(x$node, node$node, .copy),
-    after = node_append_sibling(x$node, node$node, .copy))
+  .x$node <- switch(.where,
+    before = node_prepend_sibling(.x$node, node$node, .copy),
+    after = node_append_sibling(.x$node, node$node, .copy))
 
-  x
+  .x
 }
 
 #' @export
-xml_add_sibling.xml_nodeset <- function(x, value, ..., .where = c("after", "before"), .copy = TRUE) {
+xml_add_sibling.xml_nodeset <- function(.x, .value, ..., .where = c("after", "before"), .copy = TRUE) {
   .where <- match.arg(.where)
 
   # Need to wrap this in a list if a bare xml_node so it is recycled properly
-  if (inherits(value, "xml_node")) {
-    value <- list(value)
+  if (inherits(.value, "xml_node")) {
+    .value <- list(.value)
   }
 
-  Map(xml_add_sibling, rev(x), rev(value), ..., .where = .where, .copy = .copy)
+  Map(xml_add_sibling, rev(.x), rev(.value), ..., .where = .where, .copy = .copy)
 }
 
-#' @rdname xml_replace
-#' @export
-xml_add_child <- function(x, value, ..., .copy = TRUE) {
-  UseMethod("xml_add_child")
-}
-
-create_node <- function(value, parent, ...) {
-  if (inherits(value, "xml_node")) {
-    return(value)
+# Helper function used in the xml_add* methods
+create_node <- function(.value, parent, ...) {
+  if (inherits(.value, "xml_node")) {
+    return(.value)
   }
 
-  if (!is.character(value)) {
-    stop("`value` must be a character", call. = FALSE)
+  if (!is.character(.value)) {
+    stop("`.value` must be a character", call. = FALSE)
   }
 
-  parts <- strsplit(value, ":")[[1]]
+  parts <- strsplit(.value, ":")[[1]]
   if (length(parts) == 2) {
     namespace <- ns_lookup(parent$doc, parent$node, parts[[1]])
     node <- structure(list(node = node_new_ns(parts[[2]], namespace), doc = parent$doc), class = "xml_node")
   } else {
-    node <- structure(list(node = node_new(value), doc = parent$doc), class = "xml_node")
+    node <- structure(list(node = node_new(.value), doc = parent$doc), class = "xml_node")
   }
 
   args <- list(...)
@@ -99,62 +94,58 @@ create_node <- function(value, parent, ...) {
   node
 }
 
+#' @rdname xml_replace
 #' @export
-xml_add_child.xml_node <- function(x, value, ..., .copy = inherits(value, "xml_node")) {
-
-  node <- create_node(value, x, ...)
-  node_add_child(x$node, node$node, .copy)
-
-  args <- list(...)
-  named <- has_names(args)
-  if (any(named)) {
-    xml_attrs(node) <- args[named]
-  }
-
-  if (any(!named)) {
-    xml_text(node) <- paste(args[!named], collapse = "")
-  }
-
-  node #return self or child?
+xml_add_child <- function(.x, .value, ..., .copy = TRUE) {
+  UseMethod("xml_add_child")
 }
 
 #' @export
-xml_add_child.xml_document <- function(x, value, ...) {
-  if (is.null(x$node)) {
-    node <- create_node(value, x, ...)
-    doc_set_root(x$doc, node$node)
+xml_add_child.xml_node <- function(.x, .value, ..., .copy = inherits(.value, "xml_node")) {
 
-    xml_document(x$doc)
+  node <- create_node(.value, .x, ...)
+  node_add_child(.x$node, node$node, .copy)
+
+  node
+}
+
+#' @export
+xml_add_child.xml_document <- function(.x, .value, ...) {
+  if (is.null(.x$node)) {
+    node <- create_node(.value, .x, ...)
+    doc_set_root(.x$doc, node$node)
+
+    xml_document(.x$doc)
   } else {
     NextMethod("xml_add_child")
   }
 }
 
 #' @export
-xml_add_child.xml_nodeset <- function(x, value, ..., .copy = TRUE) {
+xml_add_child.xml_nodeset <- function(.x, .value, ..., .copy = TRUE) {
 
   # Need to wrap this in a list if a bare xml_node so it is recycled properly
-  if (inherits(value, "xml_node")) {
-    value <- list(value)
+  if (inherits(.value, "xml_node")) {
+    .value <- list(.value)
   }
 
-  Map(xml_add_child, x, value, ..., .copy = .copy)
+  Map(xml_add_child, .x, .value, ..., .copy = .copy)
 }
 
 #' @rdname xml_replace
 #' @export
-xml_remove_node <- function(x) {
+xml_remove_node <- function(.x) {
    UseMethod("xml_remove_node")
 }
 
 #' @export
-xml_remove_node.xml_node <- function(x) {
-  node_remove(x$node)
+xml_remove_node.xml_node <- function(.x) {
+  node_remove(.x$node)
 }
 
 #' @export
-xml_remove_node.xml_nodeset <- function(x) {
-  Map(xml_remove_node, rev(x))
+xml_remove_node.xml_nodeset <- function(.x) {
+  Map(xml_remove_node, rev(.x))
 }
 
 ## Questions
@@ -162,21 +153,22 @@ xml_remove_node.xml_nodeset <- function(x) {
 
 #' Set the node's namespace
 #'
-#' The namespace to be set must be defined in one of the node's ancestors.
-#' @param x a node
+#' The namespace to be set must be already defined in one of the node's
+#' ancestors.
+#' @param .x a node
 #' @param prefix The namespace prefix to use
 #' @param uri The namespace URI to use
 #' @return the node (invisibly)
 #' @export
-xml_set_namespace <- function(x, prefix = "", uri = "") {
-  stopifnot(inherits(x, "xml_node"))
+xml_set_namespace <- function(.x, prefix = "", uri = "") {
+  stopifnot(inherits(.x, "xml_node"))
 
   if (nzchar(uri)) {
-    node_set_namespace_uri(x$doc, x$node, uri)
+    node_set_namespace_uri(.x$doc, .x$node, uri)
   } else {
-    node_set_namespace_prefix(x$doc, x$node, prefix)
+    node_set_namespace_prefix(.x$doc, .x$node, prefix)
   }
-  invisible(x)
+  invisible(.x)
 }
 
 #' Create a new document
@@ -189,15 +181,3 @@ xml_new_document <- function(node, version = "1.0") {
   doc <- doc_new(version)
   structure(list(doc = doc), class = "xml_document")
 }
-
-# Namespaces
-# - xmlNewNode() needs a xmlNsPtr to assign a namespace
-# - These need the node to already be inserted into the document
-  # - xmlSearchNsByHref() searches _parents_ of a node for a namespace (by URI).
-  # - xmlSearchNs() searches _parents_ of a node for a namespace (by prefix).
-# xml_ns() collects _all_ namespaces from a document together
-  # - What happens if we try to use a namespace that is not a parent?
-# xml_name() returns prefix:name if given ns, should we do allow assigning a prefix in the same fashion, e.g. xml_name(x, ns) <- "prefix:node"
-
-# 1. Create a new namespace(s) at the current node
-# 2. Assign the node to an existing namespace (assume all namespaces are at the root node?)

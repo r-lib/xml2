@@ -4,10 +4,10 @@
 \alias{xml_set_namespace}
 \title{Set the node's namespace}
 \usage{
-xml_set_namespace(x, prefix = "", uri = "")
+xml_set_namespace(.x, prefix = "", uri = "")
 }
 \arguments{
-\item{x}{a node}
+\item{.x}{a node}
 
 \item{prefix}{The namespace prefix to use}
 
@@ -17,6 +17,7 @@ xml_set_namespace(x, prefix = "", uri = "")
 the node (invisibly)
 }
 \description{
-The namespace to be set must be defined in one of the node's ancestors.
+The namespace to be set must be already defined in one of the node's
+ancestors.
 }
 

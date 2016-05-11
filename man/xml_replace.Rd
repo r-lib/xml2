@@ -7,26 +7,27 @@
 \alias{xml_replace}
 \title{Modify a tree by inserting, replacing or removing nodes}
 \usage{
-xml_replace(x, value, ..., .copy = TRUE)
+xml_replace(.x, .value, ..., .copy = TRUE)
 
-xml_add_sibling(x, value, ..., .where = c("after", "before"), .copy = TRUE)
+xml_add_sibling(.x, .value, ..., .where = c("after", "before"),
+  .copy = TRUE)
 
-xml_add_child(x, value, ..., .copy = TRUE)
+xml_add_child(.x, .value, ..., .copy = TRUE)
 
-xml_remove_node(x)
+xml_remove_node(.x)
 }
 \arguments{
-\item{x}{a document, node or nodeset.}
+\item{.x}{a document, node or nodeset.}
 
-\item{value}{node or nodeset to insert.}
+\item{.value}{node or nodeset to insert.}
 
 \item{...}{If named attributes or namespaces to set on the node, if unnamed
 text to assign to the node.}
 
-\item{.copy}{whether to copy the \code{value} before replacing. If this is \code{FALSE}
+\item{.copy}{whether to copy the \code{.value} before replacing. If this is \code{FALSE}
 then the node will be moved from it's current location.}
 
-\item{.where}{whether to add \code{value} before or after \code{x}.}
+\item{.where}{whether to add \code{.value} before or after \code{.x}.}
 }
 \description{
 \code{xml_add_sbling()} and \code{xml_add_child()} are used to insert a node
