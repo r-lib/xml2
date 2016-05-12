@@ -23,7 +23,7 @@ write_xml.xml_missing <- function(x, file) {
 
 #' @export
 write_xml.xml_document <- function(x, file) {
-  doc_write(x$doc, file)
+  doc_write(x$doc, path.expand(file))
 }
 
 #' @export
@@ -32,10 +32,10 @@ write_xml.xml_nodeset <- function(x, file, ...) {
     stop("Can only save length 1 node sets", call. = FALSE)
   }
 
-  node_write(x[[1]]$node, x$doc, file)
+  node_write(x[[1]]$node, x$doc, path.expand(file))
 }
 
 #' @export
 write_xml.xml_node <- function(x, file, ...) {
-  node_write(x$node, x$doc, file)
+  node_write(x$node, x$doc, path.expand(file))
 }
