@@ -99,7 +99,7 @@ xml_length.xml_nodeset <- function(x, only_elements = TRUE) {
 #' @export
 #' @rdname xml_children
 xml_root <- function(x) {
-  stopifnot(inherits(x, "xml_node"))
+  stopifnot(inherits(x, "xml_node") || inherits(x, "xml_document"))
 
   xml_document(x$doc)
 }

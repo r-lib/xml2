@@ -18,20 +18,17 @@ applied piecewise over the nodeset, otherwise the value is recycled.
 
 ## Text Modification ##
 
-Text modification should be done carefully as it remove child nodes. Explicitly
-selecting just text nodes with `/text()` is the best way to avoid this
-occurring inadvertently.
+Text modification only happens on text nodes. If a given node has more than one
+text node only the first will be affected. If you want to modify additional
+text nodes you need to select them explicitly with `/text()`.
 
 ```{r}
 library(xml2)
-x <- read_xml("<p>This is some text. This is <b>bold!</b></p>")
-xml_structure(x)
+x <- read_xml("<p>This is some <b>text</b>. This is more.</p>")
 xml_text(x)
 
-# Changing the text directly on the parent is destructive and will also delete the <b> child node!
 xml_text(x) <- "This is some other text."
 xml_text(x)
-xml_structure(x)
 
 # You can avoid this by explicitly selecting the text node.
 x <- read_xml("<p>This is some text. This is <b>bold!</b></p>")

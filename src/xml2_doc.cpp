@@ -86,6 +86,11 @@ XPtrNode doc_root(XPtrDoc x) {
 }
 
 // [[Rcpp::export]]
+bool doc_has_root(XPtrDoc x) {
+  return xmlDocGetRootElement(x.get()) != NULL;
+}
+
+// [[Rcpp::export]]
 CharacterVector doc_url(XPtrDoc x) {
   SEXP string = (x->URL == NULL) ? NA_STRING : Rf_mkCharCE((const char*) x->URL, CE_UTF8);
   return CharacterVector(string);

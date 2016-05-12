@@ -29,6 +29,7 @@ test_that("xml_text<- only modifies text content", {
   xml_text(text_node) <- "new_text2"
   expect_equal(xml_text(x), "new_text1new_text2")
 })
+
 test_that("xml_text<- creates new text nodes if needed", {
   x <- read_xml("<node><subnode/></node>")
   xml_text(x) <- "test"

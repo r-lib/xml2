@@ -25,6 +25,10 @@ doc_root <- function(x) {
     .Call('xml2_doc_root', PACKAGE = 'xml2', x)
 }
 
+doc_has_root <- function(x) {
+    .Call('xml2_doc_has_root', PACKAGE = 'xml2', x)
+}
+
 doc_url <- function(x) {
     .Call('xml2_doc_url', PACKAGE = 'xml2', x)
 }

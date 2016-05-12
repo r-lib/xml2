@@ -110,14 +110,16 @@ xml_add_child.xml_node <- function(.x, .value, ..., .copy = inherits(.value, "xm
 }
 
 #' @export
-xml_add_child.xml_document <- function(.x, .value, ...) {
-  if (is.null(.x$node)) {
-    node <- create_node(.value, .x, ...)
-    doc_set_root(.x$doc, node$node)
-
-    xml_document(.x$doc)
-  } else {
+xml_add_child.xml_document <- function(.x, .value, ..., .copy = inherits(.value, "xml_node")) {
+  if (inherits(.x, "xml_node")) {
     NextMethod("xml_add_child")
+  } else {
+    node <- create_node(.value, .x, ...)
+    if (!doc_has_root(.x$doc)) {
+      doc_set_root(.x$doc, node$node)
+    }
+    node_add_child(doc_root(.x$doc), node$node, .copy)
+    xml_document(.x$doc)
   }
 }
 
