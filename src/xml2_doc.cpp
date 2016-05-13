@@ -70,7 +70,7 @@ CharacterVector doc_format(XPtrDoc x) {
 
 // [[Rcpp::export]]
 void doc_write(XPtrDoc x, std::string path) {
-  FILE* f = fopen(path.c_str(), "wb");
+  FILE* f = fopen(R_ExpandFileName(path.c_str()), "wb");
 
   int res = xmlDocDump(f, x.get());
   fclose(f);

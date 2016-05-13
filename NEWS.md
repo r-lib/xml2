@@ -1,5 +1,8 @@
 # xml2 0.1.2.9000
 
+* `xml_write()` expands the path on filenames, so directories can be specified
+  with '~/' (@jimhester, #86, #80)
+
 * `xml_find_one()` now returns a 'xml_missing' node object if there are 0
   matches (@jimhester, #55, #53, hadley/rvest#82).
 
