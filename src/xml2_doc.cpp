@@ -69,10 +69,10 @@ CharacterVector doc_format(XPtrDoc x) {
 }
 
 // [[Rcpp::export]]
-void doc_write(XPtrDoc x, std::string path) {
+void doc_write(XPtrDoc x, std::string path, bool format) {
   FILE* f = fopen(R_ExpandFileName(path.c_str()), "wb");
 
-  int res = xmlDocDump(f, x.get());
+  int res = xmlDocFormatDump(f, x.get(), format ? 1 : 0);
   fclose(f);
 
   if (res == -1) {

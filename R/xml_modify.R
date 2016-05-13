@@ -44,7 +44,7 @@ xml_add_sibling <- function(.x, .value, ..., .where = c("after", "before"), .cop
 }
 
 #' @export
-xml_add_sibling.xml_node <- function(.x, .value, ..., .where = c("after", "before"), .copy = TRUE) {
+xml_add_sibling.xml_node <- function(.x, .value, ..., .where = c("after", "before"), .copy = inherits(.value, "xml_node")) {
   .where <- match.arg(.where)
 
   node <- create_node(.value, .x, ...)
@@ -175,11 +175,10 @@ xml_set_namespace <- function(.x, prefix = "", uri = "") {
 
 #' Create a new document
 #'
-#' @param node The root node of the document.
 #' @param version The version number of the document.
 #' @return A \code{xml_document} object.
 #' @export
-xml_new_document <- function(node, version = "1.0") {
+xml_new_document <- function(version = "1.0") {
   doc <- doc_new(version)
   structure(list(doc = doc), class = "xml_document")
 }

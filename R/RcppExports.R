@@ -17,8 +17,8 @@ doc_format <- function(x) {
     .Call('xml2_doc_format', PACKAGE = 'xml2', x)
 }
 
-doc_write <- function(x, path) {
-    invisible(.Call('xml2_doc_write', PACKAGE = 'xml2', x, path))
+doc_write <- function(x, path, format) {
+    invisible(.Call('xml2_doc_write', PACKAGE = 'xml2', x, path, format))
 }
 
 doc_root <- function(x) {
@@ -167,10 +167,6 @@ node_new_ns <- function(name, ns) {
 
 node_null <- function() {
     .Call('xml2_node_null', PACKAGE = 'xml2')
-}
-
-node_new_namespace <- function(node, uri, prefix) {
-    invisible(.Call('xml2_node_new_namespace', PACKAGE = 'xml2', node, uri, prefix))
 }
 
 node_set_namespace_uri <- function(doc, node, uri) {

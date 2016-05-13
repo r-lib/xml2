@@ -23,5 +23,4 @@ inline void finaliseNs(xmlNsPtr ns) {
 typedef Rcpp::XPtr<xmlDoc,Rcpp::PreserveStorage,xmlFreeDoc> XPtrDoc;
 typedef Rcpp::XPtr<xmlNode,Rcpp::PreserveStorage,finaliseNode> XPtrNode;
 typedef Rcpp::XPtr<xmlNs,Rcpp::PreserveStorage,finaliseNs> XPtrNs;
-
 #endif

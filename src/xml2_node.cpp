@@ -381,15 +381,6 @@ XPtrNode node_null() {
 }
 
 // [[Rcpp::export]]
-void node_new_namespace(XPtrNode node, std::string uri, std::string prefix) {
-  if (prefix.length() == 0) {
-    xmlNewNs(node.get(), asXmlChar(uri), NULL);
-  } else {
-    xmlNewNs(node.get(), asXmlChar(uri), asXmlChar(prefix));
-  }
-}
-
-// [[Rcpp::export]]
 void node_set_namespace_uri(XPtrDoc doc, XPtrNode node, std::string uri) {
   xmlNsPtr ns = xmlSearchNsByHref(doc.get(), node.get(), asXmlChar(uri));
 

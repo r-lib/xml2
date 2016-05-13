@@ -4,11 +4,9 @@
 \alias{xml_new_document}
 \title{Create a new document}
 \usage{
-xml_new_document(node, version = "1.0")
+xml_new_document(version = "1.0")
 }
 \arguments{
-\item{node}{The root node of the document.}
-
 \item{version}{The version number of the document.}
 }
 \value{

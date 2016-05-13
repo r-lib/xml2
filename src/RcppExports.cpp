@@ -57,13 +57,14 @@ BEGIN_RCPP
 END_RCPP
 }
 // doc_write
-void doc_write(XPtrDoc x, std::string path);
-RcppExport SEXP xml2_doc_write(SEXP xSEXP, SEXP pathSEXP) {
+void doc_write(XPtrDoc x, std::string path, bool format);
+RcppExport SEXP xml2_doc_write(SEXP xSEXP, SEXP pathSEXP, SEXP formatSEXP) {
 BEGIN_RCPP
     Rcpp::RNGScope __rngScope;
     Rcpp::traits::input_parameter< XPtrDoc >::type x(xSEXP);
     Rcpp::traits::input_parameter< std::string >::type path(pathSEXP);
-    doc_write(x, path);
+    Rcpp::traits::input_parameter< bool >::type format(formatSEXP);
+    doc_write(x, path, format);
     return R_NilValue;
 END_RCPP
 }
@@ -499,18 +500,6 @@ BEGIN_RCPP
     Rcpp::RNGScope __rngScope;
     __result = Rcpp::wrap(node_null());
     return __result;
-END_RCPP
-}
-// node_new_namespace
-void node_new_namespace(XPtrNode node, std::string uri, std::string prefix);
-RcppExport SEXP xml2_node_new_namespace(SEXP nodeSEXP, SEXP uriSEXP, SEXP prefixSEXP) {
-BEGIN_RCPP
-    Rcpp::RNGScope __rngScope;
-    Rcpp::traits::input_parameter< XPtrNode >::type node(nodeSEXP);
-    Rcpp::traits::input_parameter< std::string >::type uri(uriSEXP);
-    Rcpp::traits::input_parameter< std::string >::type prefix(prefixSEXP);
-    node_new_namespace(node, uri, prefix);
-    return R_NilValue;
 END_RCPP
 }
 // node_set_namespace_uri
