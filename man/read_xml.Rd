@@ -8,17 +8,19 @@
 \alias{read_xml.raw}
 \title{Read HTML or XML.}
 \usage{
-read_xml(x, encoding = "", ..., as_html = FALSE)
+read_xml(x, encoding = "", ..., as_html = FALSE, allow_huge = FALSE)
 
-read_html(x, encoding = "", ...)
+read_html(x, encoding = "", ..., allow_huge = FALSE)
 
-\method{read_xml}{character}(x, encoding = "", ..., as_html = FALSE)
+\method{read_xml}{character}(x, encoding = "", ..., as_html = FALSE,
+  allow_huge = FALSE)
 
 \method{read_xml}{raw}(x, encoding = "", base_url = "", ...,
-  as_html = FALSE)
+  as_html = FALSE, allow_huge = FALSE)
 
 \method{read_xml}{connection}(x, encoding = "", n = 64 * 1024,
-  verbose = FALSE, ..., base_url = "", as_html = FALSE)
+  verbose = FALSE, ..., base_url = "", as_html = FALSE,
+  allow_huge = FALSE)
 }
 \arguments{
 \item{x}{A string, a connection, or a raw vector.
@@ -39,6 +41,8 @@ encoding directive, this allows you to supply a default.}
 \item{...}{Additional arguments passed on to methods.}
 
 \item{as_html}{Optionally parse an xml file as if it's html.}
+
+\item{allow_huge}{Remove size and node limits when parsing.}
 
 \item{base_url}{When loading from a connection, raw vector or literal
 html/xml, this allows you to specify a base url for the document. Base

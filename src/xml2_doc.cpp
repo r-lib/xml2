@@ -9,19 +9,21 @@ using namespace Rcpp;
 // [[Rcpp::export]]
 XPtrDoc doc_parse_file(std::string path,
                             std::string encoding = "",
-                            bool as_html = false) {
+                            bool as_html = false,
+                            bool allow_huge = false) {
   xmlDoc* pDoc;
   if (as_html) {
     pDoc = htmlReadFile(
       path.c_str(),
       encoding == "" ? NULL : encoding.c_str(),
-      HTML_PARSE_RECOVER | HTML_PARSE_NOERROR | XML_PARSE_HUGE
+      HTML_PARSE_RECOVER | HTML_PARSE_NOERROR | HTML_PARSE_NOBLANKS |
+        (allow_huge ? XML_PARSE_HUGE : 0)
     );
   } else {
     pDoc = xmlReadFile(
       path.c_str(),
       encoding == "" ? NULL : encoding.c_str(),
-      XML_PARSE_HUGE
+      XML_PARSE_NOBLANKS | (allow_huge ? XML_PARSE_HUGE : 0)
     );
   }
 
@@ -34,7 +36,8 @@ XPtrDoc doc_parse_file(std::string path,
 // [[Rcpp::export]]
 XPtrDoc doc_parse_raw(RawVector x, std::string encoding,
                       std::string base_url = "",
-                      bool as_html = false) {
+                      bool as_html = false,
+                      bool allow_huge = false) {
   xmlDoc* pDoc;
   if (as_html) {
     pDoc = htmlReadMemory(
@@ -42,7 +45,8 @@ XPtrDoc doc_parse_raw(RawVector x, std::string encoding,
       Rf_length(x),
       base_url == "" ? NULL : base_url.c_str(),
       encoding == "" ? NULL : encoding.c_str(),
-      HTML_PARSE_RECOVER | HTML_PARSE_NOERROR | XML_PARSE_HUGE
+      HTML_PARSE_RECOVER | HTML_PARSE_NOERROR | HTML_PARSE_NOBLANKS |
+        (allow_huge ? XML_PARSE_HUGE : 0)
     );
   } else {
     pDoc = xmlReadMemory(
@@ -50,7 +54,7 @@ XPtrDoc doc_parse_raw(RawVector x, std::string encoding,
       Rf_length(x),
       base_url == "" ? NULL : base_url.c_str(),
       encoding == "" ? NULL : encoding.c_str(),
-      XML_PARSE_HUGE
+      XML_PARSE_NOBLANKS | (allow_huge ? XML_PARSE_HUGE : 0)
     );
   }
 

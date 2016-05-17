@@ -22,6 +22,7 @@
 #'    iteration. Defaults to 64kb.
 #' @param verbose When reading from a slow connection, this prints some
 #'    output on every iteration so you know its working.
+#' @param allow_huge Remove size and node limits when parsing.
 #' @return An XML document. HTML is normalised to valid XML - this may not
 #'   be exactly the same transformation performed by the browser, but it's
 #'   a reasonable approximation.
@@ -38,19 +39,21 @@
 #' # From a url
 #' cd <- read_xml("http://www.xmlfiles.com/examples/cd_catalog.xml")
 #' me <- read_html("http://had.co.nz")
-read_xml <- function(x, encoding = "", ..., as_html = FALSE) {
+read_xml <- function(x, encoding = "", ..., as_html = FALSE, allow_huge = FALSE) {
   UseMethod("read_xml")
 }
 
 #' @export
 #' @rdname read_xml
-read_html <- function(x, encoding = "", ...) {
-  suppressWarnings(read_xml(x, encoding, ..., as_html = TRUE))
+read_html <- function(x, encoding = "", ..., allow_huge = FALSE) {
+  suppressWarnings(read_xml(x, encoding, ..., as_html = TRUE, allow_huge = allow_huge))
 }
 
 #' @export
 #' @rdname read_xml
-read_xml.character <- function(x, encoding = "", ..., as_html = FALSE) {
+read_xml.character <- function(x, encoding = "", ..., as_html = FALSE,
+                               allow_huge = FALSE) {
+
   if (grepl("<|>", x)) {
     read_xml.raw(charToRaw(enc2utf8(x)), "UTF-8", ..., as_html = as_html)
   } else {
@@ -59,7 +62,8 @@ read_xml.character <- function(x, encoding = "", ..., as_html = FALSE) {
       read_xml.connection(con, encoding = encoding, ..., as_html = as_html,
         base_url = x)
     } else {
-      doc <- doc_parse_file(con, encoding = encoding, as_html = as_html)
+      doc <- doc_parse_file(con, encoding = encoding, as_html = as_html,
+        allow_huge = allow_huge)
       xml_document(doc)
     }
   }
@@ -68,8 +72,9 @@ read_xml.character <- function(x, encoding = "", ..., as_html = FALSE) {
 #' @export
 #' @rdname read_xml
 read_xml.raw <- function(x, encoding = "", base_url = "", ...,
-                         as_html = FALSE) {
-  doc <- doc_parse_raw(x, encoding = encoding, base_url = base_url, as_html = as_html)
+                         as_html = FALSE, allow_huge = FALSE) {
+  doc <- doc_parse_raw(x, encoding = encoding, base_url = base_url,
+    as_html = as_html, allow_huge = allow_huge)
   xml_document(doc)
 }
 
@@ -77,12 +82,13 @@ read_xml.raw <- function(x, encoding = "", base_url = "", ...,
 #' @rdname read_xml
 read_xml.connection <- function(x, encoding = "", n = 64 * 1024,
                                 verbose = FALSE, ..., base_url = "",
-                                as_html = FALSE) {
+                                as_html = FALSE, allow_huge = FALSE) {
   if (!isOpen(x)) {
     open(x, "rb")
     on.exit(close(x))
   }
 
   raw <- read_connection_(x, n)
-  read_xml.raw(raw, encoding = encoding, base_url = base_url, as_html = as_html)
+  read_xml.raw(raw, encoding = encoding, base_url = base_url, as_html =
+    as_html, allow_huge = allow_huge)
 }

@@ -1,5 +1,11 @@
 # xml2 0.1.2.9000
 
+* `xml_read()` now drops blank text nodes, preserves behavior of XML package
+  (@jimhester, #49, #85).
+
+* `xml_read()` gains a `allow_huge` argument to turn off limits for parsing
+  very large documents. (@jimhester, #85)
+
 * `xml_write()` expands the path on filenames, so directories can be specified
   with '~/' (@jimhester, #86, #80)
 
