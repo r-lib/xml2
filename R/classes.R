@@ -41,7 +41,6 @@ print.xml_missing <- function(x, width = getOption("width"), max_n = 20, ...) {
 xml_document <- function(doc) {
   x <- xml_node(doc_root(doc), doc)
   class(x) <- c("xml_document", class(x))
-  x$namespace <- xml_ns(x)
   x
 }
 
