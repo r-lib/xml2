@@ -2,20 +2,25 @@
 % Please edit documentation in R/xml_text.R
 \name{xml_text}
 \alias{xml_text}
-\title{Extract the text}
+\alias{xml_text<-}
+\title{Extract or modify the text}
 \usage{
 xml_text(x, trim = FALSE)
+
+xml_text(x) <- value
 }
 \arguments{
 \item{x}{A document, node, or node set.}
 
 \item{trim}{If \code{TRUE} will trim leading and trailing spaces.}
+
+\item{value}{character vector with replacement text.}
 }
 \value{
 A character vector, the same length as x.
 }
 \description{
-Extract the text
+Extract or modify the text
 }
 \examples{
 x <- read_xml("<p>This is some text. This is <b>bold!</b></p>")

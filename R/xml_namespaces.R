@@ -38,7 +38,8 @@
 #' str(as_list(x, ns))
 xml_ns <- function(x) {
   stopifnot(inherits(x, "xml_document"))
-  x <- doc_namespaces(x$doc)
+  doc <- x$doc
+  x <- doc_namespaces(doc)
 
   # Number default namespaces
   is_default <- names(x) == ""
@@ -48,6 +49,7 @@ xml_ns <- function(x) {
   names(x) <- make.unique(names(x), "")
 
   class(x) <- "xml_namespace"
+
   x
 }
 

@@ -10,6 +10,14 @@ test_that("missing attributes returned as NA", {
   expect_equal(xml_attr(x, "id", default = 1), "1")
 })
 
+test_that("attributes are correctly found", {
+  x <- read_xml("<x id='1' />")
+
+  expect_true(xml_has_attr(x, "id"))
+
+  expect_false(xml_has_attr(x, "id2"))
+})
+
 # Namespaces -------------------------------------------------------------------
 
 # Default namespace doesn't apply to attributes
@@ -29,9 +37,11 @@ test_that("qualified names returned when ns given", {
 x <- read_xml('
  <root xmlns:b="http://bar.com" xmlns:f="http://foo.com">
    <doc b:id="b" f:id="f" id="" />
+   <doc b:id="b" f:id="f" id="" />
  </root>
 ')
 doc <- xml_children(x)[[1]]
+docs <- xml_find_all(x, "//doc")
 ns <- xml_ns(x)
 
 test_that("qualified attributes get own values", {
@@ -45,4 +55,46 @@ test_that("unqualified name gets unnamespace attribute", {
 test_that("namespace names gets namespaced attribute", {
   expect_equal(xml_attr(doc, "b:id", ns), "b")
   expect_equal(xml_attr(doc, "f:id", ns), "f")
+})
+
+test_that("xml_attr<- modifies properties", {
+  xml_attr(doc, "id", ns) <- "test"
+  expect_equal(xml_attr(doc, "id", ns), "test")
+
+  xml_attr(doc, "b:id", ns) <- "b_test"
+  expect_equal(xml_attr(doc, "b:id", ns), "b_test")
+
+  xml_attr(doc, "f:id", ns) <- "f_test"
+  expect_equal(xml_attr(doc, "f:id", ns), "f_test")
+
+  xml_attr(docs, "f:id", ns) <- "f_test2"
+  expect_equal(xml_attr(docs, "f:id", ns), c("f_test2", "f_test2"))
+
+  xml_attr(docs, "f:id", ns) <- NULL
+  expect_equal(xml_attr(docs, "f:id", ns), c(NA_character_, NA_character_))
+})
+
+test_that("xml_attrs<- modifies all attributes", {
+  expect_error(xml_attrs(doc) <- 1, "`value` must be a named character vector or `NULL`")
+  expect_error(xml_attrs(doc) <- "test", "`value` must be a named character vector or `NULL`")
+
+  xml_attrs(doc, ns) <- c("b:id" = "b", "f:id" = "f", "id" = "")
+  expect_equal(xml_attrs(doc, ns), c("b:id" = "b", "id" = "", "f:id" = "f"))
+
+  xml_attrs(doc, ns) <- c("b:id" = "b", "f:id" = "f")
+  expect_equal(xml_attrs(doc, ns), c("b:id" = "b", "f:id" = "f"))
+
+  xml_attrs(doc, ns) <- c("b:id" = "b", "id" = "")
+  expect_equal(xml_attrs(doc, ns), c("b:id" = "b", "id" = ""))
+
+  expect_error(xml_attrs(docs) <- "test", "`value` must be a list of named character vectors")
+
+  xml_attrs(docs, ns) <- c("b:id" = "b", "id" = "")
+  expect_equal(xml_attrs(docs, ns),
+    list(
+      c("b:id" = "b", "id" = ""),
+      c("b:id" = "b", "id" = "")))
+
+  xml_attrs(docs, ns) <- NULL
+  expect_equivalent(xml_attrs(docs, ns), list(character(0), character(0)))
 })

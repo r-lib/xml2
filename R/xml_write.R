@@ -5,6 +5,7 @@
 #' @param x A document or node to write to disk. It's not possible to
 #'   save nodesets containing more than one node.
 #' @param file Path to file to write.
+#' @param ... additional arguments passed to methods.
 #' @export
 #' @examples
 #' h <- read_html("<p>Hi!</p>")
@@ -12,18 +13,18 @@
 #' tmp <- tempfile(fileext = ".xml")
 #' write_xml(h, tmp)
 #' read_xml(tmp)
-write_xml <- function(x, file) {
+write_xml <- function(x, file, ...) {
   UseMethod("write_xml")
 }
 
 #' @export
-write_xml.xml_missing <- function(x, file) {
+write_xml.xml_missing <- function(x, file, ...) {
   stop("Missing data cannot be written", call. = FALSE)
 }
 
 #' @export
-write_xml.xml_document <- function(x, file) {
-  doc_write(x$doc, file)
+write_xml.xml_document <- function(x, file, format = TRUE, ...) {
+  doc_write(x$doc, file, format)
 }
 
 #' @export
@@ -32,10 +33,10 @@ write_xml.xml_nodeset <- function(x, file, ...) {
     stop("Can only save length 1 node sets", call. = FALSE)
   }
 
-  node_write(x[[1]]$node, x$doc, file)
+  node_write(x[[1]]$node, x$doc, file, ...)
 }
 
 #' @export
-write_xml.xml_node <- function(x, file, ...) {
+write_xml.xml_node <- function(x, file, format = TRUE, ...) {
   node_write(x$node, x$doc, file)
 }

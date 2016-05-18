@@ -47,8 +47,10 @@ xml_document <- function(doc) {
 #' @export
 print.xml_document <- function(x, width = getOption("width"), max_n = 20, ...) {
   cat("{xml_document}\n")
-  cat("<", xml_name(x), ">\n", sep = "")
-  show_nodes(xml_children(x), width = width, max_n = max_n)
+  if (inherits(x, "xml_node")) {
+    cat("<", xml_name(x), ">\n", sep = "")
+    show_nodes(xml_children(x), width = width, max_n = max_n)
+  }
 }
 
 #' @export
@@ -117,6 +119,7 @@ show_nodes <- function(x, width = getOption("width"), max_n = 20) {
   if (trunc) {
     cat("...\n")
   }
+  invisible()
 }
 
 

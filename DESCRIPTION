@@ -21,7 +21,11 @@ LinkingTo: Rcpp (>= 0.11.4.6),
 Suggests:
     testthat,
     curl,
-    covr
+    covr,
+    knitr,
+    rmarkdown,
+    magrittr
 SystemRequirements: libxml2: libxml2-dev (deb), libxml2-devel (rpm)
 License: GPL (>= 2)
 RoxygenNote: 5.0.1
+VignetteBuilder: knitr

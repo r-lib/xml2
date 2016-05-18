@@ -31,3 +31,27 @@ CharacterVector doc_namespaces(XPtrDoc doc) {
 
   return nsMap.out();
 }
+
+// [[Rcpp::export]]
+XPtrNs ns_lookup_uri(XPtrDoc doc, XPtrNode node, std::string uri) {
+  xmlNsPtr ns = xmlSearchNsByHref(doc.get(), node.get(), asXmlChar(uri));
+  if (ns == NULL) {
+    stop("No namespace with URI `%s` found", uri);
+  }
+  return XPtrNs(ns);
+}
+
+// [[Rcpp::export]]
+XPtrNs ns_lookup(XPtrDoc doc, XPtrNode node, std::string prefix) {
+  xmlNsPtr ns = NULL;
+  if (prefix.length() == 0) {
+    ns = xmlSearchNs(doc.get(), node.get(), NULL);
+  } else {
+    ns = xmlSearchNs(doc.get(), node.get(), asXmlChar(prefix));
+    if (ns == NULL) {
+      stop("No namespace with prefix `%s` found", prefix);
+    }
+  }
+  return XPtrNs(ns);
+}
+

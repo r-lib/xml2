@@ -6,6 +6,7 @@
 \alias{xml_length}
 \alias{xml_parent}
 \alias{xml_parents}
+\alias{xml_root}
 \alias{xml_siblings}
 \title{Navigate around the family tree.}
 \usage{
@@ -20,6 +21,8 @@ xml_siblings(x)
 xml_parent(x)
 
 xml_length(x, only_elements = TRUE)
+
+xml_root(x)
 }
 \arguments{
 \item{x}{A document, node, or node set.}

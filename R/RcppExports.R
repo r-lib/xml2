@@ -17,16 +17,28 @@ doc_format <- function(x) {
     .Call('xml2_doc_format', PACKAGE = 'xml2', x)
 }
 
-doc_write <- function(x, path) {
-    invisible(.Call('xml2_doc_write', PACKAGE = 'xml2', x, path))
+doc_write <- function(x, path, format) {
+    invisible(.Call('xml2_doc_write', PACKAGE = 'xml2', x, path, format))
 }
 
 doc_root <- function(x) {
     .Call('xml2_doc_root', PACKAGE = 'xml2', x)
 }
 
+doc_has_root <- function(x) {
+    .Call('xml2_doc_has_root', PACKAGE = 'xml2', x)
+}
+
 doc_url <- function(x) {
     .Call('xml2_doc_url', PACKAGE = 'xml2', x)
+}
+
+doc_new <- function(version) {
+    .Call('xml2_doc_new', PACKAGE = 'xml2', version)
+}
+
+doc_set_root <- function(doc, root) {
+    .Call('xml2_doc_set_root', PACKAGE = 'xml2', doc, root)
 }
 
 libxml2_version <- function() {
@@ -41,8 +53,20 @@ doc_namespaces <- function(doc) {
     .Call('xml2_doc_namespaces', PACKAGE = 'xml2', doc)
 }
 
+ns_lookup_uri <- function(doc, node, uri) {
+    .Call('xml2_ns_lookup_uri', PACKAGE = 'xml2', doc, node, uri)
+}
+
+ns_lookup <- function(doc, node, prefix) {
+    .Call('xml2_ns_lookup', PACKAGE = 'xml2', doc, node, prefix)
+}
+
 node_name <- function(node, nsMap) {
     .Call('xml2_node_name', PACKAGE = 'xml2', node, nsMap)
+}
+
+node_set_name <- function(node, value) {
+    invisible(.Call('xml2_node_set_name', PACKAGE = 'xml2', node, value))
 }
 
 node_text <- function(node, trim) {
@@ -55,6 +79,14 @@ node_attr <- function(node, name, missing, nsMap) {
 
 node_attrs <- function(node, nsMap) {
     .Call('xml2_node_attrs', PACKAGE = 'xml2', node, nsMap)
+}
+
+node_set_attr <- function(node, name, value, nsMap) {
+    invisible(.Call('xml2_node_set_attr', PACKAGE = 'xml2', node, name, value, nsMap))
+}
+
+node_remove_attr <- function(node, name, nsMap) {
+    invisible(.Call('xml2_node_remove_attr', PACKAGE = 'xml2', node, name, nsMap))
 }
 
 node_format <- function(doc, node, format = TRUE, indent = 0L) {
@@ -95,6 +127,54 @@ nodes_duplicated <- function(nodes) {
 
 node_type <- function(node) {
     .Call('xml2_node_type', PACKAGE = 'xml2', node)
+}
+
+node_set_content <- function(node, content) {
+    invisible(.Call('xml2_node_set_content', PACKAGE = 'xml2', node, content))
+}
+
+node_append_content <- function(node, content) {
+    invisible(.Call('xml2_node_append_content', PACKAGE = 'xml2', node, content))
+}
+
+node_add_child <- function(parent, cur, copy) {
+    .Call('xml2_node_add_child', PACKAGE = 'xml2', parent, cur, copy)
+}
+
+node_prepend_sibling <- function(cur, elem, copy) {
+    .Call('xml2_node_prepend_sibling', PACKAGE = 'xml2', cur, elem, copy)
+}
+
+node_append_sibling <- function(cur, elem, copy) {
+    .Call('xml2_node_append_sibling', PACKAGE = 'xml2', cur, elem, copy)
+}
+
+node_replace <- function(old, cur, copy) {
+    .Call('xml2_node_replace', PACKAGE = 'xml2', old, cur, copy)
+}
+
+node_remove <- function(cur, free) {
+    invisible(.Call('xml2_node_remove', PACKAGE = 'xml2', cur, free))
+}
+
+node_new <- function(name) {
+    .Call('xml2_node_new', PACKAGE = 'xml2', name)
+}
+
+node_new_ns <- function(name, ns) {
+    .Call('xml2_node_new_ns', PACKAGE = 'xml2', name, ns)
+}
+
+node_null <- function() {
+    .Call('xml2_node_null', PACKAGE = 'xml2')
+}
+
+node_set_namespace_uri <- function(doc, node, uri) {
+    invisible(.Call('xml2_node_set_namespace_uri', PACKAGE = 'xml2', doc, node, uri))
+}
+
+node_set_namespace_prefix <- function(doc, node, prefix) {
+    invisible(.Call('xml2_node_set_namespace_prefix', PACKAGE = 'xml2', doc, node, prefix))
 }
 
 #' Convert between relative and absolute urls.

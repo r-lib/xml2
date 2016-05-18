@@ -1,9 +1,11 @@
 #' Retrieve an attribute.
 #'
 #' \code{xml_attrs()} retrieves all attributes values as a named character
-#' vector. \code{xml_attr()} retrieves the value of single attribute. If the
-#' attribute doesn't exist, it will return \code{default}, which defaults to
-#' \code{NA}. \code{xml_has_attr()} tests if an attribute is present.
+#' vector, \code{xml_attrs() <-} sets all attribute values. \code{xml_attr()}
+#' retrieves the value of single attribute and \code{xml_attr() <-} modifies
+#' its value. If the attribute doesn't exist, it will return \code{default},
+#' which defaults to \code{NA}. \code{xml_has_attr()} tests if an attribute is
+#' present.
 #'
 #' @inheritParams xml_name
 #' @param attr Name of attribute to extract.
@@ -79,7 +81,9 @@ xml_has_attr <- function(x, attr, ns = character()) {
 
 #' @export
 #' @rdname xml_attr
-xml_attrs <- function(x, ns = character()) UseMethod("xml_attrs")
+xml_attrs <- function(x, ns = character()) {
+  UseMethod("xml_attrs")
+}
 
 #' @export
 xml_attrs.xml_missing <- function(x, ns = character()) {
@@ -95,3 +99,78 @@ xml_attrs.xml_node <- function(x, ns = character()) {
 xml_attrs.xml_nodeset <- function(x, ns = character()) {
   lapply(x, xml_attrs, ns = ns)
 }
+
+#' @param value character vector of new value.
+#' @rdname xml_attr
+#' @export
+`xml_attr<-` <- function(x, attr, ns = character(), value) {
+  UseMethod("xml_attr<-")
+}
+
+#' @export
+`xml_attr<-.xml_node` <- function(x, attr, ns = character(), value) {
+  if (is.null(value)) {
+    node_remove_attr(x$node, name = attr, nsMap = ns)
+  } else {
+    node_set_attr(x$node, name = attr, nsMap = ns, value)
+  }
+  x
+}
+
+#' @export
+`xml_attr<-.xml_nodeset` <- function(x, attr, ns = character(), value) {
+  lapply(x, `xml_attr<-`, attr = attr, ns = ns, value = value)
+  x
+}
+
+#' @rdname xml_attr
+#' @export
+`xml_attrs<-` <- function(x, ns = character(), value) {
+  UseMethod("xml_attrs<-")
+}
+
+#' @export
+`xml_attrs<-.xml_node` <- function(x, ns = character(), value) {
+  if (!is_named(value)) {
+    stop("`value` must be a named character vector or `NULL`", call. = FALSE)
+  }
+
+  attrs <- names(value)
+
+  current_attrs <- names(xml_attrs(x, ns = ns))
+
+  existing <- intersect(current_attrs, attrs)
+  new <- setdiff(attrs, current_attrs)
+  removed <- setdiff(current_attrs, attrs)
+
+  # replace existing attributes and add new ones
+  Map(function(attr, val) {
+      xml_attr(x, attr, ns) <- val
+  }, attr = c(existing, new), value[c(existing, new)])
+
+
+  # Remove attributes which no longer exist
+  Map(function(attr) {
+    xml_attr(x, attr, ns) <- NULL
+  }, attr = removed)
+
+  x
+}
+
+#' @export
+`xml_attrs<-.xml_nodeset` <- function(x, ns = character(), value) {
+  if (!is.list(ns)) {
+     ns <- list(ns)
+  }
+  if (!is.list(value)) {
+     value <- list(value)
+  }
+  if (!all(vapply(value, is_named, logical(1)))) {
+    stop("`value` must be a list of named character vectors")
+  }
+
+  Map(`xml_attrs<-`, x, ns, value)
+
+  x
+}
+

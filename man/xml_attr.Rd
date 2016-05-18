@@ -2,7 +2,9 @@
 % Please edit documentation in R/xml_attr.R
 \name{xml_attr}
 \alias{xml_attr}
+\alias{xml_attr<-}
 \alias{xml_attrs}
+\alias{xml_attrs<-}
 \alias{xml_has_attr}
 \title{Retrieve an attribute.}
 \usage{
@@ -11,6 +13,10 @@ xml_attr(x, attr, ns = character(), default = NA_character_)
 xml_has_attr(x, attr, ns = character())
 
 xml_attrs(x, ns = character())
+
+xml_attr(x, attr, ns = character()) <- value
+
+xml_attrs(x, ns = character()) <- value
 }
 \arguments{
 \item{x}{A document, node, or node set.}
@@ -25,6 +31,8 @@ similarly for atttributes). Default namespaces must be given an explicit
 name.}
 
 \item{default}{Default value to use when attribute is not present.}
+
+\item{value}{character vector of new value.}
 }
 \value{
 \code{xml_attr()} returns a character vector. \code{NA} is used
@@ -37,9 +45,11 @@ name.}
 }
 \description{
 \code{xml_attrs()} retrieves all attributes values as a named character
-vector. \code{xml_attr()} retrieves the value of single attribute. If the
-attribute doesn't exist, it will return \code{default}, which defaults to
-\code{NA}. \code{xml_has_attr()} tests if an attribute is present.
+vector, \code{xml_attrs() <-} sets all attribute values. \code{xml_attr()}
+retrieves the value of single attribute and \code{xml_attr() <-} modifies
+its value. If the attribute doesn't exist, it will return \code{default},
+which defaults to \code{NA}. \code{xml_has_attr()} tests if an attribute is
+present.
 }
 \examples{
 x <- read_xml("<root id='1'><child id ='a' /><child id='b' d='b'/></root>")

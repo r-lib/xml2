@@ -1,0 +1,135 @@
+context("modify nodes")
+
+test_that("modifying nodes works", {
+  x <- read_xml("<x><y/></x>")
+  node <- xml_find_one(x, "//x")
+
+  expect_equal(xml_name(node), "x")
+
+  node_set_name(node$node, "y")
+  expect_equal(xml_name(node), "y")
+
+  expect_equal(xml_text(node), "")
+
+  node_set_content(node$node, "test")
+  expect_equal(xml_text(node), "test")
+})
+
+test_that("xml_text<- only modifies text content", {
+  x <- read_xml("<node>Text1<subnode/>text2</node>")
+
+  expect_equal(xml_text(x), "Text1text2")
+
+  # will only change the first text by default
+  xml_text(x) <- "new_text1"
+  expect_equal(xml_text(x), "new_text1text2")
+
+  # You can change the second by explicitly selecting it
+  text_node <- xml_find_one(x, "//text()[2]")
+  xml_text(text_node) <- "new_text2"
+  expect_equal(xml_text(x), "new_text1new_text2")
+})
+
+test_that("xml_text<- creates new text nodes if needed", {
+  x <- read_xml("<node><subnode/></node>")
+  xml_text(x) <- "test"
+
+  expect_equal(xml_text(x), "test")
+})
+
+test_that("xml_replace replaces nodes", {
+
+  x <- read_xml("<parent><child>1</child><child>2<child>3</child></child></parent>")
+  children <- xml_children(x)
+  t1 <- children[[1]]
+  t2 <- children[[2]]
+  t3 <- xml_children(children[[2]])[[1]]
+  expect_equal(xml_text(x), "123")
+
+  xml_replace(t1, t3)
+  expect_equal(xml_text(x), "323")
+
+  first_child <- xml_children(x)[[1]]
+  xml_replace(first_child, t1)
+  expect_equal(xml_text(x), "123")
+
+  first_child <- xml_children(x)[[1]]
+  xml_replace(first_child, t3, .copy = FALSE)
+  expect_equal(xml_text(x), "32")
+})
+
+test_that("xml_sibling adds a sibling node", {
+  x <- read_xml("<parent><child>1</child><child>2<child>3</child></child></parent>")
+  children <- xml_children(x)
+  t1 <- children[[1]]
+  t2 <- children[[2]]
+  t3 <- xml_children(children[[2]])[[1]]
+
+  xml_add_sibling(t1, t3)
+  expect_length(xml_siblings(t1), 2)
+  expect_equal(xml_text(x), "1323")
+
+  xml_add_sibling(t1, t3, .where = "before")
+  expect_length(xml_siblings(t1), 3)
+  expect_equal(xml_text(x), "31323")
+
+  children <- xml_children(x)
+  xml_add_sibling(children, t1)
+  expect_equal(xml_text(x), "311131231")
+})
+
+test_that("xml_add_child adds a child node", {
+  x <- read_xml("<parent><child>1</child><child>2<child>3</child></child></parent>")
+  children <- xml_children(x)
+  t1 <- children[[1]]
+  t2 <- children[[2]]
+  t3 <- xml_children(children[[2]])[[1]]
+
+  expect_length(xml_children(t1), 0)
+
+  xml_add_child(t1, t3, .copy = TRUE)
+  expect_length(xml_children(t1), 1)
+  expect_equal(xml_text(x), "1323")
+
+  children <- xml_children(x)
+  xml_add_child(children, t1)
+  expect_equal(xml_text(x), "1313231313")
+})
+
+test_that("xml_add_child can create a new default namespace", {
+  x <- xml_root(xml_add_child(xml_new_document(), "foo", xmlns = "bar"))
+
+  expect_equal(unclass(xml_ns(x)), c(d1 = "bar"))
+})
+
+test_that("xml_add_child can create a new prefixed namespace", {
+  x <- xml_root(xml_add_child(xml_new_document(), "foo", "xmlns:bar" = "baz"))
+
+  expect_equal(unclass(xml_ns(x)), c(bar = "baz"))
+})
+
+test_that("xml_add_child can create a new attribute", {
+  x <- xml_add_child(xml_new_document(), "foo", "bar" = "baz")
+
+  expect_equal(xml_attr(x, "bar"), "baz")
+})
+
+test_that("xml_add_child can create new text", {
+  x <- xml_add_child(xml_new_document(), "foo", "bar")
+
+  expect_equal(xml_text(x), "bar")
+})
+
+test_that("xml_add_child can create a new node with the specified prefix", {
+  x <- xml_root(xml_add_child(xml_new_document(), "foo", "xmlns:bar" = "baz"))
+
+  t1 <- xml_add_child(x, "bar:qux")
+  expect_equal(xml_name(t1), "qux")
+  expect_equal(xml_name(t1, xml_ns(x)), "bar:qux")
+})
+
+test_that("xml_add_child can create a new node with the specified prefix", {
+  x <- xml_root(xml_add_child(xml_new_document(), "foo", "xmlns:bar" = "baz"))
+
+  expect_error(xml_add_child(x, "bar2:qux"), "No namespace with prefix `bar2` found")
+})
