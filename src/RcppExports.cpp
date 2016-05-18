@@ -460,12 +460,13 @@ BEGIN_RCPP
 END_RCPP
 }
 // node_remove
-void node_remove(XPtrNode cur);
-RcppExport SEXP xml2_node_remove(SEXP curSEXP) {
+void node_remove(XPtrNode cur, bool free);
+RcppExport SEXP xml2_node_remove(SEXP curSEXP, SEXP freeSEXP) {
 BEGIN_RCPP
     Rcpp::RNGScope __rngScope;
     Rcpp::traits::input_parameter< XPtrNode >::type cur(curSEXP);
-    node_remove(cur);
+    Rcpp::traits::input_parameter< bool >::type free(freeSEXP);
+    node_remove(cur, free);
     return R_NilValue;
 END_RCPP
 }

@@ -360,8 +360,11 @@ XPtrNode node_replace(XPtrNode old, XPtrNode cur, bool copy) {
 }
 
 // [[Rcpp::export]]
-void node_remove(XPtrNode cur) {
+void node_remove(XPtrNode cur, bool free) {
   xmlUnlinkNode(cur.get());
+  if (free) {
+    xmlFreeNode(cur.get());
+  }
   return;
 }
 

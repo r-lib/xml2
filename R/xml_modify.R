@@ -2,9 +2,9 @@
 #'
 #' \code{xml_add_sbling()} and \code{xml_add_child()} are used to insert a node
 #' as a sibling or a child. \code{xml_replace()} replaces an existing node with
-#' a new node. \code{xml_remove()} removes a node from the tree, but does not
-#' free it's memory.
+#' a new node. \code{xml_remove()} removes a node from the tree.
 #'
+#' @details Care needs to be taken when using \code{xml_remove()},
 #' @param .x a document, node or nodeset.
 #' @param .copy whether to copy the \code{.value} before replacing. If this is \code{FALSE}
 #'   then the node will be moved from it's current location.
@@ -12,6 +12,9 @@
 #' @param ... If named attributes or namespaces to set on the node, if unnamed
 #' text to assign to the node.
 #' @param .value node or nodeset to insert.
+#' @param free When removing the node also free the memory used for that node.
+#' Note if you use this option you cannot use any existing objects pointing to
+#' the node or its children, it is likely to crash R or return garbage.
 #' @export
 xml_replace <- function(.x, .value, ..., .copy = TRUE) {
   UseMethod("xml_replace")
@@ -136,18 +139,18 @@ xml_add_child.xml_nodeset <- function(.x, .value, ..., .copy = TRUE) {
 
 #' @rdname xml_replace
 #' @export
-xml_remove_node <- function(.x) {
+xml_remove_node <- function(.x, free = FALSE) {
    UseMethod("xml_remove_node")
 }
 
 #' @export
-xml_remove_node.xml_node <- function(.x) {
-  node_remove(.x$node)
+xml_remove_node.xml_node <- function(.x, free = FALSE) {
+  node_remove(.x$node, free = free)
 }
 
 #' @export
-xml_remove_node.xml_nodeset <- function(.x) {
-  Map(xml_remove_node, rev(.x))
+xml_remove_node.xml_nodeset <- function(.x, free = FALSE) {
+  Map(xml_remove_node, rev(.x), free = free)
 }
 
 ## Questions

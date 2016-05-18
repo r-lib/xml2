@@ -153,8 +153,8 @@ node_replace <- function(old, cur, copy) {
     .Call('xml2_node_replace', PACKAGE = 'xml2', old, cur, copy)
 }
 
-node_remove <- function(cur) {
-    invisible(.Call('xml2_node_remove', PACKAGE = 'xml2', cur))
+node_remove <- function(cur, free) {
+    invisible(.Call('xml2_node_remove', PACKAGE = 'xml2', cur, free))
 }
 
 node_new <- function(name) {
