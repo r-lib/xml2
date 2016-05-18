@@ -19,22 +19,22 @@ BEGIN_RCPP
 END_RCPP
 }
 // doc_parse_file
-XPtrDoc doc_parse_file(std::string path, std::string encoding, bool as_html, bool allow_huge);
-RcppExport SEXP xml2_doc_parse_file(SEXP pathSEXP, SEXP encodingSEXP, SEXP as_htmlSEXP, SEXP allow_hugeSEXP) {
+XPtrDoc doc_parse_file(std::string path, std::string encoding, bool as_html, int options);
+RcppExport SEXP xml2_doc_parse_file(SEXP pathSEXP, SEXP encodingSEXP, SEXP as_htmlSEXP, SEXP optionsSEXP) {
 BEGIN_RCPP
     Rcpp::RObject __result;
     Rcpp::RNGScope __rngScope;
     Rcpp::traits::input_parameter< std::string >::type path(pathSEXP);
     Rcpp::traits::input_parameter< std::string >::type encoding(encodingSEXP);
     Rcpp::traits::input_parameter< bool >::type as_html(as_htmlSEXP);
-    Rcpp::traits::input_parameter< bool >::type allow_huge(allow_hugeSEXP);
-    __result = Rcpp::wrap(doc_parse_file(path, encoding, as_html, allow_huge));
+    Rcpp::traits::input_parameter< int >::type options(optionsSEXP);
+    __result = Rcpp::wrap(doc_parse_file(path, encoding, as_html, options));
     return __result;
 END_RCPP
 }
 // doc_parse_raw
-XPtrDoc doc_parse_raw(RawVector x, std::string encoding, std::string base_url, bool as_html, bool allow_huge);
-RcppExport SEXP xml2_doc_parse_raw(SEXP xSEXP, SEXP encodingSEXP, SEXP base_urlSEXP, SEXP as_htmlSEXP, SEXP allow_hugeSEXP) {
+XPtrDoc doc_parse_raw(RawVector x, std::string encoding, std::string base_url, bool as_html, int options);
+RcppExport SEXP xml2_doc_parse_raw(SEXP xSEXP, SEXP encodingSEXP, SEXP base_urlSEXP, SEXP as_htmlSEXP, SEXP optionsSEXP) {
 BEGIN_RCPP
     Rcpp::RObject __result;
     Rcpp::RNGScope __rngScope;
@@ -42,8 +42,8 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< std::string >::type encoding(encodingSEXP);
     Rcpp::traits::input_parameter< std::string >::type base_url(base_urlSEXP);
     Rcpp::traits::input_parameter< bool >::type as_html(as_htmlSEXP);
-    Rcpp::traits::input_parameter< bool >::type allow_huge(allow_hugeSEXP);
-    __result = Rcpp::wrap(doc_parse_raw(x, encoding, base_url, as_html, allow_huge));
+    Rcpp::traits::input_parameter< int >::type options(optionsSEXP);
+    __result = Rcpp::wrap(doc_parse_raw(x, encoding, base_url, as_html, options));
     return __result;
 END_RCPP
 }
