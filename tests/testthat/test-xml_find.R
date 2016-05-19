@@ -72,7 +72,7 @@ test_that("xml_find_chr errors with non character results", {
   expect_error(xml_find_chr(x, "1+1"), "result of type:.*numeric.*, not character")
 })
 
-test_that("xml_find_num returns a numeric result", {
+test_that("xml_find_chr returns a character result", {
   x <- read_xml("<x><y>1</y><y/></x>")
   expect_equal(xml_find_chr(x, "string(5)"), "5")
 
