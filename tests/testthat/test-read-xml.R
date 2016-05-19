@@ -14,13 +14,12 @@ test_that("parse_options errors when given an invalid option", {
 })
 
 test_that("read_html properly passes parser arguments", {
-  lego <- read_html("lego.html.bz2", options = c("RECOVER", "NOERROR"))
+  blanks <- read_html("cd_catalog.xml.bz2", options = c("RECOVER", "NOERROR"))
+  expect_equal(as_list(blanks)$body$catalog$cd[[1]],
+    "\r\n    ")
 
-  expect_equal(as_list(xml_children(lego)[[1]])[[1]],
-    "\n\n        \n    \n            ")
+  no_blanks <- read_html("cd_catalog.xml.bz2", options = c("RECOVER", "NOERROR", "NOBLANKS"))
 
-  lego <- read_html("lego.html.bz2", options = c("RECOVER", "NOERROR", "NOBLANKS"))
-
-  expect_equal(as_list(xml_children(lego)[[1]])[[1]][[1]],
-    "var ue_t0=window.ue_t0||+new Date();")
+  expect_equal(as_list(no_blanks)$body$catalog$cd[[1]],
+    list("Empire Burlesque"))
 })
