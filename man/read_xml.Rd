@@ -8,17 +8,20 @@
 \alias{read_xml.raw}
 \title{Read HTML or XML.}
 \usage{
-read_xml(x, encoding = "", ..., as_html = FALSE)
+read_xml(x, encoding = "", ..., as_html = FALSE, options = "NOBLANKS")
 
-read_html(x, encoding = "", ...)
+read_html(x, encoding = "", ..., options = c("RECOVER", "NOERROR",
+  "NOBLANKS"))
 
-\method{read_xml}{character}(x, encoding = "", ..., as_html = FALSE)
+\method{read_xml}{character}(x, encoding = "", ..., as_html = FALSE,
+  options = "NOBLANKS")
 
 \method{read_xml}{raw}(x, encoding = "", base_url = "", ...,
-  as_html = FALSE)
+  as_html = FALSE, options = "NOBLANKS")
 
 \method{read_xml}{connection}(x, encoding = "", n = 64 * 1024,
-  verbose = FALSE, ..., base_url = "", as_html = FALSE)
+  verbose = FALSE, ..., base_url = "", as_html = FALSE,
+  options = "NOBLANKS")
 }
 \arguments{
 \item{x}{A string, a connection, or a raw vector.
@@ -39,6 +42,34 @@ encoding directive, this allows you to supply a default.}
 \item{...}{Additional arguments passed on to methods.}
 
 \item{as_html}{Optionally parse an xml file as if it's html.}
+
+\item{options}{Set parsing options for the libxml2 parser. These are
+specified as a character vector of options to set. Available values are
+\describe{
+  \item{RECOVER}{recover on errors}
+  \item{NOENT}{substitute entities}
+  \item{DTDLOAD}{load the external subset}
+  \item{DTDATTR}{default DTD attributes}
+  \item{DTDVALID}{validate with the DTD}
+  \item{NOERROR}{suppress error reports}
+  \item{NOWARNING}{suppress warning reports}
+  \item{PEDANTIC}{pedantic error reporting}
+  \item{NOBLANKS}{remove blank nodes}
+  \item{SAX1}{use the SAX1 interface internally}
+  \item{XINCLUDE}{Implement XInclude substitition}
+  \item{NONET}{Forbid network access}
+  \item{NODICT}{Do not reuse the context dictionary}
+  \item{NSCLEAN}{remove redundant namespaces declarations}
+  \item{NOCDATA}{merge CDATA as text nodes}
+  \item{NOXINCNODE}{do not generate XINCLUDE START/END nodes}
+  \item{COMPACT}{compact small text nodes; no modification of the tree allowed afterwards (will possibly crash if you try to modify the tree)}
+  \item{OLD10}{parse using XML-1.0 before update 5}
+  \item{NOBASEFIX}{do not fixup XINCLUDE xml:base uris}
+  \item{HUGE}{relax any hardcoded limit from the parser}
+  \item{OLDSAX}{parse using SAX2 interface before 2.7.0}
+  \item{IGNORE_ENC}{ignore internal document encoding hint}
+  \item{BIG_LINES}{Store big lines numbers in text PSVI field}
+}}
 
 \item{base_url}{When loading from a connection, raw vector or literal
 html/xml, this allows you to specify a base url for the document. Base
