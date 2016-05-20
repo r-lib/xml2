@@ -150,7 +150,8 @@ format.xml_node <- function(x, ...) {
   paste("<",
     paste(
       c(xml_name(x),
-        format_attributes(attrs)),
+        c(format_attributes(attrs)),
+        format_attributes(ns_dump(x$node))),
       collapse = " "),
     ">", sep = "")
 }
