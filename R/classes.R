@@ -25,7 +25,7 @@ as.character.xml_missing <- function(x, ...) {
 #' @export
 print.xml_node <- function(x, width = getOption("width"), max_n = 20, ...) {
   cat("{xml_node}\n")
-  cat("<", xml_name(x), ">\n", sep = "")
+  cat(format(x), "\n", sep = "")
   show_nodes(xml_children(x), width = width, max_n = max_n)
 }
 
@@ -48,7 +48,7 @@ xml_document <- function(doc) {
 print.xml_document <- function(x, width = getOption("width"), max_n = 20, ...) {
   cat("{xml_document}\n")
   if (inherits(x, "xml_node")) {
-    cat("<", xml_name(x), ">\n", sep = "")
+    cat(format(x), "\n", sep = "")
     show_nodes(xml_children(x), width = width, max_n = max_n)
   }
 }
@@ -142,4 +142,24 @@ nodeset_apply.xml_nodeset <- function(x, fun, ...) {
 nodeset_apply.xml_node <- function(x, fun, ...) {
   nodes <- fun(x$node, ...)
   xml_nodeset(lapply(nodes, xml_node, doc = x$doc))
+}
+
+#' @export
+format.xml_node <- function(x, ...) {
+  attrs <- xml_attrs(x)
+  paste("<",
+    paste(
+      c(xml_name(x),
+        c(format_attributes(attrs)),
+        format_attributes(ns_dump(x$node))),
+      collapse = " "),
+    ">", sep = "")
+}
+
+format_attributes <- function(x) {
+  if (length(x) == 0) {
+    character(0)
+  } else {
+    paste(names(x), quote_str(x), sep = "=")
+  }
 }

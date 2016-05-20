@@ -11,3 +11,12 @@ has_names <- function(x) {
     !(is.na(nms) | nms == "")
   }
 }
+
+# non smart quote version of sQuote
+quote_str <- function(x, quote = "\"") {
+  if (!length(x)) {
+    return(character(0))
+  }
+
+  paste0(quote, x, quote)
+}

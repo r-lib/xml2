@@ -61,6 +61,10 @@ ns_lookup <- function(doc, node, prefix) {
     .Call('xml2_ns_lookup', PACKAGE = 'xml2', doc, node, prefix)
 }
 
+ns_dump <- function(node) {
+    .Call('xml2_ns_dump', PACKAGE = 'xml2', node)
+}
+
 node_name <- function(node, nsMap) {
     .Call('xml2_node_name', PACKAGE = 'xml2', node, nsMap)
 }

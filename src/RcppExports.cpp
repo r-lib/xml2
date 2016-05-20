@@ -184,6 +184,17 @@ BEGIN_RCPP
     return __result;
 END_RCPP
 }
+// ns_dump
+CharacterVector ns_dump(XPtrNode node);
+RcppExport SEXP xml2_ns_dump(SEXP nodeSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject __result;
+    Rcpp::RNGScope __rngScope;
+    Rcpp::traits::input_parameter< XPtrNode >::type node(nodeSEXP);
+    __result = Rcpp::wrap(ns_dump(node));
+    return __result;
+END_RCPP
+}
 // node_name
 CharacterVector node_name(XPtrNode node, CharacterVector nsMap);
 RcppExport SEXP xml2_node_name(SEXP nodeSEXP, SEXP nsMapSEXP) {
