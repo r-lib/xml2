@@ -37,6 +37,10 @@
 #' str(as_list(x))
 #' str(as_list(x, ns))
 xml_ns <- function(x) {
+  if (length(x) == 0) {
+    return(character())
+  }
+
   stopifnot(inherits(x, "xml_document"))
   doc <- x$doc
   x <- doc_namespaces(doc)
