@@ -54,26 +54,3 @@ XPtrNs ns_lookup(XPtrDoc doc, XPtrNode node, std::string prefix) {
   }
   return XPtrNs(ns);
 }
-
-// [[Rcpp::export]]
-CharacterVector ns_dump(XPtrNode node) {
-  std::vector<std::string> prefix;
-  std::vector<std::string> URI;
-  xmlNsPtr next = node.get()->nsDef;
-
-  while(next != NULL) {
-    // default namespace
-    if (next->prefix == NULL) {
-      prefix.push_back("xmlns");
-    } else {
-      prefix.push_back("xmlns:" + Xml2String(next->prefix).asStdString());
-    }
-
-    URI.push_back(Xml2String(next->href).asStdString());
-    next = next->next;
-  }
-  CharacterVector out = Rcpp::wrap(URI);
-  out.attr("names") = Rcpp::wrap(prefix);
-
-  return out;
-}
