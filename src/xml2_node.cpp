@@ -82,8 +82,8 @@ SEXP node_attr(XPtrNode node, std::string name, CharacterVector missing,
   if (name == "xmlns") {
     string = xmlNsDefinition(node, NULL);
   } else if (hasPrefix("xmlns:", name)) {
-    string = xmlNsDefinition(node,
-        asXmlChar(name.substr(6)));
+    std::string prefix = name.substr(6);
+    string = xmlNsDefinition(node, asXmlChar(prefix));
   } else {
     if (nsMap.size() == 0) {
       string = xmlGetProp(node.get(), asXmlChar(name));
@@ -298,9 +298,9 @@ void node_set_attr(XPtrNode node, std::string name, std::string value, Character
     return;
   }
   if (hasPrefix("xmlns:", name)) {
-    xmlChar* prefix = asXmlChar(name.substr(6));
-    if (remove) removeNs(node.get(), prefix);
-    else xmlAddNamespace(node.get(), xmlNewNs(node.get(), asXmlChar(value), prefix));
+    std::string prefix = name.substr(6);
+    if (remove) removeNs(node.get(), asXmlChar(prefix));
+    else xmlAddNamespace(node.get(), xmlNewNs(node.get(), asXmlChar(value), asXmlChar(prefix)));
     return;
   }
 
