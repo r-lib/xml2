@@ -162,3 +162,8 @@ format_attributes <- function(x) {
     paste(names(x), quote_str(x), sep = "=")
   }
 }
+
+#' @export
+str.xml_node <- function(x, ...) {
+  str_xml_node(x$node)
+}

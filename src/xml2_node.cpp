@@ -2,6 +2,8 @@
 #include <libxml/tree.h>
 #include <boost/shared_ptr.hpp>
 #include <boost/algorithm/string/trim.hpp>
+#include <fstream>
+#include <sstream>
 
 using namespace Rcpp;
 #include "xml2_types.h"
@@ -511,7 +513,5 @@ void node_set_namespace_prefix(XPtrDoc doc, XPtrNode node, std::string prefix) {
 // [[Rcpp::export]]
 void str_xml_node(XPtrNode node_) {
   xmlNodePtr node = node_.get();
-  FILE * output = stdout;
-  xmlDebugDumpNode(output, node, 0);
-  return;
+  xmlDebugDumpNode(NULL, node, 0);
 }
