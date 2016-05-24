@@ -164,6 +164,6 @@ format_attributes <- function(x) {
 }
 
 #' @export
-str.xml_node <- function(x, ...) {
-  str_xml_node(x$node)
+str.xml_node <- function(object, ...) {
+  str_xml_node(object$node)
 }
