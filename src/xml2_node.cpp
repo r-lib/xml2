@@ -154,7 +154,7 @@ CharacterVector node_attrs(XPtrNode node, CharacterVector nsMap) {
 }
 
 
-// Fix the tree by removing the namespace pointers to the given namespace
+// Fix the tree by removing the namespace pointers to the given tree
 void xmlRemoveNamespace(xmlNodePtr tree, xmlNsPtr ns) {
 
   // From https://github.com/GNOME/libxml2/blob/v2.9.2/tree.c#L6440
@@ -169,7 +169,8 @@ void xmlRemoveNamespace(xmlNodePtr tree, xmlNsPtr ns) {
     }
 
     // Check for namespaces on the attributes
-    if (node->type == XML_ELEMENT_NODE) {
+    if (ns->prefix != NULL && // default namespaces will not exist on attributes
+        node->type == XML_ELEMENT_NODE) {
       xmlAttrPtr attr = node->properties;
       while (attr != NULL) {
         if (attr->ns != NULL && attr->ns == ns) {
@@ -177,6 +178,54 @@ void xmlRemoveNamespace(xmlNodePtr tree, xmlNsPtr ns) {
         }
         attr = attr->next;
       }
+    }
+
+    if ((node->children != NULL) && (node->type != XML_ENTITY_REF_NODE)) {
+      /* deep first */
+      node = node->children;
+    } else if ((node != tree) && (node->next != NULL)) {
+      /* then siblings */
+      node = node->next;
+    } else if (node != tree) {
+      /* go up to parents->next if needed */
+      while (node != tree) {
+        if (node->parent != NULL)
+          node = node->parent;
+        if ((node != tree) && (node->next != NULL)) {
+          node = node->next;
+          break;
+        }
+        if (node->parent == NULL) {
+          node = NULL;
+          break;
+        }
+      }
+      /* exit condition */
+      if (node == tree)
+        node = NULL;
+    } else
+      break;
+  }
+  return;
+}
+
+// Fix the tree by adding the namespace pointers to the given tree
+void xmlAddNamespace(xmlNodePtr tree, xmlNsPtr ns) {
+
+  // Only needed for default namespaces
+  if (ns->prefix != NULL) {
+    return;
+  }
+
+  // From https://github.com/GNOME/libxml2/blob/v2.9.2/tree.c#L6440
+  //
+  xmlNodePtr node = tree;
+  /*
+   * Browse the full subtree, deep first
+   */
+  while(node != NULL) {
+    if (node->ns == NULL) {
+      node->ns = ns;
     }
 
     if ((node->children != NULL) && (node->type != XML_ENTITY_REF_NODE)) {
@@ -245,13 +294,13 @@ void node_set_attr(XPtrNode node, std::string name, std::string value, Character
 
   if (name == "xmlns") {
     if (remove) removeNs(node.get(), NULL);
-    else xmlNewNs(node.get(), asXmlChar(value), NULL);
+    else xmlAddNamespace(node.get(), xmlNewNs(node.get(), asXmlChar(value), NULL));
     return;
   }
   if (hasPrefix("xmlns:", name)) {
     xmlChar* prefix = asXmlChar(name.substr(6));
     if (remove) removeNs(node.get(), prefix);
-    else xmlNewNs(node.get(), asXmlChar(value), prefix);
+    else xmlAddNamespace(node.get(), xmlNewNs(node.get(), asXmlChar(value), prefix));
     return;
   }
 
