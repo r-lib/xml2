@@ -8,15 +8,15 @@
 \alias{xml_find_one}
 \title{Find nodes that match an xpath expression.}
 \usage{
-xml_find_all(x, xpath, ns = xml_ns(xml_root(x)))
+xml_find_all(x, xpath, ns = xml_ns(x))
 
-xml_find_one(x, xpath, ns = xml_ns(xml_root(x)))
+xml_find_one(x, xpath, ns = xml_ns(x))
 
-xml_find_num(x, xpath, ns = xml_ns(xml_root(x)))
+xml_find_num(x, xpath, ns = xml_ns(x))
 
-xml_find_chr(x, xpath, ns = xml_ns(xml_root(x)))
+xml_find_chr(x, xpath, ns = xml_ns(x))
 
-xml_find_lgl(x, xpath, ns = xml_ns(xml_root(x)))
+xml_find_lgl(x, xpath, ns = xml_ns(x))
 }
 \arguments{
 \item{x}{A document, node, or node set.}

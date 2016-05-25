@@ -62,23 +62,23 @@
 #' ')
 #' xml_find_all(x, ".//f:doc")
 #' xml_find_all(x, ".//f:doc", xml_ns(x))
-xml_find_all <- function(x, xpath, ns = xml_ns(xml_root(x))) {
+xml_find_all <- function(x, xpath, ns = xml_ns(x)) {
   UseMethod("xml_find_all")
 }
 
 #' @export
-xml_find_all.xml_missing <- function(x, xpath, ns = xml_ns(xml_root(x))) {
+xml_find_all.xml_missing <- function(x, xpath, ns = xml_ns(x)) {
   xml_nodeset()
 }
 
 #' @export
-xml_find_all.xml_node <- function(x, xpath, ns = xml_ns(xml_root(x))) {
+xml_find_all.xml_node <- function(x, xpath, ns = xml_ns(x)) {
   nodes <- xpath_search(x$node, x$doc, xpath = xpath, nsMap = ns, num_results = Inf)
   xml_nodeset(nodes)
 }
 
 #' @export
-xml_find_all.xml_nodeset <- function(x, xpath, ns = xml_ns(xml_root(x))) {
+xml_find_all.xml_nodeset <- function(x, xpath, ns = xml_ns(x)) {
   if (length(x) == 0)
     return(xml_nodeset())
 
@@ -91,16 +91,16 @@ xml_find_all.xml_nodeset <- function(x, xpath, ns = xml_ns(xml_root(x))) {
 
 #' @export
 #' @rdname xml_find_all
-xml_find_one <- function(x, xpath, ns = xml_ns(xml_root(x))) {
+xml_find_one <- function(x, xpath, ns = xml_ns(x)) {
   UseMethod("xml_find_one")
 }
 
-xml_find_one.xml_missing <- function(x, xpath, ns = xml_ns(xml_root(x))) {
+xml_find_one.xml_missing <- function(x, xpath, ns = xml_ns(x)) {
   structure(list(), class = "xml_missing")
 }
 
 #' @export
-xml_find_one.xml_node <- function(x, xpath, ns = xml_ns(xml_root(x))) {
+xml_find_one.xml_node <- function(x, xpath, ns = xml_ns(x)) {
   res <- xpath_search(x$node, x$doc, xpath = xpath, nsMap = ns, num_results = 1)
   if (length(res) == 1) {
      res[[1]]
@@ -110,7 +110,7 @@ xml_find_one.xml_node <- function(x, xpath, ns = xml_ns(xml_root(x))) {
 }
 
 #' @export
-xml_find_one.xml_nodeset <- function(x, xpath, ns = xml_ns(xml_root(x))) {
+xml_find_one.xml_nodeset <- function(x, xpath, ns = xml_ns(x)) {
   if (length(x) == 0)
     return(xml_nodeset())
 
@@ -121,12 +121,12 @@ xml_find_one.xml_nodeset <- function(x, xpath, ns = xml_ns(xml_root(x))) {
 
 #' @export
 #' @rdname xml_find_all
-xml_find_num <- function(x, xpath, ns = xml_ns(xml_root(x))) {
+xml_find_num <- function(x, xpath, ns = xml_ns(x)) {
   UseMethod("xml_find_num")
 }
 
 #' @export
-xml_find_num.xml_node <- function(x, xpath, ns = xml_ns(xml_root(x))) {
+xml_find_num.xml_node <- function(x, xpath, ns = xml_ns(x)) {
   res <- xpath_search(x$node, x$doc, xpath = xpath, nsMap = ns, num_results = Inf)
   if (!is.numeric(res)) {
     stop("result of type: ", sQuote(class(res)), ", not numeric", call. = FALSE)
@@ -135,7 +135,7 @@ xml_find_num.xml_node <- function(x, xpath, ns = xml_ns(xml_root(x))) {
 }
 
 #' @export
-xml_find_num.xml_nodeset <- function(x, xpath, ns = xml_ns(xml_root(x))) {
+xml_find_num.xml_nodeset <- function(x, xpath, ns = xml_ns(x)) {
   if (length(x) == 0)
     return(numeric())
 
@@ -143,18 +143,18 @@ xml_find_num.xml_nodeset <- function(x, xpath, ns = xml_ns(xml_root(x))) {
 }
 
 #' @export
-xml_find_num.xml_missing <- function(x, xpath, ns = xml_ns(xml_root(x))) {
+xml_find_num.xml_missing <- function(x, xpath, ns = xml_ns(x)) {
    numeric(0)
 }
 
 #' @export
 #' @rdname xml_find_all
-xml_find_chr <- function(x, xpath, ns = xml_ns(xml_root(x))) {
+xml_find_chr <- function(x, xpath, ns = xml_ns(x)) {
   UseMethod("xml_find_chr")
 }
 
 #' @export
-xml_find_chr.xml_node <- function(x, xpath, ns = xml_ns(xml_root(x))) {
+xml_find_chr.xml_node <- function(x, xpath, ns = xml_ns(x)) {
   res <- xpath_search(x$node, x$doc, xpath = xpath, nsMap = ns, num_results = Inf)
   if (!is.character(res)) {
     stop("result of type: ", sQuote(class(res)), ", not character", call. = FALSE)
@@ -163,7 +163,7 @@ xml_find_chr.xml_node <- function(x, xpath, ns = xml_ns(xml_root(x))) {
 }
 
 #' @export
-xml_find_chr.xml_nodeset <- function(x, xpath, ns = xml_ns(xml_root(x))) {
+xml_find_chr.xml_nodeset <- function(x, xpath, ns = xml_ns(x)) {
   if (length(x) == 0)
     return(character())
 
@@ -171,18 +171,18 @@ xml_find_chr.xml_nodeset <- function(x, xpath, ns = xml_ns(xml_root(x))) {
 }
 
 #' @export
-xml_find_chr.xml_missing <- function(x, xpath, ns = xml_ns(xml_root(x))) {
+xml_find_chr.xml_missing <- function(x, xpath, ns = xml_ns(x)) {
    character(0)
 }
 
 #' @export
 #' @rdname xml_find_all
-xml_find_lgl <- function(x, xpath, ns = xml_ns(xml_root(x))) {
+xml_find_lgl <- function(x, xpath, ns = xml_ns(x)) {
   UseMethod("xml_find_lgl")
 }
 
 #' @export
-xml_find_lgl.xml_node <- function(x, xpath, ns = xml_ns(xml_root(x))) {
+xml_find_lgl.xml_node <- function(x, xpath, ns = xml_ns(x)) {
   res <- xpath_search(x$node, x$doc, xpath = xpath, nsMap = ns, num_results = Inf)
   if (!is.logical(res)) {
     stop("result of type: ", sQuote(class(res)), ", not logical", call. = FALSE)
@@ -191,7 +191,7 @@ xml_find_lgl.xml_node <- function(x, xpath, ns = xml_ns(xml_root(x))) {
 }
 
 #' @export
-xml_find_lgl.xml_nodeset <- function(x, xpath, ns = xml_ns(xml_root(x))) {
+xml_find_lgl.xml_nodeset <- function(x, xpath, ns = xml_ns(x)) {
   if (length(x) == 0)
     return(logical())
 
@@ -199,6 +199,6 @@ xml_find_lgl.xml_nodeset <- function(x, xpath, ns = xml_ns(xml_root(x))) {
 }
 
 #' @export
-xml_find_lgl.xml_missing <- function(x, xpath, ns = xml_ns(xml_root(x))) {
+xml_find_lgl.xml_missing <- function(x, xpath, ns = xml_ns(x)) {
    logical(0)
 }

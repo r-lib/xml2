@@ -37,6 +37,11 @@
 #' str(as_list(x))
 #' str(as_list(x, ns))
 xml_ns <- function(x) {
+  UseMethod("xml_ns")
+}
+
+#' @export
+xml_ns.xml_document <- function(x) {
   if (length(x) == 0) {
     return(character())
   }
@@ -56,6 +61,14 @@ xml_ns <- function(x) {
 
   x
 }
+
+#' @export
+xml_ns.xml_node <- function(x) {
+  xml_ns(xml_root(x))
+}
+
+#' @export
+xml_ns.xml_nodeset <- xml_ns.xml_node
 
 #' @export
 print.xml_namespace <- function(x, ...) {
