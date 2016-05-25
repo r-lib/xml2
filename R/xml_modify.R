@@ -185,3 +185,12 @@ xml_new_document <- function(version = "1.0") {
   doc <- doc_new(version)
   structure(list(doc = doc), class = "xml_document")
 }
+
+#' Strip the default namespaces from a document
+#'
+#' @inheritParams xml_name
+xml_strip_ns <- function(x) {
+  namespace_element_nodes <- xml_find_all(x, "//namespace::*[name()='']/parent::*")
+  xml_attr(namespace_element_nodes, "xmlns") <- NULL
+  invisible(x)
+}
