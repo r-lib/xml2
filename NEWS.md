@@ -1,5 +1,10 @@
 # xml2 0.1.2.9000
 
+* `xml_read()` functions now default to passing the document's namespace
+  object. Namespace definitions can now be removed as well as added and
+  `xml_ns_strip()` added to remove all default namespaces from a document.
+  (@jimhester, #28, #89)
+
 * `xml_read()` gains a `options` argument to control all available parsing
   options, including `HUGE` to turn off limits for parsing very large
   documents and now drops blank text nodes by default, mimicking default

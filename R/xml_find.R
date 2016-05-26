@@ -20,6 +20,7 @@
 #'   \code{xml_find_num}, \code{xml_find_chr}, \code{xml_find_lgl} return
 #'   numeric, character and logical results respectively.
 #' @export
+#' @seealso \code{\link{xml_ns_strip}} to remove the default namespaces
 #' @examples
 #' x <- read_xml("<foo><bar><baz/></bar><baz/></foo>")
 #' xml_find_all(x, ".//baz")

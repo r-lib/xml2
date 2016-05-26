@@ -93,4 +93,7 @@ x <- read_xml('
 xml_find_all(x, ".//f:doc")
 xml_find_all(x, ".//f:doc", xml_ns(x))
 }
+\seealso{
+\code{\link{xml_ns_strip}} to remove the default namespaces
+}
 

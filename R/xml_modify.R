@@ -189,7 +189,23 @@ xml_new_document <- function(version = "1.0") {
 #' Strip the default namespaces from a document
 #'
 #' @inheritParams xml_name
-xml_strip_ns <- function(x) {
+#' @examples
+#' x <- read_xml(
+#'  "<foo xmlns = 'http://foo.com'>
+#'    <baz/>
+#'    <bar xmlns = 'http://bar.com'>
+#'      <baz/>
+#'    </bar>
+#'   </foo>")
+#' # Need to specify the default namespaces to find the baz nodes
+#' xml_find_all(x, "//d1:baz")
+#' xml_find_all(x, "//d2:baz")
+#'
+#' # After stripping the default namespaces you can find both baz nodes directly
+#' xml_ns_strip(x)
+#' xml_find_all(x, "//baz")
+#' @export
+xml_ns_strip <- function(x) {
   namespace_element_nodes <- xml_find_all(x, "//namespace::*[name()='']/parent::*")
   xml_attr(namespace_element_nodes, "xmlns") <- NULL
   invisible(x)
