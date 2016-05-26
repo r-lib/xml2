@@ -41,10 +41,6 @@ xml_text.xml_nodeset <- function(x, trim = FALSE) {
   UseMethod("xml_text<-")
 }
 
-# TODO: Should this only be called on TEXT nodes? If it is used on non-text nodes it will remove child nodes from the tree.
-#
-# https://github.com/GNOME/libxml2/blob/e28939036281969477d3913a51c001bb7635fe54/doc/examples/xpath2.c#L163-L179
-
 #' @export
 `xml_text<-.xml_nodeset` <- function(x, value) {
   # We need to do the modification in reverse order as the modification can
@@ -59,7 +55,7 @@ xml_text.xml_nodeset <- function(x, trim = FALSE) {
 #' @export
 `xml_text<-.xml_node` <- function(x, value) {
   if (xml_type(x) != "text") {
-    text_child <- xml_find_one(x, ".//text()[1]")
+    text_child <- xml_find_one(x, ".//text()[1]", ns = character())
     if (inherits(text_child, "xml_missing")) {
       node_append_content(x$node, value)
     } else {

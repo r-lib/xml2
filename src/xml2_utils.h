@@ -127,5 +127,4 @@ class NsMap {
     return out;
   }
 };
-
 #endif

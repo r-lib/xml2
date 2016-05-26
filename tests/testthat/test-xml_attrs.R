@@ -78,23 +78,49 @@ test_that("xml_attrs<- modifies all attributes", {
   expect_error(xml_attrs(doc) <- 1, "`value` must be a named character vector or `NULL`")
   expect_error(xml_attrs(doc) <- "test", "`value` must be a named character vector or `NULL`")
 
-  xml_attrs(doc, ns) <- c("b:id" = "b", "f:id" = "f", "id" = "")
-  expect_equal(xml_attrs(doc, ns), c("b:id" = "b", "id" = "", "f:id" = "f"))
+  xml_attrs(doc, ns) <- c("b:id" = "b", "f:id" = "f", "id" = "test")
+  expect_equal(xml_attrs(doc, ns), c("b:id" = "b", "id" = "test", "f:id" = "f"))
 
   xml_attrs(doc, ns) <- c("b:id" = "b", "f:id" = "f")
   expect_equal(xml_attrs(doc, ns), c("b:id" = "b", "f:id" = "f"))
 
-  xml_attrs(doc, ns) <- c("b:id" = "b", "id" = "")
-  expect_equal(xml_attrs(doc, ns), c("b:id" = "b", "id" = ""))
+  xml_attrs(doc, ns) <- c("b:id" = "b", "id" = "test")
+  expect_equal(xml_attrs(doc, ns), c("b:id" = "b", "id" = "test"))
 
   expect_error(xml_attrs(docs) <- "test", "`value` must be a list of named character vectors")
 
-  xml_attrs(docs, ns) <- c("b:id" = "b", "id" = "")
+  xml_attrs(docs, ns) <- c("b:id" = "b", "id" = "test")
   expect_equal(xml_attrs(docs, ns),
     list(
-      c("b:id" = "b", "id" = ""),
-      c("b:id" = "b", "id" = "")))
+      c("b:id" = "b", "id" = "test"),
+      c("b:id" = "b", "id" = "test")))
 
   xml_attrs(docs, ns) <- NULL
   expect_equivalent(xml_attrs(docs, ns), list(character(0), character(0)))
+})
+
+test_that("xml_attr<- removes namespaces if desired", {
+  xml_attr(x, "xmlns:b") <- NULL
+
+  expect_equal(xml_attrs(x), c("xmlns:f" = "http://foo.com"))
+})
+
+test_that("xml_attr<- removes namespaces if desired", {
+  x <- read_xml("<a xmlns = 'tag:foo'><b/></a>")
+
+  # cannot find //b with a default namespace
+  expect_equal(length(xml_find_all(x, "//b")), 0)
+
+  # unless we specify it explicitly
+  expect_equal(length(xml_find_all(x, "//b")), 0)
+  expect_equal(length(xml_find_all(x, "//d1:b", xml_ns(x))), 1)
+
+  # but can find it once we remove the namespace
+  xml_attr(x, "xmlns") <- NULL
+  expect_equal(length(xml_find_all(x, "//b")), 1)
+
+  # and add the old namespace back
+  xml_attr(x, "xmlns") <- "tag:foo"
+  expect_equal(length(xml_find_all(x, "//b")), 0)
+  expect_equal(length(xml_find_all(x, "//d1:b", xml_ns(x))), 1)
 })

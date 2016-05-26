@@ -110,7 +110,7 @@ xml_attrs.xml_nodeset <- function(x, ns = character()) {
 #' @export
 `xml_attr<-.xml_node` <- function(x, attr, ns = character(), value) {
   if (is.null(value)) {
-    node_remove_attr(x$node, name = attr, nsMap = ns)
+    node_set_attr(x$node, name = attr, nsMap = ns, "")
   } else {
     node_set_attr(x$node, name = attr, nsMap = ns, value)
   }

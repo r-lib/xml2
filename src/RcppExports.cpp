@@ -184,17 +184,6 @@ BEGIN_RCPP
     return __result;
 END_RCPP
 }
-// ns_dump
-CharacterVector ns_dump(XPtrNode node);
-RcppExport SEXP xml2_ns_dump(SEXP nodeSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject __result;
-    Rcpp::RNGScope __rngScope;
-    Rcpp::traits::input_parameter< XPtrNode >::type node(nodeSEXP);
-    __result = Rcpp::wrap(ns_dump(node));
-    return __result;
-END_RCPP
-}
 // node_name
 CharacterVector node_name(XPtrNode node, CharacterVector nsMap);
 RcppExport SEXP xml2_node_name(SEXP nodeSEXP, SEXP nsMapSEXP) {
@@ -266,18 +255,6 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< std::string >::type value(valueSEXP);
     Rcpp::traits::input_parameter< CharacterVector >::type nsMap(nsMapSEXP);
     node_set_attr(node, name, value, nsMap);
-    return R_NilValue;
-END_RCPP
-}
-// node_remove_attr
-void node_remove_attr(XPtrNode node, std::string name, CharacterVector nsMap);
-RcppExport SEXP xml2_node_remove_attr(SEXP nodeSEXP, SEXP nameSEXP, SEXP nsMapSEXP) {
-BEGIN_RCPP
-    Rcpp::RNGScope __rngScope;
-    Rcpp::traits::input_parameter< XPtrNode >::type node(nodeSEXP);
-    Rcpp::traits::input_parameter< std::string >::type name(nameSEXP);
-    Rcpp::traits::input_parameter< CharacterVector >::type nsMap(nsMapSEXP);
-    node_remove_attr(node, name, nsMap);
     return R_NilValue;
 END_RCPP
 }
