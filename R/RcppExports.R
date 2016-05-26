@@ -173,10 +173,6 @@ node_set_namespace_prefix <- function(doc, node, prefix) {
     invisible(.Call('xml2_node_set_namespace_prefix', PACKAGE = 'xml2', doc, node, prefix))
 }
 
-str_xml_node <- function(node_) {
-    invisible(.Call('xml2_str_xml_node', PACKAGE = 'xml2', node_))
-}
-
 #' Convert between relative and absolute urls.
 #'
 #' @param x A character vector of urls relative to that base

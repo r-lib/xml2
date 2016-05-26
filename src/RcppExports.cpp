@@ -517,16 +517,6 @@ BEGIN_RCPP
     return R_NilValue;
 END_RCPP
 }
-// str_xml_node
-void str_xml_node(XPtrNode node_);
-RcppExport SEXP xml2_str_xml_node(SEXP node_SEXP) {
-BEGIN_RCPP
-    Rcpp::RNGScope __rngScope;
-    Rcpp::traits::input_parameter< XPtrNode >::type node_(node_SEXP);
-    str_xml_node(node_);
-    return R_NilValue;
-END_RCPP
-}
 // url_absolute
 CharacterVector url_absolute(CharacterVector x, CharacterVector base);
 RcppExport SEXP xml2_url_absolute(SEXP xSEXP, SEXP baseSEXP) {

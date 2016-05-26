@@ -9,10 +9,6 @@ using namespace Rcpp;
 #include "xml2_types.h"
 #include "xml2_utils.h"
 
-#define LIBXML_DEBUG_ENABLED
-#include <libxml/debugXML.h>
-#undef LIBXML_DEBUG_ENABLED
-
 template<typename T> // for xmlAttr and xmlNode
 std::string nodeName(T* node, CharacterVector nsMap) {
   std::string name = Xml2String(node->name).asStdString();
@@ -558,10 +554,4 @@ void node_set_namespace_prefix(XPtrDoc doc, XPtrNode node, std::string prefix) {
   }
 
   xmlSetNs(node.get(), ns);
-}
-
-// [[Rcpp::export]]
-void str_xml_node(XPtrNode node_) {
-  xmlNodePtr node = node_.get();
-  xmlDebugDumpNode(NULL, node, 0);
 }
