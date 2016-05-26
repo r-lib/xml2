@@ -206,6 +206,11 @@ xml_new_document <- function(version = "1.0") {
 #' xml_find_all(x, "//baz")
 #' @export
 xml_ns_strip <- function(x) {
+
+  # //namespace::*[name()=''] finds all the namespace definition nodes with no
+  # prefix (default namespaces).
+  # What we actually want is the element node the definitions are contained in
+  # so return the parent (/parent::*)
   namespace_element_nodes <- xml_find_all(x, "//namespace::*[name()='']/parent::*")
   xml_attr(namespace_element_nodes, "xmlns") <- NULL
   invisible(x)
