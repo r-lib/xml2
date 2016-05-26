@@ -11,6 +11,7 @@ using namespace Rcpp;
 
 #define LIBXML_DEBUG_ENABLED
 #include <libxml/debugXML.h>
+#undef LIBXML_DEBUG_ENABLED
 
 template<typename T> // for xmlAttr and xmlNode
 std::string nodeName(T* node, CharacterVector nsMap) {
