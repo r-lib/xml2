@@ -26,3 +26,21 @@ test_that("read_html properly passes parser arguments", {
   expect_equal(as_list(no_blanks)$body$catalog$cd[[1]],
     list("Empire Burlesque"))
 })
+
+test_that("read_xml works with httr response objects", {
+  skip_on_cran()
+
+  x <- read_xml(httr::GET("http://httpbin.org/xml"))
+  expect_is(x, "xml_document")
+
+  expect_equal(length(xml_find_all(x, "//slide")), 2)
+})
+
+test_that("read_html works with httr response objects", {
+  skip_on_cran()
+
+  x <- read_html(httr::GET("http://httpbin.org/xml"))
+  expect_is(x, "xml_document")
+
+  expect_equal(length(xml_find_all(x, "//slide")), 2)
+})

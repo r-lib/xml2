@@ -1,5 +1,8 @@
 # xml2 0.1.2.9000
 
+* `read_xml()` and `read_html()` methods added for `httr::response()` objects.
+  (@jimhester, #63, #93)
+
 * `xml_find_one()` has been deprecated in favor of `xml_find_first()`
   (@jimhester, #58, #92)
 
