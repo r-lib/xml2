@@ -5,7 +5,7 @@ x <- read_xml("<body>
   <p>No bold text</p>
   </body>")
 para <- xml_find_all(x, ".//p")
-b <- xml_find_one(para, ".//b")
+b <- xml_find_first(para, ".//b")
 mss <- b[[3]]
 
 test_that("xml_find returns nodes of class 'xml_missing' for missing nodes", {
@@ -28,7 +28,7 @@ test_that("xml_missing methods return properly for all S3 methods", {
   expect_equal(xml_find_chr(mss), character())
   expect_equal(xml_find_lgl(mss), logical())
   expect_equal(xml_find_num(mss), numeric())
-  expect_equal(xml_find_one(mss), structure(list(), class = "xml_missing"))
+  expect_equal(xml_find_first(mss), structure(list(), class = "xml_missing"))
   expect_equal(xml_length(mss), 0L)
   expect_equal(xml_name(mss), NA_character_)
   expect_equal(xml_parent(mss), structure(list(), class = "xml_missing"))

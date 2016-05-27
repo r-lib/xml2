@@ -1,5 +1,8 @@
 # xml2 0.1.2.9000
 
+* `xml_find_one()` has been deprecated in favor of `xml_find_first()`
+  (@jimhester, #58, #92)
+
 * `xml_read()` functions now default to passing the document's namespace
   object. Namespace definitions can now be removed as well as added and
   `xml_ns_strip()` added to remove all default namespaces from a document.

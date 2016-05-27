@@ -2,7 +2,7 @@ context("modify nodes")
 
 test_that("modifying nodes works", {
   x <- read_xml("<x><y/></x>")
-  node <- xml_find_one(x, "//x")
+  node <- xml_find_first(x, "//x")
 
   expect_equal(xml_name(node), "x")
 
@@ -25,7 +25,7 @@ test_that("xml_text<- only modifies text content", {
   expect_equal(xml_text(x), "new_text1text2")
 
   # You can change the second by explicitly selecting it
-  text_node <- xml_find_one(x, "//text()[2]")
+  text_node <- xml_find_first(x, "//text()[2]")
   xml_text(text_node) <- "new_text2"
   expect_equal(xml_text(x), "new_text1new_text2")
 })
