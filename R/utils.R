@@ -22,7 +22,7 @@ quote_str <- function(x, quote = "\"") {
 }
 
 is_installed <- function(pkg) {
-  system.file(package = pkg) != ""
+  requireNamespace(pkg, quietly = TRUE)
 }
 
 need_package <- function(pkg) {
