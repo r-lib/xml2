@@ -20,3 +20,13 @@ quote_str <- function(x, quote = "\"") {
 
   paste0(quote, x, quote)
 }
+
+is_installed <- function(pkg) {
+  requireNamespace(pkg, quietly = TRUE)
+}
+
+need_package <- function(pkg) {
+  if (is_installed(pkg)) return(invisible())
+
+  stop("Please install ", pkg, " package", call. = FALSE)
+}

@@ -72,7 +72,21 @@ read_xml <- function(x, encoding = "", ..., as_html = FALSE, options = "NOBLANKS
 #' @export
 #' @rdname read_xml
 read_html <- function(x, encoding = "", ..., options = c("RECOVER", "NOERROR", "NOBLANKS")) {
+  UseMethod("read_html")
+}
+
+#' @export
+read_html.default <- function(x, encoding = "", ..., options = c("RECOVER", "NOERROR", "NOBLANKS")) {
   suppressWarnings(read_xml(x, encoding, ..., as_html = TRUE, options = options))
+}
+
+#' @export
+read_html.response <- function(x, encoding = "", options = c("RECOVER",
+    "NOERROR", "NOBLANKS"), ...) {
+  need_package("httr")
+
+  content <- httr::content(x, as = "raw")
+  xml2::read_html(content, encoding = encoding, options = options, ...)
 }
 
 #' @export
@@ -120,6 +134,16 @@ read_xml.connection <- function(x, encoding = "", n = 64 * 1024,
   raw <- read_connection_(x, n)
   read_xml.raw(raw, encoding = encoding, base_url = base_url, as_html =
     as_html, options = options)
+}
+
+#' @export
+read_xml.response <- function(x, encoding = "", base_url = "", ...,
+                              as_html = FALSE, options = "NOBLANKS") {
+  need_package("httr")
+
+  content <- httr::content(x, as = "raw")
+  xml2::read_xml(content, encoding = encoding, base_url = base_url,
+    as_html = as_html, option = options, ...)
 }
 
 `%<<%` <- function(a, n) bitwShiftL(a, n)
