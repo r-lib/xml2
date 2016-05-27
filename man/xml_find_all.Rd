@@ -3,6 +3,7 @@
 \name{xml_find_all}
 \alias{xml_find_all}
 \alias{xml_find_chr}
+\alias{xml_find_first}
 \alias{xml_find_lgl}
 \alias{xml_find_num}
 \alias{xml_find_one}
@@ -10,7 +11,7 @@
 \usage{
 xml_find_all(x, xpath, ns = xml_ns(x))
 
-xml_find_one(x, xpath, ns = xml_ns(x))
+xml_find_first(x, xpath, ns = xml_ns(x))
 
 xml_find_num(x, xpath, ns = xml_ns(x))
 
@@ -35,10 +36,11 @@ name.}
   the nodeset will be empty. The result will always be unique; repeated
   nodes are automatically de-duplicated.
 
-  \code{xml_find_one} returns a node if applied to a node, and a nodeset
+  \code{xml_find_first} returns a node if applied to a node, and a nodeset
   if applied to a nodeset. The output is \emph{always} the same size as
-  the input. If there are no matches, \code{xml_find_one} will throw an
-  error; if there are multiple matches, it will use the first with a warning.
+  the input. If there are no matches, \code{xml_find_first} will return a
+  missing node; if there are multiple matches, it will return the first
+  only.
 
   \code{xml_find_num}, \code{xml_find_chr}, \code{xml_find_lgl} return
   numeric, character and logical results respectively.
@@ -47,8 +49,13 @@ name.}
 Xpath is like regular expressions for trees - it's worth learning if
 you're trying to extract nodes from arbitrary locations in a document.
 Use \code{xml_find_all} to find all matches - if there's no match you'll
-get an empty result. Use \code{xml_find_one} to find a specific match -
-if there's no match you'll get an error.
+get an empty result. Use \code{xml_find_first} to find a specific match -
+if there's no match you'll get \code{xml_missing} node.
+}
+\section{Deprecated functions}{
+
+\code{xml_find_one()} has been deprecated. Instead use
+\code{xml_find_first()}.
 }
 \examples{
 x <- read_xml("<foo><bar><baz/></bar><baz/></foo>")
@@ -75,11 +82,10 @@ para <- xml_find_all(x, ".//p")
 # never know how many results you'll get
 xml_find_all(para, ".//b")
 
-# xml_find_one only returns one match per input node. If there are 0
-# matches it will return a missing node; if there are more than one it picks
-# the first with a warning
-xml_find_one(para, ".//b")
-xml_text(xml_find_one(para, ".//b"))
+# xml_find_first only returns the first match per input node. If there are 0
+# matches it will return a missing node
+xml_find_first(para, ".//b")
+xml_text(xml_find_first(para, ".//b"))
 
 # Namespaces ---------------------------------------------------------------
 # If the document uses namespaces, you'll need use xml_ns to form

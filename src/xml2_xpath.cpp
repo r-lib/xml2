@@ -53,9 +53,6 @@ public:
             return ret;
           }
           int n = std::min(result_->nodesetval->nodeNr, num_results);
-          if (n < nodes->nodeNr) {
-            warning("%d results found, but only returning first %d", nodes->nodeNr, n);
-          }
           List out(n);
           for (int i = 0; i < n; i++) {
             List ret;

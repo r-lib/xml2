@@ -3,19 +3,24 @@
 #' Xpath is like regular expressions for trees - it's worth learning if
 #' you're trying to extract nodes from arbitrary locations in a document.
 #' Use \code{xml_find_all} to find all matches - if there's no match you'll
-#' get an empty result. Use \code{xml_find_one} to find a specific match -
-#' if there's no match you'll get an error.
+#' get an empty result. Use \code{xml_find_first} to find a specific match -
+#' if there's no match you'll get an \code{xml_missing} node.
 #'
+#' @section Deprecated functions:
+#' \code{xml_find_one()} has been deprecated. Instead use
+#' \code{xml_find_first()}.
+
 #' @param xpath A string containing a xpath (1.0) expression.
 #' @inheritParams xml_name
 #' @return \code{xml_find_all} always returns a nodeset: if there are no matches
 #'   the nodeset will be empty. The result will always be unique; repeated
 #'   nodes are automatically de-duplicated.
 #'
-#'   \code{xml_find_one} returns a node if applied to a node, and a nodeset
+#'   \code{xml_find_first} returns a node if applied to a node, and a nodeset
 #'   if applied to a nodeset. The output is \emph{always} the same size as
-#'   the input. If there are no matches, \code{xml_find_one} will throw an
-#'   error; if there are multiple matches, it will use the first with a warning.
+#'   the input. If there are no matches, \code{xml_find_first} will return a
+#'   missing node; if there are multiple matches, it will return the first
+#'   only.
 #'
 #'   \code{xml_find_num}, \code{xml_find_chr}, \code{xml_find_lgl} return
 #'   numeric, character and logical results respectively.
@@ -46,11 +51,10 @@
 #' # never know how many results you'll get
 #' xml_find_all(para, ".//b")
 #'
-#' # xml_find_one only returns one match per input node. If there are 0
-#' # matches it will return a missing node; if there are more than one it picks
-#' # the first with a warning
-#' xml_find_one(para, ".//b")
-#' xml_text(xml_find_one(para, ".//b"))
+#' # xml_find_first only returns the first match per input node. If there are 0
+#' # matches it will return a missing node
+#' xml_find_first(para, ".//b")
+#' xml_text(xml_find_first(para, ".//b"))
 #'
 #' # Namespaces ---------------------------------------------------------------
 #' # If the document uses namespaces, you'll need use xml_ns to form
@@ -92,16 +96,16 @@ xml_find_all.xml_nodeset <- function(x, xpath, ns = xml_ns(x)) {
 
 #' @export
 #' @rdname xml_find_all
-xml_find_one <- function(x, xpath, ns = xml_ns(x)) {
-  UseMethod("xml_find_one")
+xml_find_first <- function(x, xpath, ns = xml_ns(x)) {
+  UseMethod("xml_find_first")
 }
 
-xml_find_one.xml_missing <- function(x, xpath, ns = xml_ns(x)) {
+xml_find_first.xml_missing <- function(x, xpath, ns = xml_ns(x)) {
   structure(list(), class = "xml_missing")
 }
 
 #' @export
-xml_find_one.xml_node <- function(x, xpath, ns = xml_ns(x)) {
+xml_find_first.xml_node <- function(x, xpath, ns = xml_ns(x)) {
   res <- xpath_search(x$node, x$doc, xpath = xpath, nsMap = ns, num_results = 1)
   if (length(res) == 1) {
      res[[1]]
@@ -111,12 +115,12 @@ xml_find_one.xml_node <- function(x, xpath, ns = xml_ns(x)) {
 }
 
 #' @export
-xml_find_one.xml_nodeset <- function(x, xpath, ns = xml_ns(x)) {
+xml_find_first.xml_nodeset <- function(x, xpath, ns = xml_ns(x)) {
   if (length(x) == 0)
     return(xml_nodeset())
 
   xml_nodeset(lapply(x, function(x)
-      xml_find_one.xml_node(x, xpath = xpath, ns = ns)))
+      xml_find_first.xml_node(x, xpath = xpath, ns = ns)))
 }
 
 
@@ -202,4 +206,14 @@ xml_find_lgl.xml_nodeset <- function(x, xpath, ns = xml_ns(x)) {
 #' @export
 xml_find_lgl.xml_missing <- function(x, xpath, ns = xml_ns(x)) {
    logical(0)
+}
+
+# Deprecated functions ----------------------------------------------------
+
+#' @rdname xml_find_all
+#' @usage NULL
+#' @export
+xml_find_one <- function(x, xpath, ns = xml_ns(x)) {
+  .Deprecated("xml_find_first")
+  UseMethod("xml_find_first")
 }
