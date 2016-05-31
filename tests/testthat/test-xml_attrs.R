@@ -121,6 +121,33 @@ test_that("xml_attr<- removes namespaces if desired", {
 
   # and add the old namespace back
   xml_attr(x, "xmlns") <- "tag:foo"
+  expect_equal(xml_attr(x, "xmlns"), "tag:foo")
   expect_equal(length(xml_find_all(x, "//b")), 0)
   expect_equal(length(xml_find_all(x, "//d1:b", xml_ns(x))), 1)
+
+  expect_equal(xml_attr(x, "xmlns"), "tag:foo")
+})
+
+test_that("xml_attr<- removes prefixed namespaces if desired", {
+  x <- read_xml("<a xmlns:pre = 'tag:foo'><pre:b/></a>")
+
+  # cannot find //b with a prefixed namespace
+  expect_equal(length(xml_find_all(x, "//b")), 0)
+
+  # unless we specify it explicitly
+  expect_equal(length(xml_find_all(x, "//b")), 0)
+  expect_equal(length(xml_find_all(x, "//pre:b", xml_ns(x))), 1)
+
+  # but can find it once we remove the namespace
+  xml_attr(x, "xmlns:pre") <- NULL
+  expect_equal(length(xml_find_all(x, "//b")), 1)
+
+  # and add the old namespace back
+  xml_attr(x, "xmlns:pre") <- "tag:foo"
+  xml_set_namespace(xml_children(x)[[1]], "pre")
+  expect_equal(xml_attr(x, "xmlns:pre"), "tag:foo")
+  expect_equal(length(xml_find_all(x, "//b")), 0)
+  expect_equal(length(xml_find_all(x, "//pre:b", xml_ns(x))), 1)
+
+  expect_equal(xml_attr(x, "xmlns:pre"), "tag:foo")
 })
