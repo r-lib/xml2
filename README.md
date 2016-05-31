@@ -53,11 +53,8 @@ xml2 has similar goals to the XML package. The main differences are:
   free the memory used by an XML document as soon as the last reference
   to it goes away.
 
-* xml2 only exposes a fraction of the functions that XML does. Currently,
-  the biggest difference is that xml2 provides no way to modify an existing
-  xml document or create a new one.
-
 * xml2 has a very simple class hierarchy so don't need to think about exactly 
   what type of object you have, xml2 will just do the right thing.
 
-* More convenient handling of namespaces - see `xml_ns()` to get started.
+* More convenient handling of namespaces in Xpath expressions - see `xml_ns()` 
+  and `xml_ns_strip()` to get started.
