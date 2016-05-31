@@ -4,11 +4,15 @@
 #' all nodes. \code{xml_length} returns the number of children.
 #' \code{xml_parent} returns the parent node, \code{xml_parents}
 #' returns all parents up to the root. \code{xml_siblings} returns all nodes
-#' at the same level.
+#' at the same level. \code{xml_child} makes it easy to specify a specific
+#' child to return.
 #'
 #' @inheritParams xml_name
 #' @param only_elements For \code{xml_length}, should it count all children,
 #'   or just children that are elements (the default)?
+#' @param search For \code{xml_child}, either the child number to return (by
+#'   position), or the name of the child node to return. If there are multiple
+#'   child nodes with the same name, the first will be returned
 #' @return A node or nodeset (possibly empty). Results are always de-duplicated.
 #' @export
 #' @examples
@@ -28,8 +32,29 @@
 #'
 #' xml_length(x)
 #' xml_length(x, only_elements = FALSE)
+#'
+#' # xml_child makes it easier to select specific children
+#' xml_child(x)
+#' xml_child(x, 2)
+#' xml_child(x, "baz")
 xml_children <- function(x) {
   nodeset_apply(x, node_children)
+}
+
+#' @export
+#' @rdname xml_children
+xml_child <- function(x, search = 1, ns = xml_ns(x)) {
+  if (length(search) != 1) {
+    stop("`search` must be of length 1", call. = FALSE)
+  }
+
+  if (is.numeric(search)) {
+    xml_children(x)[[search]]
+  } else if (is.character(search)) {
+    xml_find_first(x, xpath = paste0("./", search), ns = ns)
+  } else {
+    stop("`search` must be `numeric` or `character`", call. = FALSE)
+  }
 }
 
 #' @export
