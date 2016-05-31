@@ -1,5 +1,8 @@
 # xml2 0.1.2.9000
 
+* `xml_ns()` now keeps namespace prefixes that point to the same URI
+  (@jimhester, #35, #95).
+
 * `read_xml()` and `read_html()` methods added for `httr::response()` objects.
   (@jimhester, #63, #93)
 
