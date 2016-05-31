@@ -22,3 +22,17 @@ test_that("xml_child() errors if search is not numeric or character", {
   expect_error(xml_child(x, raw(1)), "`search` must be `numeric` or `character`")
   expect_error(xml_child(x, list(1)), "`search` must be `numeric` or `character`")
 })
+
+test_that("xml_length", {
+  expect_equal(xml_length(x), 2)
+})
+
+test_that("xml_parent", {
+  expect_equal(unclass(xml_parent(xml_child(x))), unclass(x))
+})
+
+test_that("xml_parents", {
+  expect_equal(
+    xml_name(xml_parents(xml_find_first(x, "//boo"))),
+    c("bar", "foo"))
+})
