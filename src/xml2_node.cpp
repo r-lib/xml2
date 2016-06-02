@@ -107,47 +107,52 @@ SEXP node_attr(XPtrNode node, std::string name, CharacterVector missing,
 }
 
 // [[Rcpp::export]]
-CharacterVector node_attrs(XPtrNode node, CharacterVector nsMap) {
+CharacterVector node_attrs(XPtrNode node_, CharacterVector nsMap) {
 
   int n = 0;
-  // attributes
-  for(xmlAttr* cur = node->properties; cur != NULL; cur = cur->next)
-    n++;
+  xmlNodePtr node = node_.get();
 
-  // namespace definitions
-  for(xmlNsPtr cur = node->nsDef; cur != NULL; cur = cur->next)
-    n++;
+  if (node->type == XML_ELEMENT_NODE) {
+    // attributes
+    for(xmlAttr* cur = node->properties; cur != NULL; cur = cur->next)
+      n++;
 
-  CharacterVector names(n), values(n);
+    // namespace definitions
+    for(xmlNsPtr cur = node->nsDef; cur != NULL; cur = cur->next)
+      n++;
 
-  int i = 0;
-  for(xmlAttr* cur = node->properties; cur != NULL; cur = cur->next, ++i) {
-    names[i] = nodeName(cur, nsMap);
+    CharacterVector names(n), values(n);
 
-    xmlNs* ns = cur->ns;
-    if (ns == NULL) {
-      if (nsMap.size() > 0) {
-        values[i] = Xml2String(xmlGetNoNsProp(node.get(), cur->name)).asRString();
+    int i = 0;
+    for(xmlAttr* cur = node->properties; cur != NULL; cur = cur->next, ++i) {
+      names[i] = nodeName(cur, nsMap);
+
+      xmlNs* ns = cur->ns;
+      if (ns == NULL) {
+        if (nsMap.size() > 0) {
+          values[i] = Xml2String(xmlGetNoNsProp(node, cur->name)).asRString();
+        } else {
+          values[i] = Xml2String(xmlGetProp(node, cur->name)).asRString();
+        }
       } else {
-        values[i] = Xml2String(xmlGetProp(node.get(), cur->name)).asRString();
+        values[i] = Xml2String(xmlGetNsProp(node, cur->name, ns->href)).asRString();
       }
-    } else {
-      values[i] = Xml2String(xmlGetNsProp(node.get(), cur->name, ns->href)).asRString();
     }
+
+    for(xmlNsPtr cur = node->nsDef; cur != NULL; cur = cur->next, ++i) {
+      if (cur->prefix == NULL) {
+        names[i] = "xmlns";
+      } else {
+        names[i] = "xmlns:" + Xml2String(cur->prefix).asStdString();
+      }
+      values[i] = Xml2String(cur->href).asRString();
+    }
+
+    values.attr("names") = wrap<CharacterVector>(names);
+    return values;
   }
 
-  // Namespace definitions as well
-  for(xmlNsPtr cur = node->nsDef; cur != NULL; cur = cur->next, ++i) {
-    if (cur->prefix == NULL) {
-      names[i] = "xmlns";
-    } else {
-      names[i] = "xmlns:" + Xml2String(cur->prefix).asStdString();
-    }
-    values[i] = Xml2String(cur->href).asRString();
-  }
-
-  values.attr("names") = wrap<CharacterVector>(names);
-  return values;
+  return CharacterVector();
 }
 
 

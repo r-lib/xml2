@@ -18,6 +18,14 @@ test_that("attributes are correctly found", {
   expect_false(xml_has_attr(x, "id2"))
 })
 
+test_that("returning an attribute node prints properly", {
+  x <- read_xml("<a><b c='1' /></a>")
+
+  t1 <- xml_find_first(x, "//@c")
+
+  expect_equal(format(t1), "<c>")
+})
+
 # Namespaces -------------------------------------------------------------------
 
 # Default namespace doesn't apply to attributes
