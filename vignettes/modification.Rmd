@@ -127,7 +127,7 @@ x
 ```
 
 ## Removing nodes ##
-The `xml_remove_node()` can be used to remove a node (and it's children) from a
+The `xml_remove()` can be used to remove a node (and it's children) from a
 tree. The default behavior is to unlink the node from the tree, but does not
 free the memory for the node, so R objects pointing to the node are still
 valid. This allows code like the following to work without crashing R
@@ -144,7 +144,7 @@ gc()
 x2
 ```
 
-Setting the argument `free = TRUE` when calling `xml_remove_node()`
+Setting the argument `free = TRUE` when calling `xml_remove()`
 also frees the memory when the node is unlinked. In this case it is the
 responsibility of the user to remove all objects pointing to the node or its
 children, as they no longer point to valid memory.

@@ -3,7 +3,7 @@
 \name{xml_replace}
 \alias{xml_add_child}
 \alias{xml_add_sibling}
-\alias{xml_remove_node}
+\alias{xml_remove}
 \alias{xml_replace}
 \title{Modify a tree by inserting, replacing or removing nodes}
 \usage{
@@ -14,7 +14,7 @@ xml_add_sibling(.x, .value, ..., .where = c("after", "before"),
 
 xml_add_child(.x, .value, ..., .copy = TRUE)
 
-xml_remove_node(.x, free = FALSE)
+xml_remove(.x, free = FALSE)
 }
 \arguments{
 \item{.x}{a document, node or nodeset.}
