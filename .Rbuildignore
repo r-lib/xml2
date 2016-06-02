@@ -6,3 +6,4 @@ windows
 ^NEWS\.md$
 ^revdep$
 ^src/Makevars$
+^codecov\.yml$
