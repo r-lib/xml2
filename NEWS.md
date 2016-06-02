@@ -1,5 +1,8 @@
 # xml2 0.1.2.9000
 
+* `xml_integer()` and `xml_double()` functions to make it easy to extract
+  integer and double text from nodes (@jimhester, #97, #99).
+
 * xml2 now supports modification and creation of XML nodes. New functions
   `xml_new_document()`, `xml_new_child()`, `xml_new_sibling()`,
   `xml_set_namespace()`, , `xml_remove()`, `xml_replace()`, `xml_root()`
