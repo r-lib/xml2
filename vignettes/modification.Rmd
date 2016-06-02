@@ -39,11 +39,11 @@ xml_text(x)
 xml_structure(x)
 ```
 
-## Attribute Modification ##
+## Attribute and Namespace Definition Modification ##
 
-Attributes are modified one at a time with `xml_attr()` or all at once with
-`xml_attrs()`. In both cases using `NULL` as the value will remove the
-attribute completely.
+Attributes and namespace definitions are modified one at a time with
+`xml_attr()` or all at once with `xml_attrs()`. In both cases using `NULL` as
+the value will remove the attribute completely.
 
 ```{r}
 x <- read_xml("<a href='invalid!'>xml2</a>")
@@ -54,10 +54,17 @@ xml_attr(x, "href")
 
 xml_attrs(x) <- c(id = "xml2", href = "https://github.com/hadley/xml2")
 xml_attrs(x)
-cat(as.character(x))
+x
 
 xml_attrs(x) <- NULL
-cat(as.character(x))
+x
+
+# Namespaces are added with as a xmlns or xmlns:prefix attribute
+xml_attr(x, "xmlns") <- "http://foo"
+x
+
+xml_attr(x, "xmlns:bar") <- "http://bar"
+x
 ```
 
 ## Name Modification ##
@@ -73,7 +80,7 @@ x
 ```
 
 # Node modification #
-All of these functions have a `copy` argument. If this is set to `FALSE` they
+All of these functions have a `.copy` argument. If this is set to `FALSE` they
 will remove the new node from its location before inserting it into the new
 location. Otherwise they make a copy of the node before insertion.
 
@@ -89,7 +96,7 @@ xml_replace(t1, t3)
 x
 ```
 
-## Append sibling ##
+## Add a sibling ##
 ```{r}
 x <- read_xml("<parent><child>1</child><child>2<child>3</child></child></parent>")
 children <- xml_children(x)
@@ -119,6 +126,29 @@ xml_add_child(t1, read_xml("<test/>"))
 x
 ```
 
+## Removing nodes ##
+The `xml_remove_node()` can be used to remove a node (and it's children) from a
+tree. The default behavior is to unlink the node from the tree, but does not
+free the memory for the node, so R objects pointing to the node are still
+valid. This allows code like the following to work without crashing R
+
+```r
+x <- read_xml("<foo><bar><baz/><bar></foo>")
+x1 <- x %>% xml_children() %>% .[[1]]
+x2 <- x1 %>% xml_children() %>% .[[1]]
+
+xml_remove(x1)
+rm(x1)
+gc()
+
+x2
+```
+
+Setting the argument `free = TRUE` when calling `xml_remove_node()`
+also frees the memory when the node is unlinked. In this case it is the
+responsibility of the user to remove all objects pointing to the node or its
+children, as they no longer point to valid memory.
+
 ## Namespaces ##
 
 We want to construct a document with the following namespace layout. (From
@@ -147,5 +177,5 @@ d <- xml_new_document() %>%
   xml_add_child("se:Name") %>%
   xml_root()
 
-cat(as.character(d))
+d
 ```
