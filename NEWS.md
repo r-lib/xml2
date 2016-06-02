@@ -1,5 +1,11 @@
 # xml2 0.1.2.9000
 
+* xml2 now supports modification and creation of XML nodes. New functions
+  `xml_new_document()`, `xml_new_child()`, `xml_new_sibling()`,
+  `xml_set_namespace()`, , `xml_remove_node()`, `xml_replace()`, `xml_root()`
+  and replacement methods for `xml_name()`, `xml_attr()`, `xml_attrs()` and
+  `xml_text()` (@jimhester, #9 #76)
+
 * `xml_ns()` now keeps namespace prefixes that point to the same URI
   (@jimhester, #35, #95).
 
