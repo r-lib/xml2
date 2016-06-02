@@ -139,18 +139,18 @@ xml_add_child.xml_nodeset <- function(.x, .value, ..., .copy = TRUE) {
 
 #' @rdname xml_replace
 #' @export
-xml_remove_node <- function(.x, free = FALSE) {
-   UseMethod("xml_remove_node")
+xml_remove <- function(.x, free = FALSE) {
+   UseMethod("xml_remove")
 }
 
 #' @export
-xml_remove_node.xml_node <- function(.x, free = FALSE) {
+xml_remove.xml_node <- function(.x, free = FALSE) {
   node_remove(.x$node, free = free)
 }
 
 #' @export
-xml_remove_node.xml_nodeset <- function(.x, free = FALSE) {
-  Map(xml_remove_node, rev(.x), free = free)
+xml_remove.xml_nodeset <- function(.x, free = FALSE) {
+  Map(xml_remove, rev(.x), free = free)
 }
 
 ## Questions
