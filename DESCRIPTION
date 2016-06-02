@@ -5,7 +5,7 @@ Description: Work with XML files using a simple, consistent interface. Built on
     top of the 'libxml2' C library.
 Authors@R: c(
     person("Hadley", "Wickham", , "hadley@rstudio.com", c("aut", "cre")),
-    person("James", "Hester, , "james.hester@rstudio.com", "aut"),
+    person("James", "Hester", , "james.hester@rstudio.com", "aut"),
     person("Jeroen", "Ooms", role = "ctb"),
     person("RStudio", role = "cph"),
     person("R Foundation", role = "ctb",
