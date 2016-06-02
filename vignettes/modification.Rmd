@@ -149,8 +149,8 @@ If you are not planning on referencing these nodes again this memory is wasted.
 Calling `xml_remove(free = TRUE)` will remove the nodes _and_ free the memory
 used to store them.  **Note** In this case _any_ node which previously pointed
 to the node or it's children will instead be pointing to free memory and may
-cause R to crash. It is the responsibility of the user to remove any objects
-which are no longer valid.
+cause R to crash. xml2 can't figure this out for you, so it's your
+responsibility to remove any objects which are no longer valid.
 
 In particular `xml_find_*()` results are easy to overlook, for example
 
