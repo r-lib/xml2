@@ -1,5 +1,7 @@
 #' Extract or modify the text
 #'
+#' \code{xml_text} returns a character vector, \code{xml_double} returns a
+#' numeric vector, \code{xml_integer} returns an integer vector. 
 #' @inheritParams xml_name
 #' @param trim If \code{TRUE} will trim leading and trailing spaces.
 #' @return A character vector, the same length as x.
@@ -14,6 +16,11 @@
 #'
 #' x <- read_xml("<p>   Some text    </p>")
 #' xml_text(x, trim = TRUE)
+#'
+#' # xml_double() and xml_integer() are useful for extracting numeric
+#' attributes
+#' x <- read_xml("<plot><point x='1' y='2' /><point x='2' y='1' /></plot>")
+#' xml_integer(xml_find_all(x, "//@x"))
 #' @export
 xml_text <- function(x, trim = FALSE) {
   UseMethod("xml_text")
@@ -66,4 +73,51 @@ xml_text.xml_nodeset <- function(x, trim = FALSE) {
   }
 
   x
+}
+
+#' @rdname xml_text
+#' @export
+xml_double <- function(x) {
+  UseMethod("xml_double")
+}
+
+#' @export
+xml_double.xml_missing <- function(x) {
+  NA_real_
+}
+
+#' @export
+xml_double.xml_node <- function(x) {
+  as.numeric(xml_text(x))
+}
+
+#' @export
+xml_double.xml_nodeset <- function(x) {
+  vapply(x, xml_double, numeric(1))
+}
+
+#' @export
+xml_integer <- function(x) {
+  UseMethod("xml_integer")
+}
+
+#' @export
+xml_double.xml_missing <- function(x) {
+  NA_integer_
+}
+
+#' @rdname xml_text
+#' @export
+xml_integer <- function(x) {
+  UseMethod("xml_integer")
+}
+
+#' @export
+xml_integer.xml_node <- function(x) {
+  as.integer(xml_text(x))
+}
+
+#' @export
+xml_integer.xml_nodeset <- function(x) {
+  vapply(x, xml_integer, numeric(1))
 }
