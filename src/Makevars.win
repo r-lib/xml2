@@ -1,6 +1,6 @@
-PKG_CPPFLAGS=-I../windows/libxml2-2.9.3/include/libxml2
+PKG_CPPFLAGS=-I../windows/libxml2-2.9.4/include/libxml2
 PKG_CXXFLAGS=-DLIBXML_STATIC
-PKG_LIBS=-L../windows/libxml2-2.9.3/lib${R_ARCH} -lxml2 -llzma -liconv -lz -lws2_32
+PKG_LIBS=-L../windows/libxml2-2.9.4/lib${R_ARCH} -lxml2 -llzma -liconv -lz -lws2_32
 
 all: winlibs
 
