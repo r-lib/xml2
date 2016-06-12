@@ -7,3 +7,4 @@ windows
 ^revdep$
 ^src/Makevars$
 ^codecov\.yml$
+^docker$
