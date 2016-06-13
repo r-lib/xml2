@@ -75,31 +75,31 @@ SEXP node_attr(XPtrNode node, std::string name, CharacterVector missing,
     Rcpp::stop("`missing` should be length 1");
   SEXP missingVal = missing[0];
 
-  const xmlChar* string;
   if (name == "xmlns") {
-    string = xmlNsDefinition(node, NULL);
-  } else if (hasPrefix("xmlns:", name)) {
+    return CharacterVector(Xml2String(xmlNsDefinition(node, NULL)).asRString(missingVal));
+  }
+  if (hasPrefix("xmlns:", name)) {
     std::string prefix = name.substr(6);
-    string = xmlNsDefinition(node, asXmlChar(prefix));
+    return CharacterVector(Xml2String(xmlNsDefinition(node, asXmlChar(prefix))).asRString(missingVal));
+  }
+  xmlChar* string;
+  if (nsMap.size() == 0) {
+    string = xmlGetProp(node.get(), asXmlChar(name));
   } else {
-    if (nsMap.size() == 0) {
-      string = xmlGetProp(node.get(), asXmlChar(name));
+    size_t colon = name.find(":");
+    if (colon == std::string::npos) {
+      // Has namespace spec, but attribute not qualified, so look for attribute
+      // without namespace
+      string = xmlGetNoNsProp(node.get(), asXmlChar(name));
     } else {
-      size_t colon = name.find(":");
-      if (colon == std::string::npos) {
-        // Has namespace spec, but attribute not qualified, so look for attribute
-        // without namespace
-        string = xmlGetNoNsProp(node.get(), asXmlChar(name));
-      } else {
-        // Split name into prefix & attr, then look up full url
-        std::string
-          prefix = name.substr(0, colon),
-                 attr = name.substr(colon + 1, name.size() - 1);
+      // Split name into prefix & attr, then look up full url
+      std::string
+        prefix = name.substr(0, colon),
+               attr = name.substr(colon + 1, name.size() - 1);
 
-        std::string url = NsMap(nsMap).findUrl(prefix);
+      std::string url = NsMap(nsMap).findUrl(prefix);
 
-        string = xmlGetNsProp(node.get(), asXmlChar(attr), asXmlChar(url));
-      }
+      string = xmlGetNsProp(node.get(), asXmlChar(attr), asXmlChar(url));
     }
   }
 

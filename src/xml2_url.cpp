@@ -153,8 +153,9 @@ CharacterVector url_unescape(CharacterVector x) {
   for (int i = 0; i < n; ++i) {
     const char* xx = Rf_translateCharUTF8(x[i]);
 
-    const char* unescaped = xmlURIUnescapeString(xx, 0, NULL);
+    char* unescaped = xmlURIUnescapeString(xx, 0, NULL);
     out[i] = (unescaped == NULL) ? NA_STRING : Rf_mkCharCE(unescaped, CE_UTF8);
+    xmlFree(unescaped);
   }
 
   return out;
