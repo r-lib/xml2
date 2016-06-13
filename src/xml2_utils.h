@@ -70,7 +70,7 @@ class NsMap {
   // Initialise from an existing character vector
   NsMap(Rcpp::CharacterVector x) {
     Rcpp::CharacterVector names = Rcpp::as<Rcpp::CharacterVector>(x.attr("names"));
-    for (std::vector<std::string>::size_type i = 0; i < x.size(); ++i) {
+    for (R_len_t i = 0; i < x.size(); ++i) {
       add(std::string(names[i]), std::string(x[i]));
     }
   }
