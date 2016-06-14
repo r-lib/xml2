@@ -26,7 +26,7 @@ void cache_namespace(xmlNode* node, NsMap* nsMap) {
 CharacterVector doc_namespaces(XPtrDoc doc) {
   NsMap nsMap;
 
-  xmlNode* root = xmlDocGetRootElement(doc.get());
+  xmlNode* root = xmlDocGetRootElement(doc.checked_get());
   cache_namespace(root, &nsMap);
 
   return nsMap.out();
@@ -34,7 +34,7 @@ CharacterVector doc_namespaces(XPtrDoc doc) {
 
 // [[Rcpp::export]]
 XPtrNs ns_lookup_uri(XPtrDoc doc, XPtrNode node, std::string uri) {
-  xmlNsPtr ns = xmlSearchNsByHref(doc.get(), node.get(), asXmlChar(uri));
+  xmlNsPtr ns = xmlSearchNsByHref(doc.checked_get(), node.checked_get(), asXmlChar(uri));
   if (ns == NULL) {
     stop("No namespace with URI `%s` found", uri);
   }
@@ -45,9 +45,9 @@ XPtrNs ns_lookup_uri(XPtrDoc doc, XPtrNode node, std::string uri) {
 XPtrNs ns_lookup(XPtrDoc doc, XPtrNode node, std::string prefix) {
   xmlNsPtr ns = NULL;
   if (prefix.length() == 0) {
-    ns = xmlSearchNs(doc.get(), node.get(), NULL);
+    ns = xmlSearchNs(doc.checked_get(), node.checked_get(), NULL);
   } else {
-    ns = xmlSearchNs(doc.get(), node.get(), asXmlChar(prefix));
+    ns = xmlSearchNs(doc.checked_get(), node.checked_get(), asXmlChar(prefix));
     if (ns == NULL) {
       stop("No namespace with prefix `%s` found", prefix);
     }

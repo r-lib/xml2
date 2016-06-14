@@ -14,7 +14,7 @@ class XmlSeeker {
 public:
 
   XmlSeeker(XPtrDoc doc, xmlNode* node) : result_(NULL), doc_(doc) {
-    context_ = xmlXPathNewContext(doc.get());
+    context_ = xmlXPathNewContext(doc.checked_get());
     // Set context to current node
     context_->node = node;
   }
@@ -89,7 +89,7 @@ RObject xpath_search(XPtrNode node, XPtrDoc doc, std::string xpath, CharacterVec
   if (num_results == R_PosInf) {
     num_results = INT_MAX;
   }
-  XmlSeeker seeker(doc, node.get());
+  XmlSeeker seeker(doc, node.checked_get());
   seeker.registerNamespace(nsMap);
   return seeker.search(xpath, num_results);
 }
