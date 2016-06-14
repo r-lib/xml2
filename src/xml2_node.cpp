@@ -25,7 +25,7 @@ std::string nodeName(T* node, CharacterVector nsMap) {
 
 // [[Rcpp::export]]
 CharacterVector node_name(XPtrNode node, CharacterVector nsMap) {
-  return asCharacterVector(nodeName(node.get(), nsMap));
+  return asCharacterVector(nodeName(node.checked_get(), nsMap));
 }
 
 // [[Rcpp::export]]
@@ -35,7 +35,7 @@ void node_set_name(XPtrNode node, std::string value) {
 
 // [[Rcpp::export]]
 CharacterVector node_text(XPtrNode node, bool trim) {
-  std::string text = Xml2String(xmlNodeGetContent(node.get())).asStdString();
+  std::string text = Xml2String(xmlNodeGetContent(node.checked_get())).asStdString();
 
   if (trim)
     boost::algorithm::trim(text);
@@ -84,13 +84,13 @@ SEXP node_attr(XPtrNode node, std::string name, CharacterVector missing,
   }
   xmlChar* string;
   if (nsMap.size() == 0) {
-    string = xmlGetProp(node.get(), asXmlChar(name));
+    string = xmlGetProp(node.checked_get(), asXmlChar(name));
   } else {
     size_t colon = name.find(":");
     if (colon == std::string::npos) {
       // Has namespace spec, but attribute not qualified, so look for attribute
       // without namespace
-      string = xmlGetNoNsProp(node.get(), asXmlChar(name));
+      string = xmlGetNoNsProp(node.checked_get(), asXmlChar(name));
     } else {
       // Split name into prefix & attr, then look up full url
       std::string
@@ -99,7 +99,7 @@ SEXP node_attr(XPtrNode node, std::string name, CharacterVector missing,
 
       std::string url = NsMap(nsMap).findUrl(prefix);
 
-      string = xmlGetNsProp(node.get(), asXmlChar(attr), asXmlChar(url));
+      string = xmlGetNsProp(node.checked_get(), asXmlChar(attr), asXmlChar(url));
     }
   }
 
@@ -110,7 +110,7 @@ SEXP node_attr(XPtrNode node, std::string name, CharacterVector missing,
 CharacterVector node_attrs(XPtrNode node_, CharacterVector nsMap) {
 
   int n = 0;
-  xmlNodePtr node = node_.get();
+  xmlNodePtr node = node_.checked_get();
 
   if (node->type == XML_ELEMENT_NODE) {
     // attributes
@@ -290,44 +290,44 @@ void removeNs(xmlNodePtr node, xmlChar* prefix) {
 }
 
 // [[Rcpp::export]]
-void node_set_attr(XPtrNode node, std::string name, std::string value, CharacterVector nsMap) {
+void node_set_attr(XPtrNode node_, std::string name, std::string value, CharacterVector nsMap) {
 
   bool remove = value.length() == 0;
+  const xmlNodePtr node = node_.checked_get();
 
   if (name == "xmlns") {
-    if (remove) removeNs(node.get(), NULL);
-    else xmlAddNamespace(node.get(), xmlNewNs(node.get(), asXmlChar(value), NULL));
+    if (remove) removeNs(node, NULL);
+    else xmlAddNamespace(node, xmlNewNs(node, asXmlChar(value), NULL));
     return;
   }
   if (hasPrefix("xmlns:", name)) {
     std::string prefix = name.substr(6);
-    if (remove) removeNs(node.get(), asXmlChar(prefix));
-    else xmlAddNamespace(node.get(), xmlNewNs(node.get(), asXmlChar(value), asXmlChar(prefix)));
+    if (remove) removeNs(node, asXmlChar(prefix));
+    else xmlAddNamespace(node, xmlNewNs(node, asXmlChar(value), asXmlChar(prefix)));
     return;
   }
 
   if (nsMap.size() == 0) {
-      if (remove) xmlUnsetProp(node.get(), asXmlChar(name));
-      else xmlSetProp(node.get(), asXmlChar(name), asXmlChar(value));
+      if (remove) xmlUnsetProp(node, asXmlChar(name));
+      else xmlSetProp(node, asXmlChar(name), asXmlChar(value));
   } else {
     size_t colon = name.find(":");
     if (colon == std::string::npos) {
       // Has namespace spec, but attribute not qualified, so just use that name
-      if (remove) xmlUnsetNsProp(node.get(), NULL, asXmlChar(name));
-      else xmlSetProp(node.get(), asXmlChar(name), asXmlChar(value));
+      if (remove) xmlUnsetNsProp(node, NULL, asXmlChar(name));
+      else xmlSetProp(node, asXmlChar(name), asXmlChar(value));
     } else {
       // Split name into prefix & attr, then look up full url
       std::string
       prefix = name.substr(0, colon),
         attr = name.substr(colon + 1, name.size() - 1);
 
-      xmlNodePtr node_ = node.get();
       std::string url = NsMap(nsMap).findUrl(prefix);
 
-      xmlNsPtr ns = xmlSearchNsByHref(node_->doc, node_, asXmlChar(url));
+      xmlNsPtr ns = xmlSearchNsByHref(node_->doc, node, asXmlChar(url));
 
-      if (remove) xmlUnsetNsProp(node_, ns, asXmlChar(attr));
-      else xmlSetNsProp(node_, ns, asXmlChar(attr), asXmlChar(value));
+      if (remove) xmlUnsetNsProp(node, ns, asXmlChar(attr));
+      else xmlSetNsProp(node, ns, asXmlChar(attr), asXmlChar(value));
     }
   }
 
@@ -339,7 +339,7 @@ CharacterVector node_format(XPtrDoc doc, XPtrNode node,
                         bool format = true,
                         int indent = 0) {
   boost::shared_ptr<xmlBuffer> buffer(xmlBufferCreate(), xmlFree);
-  xmlNodeDump(buffer.get(), doc.get(), node.get(), indent, format);
+  xmlNodeDump(buffer.get(), doc.checked_get(), node.checked_get(), indent, format);
 
   return Xml2String(buffer->content).asRString();
 }
@@ -422,13 +422,13 @@ XPtrNode node_parent(XPtrNode n) {
 // [[Rcpp::export]]
 void node_write(XPtrNode n, XPtrDoc d, std::string path) {
   FILE* f = fopen(path.c_str(), "wb");
-  xmlElemDump(f, d.get(), n.get());
+  xmlElemDump(f, d.checked_get(), n.checked_get());
   fclose(f);
 }
 
 // [[Rcpp::export]]
 std::string node_path(XPtrNode n) {
-  return Xml2String(xmlGetNodePath(n.get())).asStdString();
+  return Xml2String(xmlGetNodePath(n.checked_get())).asStdString();
 }
 
 // [[Rcpp::export]]
@@ -443,12 +443,12 @@ LogicalVector nodes_duplicated(List nodes) {
     bool result;
     if (RObject(nodes[i]).inherits("xml_node")) {
       XPtrNode node = as<XPtrNode>(List(nodes[i])["node"]);
-      result = !seen.insert(node.get()).second;
+      result = !seen.insert(node.checked_get()).second;
     } else if (RObject(nodes[i]).inherits("xml_missing")){
       result = false;
     } else {
       XPtrNode node = nodes[i];
-      result = !seen.insert(node.get()).second;
+      result = !seen.insert(node.checked_get()).second;
     }
     out[i] = result;
   }
@@ -463,23 +463,23 @@ int node_type(XPtrNode node) {
 
 // [[Rcpp::export]]
 void node_set_content(XPtrNode node, std::string content) {
-  return xmlNodeSetContentLen(node.get(), asXmlChar(content), content.size());
+  return xmlNodeSetContentLen(node.checked_get(), asXmlChar(content), content.size());
 }
 
 // [[Rcpp::export]]
 void node_append_content(XPtrNode node, std::string content) {
-  return xmlNodeAddContentLen(node.get(), asXmlChar(content), content.size());
+  return xmlNodeAddContentLen(node.checked_get(), asXmlChar(content), content.size());
 }
 
 // [[Rcpp::export]]
 XPtrNode node_add_child(XPtrNode parent, XPtrNode cur, bool copy) {
   xmlNodePtr node = NULL;
   if (copy) {
-    node = xmlCopyNode(cur.get(), 1);
+    node = xmlCopyNode(cur.checked_get(), 1);
   } else {
-    node = cur.get();
+    node = cur.checked_get();
   }
-  return XPtrNode(xmlAddChild(parent.get(), node));
+  return XPtrNode(xmlAddChild(parent.checked_get(), node));
 }
 
 // Previous sibling
@@ -487,11 +487,11 @@ XPtrNode node_add_child(XPtrNode parent, XPtrNode cur, bool copy) {
 XPtrNode node_prepend_sibling(XPtrNode cur, XPtrNode elem, bool copy) {
   xmlNodePtr node = NULL;
   if (copy) {
-    node = xmlCopyNode(elem.get(), 1);
+    node = xmlCopyNode(elem.checked_get(), 1);
   } else {
-    node = elem.get();
+    node = elem.checked_get();
   }
-  return XPtrNode(xmlAddPrevSibling(cur.get(), node));
+  return XPtrNode(xmlAddPrevSibling(cur.checked_get(), node));
 }
 
 // Append sibling
@@ -499,11 +499,11 @@ XPtrNode node_prepend_sibling(XPtrNode cur, XPtrNode elem, bool copy) {
 XPtrNode node_append_sibling(XPtrNode cur, XPtrNode elem, bool copy) {
   xmlNodePtr node = NULL;
   if (copy) {
-    node = xmlCopyNode(elem.get(), 1);
+    node = xmlCopyNode(elem.checked_get(), 1);
   } else {
-    node = elem.get();
+    node = elem.checked_get();
   }
-  return XPtrNode(xmlAddNextSibling(cur.get(), node));
+  return XPtrNode(xmlAddNextSibling(cur.checked_get(), node));
 }
 
 // Replace node
@@ -511,18 +511,18 @@ XPtrNode node_append_sibling(XPtrNode cur, XPtrNode elem, bool copy) {
 XPtrNode node_replace(XPtrNode old, XPtrNode cur, bool copy) {
   xmlNodePtr node = NULL;
   if (copy) {
-    node = xmlCopyNode(cur.get(), 1);
+    node = xmlCopyNode(cur.checked_get(), 1);
   } else {
-    node = cur.get();
+    node = cur.checked_get();
   }
-  return XPtrNode(xmlReplaceNode(old.get(), node));
+  return XPtrNode(xmlReplaceNode(old.checked_get(), node));
 }
 
 // [[Rcpp::export]]
 void node_remove(XPtrNode cur, bool free) {
-  xmlUnlinkNode(cur.get());
+  xmlUnlinkNode(cur.checked_get());
   if (free) {
-    xmlFreeNode(cur.get());
+    xmlFreeNode(cur.checked_get());
   }
   return;
 }
@@ -534,7 +534,7 @@ XPtrNode node_new(std::string name) {
 
 // [[Rcpp::export]]
 XPtrNode node_new_ns(std::string name, XPtrNs ns) {
-  return XPtrNode(xmlNewNode(ns.get(), asXmlChar(name)));
+  return XPtrNode(xmlNewNode(ns.checked_get(), asXmlChar(name)));
 }
 
 // [[Rcpp::export]]
@@ -544,19 +544,19 @@ XPtrNode node_null() {
 
 // [[Rcpp::export]]
 void node_set_namespace_uri(XPtrDoc doc, XPtrNode node, std::string uri) {
-  xmlNsPtr ns = xmlSearchNsByHref(doc.get(), node.get(), asXmlChar(uri));
+  xmlNsPtr ns = xmlSearchNsByHref(doc.checked_get(), node.checked_get(), asXmlChar(uri));
 
-  xmlSetNs(node.get(), ns);
+  xmlSetNs(node.checked_get(), ns);
 }
 
 // [[Rcpp::export]]
 void node_set_namespace_prefix(XPtrDoc doc, XPtrNode node, std::string prefix) {
   xmlNsPtr ns = NULL;
   if (prefix.length() == 0) {
-    ns = xmlSearchNs(doc.get(), node.get(), NULL);
+    ns = xmlSearchNs(doc.checked_get(), node.checked_get(), NULL);
   } else {
-    ns = xmlSearchNs(doc.get(), node.get(), asXmlChar(prefix));
+    ns = xmlSearchNs(doc.checked_get(), node.checked_get(), asXmlChar(prefix));
   }
 
-  xmlSetNs(node.get(), ns);
+  xmlSetNs(node.checked_get(), ns);
 }

@@ -2,6 +2,10 @@
 
 # xml2 1.0.0
 
+* All C++ functions now use `checked_get()` instead of `get()` where possible,
+  so NULL XPtrs properly throw an error rather than crashing. (@jimhester,
+  #101, #104).
+
 * `xml_integer()` and `xml_double()` functions to make it easy to extract
   integer and double text from nodes (@jimhester, #97, #99).
 

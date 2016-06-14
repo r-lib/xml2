@@ -246,15 +246,15 @@ BEGIN_RCPP
 END_RCPP
 }
 // node_set_attr
-void node_set_attr(XPtrNode node, std::string name, std::string value, CharacterVector nsMap);
-RcppExport SEXP xml2_node_set_attr(SEXP nodeSEXP, SEXP nameSEXP, SEXP valueSEXP, SEXP nsMapSEXP) {
+void node_set_attr(XPtrNode node_, std::string name, std::string value, CharacterVector nsMap);
+RcppExport SEXP xml2_node_set_attr(SEXP node_SEXP, SEXP nameSEXP, SEXP valueSEXP, SEXP nsMapSEXP) {
 BEGIN_RCPP
     Rcpp::RNGScope __rngScope;
-    Rcpp::traits::input_parameter< XPtrNode >::type node(nodeSEXP);
+    Rcpp::traits::input_parameter< XPtrNode >::type node_(node_SEXP);
     Rcpp::traits::input_parameter< std::string >::type name(nameSEXP);
     Rcpp::traits::input_parameter< std::string >::type value(valueSEXP);
     Rcpp::traits::input_parameter< CharacterVector >::type nsMap(nsMapSEXP);
-    node_set_attr(node, name, value, nsMap);
+    node_set_attr(node_, name, value, nsMap);
     return R_NilValue;
 END_RCPP
 }

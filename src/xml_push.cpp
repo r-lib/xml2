@@ -57,14 +57,14 @@ XPtrXmlParser xml_push_parser_create(std::string uri) {
 
 bool xml_push_parser_feed(XPtrXmlParser parser, SEXP data) {
   size_t size = Rf_length(data);
-  int res = xmlParseChunk(parser.get(), (const char*) RAW(data), size, 0);
+  int res = xmlParseChunk(parser.checked_get(), (const char*) RAW(data), size, 0);
   if (res)
     Rcpp::stop("XML Parsing Error: %d", res);
   return true;
 }
 
 bool xml_push_parser_complete(XPtrXmlParser parser) {
-  int res = xmlParseChunk(parser.get(), NULL, 0, 1);
+  int res = xmlParseChunk(parser.checked_get(), NULL, 0, 1);
   if (res)
     Rcpp::stop("XML Parsing Error: %d", res);
   return true;
@@ -89,12 +89,12 @@ XPtrHtmlParser html_push_parser_create(std::string uri) {
 }
 
 bool html_push_parser_feed(XPtrHtmlParser parser, SEXP data) {
-  htmlParseChunk(parser.get(), (const char*) RAW(data), Rf_length(data), 0);
+  htmlParseChunk(parser.checked_get(), (const char*) RAW(data), Rf_length(data), 0);
   return true;
 }
 
 bool html_push_parser_complete(XPtrHtmlParser parser) {
-  htmlParseChunk(parser.get(), NULL, 0, 1);
+  htmlParseChunk(parser.checked_get(), NULL, 0, 1);
   return true;
 }
 
