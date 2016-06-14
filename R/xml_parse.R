@@ -77,7 +77,7 @@ read_html <- function(x, encoding = "", ..., options = c("RECOVER", "NOERROR", "
 
 #' @export
 read_html.default <- function(x, encoding = "", ..., options = c("RECOVER", "NOERROR", "NOBLANKS")) {
-  suppressWarnings(read_xml(x, encoding, ..., as_html = TRUE, options = options))
+  suppressWarnings(read_xml(x, encoding = encoding, ..., as_html = TRUE, options = options))
 }
 
 #' @export
