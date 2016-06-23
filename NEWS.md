@@ -1,4 +1,4 @@
-# xml2 0.1.2.9000
+# xml2 1.0.0
 
 * `xml_integer()` and `xml_double()` functions to make it easy to extract
   integer and double text from nodes (@jimhester, #97, #99).
