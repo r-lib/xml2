@@ -22,6 +22,3 @@ I ran `R CMD check` on all 51 reverse dependencies (https://github.com/hadley/xm
 There were 2 Warnings in rversions and docxtractr due to deprecated functions,
 these maintainers have been alerted to the changes and will release new
 versions of their packages soon.
-
-There was 1 Error in rvest, a new version of that package has now been released
-to address the issues.
