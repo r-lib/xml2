@@ -3,8 +3,9 @@
 windows
 .travis.yml
 ^cran-comments\.md$
-^NEWS\.md$
 ^revdep$
 ^src/Makevars$
 ^codecov\.yml$
 ^docker$
+^src/\.ycm_extra_conf\.py$
+^src/\.ycm_extra_conf\.pyc$
