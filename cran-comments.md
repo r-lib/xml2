@@ -1,14 +1,14 @@
 ## Release summary
 
-This release fixes configure problems on windows (it may also fix on solaris, but we haven't been able to recreate the problem locally).
+This release allows for mutating XML nodes.
 
 ## Test environments
-* local OS X install, R 3.2.1.
-* ubuntu 12.04 (on travis-ci), R 3.2.2.
+* local OS X install, R 3.3.0.
+* ubuntu 12.04 (on travis-ci), R 3.3.0.
 * win-builder (devel and release)
 
 ## R CMD check results
-There were no ERRORs or WARNINGs. 
+There were no ERRORs or WARNINGs.
 
 There was 1 NOTE:
 
@@ -17,4 +17,11 @@ There was 1 NOTE:
   do about this.
 
 ## Downstream dependencies
-I ran `R CMD check` on all 6 reverse dependencies (https://github.com/hadley/xml2/tree/master/revdep/summary.md).  As far as I can tell, there are no new problems related to xml2.
+I ran `R CMD check` on all 51 reverse dependencies (https://github.com/hadley/xml2/tree/master/revdep/summary.md). 
+
+There were 2 Warnings in rversions and docxtractr due to deprecated functions,
+these maintainers have been alerted to the changes and will release new
+versions of their packages soon.
+
+There was 1 Error in rvest, a new version of that package has now been released
+to address the issues.
