@@ -1,3 +1,5 @@
+# xml2 1.0.0.9000
+
 # xml2 1.0.0
 
 * `xml_integer()` and `xml_double()` functions to make it easy to extract

@@ -1,5 +1,5 @@
 Package: xml2
-Version: 1.0.0
+Version: 1.0.0.9000
 Title: Parse XML
 Description: Work with XML files using a simple, consistent interface. Built on
     top of the 'libxml2' C library.
