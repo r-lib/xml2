@@ -1,12 +1,41 @@
-language: R
+language: r
 cache: packages
 
-github_packages: jimhester/covr
+matrix:
+  include:
+    - os: linux
+      dist: precise
+      sudo: false
+    - os: linux
+      dist: trusty
+      env: R_CODECOV=true
+    - os: osx
+      osx_image: xcode7.2
+      brew_packages: libxml2
+      latex: false
+      env: BREW_FORCE: true
+    - os: osx
+      osx_image: beta-xcode6.1
+      disable_homebrew: true
 
 addons:
   apt:
     packages:
       - libxml2-dev
 
+r_github_packages:
+  - jimhester/covr
+
+warnings_are_errors: true
+#r_check_revdep: true
+
+notifications:
+  email:
+    on_success: change
+    on_failure: change
+
+before_install:
+  - if [ "${BREW_FORCE}" ]; brew link --force libxml2; fi
+
 after_success:
-  - Rscript -e 'covr::codecov()'
+  - if [[ "${R_CODECOV}" ]]; then R -e 'covr::codecov()'; fi
