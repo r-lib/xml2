@@ -81,8 +81,8 @@ node_attrs <- function(node_, nsMap) {
     .Call('xml2_node_attrs', PACKAGE = 'xml2', node_, nsMap)
 }
 
-node_set_attr <- function(node, name, value, nsMap) {
-    invisible(.Call('xml2_node_set_attr', PACKAGE = 'xml2', node, name, value, nsMap))
+node_set_attr <- function(node_, name, value, nsMap) {
+    invisible(.Call('xml2_node_set_attr', PACKAGE = 'xml2', node_, name, value, nsMap))
 }
 
 node_format <- function(doc, node, format = TRUE, indent = 0L) {
