@@ -9,11 +9,13 @@ matrix:
     - os: linux
       dist: trusty
       env: R_CODECOV=true
+      r_check_args: '--use-valgrind'
     - os: osx
-      osx_image: xcode7.2
-      brew_packages: libxml2
+      osx_image: xcode8
+      before_install:
+        - brew install libxml2
+        - brew link --force libxml2
       latex: false
-      env: BREW_FORCE: true
     - os: osx
       osx_image: beta-xcode6.1
       disable_homebrew: true
@@ -22,6 +24,7 @@ addons:
   apt:
     packages:
       - libxml2-dev
+      - valgrind
 
 r_github_packages:
   - jimhester/covr
@@ -33,9 +36,6 @@ notifications:
   email:
     on_success: change
     on_failure: change
-
-before_install:
-  - if [ "${BREW_FORCE}" ]; brew link --force libxml2; fi
 
 after_success:
   - if [[ "${R_CODECOV}" ]]; then R -e 'covr::codecov()'; fi
