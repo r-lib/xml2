@@ -56,7 +56,7 @@ as_list.xml_node <- function(x, ns = character(), ...) {
   # Add xml attributes as R attributes
   attr <- xml_attrs(x, ns = ns)
   if (length(attr) > 0)
-    attributes(out) <- as.list(attr)
+    attributes(out) <- c(list(names=names(out)), as.list(attr))
 
   out
 }
