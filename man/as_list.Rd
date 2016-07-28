@@ -30,7 +30,10 @@ children that an element might have:
 
 \itemize{
   \item Other elements, converted to lists.
-  \item Attributes, stored as R attributes.
+  \item Attributes, stored as R attributes. Attributes that have special meanings in R
+          (\code{\link{class}}, \code{\link{comment}}, \code{\link{dim}},
+          \code{\link{dimnames}}, \code{\link{names}}, \code{\link{row.names}} and
+          \code{\link{tsp}}) are escaped with '.'
   \item Text, stored as a character vector.
 }
 }
