@@ -61,8 +61,7 @@ as_list.xml_node <- function(x, ns = character(), ...) {
   if (length(attr) > 0) {
     # escape special names
     special <- names(attr) %in% c("class", "comment", "dim", "dimnames", "names", "row.names", "tsp")
-    if(any(special))
-      names(attr)[special] <- paste0(".", names(attr)[special])
+    names(attr)[special] <- paste0(".", names(attr)[special])
     attributes(out) <- c(list(names = names(out)), as.list(attr))
   }
 
