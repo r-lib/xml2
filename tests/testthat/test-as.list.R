@@ -23,5 +23,5 @@ test_that("xml attributes become R attibutes", {
 
 test_that("xml names are preserved when attributes exist", {
   expect_equal(list_xml("<x a='1' b='2'><y>3</y><z>4</z></x>"),
-               structure(list(y=list('3'),z=list('4')), names = c("y","z"), a = "1", b = "2"))
+               structure(list(y = list('3'), z = list('4')), names = c("y", "z"), a = "1", b = "2"))
 })
