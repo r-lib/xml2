@@ -1,5 +1,8 @@
 # xml2 1.0.0.9000
 
+* `as_list()` now preserves element names when attributes exist, and escapes 
+  XML attributes that conflict with special R attributes (@peterfoley, #115).
+
 # xml2 1.0.0
 
 * All C++ functions now use `checked_get()` instead of `get()` where possible,

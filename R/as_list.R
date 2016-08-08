@@ -10,7 +10,10 @@
 #'
 #' \itemize{
 #'   \item Other elements, converted to lists.
-#'   \item Attributes, stored as R attributes.
+#'   \item Attributes, stored as R attributes. Attributes that have special meanings in R
+#'           (\code{\link{class}}, \code{\link{comment}}, \code{\link{dim}},
+#'           \code{\link{dimnames}}, \code{\link{names}}, \code{\link{row.names}} and
+#'           \code{\link{tsp}}) are escaped with '.'
 #'   \item Text, stored as a character vector.
 #' }
 #'
@@ -55,8 +58,12 @@ as_list.xml_node <- function(x, ns = character(), ...) {
 
   # Add xml attributes as R attributes
   attr <- xml_attrs(x, ns = ns)
-  if (length(attr) > 0)
-    attributes(out) <- as.list(attr)
+  if (length(attr) > 0) {
+    # escape special names
+    special <- names(attr) %in% c("class", "comment", "dim", "dimnames", "names", "row.names", "tsp")
+    names(attr)[special] <- paste0(".", names(attr)[special])
+    attributes(out) <- c(list(names = names(out)), as.list(attr))
+  }
 
   out
 }
