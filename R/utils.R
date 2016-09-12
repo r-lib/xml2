@@ -3,6 +3,7 @@
 is_named <- function(x) {
   all(has_names(x))
 }
+
 has_names <- function(x) {
   nms <- names(x)
   if (is.null(nms)) {
@@ -10,6 +11,24 @@ has_names <- function(x) {
   } else {
     !(is.na(nms) | nms == "")
   }
+}
+
+to_named_char <- function(x) {
+  if (is.character(x)) {
+    return(x)
+  }
+
+  if (is.list(x)) {
+    x <- unlist(x)
+  }
+
+  if (!is.character(x)) {
+    nms <- names(x)
+    x <- as.character(x)
+    names(x) <- nms
+  }
+
+  x
 }
 
 # non smart quote version of sQuote

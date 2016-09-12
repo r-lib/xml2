@@ -107,6 +107,22 @@ test_that("xml_attrs<- modifies all attributes", {
   expect_equivalent(xml_attrs(docs, ns), list(character(0), character(0)))
 })
 
+test_that("xml_attr<- accepts non-character values", {
+  x <- read_xml('<svg><rect /></svg>')
+  svg <- xml_root(x)
+
+  xml_attr(svg, "width") <- 8L
+  expect_that(xml_attr(svg, "width"), equals("8"))
+
+  xml_attr(svg, "height") <- 12.5
+  expect_that(xml_attr(svg, "height"), equals("12.5"))
+
+  expect_that(xml_attrs(svg), equals(c(width = "8", height = "12.5")))
+
+  xml_attrs(svg) <- c(width = 14L, height = 23.45)
+  expect_that(xml_attrs(svg), equals(c(width = "14", height = "23.45")))
+})
+
 test_that("xml_attr<- removes namespaces if desired", {
   xml_attr(x, "xmlns:b") <- NULL
 
