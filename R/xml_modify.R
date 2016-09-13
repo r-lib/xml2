@@ -56,7 +56,7 @@ xml_add_sibling.xml_node <- function(.x, .value, ..., .where = c("after", "befor
     before = node_prepend_sibling(.x$node, node$node, .copy),
     after = node_append_sibling(.x$node, node$node, .copy))
 
-  .x
+  invisible(.x)
 }
 
 #' @export
@@ -68,7 +68,7 @@ xml_add_sibling.xml_nodeset <- function(.x, .value, ..., .where = c("after", "be
     .value <- list(.value)
   }
 
-  Map(xml_add_sibling, rev(.x), rev(.value), ..., .where = .where, .copy = .copy)
+  invisible(Map(xml_add_sibling, rev(.x), rev(.value), ..., .where = .where, .copy = .copy))
 }
 
 # Helper function used in the xml_add* methods
@@ -109,7 +109,7 @@ xml_add_child.xml_node <- function(.x, .value, ..., .copy = inherits(.value, "xm
   node <- create_node(.value, .x, ...)
   node_add_child(.x$node, node$node, .copy)
 
-  node
+  invisible(node)
 }
 
 #' @export
@@ -122,7 +122,7 @@ xml_add_child.xml_document <- function(.x, .value, ..., .copy = inherits(.value,
       doc_set_root(.x$doc, node$node)
     }
     node_add_child(doc_root(.x$doc), node$node, .copy)
-    xml_document(.x$doc)
+    invisible(xml_document(.x$doc))
   }
 }
 
@@ -134,7 +134,7 @@ xml_add_child.xml_nodeset <- function(.x, .value, ..., .copy = TRUE) {
     .value <- list(.value)
   }
 
-  Map(xml_add_child, .x, .value, ..., .copy = .copy)
+  invisible(Map(xml_add_child, .x, .value, ..., .copy = .copy))
 }
 
 #' @rdname xml_replace
