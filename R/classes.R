@@ -39,17 +39,22 @@ print.xml_missing <- function(x, width = getOption("width"), max_n = 20, ...) {
 # document ---------------------------------------------------------------------
 
 xml_document <- function(doc) {
-  x <- xml_node(doc_root(doc), doc)
-  class(x) <- c("xml_document", class(x))
-  x
+  if (doc_has_root(doc)) {
+    x <- xml_node(doc_root(doc), doc)
+    class(x) <- c("xml_document", class(x))
+    x
+  } else {
+    structure(list(doc = doc), class = "xml_document")
+  }
 }
 
 #' @export
 print.xml_document <- function(x, width = getOption("width"), max_n = 20, ...) {
+  doc <- xml_document(x$doc)
   cat("{xml_document}\n")
-  if (inherits(x, "xml_node")) {
-    cat(format(x), "\n", sep = "")
-    show_nodes(xml_children(x), width = width, max_n = max_n)
+  if (inherits(doc, "xml_node")) {
+    cat(format(doc), "\n", sep = "")
+    show_nodes(xml_children(doc), width = width, max_n = max_n)
   }
 }
 

@@ -36,3 +36,15 @@ test_that("xml_parents", {
     xml_name(xml_parents(xml_find_first(x, "//boo"))),
     c("bar", "foo"))
 })
+
+test_that("xml_root", {
+  doc <- xml_new_document()
+
+  expect_is(xml_root(doc), "xml_missing")
+
+  a <- xml_add_child(doc, "a")
+  b <- xml_add_child(doc, "b")
+
+  expect_that(xml_name(xml_root(b)), equals("a"))
+  expect_that(xml_name(xml_root(doc)), equals("a"))
+})
