@@ -12,6 +12,9 @@ matrix:
       r_check_args: '--use-valgrind'
     - os: osx
       osx_image: xcode8
+      latex: false
+    - os: osx
+      osx_image: xcode8
       before_install:
         - brew install libxml2
         - brew link --force libxml2
