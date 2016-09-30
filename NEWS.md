@@ -1,5 +1,7 @@
 # xml2 1.0.0.9000
 
+* Add `write_html()` method (#133).
+
 * `as_list()` now preserves element names when attributes exist, and escapes 
   XML attributes that conflict with special R attributes (@peterfoley, #115).
 

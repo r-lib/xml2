@@ -63,26 +63,6 @@ XPtrDoc doc_parse_raw(RawVector x, std::string encoding,
 }
 
 // [[Rcpp::export]]
-CharacterVector doc_format(XPtrDoc x) {
-  xmlChar *s;
-  xmlDocDumpMemory(x.checked_get(), &s, NULL);
-
-  return Xml2String(s).asRString();
-}
-
-// [[Rcpp::export]]
-void doc_write(XPtrDoc x, std::string path, bool format) {
-  FILE* f = fopen(R_ExpandFileName(path.c_str()), "wb");
-
-  int res = xmlDocFormatDump(f, x.checked_get(), format ? 1 : 0);
-  fclose(f);
-
-  if (res == -1) {
-    Rcpp::stop("Failed to write to %s", path);
-  }
-}
-
-// [[Rcpp::export]]
 XPtrNode doc_root(XPtrDoc x) {
   return XPtrNode(xmlDocGetRootElement(x.checked_get()));
 }

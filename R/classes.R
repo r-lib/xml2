@@ -14,7 +14,7 @@ xml_node <- function(node = NULL, doc = NULL) {
 
 #' @export
 as.character.xml_node <- function(x, ...) {
-  node_format(x$doc, x$node)
+  node_format_xml(x$doc, x$node)
 }
 
 #' @export
@@ -55,7 +55,7 @@ print.xml_document <- function(x, width = getOption("width"), max_n = 20, ...) {
 
 #' @export
 as.character.xml_document <- function(x, ...) {
-  doc_format(x$doc)
+  doc_format_xml(x$doc)
 }
 
 # nodeset ----------------------------------------------------------------------

@@ -334,16 +334,6 @@ void node_set_attr(XPtrNode node_, std::string name, std::string value, Characte
   return;
 }
 
-// [[Rcpp::export]]
-CharacterVector node_format(XPtrDoc doc, XPtrNode node,
-                        bool format = true,
-                        int indent = 0) {
-  boost::shared_ptr<xmlBuffer> buffer(xmlBufferCreate(), xmlFree);
-  xmlNodeDump(buffer.get(), doc.checked_get(), node.checked_get(), indent, format);
-
-  return Xml2String(buffer->content).asRString();
-}
-
 List asList(std::vector<xmlNode*> nodes) {
   List out(nodes.size());
   for (size_t i = 0; i < nodes.size(); ++i)
@@ -417,13 +407,6 @@ XPtrNode node_parent(XPtrNode n) {
   if (n->parent == NULL)
     Rcpp::stop("Parent does not exist");
   return XPtrNode(n->parent);
-}
-
-// [[Rcpp::export]]
-void node_write(XPtrNode n, XPtrDoc d, std::string path) {
-  FILE* f = fopen(path.c_str(), "wb");
-  xmlElemDump(f, d.checked_get(), n.checked_get());
-  fclose(f);
 }
 
 // [[Rcpp::export]]
