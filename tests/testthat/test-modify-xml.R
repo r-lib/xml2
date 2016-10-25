@@ -113,7 +113,7 @@ test_that("xml_prepend_child prepends a child node", {
 
   children <- xml_children(x)
   xml_prepend_child(children, t2)
-  expect_equal(xml_text(x), "3231232233")
+  expect_equal(xml_text(x), "2332312323")
 })
 
 test_that("xml_append_child appends a child node", {

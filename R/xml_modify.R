@@ -148,9 +148,9 @@ xml_prepend_child <- function(.x, .value, ..., .copy = TRUE) {
 
 #' @export
 xml_prepend_child.xml_node <- function(.x, .value, ..., .copy = inherits(.value, "xml_node")) {
-  children <- xml_children(.x)
-  if (length(children)) {
-    sibling <- children[[1]]
+  contents <- xml_contents(.x)
+  if (length(contents)) {
+    sibling <- contents[[1]]
     xml_add_sibling(sibling, .value, ..., .where = "before", .copy = .copy)
   } else {
     xml_add_child(.x, .value, ..., .copy = .copy)
