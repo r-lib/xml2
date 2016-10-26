@@ -13,6 +13,8 @@ matrix:
     - os: osx
       osx_image: xcode8
       latex: false
+      before_install:
+        - sed -i.bak 's#prefix=$(xcrun -show-sdk-path)/usr#prefix=/usr#' /usr/bin/xml2-config
     - os: osx
       osx_image: xcode8
       before_install:
