@@ -8,6 +8,7 @@ matrix:
       sudo: false
     - os: linux
       dist: trusty
+      sudo: required
       env: R_CODECOV=true
       r_check_args: '--use-valgrind'
     - os: osx
