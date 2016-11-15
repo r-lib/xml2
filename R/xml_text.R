@@ -1,7 +1,7 @@
 #' Extract or modify the text
 #'
 #' \code{xml_text} returns a character vector, \code{xml_double} returns a
-#' numeric vector, \code{xml_integer} returns an integer vector. 
+#' numeric vector, \code{xml_integer} returns an integer vector.
 #' @inheritParams xml_name
 #' @param trim If \code{TRUE} will trim leading and trailing spaces.
 #' @return A character vector, the same length as x.
@@ -119,5 +119,5 @@ xml_integer.xml_node <- function(x) {
 
 #' @export
 xml_integer.xml_nodeset <- function(x) {
-  vapply(x, xml_integer, numeric(1))
+  vapply(x, xml_integer, integer(1))
 }
