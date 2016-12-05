@@ -1,6 +1,6 @@
 #' Modify a tree by inserting, replacing or removing nodes
 #'
-#' \code{xml_add_sbling()} and \code{xml_add_child()} are used to insert a node
+#' \code{xml_add_sibling()} and \code{xml_add_child()} are used to insert a node
 #' as a sibling or a child. \code{xml_replace()} replaces an existing node with
 #' a new node. \code{xml_remove()} removes a node from the tree.
 #'

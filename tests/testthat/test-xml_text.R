@@ -25,7 +25,7 @@ test_that("xml_text works properly with xml_nodeset objects", {
     c("This is some text. This is some nested text.", "This is some nested text."))
 })
 
-test_that("xml_text trims whisespace if requested", {
+test_that("xml_text trims whitespace if requested", {
   x <- read_xml("<p>   Some text    </p>")
   expect_equal(xml_text(x),
     "   Some text    ")
