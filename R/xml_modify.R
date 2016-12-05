@@ -1,7 +1,10 @@
 #' Modify a tree by inserting, replacing or removing nodes
 #'
 #' \code{xml_add_sbling()} and \code{xml_add_child()} are used to insert a node
-#' as a sibling or a child. \code{xml_replace()} replaces an existing node with
+#' as a sibling or a child. \code{xml_prepend_child()} and
+#' \code{xml_append_child()} ensure that inserted nodes are either at the
+#' beginning or end of the child node list respectively.
+#' \code{xml_replace()} replaces an existing node with
 #' a new node. \code{xml_remove()} removes a node from the tree.
 #'
 #' @details Care needs to be taken when using \code{xml_remove()},
@@ -135,6 +138,49 @@ xml_add_child.xml_nodeset <- function(.x, .value, ..., .copy = TRUE) {
   }
 
   Map(xml_add_child, .x, .value, ..., .copy = .copy)
+}
+
+#' @rdname xml_replace
+#' @export
+xml_prepend_child <- function(.x, .value, ..., .copy = TRUE) {
+  UseMethod("xml_prepend_child")
+}
+
+#' @export
+xml_prepend_child.xml_node <- function(.x, .value, ..., .copy = inherits(.value, "xml_node")) {
+  contents <- xml_contents(.x)
+  if (length(contents)) {
+    sibling <- contents[[1]]
+    xml_add_sibling(sibling, .value, ..., .where = "before", .copy = .copy)
+  } else {
+    xml_add_child(.x, .value, ..., .copy = .copy)
+  }
+}
+
+#' @export
+xml_prepend_child.xml_document <- function(.x, .value, ..., .copy = inherits(.value, "xml_node")) {
+  if (inherits(.x, "xml_node")) {
+    NextMethod("xml_prepend_child")
+  } else {
+    xml_add_child(.x, .value, ..., .copy = .copy)
+  }
+}
+
+#' @export
+xml_prepend_child.xml_nodeset <- function(.x, .value, ..., .copy = TRUE) {
+
+  # Need to wrap this in a list if a bare xml_node so it is recycled properly
+  if (inherits(.value, "xml_node")) {
+    .value <- list(.value)
+  }
+
+  Map(xml_prepend_child, .x, .value, ..., .copy = .copy)
+}
+
+#' @rdname xml_replace
+#' @export
+xml_append_child <- function(.x, .value, ..., .copy = TRUE) {
+  UseMethod("xml_add_child") # just an alias to be symmetric with prepend
 }
 
 #' @rdname xml_replace

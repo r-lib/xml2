@@ -98,6 +98,43 @@ test_that("xml_add_child adds a child node", {
   expect_equal(xml_text(x), "1313231313")
 })
 
+test_that("xml_prepend_child prepends a child node", {
+  x <- read_xml("<parent><child>1</child><child>2<child>3</child></child></parent>")
+  children <- xml_children(x)
+  t1 <- children[[1]]
+  t2 <- children[[2]]
+  t3 <- xml_children(children[[2]])[[1]]
+
+  parent <- xml_root(x)
+
+  xml_prepend_child(parent, t3, .copy = TRUE)
+  expect_length(xml_children(parent), 3)
+  expect_equal(xml_text(x), "3123")
+
+  children <- xml_children(x)
+  xml_prepend_child(children, t2)
+  expect_equal(xml_text(x), "2332312323")
+})
+
+test_that("xml_append_child appends a child node", {
+  # basically just test that it works equivalent to xml_add_child
+  x <- read_xml("<parent><child>1</child><child>2<child>3</child></child></parent>")
+  children <- xml_children(x)
+  t1 <- children[[1]]
+  t2 <- children[[2]]
+  t3 <- xml_children(children[[2]])[[1]]
+
+  expect_length(xml_children(t1), 0)
+
+  xml_append_child(t1, t3, .copy = TRUE)
+  expect_length(xml_children(t1), 1)
+  expect_equal(xml_text(x), "1323")
+
+  children <- xml_children(x)
+  xml_append_child(children, t1)
+  expect_equal(xml_text(x), "1313231313")
+})
+
 test_that("xml_add_child can create a new default namespace", {
   x <- xml_root(xml_add_child(xml_new_document(), "foo", xmlns = "bar"))
 
