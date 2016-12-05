@@ -1,5 +1,11 @@
 # xml2 1.0.0.9000
 
+* Fixed return value in call to vapply in xml_integer.xml_nodeset. (@ddiez, #146, #147).
+
+* Allow docs missing a root element to be created and printed. (@sjp, #126, #121).
+
+* xml_add_* methods now return invisibly. (@sjp, #124)
+
 * Add `write_html()` method (#133).
 
 * `as_list()` now preserves element names when attributes exist, and escapes 
