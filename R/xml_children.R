@@ -133,5 +133,9 @@ xml_root <- function(x) {
       return(xml_root(x[[1]]))
     }
   }
-  xml_document(x$doc)
+  if (!doc_has_root(x$doc)) {
+    structure(list(), class = "xml_missing")
+  } else {
+    xml_document(x$doc)
+  }
 }

@@ -55,8 +55,6 @@ test_that("accessors all fail rather than crash with NULL Xptrs", {
 
   expect_error(xml_replace(x, x), "external pointer is not valid")
 
-  expect_error(xml_root(x), "external pointer is not valid")
-
   expect_error(xml_set_namespace(x, "foo"), "external pointer is not valid")
 
   expect_error(xml_siblings(x), "external pointer is not valid")
