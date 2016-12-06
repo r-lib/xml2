@@ -1,5 +1,7 @@
 # xml2 1.0.0.9000
 
+* Trim non-breaking spaces in `xml_text(trim = TRUE)` (#151).
+
 * Allow setting non-character attributes (values are coerced to characters). (@sjp, #117, #122).
 
 * Fixed return value in call to vapply in xml_integer.xml_nodeset. (@ddiez, #146, #147).
