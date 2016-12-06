@@ -139,7 +139,7 @@ xml_attrs.xml_nodeset <- function(x, ns = character()) {
   attrs <- names(value)
 
   # as.character removes all attributes (including names)
-  value <- setNames(as.character(value), attrs)
+  value <- stats::setNames(as.character(value), attrs)
 
   current_attrs <- names(xml_attrs(x, ns = ns))
 
