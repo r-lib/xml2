@@ -174,3 +174,6 @@ format_attributes <- function(x) {
 xml_missing <- function() {
   structure(list(), class = "xml_missing")
 }
+
+#' @export
+is.na.xml_missing <- function(x) TRUE

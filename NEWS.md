@@ -1,5 +1,7 @@
 # xml2 1.0.0.9000
 
+* `is.na()` now returns `TRUE` for `xml_missing` objects. (#139)
+
 * Trim non-breaking spaces in `xml_text(trim = TRUE)` (#151).
 
 * Allow setting non-character attributes (values are coerced to characters). (@sjp, #117, #122).

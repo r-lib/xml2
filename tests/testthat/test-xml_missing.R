@@ -37,3 +37,7 @@ test_that("xml_missing methods return properly for all S3 methods", {
   expect_equal(xml_type(mss), NA_character_)
   expect_equal(xml_url(mss), NA_character_)
 })
+
+test_that("is.na() should return TRUE for xml_missing",
+  expect_true(is.na(xml_missing()))
+)
