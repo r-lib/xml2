@@ -118,7 +118,7 @@ xml_length.xml_nodeset <- function(x, only_elements = TRUE) {
   if (length(x) == 0)
     return(0L)
 
-  vapply(x, node_length, onlyNode = only_elements, FUN.VALUE = integer(1))
+  vapply(x, xml_length, only_elements = only_elements, FUN.VALUE = integer(1))
 }
 
 #' @export

@@ -25,6 +25,8 @@ test_that("xml_child() errors if search is not numeric or character", {
 
 test_that("xml_length", {
   expect_equal(xml_length(x), 2)
+  all <- xml_find_all(x, "//*")
+  expect_equal(xml_length(all), c(1, 1, 0))
 })
 
 test_that("xml_parent", {
