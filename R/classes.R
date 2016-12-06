@@ -167,3 +167,10 @@ format_attributes <- function(x) {
     paste(names(x), quote_str(x), sep = "=")
   }
 }
+
+#' Construct an missing xml object
+#' @keywords internal
+#' @export
+xml_missing <- function() {
+  structure(list(), class = "xml_missing")
+}
