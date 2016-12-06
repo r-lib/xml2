@@ -13,24 +13,6 @@ has_names <- function(x) {
   }
 }
 
-to_named_char <- function(x) {
-  if (is.character(x)) {
-    return(x)
-  }
-
-  if (is.list(x)) {
-    x <- unlist(x)
-  }
-
-  if (!is.character(x)) {
-    nms <- names(x)
-    x <- as.character(x)
-    names(x) <- nms
-  }
-
-  x
-}
-
 # non smart quote version of sQuote
 quote_str <- function(x, quote = "\"") {
   if (!length(x)) {

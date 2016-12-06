@@ -112,7 +112,7 @@ xml_attrs.xml_nodeset <- function(x, ns = character()) {
   if (is.null(value)) {
     node_set_attr(x$node, name = attr, nsMap = ns, "")
   } else {
-    value <- to_named_char(value)
+    value <- as.character(value)
     node_set_attr(x$node, name = attr, nsMap = ns, value)
   }
   x
@@ -136,8 +136,10 @@ xml_attrs.xml_nodeset <- function(x, ns = character()) {
     stop("`value` must be a named character vector or `NULL`", call. = FALSE)
   }
 
-  value <- to_named_char(value)
   attrs <- names(value)
+
+  # as.character removes all attributes (including names)
+  value <- setNames(as.character(value), attrs)
 
   current_attrs <- names(xml_attrs(x, ns = ns))
 
