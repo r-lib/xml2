@@ -2,10 +2,10 @@
 % Please edit documentation in R/xml_attr.R
 \name{xml_attr}
 \alias{xml_attr}
-\alias{xml_attr<-}
-\alias{xml_attrs}
-\alias{xml_attrs<-}
 \alias{xml_has_attr}
+\alias{xml_attrs}
+\alias{xml_attr<-}
+\alias{xml_attrs<-}
 \title{Retrieve an attribute.}
 \usage{
 xml_attr(x, attr, ns = character(), default = NA_character_)

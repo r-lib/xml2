@@ -2,10 +2,10 @@
 % Please edit documentation in R/xml_find.R
 \name{xml_find_all}
 \alias{xml_find_all}
-\alias{xml_find_chr}
 \alias{xml_find_first}
-\alias{xml_find_lgl}
 \alias{xml_find_num}
+\alias{xml_find_chr}
+\alias{xml_find_lgl}
 \alias{xml_find_one}
 \title{Find nodes that match an xpath expression.}
 \usage{
