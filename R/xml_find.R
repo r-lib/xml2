@@ -101,7 +101,7 @@ xml_find_first <- function(x, xpath, ns = xml_ns(x)) {
 }
 
 xml_find_first.xml_missing <- function(x, xpath, ns = xml_ns(x)) {
-  structure(list(), class = "xml_missing")
+  xml_missing()
 }
 
 #' @export

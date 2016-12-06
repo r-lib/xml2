@@ -83,7 +83,7 @@ xml_parent <- function(x) {
 
 #' @export
 xml_parent.xml_missing <- function(x) {
-  structure(list(), class = "xml_missing")
+  xml_missing()
 }
 
 #' @export
@@ -134,7 +134,7 @@ xml_root <- function(x) {
     }
   }
   if (!doc_has_root(x$doc)) {
-    structure(list(), class = "xml_missing")
+    xml_missing()
   } else {
     xml_document(x$doc)
   }

@@ -4,7 +4,7 @@ context("xml_find")
 
 test_that("xml_find_first returns a missing object if no match", {
   x <- read_xml("<x><y/></x>")
-  expect_equal(xml_find_first(x, ".//z"), structure(list(), class = "xml_missing"))
+  expect_equal(xml_find_first(x, ".//z"), xml_missing())
 })
 
 test_that("xml_find_first returns the first match if more than one match", {
