@@ -20,4 +20,3 @@ the node (invisibly)
 The namespace to be set must be already defined in one of the node's
 ancestors.
 }
-

@@ -28,4 +28,3 @@ xml_find_all(x, "//d2:baz")
 xml_ns_strip(x)
 xml_find_all(x, "//baz")
 }
-

@@ -31,4 +31,3 @@ url_relative("http://hadley.nz/a/c", "http://hadley.nz/a/b/")
 \seealso{
 \code{\link{xml_url}} to retrieve the URL associated with a document
 }
-

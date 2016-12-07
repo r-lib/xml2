@@ -41,4 +41,3 @@ a new node. \code{xml_remove()} removes a node from the tree.
 \details{
 Care needs to be taken when using \code{xml_remove()},
 }
-

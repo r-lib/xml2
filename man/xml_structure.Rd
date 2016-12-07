@@ -30,4 +30,3 @@ xml_structure(xml_find_all(rproj, ".//p"))
 h <- read_html("<body><p id = 'a'></p><p class = 'c d'></p></body>")
 html_structure(h)
 }
-

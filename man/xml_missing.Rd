@@ -10,4 +10,3 @@ xml_missing()
 Construct an missing xml object
 }
 \keyword{internal}
-

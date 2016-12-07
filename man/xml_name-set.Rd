@@ -16,4 +16,3 @@ xml_name(x, ns = character()) <- value
 \description{
 Modify the (tag) name of an element
 }
-

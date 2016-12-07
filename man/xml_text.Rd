@@ -46,4 +46,3 @@ attributes
 x <- read_xml("<plot><point x='1' y='2' /><point x='2' y='1' /></plot>")
 xml_integer(xml_find_all(x, "//@x"))
 }
-

@@ -17,4 +17,3 @@ x <- read_xml("<foo> a <b /> <![CDATA[ blah]]></foo>")
 xml_type(x)
 xml_type(xml_contents(x))
 }
-

@@ -22,4 +22,3 @@ url_parse("http://had.co.nz:1234/")
 url_parse("http://had.co.nz:1234/?a=1&b=2")
 url_parse("http://had.co.nz:1234/?a=1&b=2#def")
 }
-

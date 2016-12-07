@@ -20,4 +20,3 @@ xpath expression live in a document.
 x <- read_xml("<foo><bar><baz /></bar><baz /></foo>")
 xml_path(xml_find_all(x, ".//baz"))
 }
-

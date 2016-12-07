@@ -57,6 +57,7 @@ if there's no match you'll get an \code{xml_missing} node.
 \code{xml_find_one()} has been deprecated. Instead use
 \code{xml_find_first()}.
 }
+
 \examples{
 x <- read_xml("<foo><bar><baz/></bar><baz/></foo>")
 xml_find_all(x, ".//baz")
@@ -102,4 +103,3 @@ xml_find_all(x, ".//f:doc", xml_ns(x))
 \seealso{
 \code{\link{xml_ns_strip}} to remove the default namespaces
 }
-

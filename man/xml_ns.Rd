@@ -51,4 +51,3 @@ xml_find_all(x, "//foo:baz", ns)
 str(as_list(x))
 str(as_list(x, ns))
 }
-

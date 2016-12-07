@@ -78,4 +78,3 @@ xml_child(x)
 xml_child(x, 2)
 xml_child(x, "baz")
 }
-

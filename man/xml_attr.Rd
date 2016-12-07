@@ -5,7 +5,9 @@
 \alias{xml_has_attr}
 \alias{xml_attrs}
 \alias{xml_attr<-}
+\alias{xml_set_attr}
 \alias{xml_attrs<-}
+\alias{xml_set_attrs}
 \title{Retrieve an attribute.}
 \usage{
 xml_attr(x, attr, ns = character(), default = NA_character_)
@@ -16,7 +18,11 @@ xml_attrs(x, ns = character())
 
 xml_attr(x, attr, ns = character()) <- value
 
+xml_set_attr(x, value, ns = character())
+
 xml_attrs(x, ns = character()) <- value
+
+xml_set_attrs(x, value, ns = character())
 }
 \arguments{
 \item{x}{A document, node, or node set.}
@@ -45,11 +51,11 @@ name.}
 }
 \description{
 \code{xml_attrs()} retrieves all attributes values as a named character
-vector, \code{xml_attrs() <-} sets all attribute values. \code{xml_attr()}
-retrieves the value of single attribute and \code{xml_attr() <-} modifies
-its value. If the attribute doesn't exist, it will return \code{default},
-which defaults to \code{NA}. \code{xml_has_attr()} tests if an attribute is
-present.
+vector, \code{xml_attrs() <-} or \code{xml_set_attrs()} sets all attribute
+values. \code{xml_attr()} retrieves the value of single attribute and
+\code{xml_attr() <-} or \code{xml_set_attr()} modifies its value. If the
+attribute doesn't exist, it will return \code{default}, which defaults to
+\code{NA}. \code{xml_has_attr()} tests if an attribute is present.
 }
 \examples{
 x <- read_xml("<root id='1'><child id ='a' /><child id='b' d='b'/></root>")
@@ -84,5 +90,12 @@ xml_attrs(doc, ns)
 xml_attr(doc, "id")
 xml_attr(doc, "b:id", ns)
 xml_attr(doc, "id", ns)
-}
 
+# Can set a single attribute with `xml_attr() <-` or `xml_set_attr()`
+xml_attr(doc, "id") <- "one"
+xml_set_attr(doc, "id", "two")
+
+# Or set multiple attributes with `xml_attrs()` or `xml_set_attrs()`
+xml_attrs(doc) <- c("b:id" = "one", "f:id" = "two", "id" = "three")
+xml_set_attrs(doc, c("b:id" = "one", "f:id" = "two", "id" = "three"))
+}

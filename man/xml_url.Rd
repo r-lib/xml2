@@ -23,4 +23,3 @@ xml_url(catalog)
 x <- read_xml("<foo/>")
 xml_url(x)
 }
-

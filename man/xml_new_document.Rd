@@ -15,4 +15,3 @@ A \code{xml_document} object.
 \description{
 Create a new document
 }
-
