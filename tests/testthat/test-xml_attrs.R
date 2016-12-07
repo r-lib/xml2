@@ -175,3 +175,51 @@ test_that("xml_attr<- removes prefixed namespaces if desired", {
 
   expect_equal(xml_attr(x, "xmlns:pre"), "tag:foo")
 })
+
+test_that("xml_set_attr works identically to xml_attr<-", {
+  content <- "<a><b><c/></b><b/></a>"
+  x <- read_xml(content)
+  y <- read_xml(content)
+
+  xml_attr(x, "a") <- "test"
+  xml_set_attr(y, "a", "test")
+
+  expect_equal(as.character(x), as.character(y))
+
+  bx <- xml_find_all(x, "//b")
+  by <- xml_find_all(y, "//b")
+
+  xml_attr(bx, "b") <- "test2"
+  xml_set_attr(by, "b", "test2")
+
+  expect_equal(as.character(x), as.character(y))
+
+  # No errors for xml_missing
+  mss <- xml_find_first(bx, "./c")
+  expect_error(xml_attr(mss[[2]], "b") <- "blah", NA)
+  expect_error(xml_set_attr(mss[[2]], "b", "blah"), NA)
+})
+
+test_that("xml_set_attrs works identically to xml_attrs<-", {
+  content <- "<a><b><c/></b><b/></a>"
+  x <- read_xml(content)
+  y <- read_xml(content)
+
+  xml_attrs(x) <- c(a = "test")
+  xml_set_attrs(y, c(a = "test"))
+
+  expect_equal(as.character(x), as.character(y))
+
+  bx <- xml_find_all(x, "//b")
+  by <- xml_find_all(y, "//b")
+
+  xml_attrs(bx) <- c(b = "test2")
+  xml_set_attrs(by, c(b = "test2"))
+
+  expect_equal(as.character(x), as.character(y))
+
+  # No errors for xml_missing
+  mss <- xml_find_first(bx, "./c")
+  expect_error(xml_attrs(mss[[2]]) <- c("b" = "blah"), NA)
+  expect_error(xml_set_attrs(mss[[2]], c("b" = "blah")), NA)
+})

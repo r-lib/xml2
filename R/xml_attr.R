@@ -1,11 +1,11 @@
 #' Retrieve an attribute.
 #'
 #' \code{xml_attrs()} retrieves all attributes values as a named character
-#' vector, \code{xml_attrs() <-} sets all attribute values. \code{xml_attr()}
-#' retrieves the value of single attribute and \code{xml_attr() <-} modifies
-#' its value. If the attribute doesn't exist, it will return \code{default},
-#' which defaults to \code{NA}. \code{xml_has_attr()} tests if an attribute is
-#' present.
+#' vector, \code{xml_attrs() <-} or \code{xml_set_attrs()} sets all attribute
+#' values. \code{xml_attr()} retrieves the value of single attribute and
+#' \code{xml_attr() <-} or \code{xml_set_attr()} modifies its value. If the
+#' attribute doesn't exist, it will return \code{default}, which defaults to
+#' \code{NA}. \code{xml_has_attr()} tests if an attribute is present.
 #'
 #' @inheritParams xml_name
 #' @param attr Name of attribute to extract.
@@ -51,6 +51,14 @@
 #' xml_attr(doc, "id")
 #' xml_attr(doc, "b:id", ns)
 #' xml_attr(doc, "id", ns)
+#'
+#' # Can set a single attribute with `xml_attr() <-` or `xml_set_attr()`
+#' xml_attr(doc, "id") <- "one"
+#' xml_set_attr(doc, "id", "two")
+#'
+#' # Or set multiple attributes with `xml_attrs()` or `xml_set_attrs()`
+#' xml_attrs(doc) <- c("b:id" = "one", "f:id" = "two", "id" = "three")
+#' xml_set_attrs(doc, c("b:id" = "one", "f:id" = "two", "id" = "three"))
 xml_attr <- function(x, attr, ns = character(), default = NA_character_) {
   UseMethod("xml_attr")
 }
@@ -124,6 +132,32 @@ xml_attrs.xml_nodeset <- function(x, ns = character()) {
   x
 }
 
+#' @export
+`xml_attr<-.xml_missing` <- function(x, attr, ns = character(), value) {
+  x
+}
+
+#' @rdname xml_attr
+#' @export
+xml_set_attr <- function(x, value, ns = character()) {
+  UseMethod("xml_set_attr")
+}
+
+# This function definition is used for all methods, we need to rearrange the `ns`
+# argument to be at the end of the set function
+set_attr_fun <- function(x, attr, value, ns = character()) {
+  xml_attr(x = x, attr = attr, ns = ns) <- value
+}
+
+#' @export
+xml_set_attr.xml_node <- set_attr_fun
+
+#' @export
+xml_set_attr.xml_nodeset <- set_attr_fun
+
+#' @export
+xml_set_attr.xml_missing <- set_attr_fun
+
 #' @rdname xml_attr
 #' @export
 `xml_attrs<-` <- function(x, ns = character(), value) {
@@ -178,3 +212,28 @@ xml_attrs.xml_nodeset <- function(x, ns = character()) {
   x
 }
 
+#' @export
+`xml_attrs<-.xml_missing` <- function(x, ns = character(), value) {
+  x
+}
+
+#' @rdname xml_attr
+#' @export
+xml_set_attrs <- function(x, value, ns = character()) {
+  UseMethod("xml_set_attrs")
+}
+
+# This function definition is used for all methods, we need to rearrange the `ns`
+# argument to be at the end of the set function
+set_attrs_fun <- function(x, value, ns = character()) {
+  xml_attrs(x = x, ns = ns) <- value
+}
+
+#' @export
+xml_set_attrs.xml_node <- set_attrs_fun
+
+#' @export
+xml_set_attrs.xml_nodeset <- set_attrs_fun
+
+#' @export
+xml_set_attrs.xml_missing <- set_attrs_fun
