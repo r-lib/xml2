@@ -40,3 +40,27 @@ test_that("xml_name<- modifies the name", {
   xml_name(mss) <- "foo"
   expect_identical(old_mss, mss)
 })
+
+test_that("xml_set_name modifies the name", {
+  x <- read_xml("ns-multiple-default.xml")
+  ns <- xml_ns(x)
+
+  bars <- xml_children(xml_children(x))
+  bar <- bars[[1]]
+
+  xml_set_name(bar, "foo")
+  expect_equal(xml_name(bar), "foo")
+  expect_equal(xml_name(bar, ns), "d1:foo")
+
+  # ns is ignored
+  xml_set_name(bar, "bar", ns)
+  expect_equal(xml_name(bar), "bar")
+  expect_equal(xml_name(bar, ns), "d1:bar")
+
+  xml_set_name(bars, "foo")
+  expect_equal(xml_name(bars), c("foo", "foo"))
+
+  old_mss <- mss <- xml_missing()
+  xml_set_name(mss, "foo")
+  expect_identical(old_mss, mss)
+})

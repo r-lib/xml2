@@ -65,3 +65,24 @@ xml_name.xml_node <- function(x, ns = character()) {
 `xml_name<-.xml_missing` <- function(x, ns = character(), value) {
   x
 }
+
+#' @rdname xml_name
+#' @export
+set_name <- function(x, value, ns = character()) {
+  xml_name(x = x, ns = ns) <- value
+  x
+}
+
+#' @export
+xml_set_name <- function(x, value, ns = character()) {
+  UseMethod("xml_set_name")
+}
+
+#' @export
+xml_set_name.xml_node <- set_name
+
+#' @export
+xml_set_name.xml_nodeset <- set_name
+
+#' @export
+xml_set_name.xml_missing <- set_name
