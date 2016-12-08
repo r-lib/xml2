@@ -1,5 +1,7 @@
 # xml2 1.0.0.9000
 
+* Add `xml_set_text()` and `xml_set_name()` equivalent to `xml_text<-` and `xml_name<-`. (#130).
+
 * Add `xml_set_attr()` and `xml_set_attrs()` equivalent to `xml_attr<-` and `xml_attrs<-`. (#109, #130)
 
 * Bugfix for xml_length.xml_nodeset that caused it to fail unconditionally. (#140)
