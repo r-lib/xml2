@@ -141,6 +141,10 @@ node_new <- function(name) {
     .Call('xml2_node_new', PACKAGE = 'xml2', name)
 }
 
+node_cdata_new <- function(doc, content) {
+    .Call('xml2_node_cdata_new', PACKAGE = 'xml2', doc, content)
+}
+
 node_new_ns <- function(name, ns) {
     .Call('xml2_node_new_ns', PACKAGE = 'xml2', name, ns)
 }

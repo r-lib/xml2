@@ -516,6 +516,12 @@ XPtrNode node_new(std::string name) {
   return XPtrNode(xmlNewNode(NULL, asXmlChar(name)));
 }
 
+
+// [[Rcpp::export]]
+XPtrNode node_cdata_new(XPtrDoc doc, std::string content) {
+  return XPtrNode(xmlNewCDataBlock(doc.checked_get(), asXmlChar(content), content.length()));
+}
+
 // [[Rcpp::export]]
 XPtrNode node_new_ns(std::string name, XPtrNs ns) {
   return XPtrNode(xmlNewNode(ns.checked_get(), asXmlChar(name)));
