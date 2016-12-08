@@ -35,4 +35,8 @@ test_that("xml_name<- modifies the name", {
 
   xml_name(bars) <- "foo"
   expect_equal(xml_name(bars), c("foo", "foo"))
+
+  old_mss <- mss <- xml_missing()
+  xml_name(mss) <- "foo"
+  expect_identical(old_mss, mss)
 })

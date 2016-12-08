@@ -2,9 +2,15 @@
 % Please edit documentation in R/xml_name.R
 \name{xml_name}
 \alias{xml_name}
+\alias{xml_name<-}
+\alias{set_name}
 \title{The (tag) name of an xml element.}
 \usage{
 xml_name(x, ns = character())
+
+xml_name(x, ns = character()) <- value
+
+set_name(x, value, ns = character())
 }
 \arguments{
 \item{x}{A document, node, or node set.}
@@ -15,12 +21,18 @@ qualified with the ns prefix, i.e. if the element \code{bar} is defined
 in namespace \code{foo}, it will be called \code{foo:bar}. (And
 similarly for atttributes). Default namespaces must be given an explicit
 name.}
+
+\item{value}{a character vector with replacement name.}
+
+\item{ns}{ignored for assignment}
 }
 \value{
 A character vector.
 }
 \description{
 The (tag) name of an xml element.
+
+Modify the (tag) name of an element
 }
 \examples{
 x <- read_xml("<bar>123</bar>")
