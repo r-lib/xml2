@@ -9,6 +9,11 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
+```{r, echo = FALSE, message = FALSE}
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
+library(xml2)
+```
+
 # Modifying Existing XML
 
 Modifying existing XML can be done in xml2 by using the replacement functions
@@ -23,7 +28,6 @@ text node only the first will be affected. If you want to modify additional
 text nodes you need to select them explicitly with `/text()`.
 
 ```{r}
-library(xml2)
 x <- read_xml("<p>This is some <b>text</b>. This is more.</p>")
 xml_text(x)
 
