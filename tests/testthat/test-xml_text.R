@@ -25,6 +25,17 @@ test_that("xml_text works properly with xml_nodeset objects", {
     c("This is some text. This is some nested text.", "This is some nested text."))
 })
 
+test_that("xml_text<- and xml_set_text work properly with xml_nodeset objects", {
+  x <- read_xml("<x>This is some text. <x>This is some nested text.</x></x>")
+
+  expect_identical(xml_text(x), "This is some text. This is some nested text.")
+
+  xml_text(x) <- "test"
+  expect_identical(xml_text(x), "testThis is some nested text.")
+  xml_set_text(x, "test2")
+  expect_identical(xml_text(x), "test2This is some nested text.")
+})
+
 test_that("xml_text trims whitespace if requested, including non-breaking spaces", {
   x <- read_html("<p>   Some text    &nbsp;</p>")
   expect_identical(xml_text(x),
