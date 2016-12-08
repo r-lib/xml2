@@ -18,7 +18,7 @@ xml_attrs(x, ns = character())
 
 xml_attr(x, attr, ns = character()) <- value
 
-xml_set_attr(x, value, ns = character())
+xml_set_attr(x, attr, value, ns = character())
 
 xml_attrs(x, ns = character()) <- value
 
@@ -34,7 +34,8 @@ by \code{\link{xml_ns}}. If provided, all names will be explicitly
 qualified with the ns prefix, i.e. if the element \code{bar} is defined
 in namespace \code{foo}, it will be called \code{foo:bar}. (And
 similarly for atttributes). Default namespaces must be given an explicit
-name.}
+name. The ns is ignored when using \code{\link{xml_name<-}} and
+\code{\link{xml_set_name}}.}
 
 \item{default}{Default value to use when attribute is not present.}
 

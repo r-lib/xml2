@@ -76,6 +76,7 @@ xml_text.xml_nodeset <- function(x, trim = FALSE) {
 }
 
 #' @export
+#' @rdname xml_text
 `xml_set_text` <- `xml_text<-`
 
 #' @rdname xml_text

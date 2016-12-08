@@ -139,7 +139,7 @@ xml_attrs.xml_nodeset <- function(x, ns = character()) {
 
 #' @rdname xml_attr
 #' @export
-xml_set_attr <- function(x, value, ns = character()) {
+xml_set_attr <- function(x, attr, value, ns = character()) {
   UseMethod("xml_set_attr")
 }
 
