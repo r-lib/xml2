@@ -523,6 +523,11 @@ XPtrNode node_cdata_new(XPtrDoc doc, std::string content) {
 }
 
 // [[Rcpp::export]]
+XPtrNode node_comment_new(std::string content) {
+  return XPtrNode(xmlNewComment(asXmlChar(content)));
+}
+
+// [[Rcpp::export]]
 XPtrNode node_new_ns(std::string name, XPtrNs ns) {
   return XPtrNode(xmlNewNode(ns.checked_get(), asXmlChar(name)));
 }

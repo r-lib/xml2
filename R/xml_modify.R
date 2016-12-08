@@ -81,6 +81,10 @@ create_node <- function(.value, parent, ...) {
     return(xml_node(node_cdata_new(parent$doc, .value), doc = parent$doc))
   }
 
+  if (inherits(.value, "xml_comment")) {
+    return(xml_node(node_comment_new(.value), doc = parent$doc))
+  }
+
   if (!is.character(.value)) {
     stop("`.value` must be a character", call. = FALSE)
   }

@@ -189,3 +189,15 @@ is.na.xml_missing <- function(x) TRUE
 xml_cdata <- function(content) {
   structure(content, class = "xml_cdata")
 }
+
+#' Construct a comment node
+#' @param content The comment content
+#' @examples
+#' x <- xml_new_document()
+#' r <- xml_add_child(x, "root")
+#' xml_add_child(r, xml_comment("Hello!"))
+#' as.character(x)
+#' @export
+xml_comment <- function(content) {
+  structure(content, class = "xml_comment")
+}

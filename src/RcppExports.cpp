@@ -434,6 +434,17 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// node_comment_new
+XPtrNode node_comment_new(std::string content);
+RcppExport SEXP xml2_node_comment_new(SEXP contentSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< std::string >::type content(contentSEXP);
+    rcpp_result_gen = Rcpp::wrap(node_comment_new(content));
+    return rcpp_result_gen;
+END_RCPP
+}
 // node_new_ns
 XPtrNode node_new_ns(std::string name, XPtrNs ns);
 RcppExport SEXP xml2_node_new_ns(SEXP nameSEXP, SEXP nsSEXP) {

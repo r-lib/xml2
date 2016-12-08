@@ -1,5 +1,7 @@
 # xml2 1.0.0.9000
 
+* `xml_comment()` allows you to add comment nodes to a document. (#111)
+
 * `xml_cdata()` allows you to add CDATA nodes to a document. (#128)
 
 * Add `xml_set_text()` and `xml_set_name()` equivalent to `xml_text<-` and `xml_name<-`. (#130).
