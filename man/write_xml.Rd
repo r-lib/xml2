@@ -2,12 +2,18 @@
 % Please edit documentation in R/xml_write.R
 \name{write_xml}
 \alias{write_xml}
+\alias{write_xml.xml_document}
 \alias{write_html}
-\title{Write XML to disk.}
+\alias{write_html.xml_document}
+\title{Write XML or HTML to disk.}
 \usage{
 write_xml(x, file, ...)
 
+\method{write_xml}{xml_document}(x, file, format = TRUE, ...)
+
 write_html(x, file, ...)
+
+\method{write_html}{xml_document}(x, file, format = TRUE, ...)
 }
 \arguments{
 \item{x}{A document or node to write to disk. It's not possible to
@@ -30,7 +36,7 @@ tmp <- tempfile(fileext = ".xml")
 write_xml(h, tmp)
 readLines(tmp)
 
-# write formatted output
+# write formatted HTML output
 write_html(h, tmp, format = TRUE)
 readLines(tmp)
 }

@@ -1,5 +1,7 @@
 # xml2 1.0.0.9000
 
+* Document `write_xml(format = TRUE)` (#132)
+
 * Add missing methods for xml_missing objects. (#134)
 
 * `xml_comment()` allows you to add comment nodes to a document. (#111)

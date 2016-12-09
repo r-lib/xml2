@@ -1,4 +1,4 @@
-#' Write XML to disk.
+#' Write XML or HTML to disk.
 #'
 #' This writes out both XML and normalised HTML.
 #'
@@ -16,7 +16,7 @@
 #' write_xml(h, tmp)
 #' readLines(tmp)
 #'
-#' # write formatted output
+#' # write formatted HTML output
 #' write_html(h, tmp, format = TRUE)
 #' readLines(tmp)
 write_xml <- function(x, file, ...) {
@@ -28,6 +28,7 @@ write_xml.xml_missing <- function(x, file, ...) {
   stop("Missing data cannot be written", call. = FALSE)
 }
 
+#' @rdname write_xml
 #' @export
 write_xml.xml_document <- function(x, file, format = TRUE, ...) {
   doc_write_xml(x$doc, file, format)
@@ -59,6 +60,7 @@ write_html.xml_missing <- function(x, file, ...) {
   stop("Missing data cannot be written", call. = FALSE)
 }
 
+#' @rdname write_xml
 #' @export
 write_html.xml_document <- function(x, file, format = TRUE, ...) {
   doc_write_html(x$doc, file, format)
