@@ -18,11 +18,6 @@ as.character.xml_node <- function(x, ...) {
 }
 
 #' @export
-as.character.xml_missing <- function(x, ...) {
-  NA_character_
-}
-
-#' @export
 print.xml_node <- function(x, width = getOption("width"), max_n = 20, ...) {
   cat("{xml_node}\n")
   cat(format(x), "\n", sep = "")
@@ -177,6 +172,18 @@ xml_missing <- function() {
 
 #' @export
 is.na.xml_missing <- function(x) TRUE
+
+#' @export
+as.character.xml_missing <- function(x, ...) {
+  NA_character_
+}
+
+# These mimic the behavior of NA[[1]], NA[[2]], NA[1], NA[2]
+#' @export
+`[.xml_missing` <- function(x, i, ...) x
+
+#' @export
+`[[.xml_missing` <- function(x, i, ...) if (i == 1L) x else stop("subscript out of bounds")
 
 #' Construct a cdata node
 #' @param content The CDATA content, does not include \code{<![CDATA[}

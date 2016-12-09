@@ -161,9 +161,6 @@ xml_remove.xml_nodeset <- function(.x, free = FALSE) {
   Map(xml_remove, rev(.x), free = free)
 }
 
-## Questions
-# - Assignment methods for xml_missing objects? Error, warning or identity
-
 #' Set the node's namespace
 #'
 #' The namespace to be set must be already defined in one of the node's
