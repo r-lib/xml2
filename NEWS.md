@@ -1,5 +1,7 @@
 # xml2 1.0.0.9000
 
+* `add.list.xml_nodeset()` now converts a nodeset into a list of nodes. (#141)
+
 * Add missing methods for xml_missing objects. (#134)
 
 * `xml_comment()` allows you to add comment nodes to a document. (#111)

@@ -30,3 +30,10 @@ test_that("special attributes are escaped", {
   expect_equal(list_xml("<x a='1' b='2' names='esc'><y>3</y><z>4</z></x>"),
                structure(list(y = list('3'), z = list('4')), names = c("y", "z"), a = "1", b = "2", .names='esc'))
 })
+
+test_that("as.list converts a nodeset to a list of nodes", {
+
+  x <- read_xml("<a><b/><b/></a>")
+  xl <- xml_find_all(x, "//b")
+  expect_identical(as.list(xl), as_list(xl))
+})

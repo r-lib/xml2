@@ -35,6 +35,9 @@ as_list.xml_missing <- function(x, ns = character(), ...) {
 }
 
 #' @export
+as.list.xml_missing <- as_list.xml_missing
+
+#' @export
 as_list.xml_node <- function(x, ns = character(), ...) {
   contents <- xml_contents(x)
   if (length(contents) == 0) {
@@ -72,3 +75,6 @@ as_list.xml_node <- function(x, ns = character(), ...) {
 as_list.xml_nodeset <- function(x, ns = character(), ...) {
   lapply(seq_along(x), function(i) as.list(x[[i]], ns = ns))
 }
+
+#' @export
+as.list.xml_nodeset <- as_list.xml_nodeset
