@@ -71,6 +71,11 @@ xml_ns.xml_node <- function(x) {
 xml_ns.xml_nodeset <- xml_ns.xml_node
 
 #' @export
+xml_ns.xml_missing <- function(x) {
+  character()
+}
+
+#' @export
 print.xml_namespace <- function(x, ...) {
   prefix <- format(names(x))
 

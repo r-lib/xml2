@@ -76,6 +76,11 @@ xml_text.xml_nodeset <- function(x, trim = FALSE) {
 }
 
 #' @export
+`xml_text<-.xml_missing` <- function(x, value) {
+  NA_character_
+}
+
+#' @export
 #' @rdname xml_text
 `xml_set_text` <- `xml_text<-`
 
@@ -106,7 +111,7 @@ xml_integer <- function(x) {
 }
 
 #' @export
-xml_double.xml_missing <- function(x) {
+xml_integer.xml_missing <- function(x) {
   NA_integer_
 }
 

@@ -40,6 +40,11 @@ xml_replace.xml_nodeset <- function(.x, .value, ..., .copy = TRUE) {
   Map(xml_replace, .x, .value, ..., .copy = .copy)
 }
 
+#' @export
+xml_replace.xml_missing <- function(.x, .value, ..., .copy = TRUE) {
+  .x
+}
+
 #' @rdname xml_replace
 #' @export
 xml_add_sibling <- function(.x, .value, ..., .where = c("after", "before"), .copy = TRUE) {
@@ -69,6 +74,11 @@ xml_add_sibling.xml_nodeset <- function(.x, .value, ..., .where = c("after", "be
   }
 
   invisible(Map(xml_add_sibling, rev(.x), rev(.value), ..., .where = .where, .copy = .copy))
+}
+
+#' @export
+xml_add_sibling.xml_missing <- function(.x, .value, ..., .where = c("after", "before"), .copy = TRUE) {
+  .x
 }
 
 # Helper function used in the xml_add* methods
@@ -145,6 +155,11 @@ xml_add_child.xml_nodeset <- function(.x, .value, ..., .copy = TRUE) {
   invisible(Map(xml_add_child, .x, .value, ..., .copy = .copy))
 }
 
+#' @export
+xml_add_child.xml_missing <- function(.x, .value, ..., .copy = TRUE) {
+  .x
+}
+
 #' @rdname xml_replace
 #' @export
 xml_remove <- function(.x, free = FALSE) {
@@ -159,6 +174,11 @@ xml_remove.xml_node <- function(.x, free = FALSE) {
 #' @export
 xml_remove.xml_nodeset <- function(.x, free = FALSE) {
   Map(xml_remove, rev(.x), free = free)
+}
+
+#' @export
+xml_remove.xml_missing <- function(.x, free = FALSE) {
+  .x
 }
 
 #' Set the node's namespace

@@ -13,6 +13,7 @@ xml_path <- function(x) {
   UseMethod("xml_path")
 }
 
+#' @export
 xml_path.xml_missing <- function(x) {
   NA_character_
 }

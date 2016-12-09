@@ -27,8 +27,7 @@ print.xml_node <- function(x, width = getOption("width"), max_n = 20, ...) {
 #' @export
 print.xml_missing <- function(x, width = getOption("width"), max_n = 20, ...) {
   cat("{xml_missing}\n")
-  cat("<", xml_name(x), ">\n", sep = "")
-  show_nodes(xml_children(x), width = width, max_n = max_n)
+  cat(format(x), "\n", sep = "")
 }
 
 # document ---------------------------------------------------------------------
@@ -173,12 +172,17 @@ xml_missing <- function() {
 #' @export
 is.na.xml_missing <- function(x) TRUE
 
+format.xml_missing <- function(x, ...) {
+  "<NA>"
+}
+
 #' @export
 as.character.xml_missing <- function(x, ...) {
   NA_character_
 }
 
 # These mimic the behavior of NA[[1]], NA[[2]], NA[1], NA[2]
+
 #' @export
 `[.xml_missing` <- function(x, i, ...) x
 

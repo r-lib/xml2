@@ -1,5 +1,7 @@
 # xml2 1.0.0.9000
 
+* Add missing methods for xml_missing objects. (#134)
+
 * `xml_comment()` allows you to add comment nodes to a document. (#111)
 
 * `xml_cdata()` allows you to add CDATA nodes to a document. (#128)
