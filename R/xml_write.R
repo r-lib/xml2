@@ -6,6 +6,8 @@
 #'   save nodesets containing more than one node.
 #' @param file Path to file to write.
 #' @param ... additional arguments passed to methods.
+#' @param format if \code{TRUE}, the formatting spaces/lines are added to the
+#' output, if \code{FALSE} output is left as is.
 #' @export
 #' @examples
 #' h <- read_html("<p>Hi!</p>")
@@ -14,7 +16,8 @@
 #' write_xml(h, tmp)
 #' readLines(tmp)
 #'
-#' write_html(h, tmp)
+#' # write formatted output
+#' write_html(h, tmp, format = TRUE)
 #' readLines(tmp)
 write_xml <- function(x, file, ...) {
   UseMethod("write_xml")

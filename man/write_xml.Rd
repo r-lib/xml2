@@ -16,6 +16,9 @@ save nodesets containing more than one node.}
 \item{file}{Path to file to write.}
 
 \item{...}{additional arguments passed to methods.}
+
+\item{format}{if \code{TRUE}, the formatting spaces/lines are added to the
+output, if \code{FALSE} output is left as is.}
 }
 \description{
 This writes out both XML and normalised HTML.
@@ -27,6 +30,7 @@ tmp <- tempfile(fileext = ".xml")
 write_xml(h, tmp)
 readLines(tmp)
 
-write_html(h, tmp)
+# write formatted output
+write_html(h, tmp, format = TRUE)
 readLines(tmp)
 }
