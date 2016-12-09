@@ -197,6 +197,9 @@ xml_set_attr.xml_missing <- set_attr_fun
 
 #' @export
 `xml_attrs<-.xml_nodeset` <- function(x, ns = character(), value) {
+  if (length(x) == 0) {
+    return(x)
+  }
   if (!is.list(ns)) {
      ns <- list(ns)
   }

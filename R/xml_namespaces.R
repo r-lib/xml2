@@ -68,7 +68,12 @@ xml_ns.xml_node <- function(x) {
 }
 
 #' @export
-xml_ns.xml_nodeset <- xml_ns.xml_node
+xml_ns.xml_nodeset <- function(x) {
+  if (length(x) == 0) {
+    return(character())
+  }
+  xml_ns(x[[1]])
+}
 
 #' @export
 xml_ns.xml_missing <- function(x) {

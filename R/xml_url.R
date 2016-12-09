@@ -25,3 +25,8 @@ xml_url.xml_missing <- function(x) {
 xml_url.xml_node <- function(x) {
   doc_url(x$doc)
 }
+
+#' @export
+xml_url.xml_nodeset <- function(x) {
+  vapply(x, doc_url, character(1))
+}

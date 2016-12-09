@@ -32,6 +32,10 @@ xml_replace.xml_node <- function(.x, .value, ..., .copy = TRUE) {
 #' @export
 xml_replace.xml_nodeset <- function(.x, .value, ..., .copy = TRUE) {
 
+  if (length(.x) == 0) {
+    return(.x)
+  }
+
   # Need to wrap this in a list if a bare xml_node so it is recycled properly
   if (inherits(.value, "xml_node")) {
     .value <- list(.value)
@@ -66,6 +70,10 @@ xml_add_sibling.xml_node <- function(.x, .value, ..., .where = c("after", "befor
 
 #' @export
 xml_add_sibling.xml_nodeset <- function(.x, .value, ..., .where = c("after", "before"), .copy = TRUE) {
+  if (length(.x) == 0) {
+    return(.x)
+  }
+
   .where <- match.arg(.where)
 
   # Need to wrap this in a list if a bare xml_node so it is recycled properly
@@ -146,6 +154,9 @@ xml_add_child.xml_document <- function(.x, .value, ..., .copy = inherits(.value,
 
 #' @export
 xml_add_child.xml_nodeset <- function(.x, .value, ..., .copy = TRUE) {
+  if (length(.x) == 0) {
+    return(.x)
+  }
 
   # Need to wrap this in a list if a bare xml_node so it is recycled properly
   if (inherits(.value, "xml_node")) {
@@ -173,6 +184,10 @@ xml_remove.xml_node <- function(.x, free = FALSE) {
 
 #' @export
 xml_remove.xml_nodeset <- function(.x, free = FALSE) {
+  if (length(.x) == 0) {
+    return(.x)
+  }
+
   Map(xml_remove, rev(.x), free = free)
 }
 

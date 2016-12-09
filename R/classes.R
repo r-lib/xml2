@@ -89,6 +89,9 @@ as.character.xml_nodeset <- function(x, ...) {
 
 #' @export
 `[.xml_nodeset` <- function(x, i, ...) {
+  if (length(x) == 0) {
+    return(x)
+  }
   xml_nodeset(NextMethod())
 }
 

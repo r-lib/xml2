@@ -54,6 +54,9 @@ xml_name.xml_node <- function(x, ns = character()) {
 
 #' @export
 `xml_name<-.xml_nodeset` <- function(x, ns = character(), value) {
+  if (length(x) == 0) {
+    return(x)
+  }
   if (!is.list(ns)) {
      ns <- list(ns)
   }

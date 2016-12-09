@@ -50,6 +50,9 @@ xml_text.xml_nodeset <- function(x, trim = FALSE) {
 
 #' @export
 `xml_text<-.xml_nodeset` <- function(x, value) {
+  if (length(x) == 0) {
+    return(x)
+  }
   # We need to do the modification in reverse order as the modification can
   # potentially delete nodes
   Map(`xml_text<-`, rev(x), rev(value))
