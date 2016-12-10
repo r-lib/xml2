@@ -261,3 +261,7 @@ xpath_search <- function(node, doc, xpath, nsMap, num_results) {
     .Call('xml2_xpath_search', PACKAGE = 'xml2', node, doc, xpath, nsMap, num_results)
 }
 
+doc_xslt_apply <- function(doc, xslt) {
+    .Call('xml2_doc_xslt_apply', PACKAGE = 'xml2', doc, xslt)
+}
+

@@ -661,3 +661,15 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// doc_xslt_apply
+XPtrDoc doc_xslt_apply(XPtrDoc doc, XPtrDoc xslt);
+RcppExport SEXP xml2_doc_xslt_apply(SEXP docSEXP, SEXP xsltSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< XPtrDoc >::type doc(docSEXP);
+    Rcpp::traits::input_parameter< XPtrDoc >::type xslt(xsltSEXP);
+    rcpp_result_gen = Rcpp::wrap(doc_xslt_apply(doc, xslt));
+    return rcpp_result_gen;
+END_RCPP
+}
