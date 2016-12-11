@@ -2,7 +2,7 @@
 % Please edit documentation in R/xml_xslt.R
 \name{xml_xslt}
 \alias{xml_xslt}
-\title{Apply XSLT Stylesheet}
+\title{XSLT 1.0 Transformations}
 \usage{
 xml_xslt(x, stylesheet)
 }
@@ -12,6 +12,10 @@ xml_xslt(x, stylesheet)
 \item{stylesheet}{an xml document containing an XSL stylesheet}
 }
 \description{
-Transform an XML document using an XSL stylesheet.
+Transform an XML document by applying an XSL stylesheet. This implementation
+supports XSLT 1.0 features plus most of the EXSLT set of processor-portable
+extensions functions. Unfortunately XSLT 2.0 or 3.0 features are only available
+in proprietary libraries and currently unsupported. However XSLT 2.0 is not
+widely adopted anyway because it is also unavailable in most browsers.
 }
 
