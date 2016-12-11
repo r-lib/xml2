@@ -7,8 +7,12 @@
 #include <libxslt/xsltutils.h>
 #include <libexslt/exslt.h>
 
-void handleXsltError(void * ctx, const char * msg){
-  Rcpp::stop("xslt error: %s", msg);
+void handleXsltError(void *ctx, const char *msg, ...){
+  char string[1024];
+  va_list arg_ptr;
+  va_start(arg_ptr, msg);
+  vsnprintf(string, 1024, msg, arg_ptr);
+  Rcpp::stop("xslt error: %s", string);
 }
 
 void handleError(void* userData, xmlError* error) {
