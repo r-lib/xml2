@@ -113,6 +113,16 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// libxslt_version
+std::string libxslt_version();
+RcppExport SEXP xml2_libxslt_version() {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    rcpp_result_gen = Rcpp::wrap(libxslt_version());
+    return rcpp_result_gen;
+END_RCPP
+}
 // unique_ns
 CharacterVector unique_ns(CharacterVector ns);
 RcppExport SEXP xml2_unique_ns(SEXP nsSEXP) {

@@ -37,6 +37,10 @@ libxml2_version <- function() {
     .Call('xml2_libxml2_version', PACKAGE = 'xml2')
 }
 
+libxslt_version <- function() {
+    .Call('xml2_libxslt_version', PACKAGE = 'xml2')
+}
+
 unique_ns <- function(ns) {
     .Call('xml2_unique_ns', PACKAGE = 'xml2', ns)
 }
