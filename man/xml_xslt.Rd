@@ -12,10 +12,13 @@ xml_xslt(x, stylesheet)
 \item{stylesheet}{an xml document containing an XSL stylesheet}
 }
 \description{
-Transform an XML document by applying an XSL stylesheet. This implementation
-supports XSLT 1.0 features plus most of the EXSLT set of processor-portable
-extensions functions. Unfortunately XSLT 2.0 or 3.0 features are only available
-in proprietary libraries and currently unsupported. However XSLT 2.0 is not
-widely adopted anyway because it is also unavailable in most browsers.
+Transform an XML document by applying an XSL stylesheet.
+}
+\details{
+This implementation supports XSLT 1.0 features plus most of the EXSLT set of
+processor-portable extensions functions. Unfortunately XSLT 2.0 or 3.0 features
+are only available in proprietary libraries and currently unsupported. However
+XSLT 2.0 is not widely adopted anyway because it is also unavailable in most
+browsers.
 }
 
