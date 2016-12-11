@@ -37,6 +37,10 @@ libxml2_version <- function() {
     .Call('xml2_libxml2_version', PACKAGE = 'xml2')
 }
 
+libxslt_version <- function() {
+    .Call('xml2_libxslt_version', PACKAGE = 'xml2')
+}
+
 unique_ns <- function(ns) {
     .Call('xml2_unique_ns', PACKAGE = 'xml2', ns)
 }
@@ -259,5 +263,9 @@ url_unescape <- function(x) {
 
 xpath_search <- function(node, doc, xpath, nsMap, num_results) {
     .Call('xml2_xpath_search', PACKAGE = 'xml2', node, doc, xpath, nsMap, num_results)
+}
+
+doc_xslt_apply <- function(doc, xslt) {
+    .Call('xml2_doc_xslt_apply', PACKAGE = 'xml2', doc, xslt)
 }
 

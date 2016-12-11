@@ -1,24 +1,22 @@
 #!/bin/bash
-# Anticonf (tm) script by Jeroen Ooms (2015)
+# Anticonf (tm) script by Jeroen Ooms (2016)
 # This script will query 'pkg-config' for the required cflags and ldflags.
 # If pkg-config is unavailable or does not find the library, try setting
 # INCLUDE_DIR and LIB_DIR manually via e.g:
 # R CMD INSTALL --configure-vars='INCLUDE_DIR=/.../include LIB_DIR=/.../lib'
 
 # Library settings
-PKG_CONFIG_NAME="libxml-2.0"
-PKG_DEB_NAME="libxml2-dev"
-PKG_RPM_NAME="libxml2-devel"
-PKG_CSW_NAME="libxml2_dev"
-PKG_TEST_HEADER="<libxml/tree.h>"
-PKG_LIBS="-lxml2"
+PKG_CONFIG_NAME="libexslt"
+PKG_DEB_NAME="libxslt1-dev"
+PKG_RPM_NAME="libxslt-devel"
+PKG_CSW_NAME="libxslt_dev"
+PKG_TEST_HEADER="<libxslt/xslt.h>"
+PKG_CFLAGS="-I/usr/include/libxml2"
+PKG_LIBS="-lexslt -lxslt -lxml2"
 
-# Use xml2-config if available
-if [ $(command -v xml2-config) ]; then
-  PKGCONFIG_CFLAGS=$(xml2-config --cflags)
-  PKGCONFIG_LIBS=$(xml2-config --libs)
-elif [ $(command -v pkg-config) ]; then
-  PKGCONFIG_CFLAGS=$(pkg-config --cflags $PKG_CONFIG_NAME)
+# Use pkg-config if available
+if [ $(command -v pkg-config) ]; then
+  PKGCONFIG_CFLAGS=$(pkg-config --cflags --silence-errors $PKG_CONFIG_NAME)
   PKGCONFIG_LIBS=$(pkg-config --libs $PKG_CONFIG_NAME)
 fi
 
