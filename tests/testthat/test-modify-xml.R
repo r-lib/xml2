@@ -135,3 +135,12 @@ test_that("xml_add_child can create a new node with the specified prefix", {
 
   expect_error(xml_add_child(x, "bar2:qux"), "No namespace with prefix `bar2` found")
 })
+
+test_that("xml_add_parent works with xml_node input", {
+  x <- read_xml("<x><y/></x>")
+  y <- xml_find_first(x, ".//y")
+  xml_add_parent(y, "z")
+
+  expect_equal(xml_name(xml_parent(y)), "z")
+  expect_equal(xml_name(xml_child(x)), "z")
+})

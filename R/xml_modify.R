@@ -1,8 +1,10 @@
 #' Modify a tree by inserting, replacing or removing nodes
 #'
 #' \code{xml_add_sibling()} and \code{xml_add_child()} are used to insert a node
-#' as a sibling or a child. \code{xml_replace()} replaces an existing node with
-#' a new node. \code{xml_remove()} removes a node from the tree.
+#' as a sibling or a child. \code{xml_add_parent()} adds a new parent in
+#' between the input node and the current parent. \code{xml_replace()}
+#' replaces an existing node with a new node. \code{xml_remove()} removes a
+#' node from the tree.
 #'
 #' @details Care needs to be taken when using \code{xml_remove()},
 #' @param .x a document, node or nodeset.
@@ -26,7 +28,7 @@ xml_replace.xml_node <- function(.x, .value, ..., .copy = TRUE) {
   node <- create_node(.value, .x, ...)
 
   .x$node <- node_replace(.x$node, node$node, .copy)
-  .x
+  node
 }
 
 #' @export
@@ -163,12 +165,20 @@ xml_add_child.xml_nodeset <- function(.x, .value, ..., .copy = TRUE) {
     .value <- list(.value)
   }
 
-  invisible(Map(xml_add_child, .x, .value, ..., .copy = .copy))
+  res <- Map(xml_add_child, .x, .value, ..., .copy = .copy)
+  invisible(make_nodeset(res, res[[1]]$doc))
 }
 
 #' @export
 xml_add_child.xml_missing <- function(.x, .value, ..., .copy = TRUE) {
   .x
+}
+
+#' @rdname xml_replace
+#' @export
+xml_add_parent <- function(.x, .value, ...) {
+  new_parent <- xml_replace(.x, .value = .value, ..., .copy = FALSE)
+  xml_add_child(new_parent, .value = .x, .copy = FALSE)
 }
 
 #' @rdname xml_replace
