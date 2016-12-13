@@ -27,7 +27,7 @@ Suggests:
     rmarkdown,
     magrittr,
     httr
-Remotes: RcppCore/Rcpp@8c7246e7932d4e8c5de148ac8e023fdd58d2a080
+Remotes: RcppCore/Rcpp
 SystemRequirements: libxml2: libxml2-dev (deb), libxml2-devel (rpm)
 License: GPL (>= 2)
 RoxygenNote: 5.0.1.9000
