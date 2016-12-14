@@ -2,6 +2,8 @@
 
 * Add `xml_validate()` to validate a document against an xml schema (#31)
 
+* Export `xml2_types.h` to allow for extension packages such as xslt.
+
 * Document `write_xml(format = TRUE)` (#132)
 
 * Add missing methods for xml_missing objects. (#134)
