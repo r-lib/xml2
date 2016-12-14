@@ -197,6 +197,10 @@ node_format_html <- function(doc, node, format = TRUE) {
     .Call('xml2_node_format_html', PACKAGE = 'xml2', doc, node, format)
 }
 
+doc_validate <- function(doc, schema) {
+    .Call('xml2_doc_validate', PACKAGE = 'xml2', doc, schema)
+}
+
 #' Convert between relative and absolute urls.
 #'
 #' @param x A character vector of urls relative to that base

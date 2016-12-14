@@ -588,6 +588,18 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// doc_validate
+bool doc_validate(XPtrDoc doc, XPtrDoc schema);
+RcppExport SEXP xml2_doc_validate(SEXP docSEXP, SEXP schemaSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< XPtrDoc >::type doc(docSEXP);
+    Rcpp::traits::input_parameter< XPtrDoc >::type schema(schemaSEXP);
+    rcpp_result_gen = Rcpp::wrap(doc_validate(doc, schema));
+    return rcpp_result_gen;
+END_RCPP
+}
 // url_absolute
 CharacterVector url_absolute(CharacterVector x, CharacterVector base);
 RcppExport SEXP xml2_url_absolute(SEXP xSEXP, SEXP baseSEXP) {
