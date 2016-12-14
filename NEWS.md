@@ -1,5 +1,7 @@
 # xml2 1.0.0.9000
 
+* Add `xml_validate()` to validate a document against an xml schema (#31)
+
 * Document `write_xml(format = TRUE)` (#132)
 
 * Add missing methods for xml_missing objects. (#134)
