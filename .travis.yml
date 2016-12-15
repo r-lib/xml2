@@ -11,13 +11,10 @@ matrix:
       sudo: required
       env: R_CODECOV=true
     - os: osx
-      osx_image: xcode8
+      osx_image: xcode8.1
       latex: false
-      before_install:
-        - cp /usr/bin/xml2-config /usr/local/bin/xml2-config
-        - sed -i.bak 's#prefix=$(xcrun -show-sdk-path)/usr#prefix=/usr#' /usr/local/bin/xml2-config
     - os: osx
-      osx_image: xcode8
+      osx_image: xcode8.1
       before_install:
         - brew install libxml2
         - brew link --force libxml2
