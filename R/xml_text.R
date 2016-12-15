@@ -35,8 +35,8 @@ xml_text.xml_missing <- function(x, trim = FALSE) {
 xml_text.xml_node <- function(x, trim = FALSE) {
   res <- node_text(x$node)
   if (isTRUE(trim)) {
-    res <- sub("^[[:space:]]+", "", res)
-    res <- sub("[[:space:]]+$", "", res)
+    res <- sub("^[[:space:]\u00a0]+", "", res)
+    res <- sub("[[:space:]\u00a0]+$", "", res)
   }
   res
 }
