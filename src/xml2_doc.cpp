@@ -80,7 +80,10 @@ CharacterVector doc_url(XPtrDoc x) {
 
 // [[Rcpp::export]]
 XPtrDoc doc_new(std::string version) {
-  return XPtrDoc(xmlNewDoc(asXmlChar(version)));
+  XPtrDoc x = XPtrDoc(xmlNewDoc(asXmlChar(version)));
+  xmlCharEncodingHandlerPtr p = xmlFindCharEncodingHandler("UTF-8");
+  x->encoding = reinterpret_cast<const xmlChar *>(p->name);
+  return x;
 }
 
 // [[Rcpp::export]]
