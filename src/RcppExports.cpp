@@ -589,7 +589,7 @@ BEGIN_RCPP
 END_RCPP
 }
 // doc_validate
-bool doc_validate(XPtrDoc doc, XPtrDoc schema);
+Rcpp::LogicalVector doc_validate(XPtrDoc doc, XPtrDoc schema);
 RcppExport SEXP xml2_doc_validate(SEXP docSEXP, SEXP schemaSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
