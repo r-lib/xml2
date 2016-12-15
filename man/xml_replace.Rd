@@ -4,6 +4,7 @@
 \alias{xml_replace}
 \alias{xml_add_sibling}
 \alias{xml_add_child}
+\alias{xml_add_parent}
 \alias{xml_remove}
 \title{Modify a tree by inserting, replacing or removing nodes}
 \usage{
@@ -13,6 +14,8 @@ xml_add_sibling(.x, .value, ..., .where = c("after", "before"),
   .copy = TRUE)
 
 xml_add_child(.x, .value, ..., .copy = TRUE)
+
+xml_add_parent(.x, .value, ...)
 
 xml_remove(.x, free = FALSE)
 }
@@ -35,8 +38,10 @@ the node or its children, it is likely to crash R or return garbage.}
 }
 \description{
 \code{xml_add_sibling()} and \code{xml_add_child()} are used to insert a node
-as a sibling or a child. \code{xml_replace()} replaces an existing node with
-a new node. \code{xml_remove()} removes a node from the tree.
+as a sibling or a child. \code{xml_add_parent()} adds a new parent in
+between the input node and the current parent. \code{xml_replace()}
+replaces an existing node with a new node. \code{xml_remove()} removes a
+node from the tree.
 }
 \details{
 Care needs to be taken when using \code{xml_remove()},

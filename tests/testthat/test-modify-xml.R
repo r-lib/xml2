@@ -144,3 +144,27 @@ test_that("xml_add_parent works with xml_node input", {
   expect_equal(xml_name(xml_parent(y)), "z")
   expect_equal(xml_name(xml_child(x)), "z")
 })
+
+test_that("xml_add_parent works with xml_nodeset input", {
+  x <- read_xml("<x><y/><y/></x>")
+  y <- xml_find_all(x, ".//y")
+  xml_add_parent(y, "z")
+
+  expect_equal(xml_name(xml_parent(y)), c("z", "z"))
+  expect_equal(xml_name(xml_child(x)), "z")
+})
+
+test_that("xml_add_parent works with xml_missing input", {
+  x <- read_xml("<body>
+    <p>Some <b>text</b>.</p>
+    <p>Some <b>other</b>.</p>
+    <p>No bold text</p>
+    </body>")
+
+    y <- xml_find_all(x, ".//p")
+    z <- xml_find_first(y, ".//b")
+    xml_add_parent(z, "em")
+
+    expect_equal(xml_name(xml_parent(z)), c("em", "em"))
+    expect_equal(xml_name(xml_children(y)), c("em", "em"))
+})

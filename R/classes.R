@@ -137,7 +137,15 @@ nodeset_apply.xml_nodeset <- function(x, fun, ...) {
   if (length(x) == 0)
     return(xml_nodeset())
 
-  make_nodeset(lapply(x, function(x) fun(x$node, ...)), x[[1]]$doc)
+  is_missing <- is.na(x)
+  res <- list(length(x))
+
+  res[is_missing] <- list(xml_missing())
+  if (any(!is_missing)) {
+    res[!is_missing] <- lapply(x[!is_missing], function(x) fun(x$node, ...))
+  }
+
+  make_nodeset(res, x[[1]]$doc)
 }
 
 #' @export

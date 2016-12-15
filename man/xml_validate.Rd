@@ -23,4 +23,3 @@ doc <- read_xml(system.file("extdata/order-doc.xml", package = "xml2"))
 schema <- read_xml(system.file("extdata/order-schema.xml", package = "xml2"))
 xml_validate(doc, schema)
 }
-

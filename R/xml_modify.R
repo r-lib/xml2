@@ -177,8 +177,35 @@ xml_add_child.xml_missing <- function(.x, .value, ..., .copy = TRUE) {
 #' @rdname xml_replace
 #' @export
 xml_add_parent <- function(.x, .value, ...) {
+  UseMethod("xml_add_parent")
+}
+
+#' @export
+xml_add_parent.xml_node <- function(.x, .value, ...) {
   new_parent <- xml_replace(.x, .value = .value, ..., .copy = FALSE)
-  xml_add_child(new_parent, .value = .x, .copy = FALSE)
+  node <- xml_add_child(new_parent, .value = .x, .copy = FALSE)
+
+  invisible(node)
+}
+
+#' @export
+xml_add_parent.xml_nodeset <- function(.x, .value, ...) {
+  if (length(.x) == 0) {
+    return(.x)
+  }
+
+  # Need to wrap this in a list if a bare xml_node so it is recycled properly
+  if (inherits(.value, "xml_node")) {
+    .value <- list(.value)
+  }
+
+  res <- Map(xml_add_parent, .x, .value, ...)
+  invisible(make_nodeset(res, res[[1]]$doc))
+}
+
+#' @export
+xml_add_parent.xml_missing <- function(.x, .value, ..., .copy = TRUE) {
+  invisible(.x)
 }
 
 #' @rdname xml_replace
