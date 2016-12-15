@@ -173,7 +173,19 @@ xml_missing <- function() {
 }
 
 #' @export
-is.na.xml_missing <- function(x) TRUE
+is.na.xml_missing <- function(x) {
+  TRUE
+}
+
+#' @export
+is.na.xml_nodeset <- function(x) {
+  vapply(x, is.na, logical(1))
+}
+
+#' @export
+is.na.xml_node <- function(x) {
+  FALSE
+}
 
 format.xml_missing <- function(x, ...) {
   "<NA>"
