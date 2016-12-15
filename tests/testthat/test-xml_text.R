@@ -39,7 +39,7 @@ test_that("xml_text<- and xml_set_text work properly with xml_nodeset objects", 
 test_that("xml_text trims whitespace if requested, including non-breaking spaces", {
   x <- read_html("<p>   Some text    &nbsp;</p>")
   expect_identical(xml_text(x),
-    "   Some text     ")
+    "   Some text    \u00a0")
 
   expect_identical(xml_text(x, trim = TRUE),
     "Some text")
