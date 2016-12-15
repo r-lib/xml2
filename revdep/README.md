@@ -4,39 +4,37 @@
 
 |setting  |value                        |
 |:--------|:----------------------------|
-|version  |R version 3.3.0 (2016-05-03) |
+|version  |R version 3.3.2 (2016-10-31) |
 |system   |x86_64, darwin13.4.0         |
 |ui       |X11                          |
 |language |(EN)                         |
 |collate  |en_US.UTF-8                  |
-|tz       |America/New_York             |
-|date     |2016-06-14                   |
+|tz       |Europe/Amsterdam             |
+|date     |2016-12-15                   |
 
 ## Packages
 
-|package   |*  |version    |date       |source                 |
-|:---------|:--|:----------|:----------|:----------------------|
-|BH        |   |1.60.0-2   |2016-05-07 |cran (@1.60.0-)        |
-|covr      |   |2.0.1      |2016-04-06 |cran (@2.0.1)          |
-|curl      |   |0.9.7      |2016-04-10 |cran (@0.9.7)          |
-|httr      |   |1.1.0      |2016-01-28 |cran (@1.1.0)          |
-|knitr     |   |1.13       |2016-05-09 |cran (@1.13)           |
-|magrittr  |   |1.5        |2014-11-22 |cran (@1.5)            |
-|Rcpp      |   |0.12.5     |2016-05-14 |cran (@0.12.5)         |
-|rmarkdown |   |0.9.6      |2016-05-01 |cran (@0.9.6)          |
-|testthat  |*  |1.0.2      |2016-04-23 |cran (@1.0.2)          |
-|xml2      |*  |0.1.2.9000 |2016-06-14 |local (jimhester/xml2) |
+|package |*  |version    |date       |source                         |
+|:-------|:--|:----------|:----------|:------------------------------|
+|Rcpp    |   |0.12.8.2   |2016-12-15 |Github (RcppCore/Rcpp@e4ca728) |
+|xml2    |   |1.0.0.9002 |2016-12-15 |local (NA/NA@c038a36)          |
 
 # Check results
-51 packages
+80 packages
 
-## addinslist (0.1)
+## addinslist (0.2)
 Maintainer: Dean Attali <daattali@gmail.com>  
 Bug reports: https://github.com/daattali/addinslist/issues
 
 0 errors | 0 warnings | 0 notes
 
-## ameco (0.2.3)
+## algorithmia (0.0.2)
+Maintainer: James Athappilly <jamesa@algorithmia.com>  
+Bug reports: https://github.com/algorithmiaio/algorithmia-r/issues
+
+0 errors | 0 warnings | 0 notes
+
+## ameco (0.2.4)
 Maintainer: Eric Persson <expersso5@gmail.com>  
 Bug reports: http://github.com/expersso/ameco/issues
 
@@ -44,19 +42,58 @@ Bug reports: http://github.com/expersso/ameco/issues
 
 ```
 checking installed package size ... NOTE
-  installed size is 15.3Mb
+  installed size is 15.5Mb
   sub-directories of 1Mb or more:
-    data  15.2Mb
+    data  15.4Mb
 ```
+
+## aws.sns (0.1.5)
+Maintainer: Thomas J. Leeper <thosjleeper@gmail.com>  
+Bug reports: https://github.com/cloudyr/aws.sns/issues
+
+0 errors | 0 warnings | 0 notes
+
+## aws.sqs (0.1.8)
+Maintainer: Thomas J. Leeper <thosjleeper@gmail.com>  
+Bug reports: https://github.com/cloudyr/aws.sqs/issues
+
+0 errors | 0 warnings | 0 notes
+
+## banxicoR (0.9.0)
+Maintainer: Eduardo Flores <eduardo@enelmargen.org>
+
+0 errors | 0 warnings | 0 notes
+
+## binman (0.0.7)
+Maintainer: John Harrison <johndharrison0@gmail.com>  
+Bug reports: https://github.com/johndharrison/binman/issues
+
+0 errors | 0 warnings | 0 notes
 
 ## bold (0.3.5)
 Maintainer: Scott Chamberlain <myrmecocystus@gmail.com>  
 Bug reports: https://github.com/ropensci/bold/issues
 
+0 errors | 0 warnings | 1 note 
+
+```
+checking package dependencies ... NOTE
+Package suggested but not available for checking: ‘sangerseqR’
+```
+
+## boxoffice (0.1.1)
+Maintainer: Jacob Kaplan <jacobkap@sas.upenn.edu>
+
 0 errors | 0 warnings | 0 notes
 
-## cdcfluview (0.4.0)
-Maintainer: Bob Rudis <bob@rudis.net>  
+## camsRad (0.3.0)
+Maintainer: Lukas Lundstrom <lukas.rokka@gmail.com>  
+Bug reports: https://github.com/ropenscilabs/camsRad/issues
+
+0 errors | 0 warnings | 0 notes
+
+## cdcfluview (0.5.1)
+Maintainer: Bob Rudis <bob@rud.is>  
 Bug reports: https://github.com/hrbrmstr/cdcfluview/issues
 
 0 errors | 0 warnings | 0 notes
@@ -67,8 +104,20 @@ Bug reports: http://www.github.com/ropensci/ckanr/issues
 
 0 errors | 0 warnings | 0 notes
 
+## covr (2.2.1)
+Maintainer: Jim Hester <james.f.hester@gmail.com>  
+Bug reports: https://github.com/jimhester/covr/issues
+
+0 errors | 0 warnings | 0 notes
+
 ## cycleRtools (1.1.1)
 Maintainer: Jordan Mackie <jmackie@protonmail.com>
+
+0 errors | 0 warnings | 0 notes
+
+## dataRetrieval (2.6.3)
+Maintainer: Laura DeCicco <ldecicco@usgs.gov>  
+Bug reports: https://github.com/USGS-R/dataRetrieval/issues
 
 0 errors | 0 warnings | 0 notes
 
@@ -78,63 +127,78 @@ Bug reports: https://github.com/sckott/discgolf/issues
 
 0 errors | 0 warnings | 0 notes
 
-## docxtractr (0.1.0.9000)
+## docxtractr (0.2.0)
 Maintainer: Bob Rudis <bob@rudis.net>
 
-0 errors | 1 warning  | 0 notes
-
-```
-checking examples ... WARNING
-Found the following significant warnings:
-
-  Warning: 'xml_find_one' is deprecated.
-  Warning: 'xml_find_one' is deprecated.
-  Warning: 'xml_find_one' is deprecated.
-  Warning: 'xml_find_one' is deprecated.
-  Warning: 'xml_find_one' is deprecated.
-  Warning: 'xml_find_one' is deprecated.
-  Warning: 'xml_find_one' is deprecated.
-... 23 lines ...
-  Warning: 'xml_find_one' is deprecated.
-  Warning: 'xml_find_one' is deprecated.
-  Warning: 'xml_find_one' is deprecated.
-  Warning: 'xml_find_one' is deprecated.
-  Warning: 'xml_find_one' is deprecated.
-  Warning: 'xml_find_one' is deprecated.
-  Warning: 'xml_find_one' is deprecated.
-  Warning: 'xml_find_one' is deprecated.
-Deprecated functions may be defunct as soon as of the next release of
-R.
-See ?Deprecated.
-```
+0 errors | 0 warnings | 0 notes
 
 ## ecb (0.2)
 Maintainer: Eric Persson <expersso5@gmail.com>
 
 0 errors | 0 warnings | 0 notes
 
-## edeaR (0.4.1)
+## edeaR (0.4.7)
 Maintainer: Gert Janssenswillen <gert.janssenswillen@uhasselt.be>
 
 0 errors | 0 warnings | 0 notes
 
-## finreportr (1.0.0)
+## europepmc (0.1.0)
+Maintainer: Najko Jahn <najko.jahn@gmail.com>  
+Bug reports: http://github.com/ropensci/europepmc/issues
+
+0 errors | 0 warnings | 0 notes
+
+## finreportr (1.0.1)
 Maintainer: Seward Lee <sewardlee337@gmail.com>
 
 0 errors | 0 warnings | 0 notes
 
-## fulltext (0.1.6)
+## fulltext (0.1.8)
 Maintainer: Scott Chamberlain <myrmecocystus@gmail.com>  
 Bug reports: https://github.com/ropensci/fulltext/issues
 
 0 errors | 0 warnings | 0 notes
 
-## gesis (0.1)
+## gesis (0.2)
 Maintainer: Eric Persson <expersso5@gmail.com>
+
+1 error  | 1 warning  | 0 notes
+
+```
+checking tests ... ERROR
+Running the tests in ‘tests/testthat.R’ failed.
+Last 13 lines of output:
+  > library(gesis)
+  > 
+  > test_check("gesis")
+  1. Failure: get_study_groups() works (@test-availability.R#6) ------------------
+  nrow(groups) is not strictly more than 0. Difference: 0
+  
+  
+  testthat results ================================================================
+  OK: 3 SKIPPED: 0 FAILED: 1
+  1. Failure: get_study_groups() works (@test-availability.R#6) 
+  
+  Error: testthat unit tests failed
+  Execution halted
+
+checking re-building of vignette outputs ... WARNING
+Error in re-building vignettes:
+  ...
+Quitting from lines 60-61 (gesis.Rmd) 
+Error: processing vignette 'gesis.Rmd' failed with diagnostics:
+invalid 'description' argument
+Execution halted
+
+```
+
+## getlandsat (0.1.0)
+Maintainer: Scott Chamberlain <myrmecocystus@gmail.com>  
+Bug reports: https://github.com/ropenscilabs/getlandsat/issues
 
 0 errors | 0 warnings | 0 notes
 
-## ggiraph (0.3.0)
+## ggiraph (0.3.2)
 Maintainer: David Gohel <david.gohel@ardata.fr>  
 Bug reports: https://github.com/davidgohel/ggiraph/issues
 
@@ -145,59 +209,76 @@ Maintainer: Steve Simpson <steven.troy.simpson@gmail.com>
 
 0 errors | 0 warnings | 0 notes
 
-## googlesheets (0.2.0)
+## googlesheets (0.2.1)
 Maintainer: Jennifer Bryan <jenny@stat.ubc.ca>  
 Bug reports: https://github.com/jennybc/googlesheets/issues
 
 0 errors | 0 warnings | 0 notes
 
-## gutenbergr (0.1.1)
-Maintainer: David Robinson <admiral.david@gmail.com>  
-Bug reports: http://github.com/ropenscilabs/gutenbergr/issues
+## htmltidy (0.3.0)
+Maintainer: Bob Rudis <bob@rud.is>  
+Bug reports: https://github.com/hrbrmstr/htmltidy/issues
 
 0 errors | 0 warnings | 0 notes
 
-## httr (1.1.0)
+## httr (1.2.1)
 Maintainer: Hadley Wickham <hadley@rstudio.com>
 
 0 errors | 0 warnings | 0 notes
 
-## icd (2.0.1)
+## icd (2.1)
 Maintainer: Jack O. Wasey <jack@jackwasey.com>  
 Bug reports: https://github.com/jackwasey/icd/issues
 
-0 errors | 0 warnings | 3 notes
+0 errors | 0 warnings | 1 note 
 
 ```
-checking package dependencies ... NOTE
-Package suggested but not available for checking: ‘RODBC’
-
 checking installed package size ... NOTE
-  installed size is  6.9Mb
+  installed size is  6.3Mb
   sub-directories of 1Mb or more:
-    R      1.4Mb
-    data   1.9Mb
+    data   1.8Mb
     doc    2.1Mb
-    libs   1.1Mb
-
-checking Rd cross-references ... NOTE
-Package unavailable to check Rd xrefs: ‘fastmatch’
+    libs   1.0Mb
 ```
 
-## neotoma (1.5.1)
+## kokudosuuchi (0.2.0)
+Maintainer: Hiroaki Yutani <yutani.ini@gmail.com>  
+Bug reports: https://github.com/yutannihilation/kokudosuuchi/issues
+
+0 errors | 0 warnings | 0 notes
+
+## MazamaSpatialUtils (0.4.8)
+Maintainer: Jonathan Callahan <jonathan.s.callahan@gmail.com>
+
+0 errors | 0 warnings | 0 notes
+
+## mregions (0.1.4)
+Maintainer: Scott Chamberlain <myrmecocystus@gmail.com>  
+Bug reports: https://github.com/ropenscilabs/mregions/issues
+
+0 errors | 0 warnings | 0 notes
+
+## natserv (0.1.0)
+Maintainer: Scott Chamberlain <myrmecocystus@gmail.com>  
+Bug reports: https://github.com/ropensci/natserv/issues
+
+0 errors | 0 warnings | 0 notes
+
+## neotoma (1.6.2)
 Maintainer: Simon J. Goring <goring@wisc.edu>  
 Bug reports: https://github.com/ropensci/neotoma/issues
 
 0 errors | 0 warnings | 0 notes
 
-## nhanesA (0.6.4)
-Maintainer: Christopher Endres <cjendres1@gmail.com>
+## nhanesA (0.6.4.3.3)
+Maintainer: Christopher Endres <cjendres1@gmail.com>  
+Bug reports: https://github.com/cjendres1/nhanes
 
 0 errors | 0 warnings | 0 notes
 
-## oai (0.2.0)
+## oai (0.2.2)
 Maintainer: Scott Chamberlain <myrmecocystus@gmail.com>  
-Bug reports: https://github.com/sckott/oai/issues
+Bug reports: https://github.com/ropensci/oai/issues
 
 0 errors | 0 warnings | 0 notes
 
@@ -207,15 +288,27 @@ Bug reports: https://www.github.com/expersso/OECD/issues
 
 0 errors | 0 warnings | 0 notes
 
-## originr (0.1.0)
+## openadds (0.1.0)
 Maintainer: Scott Chamberlain <myrmecocystus@gmail.com>  
-Bug reports: https://github.com/ropenscilabs/originr/issues
+Bug reports: https://github.com/sckott/openadds/issues
 
 0 errors | 0 warnings | 0 notes
 
-## pangaear (0.2.0)
+## originr (0.2.0)
+Maintainer: Scott Chamberlain <myrmecocystus@gmail.com>  
+Bug reports: https://github.com/ropensci/originr/issues
+
+0 errors | 0 warnings | 0 notes
+
+## pangaear (0.2.4)
 Maintainer: Scott Chamberlain <myrmecocystus@gmail.com>  
 Bug reports: https://github.com/ropensci/pangaear/issues
+
+0 errors | 0 warnings | 0 notes
+
+## prodigenr (0.3.0)
+Maintainer: Luke Johnston <lwjohnst@gmail.com>  
+Bug reports: https://github.com/lwjohnst86/prodigenr/issues
 
 0 errors | 0 warnings | 0 notes
 
@@ -225,9 +318,14 @@ Bug reports: https://bitbucket.com/cancercentrum/rccmisc/issues
 
 0 errors | 0 warnings | 0 notes
 
-## rcrossref (0.5.2)
+## rcrossref (0.6.0)
 Maintainer: Scott Chamberlain <myrmecocystus@gmail.com>  
 Bug reports: https://github.com/ropensci/rcrossref/issues
+
+0 errors | 0 warnings | 0 notes
+
+## RDML (0.9-5)
+Maintainer: Konstantin A. Blagodatskikh <k.blag@yandex.ru>
 
 0 errors | 0 warnings | 0 notes
 
@@ -242,16 +340,22 @@ Bug reports: https://github.com/ropensci/rdryad/issues
 
 0 errors | 0 warnings | 0 notes
 
-## readODS (1.6.2)
+## readODS (1.6.4)
 Maintainer: Chung-hong Chan <chainsawtiney@gmail.com>
 
 0 errors | 0 warnings | 0 notes
 
-## ReporteRs (0.8.6)
+## ReporteRs (0.8.7)
 Maintainer: David Gohel <david.gohel@lysis-consultants.fr>  
 Bug reports: https://github.com/davidgohel/ReporteRs/issues
 
-0 errors | 0 warnings | 0 notes
+1 error  | 0 warnings | 0 notes
+
+```
+checking whether package ‘ReporteRs’ can be installed ... ERROR
+Installation failed.
+See ‘/Users/jeroen/workspace/xml2/revdep/checks/ReporteRs.Rcheck/00install.out’ for details.
+```
 
 ## rerddap (0.3.4)
 Maintainer: Scott Chamberlain <myrmecocystus@gmail.com>  
@@ -259,20 +363,27 @@ Bug reports: http://www.github.com/ropensci/rerddap/issues
 
 0 errors | 0 warnings | 0 notes
 
-## rgbif (0.9.3)
+## rgbif (0.9.6)
 Maintainer: Scott Chamberlain <myrmecocystus@gmail.com>  
 Bug reports: https://github.com/ropensci/rgbif/issues
 
 0 errors | 0 warnings | 0 notes
 
-## rgho (0.1.0)
-Maintainer: Antoine Filipovic-Pierucci <pierucci@gmail.com>  
-Bug reports: https://github.com/pierucci/rgho/issues
+## rio (0.4.16)
+Maintainer: Thomas J. Leeper <thosjleeper@gmail.com>  
+Bug reports: https://github.com/leeper/rio/issues
 
 0 errors | 0 warnings | 0 notes
 
-## rio (0.4.8)
-Maintainer: Thomas J. Leeper <thosjleeper@gmail.com>
+## RNHANES (1.1.0)
+Maintainer: Herb Susmann <susmann@silentspring.org>  
+Bug reports: https://github.com/silentspringinstitute/RNHANES/issues
+
+0 errors | 0 warnings | 0 notes
+
+## rnoaa (0.6.6)
+Maintainer: Scott Chamberlain <myrmecocystus@gmail.com>  
+Bug reports: https://github.com/ropensci/rnoaa/issues
 
 0 errors | 0 warnings | 0 notes
 
@@ -281,87 +392,47 @@ Maintainer: Daniel C. Bowman <danny.c.bowman@gmail.com>
 
 0 errors | 0 warnings | 0 notes
 
-## rscopus (0.1.2)
+## rnrfa (1.2)
+Maintainer: Claudia Vitolo <cvitolodev@gmail.com>  
+Bug reports: https://github.com/cvitolo/rnrfa/issues
+
+0 errors | 0 warnings | 0 notes
+
+## RSauceLabs (0.1.6)
+Maintainer: John Harrison <johndharrison0@gmail.com>  
+Bug reports: https://github.com/johndharrison/RSauceLabs/issues
+
+0 errors | 0 warnings | 0 notes
+
+## rscopus (0.3.1)
 Maintainer: John Muschelli <muschellij2@gmail.com>  
 Bug reports: https://github.com/muschellij2/rscopus/issues
 
 0 errors | 0 warnings | 0 notes
 
-## rversions (1.0.2)
-Maintainer: Gabor Csardi <csardi.gabor@gmail.com>  
+## rversions (1.0.3)
+Maintainer: Gábor Csárdi <csardi.gabor@gmail.com>  
 Bug reports: https://github.com/metacran/rversions/issues
 
-0 errors | 1 warning  | 0 notes
+0 errors | 0 warnings | 0 notes
 
-```
-checking examples ... WARNING
-Found the following significant warnings:
+## rvest (0.3.2)
+Maintainer: Hadley Wickham <hadley@rstudio.com>  
+Bug reports: https://github.com/hadley/rvest/issues
 
-  Warning: 'xml_find_one' is deprecated.
-  Warning: 'xml_find_one' is deprecated.
-  Warning: 'xml_find_one' is deprecated.
-  Warning: 'xml_find_one' is deprecated.
-  Warning: 'xml_find_one' is deprecated.
-  Warning: 'xml_find_one' is deprecated.
-Deprecated functions may be defunct as soon as of the next release of
-R.
-See ?Deprecated.
-```
+0 errors | 0 warnings | 0 notes
 
-## rvest (0.3.1)
-Maintainer: Hadley Wickham <hadley@rstudio.com>
-
-1 error  | 0 warnings | 0 notes
-
-```
-checking examples ... ERROR
-Running examples in ‘rvest-Ex.R’ failed
-The error most likely occurred in:
-
-> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
-> ### Name: html
-> ### Title: Parse an HTML page.
-> ### Aliases: html read_xml.response read_xml.session
-> ### Keywords: deprecated
-> 
-... 127 lines ...
-      {cdata}
-    <div [id]>
-    <div [id]>
-      <script>
-        {cdata}
-> google %>% html_nodes("div")
-{xml_nodeset (13)}
-Error in nchar(desc) : invalid multibyte string, element 10
-Calls: <Anonymous> -> print.xml_nodeset -> show_nodes -> nchar
-Execution halted
-** found \donttest examples: check also with --run-donttest
-```
-
-## rvg (0.0.9)
+## rvg (0.1.1)
 Maintainer: David Gohel <david.gohel@ardata.fr>  
 Bug reports: https://github.com/davidgohel/rvg/issues
 
-1 error  | 0 warnings | 0 notes
+0 errors | 0 warnings | 0 notes
 
-```
-checking tests ... ERROR
-Running the tests in ‘tests/testthat.R’ failed.
-Last 13 lines of output:
-  1. Failure: pptx background does not exist if background is transparent (@test-bg.R#46) 
-  2. Failure: docx background does not exist if background is transparent (@test-bg.R#91) 
-  3. Failure: svg background does not exist if background is transparent (@test-bg.R#129) 
-  4. Failure: check docx editable properties (@test-dml-editable.R#24) 
-  5. Failure: check pptx editable properties (@test-dml-editable.R#47) 
-  6. Failure: check xlsx editable properties (@test-dml-editable.R#71) 
-  7. Failure: segments don't have fill (@test-docx-lines.R#14) 
-  8. Failure: lines don't have fill (@test-docx-lines.R#27) 
-  9. Failure: polygons without border (@test-docx-lines.R#57) 
-  1. ...
-  
-  Error: testthat unit tests failed
-  Execution halted
-```
+## sbtools (1.1.6)
+Maintainer: Tim Kern <kernt@usgs.gov>  
+Bug reports: https://github.com/USGS-R/sbtools/issues
+
+0 errors | 0 warnings | 0 notes
 
 ## SchemaOnRead (1.0.2)
 Maintainer: Michael North <north@anl.gov>
@@ -380,21 +451,44 @@ Bug reports: http://github.com/mi2-warsaw/sejmRP/issues
 
 0 errors | 0 warnings | 0 notes
 
-## svglite (1.1.0)
-Maintainer: Hadley Wickham <hadley@rstudio.com>  
+## selectr (0.3-0)
+Maintainer: Simon Potter <simon@sjp.co.nz>  
+Bug reports: https://github.com/sjp/selectr/issues
+
+0 errors | 0 warnings | 0 notes
+
+## seleniumPipes (0.3.7)
+Maintainer: John Harrison <johndharrison0@gmail.com>  
+Bug reports: https://github.com/johndharrison/seleniumPipes/issues
+
+0 errors | 0 warnings | 0 notes
+
+## sharpshootR (1.0)
+Maintainer: Dylan Beaudette <dylan.beaudette@ca.usda.gov>
+
+0 errors | 0 warnings | 0 notes
+
+## solrium (0.4.0)
+Maintainer: Scott Chamberlain <myrmecocystus@gmail.com>  
+Bug reports: http://www.github.com/ropensci/solrium/issues
+
+0 errors | 0 warnings | 0 notes
+
+## svglite (1.2.0)
+Maintainer: Lionel Henry <lionel@rstudio.com>  
 Bug reports: https://github.com/hadley/svglite/issues
 
 0 errors | 0 warnings | 0 notes
 
-## svgPanZoom (0.3.2)
-Maintainer: Kent Russell <kent.russell@timelyportfolio.com>  
-Bug reports: https://github.com/timelyportfolio/svgPanZoom/issues
+## taxize (0.7.9)
+Maintainer: Scott Chamberlain <myrmecocystus@gmail.com>  
+Bug reports: https://github.com/ropensci/taxize/issues
 
 0 errors | 0 warnings | 0 notes
 
-## taxize (0.7.6)
-Maintainer: Scott Chamberlain <myrmecocystus@gmail.com>  
-Bug reports: https://github.com/ropensci/taxize/issues
+## tidyverse (1.0.0)
+Maintainer: Hadley Wickham <hadley@rstudio.com>  
+Bug reports: https://github.com/hadley/tidyverse/issues
 
 0 errors | 0 warnings | 0 notes
 
@@ -404,16 +498,40 @@ Bug reports: http://www.github.com/ropensci/traits/issues
 
 0 errors | 0 warnings | 0 notes
 
+## tuber (0.7.0)
+Maintainer: Gaurav Sood <gsood07@gmail.com>  
+Bug reports: http://github.com/soodoku/tuber/issues
+
+0 errors | 0 warnings | 0 notes
+
+## units (0.4-1)
+Maintainer: Edzer Pebesma <edzer.pebesma@uni-muenster.de>  
+Bug reports: https://github.com/edzer/units/issues/
+
+0 errors | 0 warnings | 0 notes
+
+## vdiffr (0.1.1)
+Maintainer: Lionel Henry <lionel@rstudio.com>
+
+0 errors | 0 warnings | 0 notes
+
 ## W3CMarkupValidator (0.1-5)
 Maintainer: Kurt Hornik <Kurt.Hornik@R-project.org>
 
 0 errors | 0 warnings | 0 notes
 
-## webchem (0.1.0.0)
+## webchem (0.1.1.1)
 Maintainer: Eduard Szöcs <eduardszoecs@gmail.com>  
 Bug reports: https://github.com/ropensci/webchem/issues
 
-0 errors | 0 warnings | 0 notes
+0 errors | 0 warnings | 1 note 
+
+```
+checking dependencies in R code ... NOTE
+Unable to find any JVMs matching version "(null)".
+No Java runtime present, try --request to install.
+No Java runtime present, requesting install.
+```
 
 ## wikipediatrend (1.1.10)
 Maintainer: Peter Meissner <retep.meissner@gmail.com>  
@@ -427,7 +545,7 @@ Packages suggested but not available for checking:
   ‘AnomalyDetection’ ‘BreakoutDetection’
 ```
 
-## xmlparsedata (1.0.0)
+## xmlparsedata (1.0.1)
 Maintainer: Gábor Csárdi <gcsardi@mango-solutions.com>  
 Bug reports: https://github.com/MangoTheCat/xmlparsedata/issues
 
