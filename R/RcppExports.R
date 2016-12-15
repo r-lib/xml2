@@ -61,8 +61,8 @@ node_set_name <- function(node, value) {
     invisible(.Call('xml2_node_set_name', PACKAGE = 'xml2', node, value))
 }
 
-node_text <- function(node, trim) {
-    .Call('xml2_node_text', PACKAGE = 'xml2', node, trim)
+node_text <- function(node) {
+    .Call('xml2_node_text', PACKAGE = 'xml2', node)
 }
 
 node_attr <- function(node, name, missing, nsMap) {
