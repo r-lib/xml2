@@ -21,7 +21,7 @@ Rcpp::LogicalVector doc_validate(XPtrDoc doc, XPtrDoc schema) {
   xmlSchemaValidCtxtPtr vptr = xmlSchemaNewValidCtxt(sptr);
   xmlSchemaSetValidStructuredErrors(vptr, handleSchemaError, &vec);
   Rcpp::LogicalVector out;
-  out.push_back(xmlSchemaValidateDoc(vptr, doc.checked_get()));
+  out.push_back(0 == xmlSchemaValidateDoc(vptr, doc.checked_get()));
   out.attr("errors") = vec;
   return out;
 }
