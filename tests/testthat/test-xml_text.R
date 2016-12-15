@@ -37,12 +37,12 @@ test_that("xml_text<- and xml_set_text work properly with xml_nodeset objects", 
 })
 
 test_that("xml_text trims whitespace if requested, including non-breaking spaces", {
-  x <- read_html("<p>   Some text    &nbsp;</p>")
+  x <- read_html("<p>   Some text &euro;  &nbsp;</p>")
   expect_identical(xml_text(x),
-    "   Some text    \u00a0")
+    "   Some text \u20ac  \u00a0")
 
   expect_identical(xml_text(x, trim = TRUE),
-    "Some text")
+    "Some text \u20ac")
 })
 
 test_that("xml_integer() returns an integer vector", {

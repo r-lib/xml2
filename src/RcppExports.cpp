@@ -185,14 +185,13 @@ BEGIN_RCPP
 END_RCPP
 }
 // node_text
-CharacterVector node_text(XPtrNode node, bool trim);
-RcppExport SEXP xml2_node_text(SEXP nodeSEXP, SEXP trimSEXP) {
+CharacterVector node_text(XPtrNode node);
+RcppExport SEXP xml2_node_text(SEXP nodeSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< XPtrNode >::type node(nodeSEXP);
-    Rcpp::traits::input_parameter< bool >::type trim(trimSEXP);
-    rcpp_result_gen = Rcpp::wrap(node_text(node, trim));
+    rcpp_result_gen = Rcpp::wrap(node_text(node));
     return rcpp_result_gen;
 END_RCPP
 }

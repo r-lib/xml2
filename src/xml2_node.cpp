@@ -34,12 +34,8 @@ void node_set_name(XPtrNode node, std::string value) {
 }
 
 // [[Rcpp::export]]
-CharacterVector node_text(XPtrNode node, bool trim) {
+CharacterVector node_text(XPtrNode node) {
   std::string text = Xml2String(xmlNodeGetContent(node.checked_get())).asStdString();
-
-  if (trim) {
-    boost::algorithm::trim_if(text, (! boost::algorithm::is_print()) || boost::algorithm::is_space());
-  }
 
   return asCharacterVector(text.c_str());
 }
