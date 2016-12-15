@@ -168,3 +168,13 @@ test_that("xml_add_parent works with xml_missing input", {
     expect_equal(xml_name(xml_parent(z)), c("em", "em"))
     expect_equal(xml_name(xml_children(y)), c("em", "em"))
 })
+
+test_that("xml_new_document adds a default character encoding", {
+
+  x <- read_xml("<root>\u00E1\u00FC\u00EE</root>")
+  expect_equal(as.character(x), "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<root>\u00E1\u00FC\u00EE</root>\n")
+
+  x2 <- xml_new_document()
+  xml_add_child(x2, "root", "\u00E1\u00FC\u00EE")
+  expect_equal(as.character(x2), "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<root>\u00E1\u00FC\u00EE</root>\n")
+})

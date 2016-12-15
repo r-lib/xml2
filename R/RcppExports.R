@@ -25,8 +25,8 @@ doc_url <- function(x) {
     .Call('xml2_doc_url', PACKAGE = 'xml2', x)
 }
 
-doc_new <- function(version) {
-    .Call('xml2_doc_new', PACKAGE = 'xml2', version)
+doc_new <- function(version, encoding = "UTF-8") {
+    .Call('xml2_doc_new', PACKAGE = 'xml2', version, encoding)
 }
 
 doc_set_root <- function(doc, root) {

@@ -81,13 +81,14 @@ BEGIN_RCPP
 END_RCPP
 }
 // doc_new
-XPtrDoc doc_new(std::string version);
-RcppExport SEXP xml2_doc_new(SEXP versionSEXP) {
+XPtrDoc doc_new(std::string version, std::string encoding);
+RcppExport SEXP xml2_doc_new(SEXP versionSEXP, SEXP encodingSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< std::string >::type version(versionSEXP);
-    rcpp_result_gen = Rcpp::wrap(doc_new(version));
+    Rcpp::traits::input_parameter< std::string >::type encoding(encodingSEXP);
+    rcpp_result_gen = Rcpp::wrap(doc_new(version, encoding));
     return rcpp_result_gen;
 END_RCPP
 }

@@ -256,9 +256,12 @@ xml_set_namespace <- function(.x, prefix = "", uri = "") {
 #' Create a new document
 #'
 #' @param version The version number of the document.
+#' @param encoding The character encoding to use in the document. The default
+#' encoding is \sQuote{UTF-8}. Available encodings are specified at
+#' \url{http://xmlsoft.org/html/libxml-encoding.html#xmlCharEncoding}.
 #' @return A \code{xml_document} object.
 #' @export
-xml_new_document <- function(version = "1.0") {
+xml_new_document <- function(version = "1.0", encoding = "UTF-8") {
   doc <- doc_new(version)
   structure(list(doc = doc), class = "xml_document")
 }

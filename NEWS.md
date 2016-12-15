@@ -1,5 +1,7 @@
 # xml2 1.0.0.9000
 
+* `xml_new_document()` now explicitly sets the encoding (default UTF-8) (#142)
+
 * `xml_add_parent()` inserts a new node between the node and its parent (#129)
 
 * Add `xml_validate()` to validate a document against an xml schema (#31)

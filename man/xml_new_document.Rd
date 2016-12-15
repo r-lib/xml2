@@ -4,10 +4,14 @@
 \alias{xml_new_document}
 \title{Create a new document}
 \usage{
-xml_new_document(version = "1.0")
+xml_new_document(version = "1.0", encoding = "UTF-8")
 }
 \arguments{
 \item{version}{The version number of the document.}
+
+\item{encoding}{The character encoding to use in the document. The default
+encoding is \sQuote{UTF-8}. Available encodings are specified at
+\url{http://xmlsoft.org/html/libxml-encoding.html#xmlCharEncoding}.}
 }
 \value{
 A \code{xml_document} object.
