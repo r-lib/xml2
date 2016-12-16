@@ -184,8 +184,7 @@ http://stackoverflow.com/questions/32939229/creating-xml-in-r-with-namespaces/32
 
 ```{r}
 library(magrittr)
-d <- xml_new_document() %>%
-  xml_add_child("sld",
+d <- xml_new_root("sld",
     xmlns = "http://www.o.net/sld",
     "xmlns:ogc" = "http://www.o.net/ogc",
     "xmlns:se" = "http://www.o.net/se",

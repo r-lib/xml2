@@ -253,8 +253,11 @@ xml_set_namespace <- function(.x, prefix = "", uri = "") {
   invisible(.x)
 }
 
-#' Create a new document
+#' Create a new document, possibly with a root node
 #'
+#' \code{xml_new_document} creates only a new document without a root node. In
+#' most cases you should instead use \code{xml_new_root}, which creates a new
+#' document and assigns the root node in one step.
 #' @param version The version number of the document.
 #' @param encoding The character encoding to use in the document. The default
 #' encoding is \sQuote{UTF-8}. Available encodings are specified at
@@ -264,6 +267,15 @@ xml_set_namespace <- function(.x, prefix = "", uri = "") {
 xml_new_document <- function(version = "1.0", encoding = "UTF-8") {
   doc <- doc_new(version)
   structure(list(doc = doc), class = "xml_document")
+}
+
+#' @param .version The version number of the document, passed to \code{xml_new_document(version)}.
+#' @param .encoding The encoding of the document, passed to \code{xml_new_document(encoding)}.
+#' @inheritParams xml_add_child
+#' @rdname xml_new_document
+#' @export
+xml_new_root <- function(.value, ..., .copy = inherits(.value, "xml_node"), .version = "1.0", .encoding = "UTF-8") {
+  xml_add_child(xml_new_document(version = .version, encoding = .encoding), .value = .value, ... = ..., .copy = .copy)
 }
 
 #' Strip the default namespaces from a document

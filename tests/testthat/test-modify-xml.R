@@ -178,3 +178,11 @@ test_that("xml_new_document adds a default character encoding", {
   xml_add_child(x2, "root", "\u00E1\u00FC\u00EE")
   expect_equal(as.character(x2), "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<root>\u00E1\u00FC\u00EE</root>\n")
 })
+
+test_that("xml_new_root is equivalent to using xml_new_document xml_add_child", {
+  x1 <- xml_add_child(xml_new_document(), "foo", "bar")
+
+  x2 <- xml_new_root("foo", "bar")
+
+  expect_identical(as.character(x1), as.character(x2))
+})

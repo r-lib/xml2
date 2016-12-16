@@ -13,8 +13,7 @@ xml_cdata(content)
 Construct a cdata node
 }
 \examples{
-x <- xml_new_document()
-r <- xml_add_child(x, "root")
-xml_add_child(r, xml_cdata("<d/>"))
+x <- xml_new_root("root")
+xml_add_child(x, xml_cdata("<d/>"))
 as.character(x)
 }

@@ -215,9 +215,8 @@ as.character.xml_missing <- function(x, ...) {
 #' Construct a cdata node
 #' @param content The CDATA content, does not include \code{<![CDATA[}
 #' @examples
-#' x <- xml_new_document()
-#' r <- xml_add_child(x, "root")
-#' xml_add_child(r, xml_cdata("<d/>"))
+#' x <- xml_new_root("root")
+#' xml_add_child(x, xml_cdata("<d/>"))
 #' as.character(x)
 #' @export
 xml_cdata <- function(content) {

@@ -1,5 +1,7 @@
 # xml2 1.0.0.9000
 
+* `xml_new_root()` can be used to create a new document and a root node in one step (#131).
+
 * `xml_new_document()` now explicitly sets the encoding (default UTF-8) (#142)
 
 * `xml_add_parent()` inserts a new node between the node and its parent (#129)
