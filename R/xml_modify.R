@@ -264,6 +264,7 @@ xml_set_namespace <- function(.x, prefix = "", uri = "") {
 #' \url{http://xmlsoft.org/html/libxml-encoding.html#xmlCharEncoding}.
 #' @return A \code{xml_document} object.
 #' @export
+# TODO: jimhester 2016-12-16 Deprecate this in the future?
 xml_new_document <- function(version = "1.0", encoding = "UTF-8") {
   doc <- doc_new(version)
   structure(list(doc = doc), class = "xml_document")
