@@ -18,12 +18,12 @@ test_that("read_html properly passes parser arguments", {
   skip_if_not(libxml2_version() >= "2.9.2")
 
   blanks <- read_html("cd_catalog.xml.bz2", options = c("RECOVER", "NOERROR"))
-  expect_equal(as_list(blanks)$body$catalog$cd[[1]],
+  expect_equal(as_list(blanks)$html$body$catalog$cd[[1]],
     "\r\n    ")
 
   no_blanks <- read_html("cd_catalog.xml.bz2", options = c("RECOVER", "NOERROR", "NOBLANKS"))
 
-  expect_equal(as_list(no_blanks)$body$catalog$cd[[1]],
+  expect_equal(as_list(no_blanks)$html$body$catalog$cd[[1]],
     list("Empire Burlesque"))
 })
 
