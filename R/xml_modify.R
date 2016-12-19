@@ -10,7 +10,10 @@
 #' @param .x a document, node or nodeset.
 #' @param .copy whether to copy the \code{.value} before replacing. If this is \code{FALSE}
 #'   then the node will be moved from it's current location.
-#' @param .where whether to add \code{.value} before or after \code{.x}.
+#' @param .where to add thenew node, for \code{xml_add_child} the position
+#' after which to add, use \code{0} for the first child. For
+#' \code{xml_add_sibling} either \sQuote{"befeore"} or \sQuote{"after"}
+#' indicating if the new node should be before or after \code{.x}.
 #' @param ... If named attributes or namespaces to set on the node, if unnamed
 #' text to assign to the node.
 #' @param .value node or nodeset to insert.
@@ -127,21 +130,30 @@ create_node <- function(.value, parent, ...) {
 
 #' @rdname xml_replace
 #' @export
-xml_add_child <- function(.x, .value, ..., .copy = TRUE) {
+xml_add_child <- function(.x, .value, ..., .where = length(xml_children(.x)), .copy = TRUE) {
   UseMethod("xml_add_child")
 }
 
 #' @export
-xml_add_child.xml_node <- function(.x, .value, ..., .copy = inherits(.value, "xml_node")) {
+xml_add_child.xml_node <- function(.x, .value, ..., .where = length(xml_children(.x)), .copy = inherits(.value, "xml_node")) {
 
   node <- create_node(.value, .x, ...)
-  node_add_child(.x$node, node$node, .copy)
+
+  num_children <- length(xml_children(.x))
+
+  if (.where >= num_children) {
+    node_append_child(.x$node, node$node, .copy)
+  } else if (.where == 0L) {
+    node_prepend_sibling(xml_child(.x, search = 1)$node, node$node, .copy)
+  } else {
+    node_append_sibling(xml_child(.x, search = .where)$node, node$node, .copy)
+  }
 
   invisible(node)
 }
 
 #' @export
-xml_add_child.xml_document <- function(.x, .value, ..., .copy = inherits(.value, "xml_node")) {
+xml_add_child.xml_document <- function(.x, .value, ..., .where = length(xml_children(.x)), .copy = inherits(.value, "xml_node")) {
   if (inherits(.x, "xml_node")) {
     NextMethod("xml_add_child")
   } else {
@@ -149,13 +161,13 @@ xml_add_child.xml_document <- function(.x, .value, ..., .copy = inherits(.value,
     if (!doc_has_root(.x$doc)) {
       doc_set_root(.x$doc, node$node)
     }
-    node_add_child(doc_root(.x$doc), node$node, .copy)
+    node_append_child(doc_root(.x$doc), node$node, .copy)
     invisible(xml_document(.x$doc))
   }
 }
 
 #' @export
-xml_add_child.xml_nodeset <- function(.x, .value, ..., .copy = TRUE) {
+xml_add_child.xml_nodeset <- function(.x, .value, ..., .where = length(xml_children(.x)), .copy = TRUE) {
   if (length(.x) == 0) {
     return(.x)
   }
@@ -165,7 +177,7 @@ xml_add_child.xml_nodeset <- function(.x, .value, ..., .copy = TRUE) {
     .value <- list(.value)
   }
 
-  res <- Map(xml_add_child, .x, .value, ..., .copy = .copy)
+  res <- Map(xml_add_child, .x, .value, ..., .where = .where, .copy = .copy)
   invisible(make_nodeset(res, res[[1]]$doc))
 }
 

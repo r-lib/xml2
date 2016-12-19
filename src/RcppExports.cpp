@@ -348,16 +348,16 @@ BEGIN_RCPP
     return R_NilValue;
 END_RCPP
 }
-// node_add_child
-XPtrNode node_add_child(XPtrNode parent, XPtrNode cur, bool copy);
-RcppExport SEXP xml2_node_add_child(SEXP parentSEXP, SEXP curSEXP, SEXP copySEXP) {
+// node_append_child
+XPtrNode node_append_child(XPtrNode parent, XPtrNode cur, bool copy);
+RcppExport SEXP xml2_node_append_child(SEXP parentSEXP, SEXP curSEXP, SEXP copySEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< XPtrNode >::type parent(parentSEXP);
     Rcpp::traits::input_parameter< XPtrNode >::type cur(curSEXP);
     Rcpp::traits::input_parameter< bool >::type copy(copySEXP);
-    rcpp_result_gen = Rcpp::wrap(node_add_child(parent, cur, copy));
+    rcpp_result_gen = Rcpp::wrap(node_append_child(parent, cur, copy));
     return rcpp_result_gen;
 END_RCPP
 }

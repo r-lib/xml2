@@ -1,5 +1,8 @@
 # xml2 1.0.0.9000
 
+* `xml_add_child()` now takes a `.where` argument specifying where to add the
+  new children. (#138)
+
 * `as_xml()` generic function to convert R objects to xml. The most important
   method is for lists and enables full roundtrip support for going to and back
   from xmfor lists and enables full roundtrip support to and from XML. (#137, #143)

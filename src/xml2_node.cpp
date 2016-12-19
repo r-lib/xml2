@@ -452,7 +452,7 @@ void node_append_content(XPtrNode node, std::string content) {
 }
 
 // [[Rcpp::export]]
-XPtrNode node_add_child(XPtrNode parent, XPtrNode cur, bool copy) {
+XPtrNode node_append_child(XPtrNode parent, XPtrNode cur, bool copy) {
   xmlNodePtr node = NULL;
   if (copy) {
     node = xmlCopyNode(cur.checked_get(), 1);

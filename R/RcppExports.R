@@ -117,8 +117,8 @@ node_append_content <- function(node, content) {
     invisible(.Call('xml2_node_append_content', PACKAGE = 'xml2', node, content))
 }
 
-node_add_child <- function(parent, cur, copy) {
-    .Call('xml2_node_add_child', PACKAGE = 'xml2', parent, cur, copy)
+node_append_child <- function(parent, cur, copy) {
+    .Call('xml2_node_append_child', PACKAGE = 'xml2', parent, cur, copy)
 }
 
 node_prepend_sibling <- function(cur, elem, copy) {

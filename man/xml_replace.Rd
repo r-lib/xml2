@@ -13,7 +13,8 @@ xml_replace(.x, .value, ..., .copy = TRUE)
 xml_add_sibling(.x, .value, ..., .where = c("after", "before"),
   .copy = TRUE)
 
-xml_add_child(.x, .value, ..., .copy = TRUE)
+xml_add_child(.x, .value, ..., .where = length(xml_children(.x)),
+  .copy = TRUE)
 
 xml_add_parent(.x, .value, ...)
 
@@ -30,7 +31,10 @@ text to assign to the node.}
 \item{.copy}{whether to copy the \code{.value} before replacing. If this is \code{FALSE}
 then the node will be moved from it's current location.}
 
-\item{.where}{whether to add \code{.value} before or after \code{.x}.}
+\item{.where}{to add thenew node, for \code{xml_add_child} the position
+after which to add, use \code{0} for the first child. For
+\code{xml_add_sibling} either \sQuote{"befeore"} or \sQuote{"after"}
+indicating if the new node should be before or after \code{.x}.}
 
 \item{free}{When removing the node also free the memory used for that node.
 Note if you use this option you cannot use any existing objects pointing to

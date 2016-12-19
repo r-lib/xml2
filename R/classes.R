@@ -155,6 +155,15 @@ nodeset_apply.xml_node <- function(x, fun, ...) {
 }
 
 #' @export
+nodeset_apply.xml_document <- function(x, fun, ...) {
+  if (inherits(x, "xml_node")) {
+    NextMethod()
+  } else {
+    xml_nodeset()
+  }
+}
+
+#' @export
 format.xml_node <- function(x, ...) {
   attrs <- xml_attrs(x)
   paste("<",

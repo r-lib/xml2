@@ -186,3 +186,35 @@ test_that("xml_new_root is equivalent to using xml_new_document xml_add_child", 
 
   expect_identical(as.character(x1), as.character(x2))
 })
+
+test_that("xml_add_child can insert anywhere in the child list", {
+  x <- read_xml("<a/>")
+
+  xml_add_child(x, "z")
+  expect_equal(c("z"), xml_name(xml_children(x)))
+
+  xml_add_child(x, "w", .where = 0)
+  expect_equal(c("w", "z"), xml_name(xml_children(x)))
+
+  xml_add_child(x, "y", .where = 1)
+  expect_equal(c("w", "y", "z"), xml_name(xml_children(x)))
+
+  xml_add_child(x, "x", .where = 1)
+  expect_equal(c("w", "x", "y", "z"), xml_name(xml_children(x)))
+})
+
+test_that("xml_add_child can insert anywhere in a nodeset", {
+  x <- read_xml("<body>
+    <p>Some <b>text</b>.</p>
+    <p>Some <b>other</b>.</p>
+    <p>No bold text</p>
+    </body>")
+
+    y <- xml_find_all(x, ".//p")
+    z <- xml_find_first(y, ".//b")
+
+    xml_add_child(z, "bar")
+    xml_add_child(z, "foo", .where = 0)
+
+    expect_equal(c("foo", "bar", "foo", "bar"), xml_name(xml_children(z)))
+})
