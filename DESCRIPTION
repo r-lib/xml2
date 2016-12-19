@@ -32,3 +32,25 @@ SystemRequirements: libxml2: libxml2-dev (deb), libxml2-devel (rpm)
 License: GPL (>= 2)
 RoxygenNote: 5.0.1.9000
 VignetteBuilder: knitr
+Collate: 
+    'RcppExports.R'
+    'as_list.R'
+    'xml_parse.R'
+    'as_xml.R'
+    'classes.R'
+    'paths.R'
+    'utils.R'
+    'xml_attr.R'
+    'xml_children.R'
+    'xml_find.R'
+    'xml_modify.R'
+    'xml_name.R'
+    'xml_namespaces.R'
+    'xml_path.R'
+    'xml_schema.R'
+    'xml_structure.R'
+    'xml_text.R'
+    'xml_type.R'
+    'xml_url.R'
+    'xml_write.R'
+    'zzz.R'

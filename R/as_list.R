@@ -18,7 +18,7 @@
 #' }
 #'
 #' @inheritParams xml_name
-#' @param ... Needed for compatability with generic. Unused.
+#' @param ... Needed for compatibility with generic. Unused.
 #' @export
 #' @examples
 #' as_list(read_xml("<foo> a <b /><c><![CDATA[<d></d>]]></c></foo>"))
@@ -88,4 +88,19 @@ xml_to_r_attrs <- function(x) {
   special <- names(x) %in% special_attributes
   names(x)[special] <- paste0(".", names(x)[special])
   as.list(x)
+}
+
+r_attrs_to_xml <- function(x) {
+  if (length(x) == 0) {
+    return(NULL)
+  }
+
+  # Drop R special attributes
+  x <- x[!names(x) %in% special_attributes]
+
+  # Rename any xml attributes needed
+  special <- names(x) %in% paste0(".", special_attributes)
+
+  names(x)[special] <- sub("^\\.", "", names(x)[special])
+  x
 }

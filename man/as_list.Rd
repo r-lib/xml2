@@ -17,7 +17,7 @@ similarly for atttributes). Default namespaces must be given an explicit
 name. The ns is ignored when using \code{\link{xml_name<-}} and
 \code{\link{xml_set_name}}.}
 
-\item{...}{Needed for compatability with generic. Unused.}
+\item{...}{Needed for compatibility with generic. Unused.}
 }
 \description{
 This turns an XML document (or node or nodeset) into the equivalent R

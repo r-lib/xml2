@@ -1,5 +1,9 @@
 # xml2 1.0.0.9000
 
+* `as_xml()` generic function to convert R objects to xml. The most important
+  method is for lists and enables full roundtrip support for going to and back
+  from xmfor lists and enables full roundtrip support to and from XML. (#137, #143)
+
 * `xml_new_root()` can be used to create a new document and a root node in one step (#131).
 
 * `xml_new_document()` now explicitly sets the encoding (default UTF-8) (#142)
