@@ -14,7 +14,8 @@ as_xml(x, ...)
 \description{
 This turns an R list into the equivalent XML document. Not all R lists will
 produce valid XML, in particular there can only be one root node and all
-child nodes need to be named (or empty) lists.
+child nodes need to be named (or empty) lists. R attributes become XML
+attributes and R names become XML node names.
 }
 \examples{
 as_xml(list(x = list()))
