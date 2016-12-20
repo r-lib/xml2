@@ -45,16 +45,18 @@ void node_write_html(XPtrNode n, XPtrDoc d, std::string path) {
 
 
 // [[Rcpp::export]]
-CharacterVector doc_format_xml(XPtrDoc x) {
+CharacterVector doc_format_xml(XPtrDoc x, bool format = true) {
   xmlChar *s;
-  xmlDocDumpMemory(x.checked_get(), &s, NULL);
+  int size;
+  xmlDocDumpFormatMemory(x.checked_get(), &s, &size, format);
 
   return Xml2String(s).asRString();
 }
 // [[Rcpp::export]]
-CharacterVector doc_format_html(XPtrDoc x) {
+CharacterVector doc_format_html(XPtrDoc x, bool format = true) {
   xmlChar *s;
-  htmlDocDumpMemory(x.checked_get(), &s, NULL);
+  int size;
+  htmlDocDumpMemoryFormat(x.checked_get(), &s, &size, format);
 
   return Xml2String(s).asRString();
 }

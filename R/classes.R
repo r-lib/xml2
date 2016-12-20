@@ -13,8 +13,8 @@ xml_node <- function(node = NULL, doc = NULL) {
 }
 
 #' @export
-as.character.xml_node <- function(x, ...) {
-  node_format_xml(x$doc, x$node)
+as.character.xml_node <- function(x, ..., format = TRUE, indent = 0) {
+  node_format_xml(x$doc, x$node, format = format, indent = indent)
 }
 
 #' @export
@@ -53,8 +53,13 @@ print.xml_document <- function(x, width = getOption("width"), max_n = 20, ...) {
 }
 
 #' @export
-as.character.xml_document <- function(x, ...) {
-  doc_format_xml(x$doc)
+as.character.xml_document <- function(x, ..., format = TRUE, type = c("xml", "html")) {
+  type <- match.arg(type)
+  if (type == "xml") {
+    doc_format_xml(x$doc, format = format)
+  } else {
+    doc_format_html(x$doc, format = format)
+  }
 }
 
 # nodeset ----------------------------------------------------------------------

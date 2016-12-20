@@ -181,12 +181,12 @@ node_write_html <- function(n, d, path) {
     invisible(.Call('xml2_node_write_html', PACKAGE = 'xml2', n, d, path))
 }
 
-doc_format_xml <- function(x) {
-    .Call('xml2_doc_format_xml', PACKAGE = 'xml2', x)
+doc_format_xml <- function(x, format = TRUE) {
+    .Call('xml2_doc_format_xml', PACKAGE = 'xml2', x, format)
 }
 
-doc_format_html <- function(x) {
-    .Call('xml2_doc_format_html', PACKAGE = 'xml2', x)
+doc_format_html <- function(x, format = TRUE) {
+    .Call('xml2_doc_format_html', PACKAGE = 'xml2', x, format)
 }
 
 node_format_xml <- function(doc, node, format = TRUE, indent = 0L) {

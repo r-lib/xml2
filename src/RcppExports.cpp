@@ -540,24 +540,26 @@ BEGIN_RCPP
 END_RCPP
 }
 // doc_format_xml
-CharacterVector doc_format_xml(XPtrDoc x);
-RcppExport SEXP xml2_doc_format_xml(SEXP xSEXP) {
+CharacterVector doc_format_xml(XPtrDoc x, bool format);
+RcppExport SEXP xml2_doc_format_xml(SEXP xSEXP, SEXP formatSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< XPtrDoc >::type x(xSEXP);
-    rcpp_result_gen = Rcpp::wrap(doc_format_xml(x));
+    Rcpp::traits::input_parameter< bool >::type format(formatSEXP);
+    rcpp_result_gen = Rcpp::wrap(doc_format_xml(x, format));
     return rcpp_result_gen;
 END_RCPP
 }
 // doc_format_html
-CharacterVector doc_format_html(XPtrDoc x);
-RcppExport SEXP xml2_doc_format_html(SEXP xSEXP) {
+CharacterVector doc_format_html(XPtrDoc x, bool format);
+RcppExport SEXP xml2_doc_format_html(SEXP xSEXP, SEXP formatSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< XPtrDoc >::type x(xSEXP);
-    rcpp_result_gen = Rcpp::wrap(doc_format_html(x));
+    Rcpp::traits::input_parameter< bool >::type format(formatSEXP);
+    rcpp_result_gen = Rcpp::wrap(doc_format_html(x, format));
     return rcpp_result_gen;
 END_RCPP
 }
