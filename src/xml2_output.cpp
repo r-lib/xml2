@@ -9,6 +9,7 @@ using namespace Rcpp;
 
 #include <libxml/tree.h>
 #include <libxml/HTMLtree.h>
+#include <libxml/xmlsave.h>
 
 #include "xml2_types.h"
 #include "xml2_utils.h"
@@ -58,6 +59,7 @@ CharacterVector doc_format_xml(XPtrDoc x, bool format = true) {
 
   return Xml2String(s).asRString();
 }
+
 // [[Rcpp::export]]
 CharacterVector doc_format_html(XPtrDoc x, bool format = true) {
   xmlChar *s;
@@ -67,19 +69,48 @@ CharacterVector doc_format_html(XPtrDoc x, bool format = true) {
   return Xml2String(s).asRString();
 }
 
+struct write_ctxt {
+  Rconnection con;
+  bool should_close;
+};
+
+int xml_write_callback(write_ctxt * context, const char * buffer, int len) {
+  size_t write_size;
+
+  if ((write_size = R_WriteConnection(context->con, (void *) buffer, len)) != len) {
+    stop("write failed, expected %l, got %l", len, write_size);
+  }
+  return write_size;
+}
+
+int xml_close_callback(write_ctxt * context) {
+  if (context->should_close) {
+    context->con->close(context->con);
+  }
+  return 0;
+}
+
 // [[Rcpp::export]]
 void doc_write_xml_connection(XPtrDoc x, SEXP connection, bool format = true) {
-  xmlChar *s;
-  int size;
-  size_t write_size;
-  xmlDocDumpFormatMemory(x.checked_get(), &s, &size, format);
+  write_ctxt ctxt;
+  ctxt.should_close = false;
 
-  Rconnection con = R_GetConnection(connection);
-  Rcout << con->description << ':' << con->isopen << ':' << con->canwrite << std::endl;
-  Rcout << "trying to write " << size << " bytes" << std::endl;
-  if ((write_size = R_WriteConnection(con, s, size)) != size) {
-    stop("write failed, expected %l, got %l", size, write_size);
+  ctxt.con = R_GetConnection(connection);
+  if (!ctxt.con->isopen) {
+    ctxt.con->open(ctxt.con);
+    ctxt.should_close = true;
   }
+
+  xmlSaveCtxtPtr savectx;
+  savectx = xmlSaveToIO(
+      (xmlOutputWriteCallback)xml_write_callback,
+      (xmlOutputCloseCallback) xml_close_callback,
+      &ctxt,
+      NULL,
+      0);
+
+  xmlSaveDoc(savectx, x.checked_get());
+  xmlSaveClose(savectx);
 }
 
 // [[Rcpp::export]]
