@@ -165,22 +165,6 @@ node_set_namespace_prefix <- function(doc, node, prefix) {
     invisible(.Call('xml2_node_set_namespace_prefix', PACKAGE = 'xml2', doc, node, prefix))
 }
 
-doc_write_xml <- function(x, path, format) {
-    invisible(.Call('xml2_doc_write_xml', PACKAGE = 'xml2', x, path, format))
-}
-
-doc_write_html <- function(x, path, format) {
-    invisible(.Call('xml2_doc_write_html', PACKAGE = 'xml2', x, path, format))
-}
-
-node_write_xml <- function(n, d, path) {
-    invisible(.Call('xml2_node_write_xml', PACKAGE = 'xml2', n, d, path))
-}
-
-node_write_html <- function(n, d, path) {
-    invisible(.Call('xml2_node_write_html', PACKAGE = 'xml2', n, d, path))
-}
-
 doc_format_xml <- function(x, format = TRUE) {
     .Call('xml2_doc_format_xml', PACKAGE = 'xml2', x, format)
 }
@@ -189,8 +173,24 @@ doc_format_html <- function(x, format = TRUE) {
     .Call('xml2_doc_format_html', PACKAGE = 'xml2', x, format)
 }
 
-doc_write_xml_connection <- function(x, connection, format = TRUE) {
-    invisible(.Call('xml2_doc_write_xml_connection', PACKAGE = 'xml2', x, connection, format))
+xml_save_options <- function() {
+    .Call('xml2_xml_save_options', PACKAGE = 'xml2')
+}
+
+doc_write <- function(x, path, encoding = "UTF-8", options = 1L) {
+    invisible(.Call('xml2_doc_write', PACKAGE = 'xml2', x, path, encoding, options))
+}
+
+doc_write_connection <- function(x, connection, encoding = "UTF-8", options = 1L) {
+    invisible(.Call('xml2_doc_write_connection', PACKAGE = 'xml2', x, connection, encoding, options))
+}
+
+node_write <- function(x, path, encoding = "UTF-8", options = 1L) {
+    invisible(.Call('xml2_node_write', PACKAGE = 'xml2', x, path, encoding, options))
+}
+
+node_write_connection <- function(x, connection, encoding = "UTF-8", options = 1L) {
+    invisible(.Call('xml2_node_write_connection', PACKAGE = 'xml2', x, connection, encoding, options))
 }
 
 node_format_xml <- function(doc, node, format = TRUE, indent = 0L) {

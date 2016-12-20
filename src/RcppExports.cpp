@@ -491,54 +491,6 @@ BEGIN_RCPP
     return R_NilValue;
 END_RCPP
 }
-// doc_write_xml
-void doc_write_xml(XPtrDoc x, std::string path, bool format);
-RcppExport SEXP xml2_doc_write_xml(SEXP xSEXP, SEXP pathSEXP, SEXP formatSEXP) {
-BEGIN_RCPP
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< XPtrDoc >::type x(xSEXP);
-    Rcpp::traits::input_parameter< std::string >::type path(pathSEXP);
-    Rcpp::traits::input_parameter< bool >::type format(formatSEXP);
-    doc_write_xml(x, path, format);
-    return R_NilValue;
-END_RCPP
-}
-// doc_write_html
-void doc_write_html(XPtrDoc x, std::string path, bool format);
-RcppExport SEXP xml2_doc_write_html(SEXP xSEXP, SEXP pathSEXP, SEXP formatSEXP) {
-BEGIN_RCPP
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< XPtrDoc >::type x(xSEXP);
-    Rcpp::traits::input_parameter< std::string >::type path(pathSEXP);
-    Rcpp::traits::input_parameter< bool >::type format(formatSEXP);
-    doc_write_html(x, path, format);
-    return R_NilValue;
-END_RCPP
-}
-// node_write_xml
-void node_write_xml(XPtrNode n, XPtrDoc d, std::string path);
-RcppExport SEXP xml2_node_write_xml(SEXP nSEXP, SEXP dSEXP, SEXP pathSEXP) {
-BEGIN_RCPP
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< XPtrNode >::type n(nSEXP);
-    Rcpp::traits::input_parameter< XPtrDoc >::type d(dSEXP);
-    Rcpp::traits::input_parameter< std::string >::type path(pathSEXP);
-    node_write_xml(n, d, path);
-    return R_NilValue;
-END_RCPP
-}
-// node_write_html
-void node_write_html(XPtrNode n, XPtrDoc d, std::string path);
-RcppExport SEXP xml2_node_write_html(SEXP nSEXP, SEXP dSEXP, SEXP pathSEXP) {
-BEGIN_RCPP
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< XPtrNode >::type n(nSEXP);
-    Rcpp::traits::input_parameter< XPtrDoc >::type d(dSEXP);
-    Rcpp::traits::input_parameter< std::string >::type path(pathSEXP);
-    node_write_html(n, d, path);
-    return R_NilValue;
-END_RCPP
-}
 // doc_format_xml
 CharacterVector doc_format_xml(XPtrDoc x, bool format);
 RcppExport SEXP xml2_doc_format_xml(SEXP xSEXP, SEXP formatSEXP) {
@@ -563,15 +515,65 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// doc_write_xml_connection
-void doc_write_xml_connection(XPtrDoc x, SEXP connection, bool format);
-RcppExport SEXP xml2_doc_write_xml_connection(SEXP xSEXP, SEXP connectionSEXP, SEXP formatSEXP) {
+// xml_save_options
+Rcpp::IntegerVector xml_save_options();
+RcppExport SEXP xml2_xml_save_options() {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    rcpp_result_gen = Rcpp::wrap(xml_save_options());
+    return rcpp_result_gen;
+END_RCPP
+}
+// doc_write
+void doc_write(XPtrDoc x, std::string path, std::string encoding, int options);
+RcppExport SEXP xml2_doc_write(SEXP xSEXP, SEXP pathSEXP, SEXP encodingSEXP, SEXP optionsSEXP) {
+BEGIN_RCPP
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< XPtrDoc >::type x(xSEXP);
+    Rcpp::traits::input_parameter< std::string >::type path(pathSEXP);
+    Rcpp::traits::input_parameter< std::string >::type encoding(encodingSEXP);
+    Rcpp::traits::input_parameter< int >::type options(optionsSEXP);
+    doc_write(x, path, encoding, options);
+    return R_NilValue;
+END_RCPP
+}
+// doc_write_connection
+void doc_write_connection(XPtrDoc x, SEXP connection, std::string encoding, int options);
+RcppExport SEXP xml2_doc_write_connection(SEXP xSEXP, SEXP connectionSEXP, SEXP encodingSEXP, SEXP optionsSEXP) {
 BEGIN_RCPP
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< XPtrDoc >::type x(xSEXP);
     Rcpp::traits::input_parameter< SEXP >::type connection(connectionSEXP);
-    Rcpp::traits::input_parameter< bool >::type format(formatSEXP);
-    doc_write_xml_connection(x, connection, format);
+    Rcpp::traits::input_parameter< std::string >::type encoding(encodingSEXP);
+    Rcpp::traits::input_parameter< int >::type options(optionsSEXP);
+    doc_write_connection(x, connection, encoding, options);
+    return R_NilValue;
+END_RCPP
+}
+// node_write
+void node_write(XPtrNode x, std::string path, std::string encoding, int options);
+RcppExport SEXP xml2_node_write(SEXP xSEXP, SEXP pathSEXP, SEXP encodingSEXP, SEXP optionsSEXP) {
+BEGIN_RCPP
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< XPtrNode >::type x(xSEXP);
+    Rcpp::traits::input_parameter< std::string >::type path(pathSEXP);
+    Rcpp::traits::input_parameter< std::string >::type encoding(encodingSEXP);
+    Rcpp::traits::input_parameter< int >::type options(optionsSEXP);
+    node_write(x, path, encoding, options);
+    return R_NilValue;
+END_RCPP
+}
+// node_write_connection
+void node_write_connection(XPtrNode x, SEXP connection, std::string encoding, int options);
+RcppExport SEXP xml2_node_write_connection(SEXP xSEXP, SEXP connectionSEXP, SEXP encodingSEXP, SEXP optionsSEXP) {
+BEGIN_RCPP
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< XPtrNode >::type x(xSEXP);
+    Rcpp::traits::input_parameter< SEXP >::type connection(connectionSEXP);
+    Rcpp::traits::input_parameter< std::string >::type encoding(encodingSEXP);
+    Rcpp::traits::input_parameter< int >::type options(optionsSEXP);
+    node_write_connection(x, connection, encoding, options);
     return R_NilValue;
 END_RCPP
 }

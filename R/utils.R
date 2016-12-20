@@ -31,3 +31,10 @@ need_package <- function(pkg) {
 
   stop("Please install ", pkg, " package", call. = FALSE)
 }
+
+# Format the choices for display in Rd
+rd_definition <- function(terms, defs) {
+  paste0("\\describe{\n",
+    paste0("  \\item{", terms, "}{", defs, "}", collapse = "\n"),
+  "\n}")
+}

@@ -7,36 +7,44 @@
 \alias{write_html.xml_document}
 \title{Write XML or HTML to disk.}
 \usage{
-write_xml(x, file, ...)
+write_xml(x, con, ...)
 
-\method{write_xml}{xml_document}(x, file, format = TRUE, ...)
+\method{write_xml}{xml_document}(x, con, ..., options = "format",
+  encoding = "UTF-8")
 
-write_html(x, file, ...)
+write_html(x, con, ...)
 
-\method{write_html}{xml_document}(x, file, format = TRUE, ...)
+\method{write_html}{xml_document}(x, con, ..., options = "format",
+  encoding = "UTF-8")
 }
 \arguments{
 \item{x}{A document or node to write to disk. It's not possible to
 save nodesets containing more than one node.}
 
-\item{file}{Path to file to write.}
+\item{con}{Path to file or connection to write to.}
 
 \item{...}{additional arguments passed to methods.}
 
-\item{format}{if \code{TRUE}, the formatting spaces/lines are added to the
-output, if \code{FALSE} output is left as is.}
+\item{options}{default: \sQuote{format}. Zero or more of
+\Sexpr[results=rd]{xml2:::rd_definition(names(xml2:::xml_save_options()), attr(xml2:::xml_save_options(), "descriptions"))}}
+
+\item{encoding}{The character encoding to use in the document. The default
+encoding is \sQuote{UTF-8}. Available encodings are specified at
+\url{http://xmlsoft.org/html/libxml-encoding.html#xmlCharEncoding}.}
 }
 \description{
-This writes out both XML and normalised HTML.
+This writes out both XML and normalised HTML. The default behavior will
+output the same format which was read. If you want to force output pass
+\code{option = "as_xml"} or \code{option = "as_html"} respectively.
 }
 \examples{
 h <- read_html("<p>Hi!</p>")
 
 tmp <- tempfile(fileext = ".xml")
-write_xml(h, tmp)
+write_xml(h, tmp, options = "format")
 readLines(tmp)
 
 # write formatted HTML output
-write_html(h, tmp, format = TRUE)
+write_html(h, tmp, options = "format")
 readLines(tmp)
 }

@@ -1,5 +1,8 @@
 # xml2 1.0.0.9000
 
+* `write_xml()` and `write_html()` now accept connections as well as filenames
+  for output. (#157)
+
 * `xml_add_child()` now takes a `.where` argument specifying where to add the
   new children. (#138)
 

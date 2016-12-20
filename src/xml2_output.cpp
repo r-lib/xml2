@@ -15,43 +15,6 @@ using namespace Rcpp;
 #include "xml2_utils.h"
 
 // [[Rcpp::export]]
-void doc_write_xml(XPtrDoc x, std::string path, bool format) {
-  int res = xmlSaveFormatFile(
-    R_ExpandFileName(path.c_str()),
-    x.checked_get(),
-    format ? 1 : 0
-  );
-  if (res == -1)
-    Rcpp::stop("Failed to write to %s", path);
-}
-// [[Rcpp::export]]
-void doc_write_html(XPtrDoc x, std::string path, bool format) {
-  int res = htmlSaveFileFormat(
-    R_ExpandFileName(path.c_str()),
-    x.checked_get(),
-    "UTF-8",
-    format ? 1 : 0
-  );
-  if (res == -1)
-    Rcpp::stop("Failed to write to %s", path);
-}
-
-
-// [[Rcpp::export]]
-void node_write_xml(XPtrNode n, XPtrDoc d, std::string path) {
-  FILE* f = fopen(path.c_str(), "wb");
-  xmlElemDump(f, d.checked_get(), n.checked_get());
-  fclose(f);
-}
-// [[Rcpp::export]]
-void node_write_html(XPtrNode n, XPtrDoc d, std::string path) {
-  FILE* f = fopen(path.c_str(), "wb");
-  htmlNodeDumpFile(f, d.checked_get(), n.checked_get());
-  fclose(f);
-}
-
-
-// [[Rcpp::export]]
 CharacterVector doc_format_xml(XPtrDoc x, bool format = true) {
   xmlChar *s;
   int size;
@@ -67,6 +30,29 @@ CharacterVector doc_format_html(XPtrDoc x, bool format = true) {
   htmlDocDumpMemoryFormat(x.checked_get(), &s, &size, format);
 
   return Xml2String(s).asRString();
+}
+
+// [[Rcpp::export]]
+Rcpp::IntegerVector xml_save_options() {
+  Rcpp::IntegerVector out = Rcpp::IntegerVector::create(
+      Rcpp::_["format"] = XML_SAVE_FORMAT,
+      Rcpp::_["no_declaration"] = XML_SAVE_NO_DECL,
+      Rcpp::_["no_empty_tags"] = XML_SAVE_NO_EMPTY,
+      Rcpp::_["no_xhtml"] = XML_SAVE_NO_XHTML,
+      Rcpp::_["require_xhtml"] = XML_SAVE_XHTML,
+      Rcpp::_["as_xml"] = XML_SAVE_AS_XML,
+      Rcpp::_["as_html"] = XML_SAVE_AS_HTML,
+      Rcpp::_["format_whitespace"] = XML_SAVE_WSNONSIG);
+  out.attr("descriptions") = Rcpp::CharacterVector::create(
+      "Format output",
+      "Drop the XML declaration",
+      "Remove empty tags",
+      "Disable XHTML1 rules",
+      "Force XHTML1 rules",
+      "Force XML output",
+      "Force HTML output",
+      "Format with non-significant whitespace");
+  return out;
 }
 
 struct write_ctxt {
@@ -91,7 +77,19 @@ int xml_close_callback(write_ctxt * context) {
 }
 
 // [[Rcpp::export]]
-void doc_write_xml_connection(XPtrDoc x, SEXP connection, bool format = true) {
+void doc_write(XPtrDoc x, std::string path, std::string encoding = "UTF-8", int options = 1) {
+  xmlSaveCtxtPtr savectx = xmlSaveToFilename(
+      path.c_str(),
+      encoding.c_str(),
+      options);
+  xmlSaveDoc(savectx, x.checked_get());
+  if (xmlSaveClose(savectx) == -1) {
+    stop("Error closing file");
+  }
+}
+
+// [[Rcpp::export]]
+void doc_write_connection(XPtrDoc x, SEXP connection, std::string encoding = "UTF-8", int options = 1) {
   write_ctxt ctxt;
   ctxt.should_close = false;
 
@@ -101,16 +99,53 @@ void doc_write_xml_connection(XPtrDoc x, SEXP connection, bool format = true) {
     ctxt.should_close = true;
   }
 
-  xmlSaveCtxtPtr savectx;
-  savectx = xmlSaveToIO(
+  xmlSaveCtxtPtr savectx = xmlSaveToIO(
       (xmlOutputWriteCallback)xml_write_callback,
       (xmlOutputCloseCallback) xml_close_callback,
       &ctxt,
-      NULL,
-      0);
+      encoding.c_str(),
+      options);
 
   xmlSaveDoc(savectx, x.checked_get());
-  xmlSaveClose(savectx);
+  if (xmlSaveClose(savectx) == -1) {
+    stop("Error closing connection");
+  }
+}
+
+// [[Rcpp::export]]
+void node_write(XPtrNode x, std::string path, std::string encoding = "UTF-8", int options = 1) {
+  xmlSaveCtxtPtr savectx = xmlSaveToFilename(
+      path.c_str(),
+      encoding.c_str(),
+      options);
+  xmlSaveTree(savectx, x.checked_get());
+  if (xmlSaveClose(savectx) == -1) {
+    stop("Error closing file");
+  }
+}
+
+// [[Rcpp::export]]
+void node_write_connection(XPtrNode x, SEXP connection, std::string encoding = "UTF-8", int options = 1) {
+  write_ctxt ctxt;
+  ctxt.should_close = false;
+
+  ctxt.con = R_GetConnection(connection);
+  if (!ctxt.con->isopen) {
+    ctxt.con->open(ctxt.con);
+    ctxt.should_close = true;
+  }
+
+  xmlSaveCtxtPtr savectx = xmlSaveToIO(
+      (xmlOutputWriteCallback)xml_write_callback,
+      (xmlOutputCloseCallback) xml_close_callback,
+      &ctxt,
+      encoding.c_str(),
+      options);
+
+  xmlSaveTree(savectx, x.checked_get());
+  if (xmlSaveClose(savectx) == -1) {
+    stop("Error closing connection");
+  }
 }
 
 // [[Rcpp::export]]
