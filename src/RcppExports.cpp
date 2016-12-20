@@ -563,6 +563,18 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// doc_write_xml_connection
+void doc_write_xml_connection(XPtrDoc x, SEXP connection, bool format);
+RcppExport SEXP xml2_doc_write_xml_connection(SEXP xSEXP, SEXP connectionSEXP, SEXP formatSEXP) {
+BEGIN_RCPP
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< XPtrDoc >::type x(xSEXP);
+    Rcpp::traits::input_parameter< SEXP >::type connection(connectionSEXP);
+    Rcpp::traits::input_parameter< bool >::type format(formatSEXP);
+    doc_write_xml_connection(x, connection, format);
+    return R_NilValue;
+END_RCPP
+}
 // node_format_xml
 CharacterVector node_format_xml(XPtrDoc doc, XPtrNode node, bool format, int indent);
 RcppExport SEXP xml2_node_format_xml(SEXP docSEXP, SEXP nodeSEXP, SEXP formatSEXP, SEXP indentSEXP) {

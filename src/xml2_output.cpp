@@ -1,6 +1,12 @@
 #include <Rcpp.h>
 using namespace Rcpp;
 
+#define class class_name
+#define private private_ptr
+#include <R_ext/Connections.h>
+#undef class
+#undef private
+
 #include <libxml/tree.h>
 #include <libxml/HTMLtree.h>
 
@@ -61,6 +67,20 @@ CharacterVector doc_format_html(XPtrDoc x, bool format = true) {
   return Xml2String(s).asRString();
 }
 
+// [[Rcpp::export]]
+void doc_write_xml_connection(XPtrDoc x, SEXP connection, bool format = true) {
+  xmlChar *s;
+  int size;
+  size_t write_size;
+  xmlDocDumpFormatMemory(x.checked_get(), &s, &size, format);
+
+  Rconnection con = R_GetConnection(connection);
+  Rcout << con->description << ':' << con->isopen << ':' << con->canwrite << std::endl;
+  Rcout << "trying to write " << size << " bytes" << std::endl;
+  if ((write_size = R_WriteConnection(con, s, size)) != size) {
+    stop("write failed, expected %l, got %l", size, write_size);
+  }
+}
 
 // [[Rcpp::export]]
 CharacterVector node_format_xml(XPtrDoc doc, XPtrNode node,

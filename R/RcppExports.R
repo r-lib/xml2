@@ -189,6 +189,10 @@ doc_format_html <- function(x, format = TRUE) {
     .Call('xml2_doc_format_html', PACKAGE = 'xml2', x, format)
 }
 
+doc_write_xml_connection <- function(x, connection, format = TRUE) {
+    invisible(.Call('xml2_doc_write_xml_connection', PACKAGE = 'xml2', x, connection, format))
+}
+
 node_format_xml <- function(doc, node, format = TRUE, indent = 0L) {
     .Call('xml2_node_format_xml', PACKAGE = 'xml2', doc, node, format, indent)
 }
