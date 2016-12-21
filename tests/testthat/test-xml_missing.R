@@ -22,6 +22,7 @@ test_that("xml_missing methods return properly for all S3 methods", {
   expect_output(print(mss), "\\{xml_missing\\}\n<NA>")
   expect_equal(tree_structure(mss), NA_character_)
   expect_error(write_xml(mss), "Missing data cannot be written")
+  expect_error(write_html(mss), "Missing data cannot be written")
   expect_equal(xml_attr(mss), NA_character_)
   expect_equal(xml_attrs(mss), NA_character_)
   expect_equal(xml_find_all(mss), xml_nodeset())

@@ -1,5 +1,7 @@
-path_to_connection <- function(path) {
-  if (!is.character(path))
+path_to_connection <- function(path, check = c("file", "dir")) {
+  check <- match.arg(check)
+
+  if (!is.character(path) || length(path) != 1L)
     return(path)
 
   if (is_url(path)) {
@@ -10,7 +12,11 @@ path_to_connection <- function(path) {
     }
   }
 
-  path <- check_path(path)
+  if (check == "file") {
+    path <- check_path(path)
+  } else {
+    path <- file.path(check_path(dirname(path)), basename(path))
+  }
   switch(tools::file_ext(path),
     gz = gzfile(path, ""),
     bz2 = bzfile(path, ""),

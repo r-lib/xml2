@@ -55,25 +55,13 @@ Rcpp::IntegerVector xml_save_options() {
   return out;
 }
 
-struct write_ctxt {
-  Rconnection con;
-  bool should_close;
-};
-
-int xml_write_callback(write_ctxt * context, const char * buffer, int len) {
+int xml_write_callback(Rconnection con, const char * buffer, int len) {
   size_t write_size;
 
-  if ((write_size = R_WriteConnection(context->con, (void *) buffer, len)) != len) {
+  if ((write_size = R_WriteConnection(con, (void *) buffer, len)) != len) {
     stop("write failed, expected %l, got %l", len, write_size);
   }
   return write_size;
-}
-
-int xml_close_callback(write_ctxt * context) {
-  if (context->should_close) {
-    context->con->close(context->con);
-  }
-  return 0;
 }
 
 // [[Rcpp::export]]
@@ -90,19 +78,13 @@ void doc_write(XPtrDoc x, std::string path, std::string encoding = "UTF-8", int 
 
 // [[Rcpp::export]]
 void doc_write_connection(XPtrDoc x, SEXP connection, std::string encoding = "UTF-8", int options = 1) {
-  write_ctxt ctxt;
-  ctxt.should_close = false;
 
-  ctxt.con = R_GetConnection(connection);
-  if (!ctxt.con->isopen) {
-    ctxt.con->open(ctxt.con);
-    ctxt.should_close = true;
-  }
+  Rconnection con = R_GetConnection(connection);
 
   xmlSaveCtxtPtr savectx = xmlSaveToIO(
       reinterpret_cast<xmlOutputWriteCallback>(xml_write_callback),
-      reinterpret_cast<xmlOutputCloseCallback>(xml_close_callback),
-      &ctxt,
+      NULL,
+      con,
       encoding.c_str(),
       options);
 
@@ -126,19 +108,13 @@ void node_write(XPtrNode x, std::string path, std::string encoding = "UTF-8", in
 
 // [[Rcpp::export]]
 void node_write_connection(XPtrNode x, SEXP connection, std::string encoding = "UTF-8", int options = 1) {
-  write_ctxt ctxt;
-  ctxt.should_close = false;
 
-  ctxt.con = R_GetConnection(connection);
-  if (!ctxt.con->isopen) {
-    ctxt.con->open(ctxt.con);
-    ctxt.should_close = true;
-  }
+  Rconnection con = R_GetConnection(connection);
 
   xmlSaveCtxtPtr savectx = xmlSaveToIO(
       (xmlOutputWriteCallback)xml_write_callback,
-      (xmlOutputCloseCallback) xml_close_callback,
-      &ctxt,
+      NULL,
+      con,
       encoding.c_str(),
       options);
 

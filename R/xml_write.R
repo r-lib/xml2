@@ -37,8 +37,13 @@ write_xml.xml_missing <- function(x, con, ...) {
 #' @export
 write_xml.xml_document <- function(x, con, ..., options = "format", encoding = "UTF-8") {
   options  <- parse_options(options, xml_save_options())
+  con <- path_to_connection(con, check = "dir")
 
   if (inherits(con, "connection")) {
+    if (!isOpen(con)) {
+      open(con, "wb")
+      on.exit(close(con))
+    }
     doc_write_connection(x$doc, con, options = options, encoding = encoding)
   } else {
     if (!(is.character(con) && length(con) == 1 && nzchar(con))) {
@@ -50,13 +55,18 @@ write_xml.xml_document <- function(x, con, ..., options = "format", encoding = "
 
 #' @export
 write_xml.xml_nodeset <- function(x, con, ..., options = "format", encoding = "UTF-8") {
-  if (length(x$nodeset) != 1) {
+  if (length(x) != 1) {
     stop("Can only save length 1 node sets", call. = FALSE)
   }
 
   options  <- parse_options(options, xml_save_options())
+  con <- path_to_connection(con, check = "dir")
 
   if (inherits(con, "connection")) {
+    if (!isOpen(con)) {
+      open(con, "wb")
+      on.exit(close(con))
+    }
     node_write_connection(x[[1]]$node, con, options = options, encoding = encoding)
   } else {
     if (!(is.character(con) && length(con) == 1 && nzchar(con))) {
@@ -70,7 +80,12 @@ write_xml.xml_nodeset <- function(x, con, ..., options = "format", encoding = "U
 write_xml.xml_node <- function(x, con, format = TRUE, ..., options = "format", encoding = "UTF-8") {
   options  <- parse_options(options, xml_save_options())
 
+  con <- path_to_connection(con, check = "dir")
   if (inherits(con, "connection")) {
+    if (!isOpen(con)) {
+      open(con, "wb")
+      on.exit(close(con))
+    }
     node_write_connection(x$node, con, options = options, encoding = encoding)
   } else {
     if (!(is.character(con) && length(con) == 1 && nzchar(con))) {
