@@ -45,7 +45,7 @@ write_xml.xml_document <- function(x, con, ..., options = "format", encoding = "
     if (!(is.character(con) && length(con) == 1 && nzchar(con))) {
       stop("`con` must be a non-zero character of length 1", call. = FALSE)
     }
-    doc_write(x$doc, con, options = sum(opts[options]), encoding = encoding)
+    doc_write(x$doc, normalizePath(con), options = sum(opts[options]), encoding = encoding)
   }
 }
 
@@ -64,7 +64,7 @@ write_xml.xml_nodeset <- function(x, con, ..., options = "format", encoding = "U
     if (!(is.character(con) && length(con) == 1 && nzchar(con))) {
       stop("`con` must be a non-zero character of length 1", call. = FALSE)
     }
-    node_write(x[[1]]$node, con, options = sum(opts[options]), encoding = encoding)
+    node_write(x[[1]]$node, normalizePath(con), options = sum(opts[options]), encoding = encoding)
   }
 }
 
@@ -79,7 +79,7 @@ write_xml.xml_node <- function(x, con, format = TRUE, ..., options = "format", e
     if (!(is.character(con) && length(con) == 1 && nzchar(con))) {
       stop("`con` must be a non-zero character of length 1", call. = FALSE)
     }
-    node_write(x$node, con, options = sum(opts[options]), encoding = encoding)
+    node_write(x$node, normalizePath(con), options = sum(opts[options]), encoding = encoding)
   }
 }
 
