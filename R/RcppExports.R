@@ -5,6 +5,10 @@ read_connection_ <- function(con, chunk_size = 64 * 1024L) {
     .Call('xml2_read_connection_', PACKAGE = 'xml2', con, chunk_size)
 }
 
+xml_parse_options <- function() {
+    .Call('xml2_xml_parse_options', PACKAGE = 'xml2')
+}
+
 doc_parse_file <- function(path, encoding = "", as_html = FALSE, options = 0L) {
     .Call('xml2_doc_parse_file', PACKAGE = 'xml2', path, encoding, as_html, options)
 }

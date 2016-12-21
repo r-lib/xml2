@@ -22,33 +22,8 @@
 #'    iteration. Defaults to 64kb.
 #' @param verbose When reading from a slow connection, this prints some
 #'    output on every iteration so you know its working.
-#' @param options Set parsing options for the libxml2 parser. These are
-#' specified as a character vector of options to set. Available values are
-#' \describe{
-#'   \item{RECOVER}{recover on errors}
-#'   \item{NOENT}{substitute entities}
-#'   \item{DTDLOAD}{load the external subset}
-#'   \item{DTDATTR}{default DTD attributes}
-#'   \item{DTDVALID}{validate with the DTD}
-#'   \item{NOERROR}{suppress error reports}
-#'   \item{NOWARNING}{suppress warning reports}
-#'   \item{PEDANTIC}{pedantic error reporting}
-#'   \item{NOBLANKS}{remove blank nodes}
-#'   \item{SAX1}{use the SAX1 interface internally}
-#'   \item{XINCLUDE}{Implement XInclude substitition}
-#'   \item{NONET}{Forbid network access}
-#'   \item{NODICT}{Do not reuse the context dictionary}
-#'   \item{NSCLEAN}{remove redundant namespaces declarations}
-#'   \item{NOCDATA}{merge CDATA as text nodes}
-#'   \item{NOXINCNODE}{do not generate XINCLUDE START/END nodes}
-#'   \item{COMPACT}{compact small text nodes; no modification of the tree allowed afterwards (will possibly crash if you try to modify the tree)}
-#'   \item{OLD10}{parse using XML-1.0 before update 5}
-#'   \item{NOBASEFIX}{do not fixup XINCLUDE xml:base uris}
-#'   \item{HUGE}{relax any hardcoded limit from the parser}
-#'   \item{OLDSAX}{parse using SAX2 interface before 2.7.0}
-#'   \item{IGNORE_ENC}{ignore internal document encoding hint}
-#'   \item{BIG_LINES}{Store big lines numbers in text PSVI field}
-#' }
+#' @param options Set parsing options for the libxml2 parser. Zero of more of
+#' \Sexpr[results=rd]{xml2:::describe_options(xml2:::xml_parse_options())}
 #' @return An XML document. HTML is normalised to valid XML - this may not
 #'   be exactly the same transformation performed by the browser, but it's
 #'   a reasonable approximation.
@@ -77,6 +52,8 @@ read_html <- function(x, encoding = "", ..., options = c("RECOVER", "NOERROR", "
 
 #' @export
 read_html.default <- function(x, encoding = "", ..., options = c("RECOVER", "NOERROR", "NOBLANKS")) {
+  options <- parse_options(options, xml_parse_options())
+
   suppressWarnings(read_xml(x, encoding = encoding, ..., as_html = TRUE, options = options))
 }
 
@@ -85,6 +62,7 @@ read_html.response <- function(x, encoding = "", options = c("RECOVER",
     "NOERROR", "NOBLANKS"), ...) {
   need_package("httr")
 
+  options <- parse_options(options, xml_parse_options())
   content <- httr::content(x, as = "raw")
   xml2::read_html(content, encoding = encoding, options = options, ...)
 }
@@ -94,7 +72,7 @@ read_html.response <- function(x, encoding = "", options = c("RECOVER",
 read_xml.character <- function(x, encoding = "", ..., as_html = FALSE,
                                options = "NOBLANKS") {
 
-  options <- parse_options(options)
+  options <- parse_options(options, xml_parse_options())
   if (grepl("<|>", x)) {
     read_xml.raw(charToRaw(enc2utf8(x)), "UTF-8", ..., as_html = as_html, options = options)
   } else {
@@ -114,7 +92,7 @@ read_xml.character <- function(x, encoding = "", ..., as_html = FALSE,
 #' @rdname read_xml
 read_xml.raw <- function(x, encoding = "", base_url = "", ...,
                          as_html = FALSE, options = "NOBLANKS") {
-  options <- parse_options(options)
+  options <- parse_options(options, xml_parse_options())
 
   doc <- doc_parse_raw(x, encoding = encoding, base_url = base_url,
     as_html = as_html, options = options)
@@ -126,6 +104,8 @@ read_xml.raw <- function(x, encoding = "", base_url = "", ...,
 read_xml.connection <- function(x, encoding = "", n = 64 * 1024,
                                 verbose = FALSE, ..., base_url = "",
                                 as_html = FALSE, options = "NOBLANKS") {
+  options <- parse_options(options, xml_parse_options())
+
   if (!isOpen(x)) {
     open(x, "rb")
     on.exit(close(x))
@@ -141,48 +121,8 @@ read_xml.response <- function(x, encoding = "", base_url = "", ...,
                               as_html = FALSE, options = "NOBLANKS") {
   need_package("httr")
 
+  options <- parse_options(options, xml_parse_options())
   content <- httr::content(x, as = "raw")
   xml2::read_xml(content, encoding = encoding, base_url = base_url,
     as_html = as_html, option = options, ...)
-}
-
-`%<<%` <- function(a, n) bitwShiftL(a, n)
-
-# http://xmlsoft.org/html/libxml-parser.html#xmlParserOption
-parser_options <- c(
-  "RECOVER" = 1 %<<% 0,
-  "NOENT" = 1 %<<% 1,
-  "DTDLOAD" = 1 %<<% 2,
-  "DTDATTR" = 1 %<<% 3,
-  "DTDVALID" = 1 %<<% 4,
-  "NOERROR" = 1 %<<% 5,
-  "NOWARNING" = 1 %<<% 6,
-  "PEDANTIC" = 1 %<<% 7,
-  "NOBLANKS" = 1 %<<% 8,
-  "SAX1" = 1 %<<% 9,
-  "XINCLUDE" = 1 %<<% 10,
-  "NONET" = 1 %<<% 11,
-  "NODICT" = 1 %<<% 12,
-  "NSCLEAN" = 1 %<<% 13,
-  "NOCDATA" = 1 %<<% 14,
-  "NOXINCNODE" = 1 %<<% 15,
-  "COMPACT" = 1 %<<% 16,
-  "OLD10" = 1 %<<% 17,
-  "NOBASEFIX" = 1 %<<% 18,
-  "HUGE" = 1 %<<% 19,
-  "OLDSAX" = 1 %<<% 20,
-  "OLDSAX" = 1 %<<% 20,
-  "IGNORE_ENC" = 1 %<<% 21,
-  "BIG_LINES" = 1 %<<% 22)
-
-parse_options <- function(options) {
-  if (is.numeric(options)) {
-     return(options)
-  }
-  mtch <- pmatch(options, names(parser_options))
-  if (any(is.na(mtch))) {
-    stop("`options` ", options[is.na(mtch)][1L], " is not a valid option", call. = FALSE)
-  }
-
-  sum(parser_options[mtch])
 }

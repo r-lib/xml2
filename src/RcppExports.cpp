@@ -18,6 +18,16 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// xml_parse_options
+Rcpp::IntegerVector xml_parse_options();
+RcppExport SEXP xml2_xml_parse_options() {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    rcpp_result_gen = Rcpp::wrap(xml_parse_options());
+    return rcpp_result_gen;
+END_RCPP
+}
 // doc_parse_file
 XPtrDoc doc_parse_file(std::string path, std::string encoding, bool as_html, int options);
 RcppExport SEXP xml2_doc_parse_file(SEXP pathSEXP, SEXP encodingSEXP, SEXP as_htmlSEXP, SEXP optionsSEXP) {
