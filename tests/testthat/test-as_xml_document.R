@@ -1,9 +1,9 @@
-context("as_xml")
+context("as_xml_document")
 
 roundtrip_xml <- function(x) {
   xml <- read_xml(x)
   lst <- as_list(xml)
-  xml2 <- as_xml(lst)
+  xml2 <- as_xml_document(lst)
   expect_equal(as.character(xml), as.character(xml2))
 }
 
@@ -37,5 +37,5 @@ test_that("rountrips with special attributes", {
 })
 
 test_that("more than one root node is an error", {
-  expect_error(as_xml(list(a = list(), b = list())), "Root nodes must be of length 1")
+  expect_error(as_xml_document(list(a = list(), b = list())), "Root nodes must be of length 1")
 })
