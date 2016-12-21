@@ -8,6 +8,16 @@ using namespace Rcpp;
 
 // [[Rcpp::export]]
 Rcpp::IntegerVector xml_parse_options() {
+
+  /* * *
+   * Author: Daniel Veillard <veillard@redhat.com>
+   * Date:   Mon Aug 13 12:41:33 2012 +0800
+   * https://github.com/GNOME/libxml2/commit/968a03a2e54f5bcf53089f5e3c8f790dbe0bf824
+   */
+#if defined(LIBXML_VERSION) && (LIBXML_VERSION >= 20900)
+#define HAS_BIG_LINES
+#endif
+
   const char * names[] = {
     "RECOVER",
     "NOENT",
@@ -31,7 +41,9 @@ Rcpp::IntegerVector xml_parse_options() {
     "HUGE",
     "OLDSAX",
     "IGNORE_ENC",
+#ifdef HAS_BIG_LINES
     "BIG_LINES",
+#endif
   };
 
   const int values[] = {
@@ -57,7 +69,9 @@ Rcpp::IntegerVector xml_parse_options() {
     XML_PARSE_HUGE,
     XML_PARSE_OLDSAX,
     XML_PARSE_IGNORE_ENC,
+#ifdef HAS_BIG_LINES
     XML_PARSE_BIG_LINES,
+#endif
   };
 
   const char * descriptions[] = {
@@ -83,7 +97,9 @@ Rcpp::IntegerVector xml_parse_options() {
     "relax any hardcoded limit from the parser",
     "parse using SAX2 interface before 2.7.0",
     "ignore internal document encoding hint",
+#ifdef HAS_BIG_LINES
     "Store big lines numbers in text PSVI field",
+#endif
   };
 
   size_t size = sizeof(values) / sizeof(values[0]);
@@ -100,6 +116,8 @@ Rcpp::IntegerVector xml_parse_options() {
   out_values.attr("descriptions") = out_descriptions;
 
   return out_values;
+
+  #undef HAS_BIG_LINES
 }
 
 // [[Rcpp::export]]
