@@ -37,7 +37,6 @@ Collate:
     'as_list.R'
     'xml_parse.R'
     'as_xml.R'
-    'as_xml_document.R'
     'classes.R'
     'paths.R'
     'utils.R'
