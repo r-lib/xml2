@@ -36,16 +36,15 @@ write_xml.xml_missing <- function(x, con, ...) {
 #' @rdname write_xml
 #' @export
 write_xml.xml_document <- function(x, con, ..., options = "format", encoding = "UTF-8") {
-  opts <- xml_save_options()
-  options  <- match.arg(options, names(opts), several.ok = TRUE)
+  options  <- parse_options(options, xml_save_options())
 
   if (inherits(con, "connection")) {
-    doc_write_connection(x$doc, con, options = sum(opts[options]), encoding = encoding)
+    doc_write_connection(x$doc, con, options = options, encoding = encoding)
   } else {
     if (!(is.character(con) && length(con) == 1 && nzchar(con))) {
       stop("`con` must be a non-zero character of length 1", call. = FALSE)
     }
-    doc_write(x$doc, normalizePath(con), options = sum(opts[options]), encoding = encoding)
+    doc_write(x$doc, normalize_output(con), options = options, encoding = encoding)
   }
 }
 
@@ -55,31 +54,29 @@ write_xml.xml_nodeset <- function(x, con, ..., options = "format", encoding = "U
     stop("Can only save length 1 node sets", call. = FALSE)
   }
 
-  opts <- xml_save_options()
-  options  <- match.arg(options, names(opts), several.ok = TRUE)
+  options  <- parse_options(options, xml_save_options())
 
   if (inherits(con, "connection")) {
-    node_write_connection(x[[1]]$node, con, options = sum(opts[options]), encoding = encoding)
+    node_write_connection(x[[1]]$node, con, options = options, encoding = encoding)
   } else {
     if (!(is.character(con) && length(con) == 1 && nzchar(con))) {
       stop("`con` must be a non-zero character of length 1", call. = FALSE)
     }
-    node_write(x[[1]]$node, normalizePath(con), options = sum(opts[options]), encoding = encoding)
+    node_write(x[[1]]$node, normalize_output(con), options = options, encoding = encoding)
   }
 }
 
 #' @export
 write_xml.xml_node <- function(x, con, format = TRUE, ..., options = "format", encoding = "UTF-8") {
-  opts <- xml_save_options()
-  options  <- match.arg(options, names(opts), several.ok = TRUE)
+  options  <- parse_options(options, xml_save_options())
 
   if (inherits(con, "connection")) {
-    node_write_connection(x$node, con, options = sum(opts[options]), encoding = encoding)
+    node_write_connection(x$node, con, options = options, encoding = encoding)
   } else {
     if (!(is.character(con) && length(con) == 1 && nzchar(con))) {
       stop("`con` must be a non-zero character of length 1", call. = FALSE)
     }
-    node_write(x$node, normalizePath(con), options = sum(opts[options]), encoding = encoding)
+    node_write(x$node, normalize_output(con), options = options, encoding = encoding)
   }
 }
 
