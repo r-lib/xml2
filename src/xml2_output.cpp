@@ -100,8 +100,8 @@ void doc_write_connection(XPtrDoc x, SEXP connection, std::string encoding = "UT
   }
 
   xmlSaveCtxtPtr savectx = xmlSaveToIO(
-      (xmlOutputWriteCallback)xml_write_callback,
-      (xmlOutputCloseCallback) xml_close_callback,
+      reinterpret_cast<xmlOutputWriteCallback>(xml_write_callback),
+      reinterpret_cast<xmlOutputCloseCallback>(xml_close_callback),
       &ctxt,
       encoding.c_str(),
       options);
