@@ -66,14 +66,3 @@ parse_options <- function(arg, options) {
   }
   sum(options[unique(i)])
 }
-
-# Call normalizePath on the directory part of the path, signal an error if it
-# fails
-normalize_output <- function(x) {
-  directory <- tryCatch(normalizePath(dirname(x)),
-    warning = function(e) {
-      stop("Directory ", s_quote(dirname(x)), " does not exist", call. = FALSE)
-    })
-
-  file.path(directory, basename(x))
-}
