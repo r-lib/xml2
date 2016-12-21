@@ -32,9 +32,11 @@ need_package <- function(pkg) {
   stop("Please install ", pkg, " package", call. = FALSE)
 }
 
-# Format the choices for display in Rd
-rd_definition <- function(terms, defs) {
+# Format the C bitwise flags for display in Rd. The input object is a named
+# integer vector with a 'description' character vector attribute that
+# corresponds to each flag.
+describe_options <- function(x) {
   paste0("\\describe{\n",
-    paste0("  \\item{", terms, "}{", defs, "}", collapse = "\n"),
+    paste0("  \\item{", names(x), "}{", attr(x, "description"), "}", collapse = "\n"),
   "\n}")
 }
