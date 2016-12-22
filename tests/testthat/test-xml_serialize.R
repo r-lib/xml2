@@ -20,3 +20,7 @@ test_that("xml_serialize and xml_unserialize work with xml_nodeset input", {
   out <- xml_unserialize(xml_serialize(b, NULL))
   expect_identical(as.character(b), as.character(out))
 })
+
+test_that("xml_unserialize throws an error if given a invalid object", {
+  expect_error(xml_unserialize(serialize(1, NULL)), "Not a serialized xml2 object")
+})
