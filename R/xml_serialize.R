@@ -48,5 +48,7 @@ xml_unserialize <- function(connection, ...) {
     xml_find_first(x, "/node()")
   } else if (inherits(object, "xml_serialized_document")) {
     x <- read_xml(unclass(object), ...)
+  } else {
+    stop("Not a serialized xml2 object", call. = FALSE)
   }
 }
