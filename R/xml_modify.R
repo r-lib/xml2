@@ -28,9 +28,9 @@ xml_replace <- function(.x, .value, ..., .copy = TRUE) {
 #' @export
 xml_replace.xml_node <- function(.x, .value, ..., .copy = TRUE) {
 
-  node <- create_node(.value, .x, ...)
+  node <- create_node(.value, .x, .copy = .copy, ...)
 
-  .x$node <- node_replace(.x$node, node$node, .copy)
+  .x$node <- node_replace(.x$node, node$node)
   node
 }
 
@@ -64,11 +64,11 @@ xml_add_sibling <- function(.x, .value, ..., .where = c("after", "before"), .cop
 xml_add_sibling.xml_node <- function(.x, .value, ..., .where = c("after", "before"), .copy = inherits(.value, "xml_node")) {
   .where <- match.arg(.where)
 
-  node <- create_node(.value, .x, ...)
+  node <- create_node(.value, .x, .copy = .copy, ...)
 
   .x$node <- switch(.where,
-    before = node_prepend_sibling(.x$node, node$node, .copy),
-    after = node_append_sibling(.x$node, node$node, .copy))
+    before = node_prepend_sibling(.x$node, node$node),
+    after = node_append_sibling(.x$node, node$node))
 
   invisible(.x)
 }
@@ -95,8 +95,11 @@ xml_add_sibling.xml_missing <- function(.x, .value, ..., .where = c("after", "be
 }
 
 # Helper function used in the xml_add* methods
-create_node <- function(.value, parent, ...) {
+create_node <- function(.value, parent, .copy, ...) {
   if (inherits(.value, "xml_node")) {
+    if (isTRUE(.copy)) {
+      .value$node <- node_copy(.value$node)
+    }
     return(.value)
   }
 
@@ -137,16 +140,16 @@ xml_add_child <- function(.x, .value, ..., .where = length(xml_children(.x)), .c
 #' @export
 xml_add_child.xml_node <- function(.x, .value, ..., .where = length(xml_children(.x)), .copy = inherits(.value, "xml_node")) {
 
-  node <- create_node(.value, .x, ...)
+  node <- create_node(.value, .x, .copy = .copy, ...)
 
   num_children <- length(xml_children(.x))
 
   if (.where >= num_children) {
     node_append_child(.x$node, node$node, .copy)
   } else if (.where == 0L) {
-    node_prepend_sibling(xml_child(.x, search = 1)$node, node$node, .copy)
+    node_prepend_sibling(xml_child(.x, search = 1)$node, node$node)
   } else {
-    node_append_sibling(xml_child(.x, search = .where)$node, node$node, .copy)
+    node_append_sibling(xml_child(.x, search = .where)$node, node$node)
   }
 
   invisible(node)
@@ -157,11 +160,11 @@ xml_add_child.xml_document <- function(.x, .value, ..., .where = length(xml_chil
   if (inherits(.x, "xml_node")) {
     NextMethod("xml_add_child")
   } else {
-    node <- create_node(.value, .x, ...)
+    node <- create_node(.value, .x, .copy = .copy, ...)
     if (!doc_has_root(.x$doc)) {
       doc_set_root(.x$doc, node$node)
     }
-    node_append_child(doc_root(.x$doc), node$node, .copy)
+    node_append_child(doc_root(.x$doc), node$node)
     invisible(xml_document(.x$doc))
   }
 }

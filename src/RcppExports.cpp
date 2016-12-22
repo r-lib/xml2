@@ -336,6 +336,17 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// node_copy
+XPtrNode node_copy(XPtrNode node);
+RcppExport SEXP xml2_node_copy(SEXP nodeSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< XPtrNode >::type node(nodeSEXP);
+    rcpp_result_gen = Rcpp::wrap(node_copy(node));
+    return rcpp_result_gen;
+END_RCPP
+}
 // node_set_content
 void node_set_content(XPtrNode node, std::string content);
 RcppExport SEXP xml2_node_set_content(SEXP nodeSEXP, SEXP contentSEXP) {
@@ -359,54 +370,50 @@ BEGIN_RCPP
 END_RCPP
 }
 // node_append_child
-XPtrNode node_append_child(XPtrNode parent, XPtrNode cur, bool copy);
-RcppExport SEXP xml2_node_append_child(SEXP parentSEXP, SEXP curSEXP, SEXP copySEXP) {
+XPtrNode node_append_child(XPtrNode parent, XPtrNode cur);
+RcppExport SEXP xml2_node_append_child(SEXP parentSEXP, SEXP curSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< XPtrNode >::type parent(parentSEXP);
     Rcpp::traits::input_parameter< XPtrNode >::type cur(curSEXP);
-    Rcpp::traits::input_parameter< bool >::type copy(copySEXP);
-    rcpp_result_gen = Rcpp::wrap(node_append_child(parent, cur, copy));
+    rcpp_result_gen = Rcpp::wrap(node_append_child(parent, cur));
     return rcpp_result_gen;
 END_RCPP
 }
 // node_prepend_sibling
-XPtrNode node_prepend_sibling(XPtrNode cur, XPtrNode elem, bool copy);
-RcppExport SEXP xml2_node_prepend_sibling(SEXP curSEXP, SEXP elemSEXP, SEXP copySEXP) {
+XPtrNode node_prepend_sibling(XPtrNode cur, XPtrNode elem);
+RcppExport SEXP xml2_node_prepend_sibling(SEXP curSEXP, SEXP elemSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< XPtrNode >::type cur(curSEXP);
     Rcpp::traits::input_parameter< XPtrNode >::type elem(elemSEXP);
-    Rcpp::traits::input_parameter< bool >::type copy(copySEXP);
-    rcpp_result_gen = Rcpp::wrap(node_prepend_sibling(cur, elem, copy));
+    rcpp_result_gen = Rcpp::wrap(node_prepend_sibling(cur, elem));
     return rcpp_result_gen;
 END_RCPP
 }
 // node_append_sibling
-XPtrNode node_append_sibling(XPtrNode cur, XPtrNode elem, bool copy);
-RcppExport SEXP xml2_node_append_sibling(SEXP curSEXP, SEXP elemSEXP, SEXP copySEXP) {
+XPtrNode node_append_sibling(XPtrNode cur, XPtrNode elem);
+RcppExport SEXP xml2_node_append_sibling(SEXP curSEXP, SEXP elemSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< XPtrNode >::type cur(curSEXP);
     Rcpp::traits::input_parameter< XPtrNode >::type elem(elemSEXP);
-    Rcpp::traits::input_parameter< bool >::type copy(copySEXP);
-    rcpp_result_gen = Rcpp::wrap(node_append_sibling(cur, elem, copy));
+    rcpp_result_gen = Rcpp::wrap(node_append_sibling(cur, elem));
     return rcpp_result_gen;
 END_RCPP
 }
 // node_replace
-XPtrNode node_replace(XPtrNode old, XPtrNode cur, bool copy);
-RcppExport SEXP xml2_node_replace(SEXP oldSEXP, SEXP curSEXP, SEXP copySEXP) {
+XPtrNode node_replace(XPtrNode old, XPtrNode cur);
+RcppExport SEXP xml2_node_replace(SEXP oldSEXP, SEXP curSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< XPtrNode >::type old(oldSEXP);
     Rcpp::traits::input_parameter< XPtrNode >::type cur(curSEXP);
-    Rcpp::traits::input_parameter< bool >::type copy(copySEXP);
-    rcpp_result_gen = Rcpp::wrap(node_replace(old, cur, copy));
+    rcpp_result_gen = Rcpp::wrap(node_replace(old, cur));
     return rcpp_result_gen;
 END_RCPP
 }

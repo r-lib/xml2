@@ -71,9 +71,9 @@ as_xml_document.xml_node <- function(x, ...) {
 
 #' @export
 as_xml_document.xml_nodeset <- function(x, root, ...) {
-  doc <- xml_new_root(.value = root, ...)
+  doc <- xml_new_root(.value = root, ..., .copy = TRUE)
   for (i in seq_along(x)) {
-    xml_add_child(doc, x[[i]])
+    xml_add_child(doc, x[[i]], .copy = TRUE)
   }
   doc
 }

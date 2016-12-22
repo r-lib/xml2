@@ -113,6 +113,10 @@ node_type <- function(node) {
     .Call('xml2_node_type', PACKAGE = 'xml2', node)
 }
 
+node_copy <- function(node) {
+    .Call('xml2_node_copy', PACKAGE = 'xml2', node)
+}
+
 node_set_content <- function(node, content) {
     invisible(.Call('xml2_node_set_content', PACKAGE = 'xml2', node, content))
 }
@@ -121,20 +125,20 @@ node_append_content <- function(node, content) {
     invisible(.Call('xml2_node_append_content', PACKAGE = 'xml2', node, content))
 }
 
-node_append_child <- function(parent, cur, copy) {
-    .Call('xml2_node_append_child', PACKAGE = 'xml2', parent, cur, copy)
+node_append_child <- function(parent, cur) {
+    .Call('xml2_node_append_child', PACKAGE = 'xml2', parent, cur)
 }
 
-node_prepend_sibling <- function(cur, elem, copy) {
-    .Call('xml2_node_prepend_sibling', PACKAGE = 'xml2', cur, elem, copy)
+node_prepend_sibling <- function(cur, elem) {
+    .Call('xml2_node_prepend_sibling', PACKAGE = 'xml2', cur, elem)
 }
 
-node_append_sibling <- function(cur, elem, copy) {
-    .Call('xml2_node_append_sibling', PACKAGE = 'xml2', cur, elem, copy)
+node_append_sibling <- function(cur, elem) {
+    .Call('xml2_node_append_sibling', PACKAGE = 'xml2', cur, elem)
 }
 
-node_replace <- function(old, cur, copy) {
-    .Call('xml2_node_replace', PACKAGE = 'xml2', old, cur, copy)
+node_replace <- function(old, cur) {
+    .Call('xml2_node_replace', PACKAGE = 'xml2', old, cur)
 }
 
 node_remove <- function(cur, free) {

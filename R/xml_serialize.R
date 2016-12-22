@@ -22,7 +22,7 @@ xml_serialize.xml_document <- function(object, connection, ...) {
 
 #' @export
 xml_serialize.xml_node <- function(object, connection, ...) {
-  x <- as_xml_document(object, "root")
+  x <- as_xml_document(object)
   serialize(structure(as.character(x, ...), class = "xml_serialized_node"), connection)
 }
 
@@ -41,9 +41,12 @@ xml_unserialize <- function(connection, ...) {
 
     # Select only the direct children of the root
     xml_find_all(x, "/*/node()")
-  } else if (inherits(object, "xml_serialized_document")) {
-    read_xml(unclass(object), ...)
   } else if (inherits(object, "xml_serialized_node")) {
-    read_xml(unclass(object), ...)
+    x <- read_xml(unclass(object), ...)
+
+    # Select only the root
+    xml_find_first(x, "/node()")
+  } else if (inherits(object, "xml_serialized_document")) {
+    x <- read_xml(unclass(object), ...)
   }
 }

@@ -442,6 +442,11 @@ int node_type(XPtrNode node) {
 }
 
 // [[Rcpp::export]]
+XPtrNode node_copy(XPtrNode node) {
+  return XPtrNode(xmlCopyNode(node.checked_get(), 1));
+}
+
+// [[Rcpp::export]]
 void node_set_content(XPtrNode node, std::string content) {
   return xmlNodeSetContentLen(node.checked_get(), asXmlChar(content), content.size());
 }
@@ -452,50 +457,26 @@ void node_append_content(XPtrNode node, std::string content) {
 }
 
 // [[Rcpp::export]]
-XPtrNode node_append_child(XPtrNode parent, XPtrNode cur, bool copy) {
-  xmlNodePtr node = NULL;
-  if (copy) {
-    node = xmlCopyNode(cur.checked_get(), 1);
-  } else {
-    node = cur.checked_get();
-  }
-  return XPtrNode(xmlAddChild(parent.checked_get(), node));
+XPtrNode node_append_child(XPtrNode parent, XPtrNode cur) {
+  return XPtrNode(xmlAddChild(parent.checked_get(), cur.checked_get()));
 }
 
 // Previous sibling
 // [[Rcpp::export]]
-XPtrNode node_prepend_sibling(XPtrNode cur, XPtrNode elem, bool copy) {
-  xmlNodePtr node = NULL;
-  if (copy) {
-    node = xmlCopyNode(elem.checked_get(), 1);
-  } else {
-    node = elem.checked_get();
-  }
-  return XPtrNode(xmlAddPrevSibling(cur.checked_get(), node));
+XPtrNode node_prepend_sibling(XPtrNode cur, XPtrNode elem) {
+  return XPtrNode(xmlAddPrevSibling(cur.checked_get(), elem.checked_get()));
 }
 
 // Append sibling
 // [[Rcpp::export]]
-XPtrNode node_append_sibling(XPtrNode cur, XPtrNode elem, bool copy) {
-  xmlNodePtr node = NULL;
-  if (copy) {
-    node = xmlCopyNode(elem.checked_get(), 1);
-  } else {
-    node = elem.checked_get();
-  }
-  return XPtrNode(xmlAddNextSibling(cur.checked_get(), node));
+XPtrNode node_append_sibling(XPtrNode cur, XPtrNode elem) {
+  return XPtrNode(xmlAddNextSibling(cur.checked_get(), elem.checked_get()));
 }
 
 // Replace node
 // [[Rcpp::export]]
-XPtrNode node_replace(XPtrNode old, XPtrNode cur, bool copy) {
-  xmlNodePtr node = NULL;
-  if (copy) {
-    node = xmlCopyNode(cur.checked_get(), 1);
-  } else {
-    node = cur.checked_get();
-  }
-  return XPtrNode(xmlReplaceNode(old.checked_get(), node));
+XPtrNode node_replace(XPtrNode old, XPtrNode cur) {
+  return XPtrNode(xmlReplaceNode(old.checked_get(), cur.checked_get()));
 }
 
 // [[Rcpp::export]]
