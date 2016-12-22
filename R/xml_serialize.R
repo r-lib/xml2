@@ -17,33 +17,33 @@ xml_serialize <- function(object, connection, ...) UseMethod("xml_serialize")
 
 #' @export
 xml_serialize.xml_document <- function(object, connection, ...) {
-  serialize(structure(as.character(object, ...), class = "xml_document"), connection)
+  serialize(structure(as.character(object, ...), class = "xml_serialized_document"), connection)
 }
 
 #' @export
-xml_serialize.xml_document <- function(object, connection, ...) {
+xml_serialize.xml_node <- function(object, connection, ...) {
   x <- as_xml_document(object, "root")
-  serialize(structure(as.character(x, ...), class = "xml_node"), connection)
+  serialize(structure(as.character(x, ...), class = "xml_serialized_node"), connection)
 }
 
 #' @export
 xml_serialize.xml_nodeset <- function(object, connection, ...) {
   x <- as_xml_document(object, "root")
-  serialize(structure(as.character(x, ...), class = "xml_nodeset"), connection)
+  serialize(structure(as.character(x, ...), class = "xml_serialized_nodeset"), connection)
 }
 
 #' @rdname xml_serialize
 #' @export
 xml_unserialize <- function(connection, ...) {
   object <- unserialize(connection)
-  if (inherits(object, "xml_nodeset")) {
+  if (inherits(object, "xml_serialized_nodeset")) {
     x <- read_xml(unclass(object), ...)
-    return(xml_find_all(x, "/*/node()"))
-  }
-  if (inherits(object, "xml_document")) {
+
+    # Select only the direct children of the root
+    xml_find_all(x, "/*/node()")
+  } else if (inherits(object, "xml_serialized_document")) {
     read_xml(unclass(object), ...)
-  }
-  if (inherits(object, "xml_node")) {
+  } else if (inherits(object, "xml_serialized_node")) {
     read_xml(unclass(object), ...)
   }
 }

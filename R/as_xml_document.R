@@ -77,3 +77,8 @@ as_xml_document.xml_nodeset <- function(x, root, ...) {
   }
   doc
 }
+
+#' @export
+as_xml_document.xml_document <- function(x, ...) {
+  x
+}
