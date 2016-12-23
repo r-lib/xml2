@@ -6,10 +6,15 @@ matrix:
     - os: linux
       dist: precise
       sudo: false
-      r:
-        - oldrel
-        - release
-        - devel
+      r: oldrel
+    - os: linux
+      dist: precise
+      sudo: false
+      r: release
+    - os: linux
+      dist: precise
+      sudo: false
+      r: devel
     - os: linux
       dist: trusty
       sudo: required
