@@ -145,7 +145,7 @@ xml_add_child.xml_node <- function(.x, .value, ..., .where = length(xml_children
   num_children <- length(xml_children(.x))
 
   if (.where >= num_children) {
-    node_append_child(.x$node, node$node, .copy)
+    node_append_child(.x$node, node$node)
   } else if (.where == 0L) {
     node_prepend_sibling(xml_child(.x, search = 1)$node, node$node)
   } else {
