@@ -508,6 +508,19 @@ BEGIN_RCPP
     return R_NilValue;
 END_RCPP
 }
+// node_new_dtd
+void node_new_dtd(XPtrDoc doc, std::string name, std::string eid, std::string sid);
+RcppExport SEXP xml2_node_new_dtd(SEXP docSEXP, SEXP nameSEXP, SEXP eidSEXP, SEXP sidSEXP) {
+BEGIN_RCPP
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< XPtrDoc >::type doc(docSEXP);
+    Rcpp::traits::input_parameter< std::string >::type name(nameSEXP);
+    Rcpp::traits::input_parameter< std::string >::type eid(eidSEXP);
+    Rcpp::traits::input_parameter< std::string >::type sid(sidSEXP);
+    node_new_dtd(doc, name, eid, sid);
+    return R_NilValue;
+END_RCPP
+}
 // doc_format_xml
 CharacterVector doc_format_xml(XPtrDoc x, bool format);
 RcppExport SEXP xml2_doc_format_xml(SEXP xSEXP, SEXP formatSEXP) {

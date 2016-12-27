@@ -173,6 +173,10 @@ node_set_namespace_prefix <- function(doc, node, prefix) {
     invisible(.Call('xml2_node_set_namespace_prefix', PACKAGE = 'xml2', doc, node, prefix))
 }
 
+node_new_dtd <- function(doc, name = "", eid = "", sid = "") {
+    invisible(.Call('xml2_node_new_dtd', PACKAGE = 'xml2', doc, name, eid, sid))
+}
+
 doc_format_xml <- function(x, format = TRUE) {
     .Call('xml2_doc_format_xml', PACKAGE = 'xml2', x, format)
 }

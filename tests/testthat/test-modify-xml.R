@@ -37,6 +37,15 @@ test_that("xml_text<- creates new text nodes if needed", {
   expect_equal(xml_text(x), "test")
 })
 
+test_that("xml_remove removes nodes", {
+
+  x <- read_xml("<parent><child>1</child><child>2<child>3</child></child></parent>")
+  children <- xml_children(x)
+  t1 <- children[[1]]
+  xml_remove(children, free = TRUE)
+  expect_equal(xml_text(x), "")
+})
+
 test_that("xml_replace replaces nodes", {
 
   x <- read_xml("<parent><child>1</child><child>2<child>3</child></child></parent>")
@@ -58,6 +67,15 @@ test_that("xml_replace replaces nodes", {
   xml_replace(first_child, t3, .copy = FALSE)
   expect_equal(xml_text(x), "32")
   xml_remove(first_child, free = TRUE)
+})
+
+test_that("xml_replace works with nodesets", {
+
+  x <- read_xml("<parent><child>1</child><child>2<child>3</child></child></parent>")
+  children <- xml_children(x)
+  t1 <- children[[1]]
+  xml_replace(children, t1)
+  expect_equal(xml_text(x), "11")
 })
 
 test_that("xml_sibling adds a sibling node", {

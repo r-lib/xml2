@@ -11,3 +11,4 @@ windows
 ^src/\.ycm_extra_conf\.pyc$
 ^appveyor\.yml$
 ^script\.R$
+^\.github$

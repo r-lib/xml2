@@ -111,6 +111,11 @@ create_node <- function(.value, parent, .copy, ...) {
     return(xml_node(node_comment_new(.value), doc = parent$doc))
   }
 
+  if (inherits(.value, "xml_dtd")) {
+    node_new_dtd(parent$doc, .value$name, .value$external_id, .value$system_id)
+    return()
+  }
+
   if (!is.character(.value)) {
     stop("`.value` must be a character", call. = FALSE)
   }
@@ -161,10 +166,12 @@ xml_add_child.xml_document <- function(.x, .value, ..., .where = length(xml_chil
     NextMethod("xml_add_child")
   } else {
     node <- create_node(.value, .x, .copy = .copy, ...)
-    if (!doc_has_root(.x$doc)) {
-      doc_set_root(.x$doc, node$node)
+    if (!is.null(node)) {
+      if (!doc_has_root(.x$doc)) {
+        doc_set_root(.x$doc, node$node)
+      }
+      node_append_child(doc_root(.x$doc), node$node)
     }
-    node_append_child(doc_root(.x$doc), node$node)
     invisible(xml_document(.x$doc))
   }
 }
