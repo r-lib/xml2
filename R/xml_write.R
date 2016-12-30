@@ -6,7 +6,7 @@
 #'
 #' @param x A document or node to write to disk. It's not possible to
 #'   save nodesets containing more than one node.
-#' @param con Path to file or connection to write to.
+#' @param file Path to file or connection to write to.
 #' @param encoding The character encoding to use in the document. The default
 #' encoding is \sQuote{UTF-8}. Available encodings are specified at
 #' \url{http://xmlsoft.org/html/libxml-encoding.html#xmlCharEncoding}.
@@ -24,86 +24,86 @@
 #' # write formatted HTML output
 #' write_html(h, tmp, options = "format")
 #' readLines(tmp)
-write_xml <- function(x, con, ...) {
+write_xml <- function(x, file, ...) {
   UseMethod("write_xml")
 }
 
 #' @export
-write_xml.xml_missing <- function(x, con, ...) {
+write_xml.xml_missing <- function(x, file, ...) {
   stop("Missing data cannot be written", call. = FALSE)
 }
 
 #' @rdname write_xml
 #' @export
-write_xml.xml_document <- function(x, con, ..., options = "format", encoding = "UTF-8") {
+write_xml.xml_document <- function(x, file, ..., options = "format", encoding = "UTF-8") {
   options  <- parse_options(options, xml_save_options())
-  con <- path_to_connection(con, check = "dir")
+  file <- path_to_connection(file, check = "dir")
 
-  if (inherits(con, "connection")) {
-    if (!isOpen(con)) {
-      open(con, "wb")
-      on.exit(close(con))
+  if (inherits(file, "connection")) {
+    if (!isOpen(file)) {
+      open(file, "wb")
+      on.exit(close(file))
     }
-    doc_write_connection(x$doc, con, options = options, encoding = encoding)
+    doc_write_connection(x$doc, file, options = options, encoding = encoding)
   } else {
-    if (!(is.character(con) && length(con) == 1 && nzchar(con))) {
-      stop("`con` must be a non-zero character of length 1", call. = FALSE)
+    if (!(is.character(file) && length(file) == 1 && nzchar(file))) {
+      stop("`file` must be a non-zero character of length 1", call. = FALSE)
     }
-    doc_write(x$doc, con, options = options, encoding = encoding)
+    doc_write(x$doc, file, options = options, encoding = encoding)
   }
 }
 
 #' @export
-write_xml.xml_nodeset <- function(x, con, ..., options = "format", encoding = "UTF-8") {
+write_xml.xml_nodeset <- function(x, file, ..., options = "format", encoding = "UTF-8") {
   if (length(x) != 1) {
     stop("Can only save length 1 node sets", call. = FALSE)
   }
 
   options  <- parse_options(options, xml_save_options())
-  con <- path_to_connection(con, check = "dir")
+  file <- path_to_connection(file, check = "dir")
 
-  if (inherits(con, "connection")) {
-    if (!isOpen(con)) {
-      open(con, "wb")
-      on.exit(close(con))
+  if (inherits(file, "connection")) {
+    if (!isOpen(file)) {
+      open(file, "wb")
+      on.exit(close(file))
     }
-    node_write_connection(x[[1]]$node, con, options = options, encoding = encoding)
+    node_write_connection(x[[1]]$node, file, options = options, encoding = encoding)
   } else {
-    if (!(is.character(con) && length(con) == 1 && nzchar(con))) {
-      stop("`con` must be a non-zero character of length 1", call. = FALSE)
+    if (!(is.character(file) && length(file) == 1 && nzchar(file))) {
+      stop("`file` must be a non-zero character of length 1", call. = FALSE)
     }
-    node_write(x[[1]]$node, con, options = options, encoding = encoding)
+    node_write(x[[1]]$node, file, options = options, encoding = encoding)
   }
 }
 
 #' @export
-write_xml.xml_node <- function(x, con, format = TRUE, ..., options = "format", encoding = "UTF-8") {
+write_xml.xml_node <- function(x, file, format = TRUE, ..., options = "format", encoding = "UTF-8") {
   options  <- parse_options(options, xml_save_options())
 
-  con <- path_to_connection(con, check = "dir")
-  if (inherits(con, "connection")) {
-    if (!isOpen(con)) {
-      open(con, "wb")
-      on.exit(close(con))
+  file <- path_to_connection(file, check = "dir")
+  if (inherits(file, "connection")) {
+    if (!isOpen(file)) {
+      open(file, "wb")
+      on.exit(close(file))
     }
-    node_write_connection(x$node, con, options = options, encoding = encoding)
+    node_write_connection(x$node, file, options = options, encoding = encoding)
   } else {
-    if (!(is.character(con) && length(con) == 1 && nzchar(con))) {
-      stop("`con` must be a non-zero character of length 1", call. = FALSE)
+    if (!(is.character(file) && length(file) == 1 && nzchar(file))) {
+      stop("`file` must be a non-zero character of length 1", call. = FALSE)
     }
-    node_write(x$node, con, options = options, encoding = encoding)
+    node_write(x$node, file, options = options, encoding = encoding)
   }
 }
 
 
 #' @export
 #' @rdname write_xml
-write_html <- function(x, con, ...) {
+write_html <- function(x, file, ...) {
   UseMethod("write_html")
 }
 
 #' @export
-write_html.xml_missing <- function(x, con, ...) {
+write_html.xml_missing <- function(x, file, ...) {
   stop("Missing data cannot be written", call. = FALSE)
 }
 

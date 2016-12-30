@@ -7,21 +7,21 @@
 \alias{write_html.xml_document}
 \title{Write XML or HTML to disk.}
 \usage{
-write_xml(x, con, ...)
+write_xml(x, file, ...)
 
-\method{write_xml}{xml_document}(x, con, ..., options = "format",
+\method{write_xml}{xml_document}(x, file, ..., options = "format",
   encoding = "UTF-8")
 
-write_html(x, con, ...)
+write_html(x, file, ...)
 
-\method{write_html}{xml_document}(x, con, ..., options = "format",
+\method{write_html}{xml_document}(x, file, ..., options = "format",
   encoding = "UTF-8")
 }
 \arguments{
 \item{x}{A document or node to write to disk. It's not possible to
 save nodesets containing more than one node.}
 
-\item{con}{Path to file or connection to write to.}
+\item{file}{Path to file or connection to write to.}
 
 \item{...}{additional arguments passed to methods.}
 
