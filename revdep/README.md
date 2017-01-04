@@ -2,25 +2,33 @@
 
 ## Platform
 
-|setting  |value                        |
-|:--------|:----------------------------|
-|version  |R version 3.3.2 (2016-10-31) |
-|system   |x86_64, darwin13.4.0         |
-|ui       |X11                          |
-|language |(EN)                         |
-|collate  |en_US.UTF-8                  |
-|tz       |Europe/Amsterdam             |
-|date     |2016-12-15                   |
+|setting  |value                                  |
+|:--------|:--------------------------------------|
+|version  |R version 3.3.2 RC (2016-10-26 r71594) |
+|system   |x86_64, darwin13.4.0                   |
+|ui       |X11                                    |
+|language |(EN)                                   |
+|collate  |en_US.UTF-8                            |
+|tz       |America/New_York                       |
+|date     |2016-12-30                             |
 
 ## Packages
 
-|package |*  |version    |date       |source                         |
-|:-------|:--|:----------|:----------|:------------------------------|
-|Rcpp    |   |0.12.8.2   |2016-12-15 |Github (RcppCore/Rcpp@e4ca728) |
-|xml2    |   |1.0.0.9002 |2016-12-15 |local (NA/NA@c038a36)          |
+|package   |*  |version    |date       |source                           |
+|:---------|:--|:----------|:----------|:--------------------------------|
+|BH        |   |1.62.0-1   |2016-11-19 |cran (@1.62.0-)                  |
+|covr      |   |2.2.1      |2016-12-30 |Github (jimhester/covr@7e49d3e)  |
+|curl      |   |2.3        |2016-11-24 |cran (@2.3)                      |
+|httr      |   |1.2.1      |2016-07-03 |cran (@1.2.1)                    |
+|knitr     |   |1.15.1     |2016-11-22 |cran (@1.15.1)                   |
+|magrittr  |   |1.5        |2014-11-22 |cran (@1.5)                      |
+|Rcpp      |   |0.12.8.3   |2016-12-30 |Github (RcppCore/Rcpp@2883ef3)   |
+|rmarkdown |   |1.3        |2016-12-21 |cran (@1.3)                      |
+|testthat  |   |1.0.2.9000 |2016-12-30 |Github (hadley/testthat@3b2f225) |
+|xml2      |   |1.0.0.9002 |2016-12-30 |local (jimhester/xml2@NA)        |
 
 # Check results
-80 packages
+84 packages
 
 ## addinslist (0.2)
 Maintainer: Dean Attali <daattali@gmail.com>  
@@ -46,6 +54,12 @@ checking installed package size ... NOTE
   sub-directories of 1Mb or more:
     data  15.4Mb
 ```
+
+## assertive.types (0.0-3)
+Maintainer: Richard Cotton <richierocks@gmail.com>  
+Bug reports: https://bitbucket.org/richierocks/assertive.types/issues
+
+0 errors | 0 warnings | 0 notes
 
 ## aws.sns (0.1.5)
 Maintainer: Thomas J. Leeper <thosjleeper@gmail.com>  
@@ -108,7 +122,26 @@ Bug reports: http://www.github.com/ropensci/ckanr/issues
 Maintainer: Jim Hester <james.f.hester@gmail.com>  
 Bug reports: https://github.com/jimhester/covr/issues
 
-0 errors | 0 warnings | 0 notes
+1 error  | 0 warnings | 0 notes
+
+```
+checking tests ... ERROR
+Running the tests in ‘tests/testthat.R’ failed.
+Last 13 lines of output:
+  1. Failure: it works with coverage objects (@test-cobertura.R#7) ---------------
+  readLines(tmp)[-2] not equal to readLines("cobertura.xml")[-2].
+  1/35 mismatches
+  x[1]: "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
+  y[1]: "<?xml version=\"1.0\"?>"
+  
+  
+  testthat results ================================================================
+  OK: 231 SKIPPED: 3 FAILED: 1
+  1. Failure: it works with coverage objects (@test-cobertura.R#7) 
+  
+  Error: testthat unit tests failed
+  Execution halted
+```
 
 ## cycleRtools (1.1.1)
 Maintainer: Jordan Mackie <jmackie@protonmail.com>
@@ -145,6 +178,31 @@ Maintainer: Gert Janssenswillen <gert.janssenswillen@uhasselt.be>
 ## europepmc (0.1.0)
 Maintainer: Najko Jahn <najko.jahn@gmail.com>  
 Bug reports: http://github.com/ropensci/europepmc/issues
+
+0 errors | 1 warning  | 0 notes
+
+```
+checking re-building of vignette outputs ... WARNING
+Error in re-building vignettes:
+  ...
+264 records found. Retrieving batch 1
+339 records found. Retrieving batch 1
+6929 records found. Retrieving batch 1
+131 records found. Retrieving batch 1
+125037 records found. Retrieving batch 1
+108948 records found. Retrieving batch 1
+197 records found. Returning 25
+18 records found. Returning 18
+Quitting from lines 176-177 (rebi-vignettes.Rmd) 
+Error: processing vignette 'rebi-vignettes.Rmd' failed with diagnostics:
+Internal Server Error (HTTP 500).
+Execution halted
+
+```
+
+## finch (0.1.0)
+Maintainer: Scott Chamberlain <myrmecocystus@gmail.com>  
+Bug reports: https://github.com/ropensci/finch/issues
 
 0 errors | 0 warnings | 0 notes
 
@@ -198,6 +256,12 @@ Bug reports: https://github.com/ropenscilabs/getlandsat/issues
 
 0 errors | 0 warnings | 0 notes
 
+## gfer (0.1.3)
+Maintainer: Yuanchao Xu <xuyuanchao37@gmail.com>  
+Bug reports: https://github.com/Yuanchao-Xu/gfer/issues
+
+0 errors | 0 warnings | 0 notes
+
 ## ggiraph (0.3.2)
 Maintainer: David Gohel <david.gohel@ardata.fr>  
 Bug reports: https://github.com/davidgohel/ggiraph/issues
@@ -219,7 +283,14 @@ Bug reports: https://github.com/jennybc/googlesheets/issues
 Maintainer: Bob Rudis <bob@rud.is>  
 Bug reports: https://github.com/hrbrmstr/htmltidy/issues
 
-0 errors | 0 warnings | 0 notes
+0 errors | 1 warning  | 0 notes
+
+```
+checking whether package ‘htmltidy’ can be installed ... WARNING
+Found the following significant warnings:
+  language.c:41:5: warning: flexible array initialization is a GNU extension [-Wgnu-flexible-array-initializer]
+See ‘/Users/jhester/Dropbox/projects/xml2/revdep/checks/htmltidy.Rcheck/00install.out’ for details.
+```
 
 ## httr (1.2.1)
 Maintainer: Hadley Wickham <hadley@rstudio.com>
@@ -230,12 +301,16 @@ Maintainer: Hadley Wickham <hadley@rstudio.com>
 Maintainer: Jack O. Wasey <jack@jackwasey.com>  
 Bug reports: https://github.com/jackwasey/icd/issues
 
-0 errors | 0 warnings | 1 note 
+0 errors | 0 warnings | 2 notes
 
 ```
+checking package dependencies ... NOTE
+Package suggested but not available for checking: ‘RODBC’
+
 checking installed package size ... NOTE
-  installed size is  6.3Mb
+  installed size is  7.1Mb
   sub-directories of 1Mb or more:
+    R      1.6Mb
     data   1.8Mb
     doc    2.1Mb
     libs   1.0Mb
@@ -312,6 +387,12 @@ Bug reports: https://github.com/lwjohnst86/prodigenr/issues
 
 0 errors | 0 warnings | 0 notes
 
+## rbhl (0.3.0)
+Maintainer: Scott Chamberlain <myrmecocystus@gmail.com>  
+Bug reports: https://github.com/ropensci/rbhl/issues
+
+0 errors | 0 warnings | 0 notes
+
 ## rccmisc (0.3.7)
 Maintainer: Erik Bulow <erik.bulow@rccvast.se>  
 Bug reports: https://bitbucket.com/cancercentrum/rccmisc/issues
@@ -349,13 +430,7 @@ Maintainer: Chung-hong Chan <chainsawtiney@gmail.com>
 Maintainer: David Gohel <david.gohel@lysis-consultants.fr>  
 Bug reports: https://github.com/davidgohel/ReporteRs/issues
 
-1 error  | 0 warnings | 0 notes
-
-```
-checking whether package ‘ReporteRs’ can be installed ... ERROR
-Installation failed.
-See ‘/Users/jeroen/workspace/xml2/revdep/checks/ReporteRs.Rcheck/00install.out’ for details.
-```
+0 errors | 0 warnings | 0 notes
 
 ## rerddap (0.3.4)
 Maintainer: Scott Chamberlain <myrmecocystus@gmail.com>  
@@ -392,7 +467,7 @@ Maintainer: Daniel C. Bowman <danny.c.bowman@gmail.com>
 
 0 errors | 0 warnings | 0 notes
 
-## rnrfa (1.2)
+## rnrfa (1.3.0)
 Maintainer: Claudia Vitolo <cvitolodev@gmail.com>  
 Bug reports: https://github.com/cvitolo/rnrfa/issues
 
@@ -451,7 +526,7 @@ Bug reports: http://github.com/mi2-warsaw/sejmRP/issues
 
 0 errors | 0 warnings | 0 notes
 
-## selectr (0.3-0)
+## selectr (0.3-1)
 Maintainer: Simon Potter <simon@sjp.co.nz>  
 Bug reports: https://github.com/sjp/selectr/issues
 
@@ -480,7 +555,7 @@ Bug reports: https://github.com/hadley/svglite/issues
 
 0 errors | 0 warnings | 0 notes
 
-## taxize (0.7.9)
+## taxize (0.8.0)
 Maintainer: Scott Chamberlain <myrmecocystus@gmail.com>  
 Bug reports: https://github.com/ropensci/taxize/issues
 
@@ -524,14 +599,7 @@ Maintainer: Kurt Hornik <Kurt.Hornik@R-project.org>
 Maintainer: Eduard Szöcs <eduardszoecs@gmail.com>  
 Bug reports: https://github.com/ropensci/webchem/issues
 
-0 errors | 0 warnings | 1 note 
-
-```
-checking dependencies in R code ... NOTE
-Unable to find any JVMs matching version "(null)".
-No Java runtime present, try --request to install.
-No Java runtime present, requesting install.
-```
+0 errors | 0 warnings | 0 notes
 
 ## wikipediatrend (1.1.10)
 Maintainer: Peter Meissner <retep.meissner@gmail.com>  
