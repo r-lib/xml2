@@ -1,5 +1,6 @@
-# xml2 1.0.0.9000
+# xml2 1.1.0
 
+## New Features
 * `write_xml()` and `write_html()` now accept connections as well as filenames
   for output. (#157)
 
@@ -8,21 +9,15 @@
 
 * `as_xml()` generic function to convert R objects to xml. The most important
   method is for lists and enables full roundtrip support for going to and back
-  from xmfor lists and enables full roundtrip support to and from XML. (#137, #143)
+  from xml for lists and enables full roundtrip support to and from XML. (#137, #143)
 
 * `xml_new_root()` can be used to create a new document and a root node in one step (#131).
 
-* `xml_new_document()` now explicitly sets the encoding (default UTF-8) (#142)
-
 * `xml_add_parent()` inserts a new node between the node and its parent (#129)
 
-* Add `xml_validate()` to validate a document against an xml schema (#31)
+* Add `xml_validate()` to validate a document against an xml schema (#31, @jeroenooms).
 
 * Export `xml2_types.h` to allow for extension packages such as xslt.
-
-* Document `write_xml(format = TRUE)` (#132)
-
-* Add missing methods for xml_missing objects. (#134)
 
 * `xml_comment()` allows you to add comment nodes to a document. (#111)
 
@@ -31,6 +26,16 @@
 * Add `xml_set_text()` and `xml_set_name()` equivalent to `xml_text<-` and `xml_name<-`. (#130).
 
 * Add `xml_set_attr()` and `xml_set_attrs()` equivalent to `xml_attr<-` and `xml_attrs<-`. (#109, #130)
+
+* Add `write_html()` method (#133).
+
+## Bugfixes
+
+* `xml_new_document()` now explicitly sets the encoding (default UTF-8) (#142)
+
+* Document `write_xml(format = TRUE)` (#132)
+
+* Add missing methods for xml_missing objects. (#134)
 
 * Bugfix for xml_length.xml_nodeset that caused it to fail unconditionally. (#140)
 
@@ -46,9 +51,7 @@
 
 * xml_add_* methods now return invisibly. (@sjp, #124)
 
-* Add `write_html()` method (#133).
-
-* `as_list()` now preserves element names when attributes exist, and escapes 
+* `as_list()` now preserves element names when attributes exist, and escapes
   XML attributes that conflict with special R attributes (@peterfoley, #115).
 
 # xml2 1.0.0
