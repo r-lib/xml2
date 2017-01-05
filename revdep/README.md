@@ -10,25 +10,25 @@
 |language |(EN)                                   |
 |collate  |en_US.UTF-8                            |
 |tz       |America/New_York                       |
-|date     |2016-12-30                             |
+|date     |2017-01-05                             |
 
 ## Packages
 
 |package   |*  |version    |date       |source                           |
 |:---------|:--|:----------|:----------|:--------------------------------|
 |BH        |   |1.62.0-1   |2016-11-19 |cran (@1.62.0-)                  |
-|covr      |   |2.2.1      |2016-12-30 |Github (jimhester/covr@7e49d3e)  |
+|covr      |   |2.2.2      |2017-01-05 |Github (jimhester/covr@43af1f7)  |
 |curl      |   |2.3        |2016-11-24 |cran (@2.3)                      |
 |httr      |   |1.2.1      |2016-07-03 |cran (@1.2.1)                    |
 |knitr     |   |1.15.1     |2016-11-22 |cran (@1.15.1)                   |
 |magrittr  |   |1.5        |2014-11-22 |cran (@1.5)                      |
-|Rcpp      |   |0.12.8.3   |2016-12-30 |Github (RcppCore/Rcpp@2883ef3)   |
+|Rcpp      |   |0.12.8.3   |2017-01-05 |Github (RcppCore/Rcpp@a53c4c5)   |
 |rmarkdown |   |1.3        |2016-12-21 |cran (@1.3)                      |
 |testthat  |   |1.0.2.9000 |2016-12-30 |Github (hadley/testthat@3b2f225) |
-|xml2      |   |1.0.0.9002 |2016-12-30 |local (jimhester/xml2@NA)        |
+|xml2      |   |1.1.0      |2017-01-05 |local (jimhester/xml2@NA)        |
 
 # Check results
-84 packages
+86 packages
 
 ## addinslist (0.2)
 Maintainer: Dean Attali <daattali@gmail.com>  
@@ -118,30 +118,11 @@ Bug reports: http://www.github.com/ropensci/ckanr/issues
 
 0 errors | 0 warnings | 0 notes
 
-## covr (2.2.1)
+## covr (2.2.2)
 Maintainer: Jim Hester <james.f.hester@gmail.com>  
 Bug reports: https://github.com/jimhester/covr/issues
 
-1 error  | 0 warnings | 0 notes
-
-```
-checking tests ... ERROR
-Running the tests in ‘tests/testthat.R’ failed.
-Last 13 lines of output:
-  1. Failure: it works with coverage objects (@test-cobertura.R#7) ---------------
-  readLines(tmp)[-2] not equal to readLines("cobertura.xml")[-2].
-  1/35 mismatches
-  x[1]: "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
-  y[1]: "<?xml version=\"1.0\"?>"
-  
-  
-  testthat results ================================================================
-  OK: 231 SKIPPED: 3 FAILED: 1
-  1. Failure: it works with coverage objects (@test-cobertura.R#7) 
-  
-  Error: testthat unit tests failed
-  Execution halted
-```
+0 errors | 0 warnings | 0 notes
 
 ## cycleRtools (1.1.1)
 Maintainer: Jordan Mackie <jmackie@protonmail.com>
@@ -187,10 +168,10 @@ Error in re-building vignettes:
   ...
 264 records found. Retrieving batch 1
 339 records found. Retrieving batch 1
-6929 records found. Retrieving batch 1
+6933 records found. Retrieving batch 1
 131 records found. Retrieving batch 1
-125037 records found. Retrieving batch 1
-108948 records found. Retrieving batch 1
+125058 records found. Retrieving batch 1
+108967 records found. Retrieving batch 1
 197 records found. Returning 25
 18 records found. Returning 18
 Quitting from lines 176-177 (rebi-vignettes.Rmd) 
@@ -333,7 +314,7 @@ Bug reports: https://github.com/ropenscilabs/mregions/issues
 
 0 errors | 0 warnings | 0 notes
 
-## natserv (0.1.0)
+## natserv (0.1.4)
 Maintainer: Scott Chamberlain <myrmecocystus@gmail.com>  
 Bug reports: https://github.com/ropensci/natserv/issues
 
@@ -363,7 +344,7 @@ Bug reports: https://www.github.com/expersso/OECD/issues
 
 0 errors | 0 warnings | 0 notes
 
-## openadds (0.1.0)
+## openadds (0.2.0)
 Maintainer: Scott Chamberlain <myrmecocystus@gmail.com>  
 Bug reports: https://github.com/sckott/openadds/issues
 
@@ -462,7 +443,7 @@ Bug reports: https://github.com/ropensci/rnoaa/issues
 
 0 errors | 0 warnings | 0 notes
 
-## rNOMADS (2.3.0)
+## rNOMADS (2.3.2)
 Maintainer: Daniel C. Bowman <danny.c.bowman@gmail.com>
 
 0 errors | 0 warnings | 0 notes
@@ -497,7 +478,7 @@ Bug reports: https://github.com/hadley/rvest/issues
 
 0 errors | 0 warnings | 0 notes
 
-## rvg (0.1.1)
+## rvg (0.1.2)
 Maintainer: David Gohel <david.gohel@ardata.fr>  
 Bug reports: https://github.com/davidgohel/rvg/issues
 
@@ -561,6 +542,31 @@ Bug reports: https://github.com/ropensci/taxize/issues
 
 0 errors | 0 warnings | 0 notes
 
+## tidyquant (0.1.0)
+Maintainer: Matt Dancho <mdancho@gmail.com>  
+Bug reports: https://github.com/mdancho84/tidyquant/issues
+
+1 error  | 0 warnings | 0 notes
+
+```
+checking tests ... ERROR
+Running the tests in ‘tests/testthat.R’ failed.
+Last 13 lines of output:
+         AAPL %>% tq_mutate_(x_fun = "close", mutate_fun = mutate_fun)
+     }, paste0("fun = ", mutate_fun, " not a valid option.")) at testthat/test_tq_transform.R:118
+  2: paste0("fun = ", mutate_fun, " not a valid option.") at /private/var/folders/dt/r5s12t392tb5sk181j3gs4zw0000gn/T/RtmphUL6BL/devtools13aac2becf413/hadley-testthat-3b2f225/R/expect-output.R:147
+  
+  testthat results ================================================================
+  OK: 125 SKIPPED: 1 FAILED: 4
+  1. Error: Test error on invalid x_fun, .x and .y inputs. (@test_tq_mutate.R#115) 
+  2. Error: Test error on invalid x_fun, .x and .y inputs. (@test_tq_mutate.R#133) 
+  3. Error: Test error on invalid x_fun, .x and .y inputs. (@test_tq_transform.R#100) 
+  4. Error: Test error on invalid x_fun, .x and .y inputs. (@test_tq_transform.R#118) 
+  
+  Error: testthat unit tests failed
+  Execution halted
+```
+
 ## tidyverse (1.0.0)
 Maintainer: Hadley Wickham <hadley@rstudio.com>  
 Bug reports: https://github.com/hadley/tidyverse/issues
@@ -592,6 +598,11 @@ Maintainer: Lionel Henry <lionel@rstudio.com>
 
 ## W3CMarkupValidator (0.1-5)
 Maintainer: Kurt Hornik <Kurt.Hornik@R-project.org>
+
+0 errors | 0 warnings | 0 notes
+
+## waterData (1.0.5)
+Maintainer: Karen R. Ryberg <kryberg@usgs.gov>
 
 0 errors | 0 warnings | 0 notes
 

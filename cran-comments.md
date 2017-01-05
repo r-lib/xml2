@@ -1,11 +1,19 @@
 ## Release summary
 
-This release allows for mutating XML nodes.
+I (Jim Hester) am taking over maintenance of the xml2 package from Hadley
+Wickham.
+
+This contains bug fixes and adds some more functionality for XML node mutation.
 
 ## Test environments
 * local OS X install, R 3.3.0.
-* ubuntu 12.04 (on travis-ci), R 3.3.0.
-* win-builder (devel and release)
+* Ubuntu 12.04 (on travis-ci), R-oldrel, R-release, R-devel
+* Windows Server 2012 R2 (x64), R 3.3.0
+* Rhub
+  * Windows Server 2008 R2 SP1, R-devel, 32/64 bit
+  * Debian Linux, R-devel, GCC ASAN/UBSAN
+  * Fedora Linux, R-devel, clang, gfortran
+  * Ubuntu Linux 16.04 LTS, R-release, GCC
 
 ## R CMD check results
 There were no ERRORs or WARNINGs.
@@ -17,8 +25,6 @@ There was 1 NOTE:
   do about this.
 
 ## Downstream dependencies
-I ran `R CMD check` on all 51 reverse dependencies (https://github.com/hadley/xml2/tree/master/revdep/summary.md). 
+I ran `R CMD check` on all 86 reverse dependencies (https://github.com/hadley/xml2/tree/master/revdep).
 
-There were 2 Warnings in rversions and docxtractr due to deprecated functions,
-these maintainers have been alerted to the changes and will release new
-versions of their packages soon.
+There were no issues found related to xml2.

@@ -1,5 +1,5 @@
 Package: xml2
-Version: 1.0.0.9002
+Version: 1.1.0
 Title: Parse XML
 Description: Work with XML files using a simple, consistent interface. Built on
     top of the 'libxml2' C library.
@@ -27,7 +27,6 @@ Suggests:
     rmarkdown,
     magrittr,
     httr
-Remotes: RcppCore/Rcpp
 SystemRequirements: libxml2: libxml2-dev (deb), libxml2-devel (rpm)
 License: GPL (>= 2)
 RoxygenNote: 5.0.1.9000
