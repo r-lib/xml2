@@ -8,3 +8,4 @@ src/*.a
 src/Makevars
 inst/doc
 script.R
+TODO.md

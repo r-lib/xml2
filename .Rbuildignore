@@ -12,3 +12,4 @@ windows
 ^appveyor\.yml$
 ^script\.R$
 ^\.github$
+^TODO\.md$
