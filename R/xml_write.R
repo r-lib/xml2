@@ -49,7 +49,7 @@ write_xml.xml_document <- function(x, file, ..., options = "format", encoding = 
     if (!(is.character(file) && length(file) == 1 && nzchar(file))) {
       stop("`file` must be a non-zero character of length 1", call. = FALSE)
     }
-    doc_write(x$doc, file, options = options, encoding = encoding)
+    doc_write_file(x$doc, file, options = options, encoding = encoding)
   }
 }
 
@@ -72,12 +72,12 @@ write_xml.xml_nodeset <- function(x, file, ..., options = "format", encoding = "
     if (!(is.character(file) && length(file) == 1 && nzchar(file))) {
       stop("`file` must be a non-zero character of length 1", call. = FALSE)
     }
-    node_write(x[[1]]$node, file, options = options, encoding = encoding)
+    node_write_file(x[[1]]$node, file, options = options, encoding = encoding)
   }
 }
 
 #' @export
-write_xml.xml_node <- function(x, file, format = TRUE, ..., options = "format", encoding = "UTF-8") {
+write_xml.xml_node <- function(x, file, ..., options = "format", encoding = "UTF-8") {
   options  <- parse_options(options, xml_save_options())
 
   file <- path_to_connection(file, check = "dir")
@@ -91,7 +91,7 @@ write_xml.xml_node <- function(x, file, format = TRUE, ..., options = "format", 
     if (!(is.character(file) && length(file) == 1 && nzchar(file))) {
       stop("`file` must be a non-zero character of length 1", call. = FALSE)
     }
-    node_write(x$node, file, options = options, encoding = encoding)
+    node_write_file(x$node, file, options = options, encoding = encoding)
   }
 }
 

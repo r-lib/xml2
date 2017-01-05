@@ -177,40 +177,32 @@ node_new_dtd <- function(doc, name = "", eid = "", sid = "") {
     invisible(.Call('xml2_node_new_dtd', PACKAGE = 'xml2', doc, name, eid, sid))
 }
 
-doc_format_xml <- function(x, format = TRUE) {
-    .Call('xml2_doc_format_xml', PACKAGE = 'xml2', x, format)
-}
-
-doc_format_html <- function(x, format = TRUE) {
-    .Call('xml2_doc_format_html', PACKAGE = 'xml2', x, format)
-}
-
 xml_save_options <- function() {
     .Call('xml2_xml_save_options', PACKAGE = 'xml2')
 }
 
-doc_write <- function(x, path, encoding = "UTF-8", options = 1L) {
-    invisible(.Call('xml2_doc_write', PACKAGE = 'xml2', x, path, encoding, options))
+doc_write_file <- function(x, path, encoding = "UTF-8", options = 1L) {
+    invisible(.Call('xml2_doc_write_file', PACKAGE = 'xml2', x, path, encoding, options))
 }
 
 doc_write_connection <- function(x, connection, encoding = "UTF-8", options = 1L) {
     invisible(.Call('xml2_doc_write_connection', PACKAGE = 'xml2', x, connection, encoding, options))
 }
 
-node_write <- function(x, path, encoding = "UTF-8", options = 1L) {
-    invisible(.Call('xml2_node_write', PACKAGE = 'xml2', x, path, encoding, options))
+doc_write_character <- function(x, encoding = "UTF-8", options = 1L) {
+    .Call('xml2_doc_write_character', PACKAGE = 'xml2', x, encoding, options)
+}
+
+node_write_file <- function(x, path, encoding = "UTF-8", options = 1L) {
+    invisible(.Call('xml2_node_write_file', PACKAGE = 'xml2', x, path, encoding, options))
 }
 
 node_write_connection <- function(x, connection, encoding = "UTF-8", options = 1L) {
     invisible(.Call('xml2_node_write_connection', PACKAGE = 'xml2', x, connection, encoding, options))
 }
 
-node_format_xml <- function(doc, node, format = TRUE, indent = 0L) {
-    .Call('xml2_node_format_xml', PACKAGE = 'xml2', doc, node, format, indent)
-}
-
-node_format_html <- function(doc, node, format = TRUE) {
-    .Call('xml2_node_format_html', PACKAGE = 'xml2', doc, node, format)
+node_write_character <- function(x, encoding = "UTF-8", options = 1L) {
+    .Call('xml2_node_write_character', PACKAGE = 'xml2', x, encoding, options)
 }
 
 doc_validate <- function(doc, schema) {

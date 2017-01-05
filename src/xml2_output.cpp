@@ -33,24 +33,6 @@ Rconnection get_connection(SEXP con) {
 #include "xml2_utils.h"
 
 // [[Rcpp::export]]
-CharacterVector doc_format_xml(XPtrDoc x, bool format = true) {
-  xmlChar *s;
-  int size;
-  xmlDocDumpFormatMemory(x.checked_get(), &s, &size, format);
-
-  return Xml2String(s).asRString();
-}
-
-// [[Rcpp::export]]
-CharacterVector doc_format_html(XPtrDoc x, bool format = true) {
-  xmlChar *s;
-  int size;
-  htmlDocDumpMemoryFormat(x.checked_get(), &s, &size, format);
-
-  return Xml2String(s).asRString();
-}
-
-// [[Rcpp::export]]
 Rcpp::IntegerVector xml_save_options() {
   Rcpp::IntegerVector out = Rcpp::IntegerVector::create(
       Rcpp::_["format"] = XML_SAVE_FORMAT,
@@ -83,7 +65,7 @@ int xml_write_callback(Rconnection con, const char * buffer, int len) {
 }
 
 // [[Rcpp::export]]
-void doc_write(XPtrDoc x, std::string path, std::string encoding = "UTF-8", int options = 1) {
+void doc_write_file(XPtrDoc x, std::string path, std::string encoding = "UTF-8", int options = 1) {
   xmlSaveCtxtPtr savectx = xmlSaveToFilename(
       path.c_str(),
       encoding.c_str(),
@@ -113,7 +95,23 @@ void doc_write_connection(XPtrDoc x, SEXP connection, std::string encoding = "UT
 }
 
 // [[Rcpp::export]]
-void node_write(XPtrNode x, std::string path, std::string encoding = "UTF-8", int options = 1) {
+CharacterVector doc_write_character(XPtrDoc x, std::string encoding = "UTF-8", int options = 1) {
+  boost::shared_ptr<xmlBuffer> buffer(xmlBufferCreate(), xmlFree);
+
+  xmlSaveCtxtPtr savectx = xmlSaveToBuffer(
+      buffer.get(),
+      encoding.c_str(),
+      options);
+
+  xmlSaveDoc(savectx, x.checked_get());
+  if (xmlSaveClose(savectx) == -1) {
+    stop("Error writing to buffer");
+  }
+  return Xml2String(buffer->content).asRString();
+}
+
+// [[Rcpp::export]]
+void node_write_file(XPtrNode x, std::string path, std::string encoding = "UTF-8", int options = 1) {
   xmlSaveCtxtPtr savectx = xmlSaveToFilename(
       path.c_str(),
       encoding.c_str(),
@@ -143,27 +141,17 @@ void node_write_connection(XPtrNode x, SEXP connection, std::string encoding = "
 }
 
 // [[Rcpp::export]]
-CharacterVector node_format_xml(XPtrDoc doc, XPtrNode node,
-                                bool format = true,
-                                int indent = 0) {
+CharacterVector node_write_character(XPtrNode x, std::string encoding = "UTF-8", int options = 1) {
   boost::shared_ptr<xmlBuffer> buffer(xmlBufferCreate(), xmlFree);
-  xmlNodeDump(buffer.get(), doc.checked_get(), node.checked_get(), indent, format);
 
-  return Xml2String(buffer->content).asRString();
-}
-// [[Rcpp::export]]
-CharacterVector node_format_html(XPtrDoc doc, XPtrNode node,
-                                 bool format = true) {
-  boost::shared_ptr<xmlBuffer> buffer(xmlBufferCreate(), xmlBufferFree);
-  xmlOutputBuffer *outputBuffer = xmlOutputBufferCreateBuffer( buffer.get(), NULL );
+  xmlSaveCtxtPtr savectx = xmlSaveToBuffer(
+      buffer.get(),
+      encoding.c_str(),
+      options);
 
-  htmlNodeDumpFormatOutput(
-    outputBuffer,
-    doc.checked_get(),
-    node.checked_get(),
-    NULL,
-    format ? 1 : 0
-  );
-
+  xmlSaveTree(savectx, x.checked_get());
+  if (xmlSaveClose(savectx) == -1) {
+    stop("Error writing to buffer");
+  }
   return Xml2String(buffer->content).asRString();
 }

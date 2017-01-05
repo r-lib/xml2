@@ -33,7 +33,7 @@
 
 * `xml_new_document()` now explicitly sets the encoding (default UTF-8) (#142)
 
-* Document `write_xml(format = TRUE)` (#132)
+* Document formatting options for `write_xml()` (#132)
 
 * Add missing methods for xml_missing objects. (#134)
 
