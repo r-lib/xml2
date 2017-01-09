@@ -72,7 +72,7 @@ xml2 has been overhauled with a set of methods to make generating and modfying X
 
 xml2 1.1.0 improves support for converting to and from R lists, thanks in part
 to work by [Peter Foley](https://github.com/peterfoley) and [Jenny
-Bryan](github.com/jennybc). In particular xml2 now supports preserving the root
+Bryan](https://github.com/jennybc). In particular xml2 now supports preserving the root
 node name as well as saving all xml2 attributes as R attributes. These changes
 allows you to convert most XML documents to and from R lists with `as_list()`
 and `as_xml_document()` without loss of data.
