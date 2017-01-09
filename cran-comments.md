@@ -1,11 +1,11 @@
 ## Release summary
 
-I (Jim Hester) am taking over maintenance of the xml2 package from Hadley
-Wickham.
+This is a resubmission. Compared to the last version:
 
-This contains bug fixes and adds some more functionality for XML node mutation.
+The vignettes should now be properly updated.
 
 ## Test environments
+
 * local OS X install, R 3.3.0.
 * Ubuntu 12.04 (on travis-ci), R-oldrel, R-release, R-devel
 * Windows Server 2012 R2 (x64), R 3.3.0
