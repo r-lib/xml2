@@ -18,32 +18,58 @@ knitr::opts_chunk$set(
 ```
 <meta charset="utf-8">
 
-Today we are pleased to release version 1.1.0 of xml2. This release fixes many
-bugs, has additional methods for XML generation, makes XML coercion to and
-from R lists more consistent and adds support for XML validation and XSLT
-Transformations. This also marks the first release maintained by [Jim
-Hester](https://github.com/jimhester).
-
-You can install xml2 with:
+Today we are pleased to release version 1.1.0 of xml2.  xml2 makes it easy to read, create, and modify XML with R. You can install it with:
 
 ```{r, eval = FALSE}
 install.packages("xml2")
 ```
 
-## Additional XML generation methods
+As well as fixing many bugs, this release:
 
-xml2 1.1.0 now supports methods for XML/HTML comments (`xml_comment()`) and
-CDATA nodes (`xml_cdata()`). In addition a new function `xml_new_root()` can be
-used to create a new document and root node simultaneously.
+* Makes it easier to create an modify XML
+* Improves roundtrip support between XML and lists
+* Adds support for XML validation and XSLT transformations. 
 
-```{r}
-d <- xml_new_root("x") %>%
-  xml_add_child("y") %>%
-  xml_root()
-d
-```
+You can see a  full list of changes in the [release notes](https://github.com/hadley/xml2/releases/tag/v1.1.0). This is the first release maintained by [Jim Hester](https://github.com/jimhester).
+
+## Creating and modifying XML
+
+xml2 has been overhauled with a set of methods to make generating and modfying XML easier:
+
+*   `xml_new_root()` can be used to create a new document and root node 
+    simultaneously.
+
+    ```{r}
+    xml_new_root("x") %>%
+      xml_add_child("y") %>%
+      xml_root()
+    ```
+
+*   New `xml_set_text()`, `xml_set_name()`, `xml_set_attr()`, and 
+    `xml_set_attrs()` make it easy to modify nodes within a pipeline.
+  
+    ```{r}
+    x <- read_xml("<a>
+        <b />
+        <c><b/></c>
+      </a>")
+    x
+    
+    x %>% 
+      xml_find_all(".//b") %>% 
+      xml_set_name("banana") %>% 
+      xml_set_attr("oldname", "b")
+    x
+    ```
+
+* New `xml_add_parent()` makes it easy to insert a node as the parent of 
+  an existing node.
+
+* You can create more esoteric node types with `xml_comment()` (comments),
+  `xml_cdata()` (CDATA nodes), and `xml_dtd()` (DTDs).
 
 ## Coercion to and from R Lists
+
 xml2 1.1.0 improves support for converting to and from R lists, thanks in part
 to work by [Peter Foley](https://github.com/peterfoley) and [Jenny
 Bryan](github.com/jennybc). In particular xml2 now supports preserving the root
@@ -55,8 +81,7 @@ and `as_xml_document()` without loss of data.
 x <- read_xml("<fruits><apple color = 'red' /></fruits>")
 x
 as_list(x)
-xx <- as_xml_document(as_list(x))
-as.character(xx) == as.character(x)
+as_xml_document(as_list(x))
 ```
 
 ## XML validation and xslt
@@ -76,6 +101,3 @@ Jeroen also released the first xml2 extension package in conjunction with xml2
 apply [XSLT (Extensible Stylesheet Language
 Transformations)](https://en.wikipedia.org/wiki/XSLT) to XML documents, which
 are great for transforming XML data into other formats such as HTML.
-
-Thanks again to all the contributers for this release. Find a full list of
-changes in the [release notes](https://github.com/hadley/xml2/releases/tag/v1.1.0).
