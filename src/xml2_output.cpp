@@ -32,6 +32,19 @@ Rconnection get_connection(SEXP con) {
 #include "xml2_types.h"
 #include "xml2_utils.h"
 
+
+  /* * *
+   *
+   * Author: Adam Spragg <adam@spra.gg>
+   * Date:   Wed Nov 3 15:33:40 2010 +0100
+   * https://github.com/GNOME/libxml2/commit/d2e62311cd15651e68f921167c7fcf05b19378f9
+   *
+   * Add xmlSaveOption XML_SAVE_WSNONSIG
+   */
+#if defined(LIBXML_VERSION) && (LIBXML_VERSION >= 20708)
+#define HAS_SAVE_WSNONSIG
+#endif
+
 // [[Rcpp::export]]
 Rcpp::IntegerVector xml_save_options() {
   Rcpp::IntegerVector out = Rcpp::IntegerVector::create(
@@ -41,8 +54,11 @@ Rcpp::IntegerVector xml_save_options() {
       Rcpp::_["no_xhtml"] = XML_SAVE_NO_XHTML,
       Rcpp::_["require_xhtml"] = XML_SAVE_XHTML,
       Rcpp::_["as_xml"] = XML_SAVE_AS_XML,
-      Rcpp::_["as_html"] = XML_SAVE_AS_HTML,
-      Rcpp::_["format_whitespace"] = XML_SAVE_WSNONSIG);
+      Rcpp::_["as_html"] = XML_SAVE_AS_HTML
+#ifdef HAS_SAVE_WSNONSIG
+      , Rcpp::_["format_whitespace"] = XML_SAVE_WSNONSIG
+#endif
+      );
   out.attr("descriptions") = Rcpp::CharacterVector::create(
       "Format output",
       "Drop the XML declaration",
@@ -50,8 +66,11 @@ Rcpp::IntegerVector xml_save_options() {
       "Disable XHTML1 rules",
       "Force XHTML1 rules",
       "Force XML output",
-      "Force HTML output",
-      "Format with non-significant whitespace");
+      "Force HTML output"
+#ifdef HAS_SAVE_WSNONSIG
+      , "Format with non-significant whitespace"
+#endif
+      );
   return out;
 }
 
