@@ -28,7 +28,7 @@ Suggests:
     magrittr,
     httr
 SystemRequirements: libxml2: libxml2-dev (deb), libxml2-devel (rpm)
-License: GPL-2
+License: GPL (>=2)
 RoxygenNote: 5.0.1.9000
 VignetteBuilder: knitr
 Collate: 
