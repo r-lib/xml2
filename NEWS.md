@@ -1,3 +1,8 @@
+# xml2 1.1.1
+
+* This is a small point release addressing installation issues found with older
+  libxml2 versions shipped with RedHat Linux 6 / CentOS 6 (#163, #164).
+
 # xml2 1.1.0
 
 ## New Features

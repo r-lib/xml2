@@ -1,8 +1,6 @@
 ## Release summary
 
-This is a resubmission. Compared to the last version:
-
-The vignettes should now be properly updated.
+This is a small patch release to fix installation on RedHat Linux 6 / CentOS 6.
 
 ## Test environments
 
@@ -25,6 +23,6 @@ There was 1 NOTE:
   do about this.
 
 ## Downstream dependencies
-I ran `R CMD check` on all 86 reverse dependencies (https://github.com/hadley/xml2/tree/master/revdep).
+I ran `R CMD check` on all 91 reverse dependencies (https://github.com/hadley/xml2/tree/master/revdep).
 
-There were no issues found related to xml2.
+There were no issues found related to the xml2 changes.
