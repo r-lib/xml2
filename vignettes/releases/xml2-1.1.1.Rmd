@@ -1,9 +1,7 @@
 ---
-title: xml2 1.1.0
+title: xml2 1.1.1
 output:
-  html_document:
-    self_contained: false
-    highlight: NULL
+  html_fragment
 ---
 
 ```{r setup, include=FALSE}
@@ -18,7 +16,7 @@ knitr::opts_chunk$set(
 ```
 <meta charset="utf-8">
 
-Today we are pleased to release version 1.1.0 of xml2.  xml2 makes it easy to read, create, and modify XML with R. You can install it with:
+Today we are pleased to release version 1.1.1 of xml2.  xml2 makes it easy to read, create, and modify XML with R. You can install it with:
 
 ```{r, eval = FALSE}
 install.packages("xml2")
@@ -30,7 +28,7 @@ As well as fixing many bugs, this release:
 * Improves roundtrip support between XML and lists
 * Adds support for XML validation and XSLT transformations. 
 
-You can see a  full list of changes in the [release notes](https://github.com/hadley/xml2/releases/tag/v1.1.0). This is the first release maintained by [Jim Hester](https://github.com/jimhester).
+You can see a  full list of changes in the [release notes](https://github.com/hadley/xml2/releases/tag/v1.1.1). This is the first release maintained by [Jim Hester](https://github.com/jimhester).
 
 ## Creating and modifying XML
 
@@ -70,7 +68,7 @@ xml2 has been overhauled with a set of methods to make generating and modfying X
 
 ## Coercion to and from R Lists
 
-xml2 1.1.0 improves support for converting to and from R lists, thanks in part
+xml2 1.1.1 improves support for converting to and from R lists, thanks in part
 to work by [Peter Foley](https://github.com/peterfoley) and [Jenny
 Bryan](https://github.com/jennybc). In particular xml2 now supports preserving the root
 node name as well as saving all xml2 attributes as R attributes. These changes
@@ -86,7 +84,7 @@ as_xml_document(as_list(x))
 
 ## XML validation and xslt
 
-xml2 1.1.0 also adds support for XML validation, thanks to [Jeroen
+xml2 1.1.1 also adds support for XML validation, thanks to [Jeroen
 Ooms](https://github.com/jeroenooms).
 Simply read the document and schema files and call `xml_validate()`.
 
@@ -97,7 +95,7 @@ xml_validate(doc, schema)
 ```
 
 Jeroen also released the first xml2 extension package in conjunction with xml2
-1.1.0, [xslt](https://cran.r-project.org/package=xslt). xslt allows one to
+1.1.1, [xslt](https://cran.r-project.org/package=xslt). xslt allows one to
 apply [XSLT (Extensible Stylesheet Language
 Transformations)](https://en.wikipedia.org/wiki/XSLT) to XML documents, which
 are great for transforming XML data into other formats such as HTML.
