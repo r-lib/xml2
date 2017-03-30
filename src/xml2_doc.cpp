@@ -126,7 +126,7 @@ Rcpp::IntegerVector xml_parse_options() {
   Rcpp::IntegerVector out_values = Rcpp::IntegerVector(size);
   Rcpp::CharacterVector out_names = Rcpp::CharacterVector(size);
   Rcpp::CharacterVector out_descriptions = Rcpp::CharacterVector(size);
-  for (int i = 0; i < size; ++i) {
+  for (size_t i = 0; i < size; ++i) {
     out_values[i] = values[i];
     out_names[i] = names[i];
     out_descriptions[i] = descriptions[i];

@@ -77,7 +77,7 @@ Rcpp::IntegerVector xml_save_options() {
 int xml_write_callback(Rconnection con, const char * buffer, int len) {
   size_t write_size;
 
-  if ((write_size = R_WriteConnection(con, (void *) buffer, len)) != len) {
+  if ((write_size = R_WriteConnection(con, (void *) buffer, len)) != static_cast<size_t>(len)) {
     stop("write failed, expected %l, got %l", len, write_size);
   }
   return write_size;
