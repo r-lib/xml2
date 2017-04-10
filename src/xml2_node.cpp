@@ -364,6 +364,10 @@ int node_length(XPtrNode node, bool onlyNode = true) {
   return i;
 }
 
+// [[Rcpp::export]]
+bool node_has_children(XPtrNode node) {
+  return node->xmlChildrenNode != NULL;
+}
 
 // [[Rcpp::export]]
 Rcpp::List node_parents(XPtrNode node) {
@@ -459,6 +463,11 @@ void node_append_content(XPtrNode node, std::string content) {
 // [[Rcpp::export]]
 XPtrNode node_append_child(XPtrNode parent, XPtrNode cur) {
   return XPtrNode(xmlAddChild(parent.checked_get(), cur.checked_get()));
+}
+
+// [[Rcpp::export]]
+XPtrNode node_prepend_child(XPtrNode parent, XPtrNode cur) {
+  return XPtrNode(xmlAddPrevSibling(parent.checked_get()->children, cur.checked_get()));
 }
 
 // Previous sibling

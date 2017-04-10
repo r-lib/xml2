@@ -269,6 +269,17 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// node_has_children
+bool node_has_children(XPtrNode node);
+RcppExport SEXP xml2_node_has_children(SEXP nodeSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< XPtrNode >::type node(nodeSEXP);
+    rcpp_result_gen = Rcpp::wrap(node_has_children(node));
+    return rcpp_result_gen;
+END_RCPP
+}
 // node_parents
 Rcpp::List node_parents(XPtrNode node);
 RcppExport SEXP xml2_node_parents(SEXP nodeSEXP) {
@@ -378,6 +389,18 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< XPtrNode >::type parent(parentSEXP);
     Rcpp::traits::input_parameter< XPtrNode >::type cur(curSEXP);
     rcpp_result_gen = Rcpp::wrap(node_append_child(parent, cur));
+    return rcpp_result_gen;
+END_RCPP
+}
+// node_prepend_child
+XPtrNode node_prepend_child(XPtrNode parent, XPtrNode cur);
+RcppExport SEXP xml2_node_prepend_child(SEXP parentSEXP, SEXP curSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< XPtrNode >::type parent(parentSEXP);
+    Rcpp::traits::input_parameter< XPtrNode >::type cur(curSEXP);
+    rcpp_result_gen = Rcpp::wrap(node_prepend_child(parent, cur));
     return rcpp_result_gen;
 END_RCPP
 }
