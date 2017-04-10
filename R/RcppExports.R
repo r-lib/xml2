@@ -89,8 +89,8 @@ node_length <- function(node, onlyNode = TRUE) {
     .Call('xml2_node_length', PACKAGE = 'xml2', node, onlyNode)
 }
 
-node_has_children <- function(node) {
-    .Call('xml2_node_has_children', PACKAGE = 'xml2', node)
+node_has_children <- function(node, onlyNode = TRUE) {
+    .Call('xml2_node_has_children', PACKAGE = 'xml2', node, onlyNode)
 }
 
 node_parents <- function(node) {

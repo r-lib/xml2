@@ -365,8 +365,13 @@ int node_length(XPtrNode node, bool onlyNode = true) {
 }
 
 // [[Rcpp::export]]
-bool node_has_children(XPtrNode node) {
-  return node->xmlChildrenNode != NULL;
+bool node_has_children(XPtrNode node, bool onlyNode = true) {
+  for(xmlNode* cur = node->xmlChildrenNode; cur != NULL; cur = cur->next) {
+    if (onlyNode && cur->type != XML_ELEMENT_NODE)
+      continue;
+    return true;
+  }
+  return false;
 }
 
 // [[Rcpp::export]]
