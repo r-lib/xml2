@@ -89,6 +89,10 @@ node_length <- function(node, onlyNode = TRUE) {
     .Call('xml2_node_length', PACKAGE = 'xml2', node, onlyNode)
 }
 
+node_has_children <- function(node, onlyNode = TRUE) {
+    .Call('xml2_node_has_children', PACKAGE = 'xml2', node, onlyNode)
+}
+
 node_parents <- function(node) {
     .Call('xml2_node_parents', PACKAGE = 'xml2', node)
 }
@@ -127,6 +131,10 @@ node_append_content <- function(node, content) {
 
 node_append_child <- function(parent, cur) {
     .Call('xml2_node_append_child', PACKAGE = 'xml2', parent, cur)
+}
+
+node_prepend_child <- function(parent, cur) {
+    .Call('xml2_node_prepend_child', PACKAGE = 'xml2', parent, cur)
 }
 
 node_prepend_sibling <- function(cur, elem) {

@@ -147,14 +147,17 @@ xml_add_child.xml_node <- function(.x, .value, ..., .where = length(xml_children
 
   node <- create_node(.value, .x, .copy = .copy, ...)
 
-  num_children <- length(xml_children(.x))
-
-  if (.where >= num_children) {
-    node_append_child(.x$node, node$node)
-  } else if (.where == 0L) {
-    node_prepend_sibling(xml_child(.x, search = 1)$node, node$node)
+  if (.where == 0L) {
+    if(node_has_children(.x$node))
+      node_prepend_child(.x$node, node$node)
+    else
+      node_append_child(.x$node, node$node)
   } else {
-    node_append_sibling(xml_child(.x, search = .where)$node, node$node)
+    num_children <- length(xml_children(.x))
+    if (.where >= num_children) {
+      node_append_child(.x$node, node$node)
+    } else
+      node_append_sibling(xml_child(.x, search = .where)$node, node$node)
   }
 
   invisible(node)
