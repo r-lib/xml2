@@ -1,5 +1,12 @@
 context("xml_find")
 
+# Find all --------------------------------------------------------------------
+
+test_that("xml_find_all raises an error given an invalid XPath. ", {
+  x <- read_xml("<foo> <bar> text <baz/> </bar> </foo>")
+  expect_error(xml_find_all(x, NULL))
+})
+
 # Find one ---------------------------------------------------------------------
 
 test_that("xml_find_first returns a missing object if no match", {
