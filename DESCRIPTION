@@ -11,8 +11,8 @@ Authors@R: c(
     person("R Foundation", role = "ctb",
       comment = "Copy of R-project homepage cached as example")
     )
-URL: https://github.com/hadley/xml2/
-BugReports: https://github.com/hadley/xml2/issues/
+URL: https://github.com/r-lib/xml2
+BugReports: https://github.com/r-lib/xml2/issues
 Depends:
     R (>= 3.1.0)
 Imports:

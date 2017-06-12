@@ -28,7 +28,7 @@ As well as fixing many bugs, this release:
 * Improves roundtrip support between XML and lists
 * Adds support for XML validation and XSLT transformations. 
 
-You can see a  full list of changes in the [release notes](https://github.com/hadley/xml2/releases/tag/v1.1.1). This is the first release maintained by [Jim Hester](https://github.com/jimhester).
+You can see a  full list of changes in the [release notes](https://github.com/r-lib/xml2/releases/tag/v1.1.1). This is the first release maintained by [Jim Hester](https://github.com/jimhester).
 
 ## Creating and modifying XML
 

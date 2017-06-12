@@ -1,7 +1,7 @@
 # xml2
-[![Build Status](https://travis-ci.org/hadley/xml2.svg?branch=master)](https://travis-ci.org/hadley/xml2)
-[![Coverage Status](https://img.shields.io/codecov/c/github/hadley/xml2/master.svg)](https://codecov.io/github/hadley/xml2?branch=master)
-[![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/hadley/xml2?branch=master&svg=true)](https://ci.appveyor.com/project/hadley/xml2)
+[![Build Status](https://travis-ci.org/r-lib/xml2.svg?branch=master)](https://travis-ci.org/r-lib/xml2)
+[![Coverage Status](https://img.shields.io/codecov/c/github/r-lib/xml2/master.svg)](https://codecov.io/github/r-lib/xml2?branch=master)
+[![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/r-lib/xml2?branch=master&svg=true)](https://ci.appveyor.com/project/r-lib/xml2)
 
 The xml2 package is a binding to [libxml2](http://xmlsoft.org), making it easy to work with HTML and XML from R. The API is somewhat inspired by [jQuery](http://jquery.com).
 
@@ -17,7 +17,7 @@ or you can install the development version from github, using `devtools`:
 
 ```R
 # install.packages("devtools")
-devtools::install_github("hadley/xml2")
+devtools::install_github("r-lib/xml2")
 ```
 
 ## Usage

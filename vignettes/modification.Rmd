@@ -53,10 +53,10 @@ the value will remove the attribute completely.
 x <- read_xml("<a href='invalid!'>xml2</a>")
 xml_attr(x, "href")
 
-xml_attr(x, "href") <- "https://github.com/hadley/xml2"
+xml_attr(x, "href") <- "https://github.com/r-lib/xml2"
 xml_attr(x, "href")
 
-xml_attrs(x) <- c(id = "xml2", href = "https://github.com/hadley/xml2")
+xml_attrs(x) <- c(id = "xml2", href = "https://github.com/r-lib/xml2")
 xml_attrs(x)
 x
 
