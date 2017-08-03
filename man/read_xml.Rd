@@ -64,6 +64,26 @@ An XML document. HTML is normalised to valid XML - this may not
 \description{
 Read HTML or XML.
 }
+\section{Setting the "user agent" header}{
+
+
+When performing web scraping tasks it is both good practice --- and often required ---
+to set the "\href{https://en.wikipedia.org/wiki/User_agent}{user agent}" request header
+to a specific value. Sometimes this value is assigned to emulate a browser in order
+to have content render in a certain way (e.g. "\code{Mozilla/5.0 (Windows NT 5.1; rv:52.0)
+Gecko/20100101 Firefox/52.0}" to emulate more recent Windows browsers). Most often,
+this value should be set to provide the web resource owner information on who you are
+and the intent of your actions like this Google scraping bot user agent identifier:
+"\code{Googlebot/2.1 (+http://www.google.com/bot.html)}".
+
+You can set the HTTP user agent for  URL-based requests via the \code{HTTPUserAgent} option:
+
+\code{options(HTTPUserAgent = "me@example.com; +https://example.com/info.html")}
+
+NOTE: using this \code{options()} procedure will change the user agent for \emph{all}
+URL connections during the entire active R session.
+}
+
 \examples{
 # Literal xml/html is useful for small examples
 read_xml("<foo><bar /></foo>")
