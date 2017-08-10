@@ -1,5 +1,5 @@
 Package: xml2
-Version: 1.1.1
+Version: 1.1.9000
 Title: Parse XML
 Description: Work with XML files using a simple, consistent interface. Built on
     top of the 'libxml2' C library.
@@ -17,7 +17,7 @@ Depends:
     R (>= 3.1.0)
 Imports:
     Rcpp
-LinkingTo: Rcpp (>= 0.11.4.6),
+LinkingTo: Rcpp (>= 0.12.12),
     BH
 Suggests:
     testthat,
@@ -29,7 +29,7 @@ Suggests:
     httr
 SystemRequirements: libxml2: libxml2-dev (deb), libxml2-devel (rpm)
 License: GPL (>=2)
-RoxygenNote: 5.0.1.9000
+RoxygenNote: 6.0.1
 VignetteBuilder: knitr
 Collate: 
     'RcppExports.R'
@@ -37,6 +37,7 @@ Collate:
     'xml_parse.R'
     'as_xml_document.R'
     'classes.R'
+    'init.R'
     'paths.R'
     'utils.R'
     'xml_attr.R'

@@ -1,6 +1,5 @@
 language: r
 cache: packages
-latex: false
 
 matrix:
   include:

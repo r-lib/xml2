@@ -8,7 +8,7 @@ using namespace Rcpp;
 
 // read_connection_
 RawVector read_connection_(RObject con, int chunk_size);
-RcppExport SEXP xml2_read_connection_(SEXP conSEXP, SEXP chunk_sizeSEXP) {
+RcppExport SEXP _xml2_read_connection_(SEXP conSEXP, SEXP chunk_sizeSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -20,7 +20,7 @@ END_RCPP
 }
 // xml_parse_options
 Rcpp::IntegerVector xml_parse_options();
-RcppExport SEXP xml2_xml_parse_options() {
+RcppExport SEXP _xml2_xml_parse_options() {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -30,7 +30,7 @@ END_RCPP
 }
 // doc_parse_file
 XPtrDoc doc_parse_file(std::string path, std::string encoding, bool as_html, int options);
-RcppExport SEXP xml2_doc_parse_file(SEXP pathSEXP, SEXP encodingSEXP, SEXP as_htmlSEXP, SEXP optionsSEXP) {
+RcppExport SEXP _xml2_doc_parse_file(SEXP pathSEXP, SEXP encodingSEXP, SEXP as_htmlSEXP, SEXP optionsSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -44,7 +44,7 @@ END_RCPP
 }
 // doc_parse_raw
 XPtrDoc doc_parse_raw(RawVector x, std::string encoding, std::string base_url, bool as_html, int options);
-RcppExport SEXP xml2_doc_parse_raw(SEXP xSEXP, SEXP encodingSEXP, SEXP base_urlSEXP, SEXP as_htmlSEXP, SEXP optionsSEXP) {
+RcppExport SEXP _xml2_doc_parse_raw(SEXP xSEXP, SEXP encodingSEXP, SEXP base_urlSEXP, SEXP as_htmlSEXP, SEXP optionsSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -59,7 +59,7 @@ END_RCPP
 }
 // doc_root
 XPtrNode doc_root(XPtrDoc x);
-RcppExport SEXP xml2_doc_root(SEXP xSEXP) {
+RcppExport SEXP _xml2_doc_root(SEXP xSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -70,7 +70,7 @@ END_RCPP
 }
 // doc_has_root
 bool doc_has_root(XPtrDoc x);
-RcppExport SEXP xml2_doc_has_root(SEXP xSEXP) {
+RcppExport SEXP _xml2_doc_has_root(SEXP xSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -81,7 +81,7 @@ END_RCPP
 }
 // doc_url
 CharacterVector doc_url(XPtrDoc x);
-RcppExport SEXP xml2_doc_url(SEXP xSEXP) {
+RcppExport SEXP _xml2_doc_url(SEXP xSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -92,7 +92,7 @@ END_RCPP
 }
 // doc_new
 XPtrDoc doc_new(std::string version, std::string encoding);
-RcppExport SEXP xml2_doc_new(SEXP versionSEXP, SEXP encodingSEXP) {
+RcppExport SEXP _xml2_doc_new(SEXP versionSEXP, SEXP encodingSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -104,7 +104,7 @@ END_RCPP
 }
 // doc_set_root
 XPtrNode doc_set_root(XPtrDoc doc, XPtrNode root);
-RcppExport SEXP xml2_doc_set_root(SEXP docSEXP, SEXP rootSEXP) {
+RcppExport SEXP _xml2_doc_set_root(SEXP docSEXP, SEXP rootSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -114,9 +114,18 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// init_libxml2
+void init_libxml2();
+RcppExport SEXP _xml2_init_libxml2() {
+BEGIN_RCPP
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    init_libxml2();
+    return R_NilValue;
+END_RCPP
+}
 // libxml2_version
 std::string libxml2_version();
-RcppExport SEXP xml2_libxml2_version() {
+RcppExport SEXP _xml2_libxml2_version() {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -126,7 +135,7 @@ END_RCPP
 }
 // unique_ns
 CharacterVector unique_ns(CharacterVector ns);
-RcppExport SEXP xml2_unique_ns(SEXP nsSEXP) {
+RcppExport SEXP _xml2_unique_ns(SEXP nsSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -137,7 +146,7 @@ END_RCPP
 }
 // doc_namespaces
 CharacterVector doc_namespaces(XPtrDoc doc);
-RcppExport SEXP xml2_doc_namespaces(SEXP docSEXP) {
+RcppExport SEXP _xml2_doc_namespaces(SEXP docSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -148,7 +157,7 @@ END_RCPP
 }
 // ns_lookup_uri
 XPtrNs ns_lookup_uri(XPtrDoc doc, XPtrNode node, std::string uri);
-RcppExport SEXP xml2_ns_lookup_uri(SEXP docSEXP, SEXP nodeSEXP, SEXP uriSEXP) {
+RcppExport SEXP _xml2_ns_lookup_uri(SEXP docSEXP, SEXP nodeSEXP, SEXP uriSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -161,7 +170,7 @@ END_RCPP
 }
 // ns_lookup
 XPtrNs ns_lookup(XPtrDoc doc, XPtrNode node, std::string prefix);
-RcppExport SEXP xml2_ns_lookup(SEXP docSEXP, SEXP nodeSEXP, SEXP prefixSEXP) {
+RcppExport SEXP _xml2_ns_lookup(SEXP docSEXP, SEXP nodeSEXP, SEXP prefixSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -174,7 +183,7 @@ END_RCPP
 }
 // node_name
 CharacterVector node_name(XPtrNode node, CharacterVector nsMap);
-RcppExport SEXP xml2_node_name(SEXP nodeSEXP, SEXP nsMapSEXP) {
+RcppExport SEXP _xml2_node_name(SEXP nodeSEXP, SEXP nsMapSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -186,7 +195,7 @@ END_RCPP
 }
 // node_set_name
 void node_set_name(XPtrNode node, std::string value);
-RcppExport SEXP xml2_node_set_name(SEXP nodeSEXP, SEXP valueSEXP) {
+RcppExport SEXP _xml2_node_set_name(SEXP nodeSEXP, SEXP valueSEXP) {
 BEGIN_RCPP
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< XPtrNode >::type node(nodeSEXP);
@@ -197,7 +206,7 @@ END_RCPP
 }
 // node_text
 CharacterVector node_text(XPtrNode node);
-RcppExport SEXP xml2_node_text(SEXP nodeSEXP) {
+RcppExport SEXP _xml2_node_text(SEXP nodeSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -208,7 +217,7 @@ END_RCPP
 }
 // node_attr
 SEXP node_attr(XPtrNode node, std::string name, CharacterVector missing, CharacterVector nsMap);
-RcppExport SEXP xml2_node_attr(SEXP nodeSEXP, SEXP nameSEXP, SEXP missingSEXP, SEXP nsMapSEXP) {
+RcppExport SEXP _xml2_node_attr(SEXP nodeSEXP, SEXP nameSEXP, SEXP missingSEXP, SEXP nsMapSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -222,7 +231,7 @@ END_RCPP
 }
 // node_attrs
 CharacterVector node_attrs(XPtrNode node_, CharacterVector nsMap);
-RcppExport SEXP xml2_node_attrs(SEXP node_SEXP, SEXP nsMapSEXP) {
+RcppExport SEXP _xml2_node_attrs(SEXP node_SEXP, SEXP nsMapSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -234,7 +243,7 @@ END_RCPP
 }
 // node_set_attr
 void node_set_attr(XPtrNode node_, std::string name, std::string value, CharacterVector nsMap);
-RcppExport SEXP xml2_node_set_attr(SEXP node_SEXP, SEXP nameSEXP, SEXP valueSEXP, SEXP nsMapSEXP) {
+RcppExport SEXP _xml2_node_set_attr(SEXP node_SEXP, SEXP nameSEXP, SEXP valueSEXP, SEXP nsMapSEXP) {
 BEGIN_RCPP
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< XPtrNode >::type node_(node_SEXP);
@@ -247,7 +256,7 @@ END_RCPP
 }
 // node_children
 Rcpp::List node_children(XPtrNode node, bool onlyNode);
-RcppExport SEXP xml2_node_children(SEXP nodeSEXP, SEXP onlyNodeSEXP) {
+RcppExport SEXP _xml2_node_children(SEXP nodeSEXP, SEXP onlyNodeSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -259,7 +268,7 @@ END_RCPP
 }
 // node_length
 int node_length(XPtrNode node, bool onlyNode);
-RcppExport SEXP xml2_node_length(SEXP nodeSEXP, SEXP onlyNodeSEXP) {
+RcppExport SEXP _xml2_node_length(SEXP nodeSEXP, SEXP onlyNodeSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -271,7 +280,7 @@ END_RCPP
 }
 // node_has_children
 bool node_has_children(XPtrNode node, bool onlyNode);
-RcppExport SEXP xml2_node_has_children(SEXP nodeSEXP, SEXP onlyNodeSEXP) {
+RcppExport SEXP _xml2_node_has_children(SEXP nodeSEXP, SEXP onlyNodeSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -283,7 +292,7 @@ END_RCPP
 }
 // node_parents
 Rcpp::List node_parents(XPtrNode node);
-RcppExport SEXP xml2_node_parents(SEXP nodeSEXP) {
+RcppExport SEXP _xml2_node_parents(SEXP nodeSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -294,7 +303,7 @@ END_RCPP
 }
 // node_siblings
 Rcpp::List node_siblings(XPtrNode node, bool onlyNode);
-RcppExport SEXP xml2_node_siblings(SEXP nodeSEXP, SEXP onlyNodeSEXP) {
+RcppExport SEXP _xml2_node_siblings(SEXP nodeSEXP, SEXP onlyNodeSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -306,7 +315,7 @@ END_RCPP
 }
 // node_parent
 XPtrNode node_parent(XPtrNode n);
-RcppExport SEXP xml2_node_parent(SEXP nSEXP) {
+RcppExport SEXP _xml2_node_parent(SEXP nSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -317,7 +326,7 @@ END_RCPP
 }
 // node_path
 std::string node_path(XPtrNode n);
-RcppExport SEXP xml2_node_path(SEXP nSEXP) {
+RcppExport SEXP _xml2_node_path(SEXP nSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -328,7 +337,7 @@ END_RCPP
 }
 // nodes_duplicated
 LogicalVector nodes_duplicated(List nodes);
-RcppExport SEXP xml2_nodes_duplicated(SEXP nodesSEXP) {
+RcppExport SEXP _xml2_nodes_duplicated(SEXP nodesSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -339,7 +348,7 @@ END_RCPP
 }
 // node_type
 int node_type(XPtrNode node);
-RcppExport SEXP xml2_node_type(SEXP nodeSEXP) {
+RcppExport SEXP _xml2_node_type(SEXP nodeSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -350,7 +359,7 @@ END_RCPP
 }
 // node_copy
 XPtrNode node_copy(XPtrNode node);
-RcppExport SEXP xml2_node_copy(SEXP nodeSEXP) {
+RcppExport SEXP _xml2_node_copy(SEXP nodeSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -361,7 +370,7 @@ END_RCPP
 }
 // node_set_content
 void node_set_content(XPtrNode node, std::string content);
-RcppExport SEXP xml2_node_set_content(SEXP nodeSEXP, SEXP contentSEXP) {
+RcppExport SEXP _xml2_node_set_content(SEXP nodeSEXP, SEXP contentSEXP) {
 BEGIN_RCPP
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< XPtrNode >::type node(nodeSEXP);
@@ -372,7 +381,7 @@ END_RCPP
 }
 // node_append_content
 void node_append_content(XPtrNode node, std::string content);
-RcppExport SEXP xml2_node_append_content(SEXP nodeSEXP, SEXP contentSEXP) {
+RcppExport SEXP _xml2_node_append_content(SEXP nodeSEXP, SEXP contentSEXP) {
 BEGIN_RCPP
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< XPtrNode >::type node(nodeSEXP);
@@ -383,7 +392,7 @@ END_RCPP
 }
 // node_append_child
 XPtrNode node_append_child(XPtrNode parent, XPtrNode cur);
-RcppExport SEXP xml2_node_append_child(SEXP parentSEXP, SEXP curSEXP) {
+RcppExport SEXP _xml2_node_append_child(SEXP parentSEXP, SEXP curSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -395,7 +404,7 @@ END_RCPP
 }
 // node_prepend_child
 XPtrNode node_prepend_child(XPtrNode parent, XPtrNode cur);
-RcppExport SEXP xml2_node_prepend_child(SEXP parentSEXP, SEXP curSEXP) {
+RcppExport SEXP _xml2_node_prepend_child(SEXP parentSEXP, SEXP curSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -407,7 +416,7 @@ END_RCPP
 }
 // node_prepend_sibling
 XPtrNode node_prepend_sibling(XPtrNode cur, XPtrNode elem);
-RcppExport SEXP xml2_node_prepend_sibling(SEXP curSEXP, SEXP elemSEXP) {
+RcppExport SEXP _xml2_node_prepend_sibling(SEXP curSEXP, SEXP elemSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -419,7 +428,7 @@ END_RCPP
 }
 // node_append_sibling
 XPtrNode node_append_sibling(XPtrNode cur, XPtrNode elem);
-RcppExport SEXP xml2_node_append_sibling(SEXP curSEXP, SEXP elemSEXP) {
+RcppExport SEXP _xml2_node_append_sibling(SEXP curSEXP, SEXP elemSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -431,7 +440,7 @@ END_RCPP
 }
 // node_replace
 XPtrNode node_replace(XPtrNode old, XPtrNode cur);
-RcppExport SEXP xml2_node_replace(SEXP oldSEXP, SEXP curSEXP) {
+RcppExport SEXP _xml2_node_replace(SEXP oldSEXP, SEXP curSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -443,7 +452,7 @@ END_RCPP
 }
 // node_remove
 void node_remove(XPtrNode cur, bool free);
-RcppExport SEXP xml2_node_remove(SEXP curSEXP, SEXP freeSEXP) {
+RcppExport SEXP _xml2_node_remove(SEXP curSEXP, SEXP freeSEXP) {
 BEGIN_RCPP
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< XPtrNode >::type cur(curSEXP);
@@ -454,7 +463,7 @@ END_RCPP
 }
 // node_new
 XPtrNode node_new(std::string name);
-RcppExport SEXP xml2_node_new(SEXP nameSEXP) {
+RcppExport SEXP _xml2_node_new(SEXP nameSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -465,7 +474,7 @@ END_RCPP
 }
 // node_cdata_new
 XPtrNode node_cdata_new(XPtrDoc doc, std::string content);
-RcppExport SEXP xml2_node_cdata_new(SEXP docSEXP, SEXP contentSEXP) {
+RcppExport SEXP _xml2_node_cdata_new(SEXP docSEXP, SEXP contentSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -477,7 +486,7 @@ END_RCPP
 }
 // node_comment_new
 XPtrNode node_comment_new(std::string content);
-RcppExport SEXP xml2_node_comment_new(SEXP contentSEXP) {
+RcppExport SEXP _xml2_node_comment_new(SEXP contentSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -488,7 +497,7 @@ END_RCPP
 }
 // node_new_ns
 XPtrNode node_new_ns(std::string name, XPtrNs ns);
-RcppExport SEXP xml2_node_new_ns(SEXP nameSEXP, SEXP nsSEXP) {
+RcppExport SEXP _xml2_node_new_ns(SEXP nameSEXP, SEXP nsSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -500,7 +509,7 @@ END_RCPP
 }
 // node_null
 XPtrNode node_null();
-RcppExport SEXP xml2_node_null() {
+RcppExport SEXP _xml2_node_null() {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -510,7 +519,7 @@ END_RCPP
 }
 // node_set_namespace_uri
 void node_set_namespace_uri(XPtrDoc doc, XPtrNode node, std::string uri);
-RcppExport SEXP xml2_node_set_namespace_uri(SEXP docSEXP, SEXP nodeSEXP, SEXP uriSEXP) {
+RcppExport SEXP _xml2_node_set_namespace_uri(SEXP docSEXP, SEXP nodeSEXP, SEXP uriSEXP) {
 BEGIN_RCPP
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< XPtrDoc >::type doc(docSEXP);
@@ -522,7 +531,7 @@ END_RCPP
 }
 // node_set_namespace_prefix
 void node_set_namespace_prefix(XPtrDoc doc, XPtrNode node, std::string prefix);
-RcppExport SEXP xml2_node_set_namespace_prefix(SEXP docSEXP, SEXP nodeSEXP, SEXP prefixSEXP) {
+RcppExport SEXP _xml2_node_set_namespace_prefix(SEXP docSEXP, SEXP nodeSEXP, SEXP prefixSEXP) {
 BEGIN_RCPP
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< XPtrDoc >::type doc(docSEXP);
@@ -534,7 +543,7 @@ END_RCPP
 }
 // node_new_dtd
 void node_new_dtd(XPtrDoc doc, std::string name, std::string eid, std::string sid);
-RcppExport SEXP xml2_node_new_dtd(SEXP docSEXP, SEXP nameSEXP, SEXP eidSEXP, SEXP sidSEXP) {
+RcppExport SEXP _xml2_node_new_dtd(SEXP docSEXP, SEXP nameSEXP, SEXP eidSEXP, SEXP sidSEXP) {
 BEGIN_RCPP
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< XPtrDoc >::type doc(docSEXP);
@@ -547,7 +556,7 @@ END_RCPP
 }
 // xml_save_options
 Rcpp::IntegerVector xml_save_options();
-RcppExport SEXP xml2_xml_save_options() {
+RcppExport SEXP _xml2_xml_save_options() {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -557,7 +566,7 @@ END_RCPP
 }
 // doc_write_file
 void doc_write_file(XPtrDoc x, std::string path, std::string encoding, int options);
-RcppExport SEXP xml2_doc_write_file(SEXP xSEXP, SEXP pathSEXP, SEXP encodingSEXP, SEXP optionsSEXP) {
+RcppExport SEXP _xml2_doc_write_file(SEXP xSEXP, SEXP pathSEXP, SEXP encodingSEXP, SEXP optionsSEXP) {
 BEGIN_RCPP
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< XPtrDoc >::type x(xSEXP);
@@ -570,7 +579,7 @@ END_RCPP
 }
 // doc_write_connection
 void doc_write_connection(XPtrDoc x, SEXP connection, std::string encoding, int options);
-RcppExport SEXP xml2_doc_write_connection(SEXP xSEXP, SEXP connectionSEXP, SEXP encodingSEXP, SEXP optionsSEXP) {
+RcppExport SEXP _xml2_doc_write_connection(SEXP xSEXP, SEXP connectionSEXP, SEXP encodingSEXP, SEXP optionsSEXP) {
 BEGIN_RCPP
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< XPtrDoc >::type x(xSEXP);
@@ -583,7 +592,7 @@ END_RCPP
 }
 // doc_write_character
 CharacterVector doc_write_character(XPtrDoc x, std::string encoding, int options);
-RcppExport SEXP xml2_doc_write_character(SEXP xSEXP, SEXP encodingSEXP, SEXP optionsSEXP) {
+RcppExport SEXP _xml2_doc_write_character(SEXP xSEXP, SEXP encodingSEXP, SEXP optionsSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -596,7 +605,7 @@ END_RCPP
 }
 // node_write_file
 void node_write_file(XPtrNode x, std::string path, std::string encoding, int options);
-RcppExport SEXP xml2_node_write_file(SEXP xSEXP, SEXP pathSEXP, SEXP encodingSEXP, SEXP optionsSEXP) {
+RcppExport SEXP _xml2_node_write_file(SEXP xSEXP, SEXP pathSEXP, SEXP encodingSEXP, SEXP optionsSEXP) {
 BEGIN_RCPP
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< XPtrNode >::type x(xSEXP);
@@ -609,7 +618,7 @@ END_RCPP
 }
 // node_write_connection
 void node_write_connection(XPtrNode x, SEXP connection, std::string encoding, int options);
-RcppExport SEXP xml2_node_write_connection(SEXP xSEXP, SEXP connectionSEXP, SEXP encodingSEXP, SEXP optionsSEXP) {
+RcppExport SEXP _xml2_node_write_connection(SEXP xSEXP, SEXP connectionSEXP, SEXP encodingSEXP, SEXP optionsSEXP) {
 BEGIN_RCPP
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< XPtrNode >::type x(xSEXP);
@@ -622,7 +631,7 @@ END_RCPP
 }
 // node_write_character
 CharacterVector node_write_character(XPtrNode x, std::string encoding, int options);
-RcppExport SEXP xml2_node_write_character(SEXP xSEXP, SEXP encodingSEXP, SEXP optionsSEXP) {
+RcppExport SEXP _xml2_node_write_character(SEXP xSEXP, SEXP encodingSEXP, SEXP optionsSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -635,7 +644,7 @@ END_RCPP
 }
 // doc_validate
 Rcpp::LogicalVector doc_validate(XPtrDoc doc, XPtrDoc schema);
-RcppExport SEXP xml2_doc_validate(SEXP docSEXP, SEXP schemaSEXP) {
+RcppExport SEXP _xml2_doc_validate(SEXP docSEXP, SEXP schemaSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -647,7 +656,7 @@ END_RCPP
 }
 // url_absolute
 CharacterVector url_absolute(CharacterVector x, CharacterVector base);
-RcppExport SEXP xml2_url_absolute(SEXP xSEXP, SEXP baseSEXP) {
+RcppExport SEXP _xml2_url_absolute(SEXP xSEXP, SEXP baseSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -659,7 +668,7 @@ END_RCPP
 }
 // url_relative
 CharacterVector url_relative(CharacterVector x, CharacterVector base);
-RcppExport SEXP xml2_url_relative(SEXP xSEXP, SEXP baseSEXP) {
+RcppExport SEXP _xml2_url_relative(SEXP xSEXP, SEXP baseSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -671,7 +680,7 @@ END_RCPP
 }
 // url_parse
 List url_parse(CharacterVector x);
-RcppExport SEXP xml2_url_parse(SEXP xSEXP) {
+RcppExport SEXP _xml2_url_parse(SEXP xSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -682,7 +691,7 @@ END_RCPP
 }
 // url_escape
 CharacterVector url_escape(CharacterVector x, CharacterVector reserved);
-RcppExport SEXP xml2_url_escape(SEXP xSEXP, SEXP reservedSEXP) {
+RcppExport SEXP _xml2_url_escape(SEXP xSEXP, SEXP reservedSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -694,7 +703,7 @@ END_RCPP
 }
 // url_unescape
 CharacterVector url_unescape(CharacterVector x);
-RcppExport SEXP xml2_url_unescape(SEXP xSEXP) {
+RcppExport SEXP _xml2_url_unescape(SEXP xSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -705,7 +714,7 @@ END_RCPP
 }
 // xpath_search
 RObject xpath_search(XPtrNode node, XPtrDoc doc, std::string xpath, CharacterVector nsMap, double num_results);
-RcppExport SEXP xml2_xpath_search(SEXP nodeSEXP, SEXP docSEXP, SEXP xpathSEXP, SEXP nsMapSEXP, SEXP num_resultsSEXP) {
+RcppExport SEXP _xml2_xpath_search(SEXP nodeSEXP, SEXP docSEXP, SEXP xpathSEXP, SEXP nsMapSEXP, SEXP num_resultsSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -717,4 +726,74 @@ BEGIN_RCPP
     rcpp_result_gen = Rcpp::wrap(xpath_search(node, doc, xpath, nsMap, num_results));
     return rcpp_result_gen;
 END_RCPP
+}
+
+static const R_CallMethodDef CallEntries[] = {
+    {"_xml2_read_connection_", (DL_FUNC) &_xml2_read_connection_, 2},
+    {"_xml2_xml_parse_options", (DL_FUNC) &_xml2_xml_parse_options, 0},
+    {"_xml2_doc_parse_file", (DL_FUNC) &_xml2_doc_parse_file, 4},
+    {"_xml2_doc_parse_raw", (DL_FUNC) &_xml2_doc_parse_raw, 5},
+    {"_xml2_doc_root", (DL_FUNC) &_xml2_doc_root, 1},
+    {"_xml2_doc_has_root", (DL_FUNC) &_xml2_doc_has_root, 1},
+    {"_xml2_doc_url", (DL_FUNC) &_xml2_doc_url, 1},
+    {"_xml2_doc_new", (DL_FUNC) &_xml2_doc_new, 2},
+    {"_xml2_doc_set_root", (DL_FUNC) &_xml2_doc_set_root, 2},
+    {"_xml2_init_libxml2", (DL_FUNC) &_xml2_init_libxml2, 0},
+    {"_xml2_libxml2_version", (DL_FUNC) &_xml2_libxml2_version, 0},
+    {"_xml2_unique_ns", (DL_FUNC) &_xml2_unique_ns, 1},
+    {"_xml2_doc_namespaces", (DL_FUNC) &_xml2_doc_namespaces, 1},
+    {"_xml2_ns_lookup_uri", (DL_FUNC) &_xml2_ns_lookup_uri, 3},
+    {"_xml2_ns_lookup", (DL_FUNC) &_xml2_ns_lookup, 3},
+    {"_xml2_node_name", (DL_FUNC) &_xml2_node_name, 2},
+    {"_xml2_node_set_name", (DL_FUNC) &_xml2_node_set_name, 2},
+    {"_xml2_node_text", (DL_FUNC) &_xml2_node_text, 1},
+    {"_xml2_node_attr", (DL_FUNC) &_xml2_node_attr, 4},
+    {"_xml2_node_attrs", (DL_FUNC) &_xml2_node_attrs, 2},
+    {"_xml2_node_set_attr", (DL_FUNC) &_xml2_node_set_attr, 4},
+    {"_xml2_node_children", (DL_FUNC) &_xml2_node_children, 2},
+    {"_xml2_node_length", (DL_FUNC) &_xml2_node_length, 2},
+    {"_xml2_node_has_children", (DL_FUNC) &_xml2_node_has_children, 2},
+    {"_xml2_node_parents", (DL_FUNC) &_xml2_node_parents, 1},
+    {"_xml2_node_siblings", (DL_FUNC) &_xml2_node_siblings, 2},
+    {"_xml2_node_parent", (DL_FUNC) &_xml2_node_parent, 1},
+    {"_xml2_node_path", (DL_FUNC) &_xml2_node_path, 1},
+    {"_xml2_nodes_duplicated", (DL_FUNC) &_xml2_nodes_duplicated, 1},
+    {"_xml2_node_type", (DL_FUNC) &_xml2_node_type, 1},
+    {"_xml2_node_copy", (DL_FUNC) &_xml2_node_copy, 1},
+    {"_xml2_node_set_content", (DL_FUNC) &_xml2_node_set_content, 2},
+    {"_xml2_node_append_content", (DL_FUNC) &_xml2_node_append_content, 2},
+    {"_xml2_node_append_child", (DL_FUNC) &_xml2_node_append_child, 2},
+    {"_xml2_node_prepend_child", (DL_FUNC) &_xml2_node_prepend_child, 2},
+    {"_xml2_node_prepend_sibling", (DL_FUNC) &_xml2_node_prepend_sibling, 2},
+    {"_xml2_node_append_sibling", (DL_FUNC) &_xml2_node_append_sibling, 2},
+    {"_xml2_node_replace", (DL_FUNC) &_xml2_node_replace, 2},
+    {"_xml2_node_remove", (DL_FUNC) &_xml2_node_remove, 2},
+    {"_xml2_node_new", (DL_FUNC) &_xml2_node_new, 1},
+    {"_xml2_node_cdata_new", (DL_FUNC) &_xml2_node_cdata_new, 2},
+    {"_xml2_node_comment_new", (DL_FUNC) &_xml2_node_comment_new, 1},
+    {"_xml2_node_new_ns", (DL_FUNC) &_xml2_node_new_ns, 2},
+    {"_xml2_node_null", (DL_FUNC) &_xml2_node_null, 0},
+    {"_xml2_node_set_namespace_uri", (DL_FUNC) &_xml2_node_set_namespace_uri, 3},
+    {"_xml2_node_set_namespace_prefix", (DL_FUNC) &_xml2_node_set_namespace_prefix, 3},
+    {"_xml2_node_new_dtd", (DL_FUNC) &_xml2_node_new_dtd, 4},
+    {"_xml2_xml_save_options", (DL_FUNC) &_xml2_xml_save_options, 0},
+    {"_xml2_doc_write_file", (DL_FUNC) &_xml2_doc_write_file, 4},
+    {"_xml2_doc_write_connection", (DL_FUNC) &_xml2_doc_write_connection, 4},
+    {"_xml2_doc_write_character", (DL_FUNC) &_xml2_doc_write_character, 3},
+    {"_xml2_node_write_file", (DL_FUNC) &_xml2_node_write_file, 4},
+    {"_xml2_node_write_connection", (DL_FUNC) &_xml2_node_write_connection, 4},
+    {"_xml2_node_write_character", (DL_FUNC) &_xml2_node_write_character, 3},
+    {"_xml2_doc_validate", (DL_FUNC) &_xml2_doc_validate, 2},
+    {"_xml2_url_absolute", (DL_FUNC) &_xml2_url_absolute, 2},
+    {"_xml2_url_relative", (DL_FUNC) &_xml2_url_relative, 2},
+    {"_xml2_url_parse", (DL_FUNC) &_xml2_url_parse, 1},
+    {"_xml2_url_escape", (DL_FUNC) &_xml2_url_escape, 2},
+    {"_xml2_url_unescape", (DL_FUNC) &_xml2_url_unescape, 1},
+    {"_xml2_xpath_search", (DL_FUNC) &_xml2_xpath_search, 5},
+    {NULL, NULL, 0}
+};
+
+RcppExport void R_init_xml2(DllInfo *dll) {
+    R_registerRoutines(dll, NULL, CallEntries, NULL, NULL);
+    R_useDynamicSymbols(dll, FALSE);
 }

@@ -16,16 +16,16 @@ void handleError(void* userData, xmlError* error) {
   }
 }
 
+// [[Rcpp::export]]
+void init_libxml2() {
+  // Check that header and libs are compatible
+  LIBXML_TEST_VERSION
+
+  xmlInitParser();
+  xmlSetStructuredErrorFunc(NULL, handleError);
+}
+
 extern "C" {
-
-  void R_init_xml2(DllInfo *info) {
-    // Check that header and libs are compatible
-    LIBXML_TEST_VERSION
-
-    xmlInitParser();
-    xmlSetStructuredErrorFunc(NULL, handleError);
-  }
-
   void R_unload_xml2(DllInfo *info) {
     xmlCleanupParser();
   }
