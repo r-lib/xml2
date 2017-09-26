@@ -44,6 +44,9 @@ as_xml_document.list <- function(x, ...) {
 
 
   add_node <- function(x, parent, tag = NULL) {
+    if(!is.null(tag) && tag == ""){
+      tag <- NULL
+    }
     if (is.null(tag) && is.atomic(x)) {
       return(xml_set_text(parent, as.character(x)))
     }
