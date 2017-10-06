@@ -5,6 +5,16 @@
 # INCLUDE_DIR and LIB_DIR manually via e.g:
 # R CMD INSTALL --configure-vars='INCLUDE_DIR=/.../include LIB_DIR=/.../lib'
 
+# Under macos, prefer pkg-config (if installed) over xml2-config, since the latter leads to a bug if Xcode 9 is installed:
+#         clang++ -dynamiclib -Wl,-headerpad_max_install_names -undefined dynamic_lookup -single_module -multiply_defined suppress -L/usr/local/opt/gettext/lib -L/usr/local/opt/readline/lib -L/usr/local/lib -L/usr/local/Cellar/r/3.4.2/lib/R/lib -L/usr/local/opt/gettext/lib -L/usr/local/opt/readline/lib -L/usr/local/lib -o xml2.so RcppExports.o connection.o xml2_doc.o xml2_init.o xml2_namespace.o xml2_node.o xml2_output.o xml2_schema.o xml2_url.o xml2_xpath.o -L/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/usr/lib -lxml2 -lz -lpthread -licucore -lm -L/usr/local/Cellar/r/3.4.2/lib/R/lib -lR -lintl -Wl,-framework -Wl,CoreFoundation
+#         ld: file not found: /usr/lib/system/libsystem_darwin.dylib for architecture x86_64
+#         clang: error: linker command failed with exit code 1 (use -v to see invocation)
+#         make: *** [xml2.so] Error 1
+#         ERROR: compilation failed for package ‘xml2’
+if [ $(command -v uname) ] ; then
+  PLATFORM=$(uname)
+fi
+
 # Library settings
 PKG_CONFIG_NAME="libxml-2.0"
 PKG_DEB_NAME="libxml2-dev"
@@ -17,6 +27,9 @@ PKG_LIBS="-lxml2"
 if [ $(command -v xml2-config) ]; then
   PKGCONFIG_CFLAGS=$(xml2-config --cflags)
   PKGCONFIG_LIBS=$(xml2-config --libs)
+  if [ "$PLATFORM" = 'Darwin' ] ; then
+      PKGCONFIG_LIBS=$(echo "$PKGCONFIG_LIBS" | sed -e 's!-L\(/Applications.*MacOSX10.13.sdk\)/usr/lib!-isysroot \1!')
+  fi
 elif [ $(command -v pkg-config) ]; then
   PKGCONFIG_CFLAGS=$(pkg-config --cflags $PKG_CONFIG_NAME)
   PKGCONFIG_LIBS=$(pkg-config --libs $PKG_CONFIG_NAME)
