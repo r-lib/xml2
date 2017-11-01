@@ -14,7 +14,7 @@ PKG_TEST_HEADER="<libxml/tree.h>"
 PKG_LIBS="-lxml2"
 
 # Use xml2-config if available
-if [ $(command -v xml2-config) ]; then
+if [[ -n $(command -v xml2-config) && ! ("$OSTYPE" == "darwin"* && "$(xml2-config --cflags)" == *"anaconda"*) ]]; then
   PKGCONFIG_CFLAGS=$(xml2-config --cflags)
   PKGCONFIG_LIBS=$(xml2-config --libs)
 elif [ $(command -v pkg-config) ]; then
