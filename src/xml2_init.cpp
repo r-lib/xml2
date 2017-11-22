@@ -10,7 +10,7 @@ void handleError(void* userData, xmlError* error) {
   message.resize(message.size() - 1); // trim off trailing newline
 
   if (error->level <= 2) {
-    Rcpp::warning("%s [%i]", message, error->code);
+    Rf_warning("%s [%i]", message.c_str(), error->code);
   } else {
     Rcpp::stop("%s [%i]", message, error->code);
   }
