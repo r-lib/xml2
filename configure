@@ -18,6 +18,14 @@ xml2-config --version >/dev/null 2>&1
 if [ $? -eq 0 ]; then
   PKGCONFIG_CFLAGS=`xml2-config --cflags`
   PKGCONFIG_LIBS=`xml2-config --libs`
+
+  # MacOS versions El Capitan and later ship a xml2-config which appends `xcrun
+  # --show-sdk-path` to the xml2-config. So we remove it if it is present.
+  # (https://stat.ethz.ch/pipermail/r-sig-mac/2016-September/012046.html)
+  if [[ "$OSTYPE" == "darwin"* ]]; then
+    PKGCONFIG_CFLAGS=$(echo $PKGCONFIG_CFLAGS | perl -pe "s{\Q`xcrun -show-sdk-path`\E}{}")
+    PKGCONFIG_LIBS=$(echo $PKGCONFIG_LIBS | perl -pe "s{\Q`xcrun -show-sdk-path`\E}{}")
+  fi
 else
   pkg-config --version >/dev/null 2>&1
   if [ $? -eq 0 ]; then
