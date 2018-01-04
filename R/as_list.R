@@ -34,7 +34,7 @@ as_list.xml_missing <- function(x, ns = character(), ...) {
   list()
 }
 
-# @export
+#' @export
 as_list.xml_document <- function(x, ns = character(), ...) {
   if (!inherits(x, "xml_node")) {
     return(list())
