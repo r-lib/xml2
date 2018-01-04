@@ -165,6 +165,7 @@ bees <- xml_find_all(x, "//b")
 xml_remove(xml_child(x), free = TRUE)
 # bees[[1]] is no longer valid!!!
 rm(bees)
+gc()
 ```
 
 ## Namespaces ##
