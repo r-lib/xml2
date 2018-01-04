@@ -66,3 +66,17 @@ parse_options <- function(arg, options) {
   }
   sum(options[unique(i)])
 }
+
+#' Get path to a xml2 example
+#'
+#' xml2 comes bundled with a number of sample files in its \sQuote{inst/extdata}
+#' directory. This function makes them easy to access.
+#' @param path Name of file. If \code{NULL}, the example files will be listed.
+#' @export
+xml2_example <- function(path = NULL) {
+  if (is.null(path)) {
+    dir(system.file("extdata", package = "xml2"))
+  } else {
+    system.file("extdata", path, package = "xml2", mustWork = TRUE)
+  }
+}
