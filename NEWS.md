@@ -1,5 +1,8 @@
 # xml2 1.1.9000
 
+* `download_xml()` and `download_html()` helper functions to make it easy to
+  download files (#193).
+
 * `xml_serialize()` and `xml_unserialize()` now create file connections when
   given character input (#179).
 

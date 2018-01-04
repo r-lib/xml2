@@ -126,3 +126,23 @@ read_xml.response <- function(x, encoding = "", base_url = "", ...,
   xml2::read_xml(content, encoding = encoding, base_url = base_url,
     as_html = as_html, option = options, ...)
 }
+
+#' Download a HTML or XML file
+#'
+#' @inherit curl::curl_download
+#' @seealso \link[curl]{curl_download}
+#' @export
+#' @examples
+#' \dontrun{
+#' download_html("http://tidyverse.org/index.html")
+#' }
+download_xml <- function(url, file = basename(url), quiet = TRUE, mode = "wb",
+  handle = curl::new_handle()) {
+  curl::curl_download(url, file, quiet = quiet, mode = mode, handle = handle)
+
+  invisible(file)
+}
+
+#' @export
+#' @rdname download_xml
+download_html <- download_xml
