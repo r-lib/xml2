@@ -18,6 +18,12 @@ xml_unserialize(connection, ...)
 
 \item{...}{Additional arguments passed to \code{\link{read_xml}}.}
 }
+\value{
+For \code{serialize}, \code{NULL} unless \code{connection = NULL}, when
+  the result is returned in a raw vector.
+
+  For \code{unserialize} an \R object.
+}
 \description{
 Serializing XML objects to connections.
 }

@@ -1,5 +1,8 @@
 # xml2 1.1.9000
 
+* `xml_serialize()` and `xml_unserialize()` now create file connections when
+  given character input (#179).
+
 * xml2 can now build using libxml2 2.7.0
 
 * `xml_attr()` can now set attributes with no value (#198).

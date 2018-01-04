@@ -2,6 +2,7 @@
 #'
 #' @inheritParams base::serialize
 #' @param ... Additional arguments passed to \code{\link{read_xml}}.
+#' @inherit base::serialize return
 #' @examples
 #' library(xml2)
 #' x <- read_xml("<a>
@@ -17,17 +18,29 @@ xml_serialize <- function(object, connection, ...) UseMethod("xml_serialize")
 
 #' @export
 xml_serialize.xml_document <- function(object, connection, ...) {
+  if (is.character(connection)) {
+    connection <- file(connection, "w", raw = TRUE)
+    on.exit(close(connection))
+  }
   serialize(structure(as.character(object, ...), class = "xml_serialized_document"), connection)
 }
 
 #' @export
 xml_serialize.xml_node <- function(object, connection, ...) {
+  if (is.character(connection)) {
+    connection <- file(connection, "w", raw = TRUE)
+    on.exit(close(connection))
+  }
   x <- as_xml_document(object)
   serialize(structure(as.character(x, ...), class = "xml_serialized_node"), connection)
 }
 
 #' @export
 xml_serialize.xml_nodeset <- function(object, connection, ...) {
+  if (is.character(connection)) {
+    connection <- file(connection, "w", raw = TRUE)
+    on.exit(close(connection))
+  }
   x <- as_xml_document(object, "root")
   serialize(structure(as.character(x, ...), class = "xml_serialized_nodeset"), connection)
 }
@@ -35,20 +48,25 @@ xml_serialize.xml_nodeset <- function(object, connection, ...) {
 #' @rdname xml_serialize
 #' @export
 xml_unserialize <- function(connection, ...) {
+  if (is.character(connection)) {
+    connection <- file(connection, "r", raw = TRUE)
+    on.exit(close(connection))
+  }
   object <- unserialize(connection)
   if (inherits(object, "xml_serialized_nodeset")) {
     x <- read_xml(unclass(object), ...)
 
     # Select only the direct children of the root
-    xml_find_all(x, "/*/node()")
+    res <- xml_find_all(x, "/*/node()")
   } else if (inherits(object, "xml_serialized_node")) {
     x <- read_xml(unclass(object), ...)
 
     # Select only the root
-    xml_find_first(x, "/node()")
+    res <- xml_find_first(x, "/node()")
   } else if (inherits(object, "xml_serialized_document")) {
-    x <- read_xml(unclass(object), ...)
+    res <- read_xml(unclass(object), ...)
   } else {
     stop("Not a serialized xml2 object", call. = FALSE)
   }
+  res
 }
