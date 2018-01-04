@@ -130,6 +130,8 @@ read_xml.response <- function(x, encoding = "", base_url = "", ...,
 #' Download a HTML or XML file
 #'
 #' @inherit curl::curl_download
+#' @param file A character string with the name where the downloaded file is
+#'   saved.
 #' @seealso \link[curl]{curl_download}
 #' @export
 #' @examples

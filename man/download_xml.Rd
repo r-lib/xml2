@@ -14,6 +14,9 @@ download_html(url, file = basename(url), quiet = TRUE, mode = "wb",
 \arguments{
 \item{url}{A character string naming the URL of a resource to be downloaded.}
 
+\item{file}{A character string with the name where the downloaded file is
+saved.}
+
 \item{quiet}{If \code{TRUE}, suppress status messages (if any), and the
 progress bar.}
 
