@@ -74,6 +74,6 @@ read_html("<html><title>Hi")
 read_html(system.file("extdata", "r-project.html", package = "xml2"))
 
 # From a url
-cd <- read_xml("http://www.xmlfiles.com/examples/cd_catalog.xml")
+cd <- read_xml(xml2_example("cd_catalog.xml"))
 me <- read_html("http://had.co.nz")
 }

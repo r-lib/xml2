@@ -17,7 +17,7 @@ A character vector of length 1. Returns \code{NA} if the name is
 This is useful for interpreting relative urls with \code{\link{url_relative}}.
 }
 \examples{
-catalog <- read_xml("http://www.xmlfiles.com/examples/cd_catalog.xml")
+catalog <- read_xml(xml2_example("cd_catalog.xml"))
 xml_url(catalog)
 
 x <- read_xml("<foo/>")

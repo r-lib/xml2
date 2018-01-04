@@ -7,7 +7,7 @@
 #'   not set.
 #' @export
 #' @examples
-#' catalog <- read_xml("http://www.xmlfiles.com/examples/cd_catalog.xml")
+#' catalog <- read_xml(xml2_example("cd_catalog.xml"))
 #' xml_url(catalog)
 #'
 #' x <- read_xml("<foo/>")
