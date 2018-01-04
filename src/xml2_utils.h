@@ -3,7 +3,6 @@
 
 #include <Rcpp.h>
 #include <libxml/tree.h>
-#include <boost/shared_ptr.hpp>
 #include <map>
 
 inline xmlChar* asXmlChar(std::string x) {

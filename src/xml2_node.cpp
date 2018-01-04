@@ -1,7 +1,5 @@
 #include <Rcpp.h>
 #include <libxml/tree.h>
-#include <boost/shared_ptr.hpp>
-#include <boost/algorithm/string/trim.hpp>
 #include <fstream>
 #include <sstream>
 
