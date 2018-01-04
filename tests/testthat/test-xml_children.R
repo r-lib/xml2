@@ -3,13 +3,13 @@ context("xml_children")
 x <- read_xml("<foo> <bar><boo /></bar> <baz/> </foo>")
 
 test_that("xml_child() returns the proper child", {
-  expect_equal(xml_child(x), xml_children(x)[[1L]])
+  expect_identical(xml_child(x), xml_children(x)[[1L]])
 
-  expect_equal(xml_child(x, 2), xml_children(x)[[2L]])
+  expect_identical(xml_child(x, 2), xml_children(x)[[2L]])
 })
 
 test_that("xml_child() returns child by name", {
-  expect_equal(xml_child(x, "baz"), xml_find_first(x, "./baz"))
+  expect_identical(xml_child(x, "baz"), xml_find_first(x, "./baz"))
 })
 
 test_that("xml_child() errors if more than one search is given", {
@@ -30,7 +30,7 @@ test_that("xml_length", {
 })
 
 test_that("xml_parent", {
-  expect_equal(unclass(xml_parent(xml_child(x))), unclass(x))
+  expect_identical(unclass(xml_parent(xml_child(x))), unclass(x))
 })
 
 test_that("xml_parents", {
