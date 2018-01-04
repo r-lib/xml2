@@ -17,7 +17,7 @@ xml_new_root(.value, ..., .copy = inherits(.value, "xml_node"),
 encoding is \sQuote{UTF-8}. Available encodings are specified at
 \url{http://xmlsoft.org/html/libxml-encoding.html#xmlCharEncoding}.}
 
-\item{.value}{node or nodeset to insert.}
+\item{.value}{node to insert.}
 
 \item{...}{If named attributes or namespaces to set on the node, if unnamed
 text to assign to the node.}

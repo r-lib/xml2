@@ -16,7 +16,7 @@
 #' indicating if the new node should be before or after \code{.x}.
 #' @param ... If named attributes or namespaces to set on the node, if unnamed
 #' text to assign to the node.
-#' @param .value node or nodeset to insert.
+#' @param .value node to insert.
 #' @param free When removing the node also free the memory used for that node.
 #' Note if you use this option you cannot use any existing objects pointing to
 #' the node or its children, it is likely to crash R or return garbage.

@@ -23,7 +23,7 @@ xml_remove(.x, free = FALSE)
 \arguments{
 \item{.x}{a document, node or nodeset.}
 
-\item{.value}{node or nodeset to insert.}
+\item{.value}{node to insert.}
 
 \item{...}{If named attributes or namespaces to set on the node, if unnamed
 text to assign to the node.}
