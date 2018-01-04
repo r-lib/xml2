@@ -287,32 +287,27 @@ void removeNs(xmlNodePtr node, xmlChar* prefix) {
 }
 
 // [[Rcpp::export]]
-void node_set_attr(XPtrNode node_, std::string name, std::string value, CharacterVector nsMap) {
+void node_set_attr(XPtrNode node_, std::string name, SEXP value, CharacterVector nsMap) {
 
-  bool remove = value.length() == 0;
   const xmlNodePtr node = node_.checked_get();
 
   if (name == "xmlns") {
-    if (remove) removeNs(node, NULL);
-    else xmlAddNamespace(node, xmlNewNs(node, asXmlChar(value), NULL));
+    xmlAddNamespace(node, xmlNewNs(node, asXmlChar(value), NULL));
     return;
   }
   if (hasPrefix("xmlns:", name)) {
     std::string prefix = name.substr(6);
-    if (remove) removeNs(node, asXmlChar(prefix));
-    else xmlAddNamespace(node, xmlNewNs(node, asXmlChar(value), asXmlChar(prefix)));
+    xmlAddNamespace(node, xmlNewNs(node, asXmlChar(value), asXmlChar(prefix)));
     return;
   }
 
   if (nsMap.size() == 0) {
-      if (remove) xmlUnsetProp(node, asXmlChar(name));
-      else xmlSetProp(node, asXmlChar(name), asXmlChar(value));
+      xmlSetProp(node, asXmlChar(name), asXmlChar(value));
   } else {
     size_t colon = name.find(":");
     if (colon == std::string::npos) {
       // Has namespace spec, but attribute not qualified, so just use that name
-      if (remove) xmlUnsetNsProp(node, NULL, asXmlChar(name));
-      else xmlSetProp(node, asXmlChar(name), asXmlChar(value));
+      xmlSetProp(node, asXmlChar(name), asXmlChar(value));
     } else {
       // Split name into prefix & attr, then look up full url
       std::string
@@ -323,8 +318,46 @@ void node_set_attr(XPtrNode node_, std::string name, std::string value, Characte
 
       xmlNsPtr ns = xmlSearchNsByHref(node_->doc, node, asXmlChar(url));
 
-      if (remove) xmlUnsetNsProp(node, ns, asXmlChar(attr));
-      else xmlSetNsProp(node, ns, asXmlChar(attr), asXmlChar(value));
+      xmlSetNsProp(node, ns, asXmlChar(attr), asXmlChar(value));
+    }
+  }
+
+  return;
+}
+
+// [[Rcpp::export]]
+void node_remove_attr(XPtrNode node_, std::string name, CharacterVector nsMap) {
+
+  const xmlNodePtr node = node_.checked_get();
+
+  if (name == "xmlns") {
+    removeNs(node, NULL);
+    return;
+  }
+  if (hasPrefix("xmlns:", name)) {
+    std::string prefix = name.substr(6);
+    removeNs(node, asXmlChar(prefix));
+    return;
+  }
+
+  if (nsMap.size() == 0) {
+      xmlUnsetProp(node, asXmlChar(name));
+  } else {
+    size_t colon = name.find(":");
+    if (colon == std::string::npos) {
+      // Has namespace spec, but attribute not qualified, so just use that name
+      xmlUnsetNsProp(node, NULL, asXmlChar(name));
+    } else {
+      // Split name into prefix & attr, then look up full url
+      std::string
+      prefix = name.substr(0, colon),
+        attr = name.substr(colon + 1, name.size() - 1);
+
+      std::string url = NsMap(nsMap).findUrl(prefix);
+
+      xmlNsPtr ns = xmlSearchNsByHref(node_->doc, node, asXmlChar(url));
+
+      xmlUnsetNsProp(node, ns, asXmlChar(attr));
     }
   }
 

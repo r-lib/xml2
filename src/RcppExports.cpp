@@ -242,15 +242,27 @@ BEGIN_RCPP
 END_RCPP
 }
 // node_set_attr
-void node_set_attr(XPtrNode node_, std::string name, std::string value, CharacterVector nsMap);
+void node_set_attr(XPtrNode node_, std::string name, SEXP value, CharacterVector nsMap);
 RcppExport SEXP _xml2_node_set_attr(SEXP node_SEXP, SEXP nameSEXP, SEXP valueSEXP, SEXP nsMapSEXP) {
 BEGIN_RCPP
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< XPtrNode >::type node_(node_SEXP);
     Rcpp::traits::input_parameter< std::string >::type name(nameSEXP);
-    Rcpp::traits::input_parameter< std::string >::type value(valueSEXP);
+    Rcpp::traits::input_parameter< SEXP >::type value(valueSEXP);
     Rcpp::traits::input_parameter< CharacterVector >::type nsMap(nsMapSEXP);
     node_set_attr(node_, name, value, nsMap);
+    return R_NilValue;
+END_RCPP
+}
+// node_remove_attr
+void node_remove_attr(XPtrNode node_, std::string name, CharacterVector nsMap);
+RcppExport SEXP _xml2_node_remove_attr(SEXP node_SEXP, SEXP nameSEXP, SEXP nsMapSEXP) {
+BEGIN_RCPP
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< XPtrNode >::type node_(node_SEXP);
+    Rcpp::traits::input_parameter< std::string >::type name(nameSEXP);
+    Rcpp::traits::input_parameter< CharacterVector >::type nsMap(nsMapSEXP);
+    node_remove_attr(node_, name, nsMap);
     return R_NilValue;
 END_RCPP
 }
@@ -750,6 +762,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_xml2_node_attr", (DL_FUNC) &_xml2_node_attr, 4},
     {"_xml2_node_attrs", (DL_FUNC) &_xml2_node_attrs, 2},
     {"_xml2_node_set_attr", (DL_FUNC) &_xml2_node_set_attr, 4},
+    {"_xml2_node_remove_attr", (DL_FUNC) &_xml2_node_remove_attr, 3},
     {"_xml2_node_children", (DL_FUNC) &_xml2_node_children, 2},
     {"_xml2_node_length", (DL_FUNC) &_xml2_node_length, 2},
     {"_xml2_node_has_children", (DL_FUNC) &_xml2_node_has_children, 2},

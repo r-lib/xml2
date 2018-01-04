@@ -123,6 +123,15 @@ test_that("xml_attr<- accepts non-character values", {
   expect_that(xml_attrs(svg), equals(c(width = "14", height = "23.45")))
 })
 
+test_that("xml_attr<- can set empty strings, and removes attributes with NULL", {
+  x <- read_xml("<x><y /></x>")
+  xml_attr(x, "test") <- ""
+  expect_equal(xml_attr(x, "test"), "")
+
+  xml_attr(x, "test") <- NULL
+  expect_equal(xml_attr(x, "test"), NA_character_)
+})
+
 test_that("xml_attr<- removes namespaces if desired", {
   xml_attr(x, "xmlns:b") <- NULL
 

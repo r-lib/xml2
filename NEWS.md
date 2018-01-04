@@ -1,5 +1,7 @@
 # xml2 1.1.9000
 
+* `xml_attr()` can now set attributes with no value (#198).
+
 * Use Rcpp symbol registration and visibility to prevent symbol conflicts on Linux
 
 * `xml_add_child()` now requires less resources to insert a node when called

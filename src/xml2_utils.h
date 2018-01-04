@@ -10,6 +10,10 @@ inline xmlChar* asXmlChar(std::string x) {
   return (xmlChar*) x.c_str();
 }
 
+inline xmlChar* asXmlChar(SEXP x, int n = 0) {
+  return (xmlChar*) CHAR(STRING_ELT(x, n));
+}
+
 inline Rcpp::CharacterVector asCharacterVector(std::string x) {
   return Rcpp::CharacterVector(Rf_mkCharCE(x.c_str(), CE_UTF8));
 }
