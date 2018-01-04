@@ -5,15 +5,18 @@ matrix:
   include:
     - os: linux
       dist: precise
+      r: 3.1
+    - os: linux
+      r: 3.1
+    - os: linux
+      r: 3.2
+    - os: linux
       r: oldrel
     - os: linux
-      dist: precise
       r: release
     - os: linux
-      dist: precise
       r: devel
     - os: linux
-      dist: trusty
       env: R_CODECOV=true
     - os: osx
       osx_image: xcode8.3
@@ -36,7 +39,6 @@ r_github_packages:
   - jimhester/covr
 
 warnings_are_errors: true
-#r_check_revdep: true
 
 notifications:
   email:
