@@ -12,6 +12,7 @@ vignette: >
 ```{r, echo = FALSE, message = FALSE}
 knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
 library(xml2)
+library(magrittr)
 ```
 
 # Modifying Existing XML
@@ -138,8 +139,8 @@ valid.
 
 This allows code like the following to work without crashing R
 
-```r
-x <- read_xml("<foo><bar><baz/><bar></foo>")
+```{r}
+x <- read_xml("<foo><bar><baz/></bar></foo>")
 x1 <- x %>% xml_children() %>% .[[1]]
 x2 <- x1 %>% xml_children() %>% .[[1]]
 
@@ -158,7 +159,7 @@ responsibility to remove any objects which are no longer valid.
 
 In particular `xml_find_*()` results are easy to overlook, for example
 
-```r
+```{r}
 x <- read_xml("<a><b /><b><b /></b></a>")
 bees <- xml_find_all(x, "//b")
 xml_remove(xml_child(x), free = TRUE)
@@ -183,7 +184,6 @@ http://stackoverflow.com/questions/32939229/creating-xml-in-r-with-namespaces/32
 ```
 
 ```{r}
-library(magrittr)
 d <- xml_new_root("sld",
     xmlns = "http://www.o.net/sld",
     "xmlns:ogc" = "http://www.o.net/ogc",
