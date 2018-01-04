@@ -242,20 +242,22 @@ xml_remove <- function(.x, free = FALSE) {
 #' @export
 xml_remove.xml_node <- function(.x, free = FALSE) {
   node_remove(.x$node, free = free)
+
+  invisible(.x)
 }
 
 #' @export
 xml_remove.xml_nodeset <- function(.x, free = FALSE) {
   if (length(.x) == 0) {
-    return(.x)
+    return(invisible(.x))
   }
 
-  Map(xml_remove, rev(.x), free = free)
+  invisible(Map(xml_remove, rev(.x), free = free))
 }
 
 #' @export
 xml_remove.xml_missing <- function(.x, free = FALSE) {
-  .x
+  invisible(.x)
 }
 
 #' Set the node's namespace
