@@ -1,5 +1,8 @@
 # xml2 1.1.9000
 
+* `xml_find_first()` no longer de-duplicates results, so the results are always
+  the same length as the inputs (as documented) (#194).
+
 * `download_xml()` and `download_html()` helper functions to make it easy to
   download files (#193).
 

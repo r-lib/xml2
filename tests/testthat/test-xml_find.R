@@ -13,6 +13,14 @@ test_that("xml_find_first returns the first match if more than one match", {
   expect_is(y, "xml_node")
 })
 
+test_that("xml_find_first does not deduplicate identical results", {
+  x <- read_xml("<x><y/><y/></x>")
+  y <- xml_find_all(x, ".//y")
+  z <- xml_find_first(y, "..")
+  expect_is(z, "xml_nodeset")
+  expect_equal(length(z), 2)
+})
+
 # Find all ---------------------------------------------------------------------
 
 test_that("unqualified names don't look in default ns", {
