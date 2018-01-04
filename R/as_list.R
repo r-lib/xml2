@@ -34,7 +34,7 @@ as_list.xml_missing <- function(x, ns = character(), ...) {
   list()
 }
 
-# @export
+#' @export
 as_list.xml_document <- function(x, ns = character(), ...) {
   if (!inherits(x, "xml_node")) {
     return(list())
@@ -65,6 +65,10 @@ as_list.xml_node <- function(x, ns = character(), ...) {
     if (any(nms != "")) {
       names(out) <- nms
     }
+
+    # if(length(out) == 1 && is.null(names(out))){
+    #   out <- simplify2array(out)
+    # }
   }
 
   # Add xml attributes as R attributes
