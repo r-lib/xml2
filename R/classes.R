@@ -1,4 +1,4 @@
-#' @useDynLib xml2
+#' @useDynLib xml2, .registration = TRUE
 #' @importFrom Rcpp sourceCpp
 NULL
 
