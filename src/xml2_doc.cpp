@@ -9,6 +9,13 @@ using namespace Rcpp;
 // [[Rcpp::export]]
 Rcpp::IntegerVector xml_parse_options() {
 
+#if defined(LIBXML_VERSION) && (LIBXML_VERSION >= 20700)
+#define HAS_OLD10
+#define HAS_NOBASEFIX
+#define HAS_HUGE
+#define HAS_OLDSAX
+#endif
+
   /* * *
    * Author: Daniel Veillard <veillard@redhat.com>
    * Date:   Mon May 16 16:03:50 2011 +0800
@@ -49,10 +56,18 @@ Rcpp::IntegerVector xml_parse_options() {
     "NOCDATA",
     "NOXINCNODE",
     "COMPACT",
+#ifdef HAS_OLD10
     "OLD10",
+#endif
+#ifdef HAS_NOBASEFIX
     "NOBASEFIX",
+#endif
+#ifdef HAS_HUGE
     "HUGE",
+#endif
+#ifdef HAS_OLDSAX
     "OLDSAX",
+#endif
 #ifdef HAS_IGNORE_ENC
     "IGNORE_ENC",
 #endif
@@ -79,10 +94,18 @@ Rcpp::IntegerVector xml_parse_options() {
     XML_PARSE_NOCDATA,
     XML_PARSE_NOXINCNODE,
     XML_PARSE_COMPACT,
+#ifdef HAS_OLD10
     XML_PARSE_OLD10,
+#endif
+#ifdef HAS_NOBASEFIX
     XML_PARSE_NOBASEFIX,
+#endif
+#ifdef HAS_HUGE
     XML_PARSE_HUGE,
+#endif
+#ifdef HAS_OLDSAX
     XML_PARSE_OLDSAX,
+#endif
 #ifdef HAS_IGNORE_ENC
     XML_PARSE_IGNORE_ENC,
 #endif
@@ -109,10 +132,18 @@ Rcpp::IntegerVector xml_parse_options() {
     "merge CDATA as text nodes",
     "do not generate XINCLUDE START/END nodes",
     "compact small text nodes; no modification of the tree allowed afterwards (will possibly crash if you try to modify the tree)",
+#ifdef HAS_OLD10
     "parse using XML-1.0 before update 5",
+#endif
+#ifdef HAS_NOBASEFIX
     "do not fixup XINCLUDE xml:base uris",
+#endif
+#ifdef HAS_HUGE
     "relax any hardcoded limit from the parser",
+#endif
+#ifdef HAS_OLDSAX
     "parse using SAX2 interface before 2.7.0",
+#endif
 #ifdef HAS_IGNORE_ENC
     "ignore internal document encoding hint",
 #endif
@@ -136,6 +167,10 @@ Rcpp::IntegerVector xml_parse_options() {
 
   return out_values;
 
+#undef HAS_OLD10
+#undef HAS_NOBASEFIX
+#undef HAS_HUGE
+#undef HAS_OLDSAX
 #undef HAS_BIG_LINES
 #undef HAS_IGNORE_ENC
 }
