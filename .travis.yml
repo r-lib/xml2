@@ -4,9 +4,6 @@ cache: packages
 matrix:
   include:
     - os: linux
-      dist: precise
-      r: 3.1
-    - os: linux
       r: 3.1
     - os: linux
       r: 3.2
