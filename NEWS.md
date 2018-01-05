@@ -1,22 +1,34 @@
-# xml2 1.1.9000
+# xml2 1.2.0
 
-* `xml_find_first()` no longer de-duplicates results, so the results are always
-  the same length as the inputs (as documented) (#194).
+## Breaking changes
+
+* `as_list()` on `xml_document` objects did not properly include the root node
+  in the returned list. Previous behavior can be obtained by using
+  `as_list()[[1L]]` in place of `as_list()`.
+
+## New Features
 
 * `download_xml()` and `download_html()` helper functions to make it easy to
   download files (#193).
 
+* `xml_attr()` can now set attributes with no value (#198).
+
 * `xml_serialize()` and `xml_unserialize()` now create file connections when
   given character input (#179).
 
-* xml2 can now build using libxml2 2.7.0
+## Bugfixes
 
-* `xml_attr()` can now set attributes with no value (#198).
+* `xml_find_first()` no longer de-duplicates results, so the results are always
+  the same length as the inputs (as documented) (#194).
+
+* xml2 can now build using libxml2 2.7.0
 
 * Use Rcpp symbol registration and visibility to prevent symbol conflicts on Linux
 
 * `xml_add_child()` now requires less resources to insert a node when called
   with `.where = 0L` (@heckendorfc, #175).
+
+* Fixed failing examples due to a change in an external resource.
 
 # xml2 1.1.1
 
