@@ -10,9 +10,9 @@
 #' @param .x a document, node or nodeset.
 #' @param .copy whether to copy the \code{.value} before replacing. If this is \code{FALSE}
 #'   then the node will be moved from it's current location.
-#' @param .where to add thenew node, for \code{xml_add_child} the position
+#' @param .where to add the new node, for \code{xml_add_child} the position
 #' after which to add, use \code{0} for the first child. For
-#' \code{xml_add_sibling} either \sQuote{"befeore"} or \sQuote{"after"}
+#' \code{xml_add_sibling} either \sQuote{"before"} or \sQuote{"after"}
 #' indicating if the new node should be before or after \code{.x}.
 #' @param ... If named attributes or namespaces to set on the node, if unnamed
 #' text to assign to the node.
