@@ -64,12 +64,12 @@ Rcpp::IntegerVector xml_save_options() {
   Rcpp::IntegerVector out = Rcpp::IntegerVector::create(
       Rcpp::_["format"] = XML_SAVE_FORMAT,
       Rcpp::_["no_declaration"] = XML_SAVE_NO_DECL,
-      Rcpp::_["no_empty_tags"] = XML_SAVE_NO_EMPTY,
+      Rcpp::_["no_empty_tags"] = XML_SAVE_NO_EMPTY
 #define HAS_SAVE_HTML
-      Rcpp::_["no_xhtml"] = XML_SAVE_NO_XHTML,
-      Rcpp::_["require_xhtml"] = XML_SAVE_XHTML,
-      Rcpp::_["as_xml"] = XML_SAVE_AS_XML,
-      Rcpp::_["as_html"] = XML_SAVE_AS_HTML
+      , Rcpp::_["no_xhtml"] = XML_SAVE_NO_XHTML
+      , Rcpp::_["require_xhtml"] = XML_SAVE_XHTML
+      , Rcpp::_["as_xml"] = XML_SAVE_AS_XML
+      , Rcpp::_["as_html"] = XML_SAVE_AS_HTML
 #endif
 #ifdef HAS_SAVE_WSNONSIG
       , Rcpp::_["format_whitespace"] = XML_SAVE_WSNONSIG
@@ -78,12 +78,12 @@ Rcpp::IntegerVector xml_save_options() {
   out.attr("descriptions") = Rcpp::CharacterVector::create(
       "Format output",
       "Drop the XML declaration",
-      "Remove empty tags",
+      "Remove empty tags"
 #define HAS_SAVE_HTML
-      "Disable XHTML1 rules",
-      "Force XHTML1 rules",
-      "Force XML output",
-      "Force HTML output"
+      , "Disable XHTML1 rules"
+      , "Force XHTML1 rules"
+      , "Force XML output"
+      , "Force HTML output"
 #endif
 #ifdef HAS_SAVE_WSNONSIG
       , "Format with non-significant whitespace"
