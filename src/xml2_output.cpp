@@ -43,7 +43,7 @@ Rconnection get_connection(SEXP con) {
    * Daniel
    */
 #if defined(LIBXML_VERSION) && (LIBXML_VERSION >= 20704)
-#define HAS_SAVE_AS_HTML
+#define HAS_SAVE_HTML
 #endif
 
 
@@ -65,10 +65,10 @@ Rcpp::IntegerVector xml_save_options() {
       Rcpp::_["format"] = XML_SAVE_FORMAT,
       Rcpp::_["no_declaration"] = XML_SAVE_NO_DECL,
       Rcpp::_["no_empty_tags"] = XML_SAVE_NO_EMPTY,
+#define HAS_SAVE_HTML
       Rcpp::_["no_xhtml"] = XML_SAVE_NO_XHTML,
       Rcpp::_["require_xhtml"] = XML_SAVE_XHTML,
       Rcpp::_["as_xml"] = XML_SAVE_AS_XML,
-#ifdef HAS_SAVE_AS_HTML
       Rcpp::_["as_html"] = XML_SAVE_AS_HTML
 #endif
 #ifdef HAS_SAVE_WSNONSIG
@@ -79,10 +79,10 @@ Rcpp::IntegerVector xml_save_options() {
       "Format output",
       "Drop the XML declaration",
       "Remove empty tags",
+#define HAS_SAVE_HTML
       "Disable XHTML1 rules",
       "Force XHTML1 rules",
       "Force XML output",
-#ifdef HAS_SAVE_AS_HTML
       "Force HTML output"
 #endif
 #ifdef HAS_SAVE_WSNONSIG
