@@ -32,6 +32,20 @@ Rconnection get_connection(SEXP con) {
 #include "xml2_types.h"
 #include "xml2_utils.h"
 
+  /* * *
+   *
+   * Author: Daniel Veillard <veillard@src.gnome.org>
+   * Date:   Thu Sep 25 14:31:40 2008 +0000
+   * https://github.com/GNOME/libxml2/commit/856d92818bda07549a532d6fb16f323a94e0c39a
+   *
+   * include/libxml/xmlsave.h xmlsave.c: new options to serialize
+   * as XML/HTML/XHTML and restore old entry point behaviours
+   * Daniel
+   */
+#if defined(LIBXML_VERSION) && (LIBXML_VERSION >= 20704)
+#define HAS_SAVE_AS_HTML
+#endif
+
 
   /* * *
    *
@@ -54,7 +68,9 @@ Rcpp::IntegerVector xml_save_options() {
       Rcpp::_["no_xhtml"] = XML_SAVE_NO_XHTML,
       Rcpp::_["require_xhtml"] = XML_SAVE_XHTML,
       Rcpp::_["as_xml"] = XML_SAVE_AS_XML,
+#ifdef HAS_SAVE_AS_HTML
       Rcpp::_["as_html"] = XML_SAVE_AS_HTML
+#endif
 #ifdef HAS_SAVE_WSNONSIG
       , Rcpp::_["format_whitespace"] = XML_SAVE_WSNONSIG
 #endif
@@ -66,7 +82,9 @@ Rcpp::IntegerVector xml_save_options() {
       "Disable XHTML1 rules",
       "Force XHTML1 rules",
       "Force XML output",
+#ifdef HAS_SAVE_AS_HTML
       "Force HTML output"
+#endif
 #ifdef HAS_SAVE_WSNONSIG
       , "Format with non-significant whitespace"
 #endif
