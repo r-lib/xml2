@@ -32,6 +32,20 @@ Rconnection get_connection(SEXP con) {
 #include "xml2_types.h"
 #include "xml2_utils.h"
 
+  /* * *
+   *
+   * Author: Daniel Veillard <veillard@src.gnome.org>
+   * Date:   Thu Sep 25 14:31:40 2008 +0000
+   * https://github.com/GNOME/libxml2/commit/856d92818bda07549a532d6fb16f323a94e0c39a
+   *
+   * include/libxml/xmlsave.h xmlsave.c: new options to serialize
+   * as XML/HTML/XHTML and restore old entry point behaviours
+   * Daniel
+   */
+#if defined(LIBXML_VERSION) && (LIBXML_VERSION >= 20704)
+#define HAS_SAVE_HTML
+#endif
+
 
   /* * *
    *
@@ -50,11 +64,13 @@ Rcpp::IntegerVector xml_save_options() {
   Rcpp::IntegerVector out = Rcpp::IntegerVector::create(
       Rcpp::_["format"] = XML_SAVE_FORMAT,
       Rcpp::_["no_declaration"] = XML_SAVE_NO_DECL,
-      Rcpp::_["no_empty_tags"] = XML_SAVE_NO_EMPTY,
-      Rcpp::_["no_xhtml"] = XML_SAVE_NO_XHTML,
-      Rcpp::_["require_xhtml"] = XML_SAVE_XHTML,
-      Rcpp::_["as_xml"] = XML_SAVE_AS_XML,
-      Rcpp::_["as_html"] = XML_SAVE_AS_HTML
+      Rcpp::_["no_empty_tags"] = XML_SAVE_NO_EMPTY
+#ifdef HAS_SAVE_HTML
+      , Rcpp::_["no_xhtml"] = XML_SAVE_NO_XHTML
+      , Rcpp::_["require_xhtml"] = XML_SAVE_XHTML
+      , Rcpp::_["as_xml"] = XML_SAVE_AS_XML
+      , Rcpp::_["as_html"] = XML_SAVE_AS_HTML
+#endif
 #ifdef HAS_SAVE_WSNONSIG
       , Rcpp::_["format_whitespace"] = XML_SAVE_WSNONSIG
 #endif
@@ -62,11 +78,13 @@ Rcpp::IntegerVector xml_save_options() {
   out.attr("descriptions") = Rcpp::CharacterVector::create(
       "Format output",
       "Drop the XML declaration",
-      "Remove empty tags",
-      "Disable XHTML1 rules",
-      "Force XHTML1 rules",
-      "Force XML output",
-      "Force HTML output"
+      "Remove empty tags"
+#ifdef HAS_SAVE_HTML
+      , "Disable XHTML1 rules"
+      , "Force XHTML1 rules"
+      , "Force XML output"
+      , "Force HTML output"
+#endif
 #ifdef HAS_SAVE_WSNONSIG
       , "Format with non-significant whitespace"
 #endif
