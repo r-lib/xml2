@@ -36,7 +36,7 @@ There were 2 NOTEs:
   * The xml2 package uses the connections API to read and write XML files to R
     connections. I don't believe there is an alternative other than using the
     connections API, and the connections code in xml2 has existed on CRAN since
-    version 1.1.0, release on Janurary 7th, 2017.
+    version 1.1.0, release on January 7th, 2017.
 
 
 ## Downstream dependencies
