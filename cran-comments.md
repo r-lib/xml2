@@ -1,3 +1,11 @@
+I originally submitted this requested update of xml2 to CRAN on Fri, Jan 5,
+2018 at 2:32 PM EST, it failed the pre-check due to the Connections API NOTE
+detailed below (which I cannot remove). I sent a reply as instructed to CRAN at
+Fri, Jan 5, 2018 at 3:32 PM EST explaining this. The package submission was
+never moved from the 'archive' directory in the CRAN ftp, and presumably
+automatically cleaned at some point; as it no longer exists in that directory.
+I am resubmitting this in the hope it will be accepted.
+
 ## Release summary
 
 This is a release to address a failing example on CRAN.
