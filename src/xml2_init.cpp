@@ -5,7 +5,7 @@
 #include <libxml/xmlerror.h>
 #include <libxml/parser.h>
 
-void handleError(void* userData, xmlError* error) {
+void handleStructuredError(void* userData, xmlError* error) {
   std::string message = std::string(error->message);
   message.resize(message.size() - 1); // trim off trailing newline
 
@@ -16,13 +16,26 @@ void handleError(void* userData, xmlError* error) {
   }
 }
 
+void handleGenericError(void *ctx, const char *fmt, ...)
+{
+  char buffer[BUFSIZ];
+  va_list arg;
+
+  if (fmt == NULL) fmt = "(null)";
+
+  va_start(arg, fmt);
+  vsnprintf(buffer, BUFSIZ, fmt, arg);
+  Rf_error(buffer);
+}
+
 // [[Rcpp::export]]
 void init_libxml2() {
   // Check that header and libs are compatible
   LIBXML_TEST_VERSION
 
   xmlInitParser();
-  xmlSetStructuredErrorFunc(NULL, handleError);
+  xmlSetStructuredErrorFunc(NULL, handleStructuredError);
+  xmlSetGenericErrorFunc(NULL, handleGenericError);
 }
 
 extern "C" {

@@ -1,5 +1,10 @@
 # xml2 1.2.0.9000
 
+## Bugfixes
+
+* Generic xml2 error are now forwarded as R errors. Previously these errors
+  were output to stderr, so could not be suppressed (#209).
+
 # xml2 1.2.0
 
 ## Breaking changes

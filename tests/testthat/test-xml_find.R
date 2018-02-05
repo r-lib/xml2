@@ -39,7 +39,9 @@ test_that("qualified names matches to namespace", {
 
 test_that("warning if unknown namespace", {
   x <- read_xml("<foo><bar /></foo>")
-  expect_warning(xml_find_all(x, "//g:bar"), "Undefined namespace prefix")
+  expect_error(
+    expect_warning(xml_find_all(x, "//g:bar"), "Undefined namespace prefix"),
+    "evaluation failed")
 })
 
 test_that("no matches returns empty nodeset", {
