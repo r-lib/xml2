@@ -1,5 +1,9 @@
 # xml2 1.2.0.9000
 
+## New Features
+
+* xml2 now has a pkgdown site! <http://xml2.r-lib.org> (@jayhesselberth, #211).
+
 ## Bugfixes
 
 * Generic xml2 error are now forwarded as R errors. Previously these errors
