@@ -13,3 +13,5 @@ windows
 ^script\.R$
 ^\.github$
 ^TODO\.md$
+^_pkgdown.yml$
+^docs/$
