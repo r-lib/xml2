@@ -1,0 +1,48 @@
+url: http://xml2.r-lib.org
+
+reference:
+  - title: Read and write documents
+    contents:
+    - starts_with("read_")
+    - starts_with("write_")
+    - starts_with("download_")
+
+  - title: Class coercion
+    contents:
+    - starts_with("as_")
+
+  - title: URL manipulation
+    contents:
+    - starts_with("url_")
+
+  - title: Create and modify and document
+    contents:
+    - starts_with("xml_new")
+    - starts_with("xml_add")
+    - starts_with("xml_set")
+    - xml_cdata
+    - xml_comment
+    - xml_dtd
+    - xml_ns_strip
+    - xml_replace
+    - xml_remove
+
+  - title: Search and navigate a document
+    contents:
+    - starts_with("xml_find")
+    - starts_with("xml_attr")
+    - xml_path
+
+  - title: Inspect a document
+    contents:
+    - starts_with("xml_ns")
+    - xml_children
+    - ends_with("structure")
+    - xml_type
+    - xml_url
+    - xml_validate
+
+  - title: Utilities
+    contents:
+    - ends_with("serialize")
+    - xml2_example
