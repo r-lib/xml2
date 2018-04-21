@@ -4,6 +4,8 @@
 
 * xml2 now has a pkgdown site! <http://xml2.r-lib.org> (@jayhesselberth, #211).
 
+* Windows: upgrade to libxml2 2.9.8
+
 ## Bugfixes
 
 * Generic xml2 error are now forwarded as R errors. Previously these errors
