@@ -120,7 +120,7 @@ xml_find_first.xml_nodeset <- function(x, xpath, ns = xml_ns(x)) {
     return(xml_nodeset())
 
   xml_nodeset(lapply(x, function(x)
-      xml_find_first.xml_node(x, xpath = xpath, ns = ns)), deduplicate = FALSE)
+      xml_find_first(x, xpath = xpath, ns = ns)), deduplicate = FALSE)
 }
 
 
