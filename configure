@@ -13,36 +13,38 @@ PKG_CSW_NAME="libxml2_dev"
 PKG_TEST_HEADER="<libxml/tree.h>"
 PKG_LIBS="-lxml2"
 
-# Use xml2-config if available
-xml2-config --version >/dev/null 2>&1
-if [ $? -eq 0 ]; then
-  PKGCONFIG_CFLAGS=`xml2-config --cflags`
-  PKGCONFIG_LIBS=`xml2-config --libs`
-
-  # MacOS versions El Capitan and later ship a xml2-config which appends `xcrun
-  # --show-sdk-path` to the xml2-config. So we remove it if it is present.
-  # (https://stat.ethz.ch/pipermail/r-sig-mac/2016-September/012046.html)
-  if echo $OSTYPE | grep -q '^darwin'; then
-    PKGCONFIG_CFLAGS=`echo $PKGCONFIG_CFLAGS | perl -pe "s{\Q\`xcrun -show-sdk-path\`\E}{}"`
-    PKGCONFIG_LIBS=`echo $PKGCONFIG_LIBS | perl -pe "s{\Q\`xcrun -show-sdk-path\`\E}{}"`
-  fi
-else
-  pkg-config --version >/dev/null 2>&1
-  if [ $? -eq 0 ]; then
-    PKGCONFIG_CFLAGS=`pkg-config --cflags $PKG_CONFIG_NAME`
-    PKGCONFIG_LIBS=`pkg-config --libs $PKG_CONFIG_NAME`
-  fi
-fi
-
 # Note that cflags may be empty in case of success
 if [ "$INCLUDE_DIR" ] || [ "$LIB_DIR" ]; then
   echo "Found INCLUDE_DIR and/or LIB_DIR!"
   PKG_CFLAGS="-I$INCLUDE_DIR $PKG_CFLAGS"
   PKG_LIBS="-L$LIB_DIR $PKG_LIBS"
-elif [ "$PKGCONFIG_CFLAGS" ] || [ "$PKGCONFIG_LIBS" ]; then
-  echo "Found pkg-config cflags and libs!"
-  PKG_CFLAGS=${PKGCONFIG_CFLAGS}
-  PKG_LIBS=${PKGCONFIG_LIBS}
+else
+  # Use xml2-config if available
+  xml2-config --version >/dev/null 2>&1
+  if [ $? -eq 0 ]; then
+    PKGCONFIG_CFLAGS=`xml2-config --cflags`
+    PKGCONFIG_LIBS=`xml2-config --libs`
+
+    # MacOS versions El Capitan and later ship a xml2-config which appends `xcrun
+    # --show-sdk-path` to the xml2-config. So we remove it if it is present.
+    # (https://stat.ethz.ch/pipermail/r-sig-mac/2016-September/012046.html)
+    if echo $OSTYPE | grep -q '^darwin1[567]'; then
+      PKGCONFIG_CFLAGS=`echo $PKGCONFIG_CFLAGS | perl -pe "s{\Q\`xcrun -show-sdk-path\`\E}{}"`
+      PKGCONFIG_LIBS=`echo $PKGCONFIG_LIBS | perl -pe "s{\Q\`xcrun -show-sdk-path\`\E}{}"`
+    fi
+  else
+    pkg-config --version >/dev/null 2>&1
+    if [ $? -eq 0 ]; then
+      PKGCONFIG_CFLAGS=`pkg-config --cflags $PKG_CONFIG_NAME`
+      PKGCONFIG_LIBS=`pkg-config --libs $PKG_CONFIG_NAME`
+    fi
+  fi
+
+  if [ "$PKGCONFIG_CFLAGS" ] || [ "$PKGCONFIG_LIBS" ]; then
+    echo "Found pkg-config cflags and libs!"
+    PKG_CFLAGS=${PKGCONFIG_CFLAGS}
+    PKG_LIBS=${PKGCONFIG_LIBS}
+  fi
 fi
 
 # Find compiler
