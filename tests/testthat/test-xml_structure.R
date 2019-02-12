@@ -7,4 +7,17 @@ test_that("xml_structure", {
     <c>
     <c>
   <d>")
+
+  # indent argument
+  expect_output(xml_structure(read_xml("<a><b><c/><c/></b><d/></a>"), indent = 0L),
+"<a>
+<b>
+<c>
+<c>
+<d>")
+
+  # writing to a file
+  tmp = tempfile()
+  xml_structure(read_xml("<a><b><c/><c/></b><d/></a>"), file = tmp, append = TRUE)
+  expect_equal(readLines(tmp), c("<a>", "  <b>", "    <c>", "    <c>", "  <d>"))
 })
