@@ -6,6 +6,8 @@
 
 * Windows: upgrade to libxml2 2.9.8
 
+* `xml_structure`, `html_structure` gain `...` argument which is passed to `cat`; useful e.g. for outputting to a file (@MichaelChirico, [#244](https://github.com/r-lib/xml2/issues/244))
+
 ## Bugfixes
 
 * Generic xml2 error are now forwarded as R errors. Previously these errors

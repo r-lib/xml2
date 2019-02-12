@@ -16,7 +16,7 @@ test_that("xml_structure", {
 <c>
 <d>")
 
-  # writing to a file
+  # writing to a file, #244
   tmp = tempfile()
   xml_structure(read_xml("<a><b><c/><c/></b><d/></a>"), file = tmp, append = TRUE)
   expect_equal(readLines(tmp), c("<a>", "  <b>", "    <c>", "    <c>", "  <d>"))
