@@ -5,7 +5,7 @@
 #'   by \code{\link{xml_ns}}. If provided, all names will be explicitly
 #'   qualified with the ns prefix, i.e. if the element \code{bar} is defined
 #'   in namespace \code{foo}, it will be called \code{foo:bar}. (And
-#'   similarly for atttributes). Default namespaces must be given an explicit
+#'   similarly for attributes). Default namespaces must be given an explicit
 #'   name. The ns is ignored when using \code{\link{xml_name<-}} and
 #'   \code{\link{xml_set_name}}.
 #' @return A character vector.
