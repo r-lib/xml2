@@ -22,7 +22,7 @@
 #'    iteration. Defaults to 64kb.
 #' @param verbose When reading from a slow connection, this prints some
 #'    output on every iteration so you know its working.
-#' @param options Set parsing options for the libxml2 parser. Zero of more of
+#' @param options Set parsing options for the libxml2 parser. Zero or more of
 #' \Sexpr[results=rd]{xml2:::describe_options(xml2:::xml_parse_options())}
 #' @return An XML document. HTML is normalised to valid XML - this may not
 #'   be exactly the same transformation performed by the browser, but it's
