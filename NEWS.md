@@ -11,6 +11,9 @@
 * Generic xml2 error are now forwarded as R errors. Previously these errors
   were output to stderr, so could not be suppressed (#209).
 
+* Stop rewritting `xml-config` on macOS El Capitan and later to remove
+  dependency on macOS SDK header package.(@mys721tx, #252)
+
 # xml2 1.2.0
 
 ## Breaking changes
