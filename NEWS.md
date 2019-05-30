@@ -1,5 +1,7 @@
 # xml2 1.2.0.9000
 
+* Fix for ICU 59+ defaulting to use char16_t, which is only available in C++11 (#231)
+
 ## New Features
 
 * xml2 now has a pkgdown site! <http://xml2.r-lib.org> (@jayhesselberth, #211).
