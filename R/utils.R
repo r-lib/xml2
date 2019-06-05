@@ -51,7 +51,7 @@ parse_options <- function(arg, options) {
     return(as.integer(arg))
   }
 
-  if (is.null(arg) || !nzchar(arg)) {
+  if (is.null(arg) || !any(nzchar(arg))) {
     return(0L)
   }
 
