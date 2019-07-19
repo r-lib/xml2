@@ -1,21 +1,21 @@
 #' Retrieve an attribute.
 #'
-#' \code{xml_attrs()} retrieves all attributes values as a named character
-#' vector, \code{xml_attrs() <-} or \code{xml_set_attrs()} sets all attribute
-#' values. \code{xml_attr()} retrieves the value of single attribute and
-#' \code{xml_attr() <-} or \code{xml_set_attr()} modifies its value. If the
-#' attribute doesn't exist, it will return \code{default}, which defaults to
-#' \code{NA}. \code{xml_has_attr()} tests if an attribute is present.
+#' `xml_attrs()` retrieves all attributes values as a named character
+#' vector, `xml_attrs() <-` or `xml_set_attrs()` sets all attribute
+#' values. `xml_attr()` retrieves the value of single attribute and
+#' `xml_attr() <-` or `xml_set_attr()` modifies its value. If the
+#' attribute doesn't exist, it will return `default`, which defaults to
+#' `NA`. `xml_has_attr()` tests if an attribute is present.
 #'
 #' @inheritParams xml_name
 #' @param attr Name of attribute to extract.
 #' @param default Default value to use when attribute is not present.
-#' @return \code{xml_attr()} returns a character vector. \code{NA} is used
+#' @return `xml_attr()` returns a character vector. `NA` is used
 #'  to represent of attributes that aren't defined.
 #'
-#'  \code{xml_has_attr()} returns a logical vector.
+#'  `xml_has_attr()` returns a logical vector.
 #'
-#'  \code{xml_attrs()} returns a named character vector if \code{x} x is single
+#'  `xml_attrs()` returns a named character vector if `x` x is single
 #'  node, or a list of character vectors if given a nodeset
 #' @export
 #' @examples

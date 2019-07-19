@@ -30,7 +30,10 @@ and \code{"ab"}.}
 Path of downloaded file (invisibly).
 }
 \description{
-Download a HTML or XML file
+Libcurl implementation of \code{C_download} (the "internal" download method)
+with added support for https, ftps, gzip, etc. Default behavior is identical
+to \code{\link{download.file}}, but request can be fully configured by passing
+a custom \code{\link{handle}}.
 }
 \details{
 The main difference between \code{curl_download} and \code{curl_fetch_disk}
@@ -45,5 +48,5 @@ download_html("http://tidyverse.org/index.html")
 }
 }
 \seealso{
-\link[curl]{curl_download}
+\link[curl:curl_download]{curl_download}
 }

@@ -1,16 +1,16 @@
 #' Navigate around the family tree.
 #'
-#' \code{xml_children} returns only elements, \code{xml_contents} returns
-#' all nodes. \code{xml_length} returns the number of children.
-#' \code{xml_parent} returns the parent node, \code{xml_parents}
-#' returns all parents up to the root. \code{xml_siblings} returns all nodes
-#' at the same level. \code{xml_child} makes it easy to specify a specific
+#' `xml_children` returns only elements, `xml_contents` returns
+#' all nodes. `xml_length` returns the number of children.
+#' `xml_parent` returns the parent node, `xml_parents`
+#' returns all parents up to the root. `xml_siblings` returns all nodes
+#' at the same level. `xml_child` makes it easy to specify a specific
 #' child to return.
 #'
 #' @inheritParams xml_name
-#' @param only_elements For \code{xml_length}, should it count all children,
+#' @param only_elements For `xml_length`, should it count all children,
 #'   or just children that are elements (the default)?
-#' @param search For \code{xml_child}, either the child number to return (by
+#' @param search For `xml_child`, either the child number to return (by
 #'   position), or the name of the child node to return. If there are multiple
 #'   child nodes with the same name, the first will be returned
 #' @return A node or nodeset (possibly empty). Results are always de-duplicated.

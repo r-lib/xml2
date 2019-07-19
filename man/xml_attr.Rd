@@ -30,12 +30,12 @@ xml_set_attrs(x, value, ns = character())
 \item{attr}{Name of attribute to extract.}
 
 \item{ns}{Optionally, a named vector giving prefix-url pairs, as produced
-by \code{\link{xml_ns}}. If provided, all names will be explicitly
+by \code{\link[=xml_ns]{xml_ns()}}. If provided, all names will be explicitly
 qualified with the ns prefix, i.e. if the element \code{bar} is defined
 in namespace \code{foo}, it will be called \code{foo:bar}. (And
-similarly for atttributes). Default namespaces must be given an explicit
-name. The ns is ignored when using \code{\link{xml_name<-}} and
-\code{\link{xml_set_name}}.}
+similarly for attributes). Default namespaces must be given an explicit
+name. The ns is ignored when using \code{\link[=xml_name<-]{xml_name<-()}} and
+\code{\link[=xml_set_name]{xml_set_name()}}.}
 
 \item{default}{Default value to use when attribute is not present.}
 
@@ -43,12 +43,12 @@ name. The ns is ignored when using \code{\link{xml_name<-}} and
 }
 \value{
 \code{xml_attr()} returns a character vector. \code{NA} is used
- to represent of attributes that aren't defined.
+to represent of attributes that aren't defined.
 
- \code{xml_has_attr()} returns a logical vector.
+\code{xml_has_attr()} returns a logical vector.
 
- \code{xml_attrs()} returns a named character vector if \code{x} x is single
- node, or a list of character vectors if given a nodeset
+\code{xml_attrs()} returns a named character vector if \code{x} x is single
+node, or a list of character vectors if given a nodeset
 }
 \description{
 \code{xml_attrs()} retrieves all attributes values as a named character

@@ -2,8 +2,8 @@
 #'
 #' Show the structure of an html/xml document without displaying any of
 #' the values. This is useful if you want to get a high level view of the
-#' way a document is organised. Compared to \code{xml_structure},
-#' \code{html_structure} prints the id and class attributes.
+#' way a document is organised. Compared to `xml_structure`,
+#' `html_structure` prints the id and class attributes.
 #'
 #' @param x HTML/XML document (or part there of)
 #' @param indent Number of spaces to ident

@@ -226,7 +226,7 @@ as.character.xml_missing <- function(x, ...) {
 `[[.xml_missing` <- function(x, i, ...) if (i == 1L) x else stop("subscript out of bounds")
 
 #' Construct a cdata node
-#' @param content The CDATA content, does not include \code{<![CDATA[}
+#' @param content The CDATA content, does not include `<![CDATA[`
 #' @examples
 #' x <- xml_new_root("root")
 #' xml_add_child(x, xml_cdata("<d/>"))
@@ -252,7 +252,7 @@ xml_comment <- function(content) {
 #'
 #' This is used to create simple document type definitions. If you need to
 #' create a more complicated definition with internal subsets it is recommended
-#' to parse a string directly with \code{read_xml()}.
+#' to parse a string directly with `read_xml()`.
 #' @param name The name of the declaration
 #' @param external_id The external ID of the declaration
 #' @param system_id The system ID of the declaration

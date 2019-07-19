@@ -16,7 +16,7 @@ xml_unserialize(connection, ...)
     \code{NULL} or (for \code{unserialize}) a raw vector
     (see \sQuote{Details}).}
 
-\item{...}{Additional arguments passed to \code{\link{read_xml}}.}
+\item{...}{Additional arguments passed to \code{\link[=read_xml]{read_xml()}}.}
 }
 \value{
 For \code{serialize}, \code{NULL} unless \code{connection = NULL}, when

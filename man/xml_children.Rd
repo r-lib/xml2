@@ -35,12 +35,12 @@ position), or the name of the child node to return. If there are multiple
 child nodes with the same name, the first will be returned}
 
 \item{ns}{Optionally, a named vector giving prefix-url pairs, as produced
-by \code{\link{xml_ns}}. If provided, all names will be explicitly
+by \code{\link[=xml_ns]{xml_ns()}}. If provided, all names will be explicitly
 qualified with the ns prefix, i.e. if the element \code{bar} is defined
 in namespace \code{foo}, it will be called \code{foo:bar}. (And
-similarly for atttributes). Default namespaces must be given an explicit
-name. The ns is ignored when using \code{\link{xml_name<-}} and
-\code{\link{xml_set_name}}.}
+similarly for attributes). Default namespaces must be given an explicit
+name. The ns is ignored when using \code{\link[=xml_name<-]{xml_name<-()}} and
+\code{\link[=xml_set_name]{xml_set_name()}}.}
 
 \item{only_elements}{For \code{xml_length}, should it count all children,
 or just children that are elements (the default)?}

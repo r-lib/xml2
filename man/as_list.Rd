@@ -10,12 +10,12 @@ as_list(x, ns = character(), ...)
 \item{x}{A document, node, or node set.}
 
 \item{ns}{Optionally, a named vector giving prefix-url pairs, as produced
-by \code{\link{xml_ns}}. If provided, all names will be explicitly
+by \code{\link[=xml_ns]{xml_ns()}}. If provided, all names will be explicitly
 qualified with the ns prefix, i.e. if the element \code{bar} is defined
 in namespace \code{foo}, it will be called \code{foo:bar}. (And
-similarly for atttributes). Default namespaces must be given an explicit
-name. The ns is ignored when using \code{\link{xml_name<-}} and
-\code{\link{xml_set_name}}.}
+similarly for attributes). Default namespaces must be given an explicit
+name. The ns is ignored when using \code{\link[=xml_name<-]{xml_name<-()}} and
+\code{\link[=xml_set_name]{xml_set_name()}}.}
 
 \item{...}{Needed for compatibility with generic. Unused.}
 }
@@ -30,12 +30,12 @@ we can't override the default.
 children that an element might have:
 
 \itemize{
-  \item Other elements, converted to lists.
-  \item Attributes, stored as R attributes. Attributes that have special meanings in R
-          (\code{\link{class}}, \code{\link{comment}}, \code{\link{dim}},
-          \code{\link{dimnames}}, \code{\link{names}}, \code{\link{row.names}} and
-          \code{\link{tsp}}) are escaped with '.'
-  \item Text, stored as a character vector.
+\item Other elements, converted to lists.
+\item Attributes, stored as R attributes. Attributes that have special meanings in R
+(\code{\link[=class]{class()}}, \code{\link[=comment]{comment()}}, \code{\link[=dim]{dim()}},
+\code{\link[=dimnames]{dimnames()}}, \code{\link[=names]{names()}}, \code{\link[=row.names]{row.names()}} and
+\code{\link[=tsp]{tsp()}}) are escaped with '.'
+\item Text, stored as a character vector.
 }
 }
 \examples{

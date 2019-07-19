@@ -2,12 +2,12 @@
 #'
 #' @param x A document, node, or node set.
 #' @param ns Optionally, a named vector giving prefix-url pairs, as produced
-#'   by \code{\link{xml_ns}}. If provided, all names will be explicitly
-#'   qualified with the ns prefix, i.e. if the element \code{bar} is defined
-#'   in namespace \code{foo}, it will be called \code{foo:bar}. (And
+#'   by [xml_ns()]. If provided, all names will be explicitly
+#'   qualified with the ns prefix, i.e. if the element `bar` is defined
+#'   in namespace `foo`, it will be called `foo:bar`. (And
 #'   similarly for attributes). Default namespaces must be given an explicit
-#'   name. The ns is ignored when using \code{\link{xml_name<-}} and
-#'   \code{\link{xml_set_name}}.
+#'   name. The ns is ignored when using [xml_name<-()] and
+#'   [xml_set_name()].
 #' @return A character vector.
 #' @export
 #' @examples

@@ -8,7 +8,8 @@
 \alias{read_xml.connection}
 \title{Read HTML or XML.}
 \usage{
-read_xml(x, encoding = "", ..., as_html = FALSE, options = "NOBLANKS")
+read_xml(x, encoding = "", ..., as_html = FALSE,
+  options = "NOBLANKS")
 
 read_html(x, encoding = "", ..., options = c("RECOVER", "NOERROR",
   "NOBLANKS"))
@@ -26,13 +27,13 @@ read_html(x, encoding = "", ..., options = c("RECOVER", "NOERROR",
 \arguments{
 \item{x}{A string, a connection, or a raw vector.
 
-  A string can be either a path, a url or literal xml. Urls will
-  be converted into connections either using \code{base::url} or, if
-  installed, \code{curl::curl}. Local paths ending in \code{.gz},
-  \code{.bz2}, \code{.xz}, \code{.zip} will be automatically uncompressed.
+A string can be either a path, a url or literal xml. Urls will
+be converted into connections either using \code{base::url} or, if
+installed, \code{curl::curl}. Local paths ending in \code{.gz},
+\code{.bz2}, \code{.xz}, \code{.zip} will be automatically uncompressed.
 
-  If a connection, the complete connection is read into a raw vector before
-  being parsed.}
+If a connection, the complete connection is read into a raw vector before
+being parsed.}
 
 \item{encoding}{Specify a default encoding for the document. Unless
 otherwise specified XML documents are assumed to be in UTF-8 or
@@ -43,7 +44,7 @@ encoding directive, this allows you to supply a default.}
 
 \item{as_html}{Optionally parse an xml file as if it's html.}
 
-\item{options}{Set parsing options for the libxml2 parser. Zero of more of
+\item{options}{Set parsing options for the libxml2 parser. Zero or more of
 \Sexpr[results=rd]{xml2:::describe_options(xml2:::xml_parse_options())}}
 
 \item{base_url}{When loading from a connection, raw vector or literal

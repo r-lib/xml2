@@ -3,9 +3,9 @@
 #' @param x A string, a connection, or a raw vector.
 #'
 #'   A string can be either a path, a url or literal xml. Urls will
-#'   be converted into connections either using \code{base::url} or, if
-#'   installed, \code{curl::curl}. Local paths ending in \code{.gz},
-#'   \code{.bz2}, \code{.xz}, \code{.zip} will be automatically uncompressed.
+#'   be converted into connections either using `base::url` or, if
+#'   installed, `curl::curl`. Local paths ending in `.gz`,
+#'   `.bz2`, `.xz`, `.zip` will be automatically uncompressed.
 #'
 #'   If a connection, the complete connection is read into a raw vector before
 #'   being parsed.
@@ -18,7 +18,7 @@
 #' @param base_url When loading from a connection, raw vector or literal
 #'   html/xml, this allows you to specify a base url for the document. Base
 #'   urls are used to turn relative urls into absolute urls.
-#' @param n If \code{file} is a connection, the number of bytes to read per
+#' @param n If `file` is a connection, the number of bytes to read per
 #'    iteration. Defaults to 64kb.
 #' @param verbose When reading from a slow connection, this prints some
 #'    output on every iteration so you know its working.
@@ -132,7 +132,7 @@ read_xml.response <- function(x, encoding = "", base_url = "", ...,
 #' @inherit curl::curl_download
 #' @param file A character string with the name where the downloaded file is
 #'   saved.
-#' @seealso \link[curl]{curl_download}
+#' @seealso [curl_download][curl::curl_download]
 #' @export
 #' @examples
 #' \dontrun{

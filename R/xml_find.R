@@ -2,30 +2,30 @@
 #'
 #' Xpath is like regular expressions for trees - it's worth learning if
 #' you're trying to extract nodes from arbitrary locations in a document.
-#' Use \code{xml_find_all} to find all matches - if there's no match you'll
-#' get an empty result. Use \code{xml_find_first} to find a specific match -
-#' if there's no match you'll get an \code{xml_missing} node.
+#' Use `xml_find_all` to find all matches - if there's no match you'll
+#' get an empty result. Use `xml_find_first` to find a specific match -
+#' if there's no match you'll get an `xml_missing` node.
 #'
 #' @section Deprecated functions:
-#' \code{xml_find_one()} has been deprecated. Instead use
-#' \code{xml_find_first()}.
+#' `xml_find_one()` has been deprecated. Instead use
+#' `xml_find_first()`.
 
 #' @param xpath A string containing a xpath (1.0) expression.
 #' @inheritParams xml_name
-#' @return \code{xml_find_all} always returns a nodeset: if there are no matches
+#' @return `xml_find_all` always returns a nodeset: if there are no matches
 #'   the nodeset will be empty. The result will always be unique; repeated
 #'   nodes are automatically de-duplicated.
 #'
-#'   \code{xml_find_first} returns a node if applied to a node, and a nodeset
-#'   if applied to a nodeset. The output is \emph{always} the same size as
-#'   the input. If there are no matches, \code{xml_find_first} will return a
+#'   `xml_find_first` returns a node if applied to a node, and a nodeset
+#'   if applied to a nodeset. The output is *always* the same size as
+#'   the input. If there are no matches, `xml_find_first` will return a
 #'   missing node; if there are multiple matches, it will return the first
 #'   only.
 #'
-#'   \code{xml_find_num}, \code{xml_find_chr}, \code{xml_find_lgl} return
+#'   `xml_find_num`, `xml_find_chr`, `xml_find_lgl` return
 #'   numeric, character and logical results respectively.
 #' @export
-#' @seealso \code{\link{xml_ns_strip}} to remove the default namespaces
+#' @seealso [xml_ns_strip()] to remove the default namespaces
 #' @examples
 #' x <- read_xml("<foo><bar><baz/></bar><baz/></foo>")
 #' xml_find_all(x, ".//baz")

@@ -1,9 +1,9 @@
 #' Extract or modify the text
 #'
-#' \code{xml_text} returns a character vector, \code{xml_double} returns a
-#' numeric vector, \code{xml_integer} returns an integer vector.
+#' `xml_text` returns a character vector, `xml_double` returns a
+#' numeric vector, `xml_integer` returns an integer vector.
 #' @inheritParams xml_name
-#' @param trim If \code{TRUE} will trim leading and trailing spaces.
+#' @param trim If `TRUE` will trim leading and trailing spaces.
 #' @return A character vector, the same length as x.
 #' @examples
 #' x <- read_xml("<p>This is some text. This is <b>bold!</b></p>")

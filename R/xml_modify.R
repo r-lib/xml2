@@ -1,19 +1,19 @@
 #' Modify a tree by inserting, replacing or removing nodes
 #'
-#' \code{xml_add_sibling()} and \code{xml_add_child()} are used to insert a node
-#' as a sibling or a child. \code{xml_add_parent()} adds a new parent in
-#' between the input node and the current parent. \code{xml_replace()}
-#' replaces an existing node with a new node. \code{xml_remove()} removes a
+#' `xml_add_sibling()` and `xml_add_child()` are used to insert a node
+#' as a sibling or a child. `xml_add_parent()` adds a new parent in
+#' between the input node and the current parent. `xml_replace()`
+#' replaces an existing node with a new node. `xml_remove()` removes a
 #' node from the tree.
 #'
-#' @details Care needs to be taken when using \code{xml_remove()},
+#' @details Care needs to be taken when using `xml_remove()`,
 #' @param .x a document, node or nodeset.
-#' @param .copy whether to copy the \code{.value} before replacing. If this is \code{FALSE}
+#' @param .copy whether to copy the `.value` before replacing. If this is `FALSE`
 #'   then the node will be moved from it's current location.
-#' @param .where to add the new node, for \code{xml_add_child} the position
-#' after which to add, use \code{0} for the first child. For
-#' \code{xml_add_sibling} either \sQuote{"before"} or \sQuote{"after"}
-#' indicating if the new node should be before or after \code{.x}.
+#' @param .where to add the new node, for `xml_add_child` the position
+#' after which to add, use `0` for the first child. For
+#' `xml_add_sibling` either \sQuote{"before"} or \sQuote{"after"}
+#' indicating if the new node should be before or after `.x`.
 #' @param ... If named attributes or namespaces to set on the node, if unnamed
 #' text to assign to the node.
 #' @param .value node to insert.
@@ -282,14 +282,14 @@ xml_set_namespace <- function(.x, prefix = "", uri = "") {
 
 #' Create a new document, possibly with a root node
 #'
-#' \code{xml_new_document} creates only a new document without a root node. In
-#' most cases you should instead use \code{xml_new_root}, which creates a new
+#' `xml_new_document` creates only a new document without a root node. In
+#' most cases you should instead use `xml_new_root`, which creates a new
 #' document and assigns the root node in one step.
 #' @param version The version number of the document.
 #' @param encoding The character encoding to use in the document. The default
 #' encoding is \sQuote{UTF-8}. Available encodings are specified at
-#' \url{http://xmlsoft.org/html/libxml-encoding.html#xmlCharEncoding}.
-#' @return A \code{xml_document} object.
+#' <http://xmlsoft.org/html/libxml-encoding.html#xmlCharEncoding>.
+#' @return A `xml_document` object.
 #' @export
 # TODO: jimhester 2016-12-16 Deprecate this in the future?
 xml_new_document <- function(version = "1.0", encoding = "UTF-8") {
@@ -297,8 +297,8 @@ xml_new_document <- function(version = "1.0", encoding = "UTF-8") {
   structure(list(doc = doc), class = "xml_document")
 }
 
-#' @param .version The version number of the document, passed to \code{xml_new_document(version)}.
-#' @param .encoding The encoding of the document, passed to \code{xml_new_document(encoding)}.
+#' @param .version The version number of the document, passed to `xml_new_document(version)`.
+#' @param .encoding The encoding of the document, passed to `xml_new_document(encoding)`.
 #' @inheritParams xml_add_child
 #' @rdname xml_new_document
 #' @export

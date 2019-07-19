@@ -230,7 +230,7 @@ doc_validate <- function(doc, schema) {
 #' @param x A character vector of urls relative to that base
 #' @param base A string giving a base url.
 #' @return A character vector of urls
-#' @seealso \code{\link{xml_url}} to retrieve the URL associated with a document
+#' @seealso [xml_url()] to retrieve the URL associated with a document
 #' @export
 #' @examples
 #' url_absolute(c(".", "..", "/", "/x"), "http://hadley.nz/a/b/c/d")
@@ -252,7 +252,7 @@ url_relative <- function(x, base) {
 #' Parse a url into its component pieces.
 #'
 #' @param x A character vector of urls.
-#' @return A dataframe with one row for each element of \code{x} and
+#' @return A dataframe with one row for each element of `x` and
 #'   columns: scheme, server, port, user, path, query, fragment.
 #' @export
 #' @examples

@@ -1,9 +1,9 @@
 #' The URL of an XML document
 #'
-#' This is useful for interpreting relative urls with \code{\link{url_relative}}.
+#' This is useful for interpreting relative urls with [url_relative()].
 #'
 #' @param x A node or document.
-#' @return A character vector of length 1. Returns \code{NA} if the name is
+#' @return A character vector of length 1. Returns `NA` if the name is
 #'   not set.
 #' @export
 #' @examples

@@ -1,19 +1,19 @@
 #' Coerce xml nodes to a list.
 #'
 #' This turns an XML document (or node or nodeset) into the equivalent R
-#' list. Note that this is \code{as_list()}, not \code{as.list()}:
-#' \code{lapply()} automatically calls \code{as.list()} on its inputs, so
+#' list. Note that this is `as_list()`, not `as.list()`:
+#' `lapply()` automatically calls `as.list()` on its inputs, so
 #' we can't override the default.
 #'
-#' \code{as_list} currently only handles the four most common types of
+#' `as_list` currently only handles the four most common types of
 #' children that an element might have:
 #'
 #' \itemize{
 #'   \item Other elements, converted to lists.
 #'   \item Attributes, stored as R attributes. Attributes that have special meanings in R
-#'           (\code{\link{class}}, \code{\link{comment}}, \code{\link{dim}},
-#'           \code{\link{dimnames}}, \code{\link{names}}, \code{\link{row.names}} and
-#'           \code{\link{tsp}}) are escaped with '.'
+#'           ([class()], [comment()], [dim()],
+#'           [dimnames()], [names()], [row.names()] and
+#'           [tsp()]) are escaped with '.'
 #'   \item Text, stored as a character vector.
 #' }
 #'

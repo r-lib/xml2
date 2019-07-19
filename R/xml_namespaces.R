@@ -1,8 +1,8 @@
 #' XML namespaces.
 #'
-#' \code{xml_ns} extracts all namespaces from a document, matching each
+#' `xml_ns` extracts all namespaces from a document, matching each
 #' unique namespace url with the prefix it was first associated with. Default
-#' namespaces are named \code{d1}, \code{d2} etc. Use \code{xml_ns_rename}
+#' namespaces are named `d1`, `d2` etc. Use `xml_ns_rename`
 #' to change the prefixes. Once you have a namespace object, you can pass it to
 #' other functions to work with fully qualified names instead of local names.
 #'
@@ -10,7 +10,7 @@
 #' @inheritParams xml_name
 #' @param old,... An existing xml_namespace object followed by name-value
 #'   (old prefix-new prefix) pairs to replace.
-#' @return A character vector with class \code{xml_namespace} so the
+#' @return A character vector with class `xml_namespace` so the
 #'   default display is a little nicer.
 #' @examples
 #' x <- read_xml('

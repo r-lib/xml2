@@ -71,7 +71,7 @@ parse_options <- function(arg, options) {
 #'
 #' xml2 comes bundled with a number of sample files in its \sQuote{inst/extdata}
 #' directory. This function makes them easy to access.
-#' @param path Name of file. If \code{NULL}, the example files will be listed.
+#' @param path Name of file. If `NULL`, the example files will be listed.
 #' @export
 xml2_example <- function(path = NULL) {
   if (is.null(path)) {

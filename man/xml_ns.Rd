@@ -17,7 +17,7 @@ xml_ns_rename(old, ...)
 }
 \value{
 A character vector with class \code{xml_namespace} so the
-  default display is a little nicer.
+default display is a little nicer.
 }
 \description{
 \code{xml_ns} extracts all namespaces from a document, matching each

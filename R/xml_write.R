@@ -2,14 +2,14 @@
 #'
 #' This writes out both XML and normalised HTML. The default behavior will
 #' output the same format which was read. If you want to force output pass
-#' \code{option = "as_xml"} or \code{option = "as_html"} respectively.
+#' `option = "as_xml"` or `option = "as_html"` respectively.
 #'
 #' @param x A document or node to write to disk. It's not possible to
 #'   save nodesets containing more than one node.
 #' @param file Path to file or connection to write to.
 #' @param encoding The character encoding to use in the document. The default
 #' encoding is \sQuote{UTF-8}. Available encodings are specified at
-#' \url{http://xmlsoft.org/html/libxml-encoding.html#xmlCharEncoding}.
+#' <http://xmlsoft.org/html/libxml-encoding.html#xmlCharEncoding>.
 #' @param options default: \sQuote{format}. Zero or more of
 #' \Sexpr[results=rd]{xml2:::describe_options(xml2:::xml_save_options())}
 #' @param ... additional arguments passed to methods.

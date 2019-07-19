@@ -25,26 +25,26 @@ xml_find_lgl(x, xpath, ns = xml_ns(x))
 \item{xpath}{A string containing a xpath (1.0) expression.}
 
 \item{ns}{Optionally, a named vector giving prefix-url pairs, as produced
-by \code{\link{xml_ns}}. If provided, all names will be explicitly
+by \code{\link[=xml_ns]{xml_ns()}}. If provided, all names will be explicitly
 qualified with the ns prefix, i.e. if the element \code{bar} is defined
 in namespace \code{foo}, it will be called \code{foo:bar}. (And
-similarly for atttributes). Default namespaces must be given an explicit
-name. The ns is ignored when using \code{\link{xml_name<-}} and
-\code{\link{xml_set_name}}.}
+similarly for attributes). Default namespaces must be given an explicit
+name. The ns is ignored when using \code{\link[=xml_name<-]{xml_name<-()}} and
+\code{\link[=xml_set_name]{xml_set_name()}}.}
 }
 \value{
 \code{xml_find_all} always returns a nodeset: if there are no matches
-  the nodeset will be empty. The result will always be unique; repeated
-  nodes are automatically de-duplicated.
+the nodeset will be empty. The result will always be unique; repeated
+nodes are automatically de-duplicated.
 
-  \code{xml_find_first} returns a node if applied to a node, and a nodeset
-  if applied to a nodeset. The output is \emph{always} the same size as
-  the input. If there are no matches, \code{xml_find_first} will return a
-  missing node; if there are multiple matches, it will return the first
-  only.
+\code{xml_find_first} returns a node if applied to a node, and a nodeset
+if applied to a nodeset. The output is \emph{always} the same size as
+the input. If there are no matches, \code{xml_find_first} will return a
+missing node; if there are multiple matches, it will return the first
+only.
 
-  \code{xml_find_num}, \code{xml_find_chr}, \code{xml_find_lgl} return
-  numeric, character and logical results respectively.
+\code{xml_find_num}, \code{xml_find_chr}, \code{xml_find_lgl} return
+numeric, character and logical results respectively.
 }
 \description{
 Xpath is like regular expressions for trees - it's worth learning if
@@ -102,5 +102,5 @@ xml_find_all(x, ".//f:doc")
 xml_find_all(x, ".//f:doc", xml_ns(x))
 }
 \seealso{
-\code{\link{xml_ns_strip}} to remove the default namespaces
+\code{\link[=xml_ns_strip]{xml_ns_strip()}} to remove the default namespaces
 }

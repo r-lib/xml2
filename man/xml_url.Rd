@@ -11,10 +11,10 @@ xml_url(x)
 }
 \value{
 A character vector of length 1. Returns \code{NA} if the name is
-  not set.
+not set.
 }
 \description{
-This is useful for interpreting relative urls with \code{\link{url_relative}}.
+This is useful for interpreting relative urls with \code{\link[=url_relative]{url_relative()}}.
 }
 \examples{
 catalog <- read_xml(xml2_example("cd_catalog.xml"))

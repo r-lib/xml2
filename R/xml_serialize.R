@@ -1,7 +1,7 @@
 #' Serializing XML objects to connections.
 #'
 #' @inheritParams base::serialize
-#' @param ... Additional arguments passed to \code{\link{read_xml}}.
+#' @param ... Additional arguments passed to [read_xml()].
 #' @inherit base::serialize return
 #' @examples
 #' library(xml2)

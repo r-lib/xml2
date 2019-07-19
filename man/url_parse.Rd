@@ -11,7 +11,7 @@ url_parse(x)
 }
 \value{
 A dataframe with one row for each element of \code{x} and
-  columns: scheme, server, port, user, path, query, fragment.
+columns: scheme, server, port, user, path, query, fragment.
 }
 \description{
 Parse a url into its component pieces.
