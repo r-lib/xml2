@@ -1,5 +1,23 @@
 #' Read HTML or XML.
 #'
+#' @section Setting the "user agent" header:
+#'
+#' When performing web scraping tasks it is both good practice --- and often required ---
+#' to set the [user agent](https://en.wikipedia.org/wiki/User_agent) request header
+#' to a specific value. Sometimes this value is assigned to emulate a browser in order
+#' to have content render in a certain way (e.g. `Mozilla/5.0 (Windows NT 5.1; rv:52.0)
+#' Gecko/20100101 Firefox/52.0` to emulate more recent Windows browsers). Most often,
+#' this value should be set to provide the web resource owner information on who you are
+#' and the intent of your actions like this Google scraping bot user agent identifier:
+#' `Googlebot/2.1 (+http://www.google.com/bot.html)`.
+#'
+#' You can set the HTTP user agent for URL-based requests using [httr::set_config()] and [httr::user_agent()]:
+#'
+#' `httr::set_config(httr::user_agent("me@@example.com; +https://example.com/info.html"))`
+#'
+#' [httr::set_config()] changes the configuration globally,
+#' [httr::with_config()] can be used to change configuration temporarily.
+#'
 #' @param x A string, a connection, or a raw vector.
 #'
 #'   A string can be either a path, a url or literal xml. Urls will
