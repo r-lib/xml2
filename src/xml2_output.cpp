@@ -1,29 +1,6 @@
 #include <Rcpp.h>
+#include "connection.h"
 using namespace Rcpp;
-
-#define class class_name
-#define private private_ptr
-#include <R_ext/Connections.h>
-#undef class
-#undef private
-
-#if R_CONNECTIONS_VERSION != 1
-#error "Missing or unsupported connection API in R"
-#endif
-
-#if defined(R_VERSION) && R_VERSION >= R_Version(3, 3, 0)
-Rconnection get_connection(SEXP con) {
-  return R_GetConnection(con);
-}
-# else
-extern "C" {
-    extern Rconnection getConnection(int) ;
-}
-Rconnection get_connection(SEXP con) {
-  if (!Rf_inherits(con, "connection")) stop("invalid connection");
-  return getConnection(Rf_asInteger(con));
-}
-#endif
 
 #include <libxml/tree.h>
 #include <libxml/HTMLtree.h>
@@ -92,7 +69,7 @@ Rcpp::IntegerVector xml_save_options() {
   return out;
 }
 
-int xml_write_callback(Rconnection con, const char * buffer, int len) {
+int xml_write_callback(SEXP con, const char * buffer, int len) {
   size_t write_size;
 
   if ((write_size = R_WriteConnection(con, (void *) buffer, len)) != static_cast<size_t>(len)) {
@@ -116,7 +93,7 @@ void doc_write_file(XPtrDoc x, std::string path, std::string encoding = "UTF-8",
 // [[Rcpp::export]]
 void doc_write_connection(XPtrDoc x, SEXP connection, std::string encoding = "UTF-8", int options = 1) {
 
-  Rconnection con = get_connection(connection);
+  SEXP con = R_GetConnection(connection);
 
   xmlSaveCtxtPtr savectx = xmlSaveToIO(
       reinterpret_cast<xmlOutputWriteCallback>(xml_write_callback),
@@ -165,7 +142,7 @@ void node_write_file(XPtrNode x, std::string path, std::string encoding = "UTF-8
 // [[Rcpp::export]]
 void node_write_connection(XPtrNode x, SEXP connection, std::string encoding = "UTF-8", int options = 1) {
 
-  Rconnection con = get_connection(connection);
+  SEXP con = R_GetConnection(connection);
 
   xmlSaveCtxtPtr savectx = xmlSaveToIO(
       (xmlOutputWriteCallback)xml_write_callback,
