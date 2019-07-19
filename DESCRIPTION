@@ -41,6 +41,7 @@ LinkingTo:
 VignetteBuilder: 
     knitr
 Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
 RoxygenNote: 6.1.1
 SystemRequirements: libxml2: libxml2-dev (deb), libxml2-devel
     (rpm)
@@ -68,4 +69,3 @@ Collate:
     'xml_url.R'
     'xml_write.R'
     'zzz.R'
-Roxygen: list(markdown = TRUE)
