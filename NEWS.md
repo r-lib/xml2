@@ -1,5 +1,8 @@
 # xml2 1.2.0.9000
 
+* Better error message when trying to run `download_xml()` without the curl
+  package installed (#262)
+
 * Do not use the C connections API
 
 * Fix for ICU 59+ defaulting to use char16_t, which is only available in C++11 (#231)

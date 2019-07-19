@@ -140,6 +140,11 @@ read_xml.response <- function(x, encoding = "", base_url = "", ...,
 #' }
 download_xml <- function(url, file = basename(url), quiet = TRUE, mode = "wb",
   handle = curl::new_handle()) {
+
+  if (!requireNamespace("curl", quietly = TRUE)) {
+    stop("`curl` must be installed to use `download_xml()`", call. = FALSE)
+  }
+
   curl::curl_download(url, file, quiet = quiet, mode = mode, handle = handle)
 
   invisible(file)

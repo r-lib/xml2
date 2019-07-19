@@ -19,13 +19,14 @@ Imports:
     Rcpp
 LinkingTo: Rcpp (>= 0.12.12)
 Suggests:
-    testthat,
+    testthat (>= 2.1.0),
     curl,
     covr,
     knitr,
     rmarkdown,
     magrittr,
-    httr
+    httr,
+    mockery
 SystemRequirements: libxml2: libxml2-dev (deb), libxml2-devel (rpm)
 License: GPL (>=2)
 RoxygenNote: 6.0.1
