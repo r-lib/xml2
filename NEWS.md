@@ -1,5 +1,7 @@
 # xml2 1.2.0.9000
 
+* New classes are not registered for use with S4 by calling `setOldClass()` (#248)
+
 * Better error message when trying to run `download_xml()` without the curl
   package installed (#262)
 
