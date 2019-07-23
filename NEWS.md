@@ -1,5 +1,8 @@
 # xml2 1.2.0.9000
 
+* `read_xml()` and `read_html()` now automatically check if the response
+  succeeded before trying to read from a HTTP response (#255).
+
 * New classes are not registered for use with S4 by calling `setOldClass()` (#248)
 
 * Better error message when trying to run `download_xml()` without the curl

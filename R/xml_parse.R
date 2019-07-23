@@ -81,6 +81,8 @@ read_html.response <- function(x, encoding = "", options = c("RECOVER",
   need_package("httr")
 
   options <- parse_options(options, xml_parse_options())
+
+  httr::stop_for_status(x)
   content <- httr::content(x, as = "raw")
   xml2::read_html(content, encoding = encoding, options = options, ...)
 }
@@ -140,8 +142,9 @@ read_xml.response <- function(x, encoding = "", base_url = "", ...,
   need_package("httr")
 
   options <- parse_options(options, xml_parse_options())
+  httr::stop_for_status(x)
   content <- httr::content(x, as = "raw")
-  xml2::read_xml(content, encoding = encoding, base_url = base_url,
+  xml2::read_xml(content, encoding = encoding, base_url = if (nzchar(base_url)) base_url else x$url,
     as_html = as_html, option = options, ...)
 }
 
