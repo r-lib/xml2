@@ -15,9 +15,18 @@ test_that("url_relative", {
     url_relative("http://hadley.nz/a/c", "http://hadley.nz"),
     "/a/c")
 
-  expect_equal(
-    url_relative("http://hadley.nz/a/c", "http://hadley.nz/"),
-    "../a/c")
+  # The behavior of libxml2 with relative paths was changed in
+  # https://github.com/GNOME/libxml2/commit/b1f87c0e4376a993e682f59471e2c455a9179e22,
+  # libxml2 release 2.9.9
+  if (libxml2_version() < "2.9.9") {
+    expect_equal(
+      url_relative("http://hadley.nz/a/c", "http://hadley.nz/"),
+      "../a/c")
+  } else {
+    expect_equal(
+      url_relative("http://hadley.nz/a/c", "http://hadley.nz/"),
+      "a/c")
+  }
 
   expect_equal(
     url_relative("http://hadley.nz/a/c", "http://hadley.nz/a/b"),

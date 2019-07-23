@@ -1,5 +1,8 @@
 # xml2 1.2.0.9000
 
+* Test failure fixed due to behavior change with relative paths in libxml2
+  2.9.9 (#245).
+
 * `read_xml()` and `read_html()` now automatically check if the response
   succeeded before trying to read from a HTTP response (#255).
 
