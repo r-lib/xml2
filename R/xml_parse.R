@@ -92,6 +92,10 @@ read_html.response <- function(x, encoding = "", options = c("RECOVER",
 read_xml.character <- function(x, encoding = "", ..., as_html = FALSE,
                                options = "NOBLANKS") {
 
+  if (length(x) == 0) {
+    stop("Document is empty", call. = FALSE)
+  }
+
   options <- parse_options(options, xml_parse_options())
   if (grepl("<|>", x)) {
     read_xml.raw(charToRaw(enc2utf8(x)), "UTF-8", ..., as_html = as_html, options = options)

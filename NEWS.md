@@ -1,5 +1,8 @@
 # xml2 1.2.0.9000
 
+* `read_xml()` now has a better error message when given zero length character
+  inputs (#212).
+
 * print methods now match the type of document, e.g. `read_html()` prints as
   "{html_document}" rather than "{xml_document}" (#227)
 
