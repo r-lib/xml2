@@ -259,3 +259,8 @@ XPtrDoc doc_new(std::string version, std::string encoding = "UTF-8") {
 XPtrNode doc_set_root(XPtrDoc doc, XPtrNode root) {
   return XPtrNode(xmlDocSetRootElement(doc, root));
 }
+
+// [[Rcpp::export]]
+bool doc_is_html(XPtrDoc doc) {
+  return (doc->properties & XML_DOC_HTML);
+}

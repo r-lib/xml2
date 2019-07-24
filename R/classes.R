@@ -20,7 +20,7 @@ as.character.xml_node <- function(x, ..., options = "format", encoding = "UTF-8"
 
 #' @export
 print.xml_node <- function(x, width = getOption("width"), max_n = 20, ...) {
-  cat("{xml_node}\n")
+  cat("{", doc_type(x), "_node}\n", sep = "")
   cat(format(x), "\n", sep = "")
   show_nodes(xml_children(x), width = width, max_n = max_n)
 }
@@ -43,10 +43,21 @@ xml_document <- function(doc) {
   }
 }
 
+doc_type <- function(x) {
+  if (is.null(x$doc)) {
+    return("xml")
+  }
+  if (doc_is_html(x$doc)) {
+    "html"
+  } else {
+    "xml"
+  }
+}
+
 #' @export
 print.xml_document <- function(x, width = getOption("width"), max_n = 20, ...) {
   doc <- xml_document(x$doc)
-  cat("{xml_document}\n")
+  cat("{", doc_type(x), "_document}\n", sep = "")
   if (inherits(doc, "xml_node")) {
     cat(format(doc), "\n", sep = "")
     show_nodes(xml_children(doc), width = width, max_n = max_n)
@@ -80,7 +91,7 @@ make_nodeset <- function(nodes, doc) {
 #' @export
 print.xml_nodeset <- function(x, width = getOption("width"), max_n = 20, ...) {
   n <- length(x)
-  cat("{xml_nodeset (", n, ")}\n", sep = "")
+  cat("{", doc_type(x), "_nodeset (", n, ")}\n", sep = "")
 
   if (n > 0)
     show_nodes(x, width = width, max_n = max_n)

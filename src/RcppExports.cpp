@@ -114,6 +114,17 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// doc_is_html
+bool doc_is_html(XPtrDoc doc);
+RcppExport SEXP _xml2_doc_is_html(SEXP docSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< XPtrDoc >::type doc(docSEXP);
+    rcpp_result_gen = Rcpp::wrap(doc_is_html(doc));
+    return rcpp_result_gen;
+END_RCPP
+}
 // init_libxml2
 void init_libxml2();
 RcppExport SEXP _xml2_init_libxml2() {
@@ -750,6 +761,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_xml2_doc_url", (DL_FUNC) &_xml2_doc_url, 1},
     {"_xml2_doc_new", (DL_FUNC) &_xml2_doc_new, 2},
     {"_xml2_doc_set_root", (DL_FUNC) &_xml2_doc_set_root, 2},
+    {"_xml2_doc_is_html", (DL_FUNC) &_xml2_doc_is_html, 1},
     {"_xml2_init_libxml2", (DL_FUNC) &_xml2_init_libxml2, 0},
     {"_xml2_libxml2_version", (DL_FUNC) &_xml2_libxml2_version, 0},
     {"_xml2_unique_ns", (DL_FUNC) &_xml2_unique_ns, 1},
