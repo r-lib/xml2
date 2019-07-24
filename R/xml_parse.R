@@ -154,6 +154,10 @@ read_xml.response <- function(x, encoding = "", base_url = "", ...,
 
 #' Download a HTML or XML file
 #'
+#' Libcurl implementation of `C_download` (the "internal" download method)
+#' with added support for https, ftps, gzip, etc. Default behavior is identical
+#' to [download.file()], but request can be fully configured by passing
+#' a custom [curl::handle()].
 #' @inherit curl::curl_download
 #' @param file A character string with the name where the downloaded file is
 #'   saved.
