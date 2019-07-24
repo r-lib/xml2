@@ -9,6 +9,8 @@ matrix:
       r: oldrel
     - os: linux
       r: release
+      after_success:
+        R -e 'covr::codecov()'
     - os: linux
       r: devel
     - os: linux
@@ -25,10 +27,6 @@ addons:
   apt:
     packages:
       - libxml2-dev
-      - valgrind
-
-r_github_packages:
-  - jimhester/covr
 
 warnings_are_errors: true
 
@@ -36,6 +34,3 @@ notifications:
   email:
     on_success: change
     on_failure: change
-
-after_success:
-  - if [[ "${R_CODECOV}" ]]; then R -e 'covr::codecov()'; fi
