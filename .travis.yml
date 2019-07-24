@@ -4,8 +4,6 @@ cache: packages
 matrix:
   include:
     - os: linux
-      r: 3.1
-    - os: linux
       r: 3.2
     - os: linux
       r: oldrel
@@ -22,9 +20,6 @@ matrix:
       before_install:
         - brew install libxml2
         - brew link --force libxml2
-    - os: osx
-      osx_image: xcode7.3
-      disable_homebrew: true
 
 addons:
   apt:
