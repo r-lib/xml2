@@ -1,5 +1,12 @@
 url: http://xml2.r-lib.org
 
+development:
+  mode: auto
+
+authors:
+  "Jim Hester":
+    href: http://jimhester.com
+
 template:
   params:
     docsearch:
