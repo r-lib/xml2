@@ -1,0 +1,5 @@
+<!ENTITY author "foo bar">
+<!ENTITY hoqc "&author; Quantitative Consultancy">
+<!ELEMENT records (record+)>
+<!ELEMENT record (field1)>
+<!ELEMENT field1 (#PCDATA)>

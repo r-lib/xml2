@@ -1,5 +1,7 @@
 # xml2 1.2.0.9000
 
+* Nodes with nested data type definition entities now work without crashing (#241)
+
 * `read_xml()` now has a better error message when given zero length character
   inputs (#212).
 

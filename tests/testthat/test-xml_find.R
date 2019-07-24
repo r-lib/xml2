@@ -131,3 +131,11 @@ test_that("Searches with empty inputs retain type stability", {
 
   expect_equal(xml_find_lgl(empty, "1=1"), logical())
 })
+
+test_that("Searches with entities work (#241)", {
+  res <- read_xml(test_path("records.xml"), options = "DTDVALID")
+
+  field1 <- xml_find_all(res, "//field1")
+
+  expect_equal(xml_text(field1), "foo bar Quantitative Consultancy")
+})

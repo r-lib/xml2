@@ -16,9 +16,9 @@ void cache_namespace(xmlNode* node, NsMap* nsMap) {
     nsMap->add(cur->prefix, cur->href);
   }
 
-
   // Iterate over children, calling this function recursively
-  for(xmlNode* cur = node->children; cur != NULL; cur = cur->next)
+  //for(xmlNode* cur = node->children; cur != NULL; cur = cur->next)
+  for(xmlNode* cur = node->children; cur != NULL && cur->type != XML_ENTITY_DECL; cur = cur->next)
     cache_namespace(cur, nsMap);
 }
 
