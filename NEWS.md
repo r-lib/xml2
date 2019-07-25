@@ -1,5 +1,8 @@
 # xml2 1.2.0.9000
 
+* `xml_structure()` gains a `file` argument, so support writing to a file
+  rather than the console (#244).
+
 * `xml_root()` can now create root nodes with namespaces (#239)
 
 * `xml_set_attr()` no longer crashes if you try to set the same namespace on
