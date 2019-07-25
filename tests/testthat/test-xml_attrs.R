@@ -82,6 +82,13 @@ test_that("xml_attr<- modifies properties", {
   expect_equal(xml_attr(docs, "f:id", ns), c(NA_character_, NA_character_))
 })
 
+test_that("xml_attr<- recycles values", {
+  x <- read_xml("<x><a b='c'/><a b='d'/></x>")
+  a <- xml_find_all(x, "a")
+  xml_attr(a, "b") <- c("e", "f")
+  expect_equal(xml_attr(a, "b"), c("e", "f"))
+})
+
 test_that("xml_attrs<- modifies all attributes", {
   expect_error(xml_attrs(doc) <- 1, "`value` must be a named character vector or `NULL`")
   expect_error(xml_attrs(doc) <- "test", "`value` must be a named character vector or `NULL`")

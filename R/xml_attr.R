@@ -128,7 +128,15 @@ xml_attrs.xml_nodeset <- function(x, ns = character()) {
 
 #' @export
 `xml_attr<-.xml_nodeset` <- function(x, attr, ns = character(), value) {
-  lapply(x, `xml_attr<-`, attr = attr, ns = ns, value = value)
+  if (length(x) == 0) {
+    return(x)
+  }
+
+  if (length(value) == 0) {
+    value <- list(value)
+  }
+
+  mapply(`xml_attr<-`, x, attr = attr, value = value, SIMPLIFY = FALSE, MoreArgs = list(ns = ns))
   x
 }
 
