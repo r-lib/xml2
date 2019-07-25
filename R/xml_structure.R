@@ -7,7 +7,7 @@
 #'
 #' @param x HTML/XML document (or part there of)
 #' @param indent Number of spaces to ident
-#' @inheritParams cat
+#' @inheritParams base::cat
 #' @export
 #' @examples
 #' xml_structure(read_xml("<a><b><c/><c/></b><d/></a>"))
