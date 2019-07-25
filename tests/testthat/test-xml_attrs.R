@@ -239,3 +239,10 @@ test_that("xml_set_attrs works identically to xml_attrs<-", {
   expect_error(xml_attrs(mss[[2]]) <- c("b" = "blah"), NA)
   expect_error(xml_set_attrs(mss[[2]], c("b" = "blah")), NA)
 })
+
+test_that("xml_set_attr can set the same namespace multiple times", {
+  doc <- xml_new_root("foo")
+  xml_set_attr(doc, "xmlns:bar", "http://a/namespace")
+  xml_set_attr(doc, "xmlns:bar", "http://b/namespace")
+  expect_equal(xml_attr(doc, "xmlns:bar"), "http://b/namespace")
+})

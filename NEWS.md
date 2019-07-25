@@ -1,5 +1,8 @@
 # xml2 1.2.0.9000
 
+* `xml_set_attr()` no longer crashes if you try to set the same namespace on
+  the same node multiple times (#253).
+
 * `xml_set_attr()` now recycles the values if needed (#221)
 
 * Nodes with nested data type definition entities now work without crashing (#241)
