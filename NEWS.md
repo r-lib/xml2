@@ -1,5 +1,7 @@
 # xml2 1.2.0.9000
 
+* `xml_root()` can now create root nodes with namespaces (#239)
+
 * `xml_set_attr()` no longer crashes if you try to set the same namespace on
   the same node multiple times (#253).
 

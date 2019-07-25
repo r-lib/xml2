@@ -236,3 +236,10 @@ test_that("xml_add_child can insert anywhere in a nodeset", {
 
     expect_equal(c("foo", "bar", "foo", "bar"), xml_name(xml_children(z)))
 })
+
+test_that("Can write root nodes with namespaces", {
+
+  x <- xml_new_root("foo:bar", "xmlns:foo"="http://foo/bar")
+  expect_equal(unclass(xml_ns(x)), c(foo = "http://foo/bar"))
+  expect_equal(as.character(xml_find_first(x, "/*")), "<foo:bar xmlns:foo=\"http://foo/bar\"/>")
+})

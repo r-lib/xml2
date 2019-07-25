@@ -121,9 +121,9 @@ create_node <- function(.value, parent, .copy, ...) {
   }
 
   parts <- strsplit(.value, ":")[[1]]
-  if (length(parts) == 2) {
-    namespace <- ns_lookup(parent$doc, parent$node, parts[[1]])
-    node <- structure(list(node = node_new_ns(parts[[2]], namespace), doc = parent$doc), class = "xml_node")
+  if (length(parts) == 2 && !is.null(parent$node)) {
+      namespace <- ns_lookup(parent$doc, parent$node, parts[[1]])
+      node <- structure(list(node = node_new_ns(parts[[2]], namespace), doc = parent$doc), class = "xml_node")
   } else {
     node <- structure(list(node = node_new(.value), doc = parent$doc), class = "xml_node")
   }
