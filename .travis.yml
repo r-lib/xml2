@@ -6,7 +6,11 @@ matrix:
     - os: linux
       r: 3.2
     - os: linux
-      r: oldrel
+      r: 3.3
+    - os: linux
+      r: 3.4
+    - os: linux
+      r: 3.5
     - os: linux
       r: release
       after_success:
@@ -18,8 +22,6 @@ matrix:
         skip_cleanup: true
     - os: linux
       r: devel
-    - os: linux
-      env: R_CODECOV=true
     - os: osx
       osx_image: xcode8.3
     - os: osx
@@ -32,10 +34,3 @@ addons:
   apt:
     packages:
       - libxml2-dev
-
-warnings_are_errors: true
-
-notifications:
-  email:
-    on_success: change
-    on_failure: change
