@@ -145,6 +145,7 @@
 <a href="#xml2-1-2-0-9000" class="anchor"></a>xml2 1.2.0.9000<small> Unreleased </small>
 </h1>
 <ul>
+<li><p><code><a href="../reference/xml_attr.html">xml_set_attr()</a></code> now recycles the values if needed (<a href='https://github.com/r-lib/xml2/issues/221'>#221</a>)</p></li>
 <li><p>Nodes with nested data type definition entities now work without crashing (<a href='https://github.com/r-lib/xml2/issues/241'>#241</a>)</p></li>
 <li><p><code><a href="../reference/read_xml.html">read_xml()</a></code> now has a better error message when given zero length character inputs (<a href='https://github.com/r-lib/xml2/issues/212'>#212</a>).</p></li>
 <li><p>print methods now match the type of document, e.g. <code><a href="../reference/read_xml.html">read_html()</a></code> prints as “{html_document}” rather than “{xml_document}” (<a href='https://github.com/r-lib/xml2/issues/227'>#227</a>)</p></li>
