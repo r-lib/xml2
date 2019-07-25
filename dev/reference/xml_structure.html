@@ -156,9 +156,9 @@ way a document is organised. Compared to <code>xml_structure</code>,
     
     </div>
 
-    <pre class="usage"><span class='fu'>xml_structure</span>(<span class='no'>x</span>, <span class='kw'>indent</span> <span class='kw'>=</span> <span class='fl'>2</span>)
+    <pre class="usage"><span class='fu'>xml_structure</span>(<span class='no'>x</span>, <span class='kw'>indent</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>file</span> <span class='kw'>=</span> <span class='st'>""</span>)
 
-<span class='fu'>html_structure</span>(<span class='no'>x</span>, <span class='kw'>indent</span> <span class='kw'>=</span> <span class='fl'>2</span>)</pre>
+<span class='fu'>html_structure</span>(<span class='no'>x</span>, <span class='kw'>indent</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>file</span> <span class='kw'>=</span> <span class='st'>""</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -170,6 +170,15 @@ way a document is organised. Compared to <code>xml_structure</code>,
     <tr>
       <th>indent</th>
       <td><p>Number of spaces to ident</p></td>
+    </tr>
+    <tr>
+      <th>file</th>
+      <td><p>A <a href='https://www.rdocumentation.org/packages/base/topics/connections'>connection</a>, or a character string naming the file
+    to print to.  If <code>""</code> (the default), <code>cat</code> prints to the
+    standard output connection, the console unless redirected by
+    <code><a href='https://www.rdocumentation.org/packages/base/topics/sink'>sink</a></code>.
+    If it is <code>"|cmd"</code>, the output is piped to the command given
+    by <code class="file">cmd</code>, by opening a pipe connection.</p></td>
     </tr>
     </table>
     
