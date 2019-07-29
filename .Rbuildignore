@@ -16,3 +16,4 @@ windows
 ^_pkgdown.yml$
 ^docs/$
 ^docs$
+^CRAN-RELEASE$
