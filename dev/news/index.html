@@ -76,7 +76,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">xml2</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.2.0.9000</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.2.1.9000</span>
       </span>
     </div>
 
@@ -140,38 +140,36 @@
       <small>Source: <a href='https://github.com/r-lib/xml2/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
-    <div id="xml2-1-2-0-9000" class="section level1">
+    <div id="xml2-1-2-1" class="section level1">
 <h1 class="page-header">
-<a href="#xml2-1-2-0-9000" class="anchor"></a>xml2 1.2.0.9000<small> Unreleased </small>
+<a href="#xml2-1-2-1" class="anchor"></a>xml2 1.2.1<small> 2019-07-29 </small>
 </h1>
-<ul>
-<li><p><code><a href="../reference/xml_structure.html">xml_structure()</a></code> gains a <code>file</code> argument, so support writing to a file rather than the console (<a href='https://github.com/r-lib/xml2/issues/244'>#244</a>).</p></li>
-<li><p><code><a href="../reference/xml_children.html">xml_root()</a></code> can now create root nodes with namespaces (<a href='https://github.com/r-lib/xml2/issues/239'>#239</a>)</p></li>
-<li><p><code><a href="../reference/xml_attr.html">xml_set_attr()</a></code> no longer crashes if you try to set the same namespace on the same node multiple times (<a href='https://github.com/r-lib/xml2/issues/253'>#253</a>).</p></li>
-<li><p><code><a href="../reference/xml_attr.html">xml_set_attr()</a></code> now recycles the values if needed (<a href='https://github.com/r-lib/xml2/issues/221'>#221</a>)</p></li>
-<li><p>Nodes with nested data type definition entities now work without crashing (<a href='https://github.com/r-lib/xml2/issues/241'>#241</a>)</p></li>
-<li><p><code><a href="../reference/read_xml.html">read_xml()</a></code> now has a better error message when given zero length character inputs (<a href='https://github.com/r-lib/xml2/issues/212'>#212</a>).</p></li>
-<li><p>print methods now match the type of document, e.g. <code><a href="../reference/read_xml.html">read_html()</a></code> prints as “{html_document}” rather than “{xml_document}” (<a href='https://github.com/r-lib/xml2/issues/227'>#227</a>)</p></li>
-<li><p>Test failure fixed due to behavior change with relative paths in libxml2 2.9.9 (<a href='https://github.com/r-lib/xml2/issues/245'>#245</a>).</p></li>
-<li><p><code><a href="../reference/read_xml.html">read_xml()</a></code> and <code><a href="../reference/read_xml.html">read_html()</a></code> now automatically check if the response succeeded before trying to read from a HTTP response (<a href='https://github.com/r-lib/xml2/issues/255'>#255</a>).</p></li>
-<li><p>New classes are not registered for use with S4 by calling <code>setOldClass()</code> (<a href='https://github.com/r-lib/xml2/issues/248'>#248</a>)</p></li>
-<li><p>Better error message when trying to run <code><a href="../reference/download_xml.html">download_xml()</a></code> without the curl package installed (<a href='https://github.com/r-lib/xml2/issues/262'>#262</a>)</p></li>
-<li><p>Do not use the C connections API</p></li>
-<li><p>Fix for ICU 59+ defaulting to use char16_t, which is only available in C++11 (<a href='https://github.com/r-lib/xml2/issues/231'>#231</a>)</p></li>
-</ul>
 <div id="new-features" class="section level2">
 <h2 class="hasAnchor">
 <a href="#new-features" class="anchor"></a>New Features</h2>
 <ul>
 <li><p>xml2 now has a pkgdown site! <a href="http://xml2.r-lib.org" class="uri">http://xml2.r-lib.org</a> (<a href='https://github.com/jayhesselberth'>@jayhesselberth</a>, <a href='https://github.com/r-lib/xml2/issues/211'>#211</a>).</p></li>
 <li><p>Windows: upgrade to libxml2 2.9.8</p></li>
+<li><p>print methods now match the type of document, e.g. <code><a href="../reference/read_xml.html">read_html()</a></code> prints as “{html_document}” rather than “{xml_document}” (<a href='https://github.com/r-lib/xml2/issues/227'>#227</a>)</p></li>
 </ul>
 </div>
-<div id="bugfixes" class="section level2">
+<div id="bugfixes-and-miscellaneous-features" class="section level2">
 <h2 class="hasAnchor">
-<a href="#bugfixes" class="anchor"></a>Bugfixes</h2>
+<a href="#bugfixes-and-miscellaneous-features" class="anchor"></a>Bugfixes and Miscellaneous features</h2>
 <ul>
-<li>Generic xml2 error are now forwarded as R errors. Previously these errors were output to stderr, so could not be suppressed (<a href='https://github.com/r-lib/xml2/issues/209'>#209</a>).</li>
+<li><p>Generic xml2 error are now forwarded as R errors. Previously these errors were output to stderr, so could not be suppressed (<a href='https://github.com/r-lib/xml2/issues/209'>#209</a>).</p></li>
+<li><p>Fix for ICU 59+ defaulting to use char16_t, which is only available in C++11 (<a href='https://github.com/r-lib/xml2/issues/231'>#231</a>)</p></li>
+<li><p>No longer uses the C connections API</p></li>
+<li><p>Better error message when trying to run <code><a href="../reference/download_xml.html">download_xml()</a></code> without the curl package installed (<a href='https://github.com/r-lib/xml2/issues/262'>#262</a>)</p></li>
+<li><p>xml2 classes are now registered for use with S4 by calling <code>setOldClass()</code> (<a href='https://github.com/r-lib/xml2/issues/248'>#248</a>)</p></li>
+<li><p>Nodes with nested data type definition entities now work without crashing (<a href='https://github.com/r-lib/xml2/issues/241'>#241</a>)</p></li>
+<li><p>Test failure fixed due to behavior change with relative paths in libxml2 2.9.9 (<a href='https://github.com/r-lib/xml2/issues/245'>#245</a>).</p></li>
+<li><p><code><a href="../reference/read_xml.html">read_xml()</a></code> now has a better error message when given zero length character inputs (<a href='https://github.com/r-lib/xml2/issues/212'>#212</a>).</p></li>
+<li><p><code><a href="../reference/read_xml.html">read_xml()</a></code> and <code><a href="../reference/read_xml.html">read_html()</a></code> now automatically check if the response succeeded before trying to read from a HTTP response (<a href='https://github.com/r-lib/xml2/issues/255'>#255</a>).</p></li>
+<li><p><code><a href="../reference/xml_children.html">xml_root()</a></code> can now create root nodes with namespaces (<a href='https://github.com/r-lib/xml2/issues/239'>#239</a>)</p></li>
+<li><p><code><a href="../reference/xml_attr.html">xml_set_attr()</a></code> no longer crashes if you try to set the same namespace on the same node multiple times (<a href='https://github.com/r-lib/xml2/issues/253'>#253</a>).</p></li>
+<li><p><code><a href="../reference/xml_attr.html">xml_set_attr()</a></code> now recycles the values if needed (<a href='https://github.com/r-lib/xml2/issues/221'>#221</a>)</p></li>
+<li><p><code><a href="../reference/xml_structure.html">xml_structure()</a></code> gains a <code>file</code> argument, to support writing to a file rather than the console (<a href='https://github.com/r-lib/xml2/issues/244'>#244</a>).</p></li>
 </ul>
 </div>
 </div>
@@ -196,9 +194,9 @@
 <li><p><code><a href="../reference/xml_serialize.html">xml_serialize()</a></code> and <code><a href="../reference/xml_serialize.html">xml_unserialize()</a></code> now create file connections when given character input (<a href='https://github.com/r-lib/xml2/issues/179'>#179</a>).</p></li>
 </ul>
 </div>
-<div id="bugfixes-1" class="section level2">
+<div id="bugfixes" class="section level2">
 <h2 class="hasAnchor">
-<a href="#bugfixes-1" class="anchor"></a>Bugfixes</h2>
+<a href="#bugfixes" class="anchor"></a>Bugfixes</h2>
 <ul>
 <li><p><code><a href="../reference/xml_find_all.html">xml_find_first()</a></code> no longer de-duplicates results, so the results are always the same length as the inputs (as documented) (<a href='https://github.com/r-lib/xml2/issues/194'>#194</a>).</p></li>
 <li><p>xml2 can now build using libxml2 2.7.0</p></li>
@@ -238,9 +236,9 @@
 <li><p>Add <code><a href="../reference/write_xml.html">write_html()</a></code> method (<a href='https://github.com/r-lib/xml2/issues/133'>#133</a>).</p></li>
 </ul>
 </div>
-<div id="bugfixes-2" class="section level2">
+<div id="bugfixes-1" class="section level2">
 <h2 class="hasAnchor">
-<a href="#bugfixes-2" class="anchor"></a>Bugfixes</h2>
+<a href="#bugfixes-1" class="anchor"></a>Bugfixes</h2>
 <ul>
 <li><p><code><a href="../reference/xml_new_document.html">xml_new_document()</a></code> now explicitly sets the encoding (default UTF-8) (<a href='https://github.com/r-lib/xml2/issues/142'>#142</a>)</p></li>
 <li><p>Document formatting options for <code><a href="../reference/write_xml.html">write_xml()</a></code> (<a href='https://github.com/r-lib/xml2/issues/132'>#132</a>)</p></li>
@@ -302,7 +300,7 @@
     <div id="tocnav">
       <h2>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
-        <li><a href="#xml2-1-2-0-9000">1.2.0.9000</a></li>
+        <li><a href="#xml2-1-2-1">1.2.1</a></li>
         <li><a href="#xml2-1-2-0">1.2.0</a></li>
         <li><a href="#xml2-1-1-1">1.1.1</a></li>
         <li><a href="#xml2-1-1-0">1.1.0</a></li>
