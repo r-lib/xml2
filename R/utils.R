@@ -33,11 +33,11 @@ need_package <- function(pkg) {
 }
 
 # Format the C bitwise flags for display in Rd. The input object is a named
-# integer vector with a 'description' character vector attribute that
+# integer vector with a 'descriptions' character vector attribute that
 # corresponds to each flag.
 describe_options <- function(x) {
   paste0("\\describe{\n",
-    paste0("  \\item{", names(x), "}{", attr(x, "description"), "}", collapse = "\n"),
+    paste0("  \\item{", names(x), "}{", attr(x, "descriptions"), "}", collapse = "\n"),
   "\n}")
 }
 
