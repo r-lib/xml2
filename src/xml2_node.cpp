@@ -295,15 +295,8 @@ void node_set_attr(XPtrNode node_, std::string name, SEXP value, CharacterVector
   }
   if (hasPrefix("xmlns:", name)) {
     std::string prefix = name.substr(6);
-    xmlNsPtr ns = xmlSearchNs(node_->doc, node, asXmlChar(prefix));
-
-    if (ns == NULL) {
-      xmlAddNamespace(node, xmlNewNs(node, asXmlChar(value), asXmlChar(prefix)));
-    } else {
-      ns->href = xmlStrdup(asXmlChar(value));
-      xmlSetNs(node, ns);
-    }
-
+    removeNs(node, asXmlChar(prefix));
+    xmlAddNamespace(node, xmlNewNs(node, asXmlChar(value), asXmlChar(prefix)));
     return;
   }
 
