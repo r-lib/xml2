@@ -1,7 +1,6 @@
 ## Release summary
 
-This is a release fixes a failing test due to a behavioral change in libxml2
-2.9.9
+This is a path release fixing a minor issue in the previous release
 
 ## Test environments
 
