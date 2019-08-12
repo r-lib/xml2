@@ -1,3 +1,5 @@
+# xml2 (development version)
+
 # xml2 1.2.2
 
 * Export S4 classes with documentation, so they can be used in other packages
