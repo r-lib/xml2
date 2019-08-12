@@ -79,7 +79,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">xml2</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.2.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.2.2</span>
       </span>
     </div>
 
@@ -260,10 +260,10 @@ to have content render in a certain way (e.g. <code>Mozilla/5.0 (Windows NT 5.1;
 this value should be set to provide the web resource owner information on who you are
 and the intent of your actions like this Google scraping bot user agent identifier:
 <code>Googlebot/2.1 (+http://www.google.com/bot.html)</code>.</p>
-<p>You can set the HTTP user agent for URL-based requests using <code><a href='https://www.rdocumentation.org/packages/httr/topics/set_config'>httr::set_config()</a></code> and <code><a href='https://www.rdocumentation.org/packages/httr/topics/user_agent'>httr::user_agent()</a></code>:</p>
-<p><code><a href='https://www.rdocumentation.org/packages/httr/topics/set_config'>httr::set_config(httr::user_agent("me@example.com; +https://example.com/info.html"))</a></code></p>
-<p><code><a href='https://www.rdocumentation.org/packages/httr/topics/set_config'>httr::set_config()</a></code> changes the configuration globally,
-<code><a href='https://www.rdocumentation.org/packages/httr/topics/with_config'>httr::with_config()</a></code> can be used to change configuration temporarily.</p>
+<p>You can set the HTTP user agent for URL-based requests using <code><a href='https://httr.r-lib.org/reference/set_config.html'>httr::set_config()</a></code> and <code><a href='https://httr.r-lib.org/reference/user_agent.html'>httr::user_agent()</a></code>:</p>
+<p><code><a href='https://httr.r-lib.org/reference/set_config.html'>httr::set_config(httr::user_agent("me@example.com; +https://example.com/info.html"))</a></code></p>
+<p><code><a href='https://httr.r-lib.org/reference/set_config.html'>httr::set_config()</a></code> changes the configuration globally,
+<code><a href='https://httr.r-lib.org/reference/with_config.html'>httr::with_config()</a></code> can be used to change configuration temporarily.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
