@@ -1,5 +1,8 @@
 # xml2 (development version)
 
+* `libxml2_version()` now returns a semantic version rather than alphanumeric
+  version, so "2.9.10" > "2.9.9" (#277)
+
 # xml2 1.2.2
 
 * Export S4 classes with documentation, so they can be used in other packages

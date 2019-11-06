@@ -45,8 +45,8 @@ init_libxml2 <- function() {
     invisible(.Call(`_xml2_init_libxml2`))
 }
 
-libxml2_version <- function() {
-    .Call(`_xml2_libxml2_version`)
+libxml2_version_ <- function() {
+    .Call(`_xml2_libxml2_version_`)
 }
 
 unique_ns <- function(ns) {

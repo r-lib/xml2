@@ -46,6 +46,6 @@ extern "C" {
 }
 
 // [[Rcpp::export]]
-std::string libxml2_version(){
+std::string libxml2_version_(){
   return LIBXML_DOTTED_VERSION;
 }
