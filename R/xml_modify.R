@@ -28,7 +28,7 @@ xml_replace <- function(.x, .value, ..., .copy = TRUE) {
 #' @export
 xml_replace.xml_node <- function(.x, .value, ..., .copy = TRUE) {
 
-  node <- create_node(.value, .x, .copy = .copy, ...)
+  node <- create_node(.value, .parent = .x, .copy = .copy, ...)
 
   .x$node <- node_replace(.x$node, node$node)
   node
@@ -64,7 +64,7 @@ xml_add_sibling <- function(.x, .value, ..., .where = c("after", "before"), .cop
 xml_add_sibling.xml_node <- function(.x, .value, ..., .where = c("after", "before"), .copy = inherits(.value, "xml_node")) {
   .where <- match.arg(.where)
 
-  node <- create_node(.value, .x, .copy = .copy, ...)
+  node <- create_node(.value, .parent = .x, .copy = .copy, ...)
 
   .x$node <- switch(.where,
     before = node_prepend_sibling(.x$node, node$node),
@@ -95,7 +95,7 @@ xml_add_sibling.xml_missing <- function(.x, .value, ..., .where = c("after", "be
 }
 
 # Helper function used in the xml_add* methods
-create_node <- function(.value, parent, .copy, ...) {
+create_node <- function(.value, ..., .parent, .copy) {
   if (inherits(.value, "xml_node")) {
     if (isTRUE(.copy)) {
       .value$node <- node_copy(.value$node)
@@ -104,15 +104,15 @@ create_node <- function(.value, parent, .copy, ...) {
   }
 
   if (inherits(.value, "xml_cdata")) {
-    return(xml_node(node_cdata_new(parent$doc, .value), doc = parent$doc))
+    return(xml_node(node_cdata_new(.parent$doc, .value), doc = .parent$doc))
   }
 
   if (inherits(.value, "xml_comment")) {
-    return(xml_node(node_comment_new(.value), doc = parent$doc))
+    return(xml_node(node_comment_new(.value), doc = .parent$doc))
   }
 
   if (inherits(.value, "xml_dtd")) {
-    node_new_dtd(parent$doc, .value$name, .value$external_id, .value$system_id)
+    node_new_dtd(.parent$doc, .value$name, .value$external_id, .value$system_id)
     return()
   }
 
@@ -121,11 +121,11 @@ create_node <- function(.value, parent, .copy, ...) {
   }
 
   parts <- strsplit(.value, ":")[[1]]
-  if (length(parts) == 2 && !is.null(parent$node)) {
-      namespace <- ns_lookup(parent$doc, parent$node, parts[[1]])
-      node <- structure(list(node = node_new_ns(parts[[2]], namespace), doc = parent$doc), class = "xml_node")
+  if (length(parts) == 2 && !is.null(.parent$node)) {
+      namespace <- ns_lookup(.parent$doc, .parent$node, parts[[1]])
+      node <- structure(list(node = node_new_ns(parts[[2]], namespace), doc = .parent$doc), class = "xml_node")
   } else {
-    node <- structure(list(node = node_new(.value), doc = parent$doc), class = "xml_node")
+    node <- structure(list(node = node_new(.value), doc = .parent$doc), class = "xml_node")
   }
 
   args <- list(...)
@@ -145,7 +145,7 @@ xml_add_child <- function(.x, .value, ..., .where = length(xml_children(.x)), .c
 #' @export
 xml_add_child.xml_node <- function(.x, .value, ..., .where = length(xml_children(.x)), .copy = inherits(.value, "xml_node")) {
 
-  node <- create_node(.value, .x, .copy = .copy, ...)
+  node <- create_node(.value, .parent = .x, .copy = .copy, ...)
 
   if (.where == 0L) {
     if(node_has_children(.x$node))
@@ -168,7 +168,7 @@ xml_add_child.xml_document <- function(.x, .value, ..., .where = length(xml_chil
   if (inherits(.x, "xml_node")) {
     NextMethod("xml_add_child")
   } else {
-    node <- create_node(.value, .x, .copy = .copy, ...)
+    node <- create_node(.value, .parent = .x, .copy = .copy, ...)
     if (!is.null(node)) {
       if (!doc_has_root(.x$doc)) {
         doc_set_root(.x$doc, node$node)
