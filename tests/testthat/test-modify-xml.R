@@ -154,6 +154,13 @@ test_that("xml_add_child can create a new node with the specified prefix", {
   expect_error(xml_add_child(x, "bar2:qux"), "No namespace with prefix `bar2` found")
 })
 
+# https://github.com/r-lib/xml2/issues/284
+test_that("xml_add_child can create a new node with attribute named 'par'", {
+  x <- xml_new_root("foo")
+  t1 <- xml_add_child(x, "a", "par" = "b")
+  expect_true(xml_has_attr(t1, "par"))
+})
+
 test_that("xml_add_parent works with xml_node input", {
   x <- read_xml("<x><y/></x>")
   y <- xml_find_first(x, ".//y")
