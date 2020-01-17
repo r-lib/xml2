@@ -1,5 +1,7 @@
 # xml2 (development version)
 
+* `xml_add_child()` can now create nodes with a `par` attribute. These previously errored due to partial name matching of the `parent` function in the internal `create_node()` function. (@jennybc, #285)
+
 * `libxml2_version()` now returns a semantic version rather than alphanumeric
   version, so "2.9.10" > "2.9.9" (#277)
 
