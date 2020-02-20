@@ -5,9 +5,11 @@
 #include <libxml/tree.h>
 #include <map>
 
-inline xmlChar* asXmlChar(std::string x) {
+inline xmlChar* asXmlChar(std::string const& x) {
   return (xmlChar*) x.c_str();
 }
+
+void asXmlChar(std::string&&) = delete;
 
 inline xmlChar* asXmlChar(SEXP x, int n = 0) {
   return (xmlChar*) CHAR(STRING_ELT(x, n));
