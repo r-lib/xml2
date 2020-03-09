@@ -498,6 +498,12 @@ void node_append_content(XPtrNode node, std::string content) {
 }
 
 // [[Rcpp::export]]
+void node_new_text(XPtrNode node, std::string content) {
+  xmlAddChild(node.checked_get(), xmlNewTextLen(asXmlChar(content), content.size()));
+  return;
+}
+
+// [[Rcpp::export]]
 XPtrNode node_append_child(XPtrNode parent, XPtrNode cur) {
   return XPtrNode(xmlAddChild(parent.checked_get(), cur.checked_get()));
 }

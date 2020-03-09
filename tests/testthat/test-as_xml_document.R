@@ -39,3 +39,7 @@ test_that("rountrips with special attributes", {
 test_that("more than one root node is an error", {
   expect_error(as_xml_document(list(a = list(), b = list())), "Root nodes must be of length 1")
 })
+
+test_that("Can convert nodes with leading and trailing text", {
+  roundtrip_xml("<a>foo<b>bar</b>baz</a>")
+})

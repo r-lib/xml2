@@ -141,6 +141,10 @@ node_append_content <- function(node, content) {
     invisible(.Call(`_xml2_node_append_content`, node, content))
 }
 
+node_new_text <- function(node, content) {
+    invisible(.Call(`_xml2_node_new_text`, node, content))
+}
+
 node_append_child <- function(parent, cur) {
     .Call(`_xml2_node_append_child`, parent, cur)
 }

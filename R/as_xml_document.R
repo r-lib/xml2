@@ -45,7 +45,7 @@ as_xml_document.list <- function(x, ...) {
 
   add_node <- function(x, parent, tag = NULL) {
     if (is.atomic(x)) {
-      return(xml_set_text(parent, as.character(x)))
+      return(node_new_text(parent$node, as.character(x)))
     }
     if (!is.null(tag)) {
       parent <- xml_add_child(parent, tag)

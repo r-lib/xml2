@@ -413,6 +413,17 @@ BEGIN_RCPP
     return R_NilValue;
 END_RCPP
 }
+// node_new_text
+void node_new_text(XPtrNode node, std::string content);
+RcppExport SEXP _xml2_node_new_text(SEXP nodeSEXP, SEXP contentSEXP) {
+BEGIN_RCPP
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< XPtrNode >::type node(nodeSEXP);
+    Rcpp::traits::input_parameter< std::string >::type content(contentSEXP);
+    node_new_text(node, content);
+    return R_NilValue;
+END_RCPP
+}
 // node_append_child
 XPtrNode node_append_child(XPtrNode parent, XPtrNode cur);
 RcppExport SEXP _xml2_node_append_child(SEXP parentSEXP, SEXP curSEXP) {
@@ -787,6 +798,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_xml2_node_copy", (DL_FUNC) &_xml2_node_copy, 1},
     {"_xml2_node_set_content", (DL_FUNC) &_xml2_node_set_content, 2},
     {"_xml2_node_append_content", (DL_FUNC) &_xml2_node_append_content, 2},
+    {"_xml2_node_new_text", (DL_FUNC) &_xml2_node_new_text, 2},
     {"_xml2_node_append_child", (DL_FUNC) &_xml2_node_append_child, 2},
     {"_xml2_node_prepend_child", (DL_FUNC) &_xml2_node_prepend_child, 2},
     {"_xml2_node_prepend_sibling", (DL_FUNC) &_xml2_node_prepend_sibling, 2},
