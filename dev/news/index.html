@@ -155,6 +155,7 @@
 <li><p>Fix potential dangling pointer with internal <code>asXmlChar()</code> function (<a href='https://github.com/michaelquinn32'>@michaelquinn32</a>, <a href='https://github.com/r-lib/xml2/issues/287'>#287</a>).</p></li>
 <li><p><code><a href="../reference/xml_replace.html">xml_add_child()</a></code> can now create nodes with a <code>par</code> attribute. These previously errored due to partial name matching of the <code>parent</code> function in the internal <code>create_node()</code> function. (<a href='https://github.com/jennybc'>@jennybc</a>, <a href='https://github.com/r-lib/xml2/issues/285'>#285</a>)</p></li>
 <li><p><code>libxml2_version()</code> now returns a semantic version rather than alphanumeric version, so “2.9.10” &gt; “2.9.9” (<a href='https://github.com/r-lib/xml2/issues/277'>#277</a>)</p></li>
+<li><p><code><a href="../reference/as_xml_document.html">as_xml_document()</a></code> now handles cases with text nodes trailing normal nodes (<a href='https://github.com/r-lib/xml2/issues/274'>#274</a>).</p></li>
 </ul>
 </div>
     <div id="xml2-1-2-2" class="section level1">
