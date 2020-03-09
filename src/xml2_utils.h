@@ -5,15 +5,18 @@
 #include <libxml/tree.h>
 #include <map>
 
-inline xmlChar* asXmlChar(std::string const& x) {
-  return (xmlChar*) x.c_str();
+inline const xmlChar* asXmlChar(std::string const& x) {
+  return (const xmlChar*) x.c_str();
 }
 
+inline const xmlChar* asXmlChar(SEXP x, int n = 0) {
+  return (const xmlChar*) CHAR(STRING_ELT(x, n));
+}
+
+// If we are using C++11 disallow moves
+#if __cplusplus >= 201103L
 void asXmlChar(std::string&&) = delete;
-
-inline xmlChar* asXmlChar(SEXP x, int n = 0) {
-  return (xmlChar*) CHAR(STRING_ELT(x, n));
-}
+#endif
 
 inline Rcpp::CharacterVector asCharacterVector(std::string x) {
   return Rcpp::CharacterVector(Rf_mkCharCE(x.c_str(), CE_UTF8));
