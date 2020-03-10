@@ -1,6 +1,6 @@
 ## Release summary
 
-This is a patch release fixing CRAN failures
+This release fixes errors in the previous release on macOS versions after High Sierra
 
 ## Test environments
 

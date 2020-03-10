@@ -1,6 +1,8 @@
-# xml2 1.2.4
+# xml2 1.2.5
 
-# xml2 1.2.3
+* Fix compilation issue on macOS versions after High Sierra when not using homebrew supplied libxml2
+
+# xml2 1.2.4
 
 * Fix potential dangling pointer with internal `asXmlChar()` function (@michaelquinn32, #287).
 
