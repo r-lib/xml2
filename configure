@@ -14,7 +14,7 @@ PKG_TEST_HEADER="<libxml/tree.h>"
 PKG_LIBS="-lxml2"
 
 OS_TYPE=`uname -s`
-OS_VERSION=`uname -r`
+OS_VERSION=`uname -r | cut -d '.' -f 1`
 
 # Note that cflags may be empty in case of success
 if [ "$INCLUDE_DIR" ] || [ "$LIB_DIR" ]; then
@@ -31,7 +31,7 @@ else
     # MacOS versions El Capitan and later ship a xml2-config which appends `xcrun
     # --show-sdk-path` to the xml2-config. So we remove it if it is present.
     # (https://stat.ethz.ch/pipermail/r-sig-mac/2016-September/012046.html)
-    if [ "$OS_TYPE" = "Darwin" ] && [ "$OS_VERSION" > "14" ]; then
+    if [ "$OS_TYPE" = "Darwin" ] && [ "$OS_VERSION" -gt "14" ]; then
       PKGCONFIG_CFLAGS=`echo $PKGCONFIG_CFLAGS | perl -pe "s{\Q\`xcrun -show-sdk-path\`\E}{}"`
       PKGCONFIG_LIBS=`echo $PKGCONFIG_LIBS | perl -pe "s{\Q\`xcrun -show-sdk-path\`\E}{}"`
     fi
