@@ -1,6 +1,6 @@
 Package: xml2
 Title: Parse XML
-Version: 1.2.2.9000
+Version: 1.2.3
 Authors@R: 
     c(person(given = "Hadley",
              family = "Wickham",
@@ -43,7 +43,7 @@ VignetteBuilder:
     knitr
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 6.1.1
+RoxygenNote: 7.0.2
 SystemRequirements: libxml2: libxml2-dev (deb), libxml2-devel
     (rpm)
 Collate: 

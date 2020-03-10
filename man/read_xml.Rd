@@ -8,21 +8,31 @@
 \alias{read_xml.connection}
 \title{Read HTML or XML.}
 \usage{
-read_xml(x, encoding = "", ..., as_html = FALSE,
-  options = "NOBLANKS")
+read_xml(x, encoding = "", ..., as_html = FALSE, options = "NOBLANKS")
 
-read_html(x, encoding = "", ..., options = c("RECOVER", "NOERROR",
-  "NOBLANKS"))
+read_html(x, encoding = "", ..., options = c("RECOVER", "NOERROR", "NOBLANKS"))
 
-\method{read_xml}{character}(x, encoding = "", ..., as_html = FALSE,
-  options = "NOBLANKS")
+\method{read_xml}{character}(x, encoding = "", ..., as_html = FALSE, options = "NOBLANKS")
 
-\method{read_xml}{raw}(x, encoding = "", base_url = "", ...,
-  as_html = FALSE, options = "NOBLANKS")
+\method{read_xml}{raw}(
+  x,
+  encoding = "",
+  base_url = "",
+  ...,
+  as_html = FALSE,
+  options = "NOBLANKS"
+)
 
-\method{read_xml}{connection}(x, encoding = "", n = 64 * 1024,
-  verbose = FALSE, ..., base_url = "", as_html = FALSE,
-  options = "NOBLANKS")
+\method{read_xml}{connection}(
+  x,
+  encoding = "",
+  n = 64 * 1024,
+  verbose = FALSE,
+  ...,
+  base_url = "",
+  as_html = FALSE,
+  options = "NOBLANKS"
+)
 }
 \arguments{
 \item{x}{A string, a connection, or a raw vector.
@@ -71,10 +81,10 @@ Read HTML or XML.
 When performing web scraping tasks it is both good practice --- and often required ---
 to set the \href{https://en.wikipedia.org/wiki/User_agent}{user agent} request header
 to a specific value. Sometimes this value is assigned to emulate a browser in order
-to have content render in a certain way (e.g. \code{Mozilla/5.0 (Windows NT 5.1; rv:52.0) Gecko/20100101 Firefox/52.0} to emulate more recent Windows browsers). Most often,
+to have content render in a certain way (e.g. \verb{Mozilla/5.0 (Windows NT 5.1; rv:52.0) Gecko/20100101 Firefox/52.0} to emulate more recent Windows browsers). Most often,
 this value should be set to provide the web resource owner information on who you are
 and the intent of your actions like this Google scraping bot user agent identifier:
-\code{Googlebot/2.1 (+http://www.google.com/bot.html)}.
+\verb{Googlebot/2.1 (+http://www.google.com/bot.html)}.
 
 You can set the HTTP user agent for URL-based requests using \code{\link[httr:set_config]{httr::set_config()}} and \code{\link[httr:user_agent]{httr::user_agent()}}:
 

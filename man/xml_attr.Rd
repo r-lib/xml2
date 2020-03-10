@@ -52,9 +52,9 @@ node, or a list of character vectors if given a nodeset
 }
 \description{
 \code{xml_attrs()} retrieves all attributes values as a named character
-vector, \code{xml_attrs() <-} or \code{xml_set_attrs()} sets all attribute
+vector, \verb{xml_attrs() <-} or \code{xml_set_attrs()} sets all attribute
 values. \code{xml_attr()} retrieves the value of single attribute and
-\code{xml_attr() <-} or \code{xml_set_attr()} modifies its value. If the
+\verb{xml_attr() <-} or \code{xml_set_attr()} modifies its value. If the
 attribute doesn't exist, it will return \code{default}, which defaults to
 \code{NA}. \code{xml_has_attr()} tests if an attribute is present.
 }

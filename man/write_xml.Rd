@@ -9,13 +9,11 @@
 \usage{
 write_xml(x, file, ...)
 
-\method{write_xml}{xml_document}(x, file, ..., options = "format",
-  encoding = "UTF-8")
+\method{write_xml}{xml_document}(x, file, ..., options = "format", encoding = "UTF-8")
 
 write_html(x, file, ...)
 
-\method{write_html}{xml_document}(x, file, ..., options = "format",
-  encoding = "UTF-8")
+\method{write_html}{xml_document}(x, file, ..., options = "format", encoding = "UTF-8")
 }
 \arguments{
 \item{x}{A document or node to write to disk. It's not possible to

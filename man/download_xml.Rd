@@ -5,11 +5,21 @@
 \alias{download_html}
 \title{Download a HTML or XML file}
 \usage{
-download_xml(url, file = basename(url), quiet = TRUE, mode = "wb",
-  handle = curl::new_handle())
+download_xml(
+  url,
+  file = basename(url),
+  quiet = TRUE,
+  mode = "wb",
+  handle = curl::new_handle()
+)
 
-download_html(url, file = basename(url), quiet = TRUE, mode = "wb",
-  handle = curl::new_handle())
+download_html(
+  url,
+  file = basename(url),
+  quiet = TRUE,
+  mode = "wb",
+  handle = curl::new_handle()
+)
 }
 \arguments{
 \item{url}{A character string naming the URL of a resource to be downloaded.}

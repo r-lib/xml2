@@ -12,7 +12,7 @@ xml_unserialize(connection, ...)
 \arguments{
 \item{object}{\R object to serialize.}
 
-\item{connection}{an open \link{connection} or (for \code{serialize})
+\item{connection}{an open \link[base]{connection} or (for \code{serialize})
     \code{NULL} or (for \code{unserialize}) a raw vector
     (see \sQuote{Details}).}
 

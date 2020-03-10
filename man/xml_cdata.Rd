@@ -7,7 +7,7 @@
 xml_cdata(content)
 }
 \arguments{
-\item{content}{The CDATA content, does not include \code{<![CDATA[}}
+\item{content}{The CDATA content, does not include \verb{<![CDATA[}}
 }
 \description{
 Construct a cdata node

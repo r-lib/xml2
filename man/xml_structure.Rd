@@ -14,10 +14,10 @@ html_structure(x, indent = 2, file = "")
 
 \item{indent}{Number of spaces to ident}
 
-\item{file}{A \link{connection}, or a character string naming the file
+\item{file}{A \link[base]{connection}, or a character string naming the file
     to print to.  If \code{""} (the default), \code{cat} prints to the
     standard output connection, the console unless redirected by
-    \code{\link{sink}}.
+    \code{\link[base]{sink}}.
     If it is \code{"|cmd"}, the output is piped to the command given
     by \file{cmd}, by opening a pipe connection.
   }

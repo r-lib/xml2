@@ -10,11 +10,9 @@
 \usage{
 xml_replace(.x, .value, ..., .copy = TRUE)
 
-xml_add_sibling(.x, .value, ..., .where = c("after", "before"),
-  .copy = TRUE)
+xml_add_sibling(.x, .value, ..., .where = c("after", "before"), .copy = TRUE)
 
-xml_add_child(.x, .value, ..., .where = length(xml_children(.x)),
-  .copy = TRUE)
+xml_add_child(.x, .value, ..., .where = length(xml_children(.x)), .copy = TRUE)
 
 xml_add_parent(.x, .value, ...)
 

@@ -7,8 +7,13 @@
 \usage{
 xml_new_document(version = "1.0", encoding = "UTF-8")
 
-xml_new_root(.value, ..., .copy = inherits(.value, "xml_node"),
-  .version = "1.0", .encoding = "UTF-8")
+xml_new_root(
+  .value,
+  ...,
+  .copy = inherits(.value, "xml_node"),
+  .version = "1.0",
+  .encoding = "UTF-8"
+)
 }
 \arguments{
 \item{version}{The version number of the document.}
