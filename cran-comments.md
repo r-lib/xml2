@@ -1,18 +1,18 @@
 ## Release summary
 
-This is a path release fixing a minor issue in the previous release
+This is a patch release fixing CRAN failures
 
 ## Test environments
 
-* local OS X install, R 3.6.1.
-* Ubuntu 12.04 (on travis-ci), R-oldrel, R-release, R-devel
-* Windows Server 2012 R2 (x64), R 3.6.1
+* local macOS install, R 3.6.2.
+* Ubuntu 14.04 (on travis-ci), R-oldrel, R-release, R-devel
+* Windows Server 2012 R2 (x64), R 3.6.2
 * Rhub
 
 ## R CMD check results
 There were no ERRORs or WARNINGs.
 
-There were 2 NOTEs:
+There were 1 NOTEs:
 
 * checking installed package size ... NOTE
   installed size is  6.7Mb
@@ -24,6 +24,6 @@ There were 2 NOTEs:
 
 
 ## Downstream dependencies
-I ran `R CMD check` on all 305 reverse dependencies (https://github.com/r-lib/xml2/tree/master/revdep#readme).
+I ran `R CMD check` on all reverse dependencies (https://github.com/r-lib/xml2/tree/master/revdep#readme).
 
 There were no breaking changes with this release.

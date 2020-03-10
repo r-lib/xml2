@@ -1,13 +1,12 @@
-# xml2 (development version)
+# xml2 1.2.3
 
 * Fix potential dangling pointer with internal `asXmlChar()` function (@michaelquinn32, #287).
 
+* `as_xml_document()` now handles cases with text nodes trailing normal nodes (#274).
+
 * `xml_add_child()` can now create nodes with a `par` attribute. These previously errored due to partial name matching of the `parent` function in the internal `create_node()` function. (@jennybc, #285)
 
-* `libxml2_version()` now returns a semantic version rather than alphanumeric
-  version, so "2.9.10" > "2.9.9" (#277)
-
-* `as_xml_document()` now handles cases with text nodes trailing normal nodes (#274).
+* `libxml2_version()` now returns a semantic version rather than alphanumeric version, so "2.9.10" > "2.9.9" (#277)
 
 # xml2 1.2.2
 
