@@ -64,4 +64,4 @@ xml2 has similar goals to the XML package. The main differences are:
 
 ## Code of Conduct
 
-Please note that the xml2 project is released with a [Contributor Code of Conduct](http://xml2.r-lib.org/CODE_OF_CONDUCT.html). By contributing to this project, you agree to abide by its terms.
+Please note that the xml2 project is released with a [Contributor Code of Conduct](https://xml2.r-lib.org/CODE_OF_CONDUCT.html). By contributing to this project, you agree to abide by its terms.
