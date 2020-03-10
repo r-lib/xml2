@@ -1,3 +1,5 @@
+# xml2 1.2.4
+
 # xml2 1.2.3
 
 * Fix potential dangling pointer with internal `asXmlChar()` function (@michaelquinn32, #287).
