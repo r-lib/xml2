@@ -13,13 +13,6 @@ matrix:
       r: 3.5
     - os: linux
       r: release
-      after_success:
-        R -e 'covr::codecov()'
-      before_cache: Rscript -e 'remotes::install_cran(c("pkgdown", "xslt"))'
-      deploy:
-        provider: script
-        script: Rscript -e 'pkgdown::deploy_site_github()'
-        skip_cleanup: true
     - os: linux
       r: devel
     - os: osx

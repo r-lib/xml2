@@ -1,7 +1,10 @@
 # xml2
-[![Build Status](https://travis-ci.org/r-lib/xml2.svg?branch=master)](https://travis-ci.org/r-lib/xml2)
+
+<!-- badges: start -->
+[![R build status](https://github.com/r-lib/xml2/workflows/R-CMD-check/badge.svg)](https://github.com/r-lib/xml2/actions)
+[![Travis Build Status](https://travis-ci.org/r-lib/xml2.svg?branch=master)](https://travis-ci.org/r-lib/xml2)
 [![Coverage Status](https://img.shields.io/codecov/c/github/r-lib/xml2/master.svg)](https://codecov.io/github/r-lib/xml2?branch=master)
-[![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/r-lib/xml2?branch=master&svg=true)](https://ci.appveyor.com/project/r-lib/xml2)
+<!-- badges: end -->
 
 The xml2 package is a binding to [libxml2](http://xmlsoft.org), making it easy to work with HTML and XML from R. The API is somewhat inspired by [jQuery](http://jquery.com).
 
