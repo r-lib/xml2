@@ -112,17 +112,6 @@ BEGIN_RCPP
     return R_NilValue;
 END_RCPP
 }
-// node_parents
-Rcpp::List node_parents(XPtrNode node);
-RcppExport SEXP _xml2_node_parents(SEXP nodeSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< XPtrNode >::type node(nodeSEXP);
-    rcpp_result_gen = Rcpp::wrap(node_parents(node));
-    return rcpp_result_gen;
-END_RCPP
-}
 // node_siblings
 Rcpp::List node_siblings(XPtrNode node, bool onlyNode);
 RcppExport SEXP _xml2_node_siblings(SEXP nodeSEXP, SEXP onlyNodeSEXP) {

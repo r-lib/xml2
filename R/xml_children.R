@@ -66,7 +66,7 @@ xml_contents <- function(x) {
 #' @export
 #' @rdname xml_children
 xml_parents <- function(x) {
-  nodeset_apply(x, node_parents)
+  nodeset_apply(x, function(x) .Call(node_parents, x))
 }
 
 #' @export
