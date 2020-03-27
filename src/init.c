@@ -61,7 +61,7 @@ extern SEXP node_write_file(SEXP, SEXP, SEXP, SEXP);
 extern SEXP nodes_duplicated(SEXP);
 extern SEXP ns_lookup(SEXP, SEXP, SEXP);
 extern SEXP ns_lookup_uri(SEXP, SEXP, SEXP);
-extern SEXP _xml2_read_connection_(SEXP, SEXP);
+extern SEXP read_connection_(SEXP, SEXP);
 extern SEXP unique_ns(SEXP);
 extern SEXP url_absolute_(SEXP, SEXP);
 extern SEXP url_escape_(SEXP, SEXP);
@@ -126,7 +126,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"nodes_duplicated",          (DL_FUNC) &nodes_duplicated,          1},
     {"ns_lookup",                 (DL_FUNC) &ns_lookup,                 3},
     {"ns_lookup_uri",             (DL_FUNC) &ns_lookup_uri,             3},
-    {"_xml2_read_connection_",          (DL_FUNC) &_xml2_read_connection_,          2},
+    {"read_connection_",          (DL_FUNC) &read_connection_,          2},
     {"unique_ns",                 (DL_FUNC) &unique_ns,                 1},
     {"url_absolute_",             (DL_FUNC) &url_absolute_,             2},
     {"url_escape_",               (DL_FUNC) &url_escape_,               2},

@@ -137,7 +137,7 @@ read_xml.connection <- function(x, encoding = "", n = 64 * 1024,
     on.exit(close(x))
   }
 
-  raw <- read_connection_(x, n)
+  raw <- .Call(read_connection_, x, n)
   read_xml.raw(raw, encoding = encoding, base_url = base_url, as_html =
     as_html, options = options)
 }
