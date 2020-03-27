@@ -157,18 +157,6 @@ BEGIN_RCPP
     return R_NilValue;
 END_RCPP
 }
-// node_prepend_child
-XPtrNode node_prepend_child(XPtrNode parent, XPtrNode cur);
-RcppExport SEXP _xml2_node_prepend_child(SEXP parentSEXP, SEXP curSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< XPtrNode >::type parent(parentSEXP);
-    Rcpp::traits::input_parameter< XPtrNode >::type cur(curSEXP);
-    rcpp_result_gen = Rcpp::wrap(node_prepend_child(parent, cur));
-    return rcpp_result_gen;
-END_RCPP
-}
 // node_prepend_sibling
 XPtrNode node_prepend_sibling(XPtrNode cur, XPtrNode elem);
 RcppExport SEXP _xml2_node_prepend_sibling(SEXP curSEXP, SEXP elemSEXP) {

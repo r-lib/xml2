@@ -53,10 +53,6 @@ node_set_content <- function(node, content) {
     invisible(.Call(`_xml2_node_set_content`, node, content))
 }
 
-node_prepend_child <- function(parent, cur) {
-    .Call(`_xml2_node_prepend_child`, parent, cur)
-}
-
 node_prepend_sibling <- function(cur, elem) {
     .Call(`_xml2_node_prepend_sibling`, cur, elem)
 }
