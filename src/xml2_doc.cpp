@@ -261,7 +261,8 @@ XPtrNode doc_set_root(XPtrDoc doc, XPtrNode root) {
   return XPtrNode(xmlDocSetRootElement(doc, root));
 }
 
-// [[Rcpp::export]]
-bool doc_is_html(XPtrDoc doc) {
-  return (doc->properties & XML_DOC_HTML);
+// [[export]]
+extern "C" SEXP doc_is_html(SEXP doc_sxp) {
+  XPtrDoc doc(doc_sxp);
+  return Rf_ScalarLogical(doc->properties & XML_DOC_HTML);
 }

@@ -103,17 +103,6 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// doc_is_html
-bool doc_is_html(XPtrDoc doc);
-RcppExport SEXP _xml2_doc_is_html(SEXP docSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< XPtrDoc >::type doc(docSEXP);
-    rcpp_result_gen = Rcpp::wrap(doc_is_html(doc));
-    return rcpp_result_gen;
-END_RCPP
-}
 // init_libxml2
 void init_libxml2();
 RcppExport SEXP _xml2_init_libxml2() {
