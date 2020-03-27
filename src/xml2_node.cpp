@@ -601,9 +601,13 @@ extern "C" SEXP node_append_sibling(SEXP cur_sxp, SEXP elem_sxp) {
 }
 
 // Replace node
-// [[Rcpp::export]]
-XPtrNode node_replace(XPtrNode old, XPtrNode cur) {
-  return XPtrNode(xmlReplaceNode(old.checked_get(), cur.checked_get()));
+// [[export]]
+extern "C" SEXP node_replace(SEXP old_sxp, SEXP cur_sxp) {
+  XPtrNode old(old_sxp);
+  XPtrNode cur(cur_sxp);
+  XPtrNode out(xmlReplaceNode(old.checked_get(), cur.checked_get()));
+
+  return SEXP(out);
 }
 
 // [[export]]
