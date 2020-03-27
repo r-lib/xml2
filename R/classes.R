@@ -15,7 +15,7 @@ xml_node <- function(node = NULL, doc = NULL) {
 #' @export
 as.character.xml_node <- function(x, ..., options = "format", encoding = "UTF-8") {
   options  <- parse_options(options, xml_save_options())
-  node_write_character(x$node, options = options, encoding = encoding)
+  .Call(node_write_character, x$node, encoding, options)
 }
 
 #' @export
