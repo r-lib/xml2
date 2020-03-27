@@ -19,21 +19,6 @@ url_relative <- function(x, base) {
     .Call(`_xml2_url_relative`, x, base)
 }
 
-#' Parse a url into its component pieces.
-#'
-#' @param x A character vector of urls.
-#' @return A dataframe with one row for each element of \code{x} and
-#'   columns: scheme, server, port, user, path, query, fragment.
-#' @export
-#' @examples
-#' url_parse("http://had.co.nz/")
-#' url_parse("http://had.co.nz:1234/")
-#' url_parse("http://had.co.nz:1234/?a=1&b=2")
-#' url_parse("http://had.co.nz:1234/?a=1&b=2#def")
-url_parse <- function(x) {
-    .Call(`_xml2_url_parse`, x)
-}
-
 #' @export
 #' @rdname url_escape
 url_unescape <- function(x) {
