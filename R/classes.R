@@ -47,7 +47,7 @@ doc_type <- function(x) {
   if (is.null(x$doc)) {
     return("xml")
   }
-  if (doc_is_html(x$doc)) {
+  if (.Call(doc_is_html, x$doc)) {
     "html"
   } else {
     "xml"
