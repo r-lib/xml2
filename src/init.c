@@ -13,7 +13,7 @@ extern SEXP doc_is_html(SEXP);
 extern SEXP doc_namespaces(SEXP);
 extern SEXP doc_new(SEXP, SEXP);
 extern SEXP doc_parse_file(SEXP, SEXP, SEXP, SEXP);
-extern SEXP _xml2_doc_parse_raw(SEXP, SEXP, SEXP, SEXP, SEXP);
+extern SEXP doc_parse_raw(SEXP, SEXP, SEXP, SEXP, SEXP);
 extern SEXP _xml2_doc_root(SEXP);
 extern SEXP _xml2_doc_set_root(SEXP, SEXP);
 extern SEXP _xml2_doc_url(SEXP);
@@ -79,7 +79,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"doc_namespaces",            (DL_FUNC) &doc_namespaces,            1},
     {"doc_new",                   (DL_FUNC) &doc_new,                   2},
     {"doc_parse_file",            (DL_FUNC) &doc_parse_file,            4},
-    {"_xml2_doc_parse_raw",             (DL_FUNC) &_xml2_doc_parse_raw,             5},
+    {"doc_parse_raw",             (DL_FUNC) &doc_parse_raw,             5},
     {"_xml2_doc_root",                  (DL_FUNC) &_xml2_doc_root,                  1},
     {"_xml2_doc_set_root",              (DL_FUNC) &_xml2_doc_set_root,              2},
     {"_xml2_doc_url",                   (DL_FUNC) &_xml2_doc_url,                   1},
