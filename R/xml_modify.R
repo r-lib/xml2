@@ -275,7 +275,7 @@ xml_set_namespace <- function(.x, prefix = "", uri = "") {
   stopifnot(inherits(.x, "xml_node"))
 
   if (nzchar(uri)) {
-    node_set_namespace_uri(.x$doc, .x$node, uri)
+    .Call(node_set_namespace_uri, .x$doc, .x$node, uri)
   } else {
     .Call(node_set_namespace_prefix, .x$doc, .x$node, prefix)
   }

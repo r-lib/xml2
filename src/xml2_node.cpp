@@ -660,11 +660,16 @@ extern "C" SEXP node_new_ns(SEXP name, SEXP ns_sxp) {
   return SEXP(node);
 }
 
-// [[Rcpp::export]]
-void node_set_namespace_uri(XPtrDoc doc, XPtrNode node, std::string uri) {
+// [[export]]
+extern "C" SEXP node_set_namespace_uri(SEXP doc_sxp, SEXP node_sxp, SEXP uri) {
+  XPtrDoc doc(doc_sxp);
+  XPtrNode node(node_sxp);
+
   xmlNsPtr ns = xmlSearchNsByHref(doc.checked_get(), node.checked_get(), asXmlChar(uri));
 
   xmlSetNs(node.checked_get(), ns);
+
+  return R_NilValue;
 }
 
 // [[export]]

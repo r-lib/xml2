@@ -37,10 +37,6 @@ node_type <- function(node) {
     .Call(`_xml2_node_type`, node)
 }
 
-node_set_namespace_uri <- function(doc, node, uri) {
-    invisible(.Call(`_xml2_node_set_namespace_uri`, doc, node, uri))
-}
-
 xml_save_options <- function() {
     .Call(`_xml2_xml_save_options`)
 }
