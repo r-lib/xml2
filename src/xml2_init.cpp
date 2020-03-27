@@ -28,14 +28,16 @@ void handleGenericError(void *ctx, const char *fmt, ...)
   Rf_error(buffer);
 }
 
-// [[Rcpp::export]]
-void init_libxml2() {
+// [[export]]
+extern "C" SEXP init_libxml2() {
   // Check that header and libs are compatible
   LIBXML_TEST_VERSION
 
   xmlInitParser();
   xmlSetStructuredErrorFunc(NULL, handleStructuredError);
   xmlSetGenericErrorFunc(NULL, handleGenericError);
+
+  return R_NilValue;
 }
 
 extern "C" {

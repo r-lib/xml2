@@ -1,5 +1,5 @@
 .onLoad <- function(lib, pkg){
-  init_libxml2()
+  .Call(init_libxml2)
 }
 
 libxml2_version <- function() {

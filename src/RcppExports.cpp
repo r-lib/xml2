@@ -28,15 +28,6 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// init_libxml2
-void init_libxml2();
-RcppExport SEXP _xml2_init_libxml2() {
-BEGIN_RCPP
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    init_libxml2();
-    return R_NilValue;
-END_RCPP
-}
 // libxml2_version_
 std::string libxml2_version_();
 RcppExport SEXP _xml2_libxml2_version_() {
