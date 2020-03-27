@@ -78,7 +78,7 @@ xml_find_all.xml_missing <- function(x, xpath, ns = xml_ns(x)) {
 
 #' @export
 xml_find_all.xml_node <- function(x, xpath, ns = xml_ns(x)) {
-  nodes <- xpath_search(x$node, x$doc, xpath = xpath, nsMap = ns, num_results = Inf)
+  nodes <- .Call(xpath_search, x$node, x$doc, xpath, ns, Inf)
   xml_nodeset(nodes)
 }
 
@@ -89,7 +89,7 @@ xml_find_all.xml_nodeset <- function(x, xpath, ns = xml_ns(x)) {
 
   nodes <- unlist(recursive = FALSE,
     lapply(x, function(x)
-      xpath_search(x$node, x$doc, xpath = xpath, nsMap = ns, num_results = Inf)))
+      .Call(xpath_search, x$node, x$doc, xpath, ns, Inf)))
 
   xml_nodeset(nodes)
 }
@@ -106,7 +106,7 @@ xml_find_first.xml_missing <- function(x, xpath, ns = xml_ns(x)) {
 
 #' @export
 xml_find_first.xml_node <- function(x, xpath, ns = xml_ns(x)) {
-  res <- xpath_search(x$node, x$doc, xpath = xpath, nsMap = ns, num_results = 1)
+  res <- .Call(xpath_search, x$node, x$doc, xpath, ns, 1)
   if (length(res) == 1) {
      res[[1]]
   } else {
@@ -132,7 +132,7 @@ xml_find_num <- function(x, xpath, ns = xml_ns(x)) {
 
 #' @export
 xml_find_num.xml_node <- function(x, xpath, ns = xml_ns(x)) {
-  res <- xpath_search(x$node, x$doc, xpath = xpath, nsMap = ns, num_results = Inf)
+  res <- .Call(xpath_search, x$node, x$doc, xpath, ns, Inf)
   if (!is.numeric(res)) {
     stop("result of type: ", sQuote(class(res)), ", not numeric", call. = FALSE)
   }
@@ -160,7 +160,7 @@ xml_find_chr <- function(x, xpath, ns = xml_ns(x)) {
 
 #' @export
 xml_find_chr.xml_node <- function(x, xpath, ns = xml_ns(x)) {
-  res <- xpath_search(x$node, x$doc, xpath = xpath, nsMap = ns, num_results = Inf)
+  res <- .Call(xpath_search, x$node, x$doc, xpath, ns, Inf)
   if (!is.character(res)) {
     stop("result of type: ", sQuote(class(res)), ", not character", call. = FALSE)
   }
@@ -188,7 +188,7 @@ xml_find_lgl <- function(x, xpath, ns = xml_ns(x)) {
 
 #' @export
 xml_find_lgl.xml_node <- function(x, xpath, ns = xml_ns(x)) {
-  res <- xpath_search(x$node, x$doc, xpath = xpath, nsMap = ns, num_results = Inf)
+  res <- .Call(xpath_search, x$node, x$doc, xpath, ns, Inf)
   if (!is.logical(res)) {
     stop("result of type: ", sQuote(class(res)), ", not logical", call. = FALSE)
   }
