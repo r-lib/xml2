@@ -98,7 +98,7 @@ xml_add_sibling.xml_missing <- function(.x, .value, ..., .where = c("after", "be
 create_node <- function(.value, ..., .parent, .copy) {
   if (inherits(.value, "xml_node")) {
     if (isTRUE(.copy)) {
-      .value$node <- node_copy(.value$node)
+      .value$node <- .Call(node_copy, .value$node)
     }
     return(.value)
   }

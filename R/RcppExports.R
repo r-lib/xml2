@@ -73,10 +73,6 @@ node_type <- function(node) {
     .Call(`_xml2_node_type`, node)
 }
 
-node_copy <- function(node) {
-    .Call(`_xml2_node_copy`, node)
-}
-
 node_set_content <- function(node, content) {
     invisible(.Call(`_xml2_node_set_content`, node, content))
 }
