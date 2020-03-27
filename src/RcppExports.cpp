@@ -136,18 +136,6 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// node_has_children
-bool node_has_children(XPtrNode node, bool onlyNode);
-RcppExport SEXP _xml2_node_has_children(SEXP nodeSEXP, SEXP onlyNodeSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< XPtrNode >::type node(nodeSEXP);
-    Rcpp::traits::input_parameter< bool >::type onlyNode(onlyNodeSEXP);
-    rcpp_result_gen = Rcpp::wrap(node_has_children(node, onlyNode));
-    return rcpp_result_gen;
-END_RCPP
-}
 // node_parents
 Rcpp::List node_parents(XPtrNode node);
 RcppExport SEXP _xml2_node_parents(SEXP nodeSEXP) {

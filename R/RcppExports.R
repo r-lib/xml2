@@ -45,10 +45,6 @@ node_length <- function(node, onlyNode = TRUE) {
     .Call(`_xml2_node_length`, node, onlyNode)
 }
 
-node_has_children <- function(node, onlyNode = TRUE) {
-    .Call(`_xml2_node_has_children`, node, onlyNode)
-}
-
 node_parents <- function(node) {
     .Call(`_xml2_node_parents`, node)
 }
