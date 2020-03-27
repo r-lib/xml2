@@ -145,18 +145,6 @@ BEGIN_RCPP
     return R_NilValue;
 END_RCPP
 }
-// node_replace
-XPtrNode node_replace(XPtrNode old, XPtrNode cur);
-RcppExport SEXP _xml2_node_replace(SEXP oldSEXP, SEXP curSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< XPtrNode >::type old(oldSEXP);
-    Rcpp::traits::input_parameter< XPtrNode >::type cur(curSEXP);
-    rcpp_result_gen = Rcpp::wrap(node_replace(old, cur));
-    return rcpp_result_gen;
-END_RCPP
-}
 // node_set_namespace_uri
 void node_set_namespace_uri(XPtrDoc doc, XPtrNode node, std::string uri);
 RcppExport SEXP _xml2_node_set_namespace_uri(SEXP docSEXP, SEXP nodeSEXP, SEXP uriSEXP) {

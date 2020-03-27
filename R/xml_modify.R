@@ -30,7 +30,7 @@ xml_replace.xml_node <- function(.x, .value, ..., .copy = TRUE) {
 
   node <- create_node(.value, .parent = .x, .copy = .copy, ...)
 
-  .x$node <- node_replace(.x$node, node$node)
+  .x$node <- .Call(node_replace, .x$node, node$node)
   node
 }
 
