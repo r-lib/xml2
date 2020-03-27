@@ -75,11 +75,11 @@ class NsMap {
   NsMap() {
   }
 
-  // Initialise from an existing character vector
-  NsMap(Rcpp::CharacterVector x) {
-    Rcpp::CharacterVector names = Rcpp::as<Rcpp::CharacterVector>(x.attr("names"));
-    for (R_len_t i = 0; i < x.size(); ++i) {
-      add(std::string(names[i]), std::string(x[i]));
+  // Initialise from an existing STRSXP
+  NsMap(SEXP x) {
+    SEXP names = Rf_getAttrib(x, R_NamesSymbol);
+    for (R_len_t i = 0; i < Rf_xlength(x); ++i) {
+      add(std::string(CHAR(STRING_ELT(names, i))), std::string(CHAR(STRING_ELT(x, i))));
     }
   }
 

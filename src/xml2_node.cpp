@@ -63,22 +63,35 @@ const xmlChar* xmlNsDefinition(xmlNodePtr node, const xmlChar* lookup) {
   return NULL;
 }
 
-// [[Rcpp::export]]
-SEXP node_attr(XPtrNode node, std::string name, CharacterVector missing,
-                 CharacterVector nsMap) {
-  if (missing.size() != 1)
-    Rcpp::stop("`missing` should be length 1");
-  SEXP missingVal = missing[0];
+// [[export]]
+//SEXP node_attr(XPtrNode node, std::string name, CharacterVector missing,
+                 //CharacterVector nsMap) {
+extern "C" SEXP node_attr(
+    SEXP node_sxp,
+    SEXP name_sxp,
+    SEXP missing_sxp,
+    SEXP nsMap_sxp) {
+
+  XPtrNode node(node_sxp);
+  std::string name(CHAR(STRING_ELT(name_sxp, 0)));
+
+  if (Rf_xlength(missing_sxp) != 1) {
+    Rf_error("`missing` should be length 1");
+  }
+
+  SEXP missingVal = STRING_ELT(missing_sxp, 0);
 
   if (name == "xmlns") {
-    return CharacterVector(Xml2String(xmlNsDefinition(node, NULL)).asRString(missingVal));
+    return Rf_ScalarString(Xml2String(xmlNsDefinition(node, NULL)).asRString(missingVal));
   }
+
   if (hasPrefix("xmlns:", name)) {
     std::string prefix = name.substr(6);
-    return CharacterVector(Xml2String(xmlNsDefinition(node, asXmlChar(prefix))).asRString(missingVal));
+    return Rf_ScalarString(Xml2String(xmlNsDefinition(node, asXmlChar(prefix))).asRString(missingVal));
   }
+
   xmlChar* string;
-  if (nsMap.size() == 0) {
+  if (Rf_xlength(nsMap_sxp) == 0) {
     string = xmlGetProp(node.checked_get(), asXmlChar(name));
   } else {
     size_t colon = name.find(":");
@@ -92,13 +105,13 @@ SEXP node_attr(XPtrNode node, std::string name, CharacterVector missing,
         prefix = name.substr(0, colon),
                attr = name.substr(colon + 1, name.size() - 1);
 
-      std::string url = NsMap(nsMap).findUrl(prefix);
+      std::string url = NsMap(nsMap_sxp).findUrl(prefix);
 
       string = xmlGetNsProp(node.checked_get(), asXmlChar(attr), asXmlChar(url));
     }
   }
 
-  return CharacterVector(Xml2String(string).asRString(missingVal));
+  return Rf_ScalarString(Xml2String(string).asRString(missingVal));
 }
 
 // [[Rcpp::export]]
