@@ -170,7 +170,7 @@ xml_add_child.xml_document <- function(.x, .value, ..., .where = length(xml_chil
   } else {
     node <- create_node(.value, .parent = .x, .copy = .copy, ...)
     if (!is.null(node)) {
-      if (!doc_has_root(.x$doc)) {
+      if (!.Call(doc_has_root, .x$doc)) {
         doc_set_root(.x$doc, node$node)
       }
       node_append_child(doc_root(.x$doc), node$node)

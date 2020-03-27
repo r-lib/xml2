@@ -133,7 +133,7 @@ xml_root <- function(x) {
       return(xml_root(x[[1]]))
     }
   }
-  if (!doc_has_root(x$doc)) {
+  if (!.Call(doc_has_root, x$doc)) {
     xml_missing()
   } else {
     xml_document(x$doc)
