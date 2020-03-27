@@ -38,7 +38,7 @@
 #' xml_child(x, 2)
 #' xml_child(x, "baz")
 xml_children <- function(x) {
-  nodeset_apply(x, node_children)
+  nodeset_apply(x, function(x) .Call(node_children, x, TRUE))
 }
 
 #' @export
@@ -60,7 +60,7 @@ xml_child <- function(x, search = 1, ns = xml_ns(x)) {
 #' @export
 #' @rdname xml_children
 xml_contents <- function(x) {
-  nodeset_apply(x, node_children, onlyNode = FALSE)
+  nodeset_apply(x, function(x) .Call(node_children, x, FALSE))
 }
 
 #' @export

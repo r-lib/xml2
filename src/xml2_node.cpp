@@ -382,21 +382,28 @@ void node_remove_attr(XPtrNode node_, std::string name, CharacterVector nsMap) {
   return;
 }
 
-List asList(std::vector<xmlNode*> nodes) {
-  List out(nodes.size());
-  for (size_t i = 0; i < nodes.size(); ++i)
-    out[i] = XPtrNode(nodes[i]);
+SEXP asList(std::vector<xmlNode*> nodes) {
+  SEXP out = Rf_allocVector(VECSXP, nodes.size());
+  for (size_t i = 0; i < nodes.size(); ++i) {
+    XPtrNode node(nodes[i]);
+    SET_VECTOR_ELT(out, i, SEXP(node));
+  }
 
   return out;
 }
 
-// [[Rcpp::export]]
-Rcpp::List node_children(XPtrNode node, bool onlyNode = true) {
+// [[export]]
+extern "C" SEXP node_children(SEXP node_sxp, SEXP only_node_sxp) {
+  XPtrNode node(node_sxp);
+  bool only_node = LOGICAL(only_node_sxp)[0];
+
   std::vector<xmlNode*> out;
 
   for(xmlNode* cur = node->xmlChildrenNode; cur != NULL; cur = cur->next) {
-    if (onlyNode && cur->type != XML_ELEMENT_NODE)
+    if (only_node && cur->type != XML_ELEMENT_NODE) {
       continue;
+    }
+
     out.push_back(cur);
   }
 
