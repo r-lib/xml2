@@ -22,8 +22,10 @@ void cache_namespace(xmlNode* node, NsMap* nsMap) {
     cache_namespace(cur, nsMap);
 }
 
-// [[Rcpp::export]]
-CharacterVector doc_namespaces(XPtrDoc doc) {
+// [[export]]
+extern "C" SEXP doc_namespaces(SEXP doc_sxp) {
+  XPtrDoc doc(doc_sxp);
+
   NsMap nsMap;
 
   xmlNode* root = xmlDocGetRootElement(doc.checked_get());

@@ -117,8 +117,21 @@ class NsMap {
     return true;
   }
 
-  Rcpp::CharacterVector out() {
-    return Rcpp::wrap(prefix2url);
+  SEXP out() {
+    SEXP out = PROTECT(Rf_allocVector(STRSXP, prefix2url.size()));
+    SEXP names = PROTECT(Rf_allocVector(STRSXP, prefix2url.size()));
+
+    size_t i = 0;
+    for (prefix2url_t::const_iterator it = prefix2url.begin(); it != prefix2url.end(); ++it) {
+      SET_STRING_ELT(out, i, Rf_mkChar(it->second.c_str()));
+      SET_STRING_ELT(names, i, Rf_mkChar(it->first.c_str()));
+      ++i;
+    }
+
+    Rf_setAttrib(out, R_NamesSymbol, names);
+
+    UNPROTECT(2);
+    return out;
   }
 };
 #endif

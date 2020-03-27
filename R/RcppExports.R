@@ -45,10 +45,6 @@ unique_ns <- function(ns) {
     .Call(`_xml2_unique_ns`, ns)
 }
 
-doc_namespaces <- function(doc) {
-    .Call(`_xml2_doc_namespaces`, doc)
-}
-
 ns_lookup_uri <- function(doc, node, uri) {
     .Call(`_xml2_ns_lookup_uri`, doc, node, uri)
 }
