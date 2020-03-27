@@ -578,9 +578,14 @@ extern "C" SEXP node_prepend_child(SEXP parent_sxp, SEXP cur_sxp) {
 }
 
 // Previous sibling
-// [[Rcpp::export]]
-XPtrNode node_prepend_sibling(XPtrNode cur, XPtrNode elem) {
-  return XPtrNode(xmlAddPrevSibling(cur.checked_get(), elem.checked_get()));
+// [[export]]
+extern "C" SEXP node_prepend_sibling(SEXP cur_sxp, SEXP elem_sxp) {
+  XPtrNode cur(cur_sxp);
+  XPtrNode elem(elem_sxp);
+
+  XPtrNode out(xmlAddPrevSibling(cur.checked_get(), elem.checked_get()));
+
+  return SEXP(out);
 }
 
 // Append sibling

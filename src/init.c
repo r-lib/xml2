@@ -43,7 +43,7 @@ extern SEXP node_parent(SEXP);
 extern SEXP node_parents(SEXP);
 extern SEXP node_path(SEXP);
 extern SEXP node_prepend_child(SEXP, SEXP);
-extern SEXP _xml2_node_prepend_sibling(SEXP, SEXP);
+extern SEXP node_prepend_sibling(SEXP, SEXP);
 extern SEXP _xml2_node_remove(SEXP, SEXP);
 extern SEXP _xml2_node_remove_attr(SEXP, SEXP, SEXP);
 extern SEXP _xml2_node_replace(SEXP, SEXP);
@@ -108,7 +108,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"node_parents",              (DL_FUNC) &node_parents,              1},
     {"node_path",                 (DL_FUNC) &node_path,                 1},
     {"node_prepend_child",        (DL_FUNC) &node_prepend_child,        2},
-    {"_xml2_node_prepend_sibling",      (DL_FUNC) &_xml2_node_prepend_sibling,      2},
+    {"node_prepend_sibling",      (DL_FUNC) &node_prepend_sibling,      2},
     {"_xml2_node_remove",               (DL_FUNC) &_xml2_node_remove,               2},
     {"_xml2_node_remove_attr",          (DL_FUNC) &_xml2_node_remove_attr,          3},
     {"_xml2_node_replace",              (DL_FUNC) &_xml2_node_replace,              2},
