@@ -33,7 +33,7 @@ xml_name.xml_nodeset <- function(x, ns = character()) {
 
 #' @export
 xml_name.xml_node <- function(x, ns = character()) {
-  node_name(x$node, nsMap = ns)
+  .Call(node_name, x$node, ns)
 }
 
 #' Modify the (tag) name of an element
