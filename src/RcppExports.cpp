@@ -65,17 +65,6 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// node_text
-CharacterVector node_text(XPtrNode node);
-RcppExport SEXP _xml2_node_text(SEXP nodeSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< XPtrNode >::type node(nodeSEXP);
-    rcpp_result_gen = Rcpp::wrap(node_text(node));
-    return rcpp_result_gen;
-END_RCPP
-}
 // nodes_duplicated
 LogicalVector nodes_duplicated(List nodes);
 RcppExport SEXP _xml2_nodes_duplicated(SEXP nodesSEXP) {

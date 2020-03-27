@@ -38,11 +38,11 @@ extern "C" SEXP node_set_name(SEXP node_sxp, SEXP value) {
   return R_NilValue;
 }
 
-// [[Rcpp::export]]
-CharacterVector node_text(XPtrNode node) {
-  std::string text = Xml2String(xmlNodeGetContent(node.checked_get())).asStdString();
+// [[export]]
+extern "C" SEXP node_text(SEXP node_sxp) {
+  XPtrNode node(node_sxp);
 
-  return asCharacterVector(text.c_str());
+  return Rf_ScalarString(Xml2String(xmlNodeGetContent(node.checked_get())).asRString());
 }
 
 bool hasPrefix(std::string lhs, std::string rhs) {
