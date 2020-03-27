@@ -293,7 +293,7 @@ xml_set_namespace <- function(.x, prefix = "", uri = "") {
 #' @export
 # TODO: jimhester 2016-12-16 Deprecate this in the future?
 xml_new_document <- function(version = "1.0", encoding = "UTF-8") {
-  doc <- doc_new(version)
+  doc <- .Call(doc_new, version, encoding)
   structure(list(doc = doc), class = "xml_document")
 }
 

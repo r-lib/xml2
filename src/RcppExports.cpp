@@ -79,18 +79,6 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// doc_new
-XPtrDoc doc_new(std::string version, std::string encoding);
-RcppExport SEXP _xml2_doc_new(SEXP versionSEXP, SEXP encodingSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< std::string >::type version(versionSEXP);
-    Rcpp::traits::input_parameter< std::string >::type encoding(encodingSEXP);
-    rcpp_result_gen = Rcpp::wrap(doc_new(version, encoding));
-    return rcpp_result_gen;
-END_RCPP
-}
 // doc_set_root
 XPtrNode doc_set_root(XPtrDoc doc, XPtrNode root);
 RcppExport SEXP _xml2_doc_set_root(SEXP docSEXP, SEXP rootSEXP) {
