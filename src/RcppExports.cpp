@@ -99,19 +99,6 @@ BEGIN_RCPP
     return R_NilValue;
 END_RCPP
 }
-// node_write_connection
-void node_write_connection(XPtrNode x, SEXP connection, std::string encoding, int options);
-RcppExport SEXP _xml2_node_write_connection(SEXP xSEXP, SEXP connectionSEXP, SEXP encodingSEXP, SEXP optionsSEXP) {
-BEGIN_RCPP
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< XPtrNode >::type x(xSEXP);
-    Rcpp::traits::input_parameter< SEXP >::type connection(connectionSEXP);
-    Rcpp::traits::input_parameter< std::string >::type encoding(encodingSEXP);
-    Rcpp::traits::input_parameter< int >::type options(optionsSEXP);
-    node_write_connection(x, connection, encoding, options);
-    return R_NilValue;
-END_RCPP
-}
 // url_absolute
 CharacterVector url_absolute(CharacterVector x, CharacterVector base);
 RcppExport SEXP _xml2_url_absolute(SEXP xSEXP, SEXP baseSEXP) {
