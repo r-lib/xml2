@@ -90,8 +90,11 @@ void doc_write_file(XPtrDoc x, std::string path, std::string encoding = "UTF-8",
   }
 }
 
-// [[Rcpp::export]]
-void doc_write_connection(XPtrDoc x, SEXP connection, std::string encoding = "UTF-8", int options = 1) {
+// [[export]]
+extern "C" SEXP doc_write_connection(SEXP doc_sxp, SEXP connection, SEXP encoding_sxp, SEXP options_sxp) {
+  XPtrDoc doc(doc_sxp);
+  const char* encoding = CHAR(STRING_ELT(encoding_sxp, 0));
+  int options = INTEGER(options_sxp)[0];
 
   SEXP con = R_GetConnection(connection);
 
@@ -99,13 +102,15 @@ void doc_write_connection(XPtrDoc x, SEXP connection, std::string encoding = "UT
       reinterpret_cast<xmlOutputWriteCallback>(xml_write_callback),
       NULL,
       con,
-      encoding.c_str(),
+      encoding,
       options);
 
-  xmlSaveDoc(savectx, x.checked_get());
+  xmlSaveDoc(savectx, doc.checked_get());
   if (xmlSaveClose(savectx) == -1) {
-    stop("Error closing connection");
+    Rf_error("Error closing connection");
   }
+
+  return R_NilValue;
 }
 
 // [[export]]
