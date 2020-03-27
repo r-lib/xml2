@@ -33,10 +33,6 @@ node_text <- function(node) {
     .Call(`_xml2_node_text`, node)
 }
 
-node_attr <- function(node, name, missing, nsMap) {
-    .Call(`_xml2_node_attr`, node, name, missing, nsMap)
-}
-
 node_attrs <- function(node_, nsMap) {
     .Call(`_xml2_node_attrs`, node_, nsMap)
 }

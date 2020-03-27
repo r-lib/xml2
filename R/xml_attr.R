@@ -71,7 +71,7 @@ xml_attr.xml_missing <- function(x, attr, ns = character(), default = NA_charact
 #' @export
 xml_attr.xml_node <- function(x, attr, ns = character(),
                               default = NA_character_) {
-  node_attr(x$node, name = attr, missing = default, nsMap = ns)
+  .Call(node_attr, x$node, attr, as.character(default), ns)
 }
 
 #' @export
