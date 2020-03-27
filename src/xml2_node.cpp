@@ -540,9 +540,13 @@ extern "C" SEXP node_copy(SEXP node_sxp) {
   return SEXP(copy);
 }
 
-// [[Rcpp::export]]
-void node_set_content(XPtrNode node, std::string content) {
-  return xmlNodeSetContentLen(node.checked_get(), asXmlChar(content), content.size());
+// [[export]]
+extern "C" SEXP node_set_content(SEXP node_sxp, SEXP content) {
+  XPtrNode node(node_sxp);
+
+  xmlNodeSetContentLen(node.checked_get(), asXmlChar(content), Rf_xlength(STRING_ELT(content, 0)));
+
+  return R_NilValue;
 }
 
 // [[export]]

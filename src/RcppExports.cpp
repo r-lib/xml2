@@ -121,17 +121,6 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// node_set_content
-void node_set_content(XPtrNode node, std::string content);
-RcppExport SEXP _xml2_node_set_content(SEXP nodeSEXP, SEXP contentSEXP) {
-BEGIN_RCPP
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< XPtrNode >::type node(nodeSEXP);
-    Rcpp::traits::input_parameter< std::string >::type content(contentSEXP);
-    node_set_content(node, content);
-    return R_NilValue;
-END_RCPP
-}
 // node_set_namespace_uri
 void node_set_namespace_uri(XPtrDoc doc, XPtrNode node, std::string uri);
 RcppExport SEXP _xml2_node_set_namespace_uri(SEXP docSEXP, SEXP nodeSEXP, SEXP uriSEXP) {
