@@ -9,10 +9,6 @@ xml_parse_options <- function() {
     .Call(`_xml2_xml_parse_options`)
 }
 
-doc_url <- function(x) {
-    .Call(`_xml2_doc_url`, x)
-}
-
 init_libxml2 <- function() {
     invisible(.Call(`_xml2_init_libxml2`))
 }

@@ -260,10 +260,19 @@ extern "C" SEXP doc_has_root(SEXP x_sxp) {
   return Rf_ScalarLogical(xmlDocGetRootElement(x.get()) != NULL);
 }
 
-// [[Rcpp::export]]
-CharacterVector doc_url(XPtrDoc x) {
-  SEXP string = (x->URL == NULL) ? NA_STRING : Rf_mkCharCE((const char*) x->URL, CE_UTF8);
-  return CharacterVector(string);
+// [[export]]
+extern "C" SEXP  doc_url(SEXP doc_sxp) {
+
+  XPtrDoc doc(doc_sxp);
+  if (doc->URL == NULL) {
+    return NA_STRING;
+  }
+
+  SEXP out = PROTECT(Rf_allocVector(STRSXP, 1));
+  SET_STRING_ELT(out, 0, Rf_mkCharCE((const char*) doc->URL, CE_UTF8));
+  UNPROTECT(1);
+
+  return out;
 }
 
 // [[export]]
