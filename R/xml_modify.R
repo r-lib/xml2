@@ -148,10 +148,12 @@ xml_add_child.xml_node <- function(.x, .value, ..., .where = length(xml_children
   node <- create_node(.value, .parent = .x, .copy = .copy, ...)
 
   if (.where == 0L) {
-    if(node_has_children(.x$node))
+    if(.Call(node_has_children, .x$node, TRUE)) {
       node_prepend_child(.x$node, node$node)
-    else
+    }
+    else {
       .Call(node_append_child, .x$node, node$node)
+    }
   } else {
     num_children <- length(xml_children(.x))
     if (.where >= num_children) {
