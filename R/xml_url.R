@@ -23,10 +23,10 @@ xml_url.xml_missing <- function(x) {
 
 #' @export
 xml_url.xml_node <- function(x) {
-  doc_url(x$doc)
+  .Call(doc_url, x$doc)
 }
 
 #' @export
 xml_url.xml_nodeset <- function(x) {
-  vapply(x, doc_url, character(1))
+  vapply(x, function(x) .Call(doc_url, x), character(1))
 }
