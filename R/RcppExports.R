@@ -109,10 +109,6 @@ node_new <- function(name) {
     .Call(`_xml2_node_new`, name)
 }
 
-node_cdata_new <- function(doc, content) {
-    .Call(`_xml2_node_cdata_new`, doc, content)
-}
-
 node_comment_new <- function(content) {
     .Call(`_xml2_node_comment_new`, content)
 }
