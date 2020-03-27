@@ -667,16 +667,21 @@ void node_set_namespace_uri(XPtrDoc doc, XPtrNode node, std::string uri) {
   xmlSetNs(node.checked_get(), ns);
 }
 
-// [[Rcpp::export]]
-void node_set_namespace_prefix(XPtrDoc doc, XPtrNode node, std::string prefix) {
+// [[export]]
+extern "C" SEXP node_set_namespace_prefix(SEXP doc_sxp, SEXP node_sxp, SEXP prefix_sxp) {
+  XPtrDoc doc(doc_sxp);
+  XPtrNode node(node_sxp);
+
   xmlNsPtr ns = NULL;
-  if (prefix.length() == 0) {
+  if (Rf_xlength(STRING_ELT(prefix_sxp, 0)) == 0) {
     ns = xmlSearchNs(doc.checked_get(), node.checked_get(), NULL);
   } else {
-    ns = xmlSearchNs(doc.checked_get(), node.checked_get(), asXmlChar(prefix));
+    ns = xmlSearchNs(doc.checked_get(), node.checked_get(), asXmlChar(prefix_sxp));
   }
 
   xmlSetNs(node.checked_get(), ns);
+
+  return R_NilValue;
 }
 
 // [[export]]

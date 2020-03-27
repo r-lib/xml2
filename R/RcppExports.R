@@ -41,10 +41,6 @@ node_set_namespace_uri <- function(doc, node, uri) {
     invisible(.Call(`_xml2_node_set_namespace_uri`, doc, node, uri))
 }
 
-node_set_namespace_prefix <- function(doc, node, prefix) {
-    invisible(.Call(`_xml2_node_set_namespace_prefix`, doc, node, prefix))
-}
-
 xml_save_options <- function() {
     .Call(`_xml2_xml_save_options`)
 }

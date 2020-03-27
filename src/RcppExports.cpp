@@ -122,18 +122,6 @@ BEGIN_RCPP
     return R_NilValue;
 END_RCPP
 }
-// node_set_namespace_prefix
-void node_set_namespace_prefix(XPtrDoc doc, XPtrNode node, std::string prefix);
-RcppExport SEXP _xml2_node_set_namespace_prefix(SEXP docSEXP, SEXP nodeSEXP, SEXP prefixSEXP) {
-BEGIN_RCPP
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< XPtrDoc >::type doc(docSEXP);
-    Rcpp::traits::input_parameter< XPtrNode >::type node(nodeSEXP);
-    Rcpp::traits::input_parameter< std::string >::type prefix(prefixSEXP);
-    node_set_namespace_prefix(doc, node, prefix);
-    return R_NilValue;
-END_RCPP
-}
 // xml_save_options
 Rcpp::IntegerVector xml_save_options();
 RcppExport SEXP _xml2_xml_save_options() {
