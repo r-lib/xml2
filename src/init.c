@@ -18,7 +18,7 @@ extern SEXP doc_root(SEXP);
 extern SEXP doc_set_root(SEXP, SEXP);
 extern SEXP doc_url(SEXP);
 extern SEXP doc_validate(SEXP, SEXP);
-extern SEXP _xml2_doc_write_character(SEXP, SEXP, SEXP);
+extern SEXP doc_write_character(SEXP, SEXP, SEXP);
 extern SEXP _xml2_doc_write_connection(SEXP, SEXP, SEXP, SEXP);
 extern SEXP _xml2_doc_write_file(SEXP, SEXP, SEXP, SEXP);
 extern SEXP _xml2_init_libxml2();
@@ -84,7 +84,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"doc_set_root",              (DL_FUNC) &doc_set_root,              2},
     {"doc_url",                   (DL_FUNC) &doc_url,                   1},
     {"doc_validate",              (DL_FUNC) &doc_validate,              2},
-    {"_xml2_doc_write_character",       (DL_FUNC) &_xml2_doc_write_character,       3},
+    {"doc_write_character",       (DL_FUNC) &doc_write_character,       3},
     {"_xml2_doc_write_connection",      (DL_FUNC) &_xml2_doc_write_connection,      4},
     {"_xml2_doc_write_file",            (DL_FUNC) &_xml2_doc_write_file,            4},
     {"_xml2_init_libxml2",              (DL_FUNC) &_xml2_init_libxml2,              0},

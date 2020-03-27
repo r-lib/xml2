@@ -108,22 +108,31 @@ void doc_write_connection(XPtrDoc x, SEXP connection, std::string encoding = "UT
   }
 }
 
-// [[Rcpp::export]]
-CharacterVector doc_write_character(XPtrDoc x, std::string encoding = "UTF-8", int options = 1) {
+// [[export]]
+extern "C" SEXP doc_write_character(SEXP doc_sxp, SEXP encoding_sxp, SEXP options_sxp) {
+  XPtrDoc doc(doc_sxp);
+  const char* encoding = CHAR(STRING_ELT(encoding_sxp, 0));
+  int options = INTEGER(options_sxp)[0];
+
   xmlBufferPtr buffer = xmlBufferCreate();
 
   xmlSaveCtxtPtr savectx = xmlSaveToBuffer(
       buffer,
-      encoding.c_str(),
+      encoding,
       options);
 
-  xmlSaveDoc(savectx, x.checked_get());
+  xmlSaveDoc(savectx, doc.checked_get());
   if (xmlSaveClose(savectx) == -1) {
     xmlFree(buffer);
-    stop("Error writing to buffer");
+    Rf_error("Error writing to buffer");
   }
-  CharacterVector out(Xml2String(buffer->content).asRString());
+  SEXP out = PROTECT(Rf_allocVector(STRSXP, 1));
+  SET_STRING_ELT(out, 0, Xml2String(buffer->content).asRString());
+
   xmlFree(buffer);
+
+  UNPROTECT(1);
+
   return out;
 }
 
