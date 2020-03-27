@@ -8,10 +8,11 @@ using namespace Rcpp;
 #include "xml2_utils.h"
 
 template<typename T> // for xmlAttr and xmlNode
-std::string nodeName(T* node, CharacterVector nsMap) {
+std::string nodeName(T* node, SEXP nsMap) {
   std::string name = Xml2String(node->name).asStdString();
-  if (nsMap.size() == 0)
+  if (Rf_xlength(nsMap) == 0) {
     return name;
+  }
 
   xmlNs* ns = node->ns;
   if (ns == NULL)
@@ -64,8 +65,6 @@ const xmlChar* xmlNsDefinition(xmlNodePtr node, const xmlChar* lookup) {
 }
 
 // [[export]]
-//SEXP node_attr(XPtrNode node, std::string name, CharacterVector missing,
-                 //CharacterVector nsMap) {
 extern "C" SEXP node_attr(
     SEXP node_sxp,
     SEXP name_sxp,
@@ -114,8 +113,10 @@ extern "C" SEXP node_attr(
   return Rf_ScalarString(Xml2String(string).asRString(missingVal));
 }
 
-// [[Rcpp::export]]
-CharacterVector node_attrs(XPtrNode node_, CharacterVector nsMap) {
+// [[export]]
+extern "C" SEXP node_attrs(SEXP node_sxp, SEXP nsMap_sxp) {
+
+  XPtrNode node_(node_sxp);
 
   int n = 0;
   xmlNodePtr node = node_.checked_get();
@@ -129,38 +130,43 @@ CharacterVector node_attrs(XPtrNode node_, CharacterVector nsMap) {
     for(xmlNsPtr cur = node->nsDef; cur != NULL; cur = cur->next)
       n++;
 
-    CharacterVector names(n), values(n);
+    SEXP names = PROTECT(Rf_allocVector(STRSXP, n));
+    SEXP values = PROTECT(Rf_allocVector(STRSXP, n));
 
     int i = 0;
     for(xmlAttr* cur = node->properties; cur != NULL; cur = cur->next, ++i) {
-      names[i] = nodeName(cur, nsMap);
+      std::string name = nodeName(cur, nsMap_sxp);
+      SET_STRING_ELT(names, i, Rf_mkCharLenCE(name.c_str(), name.size(), CE_UTF8));
 
       xmlNs* ns = cur->ns;
       if (ns == NULL) {
-        if (nsMap.size() > 0) {
-          values[i] = Xml2String(xmlGetNoNsProp(node, cur->name)).asRString();
+        if (Rf_xlength(nsMap_sxp) > 0) {
+          SET_STRING_ELT(values, i, Xml2String(xmlGetNoNsProp(node, cur->name)).asRString());
         } else {
-          values[i] = Xml2String(xmlGetProp(node, cur->name)).asRString();
+          SET_STRING_ELT(values, i, Xml2String(xmlGetProp(node, cur->name)).asRString());
         }
       } else {
-        values[i] = Xml2String(xmlGetNsProp(node, cur->name, ns->href)).asRString();
+        SET_STRING_ELT(values, i, Xml2String(xmlGetNsProp(node, cur->name, ns->href)).asRString());
       }
     }
 
     for(xmlNsPtr cur = node->nsDef; cur != NULL; cur = cur->next, ++i) {
       if (cur->prefix == NULL) {
-        names[i] = "xmlns";
+        SET_STRING_ELT(names, i, Rf_mkChar("xmlns"));
       } else {
-        names[i] = "xmlns:" + Xml2String(cur->prefix).asStdString();
+        std::string name = std::string("xmlns:") + Xml2String(cur->prefix).asStdString();
+        SET_STRING_ELT(names,i, Rf_mkCharLenCE(name.c_str(), name.size(), CE_UTF8));
       }
-      values[i] = Xml2String(cur->href).asRString();
+      SET_STRING_ELT(values, i, Xml2String(cur->href).asRString());
     }
 
-    values.attr("names") = wrap<CharacterVector>(names);
+    Rf_setAttrib(values, R_NamesSymbol, names);
+
+    UNPROTECT(2);
     return values;
   }
 
-  return CharacterVector();
+  return Rf_allocVector(STRSXP, 0);
 }
 
 
