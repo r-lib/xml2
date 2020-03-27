@@ -56,6 +56,6 @@ template <typename T> class XPtr {
 
 typedef Rcpp::XPtr<xmlDoc,Rcpp::PreserveStorage,xmlFreeDoc> XPtrDoc;
 typedef ::XPtr<xmlNode> XPtrNode;
-typedef Rcpp::XPtr<xmlNs,Rcpp::PreserveStorage,finaliseNs> XPtrNs;
+typedef ::XPtr<xmlNs> XPtrNs;
 
 #endif
