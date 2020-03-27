@@ -78,16 +78,24 @@ int xml_write_callback(SEXP con, const char * buffer, int len) {
   return write_size;
 }
 
-// [[Rcpp::export]]
-void doc_write_file(XPtrDoc x, std::string path, std::string encoding = "UTF-8", int options = 1) {
+// [[export]]
+extern "C" SEXP doc_write_file(SEXP doc_sxp, SEXP path_sxp, SEXP encoding_sxp, SEXP options_sxp) {
+
+  XPtrDoc doc(doc_sxp);
+  const char* path = CHAR(STRING_ELT(path_sxp, 0));
+  const char* encoding = CHAR(STRING_ELT(encoding_sxp, 0));
+  int options = INTEGER(options_sxp)[0];
+
   xmlSaveCtxtPtr savectx = xmlSaveToFilename(
-      path.c_str(),
-      encoding.c_str(),
+      path,
+      encoding,
       options);
-  xmlSaveDoc(savectx, x.checked_get());
+  xmlSaveDoc(savectx, doc.checked_get());
   if (xmlSaveClose(savectx) == -1) {
-    stop("Error closing file");
+    Rf_error("Error closing file");
   }
+
+  return R_NilValue;
 }
 
 // [[export]]

@@ -49,7 +49,7 @@ write_xml.xml_document <- function(x, file, ..., options = "format", encoding = 
     if (!(is.character(file) && length(file) == 1 && nzchar(file))) {
       stop("`file` must be a non-zero character of length 1", call. = FALSE)
     }
-    doc_write_file(x$doc, file, options = options, encoding = encoding)
+    .Call(doc_write_file, x$doc, file, encoding, options)
   }
 }
 
