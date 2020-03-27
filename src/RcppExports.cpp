@@ -28,17 +28,6 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// unique_ns
-CharacterVector unique_ns(CharacterVector ns);
-RcppExport SEXP _xml2_unique_ns(SEXP nsSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< CharacterVector >::type ns(nsSEXP);
-    rcpp_result_gen = Rcpp::wrap(unique_ns(ns));
-    return rcpp_result_gen;
-END_RCPP
-}
 // xml_save_options
 Rcpp::IntegerVector xml_save_options();
 RcppExport SEXP _xml2_xml_save_options() {
