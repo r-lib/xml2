@@ -107,7 +107,7 @@ read_xml.character <- function(x, encoding = "", ..., as_html = FALSE,
       read_xml.connection(con, encoding = encoding, ..., as_html = as_html,
         base_url = x, options = options)
     } else {
-      doc <- doc_parse_file(con, encoding = encoding, as_html = as_html,
+      doc <- .Call(doc_parse_file, con, encoding = encoding, as_html = as_html,
         options = options)
       xml_document(doc)
     }
