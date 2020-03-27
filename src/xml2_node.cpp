@@ -492,9 +492,13 @@ void node_set_content(XPtrNode node, std::string content) {
   return xmlNodeSetContentLen(node.checked_get(), asXmlChar(content), content.size());
 }
 
-// [[Rcpp::export]]
-void node_append_content(XPtrNode node, std::string content) {
-  return xmlNodeAddContentLen(node.checked_get(), asXmlChar(content), content.size());
+// [[export]]
+extern "C" SEXP node_append_content(SEXP node_sxp, SEXP content) {
+  XPtrNode node(node_sxp);
+
+  xmlNodeAddContentLen(node.checked_get(), asXmlChar(content), Rf_xlength(STRING_ELT(content, 0)));
+
+  return R_NilValue;
 }
 
 // [[Rcpp::export]]
