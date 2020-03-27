@@ -100,7 +100,7 @@ xml_attrs.xml_missing <- function(x, ns = character()) {
 
 #' @export
 xml_attrs.xml_node <- function(x, ns = character()) {
-  node_attrs(x$node, nsMap = ns)
+  .Call(node_attrs, x$node, nsMap = ns)
 }
 
 #' @export
