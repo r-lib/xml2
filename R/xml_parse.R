@@ -120,7 +120,7 @@ read_xml.raw <- function(x, encoding = "", base_url = "", ...,
                          as_html = FALSE, options = "NOBLANKS") {
   options <- parse_options(options, xml_parse_options())
 
-  doc <- doc_parse_raw(x, encoding = encoding, base_url = base_url,
+  doc <- .Call(doc_parse_raw, x, encoding = encoding, base_url = base_url,
     as_html = as_html, options = options)
   xml_document(doc)
 }

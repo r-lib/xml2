@@ -208,11 +208,19 @@ extern "C" SEXP doc_parse_file(
   return SEXP(XPtrDoc(pDoc));
 }
 
-// [[Rcpp::export]]
-XPtrDoc doc_parse_raw(RawVector x, std::string encoding,
-                      std::string base_url = "",
-                      bool as_html = false,
-                      int options = 0) {
+// [[export]]
+extern "C" SEXP doc_parse_raw(
+    SEXP x,
+    SEXP encoding_sxp,
+    SEXP base_url_sxp,
+    SEXP as_html_sxp,
+    SEXP options_sxp) {
+
+  std::string encoding(CHAR(STRING_ELT(encoding_sxp, 0)));
+  std::string base_url(CHAR(STRING_ELT(encoding_sxp, 0)));
+  bool as_html = LOGICAL(as_html_sxp)[0];
+  int options = INTEGER(options_sxp)[0];
+
   xmlDoc* pDoc;
   if (as_html) {
     pDoc = htmlReadMemory(
@@ -232,10 +240,11 @@ XPtrDoc doc_parse_raw(RawVector x, std::string encoding,
     );
   }
 
-  if (pDoc == NULL)
-    Rcpp::stop("Failed to parse text");
+  if (pDoc == NULL) {
+    Rf_error("Failed to parse text");
+  }
 
-  return XPtrDoc(pDoc);
+  return SEXP(XPtrDoc(pDoc));
 }
 
 // [[Rcpp::export]]
