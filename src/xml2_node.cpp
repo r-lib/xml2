@@ -345,22 +345,24 @@ void node_set_attr(XPtrNode node_, std::string name, SEXP value, CharacterVector
   return;
 }
 
-// [[Rcpp::export]]
-void node_remove_attr(XPtrNode node_, std::string name, CharacterVector nsMap) {
+// [[export]]
+extern "C" SEXP node_remove_attr(SEXP node_sxp, SEXP name_sxp, SEXP nsMap) {
+  XPtrNode node_(node_sxp);
+  std::string name(CHAR(STRING_ELT(name_sxp, 0)));
 
   const xmlNodePtr node = node_.checked_get();
 
   if (name == "xmlns") {
     removeNs(node, NULL);
-    return;
+    return R_NilValue;
   }
   if (hasPrefix("xmlns:", name)) {
     std::string prefix = name.substr(6);
     removeNs(node, asXmlChar(prefix));
-    return;
+    return R_NilValue;
   }
 
-  if (nsMap.size() == 0) {
+  if (Rf_xlength(nsMap) == 0) {
       xmlUnsetProp(node, asXmlChar(name));
   } else {
     size_t colon = name.find(":");
@@ -381,7 +383,7 @@ void node_remove_attr(XPtrNode node_, std::string name, CharacterVector nsMap) {
     }
   }
 
-  return;
+  return R_NilValue;
 }
 
 SEXP asList(std::vector<xmlNode*> nodes) {
