@@ -623,11 +623,6 @@ extern "C" SEXP node_new_ns(SEXP name, SEXP ns_sxp) {
 }
 
 // [[Rcpp::export]]
-XPtrNode node_null() {
-  return XPtrNode(xmlNodePtr(NULL));
-}
-
-// [[Rcpp::export]]
 void node_set_namespace_uri(XPtrDoc doc, XPtrNode node, std::string uri) {
   xmlNsPtr ns = xmlSearchNsByHref(doc.checked_get(), node.checked_get(), asXmlChar(uri));
 
