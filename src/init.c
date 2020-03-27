@@ -54,7 +54,7 @@ extern SEXP node_set_namespace_prefix(SEXP, SEXP, SEXP);
 extern SEXP node_set_namespace_uri(SEXP, SEXP, SEXP);
 extern SEXP node_siblings(SEXP, SEXP);
 extern SEXP node_text(SEXP);
-extern SEXP _xml2_node_type(SEXP);
+extern SEXP node_type(SEXP);
 extern SEXP _xml2_node_write_character(SEXP, SEXP, SEXP);
 extern SEXP _xml2_node_write_connection(SEXP, SEXP, SEXP, SEXP);
 extern SEXP _xml2_node_write_file(SEXP, SEXP, SEXP, SEXP);
@@ -119,7 +119,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"node_set_namespace_uri",    (DL_FUNC) &node_set_namespace_uri,    3},
     {"node_siblings",             (DL_FUNC) &node_siblings,             2},
     {"node_text",                 (DL_FUNC) &node_text,                 1},
-    {"_xml2_node_type",                 (DL_FUNC) &_xml2_node_type,                 1},
+    {"node_type",                 (DL_FUNC) &node_type,                 1},
     {"_xml2_node_write_character",      (DL_FUNC) &_xml2_node_write_character,      3},
     {"_xml2_node_write_connection",     (DL_FUNC) &_xml2_node_write_connection,     4},
     {"_xml2_node_write_file",           (DL_FUNC) &_xml2_node_write_file,           4},

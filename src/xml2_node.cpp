@@ -535,9 +535,11 @@ LogicalVector nodes_duplicated(List nodes) {
   return out;
 }
 
-// [[Rcpp::export]]
-int node_type(XPtrNode node) {
-  return node->type;
+// [[export]]
+extern "C" SEXP node_type(SEXP node_sxp) {
+  XPtrNode node(node_sxp);
+
+  return Rf_ScalarInteger(node->type);
 }
 
 // [[export]]
