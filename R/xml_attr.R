@@ -121,7 +121,7 @@ xml_attrs.xml_nodeset <- function(x, ns = character()) {
     .Call(node_remove_attr, x$node, attr, ns)
   } else {
     value <- as.character(value)
-    node_set_attr(x$node, name = attr, nsMap = ns, value)
+    .Call(node_set_attr, x$node, attr, value, ns)
   }
   x
 }
