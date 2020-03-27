@@ -71,6 +71,12 @@ url_escape <- function(x, reserved = "") {
   .Call(url_escape_, x, reserved)
 }
 
+#' @rdname url_escape
+#' @export
+url_unescape <- function(x) {
+  .Call(url_unescape_, x)
+}
+
 #' Parse a url into its component pieces.
 #'
 #' @param x A character vector of urls.

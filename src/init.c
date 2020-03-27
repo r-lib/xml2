@@ -67,7 +67,7 @@ extern SEXP url_absolute_(SEXP, SEXP);
 extern SEXP url_escape_(SEXP, SEXP);
 extern SEXP url_parse_(SEXP);
 extern SEXP url_relative_(SEXP, SEXP);
-extern SEXP _xml2_url_unescape(SEXP);
+extern SEXP url_unescape_(SEXP);
 extern SEXP _xml2_xml_parse_options();
 extern SEXP _xml2_xml_save_options();
 extern SEXP _xml2_xpath_search(SEXP, SEXP, SEXP, SEXP, SEXP);
@@ -132,7 +132,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"url_escape_",               (DL_FUNC) &url_escape_,               2},
     {"url_parse_",                (DL_FUNC) &url_parse_,                1},
     {"url_relative_",             (DL_FUNC) &url_relative_,             2},
-    {"_xml2_url_unescape",              (DL_FUNC) &_xml2_url_unescape,              1},
+    {"url_unescape_",              (DL_FUNC) &url_unescape_,              1},
     {"_xml2_xml_parse_options",         (DL_FUNC) &_xml2_xml_parse_options,         0},
     {"_xml2_xml_save_options",          (DL_FUNC) &_xml2_xml_save_options,          0},
     {"_xml2_xpath_search",              (DL_FUNC) &_xml2_xpath_search,              5},
