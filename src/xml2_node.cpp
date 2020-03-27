@@ -443,8 +443,10 @@ extern "C" SEXP node_has_children(SEXP node_sxp, SEXP only_node_sxp) {
   return Rf_ScalarLogical(false);
 }
 
-// [[Rcpp::export]]
-Rcpp::List node_parents(XPtrNode node) {
+// [[export]]
+extern "C" SEXP node_parents(SEXP node_sxp) {
+  XPtrNode node(node_sxp);
+
   std::vector<xmlNode*> out;
 
   for(xmlNode* cur = node->parent; cur != NULL; cur = cur->parent) {
