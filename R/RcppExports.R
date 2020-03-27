@@ -29,10 +29,6 @@ node_text <- function(node) {
     .Call(`_xml2_node_text`, node)
 }
 
-node_set_attr <- function(node_, name, value, nsMap) {
-    invisible(.Call(`_xml2_node_set_attr`, node_, name, value, nsMap))
-}
-
 node_siblings <- function(node, onlyNode = TRUE) {
     .Call(`_xml2_node_siblings`, node, onlyNode)
 }
