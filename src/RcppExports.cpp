@@ -190,17 +190,6 @@ BEGIN_RCPP
     return R_NilValue;
 END_RCPP
 }
-// node_new_text
-void node_new_text(XPtrNode node, std::string content);
-RcppExport SEXP _xml2_node_new_text(SEXP nodeSEXP, SEXP contentSEXP) {
-BEGIN_RCPP
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< XPtrNode >::type node(nodeSEXP);
-    Rcpp::traits::input_parameter< std::string >::type content(contentSEXP);
-    node_new_text(node, content);
-    return R_NilValue;
-END_RCPP
-}
 // node_prepend_child
 XPtrNode node_prepend_child(XPtrNode parent, XPtrNode cur);
 RcppExport SEXP _xml2_node_prepend_child(SEXP parentSEXP, SEXP curSEXP) {

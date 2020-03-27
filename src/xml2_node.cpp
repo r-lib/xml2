@@ -542,10 +542,13 @@ extern "C" SEXP node_append_content(SEXP node_sxp, SEXP content) {
   return R_NilValue;
 }
 
-// [[Rcpp::export]]
-void node_new_text(XPtrNode node, std::string content) {
-  xmlAddChild(node.checked_get(), xmlNewTextLen(asXmlChar(content), content.size()));
-  return;
+// [[export]]
+extern "C" SEXP node_new_text(SEXP node_sxp, SEXP content) {
+  XPtrNode node(node_sxp);
+
+  xmlAddChild(node.checked_get(), xmlNewTextLen(asXmlChar(content), Rf_xlength(STRING_ELT(content, 0))));
+
+  return R_NilValue;
 }
 
 // [[export]]
