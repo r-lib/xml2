@@ -72,7 +72,7 @@ xml_parents <- function(x) {
 #' @export
 #' @rdname xml_children
 xml_siblings <- function(x) {
-  nodeset_apply(x, node_siblings)
+  nodeset_apply(x, function(x) .Call(node_siblings, x, TRUE))
 }
 
 #' @export

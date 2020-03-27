@@ -466,8 +466,11 @@ extern "C" SEXP node_parents(SEXP node_sxp) {
   return asList(out);
 }
 
-// [[Rcpp::export]]
-Rcpp::List node_siblings(XPtrNode node, bool onlyNode = true) {
+// [[export]]
+extern "C" SEXP node_siblings(SEXP node_sxp, SEXP only_node_sxp) {
+  XPtrNode node(node_sxp);
+  bool only_node = LOGICAL(only_node_sxp)[0];
+
   std::vector<xmlNode*> out;
 
   xmlNode* parent = node->parent;
@@ -475,10 +478,12 @@ Rcpp::List node_siblings(XPtrNode node, bool onlyNode = true) {
     return List();
 
   for(xmlNode* cur = parent->xmlChildrenNode; cur != NULL; cur = cur->next) {
-    if (cur == node)
+    if (cur == node) {
       continue;
-    if (onlyNode && cur->type != XML_ELEMENT_NODE)
+    }
+    if (only_node && cur->type != XML_ELEMENT_NODE) {
       continue;
+    }
 
     out.push_back(cur);
   }
