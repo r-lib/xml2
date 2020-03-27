@@ -35,7 +35,7 @@ print.xml_missing <- function(x, width = getOption("width"), max_n = 20, ...) {
 
 xml_document <- function(doc) {
   if (.Call(doc_has_root, doc)) {
-    x <- xml_node(doc_root(doc), doc)
+    x <- xml_node(.Call(doc_root, doc), doc)
     class(x) <- c("xml_document", class(x))
     x
   } else {

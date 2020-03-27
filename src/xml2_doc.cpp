@@ -247,9 +247,11 @@ extern "C" SEXP doc_parse_raw(
   return SEXP(XPtrDoc(pDoc));
 }
 
-// [[Rcpp::export]]
-XPtrNode doc_root(XPtrDoc x) {
-  return XPtrNode(xmlDocGetRootElement(x.checked_get()));
+// [[export]]
+extern "C" SEXP doc_root(SEXP x) {
+  XPtrDoc doc(x);
+  XPtrNode node(xmlDocGetRootElement(doc.checked_get()));
+  return SEXP(node);
 }
 
 // [[export]]
