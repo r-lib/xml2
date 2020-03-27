@@ -104,7 +104,7 @@ create_node <- function(.value, ..., .parent, .copy) {
   }
 
   if (inherits(.value, "xml_cdata")) {
-    return(xml_node(node_cdata_new(.parent$doc, .value), doc = .parent$doc))
+    return(xml_node(.Call(node_cdata_new, .parent$doc, .value), doc = .parent$doc))
   }
 
   if (inherits(.value, "xml_comment")) {

@@ -576,9 +576,11 @@ XPtrNode node_new(std::string name) {
 }
 
 
-// [[Rcpp::export]]
-XPtrNode node_cdata_new(XPtrDoc doc, std::string content) {
-  return XPtrNode(xmlNewCDataBlock(doc.checked_get(), asXmlChar(content), content.length()));
+// [[export]]
+extern "C" SEXP node_cdata_new(SEXP doc_sxp, SEXP content_sxp) {
+  XPtrDoc doc(doc_sxp);
+  XPtrNode node(xmlNewCDataBlock(doc.checked_get(), asXmlChar(content_sxp), Rf_xlength(STRING_ELT(content_sxp, 0))));
+  return SEXP(node);
 }
 
 // [[Rcpp::export]]
