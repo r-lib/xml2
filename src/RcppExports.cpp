@@ -112,19 +112,6 @@ BEGIN_RCPP
     return R_NilValue;
 END_RCPP
 }
-// node_write_character
-CharacterVector node_write_character(XPtrNode x, std::string encoding, int options);
-RcppExport SEXP _xml2_node_write_character(SEXP xSEXP, SEXP encodingSEXP, SEXP optionsSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< XPtrNode >::type x(xSEXP);
-    Rcpp::traits::input_parameter< std::string >::type encoding(encodingSEXP);
-    Rcpp::traits::input_parameter< int >::type options(optionsSEXP);
-    rcpp_result_gen = Rcpp::wrap(node_write_character(x, encoding, options));
-    return rcpp_result_gen;
-END_RCPP
-}
 // url_absolute
 CharacterVector url_absolute(CharacterVector x, CharacterVector base);
 RcppExport SEXP _xml2_url_absolute(SEXP xSEXP, SEXP baseSEXP) {

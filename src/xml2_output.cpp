@@ -179,21 +179,27 @@ void node_write_connection(XPtrNode x, SEXP connection, std::string encoding = "
   }
 }
 
-// [[Rcpp::export]]
-CharacterVector node_write_character(XPtrNode x, std::string encoding = "UTF-8", int options = 1) {
+// [[export]]
+extern "C" SEXP node_write_character(SEXP node_sxp, SEXP encoding_sxp, SEXP options_sxp) {
+  XPtrNode node(node_sxp);
+  const char* encoding = CHAR(STRING_ELT(encoding_sxp, 0));
+  int options = INTEGER(options_sxp)[0];
+
   xmlBufferPtr buffer = xmlBufferCreate();
 
   xmlSaveCtxtPtr savectx = xmlSaveToBuffer(
       buffer,
-      encoding.c_str(),
+      encoding,
       options);
 
-  xmlSaveTree(savectx, x.checked_get());
+  xmlSaveTree(savectx, node.checked_get());
   if (xmlSaveClose(savectx) == -1) {
     xmlFree(buffer);
-    stop("Error writing to buffer");
+    Rf_error("Error writing to buffer");
   }
-  CharacterVector out(Xml2String(buffer->content).asRString());
+  SEXP out = PROTECT(Rf_ScalarString(Xml2String(buffer->content).asRString()));
   xmlFree(buffer);
+
+  UNPROTECT(1);
   return out;
 }
