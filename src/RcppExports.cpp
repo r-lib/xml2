@@ -38,18 +38,6 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// url_absolute
-CharacterVector url_absolute(CharacterVector x, CharacterVector base);
-RcppExport SEXP _xml2_url_absolute(SEXP xSEXP, SEXP baseSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< CharacterVector >::type x(xSEXP);
-    Rcpp::traits::input_parameter< CharacterVector >::type base(baseSEXP);
-    rcpp_result_gen = Rcpp::wrap(url_absolute(x, base));
-    return rcpp_result_gen;
-END_RCPP
-}
 // url_relative
 CharacterVector url_relative(CharacterVector x, CharacterVector base);
 RcppExport SEXP _xml2_url_relative(SEXP xSEXP, SEXP baseSEXP) {

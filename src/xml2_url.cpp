@@ -4,34 +4,23 @@ using namespace Rcpp;
 #include <libxml/uri.h>
 #include "xml2_utils.h"
 
-//' Convert between relative and absolute urls.
-//'
-//' @param x A character vector of urls relative to that base
-//' @param base A string giving a base url.
-//' @return A character vector of urls
-//' @seealso \code{\link{xml_url}} to retrieve the URL associated with a document
-//' @export
-//' @examples
-//' url_absolute(c(".", "..", "/", "/x"), "http://hadley.nz/a/b/c/d")
-//'
-//' url_relative("http://hadley.nz/a/c", "http://hadley.nz")
-//' url_relative("http://hadley.nz/a/c", "http://hadley.nz/")
-//' url_relative("http://hadley.nz/a/c", "http://hadley.nz/a/b")
-//' url_relative("http://hadley.nz/a/c", "http://hadley.nz/a/b/")
-// [[Rcpp::export]]
-CharacterVector url_absolute(CharacterVector x, CharacterVector base) {
-  int n = x.size();
-  CharacterVector out(n);
+// [[export]]
+extern "C" SEXP url_absolute_(SEXP x_sxp, SEXP base_sxp) {
+  R_xlen_t n = Rf_xlength(x_sxp);
+  SEXP out = PROTECT(Rf_allocVector(STRSXP, n));
 
-  if (base.size() > 1)
-    Rcpp::stop("Base URL must be length 1");
-  const xmlChar* base_uri = (xmlChar*) Rf_translateCharUTF8(base[0]);
-
-  for (int i = 0; i < n; ++i) {
-    const xmlChar* uri = (xmlChar*) Rf_translateCharUTF8(x[i]);
-    out[i] = Xml2String(xmlBuildURI(uri, base_uri)).asRString();
+  if (Rf_xlength(base_sxp) > 1) {
+    Rf_error("Base URL must be length 1");
   }
 
+  const xmlChar* base_uri = (xmlChar*) Rf_translateCharUTF8(STRING_ELT(base_sxp, 0));
+
+  for (int i = 0; i < n; ++i) {
+    const xmlChar* uri = (xmlChar*) Rf_translateCharUTF8(STRING_ELT(x_sxp, i));
+    SET_STRING_ELT(out, i, Xml2String(xmlBuildURI(uri, base_uri)).asRString());
+  }
+
+  UNPROTECT(1);
   return out;
 }
 
