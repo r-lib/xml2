@@ -2,15 +2,8 @@
 #define __XML2_XML2_TYPES__
 
 #include <libxml/tree.h>
-#include <Rcpp.h>
-
-inline void finaliseNode(xmlNodePtr node) {
-  // do nothing
-}
-
-inline void finaliseNs(xmlNsPtr ns) {
-  // do nothing
-}
+#define R_NO_REMAP
+#include <Rinternals.h>
 
 template <typename T> class XPtr {
   protected:
@@ -81,7 +74,6 @@ class XPtrDoc : public ::XPtr<xmlDoc> {
   XPtrDoc(SEXP x) : ::XPtr<xmlDoc>(x) {}
 };
 
-//typedef Rcpp::XPtr<xmlDoc,Rcpp::PreserveStorage,xmlFreeDoc> XPtrDoc;
 typedef ::XPtr<xmlNode> XPtrNode;
 typedef ::XPtr<xmlNs> XPtrNs;
 
