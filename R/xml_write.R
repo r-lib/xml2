@@ -72,7 +72,7 @@ write_xml.xml_nodeset <- function(x, file, ..., options = "format", encoding = "
     if (!(is.character(file) && length(file) == 1 && nzchar(file))) {
       stop("`file` must be a non-zero character of length 1", call. = FALSE)
     }
-    node_write_file(x[[1]]$node, file, options = options, encoding = encoding)
+    .Call(node_write_file, x[[1]]$node, file, encoding, options)
   }
 }
 
@@ -91,7 +91,7 @@ write_xml.xml_node <- function(x, file, ..., options = "format", encoding = "UTF
     if (!(is.character(file) && length(file) == 1 && nzchar(file))) {
       stop("`file` must be a non-zero character of length 1", call. = FALSE)
     }
-    node_write_file(x$node, file, options = options, encoding = encoding)
+    .Call(node_write_file, x$node, file, encoding, options)
   }
 }
 

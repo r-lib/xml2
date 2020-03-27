@@ -57,7 +57,7 @@ extern SEXP node_text(SEXP);
 extern SEXP node_type(SEXP);
 extern SEXP node_write_character(SEXP, SEXP, SEXP);
 extern SEXP node_write_connection(SEXP, SEXP, SEXP, SEXP);
-extern SEXP _xml2_node_write_file(SEXP, SEXP, SEXP, SEXP);
+extern SEXP node_write_file(SEXP, SEXP, SEXP, SEXP);
 extern SEXP _xml2_nodes_duplicated(SEXP);
 extern SEXP _xml2_ns_lookup(SEXP, SEXP, SEXP);
 extern SEXP _xml2_ns_lookup_uri(SEXP, SEXP, SEXP);
@@ -122,7 +122,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"node_type",                 (DL_FUNC) &node_type,                 1},
     {"node_write_character",      (DL_FUNC) &node_write_character,      3},
     {"node_write_connection",     (DL_FUNC) &node_write_connection,     4},
-    {"_xml2_node_write_file",           (DL_FUNC) &_xml2_node_write_file,           4},
+    {"node_write_file",           (DL_FUNC) &node_write_file,           4},
     {"_xml2_nodes_duplicated",          (DL_FUNC) &_xml2_nodes_duplicated,          1},
     {"_xml2_ns_lookup",                 (DL_FUNC) &_xml2_ns_lookup,                 3},
     {"_xml2_ns_lookup_uri",             (DL_FUNC) &_xml2_ns_lookup_uri,             3},

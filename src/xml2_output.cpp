@@ -149,16 +149,23 @@ extern "C" SEXP doc_write_character(SEXP doc_sxp, SEXP encoding_sxp, SEXP option
   return out;
 }
 
-// [[Rcpp::export]]
-void node_write_file(XPtrNode x, std::string path, std::string encoding = "UTF-8", int options = 1) {
+// [[export]]
+extern "C" SEXP node_write_file(SEXP node_sxp, SEXP path_sxp, SEXP encoding_sxp, SEXP options_sxp) {
+  XPtrNode node(node_sxp);
+  const char* path = CHAR(STRING_ELT(path_sxp, 0));
+  const char* encoding = CHAR(STRING_ELT(encoding_sxp, 0));
+  int options = INTEGER(options_sxp)[0];
+
   xmlSaveCtxtPtr savectx = xmlSaveToFilename(
-      path.c_str(),
-      encoding.c_str(),
+      path,
+      encoding,
       options);
-  xmlSaveTree(savectx, x.checked_get());
+  xmlSaveTree(savectx, node.checked_get());
   if (xmlSaveClose(savectx) == -1) {
-    stop("Error closing file");
+    Rf_error("Error closing file");
   }
+
+  return R_NilValue;
 }
 
 // [[export]]
