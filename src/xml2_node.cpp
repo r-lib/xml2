@@ -22,9 +22,11 @@ std::string nodeName(T* node, SEXP nsMap) {
   return prefix + ":" + name;
 }
 
-// [[Rcpp::export]]
-CharacterVector node_name(XPtrNode node, CharacterVector nsMap) {
-  return asCharacterVector(nodeName(node.checked_get(), nsMap));
+// [[export]]
+extern "C" SEXP node_name(SEXP node_sxp, SEXP nsMap) {
+  XPtrNode node(node_sxp);
+  std::string name = nodeName(node.checked_get(), nsMap);
+  return Rf_ScalarString(Rf_mkCharLenCE(name.c_str(), name.size(), CE_UTF8));
 }
 
 // [[Rcpp::export]]

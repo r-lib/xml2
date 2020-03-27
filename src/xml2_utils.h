@@ -104,7 +104,7 @@ class NsMap {
       }
     }
 
-    Rcpp::stop("Couldn't find prefix for url %s", url);
+    Rf_error("Couldn't find prefix for url %s", url.c_str());
     return std::string();
   }
 
