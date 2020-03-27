@@ -9,10 +9,6 @@ xml_parse_options <- function() {
     .Call(`_xml2_xml_parse_options`)
 }
 
-doc_parse_file <- function(path, encoding = "", as_html = FALSE, options = 0L) {
-    .Call(`_xml2_doc_parse_file`, path, encoding, as_html, options)
-}
-
 doc_parse_raw <- function(x, encoding, base_url = "", as_html = FALSE, options = 0L) {
     .Call(`_xml2_doc_parse_raw`, x, encoding, base_url, as_html, options)
 }

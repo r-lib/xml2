@@ -12,7 +12,7 @@ void handleStructuredError(void* userData, xmlError* error) {
   if (error->level <= 2) {
     Rf_warning("%s [%i]", message.c_str(), error->code);
   } else {
-    Rcpp::stop("%s [%i]", message, error->code);
+    Rf_error("%s [%i]", message.c_str(), error->code);
   }
 }
 

@@ -175,30 +175,37 @@ Rcpp::IntegerVector xml_parse_options() {
 #undef HAS_IGNORE_ENC
 }
 
-// [[Rcpp::export]]
-XPtrDoc doc_parse_file(std::string path,
-                            std::string encoding = "",
-                            bool as_html = false,
-                            int options = 0) {
+// [[export]]
+extern "C" SEXP doc_parse_file(
+    SEXP path_sxp,
+    SEXP encoding_sxp,
+    SEXP as_html_sxp,
+    SEXP options_sxp) {
+
+  const char* path = CHAR(STRING_ELT(path_sxp, 0));
+  const char* encoding = CHAR(STRING_ELT(encoding_sxp, 0));
+  bool as_html = LOGICAL(as_html_sxp)[0];
+  int options = INTEGER(options_sxp)[0];
   xmlDoc* pDoc;
   if (as_html) {
     pDoc = htmlReadFile(
-      path.c_str(),
-      encoding == "" ? NULL : encoding.c_str(),
+      path,
+      strncmp(encoding, "", 0) == 0 ? NULL : encoding,
       options
     );
   } else {
     pDoc = xmlReadFile(
-      path.c_str(),
-      encoding == "" ? NULL : encoding.c_str(),
+      path,
+      strncmp(encoding, "", 0) == 0 ? NULL : encoding,
       options
     );
   }
 
-  if (pDoc == NULL)
-    Rcpp::stop("Failed to parse %s", path);
+  if (pDoc == NULL) {
+    Rf_error("Failed to parse %s", path);
+  }
 
-  return XPtrDoc(pDoc);
+  return SEXP(XPtrDoc(pDoc));
 }
 
 // [[Rcpp::export]]
