@@ -108,7 +108,7 @@ create_node <- function(.value, ..., .parent, .copy) {
   }
 
   if (inherits(.value, "xml_comment")) {
-    return(xml_node(node_comment_new(.value), doc = .parent$doc))
+    return(xml_node(.Call(node_comment_new, .value), doc = .parent$doc))
   }
 
   if (inherits(.value, "xml_dtd")) {

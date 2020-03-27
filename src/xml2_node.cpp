@@ -590,9 +590,10 @@ extern "C" SEXP node_cdata_new(SEXP doc_sxp, SEXP content_sxp) {
   return SEXP(node);
 }
 
-// [[Rcpp::export]]
-XPtrNode node_comment_new(std::string content) {
-  return XPtrNode(xmlNewComment(asXmlChar(content)));
+// [[export]]
+extern "C" SEXP node_comment_new(SEXP content) {
+  XPtrNode node(xmlNewComment(asXmlChar(content)));
+  return SEXP(node);
 }
 
 // [[Rcpp::export]]
