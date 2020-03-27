@@ -85,10 +85,6 @@ node_remove <- function(cur, free) {
     invisible(.Call(`_xml2_node_remove`, cur, free))
 }
 
-node_new <- function(name) {
-    .Call(`_xml2_node_new`, name)
-}
-
 node_new_ns <- function(name, ns) {
     .Call(`_xml2_node_new_ns`, name, ns)
 }

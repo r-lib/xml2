@@ -592,9 +592,10 @@ void node_remove(XPtrNode cur, bool free) {
   return;
 }
 
-// [[Rcpp::export]]
-XPtrNode node_new(std::string name) {
-  return XPtrNode(xmlNewNode(NULL, asXmlChar(name)));
+// [[export]]
+extern "C" SEXP node_new(SEXP name) {
+  XPtrNode node(xmlNewNode(NULL, asXmlChar(name)));
+  return SEXP(node);
 }
 
 

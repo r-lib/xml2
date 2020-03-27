@@ -125,7 +125,7 @@ create_node <- function(.value, ..., .parent, .copy) {
       namespace <- ns_lookup(.parent$doc, .parent$node, parts[[1]])
       node <- structure(list(node = node_new_ns(parts[[2]], namespace), doc = .parent$doc), class = "xml_node")
   } else {
-    node <- structure(list(node = node_new(.value), doc = .parent$doc), class = "xml_node")
+    node <- structure(list(node = .Call(node_new, .value), doc = .parent$doc), class = "xml_node")
   }
 
   args <- list(...)
