@@ -105,10 +105,6 @@ node_prepend_sibling <- function(cur, elem) {
     .Call(`_xml2_node_prepend_sibling`, cur, elem)
 }
 
-node_append_sibling <- function(cur, elem) {
-    .Call(`_xml2_node_append_sibling`, cur, elem)
-}
-
 node_replace <- function(old, cur) {
     .Call(`_xml2_node_replace`, old, cur)
 }
