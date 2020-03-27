@@ -11,7 +11,7 @@ test_that("modifying nodes works", {
 
   expect_equal(xml_text(node), "")
 
-  node_set_content(node$node, "test")
+  .Call(node_set_content, node$node, "test")
   expect_equal(xml_text(node), "test")
 })
 

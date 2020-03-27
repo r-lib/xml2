@@ -74,10 +74,10 @@ xml_text.xml_nodeset <- function(x, trim = FALSE) {
     if (inherits(text_child, "xml_missing")) {
       .Call(node_append_content, x$node, value)
     } else {
-      node_set_content(text_child$node, value)
+      .Call(node_set_content, text_child$node, value)
     }
   } else {
-    node_set_content(x$node, value)
+    .Call(node_set_content, x$node, value)
   }
 
   x
