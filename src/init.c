@@ -31,7 +31,7 @@ extern SEXP node_attrs(SEXP, SEXP);
 extern SEXP node_cdata_new(SEXP, SEXP);
 extern SEXP node_children(SEXP, SEXP);
 extern SEXP node_comment_new(SEXP);
-extern SEXP _xml2_node_copy(SEXP);
+extern SEXP node_copy(SEXP);
 extern SEXP _xml2_node_has_children(SEXP, SEXP);
 extern SEXP _xml2_node_length(SEXP, SEXP);
 extern SEXP _xml2_node_name(SEXP, SEXP);
@@ -97,7 +97,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"node_cdata_new",            (DL_FUNC) &node_cdata_new,            2},
     {"node_children",             (DL_FUNC) &node_children,             2},
     {"node_comment_new",          (DL_FUNC) &node_comment_new,          1},
-    {"_xml2_node_copy",                 (DL_FUNC) &_xml2_node_copy,                 1},
+    {"node_copy",                 (DL_FUNC) &node_copy,                 1},
     {"_xml2_node_has_children",         (DL_FUNC) &_xml2_node_has_children,         2},
     {"_xml2_node_length",               (DL_FUNC) &_xml2_node_length,               2},
     {"_xml2_node_name",                 (DL_FUNC) &_xml2_node_name,                 2},

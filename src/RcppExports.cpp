@@ -215,17 +215,6 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// node_copy
-XPtrNode node_copy(XPtrNode node);
-RcppExport SEXP _xml2_node_copy(SEXP nodeSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< XPtrNode >::type node(nodeSEXP);
-    rcpp_result_gen = Rcpp::wrap(node_copy(node));
-    return rcpp_result_gen;
-END_RCPP
-}
 // node_set_content
 void node_set_content(XPtrNode node, std::string content);
 RcppExport SEXP _xml2_node_set_content(SEXP nodeSEXP, SEXP contentSEXP) {

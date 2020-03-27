@@ -508,9 +508,13 @@ int node_type(XPtrNode node) {
   return node->type;
 }
 
-// [[Rcpp::export]]
-XPtrNode node_copy(XPtrNode node) {
-  return XPtrNode(xmlCopyNode(node.checked_get(), 1));
+// [[export]]
+extern "C" SEXP node_copy(SEXP node_sxp) {
+  XPtrNode node(node_sxp);
+
+  XPtrNode copy(xmlCopyNode(node.checked_get(), 1));
+
+  return SEXP(copy);
 }
 
 // [[Rcpp::export]]
