@@ -22,7 +22,7 @@ extern SEXP doc_write_character(SEXP, SEXP, SEXP);
 extern SEXP doc_write_connection(SEXP, SEXP, SEXP, SEXP);
 extern SEXP doc_write_file(SEXP, SEXP, SEXP, SEXP);
 extern SEXP init_libxml2();
-extern SEXP _xml2_libxml2_version_();
+extern SEXP libxml2_version_();
 extern SEXP _xml2_node_append_child(SEXP, SEXP);
 extern SEXP _xml2_node_append_content(SEXP, SEXP);
 extern SEXP _xml2_node_append_sibling(SEXP, SEXP);
@@ -88,7 +88,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"doc_write_connection",      (DL_FUNC) &doc_write_connection,      4},
     {"doc_write_file",            (DL_FUNC) &doc_write_file,            4},
     {"init_libxml2",              (DL_FUNC) &init_libxml2,              0},
-    {"_xml2_libxml2_version_",          (DL_FUNC) &_xml2_libxml2_version_,          0},
+    {"libxml2_version_",          (DL_FUNC) &libxml2_version_,          0},
     {"_xml2_node_append_child",         (DL_FUNC) &_xml2_node_append_child,         2},
     {"_xml2_node_append_content",       (DL_FUNC) &_xml2_node_append_content,       2},
     {"_xml2_node_append_sibling",       (DL_FUNC) &_xml2_node_append_sibling,       2},
