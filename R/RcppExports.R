@@ -25,10 +25,6 @@ node_text <- function(node) {
     .Call(`_xml2_node_text`, node)
 }
 
-node_siblings <- function(node, onlyNode = TRUE) {
-    .Call(`_xml2_node_siblings`, node, onlyNode)
-}
-
 nodes_duplicated <- function(nodes) {
     .Call(`_xml2_nodes_duplicated`, nodes)
 }
