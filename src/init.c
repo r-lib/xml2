@@ -33,7 +33,7 @@ extern SEXP node_children(SEXP, SEXP);
 extern SEXP node_comment_new(SEXP);
 extern SEXP node_copy(SEXP);
 extern SEXP node_has_children(SEXP, SEXP);
-extern SEXP _xml2_node_length(SEXP, SEXP);
+extern SEXP node_length(SEXP, SEXP);
 extern SEXP _xml2_node_name(SEXP, SEXP);
 extern SEXP _xml2_node_new(SEXP);
 extern SEXP _xml2_node_new_dtd(SEXP, SEXP, SEXP, SEXP);
@@ -99,7 +99,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"node_comment_new",          (DL_FUNC) &node_comment_new,          1},
     {"node_copy",                 (DL_FUNC) &node_copy,                 1},
     {"node_has_children",         (DL_FUNC) &node_has_children,         2},
-    {"_xml2_node_length",               (DL_FUNC) &_xml2_node_length,               2},
+    {"node_length",               (DL_FUNC) &node_length,               2},
     {"_xml2_node_name",                 (DL_FUNC) &_xml2_node_name,                 2},
     {"_xml2_node_new",                  (DL_FUNC) &_xml2_node_new,                  1},
     {"_xml2_node_new_dtd",              (DL_FUNC) &_xml2_node_new_dtd,              4},

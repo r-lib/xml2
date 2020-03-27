@@ -410,16 +410,21 @@ extern "C" SEXP node_children(SEXP node_sxp, SEXP only_node_sxp) {
   return asList(out);
 }
 
-// [[Rcpp::export]]
-int node_length(XPtrNode node, bool onlyNode = true) {
+// [[export]]
+extern "C" SEXP node_length(SEXP node_sxp, SEXP only_node_sxp) {
+
+  XPtrNode node(node_sxp);
+  bool only_node = LOGICAL(only_node_sxp)[0];
+
   int i = 0;
   for(xmlNode* cur = node->xmlChildrenNode; cur != NULL; cur = cur->next) {
-    if (onlyNode && cur->type != XML_ELEMENT_NODE)
+    if (only_node && cur->type != XML_ELEMENT_NODE) {
       continue;
+    }
     ++i;
   }
 
-  return i;
+  return Rf_ScalarInteger(i);
 }
 
 // [[export]]

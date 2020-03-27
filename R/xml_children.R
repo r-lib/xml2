@@ -110,7 +110,7 @@ xml_length.xml_missing <- function(x, only_elements = TRUE) {
 
 #' @export
 xml_length.xml_node <- function(x, only_elements = TRUE) {
-  node_length(x$node, onlyNode = only_elements)
+  .Call(node_length, x$node, only_elements)
 }
 
 #' @export
