@@ -527,9 +527,13 @@ XPtrNode node_prepend_sibling(XPtrNode cur, XPtrNode elem) {
 }
 
 // Append sibling
-// [[Rcpp::export]]
-XPtrNode node_append_sibling(XPtrNode cur, XPtrNode elem) {
-  return XPtrNode(xmlAddNextSibling(cur.checked_get(), elem.checked_get()));
+// [[export]]
+extern "C" SEXP node_append_sibling(SEXP cur_sxp, SEXP elem_sxp) {
+  XPtrNode cur(cur_sxp);
+  XPtrNode elem(elem_sxp);
+  XPtrNode out(xmlAddNextSibling(cur.checked_get(), elem.checked_get()));
+
+  return SEXP(out);
 }
 
 // Replace node
