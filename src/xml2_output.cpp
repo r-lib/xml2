@@ -1,6 +1,5 @@
-#include <Rcpp.h>
+#include <Rinternals.h>
 #include "connection.h"
-using namespace Rcpp;
 
 #include <libxml/tree.h>
 #include <libxml/HTMLtree.h>
@@ -91,7 +90,7 @@ int xml_write_callback(SEXP con, const char * buffer, int len) {
   size_t write_size;
 
   if ((write_size = R_WriteConnection(con, (void *) buffer, len)) != static_cast<size_t>(len)) {
-    stop("write failed, expected %l, got %l", len, write_size);
+    Rf_error("write failed, expected %l, got %l", len, write_size);
   }
   return write_size;
 }

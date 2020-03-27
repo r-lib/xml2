@@ -1,9 +1,19 @@
-#include <Rcpp.h>
+#include <Rinternals.h>
+#include <vector>
 
 // Wrapper around R's read_bin function
-SEXP read_bin(SEXP con, double bytes = 64 * 1024) {
+SEXP read_bin(SEXP con, size_t bytes) {
   SEXP e;
   PROTECT(e = Rf_lang4(Rf_install("readBin"), con, Rf_mkString("raw"), Rf_ScalarInteger(bytes)));
+  SEXP res = Rf_eval(e, R_GlobalEnv);
+  UNPROTECT(1);
+  return res;
+}
+
+// Wrapper around R's write_bin function
+SEXP write_bin(SEXP data, SEXP con) {
+  SEXP e;
+  PROTECT(e = Rf_lang3(Rf_install("writeBin"), data, con));
   SEXP res = Rf_eval(e, R_GlobalEnv);
   UNPROTECT(1);
   return res;
@@ -14,8 +24,8 @@ SEXP read_bin(SEXP con, double bytes = 64 * 1024) {
 //
 // [[export]]
 extern "C" SEXP read_connection_(SEXP con_sxp, SEXP read_size_sxp) {
-  std::vector<uint8_t> buffer;
-  double read_size = REAL(read_size_sxp)[0];
+  std::vector<char> buffer;
+  size_t read_size = REAL(read_size_sxp)[0];
 
   SEXP chunk = read_bin(con_sxp, read_size);
   R_xlen_t chunk_size = Rf_xlength(chunk);

@@ -1,8 +1,9 @@
-#include <Rcpp.h>
-using namespace Rcpp;
+#include <Rinternals.h>
 
 #include <libxml/xmlschemas.h>
 #include "xml2_types.h"
+#include <vector>
+#include <string>
 
 void handleSchemaError(void* userData, xmlError* error) {
   std::vector<std::string> * vec = (std::vector<std::string> *) userData;

@@ -1,25 +1,34 @@
 #pragma once
 
-#include "Rcpp.h"
+#include <Rinternals.h>
+
+#include <algorithm>
+
+SEXP read_bin(SEXP con, size_t bytes = 64 * 1024);
+SEXP write_bin(SEXP data, SEXP con);
 
 inline SEXP R_GetConnection(SEXP con) { return con; }
 
 inline size_t R_ReadConnection(SEXP con, void* buf, size_t n) {
-  static Rcpp::Function readBin = Rcpp::Environment::base_env()["readBin"];
+  SEXP res = PROTECT(read_bin(con, n));
 
-  Rcpp::RawVector res = readBin(con, Rcpp::RawVector(0), n);
-  memcpy(buf, res.begin(), res.size());
+  R_xlen_t size = Rf_xlength(res);
 
-  return res.length();
+  memcpy(buf, RAW(res), size);
+
+  UNPROTECT(1);
+
+  return Rf_xlength(res);
 }
 
 inline size_t R_WriteConnection(SEXP con, void* buf, size_t n) {
-  static Rcpp::Function writeBin = Rcpp::Environment::base_env()["writeBin"];
+  SEXP payload = PROTECT(Rf_allocVector(RAWSXP, n));
 
-  Rcpp::RawVector payload(n);
-  memcpy(payload.begin(), buf, n);
+  memcpy(RAW(payload), buf, n);
 
-  writeBin(payload, con);
+  write_bin(payload, con);
+
+  UNPROTECT(1);
 
   return n;
 }
