@@ -68,17 +68,6 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// doc_has_root
-bool doc_has_root(XPtrDoc x);
-RcppExport SEXP _xml2_doc_has_root(SEXP xSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< XPtrDoc >::type x(xSEXP);
-    rcpp_result_gen = Rcpp::wrap(doc_has_root(x));
-    return rcpp_result_gen;
-END_RCPP
-}
 // doc_url
 CharacterVector doc_url(XPtrDoc x);
 RcppExport SEXP _xml2_doc_url(SEXP xSEXP) {

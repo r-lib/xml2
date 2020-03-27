@@ -236,9 +236,10 @@ XPtrNode doc_root(XPtrDoc x) {
   return XPtrNode(xmlDocGetRootElement(x.checked_get()));
 }
 
-// [[Rcpp::export]]
-bool doc_has_root(XPtrDoc x) {
-  return xmlDocGetRootElement(x.get()) != NULL;
+// [[export]]
+extern "C" SEXP doc_has_root(SEXP x_sxp) {
+  XPtrDoc x(x_sxp);
+  return Rf_ScalarLogical(xmlDocGetRootElement(x.get()) != NULL);
 }
 
 // [[Rcpp::export]]
