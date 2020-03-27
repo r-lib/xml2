@@ -18,18 +18,3 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// xpath_search
-RObject xpath_search(XPtrNode node, XPtrDoc doc, std::string xpath, CharacterVector nsMap, double num_results);
-RcppExport SEXP _xml2_xpath_search(SEXP nodeSEXP, SEXP docSEXP, SEXP xpathSEXP, SEXP nsMapSEXP, SEXP num_resultsSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< XPtrNode >::type node(nodeSEXP);
-    Rcpp::traits::input_parameter< XPtrDoc >::type doc(docSEXP);
-    Rcpp::traits::input_parameter< std::string >::type xpath(xpathSEXP);
-    Rcpp::traits::input_parameter< CharacterVector >::type nsMap(nsMapSEXP);
-    Rcpp::traits::input_parameter< double >::type num_results(num_resultsSEXP);
-    rcpp_result_gen = Rcpp::wrap(xpath_search(node, doc, xpath, nsMap, num_results));
-    return rcpp_result_gen;
-END_RCPP
-}

@@ -3,12 +3,10 @@
 #include <libxml/xpathInternals.h>
 #include <libxml/tree.h>
 #include "xml2_types.h"
-using namespace Rcpp;
 
 class XmlSeeker {
   xmlXPathContext* context_;
   xmlXPathObject* result_;
-  std::string xpath_;
   XPtrDoc doc_;
 
 public:
@@ -19,27 +17,29 @@ public:
     context_->node = node;
   }
 
-  void registerNamespace(CharacterVector nsMap) {
-    if (nsMap.size() == 0)
+  void registerNamespace(SEXP nsMap) {
+    R_xlen_t n = Rf_xlength(nsMap);
+    if (n == 0) {
       return;
+    }
 
-    CharacterVector prefix = as<CharacterVector>(nsMap.attr("names"));
+    SEXP prefix = Rf_getAttrib(nsMap, R_NamesSymbol);
 
-    for (int i = 0; i < nsMap.size(); ++i) {
+    for (int i = 0; i < n; ++i) {
       xmlChar* prefixI = (xmlChar*) CHAR(STRING_ELT(prefix, i));
       xmlChar* urlI = (xmlChar*) CHAR(STRING_ELT(nsMap, i));
 
       if (xmlXPathRegisterNs(context_, prefixI, urlI) != 0)
-        stop("Failed to register namespace (%s <-> %s)", prefixI, urlI);
+        Rf_error("Failed to register namespace (%s <-> %s)", prefixI, urlI);
     }
   }
 
-  RObject search(std::string xpath, int num_results) {
-    xpath_ = xpath;
-    result_ = xmlXPathEval((xmlChar*) xpath.c_str(), context_);
+  SEXP search(const char* xpath, int num_results) {
+    result_ = xmlXPathEval((const xmlChar*)xpath, context_);
     if (result_ == NULL) {
-      List ret = List();
-      ret.attr("class") = "xml_missing";
+      SEXP ret = PROTECT(Rf_allocVector(VECSXP, 0));
+      Rf_setAttrib(ret, R_ClassSymbol, Rf_mkString("xml_missing"));
+      UNPROTECT(1);
       return ret;
     }
 
@@ -48,26 +48,41 @@ public:
         {
           xmlNodeSet* nodes = result_->nodesetval;
           if (nodes == NULL || nodes->nodeNr == 0) {
-            List ret = List();
-            ret.attr("class") = "xml_missing";
+            SEXP ret = PROTECT(Rf_allocVector(VECSXP, 0));
+            Rf_setAttrib(ret, R_ClassSymbol, Rf_mkString("xml_missing"));
+            UNPROTECT(1);
             return ret;
           }
           int n = std::min(result_->nodesetval->nodeNr, num_results);
-          List out(n);
+
+          SEXP out = PROTECT(Rf_allocVector(VECSXP, n));
+
+          SEXP names = PROTECT(Rf_allocVector(STRSXP, 2));
+          SET_STRING_ELT(names, 0, Rf_mkChar("node"));
+          SET_STRING_ELT(names, 1, Rf_mkChar("doc"));
+
           for (int i = 0; i < n; i++) {
-            List ret;
-            ret["node"] = XPtrNode(nodes->nodeTab[i]);
-            ret["doc"] = doc_;
-            ret.attr("class") = "xml_node";
-            out[i] = ret;
+            SEXP ret = PROTECT(Rf_allocVector(VECSXP, 2));
+
+            SET_VECTOR_ELT(ret, 0, XPtrNode(nodes->nodeTab[i]));
+            SET_VECTOR_ELT(ret, 1, doc_);
+
+            Rf_setAttrib(ret, R_NamesSymbol, names);
+            Rf_setAttrib(ret, R_ClassSymbol, Rf_mkString("xml_node"));
+
+            SET_VECTOR_ELT(out, i, ret);
+
+            UNPROTECT(1);
           }
+
+          UNPROTECT(2);
           return out;
         }
-      case XPATH_NUMBER: { return NumericVector::create(result_->floatval); }
-      case XPATH_BOOLEAN: { return LogicalVector::create(result_->boolval); }
-      case XPATH_STRING: { return CharacterVector::create(Rf_mkCharCE((char *) result_->stringval, CE_UTF8)); }
+      case XPATH_NUMBER: { return Rf_ScalarReal(result_->floatval); }
+      case XPATH_BOOLEAN: { return Rf_ScalarLogical(result_->boolval); }
+      case XPATH_STRING: { return Rf_ScalarString(Rf_mkCharCE((char *) result_->stringval, CE_UTF8)); }
       default:
-        stop("XPath result type: %d not supported", result_->type);
+        Rf_error("XPath result type: %d not supported", result_->type);
     }
 
     return R_NilValue;
@@ -83,13 +98,19 @@ public:
 
 };
 
-// [[Rcpp::export]]
-RObject xpath_search(XPtrNode node, XPtrDoc doc, std::string xpath, CharacterVector nsMap, double num_results) {
+// [[export]]
+extern "C" SEXP xpath_search(SEXP node_sxp, SEXP doc_sxp, SEXP xpath_sxp, SEXP nsMap_sxp, SEXP num_results_sxp) {
+
+  XPtrNode node(node_sxp);
+  XPtrDoc doc(doc_sxp);
+  const char* xpath = CHAR(STRING_ELT(xpath_sxp, 0));
+
+  double num_results = REAL(num_results_sxp)[0];
 
   if (num_results == R_PosInf) {
     num_results = INT_MAX;
   }
   XmlSeeker seeker(doc, node.checked_get());
-  seeker.registerNamespace(nsMap);
+  seeker.registerNamespace(nsMap_sxp);
   return seeker.search(xpath, num_results);
 }
