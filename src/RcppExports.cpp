@@ -237,16 +237,6 @@ BEGIN_RCPP
     return R_NilValue;
 END_RCPP
 }
-// node_null
-XPtrNode node_null();
-RcppExport SEXP _xml2_node_null() {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    rcpp_result_gen = Rcpp::wrap(node_null());
-    return rcpp_result_gen;
-END_RCPP
-}
 // node_set_namespace_uri
 void node_set_namespace_uri(XPtrDoc doc, XPtrNode node, std::string uri);
 RcppExport SEXP _xml2_node_set_namespace_uri(SEXP docSEXP, SEXP nodeSEXP, SEXP uriSEXP) {
