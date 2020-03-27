@@ -39,18 +39,6 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// doc_set_root
-XPtrNode doc_set_root(XPtrDoc doc, XPtrNode root);
-RcppExport SEXP _xml2_doc_set_root(SEXP docSEXP, SEXP rootSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< XPtrDoc >::type doc(docSEXP);
-    Rcpp::traits::input_parameter< XPtrNode >::type root(rootSEXP);
-    rcpp_result_gen = Rcpp::wrap(doc_set_root(doc, root));
-    return rcpp_result_gen;
-END_RCPP
-}
 // init_libxml2
 void init_libxml2();
 RcppExport SEXP _xml2_init_libxml2() {
