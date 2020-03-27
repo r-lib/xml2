@@ -41,10 +41,6 @@ node_remove_attr <- function(node_, name, nsMap) {
     invisible(.Call(`_xml2_node_remove_attr`, node_, name, nsMap))
 }
 
-node_length <- function(node, onlyNode = TRUE) {
-    .Call(`_xml2_node_length`, node, onlyNode)
-}
-
 node_parents <- function(node) {
     .Call(`_xml2_node_parents`, node)
 }
