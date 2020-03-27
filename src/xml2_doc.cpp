@@ -277,9 +277,12 @@ extern "C" SEXP  doc_new(SEXP version_sxp, SEXP encoding_sxp) {
   return SEXP(x);
 }
 
-// [[Rcpp::export]]
-XPtrNode doc_set_root(XPtrDoc doc, XPtrNode root) {
-  return XPtrNode(xmlDocSetRootElement(doc, root));
+// [[export]]
+extern "C" SEXP doc_set_root(SEXP doc_sxp, SEXP root_sxp) {
+  XPtrDoc doc(doc_sxp);
+  XPtrNode root(root_sxp);
+  XPtrNode out(xmlDocSetRootElement(doc, root));
+  return SEXP(out);
 }
 
 // [[export]]

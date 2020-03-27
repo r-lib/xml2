@@ -13,10 +13,6 @@ doc_url <- function(x) {
     .Call(`_xml2_doc_url`, x)
 }
 
-doc_set_root <- function(doc, root) {
-    .Call(`_xml2_doc_set_root`, doc, root)
-}
-
 init_libxml2 <- function() {
     invisible(.Call(`_xml2_init_libxml2`))
 }
