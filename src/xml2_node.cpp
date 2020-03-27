@@ -490,9 +490,11 @@ extern "C" SEXP node_parent(SEXP node_sxp) {
   return SEXP(out);
 }
 
-// [[Rcpp::export]]
-std::string node_path(XPtrNode n) {
-  return Xml2String(xmlGetNodePath(n.checked_get())).asStdString();
+// [[export]]
+extern "C" SEXP node_path(SEXP node_sxp) {
+  XPtrNode node(node_sxp);
+
+  return Rf_ScalarString(Xml2String(xmlGetNodePath(node.checked_get())).asRString());
 }
 
 // [[Rcpp::export]]
