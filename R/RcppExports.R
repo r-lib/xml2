@@ -101,10 +101,6 @@ node_new_text <- function(node, content) {
     invisible(.Call(`_xml2_node_new_text`, node, content))
 }
 
-node_append_child <- function(parent, cur) {
-    .Call(`_xml2_node_append_child`, parent, cur)
-}
-
 node_prepend_child <- function(parent, cur) {
     .Call(`_xml2_node_prepend_child`, parent, cur)
 }

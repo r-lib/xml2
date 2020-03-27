@@ -151,11 +151,11 @@ xml_add_child.xml_node <- function(.x, .value, ..., .where = length(xml_children
     if(node_has_children(.x$node))
       node_prepend_child(.x$node, node$node)
     else
-      node_append_child(.x$node, node$node)
+      .Call(node_append_child, .x$node, node$node)
   } else {
     num_children <- length(xml_children(.x))
     if (.where >= num_children) {
-      node_append_child(.x$node, node$node)
+      .Call(node_append_child, .x$node, node$node)
     } else
       node_append_sibling(xml_child(.x, search = .where)$node, node$node)
   }
@@ -173,7 +173,7 @@ xml_add_child.xml_document <- function(.x, .value, ..., .where = length(xml_chil
       if (!.Call(doc_has_root, .x$doc)) {
         .Call(doc_set_root, .x$doc, node$node)
       }
-      node_append_child(.Call(doc_root, .x$doc), node$node)
+      .Call(node_append_child, .Call(doc_root, .x$doc), node$node)
     }
     invisible(xml_document(.x$doc))
   }
