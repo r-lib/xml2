@@ -5,3 +5,7 @@
 libxml2_version <- function() {
   as.numeric_version(.Call(libxml2_version_))
 }
+
+xml_parse_options <- function() {
+  .Call(xml_parse_options_)
+}

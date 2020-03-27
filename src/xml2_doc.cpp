@@ -6,8 +6,8 @@ using namespace Rcpp;
 #include "xml2_types.h"
 #include "xml2_utils.h"
 
-// [[Rcpp::export]]
-Rcpp::IntegerVector xml_parse_options() {
+// [[export]]
+extern "C" SEXP  xml_parse_options_() {
 
 #if defined(LIBXML_VERSION) && (LIBXML_VERSION >= 20700)
 #define HAS_OLD10
@@ -154,16 +154,20 @@ Rcpp::IntegerVector xml_parse_options() {
 
   size_t size = sizeof(values) / sizeof(values[0]);
 
-  Rcpp::IntegerVector out_values = Rcpp::IntegerVector(size);
-  Rcpp::CharacterVector out_names = Rcpp::CharacterVector(size);
-  Rcpp::CharacterVector out_descriptions = Rcpp::CharacterVector(size);
+  SEXP out_values = PROTECT(Rf_allocVector(INTSXP, size));
+  SEXP out_names = PROTECT(Rf_allocVector(STRSXP, size));
+  SEXP out_descriptions = PROTECT(Rf_allocVector(STRSXP, size));
+
   for (size_t i = 0; i < size; ++i) {
-    out_values[i] = values[i];
-    out_names[i] = names[i];
-    out_descriptions[i] = descriptions[i];
+    INTEGER(out_values)[i] = values[i];
+    SET_STRING_ELT(out_names, i, Rf_mkChar(names[i]));
+    SET_STRING_ELT(out_descriptions, i, Rf_mkChar(descriptions[i]));
   }
-  out_values.attr("names") = out_names;
-  out_values.attr("descriptions") = out_descriptions;
+
+  Rf_setAttrib(out_values, R_NamesSymbol, out_names);
+  Rf_setAttrib(out_values, Rf_install("descriptions"), out_descriptions);
+
+  UNPROTECT(3);
 
   return out_values;
 
