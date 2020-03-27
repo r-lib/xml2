@@ -137,22 +137,21 @@ extern "C" SEXP url_escape_(SEXP x_sxp, SEXP reserved_sxp) {
   return out;
 }
 
-//' @export
-//' @rdname url_escape
-// [[Rcpp::export]]
-CharacterVector url_unescape(CharacterVector x) {
-  int n = x.size();
-  CharacterVector out(n);
+// [[export]]
+extern "C" SEXP url_unescape_(SEXP x_sxp) {
+  R_xlen_t n = Rf_xlength(x_sxp);
+  SEXP out = PROTECT(Rf_allocVector(STRSXP, n));
 
   std::string buffer;
 
   for (int i = 0; i < n; ++i) {
-    const char* xx = Rf_translateCharUTF8(x[i]);
+    const char* xx = Rf_translateCharUTF8(STRING_ELT(x_sxp, i));
 
     char* unescaped = xmlURIUnescapeString(xx, 0, NULL);
-    out[i] = (unescaped == NULL) ? NA_STRING : Rf_mkCharCE(unescaped, CE_UTF8);
+    SET_STRING_ELT(out, i, (unescaped == NULL) ? NA_STRING : Rf_mkCharCE(unescaped, CE_UTF8));
     xmlFree(unescaped);
   }
 
+  UNPROTECT(1);
   return out;
 }

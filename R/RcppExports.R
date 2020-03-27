@@ -13,12 +13,6 @@ xml_save_options <- function() {
     .Call(`_xml2_xml_save_options`)
 }
 
-#' @export
-#' @rdname url_escape
-url_unescape <- function(x) {
-    .Call(`_xml2_url_unescape`, x)
-}
-
 xpath_search <- function(node, doc, xpath, nsMap, num_results) {
     .Call(`_xml2_xpath_search`, node, doc, xpath, nsMap, num_results)
 }
