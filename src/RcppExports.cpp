@@ -503,19 +503,6 @@ BEGIN_RCPP
     return R_NilValue;
 END_RCPP
 }
-// doc_write_connection
-void doc_write_connection(XPtrDoc x, SEXP connection, std::string encoding, int options);
-RcppExport SEXP _xml2_doc_write_connection(SEXP xSEXP, SEXP connectionSEXP, SEXP encodingSEXP, SEXP optionsSEXP) {
-BEGIN_RCPP
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< XPtrDoc >::type x(xSEXP);
-    Rcpp::traits::input_parameter< SEXP >::type connection(connectionSEXP);
-    Rcpp::traits::input_parameter< std::string >::type encoding(encodingSEXP);
-    Rcpp::traits::input_parameter< int >::type options(optionsSEXP);
-    doc_write_connection(x, connection, encoding, options);
-    return R_NilValue;
-END_RCPP
-}
 // node_write_file
 void node_write_file(XPtrNode x, std::string path, std::string encoding, int options);
 RcppExport SEXP _xml2_node_write_file(SEXP xSEXP, SEXP pathSEXP, SEXP encodingSEXP, SEXP optionsSEXP) {

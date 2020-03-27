@@ -173,10 +173,6 @@ doc_write_file <- function(x, path, encoding = "UTF-8", options = 1L) {
     invisible(.Call(`_xml2_doc_write_file`, x, path, encoding, options))
 }
 
-doc_write_connection <- function(x, connection, encoding = "UTF-8", options = 1L) {
-    invisible(.Call(`_xml2_doc_write_connection`, x, connection, encoding, options))
-}
-
 node_write_file <- function(x, path, encoding = "UTF-8", options = 1L) {
     invisible(.Call(`_xml2_node_write_file`, x, path, encoding, options))
 }
