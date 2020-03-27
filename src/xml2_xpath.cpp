@@ -1,8 +1,9 @@
-#include <Rcpp.h>
+#include <Rinternals.h>
 #include <libxml/xpath.h>
 #include <libxml/xpathInternals.h>
 #include <libxml/tree.h>
 #include "xml2_types.h"
+#include <algorithm>
 
 class XmlSeeker {
   xmlXPathContext* context_;

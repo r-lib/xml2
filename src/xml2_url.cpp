@@ -1,5 +1,4 @@
-#include <Rcpp.h>
-using namespace Rcpp;
+#include <Rinternals.h>
 
 #include <libxml/uri.h>
 #include "xml2_utils.h"

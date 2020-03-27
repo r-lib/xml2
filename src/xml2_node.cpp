@@ -1,9 +1,14 @@
-#include <Rcpp.h>
+#define R_NO_REMAP
+#include <Rinternals.h>
+#undef R_NO_REMAP
+
 #include <libxml/tree.h>
 #include <fstream>
 #include <sstream>
+#include <vector>
+#include <string>
+#include <set>
 
-using namespace Rcpp;
 #include "xml2_types.h"
 #include "xml2_utils.h"
 
@@ -475,7 +480,7 @@ extern "C" SEXP node_siblings(SEXP node_sxp, SEXP only_node_sxp) {
 
   xmlNode* parent = node->parent;
   if (parent == NULL)
-    return List();
+    return Rf_allocVector(VECSXP, 0);
 
   for(xmlNode* cur = parent->xmlChildrenNode; cur != NULL; cur = cur->next) {
     if (cur == node) {

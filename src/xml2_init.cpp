@@ -1,18 +1,22 @@
-#include <Rcpp.h>
+#define R_NO_REMAP
+#include <Rinternals.h>
+#undef R_NO_REMAP
+
 #include <R_ext/Rdynload.h>
 #include <stdio.h>
 #include <libxml/xmlversion.h>
 #include <libxml/xmlerror.h>
 #include <libxml/parser.h>
+#include <string>
 
 void handleStructuredError(void* userData, xmlError* error) {
   std::string message = std::string(error->message);
   message.resize(message.size() - 1); // trim off trailing newline
 
   if (error->level <= 2) {
-    Rf_warning("%s [%i]", message.c_str(), error->code);
+    Rf_warning("%s [%i]", message.c_str(), (int) error->code);
   } else {
-    Rf_error("%s [%i]", message.c_str(), error->code);
+    Rf_error("%s [%i]", message.c_str(), (int) error->code);
   }
 }
 

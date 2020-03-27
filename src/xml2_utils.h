@@ -1,9 +1,10 @@
 #ifndef __XML2_XML_UTILS__
 #define __XML2_XML_UTILS__
 
-#include <Rcpp.h>
+#include <Rinternals.h>
 #include <libxml/tree.h>
 #include <map>
+#include <string>
 
 inline const xmlChar* asXmlChar(std::string const& x) {
   return (const xmlChar*) x.c_str();
@@ -17,10 +18,6 @@ inline const xmlChar* asXmlChar(SEXP x, int n = 0) {
 #if __cplusplus >= 201103L
 void asXmlChar(std::string&&) = delete;
 #endif
-
-inline Rcpp::CharacterVector asCharacterVector(std::string x) {
-  return Rcpp::CharacterVector(Rf_mkCharCE(x.c_str(), CE_UTF8));
-}
 
 // ----------------------------------------------------------------------------
 // A wrapper around xmlChar* that frees memory if necessary
@@ -93,7 +90,7 @@ class NsMap {
       return it->second;
     }
 
-    Rcpp::stop("Couldn't find url for prefix %s", prefix);
+    Rf_error("Couldn't find url for prefix %s", prefix.c_str());
     return std::string();
   }
 

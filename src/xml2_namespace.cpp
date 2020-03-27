@@ -1,7 +1,6 @@
-#include <Rcpp.h>
+#include <Rinternals.h>
 #include <libxml/tree.h>
 
-using namespace Rcpp;
 #include "xml2_types.h"
 #include "xml2_utils.h"
 
