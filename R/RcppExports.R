@@ -25,10 +25,6 @@ nodes_duplicated <- function(nodes) {
     .Call(`_xml2_nodes_duplicated`, nodes)
 }
 
-node_type <- function(node) {
-    .Call(`_xml2_node_type`, node)
-}
-
 xml_save_options <- function() {
     .Call(`_xml2_xml_save_options`)
 }
