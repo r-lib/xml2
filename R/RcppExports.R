@@ -5,10 +5,6 @@ read_connection_ <- function(con, chunk_size = 64 * 1024L) {
     .Call(`_xml2_read_connection_`, con, chunk_size)
 }
 
-xml_parse_options <- function() {
-    .Call(`_xml2_xml_parse_options`)
-}
-
 xml_save_options <- function() {
     .Call(`_xml2_xml_save_options`)
 }
