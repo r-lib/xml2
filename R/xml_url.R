@@ -30,3 +30,22 @@ xml_url.xml_node <- function(x) {
 xml_url.xml_nodeset <- function(x) {
   vapply(x, function(x) .Call(doc_url, x), character(1))
 }
+
+#' Convert between relative and absolute urls.
+#'
+#' @param x A character vector of urls relative to that base
+#' @param base A string giving a base url.
+#' @return A character vector of urls
+#' @seealso \code{\link{xml_url}} to retrieve the URL associated with a document
+#' @export
+#' @examples
+#' url_absolute(c(".", "..", "/", "/x"), "http://hadley.nz/a/b/c/d")
+#'
+#' url_relative("http://hadley.nz/a/c", "http://hadley.nz")
+#' url_relative("http://hadley.nz/a/c", "http://hadley.nz/")
+#' url_relative("http://hadley.nz/a/c", "http://hadley.nz/a/b")
+#' url_relative("http://hadley.nz/a/c", "http://hadley.nz/a/b/")
+#' @export
+url_absolute <- function(x, base) {
+  .Call(url_absolute_, x, base)
+}

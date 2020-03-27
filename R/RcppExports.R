@@ -13,24 +13,6 @@ xml_save_options <- function() {
     .Call(`_xml2_xml_save_options`)
 }
 
-#' Convert between relative and absolute urls.
-#'
-#' @param x A character vector of urls relative to that base
-#' @param base A string giving a base url.
-#' @return A character vector of urls
-#' @seealso \code{\link{xml_url}} to retrieve the URL associated with a document
-#' @export
-#' @examples
-#' url_absolute(c(".", "..", "/", "/x"), "http://hadley.nz/a/b/c/d")
-#'
-#' url_relative("http://hadley.nz/a/c", "http://hadley.nz")
-#' url_relative("http://hadley.nz/a/c", "http://hadley.nz/")
-#' url_relative("http://hadley.nz/a/c", "http://hadley.nz/a/b")
-#' url_relative("http://hadley.nz/a/c", "http://hadley.nz/a/b/")
-url_absolute <- function(x, base) {
-    .Call(`_xml2_url_absolute`, x, base)
-}
-
 #' @export
 #' @rdname url_absolute
 url_relative <- function(x, base) {
