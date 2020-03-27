@@ -29,9 +29,13 @@ extern "C" SEXP node_name(SEXP node_sxp, SEXP nsMap) {
   return Rf_ScalarString(Rf_mkCharLenCE(name.c_str(), name.size(), CE_UTF8));
 }
 
-// [[Rcpp::export]]
-void node_set_name(XPtrNode node, std::string value) {
-  return xmlNodeSetName(node, asXmlChar(value));
+// [[export]]
+extern "C" SEXP node_set_name(SEXP node_sxp, SEXP value) {
+  XPtrNode node(node_sxp);
+
+  xmlNodeSetName(node, asXmlChar(value));
+
+  return R_NilValue;
 }
 
 // [[Rcpp::export]]

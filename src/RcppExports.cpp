@@ -65,17 +65,6 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// node_set_name
-void node_set_name(XPtrNode node, std::string value);
-RcppExport SEXP _xml2_node_set_name(SEXP nodeSEXP, SEXP valueSEXP) {
-BEGIN_RCPP
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< XPtrNode >::type node(nodeSEXP);
-    Rcpp::traits::input_parameter< std::string >::type value(valueSEXP);
-    node_set_name(node, value);
-    return R_NilValue;
-END_RCPP
-}
 // node_text
 CharacterVector node_text(XPtrNode node);
 RcppExport SEXP _xml2_node_text(SEXP nodeSEXP) {

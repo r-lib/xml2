@@ -49,7 +49,7 @@ extern SEXP node_remove_attr(SEXP, SEXP, SEXP);
 extern SEXP node_replace(SEXP, SEXP);
 extern SEXP node_set_attr(SEXP, SEXP, SEXP, SEXP);
 extern SEXP node_set_content(SEXP, SEXP);
-extern SEXP _xml2_node_set_name(SEXP, SEXP);
+extern SEXP node_set_name(SEXP, SEXP);
 extern SEXP _xml2_node_set_namespace_prefix(SEXP, SEXP, SEXP);
 extern SEXP _xml2_node_set_namespace_uri(SEXP, SEXP, SEXP);
 extern SEXP _xml2_node_siblings(SEXP, SEXP);
@@ -114,7 +114,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"node_replace",              (DL_FUNC) &node_replace,              2},
     {"node_set_attr",             (DL_FUNC) &node_set_attr,             4},
     {"node_set_content",          (DL_FUNC) &node_set_content,          2},
-    {"_xml2_node_set_name",             (DL_FUNC) &_xml2_node_set_name,             2},
+    {"node_set_name",             (DL_FUNC) &node_set_name,             2},
     {"_xml2_node_set_namespace_prefix", (DL_FUNC) &_xml2_node_set_namespace_prefix, 3},
     {"_xml2_node_set_namespace_uri",    (DL_FUNC) &_xml2_node_set_namespace_uri,    3},
     {"_xml2_node_siblings",             (DL_FUNC) &_xml2_node_siblings,             2},

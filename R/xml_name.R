@@ -48,7 +48,7 @@ xml_name.xml_node <- function(x, ns = character()) {
 
 #' @export
 `xml_name<-.xml_node` <- function(x, ns = character(), value) {
-  node_set_name(x$node, value)
+  .Call(node_set_name, x$node, value)
   x
 }
 
