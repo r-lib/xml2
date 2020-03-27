@@ -124,17 +124,6 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// node_path
-std::string node_path(XPtrNode n);
-RcppExport SEXP _xml2_node_path(SEXP nSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< XPtrNode >::type n(nSEXP);
-    rcpp_result_gen = Rcpp::wrap(node_path(n));
-    return rcpp_result_gen;
-END_RCPP
-}
 // nodes_duplicated
 LogicalVector nodes_duplicated(List nodes);
 RcppExport SEXP _xml2_nodes_duplicated(SEXP nodesSEXP) {

@@ -41,10 +41,6 @@ node_siblings <- function(node, onlyNode = TRUE) {
     .Call(`_xml2_node_siblings`, node, onlyNode)
 }
 
-node_path <- function(n) {
-    .Call(`_xml2_node_path`, n)
-}
-
 nodes_duplicated <- function(nodes) {
     .Call(`_xml2_nodes_duplicated`, nodes)
 }
