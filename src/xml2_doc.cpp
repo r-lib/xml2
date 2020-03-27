@@ -248,12 +248,15 @@ CharacterVector doc_url(XPtrDoc x) {
   return CharacterVector(string);
 }
 
-// [[Rcpp::export]]
-XPtrDoc doc_new(std::string version, std::string encoding = "UTF-8") {
-  XPtrDoc x = XPtrDoc(xmlNewDoc(asXmlChar(version)));
-  xmlCharEncodingHandlerPtr p = xmlFindCharEncodingHandler(encoding.c_str());
+// [[export]]
+extern "C" SEXP  doc_new(SEXP version_sxp, SEXP encoding_sxp) {
+
+  const char* encoding = CHAR(STRING_ELT(encoding_sxp, 0));
+
+  XPtrDoc x(xmlNewDoc(asXmlChar(version_sxp)));
+  xmlCharEncodingHandlerPtr p = xmlFindCharEncodingHandler(encoding);
   x->encoding = xmlStrdup(reinterpret_cast<const xmlChar *>(p->name));
-  return x;
+  return SEXP(x);
 }
 
 // [[Rcpp::export]]
