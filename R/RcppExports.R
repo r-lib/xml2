@@ -21,10 +21,6 @@ ns_lookup <- function(doc, node, prefix) {
     .Call(`_xml2_ns_lookup`, doc, node, prefix)
 }
 
-nodes_duplicated <- function(nodes) {
-    .Call(`_xml2_nodes_duplicated`, nodes)
-}
-
 xml_save_options <- function() {
     .Call(`_xml2_xml_save_options`)
 }

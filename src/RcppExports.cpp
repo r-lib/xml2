@@ -65,17 +65,6 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// nodes_duplicated
-LogicalVector nodes_duplicated(List nodes);
-RcppExport SEXP _xml2_nodes_duplicated(SEXP nodesSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< List >::type nodes(nodesSEXP);
-    rcpp_result_gen = Rcpp::wrap(nodes_duplicated(nodes));
-    return rcpp_result_gen;
-END_RCPP
-}
 // xml_save_options
 Rcpp::IntegerVector xml_save_options();
 RcppExport SEXP _xml2_xml_save_options() {

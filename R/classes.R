@@ -74,7 +74,7 @@ as.character.xml_document <- function(x, ..., options = "format", encoding = "UT
 
 xml_nodeset <- function(nodes = list(), deduplicate = TRUE) {
   if (isTRUE(deduplicate)) {
-    nodes <- nodes[!nodes_duplicated(nodes)]
+    nodes <- nodes[!.Call(nodes_duplicated, nodes)]
   }
   structure(nodes, class = "xml_nodeset")
 }

@@ -510,28 +510,31 @@ extern "C" SEXP node_path(SEXP node_sxp) {
   return Rf_ScalarString(Xml2String(xmlGetNodePath(node.checked_get())).asRString());
 }
 
-// [[Rcpp::export]]
-LogicalVector nodes_duplicated(List nodes) {
+// [[export]]
+extern "C" SEXP nodes_duplicated(SEXP nodes) {
 
   std::set<xmlNode*> seen;
 
-  int n = nodes.size();
-  LogicalVector out(n);
+  int n = Rf_xlength(nodes);
+
+  SEXP out = PROTECT(Rf_allocVector(LGLSXP, n));
 
   for (int i = 0; i < n; ++i) {
     bool result;
-    if (RObject(nodes[i]).inherits("xml_node")) {
-      XPtrNode node = as<XPtrNode>(List(nodes[i])["node"]);
+    SEXP cur = VECTOR_ELT(nodes, i);
+    if (Rf_inherits(cur, "xml_node")) {
+      XPtrNode node(VECTOR_ELT(cur, 0));
       result = !seen.insert(node.checked_get()).second;
-    } else if (RObject(nodes[i]).inherits("xml_missing")){
+    } else if (Rf_inherits(cur, "xml_missing")) {
       result = false;
     } else {
-      XPtrNode node = nodes[i];
+      XPtrNode node(cur);
       result = !seen.insert(node.checked_get()).second;
     }
-    out[i] = result;
+    LOGICAL(out)[i] = result;
   }
 
+  UNPROTECT(1);
   return out;
 }
 
