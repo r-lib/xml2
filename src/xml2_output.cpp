@@ -36,37 +36,55 @@ using namespace Rcpp;
 #define HAS_SAVE_WSNONSIG
 #endif
 
-// [[Rcpp::export]]
-Rcpp::IntegerVector xml_save_options() {
-  Rcpp::IntegerVector out = Rcpp::IntegerVector::create(
-      Rcpp::_["format"] = XML_SAVE_FORMAT,
-      Rcpp::_["no_declaration"] = XML_SAVE_NO_DECL,
-      Rcpp::_["no_empty_tags"] = XML_SAVE_NO_EMPTY
+typedef struct {
+  const char* name;
+  const char* description;
+  int value;
+} xml_save_def;
+
+// [[::export]]
+extern "C" SEXP xml_save_options_() {
+
+  static const xml_save_def entries[] = {
+    {"format", "Format output", XML_SAVE_FORMAT},
+    {"no_declaration", "Drop the XML declaration", XML_SAVE_NO_DECL},
+    {"no_empty_tags", "Remove empty tags", XML_SAVE_NO_EMPTY},
 #ifdef HAS_SAVE_HTML
-      , Rcpp::_["no_xhtml"] = XML_SAVE_NO_XHTML
-      , Rcpp::_["require_xhtml"] = XML_SAVE_XHTML
-      , Rcpp::_["as_xml"] = XML_SAVE_AS_XML
-      , Rcpp::_["as_html"] = XML_SAVE_AS_HTML
+    {"no_xhtml", "Disable XHTML1 rules", XML_SAVE_NO_XHTML},
+    {"require_xhtml", "Force XHTML rules", XML_SAVE_XHTML},
+    {"as_xml", "Force XML output", XML_SAVE_AS_XML},
+    {"as_html", "Force HTML output", XML_SAVE_AS_HTML},
 #endif
 #ifdef HAS_SAVE_WSNONSIG
-      , Rcpp::_["format_whitespace"] = XML_SAVE_WSNONSIG
+    {"format_whitespace", "Format with non-significant whitespace", XML_SAVE_WSNONSIG},
 #endif
-      );
-  out.attr("descriptions") = Rcpp::CharacterVector::create(
-      "Format output",
-      "Drop the XML declaration",
-      "Remove empty tags"
-#ifdef HAS_SAVE_HTML
-      , "Disable XHTML1 rules"
-      , "Force XHTML1 rules"
-      , "Force XML output"
-      , "Force HTML output"
-#endif
-#ifdef HAS_SAVE_WSNONSIG
-      , "Format with non-significant whitespace"
-#endif
-      );
-  return out;
+    {NULL, NULL, 0}
+  };
+
+  // First figure out size, seems like there would be a way for the compiler to
+  // do this, but I don't know it.
+  R_xlen_t n = 0;
+  while(entries[n].name != NULL) {
+    ++n;
+  }
+
+  SEXP names = PROTECT(Rf_allocVector(STRSXP, n));
+  SEXP descriptions = PROTECT(Rf_allocVector(STRSXP, n));
+  SEXP values = PROTECT(Rf_allocVector(INTSXP, n));
+
+
+  for (R_xlen_t i = 0;i < n; ++i) {
+    SET_STRING_ELT(names, i, Rf_mkChar(entries[i].name));
+    SET_STRING_ELT(descriptions, i, Rf_mkChar(entries[i].description));
+    INTEGER(values)[i] = entries[i].value;
+  }
+
+  Rf_setAttrib(values, R_NamesSymbol, names);
+  Rf_setAttrib(values, Rf_install("descriptions"), descriptions);
+
+  UNPROTECT(3);
+
+  return values;
 }
 
 int xml_write_callback(SEXP con, const char * buffer, int len) {
