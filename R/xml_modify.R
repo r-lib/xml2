@@ -112,7 +112,7 @@ create_node <- function(.value, ..., .parent, .copy) {
   }
 
   if (inherits(.value, "xml_dtd")) {
-    node_new_dtd(.parent$doc, .value$name, .value$external_id, .value$system_id)
+    .Call(node_new_dtd, .parent$doc, .value$name, .value$external_id, .value$system_id)
     return()
   }
 

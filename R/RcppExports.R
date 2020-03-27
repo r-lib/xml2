@@ -101,10 +101,6 @@ node_set_namespace_prefix <- function(doc, node, prefix) {
     invisible(.Call(`_xml2_node_set_namespace_prefix`, doc, node, prefix))
 }
 
-node_new_dtd <- function(doc, name = "", eid = "", sid = "") {
-    invisible(.Call(`_xml2_node_new_dtd`, doc, name, eid, sid))
-}
-
 xml_save_options <- function() {
     .Call(`_xml2_xml_save_options`)
 }
