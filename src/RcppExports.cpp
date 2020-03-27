@@ -61,18 +61,6 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// url_escape
-CharacterVector url_escape(CharacterVector x, CharacterVector reserved);
-RcppExport SEXP _xml2_url_escape(SEXP xSEXP, SEXP reservedSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< CharacterVector >::type x(xSEXP);
-    Rcpp::traits::input_parameter< CharacterVector >::type reserved(reservedSEXP);
-    rcpp_result_gen = Rcpp::wrap(url_escape(x, reserved));
-    return rcpp_result_gen;
-END_RCPP
-}
 // url_unescape
 CharacterVector url_unescape(CharacterVector x);
 RcppExport SEXP _xml2_url_unescape(SEXP xSEXP) {

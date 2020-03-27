@@ -34,21 +34,6 @@ url_parse <- function(x) {
     .Call(`_xml2_url_parse`, x)
 }
 
-#' Escape and unescape urls.
-#'
-#' @param x A character vector of urls.
-#' @param reserved A string containing additional characters to avoid escaping.
-#' @export
-#' @examples
-#' url_escape("a b c")
-#' url_escape("a b c", "")
-#'
-#' url_unescape("a%20b%2fc")
-#' url_unescape("%C2%B5")
-url_escape <- function(x, reserved = "") {
-    .Call(`_xml2_url_escape`, x, reserved)
-}
-
 #' @export
 #' @rdname url_escape
 url_unescape <- function(x) {
