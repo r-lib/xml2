@@ -49,3 +49,18 @@ xml_url.xml_nodeset <- function(x) {
 url_absolute <- function(x, base) {
   .Call(url_absolute_, x, base)
 }
+
+#' Escape and unescape urls.
+#'
+#' @param x A character vector of urls.
+#' @param reserved A string containing additional characters to avoid escaping.
+#' @export
+#' @examples
+#' url_escape("a b c")
+#' url_escape("a b c", "")
+#'
+#' url_unescape("a%20b%2fc")
+#' url_unescape("%C2%B5")
+url_escape <- function(x, reserved = "") {
+  .Call(url_escape_, x, reserved)
+}

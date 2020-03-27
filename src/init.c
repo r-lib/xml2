@@ -64,7 +64,7 @@ extern SEXP ns_lookup_uri(SEXP, SEXP, SEXP);
 extern SEXP _xml2_read_connection_(SEXP, SEXP);
 extern SEXP unique_ns(SEXP);
 extern SEXP url_absolute_(SEXP, SEXP);
-extern SEXP _xml2_url_escape(SEXP, SEXP);
+extern SEXP url_escape_(SEXP, SEXP);
 extern SEXP _xml2_url_parse(SEXP);
 extern SEXP _xml2_url_relative(SEXP, SEXP);
 extern SEXP _xml2_url_unescape(SEXP);
@@ -129,7 +129,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_xml2_read_connection_",          (DL_FUNC) &_xml2_read_connection_,          2},
     {"unique_ns",                 (DL_FUNC) &unique_ns,                 1},
     {"url_absolute_",             (DL_FUNC) &url_absolute_,             2},
-    {"_xml2_url_escape",                (DL_FUNC) &_xml2_url_escape,                2},
+    {"url_escape_",               (DL_FUNC) &url_escape_,               2},
     {"_xml2_url_parse",                 (DL_FUNC) &_xml2_url_parse,                 1},
     {"_xml2_url_relative",              (DL_FUNC) &_xml2_url_relative,              2},
     {"_xml2_url_unescape",              (DL_FUNC) &_xml2_url_unescape,              1},

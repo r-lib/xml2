@@ -102,31 +102,23 @@ List url_parse(CharacterVector x) {
   return out;
 }
 
-//' Escape and unescape urls.
-//'
-//' @param x A character vector of urls.
-//' @param reserved A string containing additional characters to avoid escaping.
-//' @export
-//' @examples
-//' url_escape("a b c")
-//' url_escape("a b c", "")
-//'
-//' url_unescape("a%20b%2fc")
-//' url_unescape("%C2%B5")
-// [[Rcpp::export]]
-CharacterVector url_escape(CharacterVector x, CharacterVector reserved = "") {
-  int n = x.size();
-  CharacterVector out(n);
+// [[export]]
+extern "C" SEXP url_escape_(SEXP x_sxp, SEXP reserved_sxp) {
+  R_xlen_t n = Rf_xlength(x_sxp);
+  SEXP out = PROTECT(Rf_allocVector(STRSXP, n));
 
-  if (reserved.size() != 1)
-    stop("`reserved` must be character vector of length 1");
-  xmlChar* xReserved = (xmlChar*) Rf_translateCharUTF8(reserved[0]);
-
-  for (int i = 0; i < n; ++i) {
-    const xmlChar* xx = (xmlChar*) Rf_translateCharUTF8(x[i]);
-    out[i] = Xml2String(xmlURIEscapeStr(xx, xReserved)).asRString();
+  if (Rf_xlength(reserved_sxp) != 1) {
+    Rf_error("`reserved` must be character vector of length 1");
   }
 
+  xmlChar* xReserved = (xmlChar*) Rf_translateCharUTF8(STRING_ELT(reserved_sxp, 0));
+
+  for (int i = 0; i < n; ++i) {
+    const xmlChar* xx = (xmlChar*) Rf_translateCharUTF8(STRING_ELT(x_sxp, i));
+    SET_STRING_ELT(out, i, Xml2String(xmlURIEscapeStr(xx, xReserved)).asRString());
+  }
+
+  UNPROTECT(1);
   return out;
 }
 
