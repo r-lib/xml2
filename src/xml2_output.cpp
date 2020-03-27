@@ -161,22 +161,26 @@ void node_write_file(XPtrNode x, std::string path, std::string encoding = "UTF-8
   }
 }
 
-// [[Rcpp::export]]
-void node_write_connection(XPtrNode x, SEXP connection, std::string encoding = "UTF-8", int options = 1) {
-
+// [[export]]
+extern "C" SEXP node_write_connection(SEXP node_sxp, SEXP connection, SEXP encoding_sxp, SEXP options_sxp) {
+  XPtrNode node(node_sxp);
   SEXP con = R_GetConnection(connection);
+  const char* encoding = CHAR(STRING_ELT(encoding_sxp, 0));
+  int options = INTEGER(options_sxp)[0];
 
   xmlSaveCtxtPtr savectx = xmlSaveToIO(
       (xmlOutputWriteCallback)xml_write_callback,
       NULL,
       con,
-      encoding.c_str(),
+      encoding,
       options);
 
-  xmlSaveTree(savectx, x.checked_get());
+  xmlSaveTree(savectx, node.checked_get());
   if (xmlSaveClose(savectx) == -1) {
-    stop("Error closing connection");
+    Rf_error("Error closing connection");
   }
+
+  return R_NilValue;
 }
 
 // [[export]]
