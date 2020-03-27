@@ -612,9 +612,11 @@ extern "C" SEXP node_comment_new(SEXP content) {
   return SEXP(node);
 }
 
-// [[Rcpp::export]]
-XPtrNode node_new_ns(std::string name, XPtrNs ns) {
-  return XPtrNode(xmlNewNode(ns.checked_get(), asXmlChar(name)));
+// [[export]]
+extern "C" SEXP node_new_ns(SEXP name, SEXP ns_sxp) {
+  XPtrNs ns(ns_sxp);
+  XPtrNode node(xmlNewNode(ns.checked_get(), asXmlChar(name)));
+  return SEXP(node);
 }
 
 // [[Rcpp::export]]
