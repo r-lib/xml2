@@ -3,5 +3,5 @@
 }
 
 libxml2_version <- function() {
-  as.numeric_version(libxml2_version_())
+  as.numeric_version(.Call(libxml2_version_))
 }

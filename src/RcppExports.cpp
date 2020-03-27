@@ -28,16 +28,6 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// libxml2_version_
-std::string libxml2_version_();
-RcppExport SEXP _xml2_libxml2_version_() {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    rcpp_result_gen = Rcpp::wrap(libxml2_version_());
-    return rcpp_result_gen;
-END_RCPP
-}
 // unique_ns
 CharacterVector unique_ns(CharacterVector ns);
 RcppExport SEXP _xml2_unique_ns(SEXP nsSEXP) {
