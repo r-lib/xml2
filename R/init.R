@@ -9,3 +9,7 @@ libxml2_version <- function() {
 xml_parse_options <- function() {
   .Call(xml_parse_options_)
 }
+
+xml_save_options <- function() {
+  .Call(xml_save_options_)
+}

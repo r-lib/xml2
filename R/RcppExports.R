@@ -5,10 +5,6 @@ read_connection_ <- function(con, chunk_size = 64 * 1024L) {
     .Call(`_xml2_read_connection_`, con, chunk_size)
 }
 
-xml_save_options <- function() {
-    .Call(`_xml2_xml_save_options`)
-}
-
 xpath_search <- function(node, doc, xpath, nsMap, num_results) {
     .Call(`_xml2_xpath_search`, node, doc, xpath, nsMap, num_results)
 }
