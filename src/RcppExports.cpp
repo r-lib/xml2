@@ -135,17 +135,6 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// node_parent
-XPtrNode node_parent(XPtrNode n);
-RcppExport SEXP _xml2_node_parent(SEXP nSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< XPtrNode >::type n(nSEXP);
-    rcpp_result_gen = Rcpp::wrap(node_parent(n));
-    return rcpp_result_gen;
-END_RCPP
-}
 // node_path
 std::string node_path(XPtrNode n);
 RcppExport SEXP _xml2_node_path(SEXP nSEXP) {
