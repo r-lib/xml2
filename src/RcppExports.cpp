@@ -50,17 +50,6 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// url_parse
-List url_parse(CharacterVector x);
-RcppExport SEXP _xml2_url_parse(SEXP xSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< CharacterVector >::type x(xSEXP);
-    rcpp_result_gen = Rcpp::wrap(url_parse(x));
-    return rcpp_result_gen;
-END_RCPP
-}
 // url_unescape
 CharacterVector url_unescape(CharacterVector x);
 RcppExport SEXP _xml2_url_unescape(SEXP xSEXP) {

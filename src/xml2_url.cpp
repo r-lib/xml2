@@ -43,35 +43,32 @@ CharacterVector url_relative(CharacterVector x, CharacterVector base) {
   return out;
 }
 
-//' Parse a url into its component pieces.
-//'
-//' @param x A character vector of urls.
-//' @return A dataframe with one row for each element of \code{x} and
-//'   columns: scheme, server, port, user, path, query, fragment.
-//' @export
-//' @examples
-//' url_parse("http://had.co.nz/")
-//' url_parse("http://had.co.nz:1234/")
-//' url_parse("http://had.co.nz:1234/?a=1&b=2")
-//' url_parse("http://had.co.nz:1234/?a=1&b=2#def")
-// [[Rcpp::export]]
-List url_parse(CharacterVector x) {
-  int n = x.size();
-  CharacterVector scheme(n), server(n), user(n), path(n), query(n), fragment(n);
-  IntegerVector port(n);
+// [[export]]
+extern "C" SEXP url_parse_(SEXP x_sxp) {
+  R_xlen_t n = Rf_xlength(x_sxp);
+
+  SEXP scheme = PROTECT(Rf_allocVector(STRSXP, n));
+  SEXP server = PROTECT(Rf_allocVector(STRSXP, n));
+  SEXP user = PROTECT(Rf_allocVector(STRSXP, n));
+  SEXP path = PROTECT(Rf_allocVector(STRSXP, n));
+  SEXP query = PROTECT(Rf_allocVector(STRSXP, n));
+  SEXP fragment = PROTECT(Rf_allocVector(STRSXP, n));
+
+  SEXP port = PROTECT(Rf_allocVector(INTSXP, n));
 
   for (int i = 0; i < n; ++i) {
-    const char* raw = Rf_translateCharUTF8(x[i]);
+    const char* raw = Rf_translateCharUTF8(STRING_ELT(x_sxp, i));
     xmlURI* uri = xmlParseURI(raw);
-    if (uri == NULL)
+    if (uri == NULL) {
       continue;
+    }
 
-    scheme[i] = uri->scheme == NULL ? "" : uri->scheme;
-    server[i] = uri->server == NULL ? "" : uri->server;
-    port[i] = uri->port == 0 ? NA_INTEGER : uri->port;
-    user[i] = uri->user == NULL ? "" : uri->user;
-    path[i] = uri->path  == NULL ? "" : uri->path;
-    fragment[i] = uri->fragment == NULL ? "" : uri->fragment;
+    SET_STRING_ELT(scheme, i, Rf_mkChar(uri->scheme == NULL ? "" : uri->scheme));
+    SET_STRING_ELT(server, i, Rf_mkChar(uri->server == NULL ? "" : uri->server));
+    INTEGER(port)[i] = uri->port == 0 ? NA_INTEGER : uri->port;
+    SET_STRING_ELT(user, i, Rf_mkChar(uri->user == NULL ? "" : uri->user));
+    SET_STRING_ELT(path, i, Rf_mkChar(uri->path  == NULL ? "" : uri->path));
+    SET_STRING_ELT(fragment, i, Rf_mkChar(uri->fragment == NULL ? "" : uri->fragment));
 
     /* * *
      * Thu Apr 26 10:36:26 CEST 2007 Daniel Veillard
@@ -79,25 +76,42 @@ List url_parse(CharacterVector x) {
      * https://github.com/GNOME/libxml2/commit/a1413b84f7163d57c6251d5f4251186368efd859
      */
     #if defined(LIBXML_VERSION) && (LIBXML_VERSION >= 20629)
-    query[i] = uri->query_raw  == NULL ? "" : uri->query_raw;
+    SET_STRING_ELT(query, i, Rf_mkChar(uri->query_raw  == NULL ? "" : uri->query_raw));
     #else
-    query[i] = uri->query  == NULL ? "" : uri->query;
+    SET_STRING_ELT(query, i, Rf_mkChar(uri->query  == NULL ? "" : uri->query));
     #endif
 
     xmlFreeURI(uri);
   }
 
-  List out = List::create(
-    _["scheme"] = scheme,
-    _["server"] = server,
-    _["port"] = port,
-    _["user"] = user,
-    _["path"] = path,
-    _["query"] = query,
-    _["fragment"] = fragment
-  );
-  out.attr("class") = "data.frame";
-  out.attr("row.names") = IntegerVector::create(NA_INTEGER, -n);
+  SEXP out = PROTECT(Rf_allocVector(VECSXP, 7));
+  SET_VECTOR_ELT(out, 0, scheme);
+  SET_VECTOR_ELT(out, 1, server);
+  SET_VECTOR_ELT(out, 2, port);
+  SET_VECTOR_ELT(out, 3, user);
+  SET_VECTOR_ELT(out, 4, path);
+  SET_VECTOR_ELT(out, 5, query);
+  SET_VECTOR_ELT(out, 6, fragment);
+
+  SEXP names = PROTECT(Rf_allocVector(STRSXP, 7));
+
+  SET_STRING_ELT(names, 0, Rf_mkChar("scheme"));
+  SET_STRING_ELT(names, 1, Rf_mkChar("server"));
+  SET_STRING_ELT(names, 2, Rf_mkChar("port"));
+  SET_STRING_ELT(names, 3, Rf_mkChar("user"));
+  SET_STRING_ELT(names, 4, Rf_mkChar("path"));
+  SET_STRING_ELT(names, 5, Rf_mkChar("query"));
+  SET_STRING_ELT(names, 6, Rf_mkChar("fragment"));
+
+  Rf_setAttrib(out, R_ClassSymbol, Rf_mkString("data.frame"));
+  Rf_setAttrib(out, R_NamesSymbol, names);
+
+  SEXP row_names = PROTECT(Rf_allocVector(INTSXP, 2));
+  INTEGER(row_names)[0] = NA_INTEGER;
+  INTEGER(row_names)[1] = -n;
+  Rf_setAttrib(out, R_RowNamesSymbol, row_names);
+
+  UNPROTECT(10);
 
   return out;
 }
