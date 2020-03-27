@@ -21,10 +21,6 @@ ns_lookup <- function(doc, node, prefix) {
     .Call(`_xml2_ns_lookup`, doc, node, prefix)
 }
 
-node_set_name <- function(node, value) {
-    invisible(.Call(`_xml2_node_set_name`, node, value))
-}
-
 node_text <- function(node) {
     .Call(`_xml2_node_text`, node)
 }
