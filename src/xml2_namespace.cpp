@@ -5,8 +5,8 @@ using namespace Rcpp;
 #include "xml2_types.h"
 #include "xml2_utils.h"
 
-// [[Rcpp::export]]
-CharacterVector unique_ns(CharacterVector ns) {
+// [[export]]
+extern "C" SEXP unique_ns(SEXP ns) {
   return NsMap(ns).out();
 }
 

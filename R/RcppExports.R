@@ -9,10 +9,6 @@ xml_parse_options <- function() {
     .Call(`_xml2_xml_parse_options`)
 }
 
-unique_ns <- function(ns) {
-    .Call(`_xml2_unique_ns`, ns)
-}
-
 xml_save_options <- function() {
     .Call(`_xml2_xml_save_options`)
 }
