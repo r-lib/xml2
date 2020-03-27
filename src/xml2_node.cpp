@@ -641,8 +641,15 @@ void node_set_namespace_prefix(XPtrDoc doc, XPtrNode node, std::string prefix) {
   xmlSetNs(node.checked_get(), ns);
 }
 
-// [[Rcpp::export]]
-void node_new_dtd(XPtrDoc doc, std::string name = "", std::string eid = "", std::string sid = "") {
+// [[export]]
+extern "C" SEXP node_new_dtd(SEXP doc_sxp, SEXP name_sxp, SEXP eid_sxp, SEXP sid_sxp) {
+  XPtrDoc doc(doc_sxp);
+  std::string name(CHAR(STRING_ELT(name_sxp, 0)));
+  std::string eid(CHAR(STRING_ELT(eid_sxp, 0)));
+  std::string sid(CHAR(STRING_ELT(sid_sxp, 0)));
+
   xmlDtdPtr dtd = xmlNewDtd(doc, name == "" ? NULL : asXmlChar(name), eid == "" ? NULL : asXmlChar(eid), sid == "" ? NULL : asXmlChar(sid));
   xmlAddChild(reinterpret_cast<xmlNodePtr>(doc.checked_get()), reinterpret_cast<xmlNodePtr>(dtd));
+
+  return R_NilValue;
 }
