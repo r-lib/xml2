@@ -3,6 +3,7 @@
 #include <Rinternals.h>
 
 #include <algorithm>
+#include <cstring>
 
 SEXP read_bin(SEXP con, size_t bytes = 64 * 1024);
 SEXP write_bin(SEXP data, SEXP con);

@@ -4,6 +4,7 @@
 #include <libxml/HTMLparser.h>
 #include "xml2_types.h"
 #include "xml2_utils.h"
+#include <cstring>
 
 // [[export]]
 extern "C" SEXP  xml_parse_options_() {
