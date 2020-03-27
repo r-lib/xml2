@@ -243,7 +243,7 @@ xml_remove <- function(.x, free = FALSE) {
 
 #' @export
 xml_remove.xml_node <- function(.x, free = FALSE) {
-  node_remove(.x$node, free = free)
+  .Call(node_remove, .x$node, free)
 
   invisible(.x)
 }

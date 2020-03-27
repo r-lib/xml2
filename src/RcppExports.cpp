@@ -169,17 +169,6 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// node_remove
-void node_remove(XPtrNode cur, bool free);
-RcppExport SEXP _xml2_node_remove(SEXP curSEXP, SEXP freeSEXP) {
-BEGIN_RCPP
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< XPtrNode >::type cur(curSEXP);
-    Rcpp::traits::input_parameter< bool >::type free(freeSEXP);
-    node_remove(cur, free);
-    return R_NilValue;
-END_RCPP
-}
 // node_set_namespace_uri
 void node_set_namespace_uri(XPtrDoc doc, XPtrNode node, std::string uri);
 RcppExport SEXP _xml2_node_set_namespace_uri(SEXP docSEXP, SEXP nodeSEXP, SEXP uriSEXP) {
