@@ -169,10 +169,6 @@ xml_save_options <- function() {
     .Call(`_xml2_xml_save_options`)
 }
 
-doc_write_file <- function(x, path, encoding = "UTF-8", options = 1L) {
-    invisible(.Call(`_xml2_doc_write_file`, x, path, encoding, options))
-}
-
 node_write_file <- function(x, path, encoding = "UTF-8", options = 1L) {
     invisible(.Call(`_xml2_node_write_file`, x, path, encoding, options))
 }

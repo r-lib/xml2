@@ -490,19 +490,6 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// doc_write_file
-void doc_write_file(XPtrDoc x, std::string path, std::string encoding, int options);
-RcppExport SEXP _xml2_doc_write_file(SEXP xSEXP, SEXP pathSEXP, SEXP encodingSEXP, SEXP optionsSEXP) {
-BEGIN_RCPP
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< XPtrDoc >::type x(xSEXP);
-    Rcpp::traits::input_parameter< std::string >::type path(pathSEXP);
-    Rcpp::traits::input_parameter< std::string >::type encoding(encodingSEXP);
-    Rcpp::traits::input_parameter< int >::type options(optionsSEXP);
-    doc_write_file(x, path, encoding, options);
-    return R_NilValue;
-END_RCPP
-}
 // node_write_file
 void node_write_file(XPtrNode x, std::string path, std::string encoding, int options);
 RcppExport SEXP _xml2_node_write_file(SEXP xSEXP, SEXP pathSEXP, SEXP encodingSEXP, SEXP optionsSEXP) {
