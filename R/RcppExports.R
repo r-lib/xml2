@@ -33,10 +33,6 @@ node_set_attr <- function(node_, name, value, nsMap) {
     invisible(.Call(`_xml2_node_set_attr`, node_, name, value, nsMap))
 }
 
-node_remove_attr <- function(node_, name, nsMap) {
-    invisible(.Call(`_xml2_node_remove_attr`, node_, name, nsMap))
-}
-
 node_siblings <- function(node, onlyNode = TRUE) {
     .Call(`_xml2_node_siblings`, node, onlyNode)
 }

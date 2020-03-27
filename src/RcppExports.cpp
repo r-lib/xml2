@@ -100,18 +100,6 @@ BEGIN_RCPP
     return R_NilValue;
 END_RCPP
 }
-// node_remove_attr
-void node_remove_attr(XPtrNode node_, std::string name, CharacterVector nsMap);
-RcppExport SEXP _xml2_node_remove_attr(SEXP node_SEXP, SEXP nameSEXP, SEXP nsMapSEXP) {
-BEGIN_RCPP
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< XPtrNode >::type node_(node_SEXP);
-    Rcpp::traits::input_parameter< std::string >::type name(nameSEXP);
-    Rcpp::traits::input_parameter< CharacterVector >::type nsMap(nsMapSEXP);
-    node_remove_attr(node_, name, nsMap);
-    return R_NilValue;
-END_RCPP
-}
 // node_siblings
 Rcpp::List node_siblings(XPtrNode node, bool onlyNode);
 RcppExport SEXP _xml2_node_siblings(SEXP nodeSEXP, SEXP onlyNodeSEXP) {
