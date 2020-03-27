@@ -48,7 +48,7 @@ xml_ns.xml_document <- function(x) {
 
   stopifnot(inherits(x, "xml_document"))
   doc <- x$doc
-  x <- doc_namespaces(doc)
+  x <- .Call(doc_namespaces, doc)
 
   # Number default namespaces
   is_default <- names(x) == ""
