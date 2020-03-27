@@ -477,11 +477,15 @@ Rcpp::List node_siblings(XPtrNode node, bool onlyNode = true) {
 }
 
 
-// [[Rcpp::export]]
-XPtrNode node_parent(XPtrNode n) {
-  if (n->parent == NULL)
-    Rcpp::stop("Parent does not exist");
-  return XPtrNode(n->parent);
+// [[export]]
+extern "C" SEXP node_parent(SEXP node_sxp) {
+  XPtrNode node(node_sxp);
+
+  if (node->parent == NULL) {
+    Rf_error("Parent does not exist");
+  }
+  XPtrNode out(node->parent);
+  return SEXP(out);
 }
 
 // [[Rcpp::export]]

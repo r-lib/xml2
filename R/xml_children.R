@@ -88,12 +88,12 @@ xml_parent.xml_missing <- function(x) {
 
 #' @export
 xml_parent.xml_node <- function(x) {
-  xml_node(node_parent(x$node), x$doc)
+  xml_node(.Call(node_parent, x$node), x$doc)
 }
 
 #' @export
 xml_parent.xml_nodeset <- function(x) {
-  nodeset_apply(x, node_parent)
+  nodeset_apply(x, function(x) .Call(node_parent, x))
 }
 
 
