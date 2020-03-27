@@ -24,22 +24,23 @@ extern "C" SEXP url_absolute_(SEXP x_sxp, SEXP base_sxp) {
   return out;
 }
 
-//' @export
-//' @rdname url_absolute
-// [[Rcpp::export]]
-CharacterVector url_relative(CharacterVector x, CharacterVector base) {
-  int n = x.size();
-  CharacterVector out(n);
+// [[export]]
+extern "C" SEXP url_relative_(SEXP x_sxp, SEXP base_sxp) {
+  R_xlen_t n = Rf_xlength(x_sxp);
+  SEXP out = PROTECT(Rf_allocVector(STRSXP, n));
 
-  if (base.size() > 1)
-    Rcpp::stop("Base URL must be length 1");
-  const xmlChar* base_uri = (xmlChar*) Rf_translateCharUTF8(base[0]);
-
-  for (int i = 0; i < n; ++i) {
-    const xmlChar* uri = (xmlChar*) Rf_translateCharUTF8(x[i]);
-    out[i] = Xml2String(xmlBuildRelativeURI(uri, base_uri)).asRString();
+  if (Rf_xlength(base_sxp) > 1) {
+    Rf_error("Base URL must be length 1");
   }
 
+  const xmlChar* base_uri = (xmlChar*) Rf_translateCharUTF8(STRING_ELT(base_sxp, 0));
+
+  for (int i = 0; i < n; ++i) {
+    const xmlChar* uri = (xmlChar*) Rf_translateCharUTF8(STRING_ELT(x_sxp, i));
+    SET_STRING_ELT(out, i, Xml2String(xmlBuildRelativeURI(uri, base_uri)).asRString());
+  }
+
+  UNPROTECT(1);
   return out;
 }
 
