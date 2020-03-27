@@ -5,26 +5,46 @@ using namespace Rcpp;
 #include "xml2_types.h"
 
 void handleSchemaError(void* userData, xmlError* error) {
-  Rcpp::CharacterVector * vec = (Rcpp::CharacterVector *) userData;
+  std::vector<std::string> * vec = (std::vector<std::string> *) userData;
   std::string message = std::string(error->message);
   message.resize(message.size() - 1);
   vec->push_back(message);
 }
 
-// [[Rcpp::export]]
-Rcpp::LogicalVector doc_validate(XPtrDoc doc, XPtrDoc schema) {
+// [[export]]
+extern "C" SEXP doc_validate(SEXP doc_sxp, SEXP schema_sxp) {
+
+  XPtrDoc doc(doc_sxp);
+  XPtrDoc schema(schema_sxp);
+
   xmlLineNumbersDefault(1);
-  Rcpp::CharacterVector vec;
+
+  std::vector<std::string> vec;
+
   xmlSchemaParserCtxtPtr cptr = xmlSchemaNewDocParserCtxt(schema.checked_get());
+
   xmlSchemaSetParserStructuredErrors(cptr, handleSchemaError, &vec);
+
   xmlSchemaPtr sptr = xmlSchemaParse(cptr);
+
   xmlSchemaValidCtxtPtr vptr = xmlSchemaNewValidCtxt(sptr);
+
   xmlSchemaSetValidStructuredErrors(vptr, handleSchemaError, &vec);
-  Rcpp::LogicalVector out;
-  out.push_back(0 == xmlSchemaValidateDoc(vptr, doc.checked_get()));
+
+  SEXP out = PROTECT(Rf_allocVector(LGLSXP, 1));
+
+  LOGICAL(out)[0] = xmlSchemaValidateDoc(vptr, doc.checked_get()) == 0;
+
   xmlSchemaFreeParserCtxt(cptr);
   xmlSchemaFreeValidCtxt(vptr);
   xmlSchemaFree(sptr);
-  out.attr("errors") = vec;
+
+  SEXP errors = PROTECT(Rf_allocVector(STRSXP, vec.size()));
+  for (size_t i = 0; i < vec.size(); ++i) {
+    SET_STRING_ELT(errors, i, Rf_mkCharLenCE(vec[i].c_str(), vec[i].size(), CE_UTF8));
+  }
+  Rf_setAttrib(out, Rf_install("errors"), errors);
+
+  UNPROTECT(2);
   return out;
 }

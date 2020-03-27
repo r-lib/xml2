@@ -193,10 +193,6 @@ node_write_character <- function(x, encoding = "UTF-8", options = 1L) {
     .Call(`_xml2_node_write_character`, x, encoding, options)
 }
 
-doc_validate <- function(doc, schema) {
-    .Call(`_xml2_doc_validate`, doc, schema)
-}
-
 #' Convert between relative and absolute urls.
 #'
 #' @param x A character vector of urls relative to that base
