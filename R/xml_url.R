@@ -50,6 +50,12 @@ url_absolute <- function(x, base) {
   .Call(url_absolute_, x, base)
 }
 
+#' @rdname url_absolute
+#' @export
+url_relative <- function(x, base) {
+  .Call(url_relative_, x, base)
+}
+
 #' Escape and unescape urls.
 #'
 #' @param x A character vector of urls.

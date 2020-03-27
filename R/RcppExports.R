@@ -14,12 +14,6 @@ xml_save_options <- function() {
 }
 
 #' @export
-#' @rdname url_absolute
-url_relative <- function(x, base) {
-    .Call(`_xml2_url_relative`, x, base)
-}
-
-#' @export
 #' @rdname url_escape
 url_unescape <- function(x) {
     .Call(`_xml2_url_unescape`, x)
