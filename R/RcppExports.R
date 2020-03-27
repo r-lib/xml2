@@ -57,10 +57,6 @@ node_replace <- function(old, cur) {
     .Call(`_xml2_node_replace`, old, cur)
 }
 
-node_remove <- function(cur, free) {
-    invisible(.Call(`_xml2_node_remove`, cur, free))
-}
-
 node_set_namespace_uri <- function(doc, node, uri) {
     invisible(.Call(`_xml2_node_set_namespace_uri`, doc, node, uri))
 }

@@ -604,13 +604,17 @@ XPtrNode node_replace(XPtrNode old, XPtrNode cur) {
   return XPtrNode(xmlReplaceNode(old.checked_get(), cur.checked_get()));
 }
 
-// [[Rcpp::export]]
-void node_remove(XPtrNode cur, bool free) {
-  xmlUnlinkNode(cur.checked_get());
+// [[export]]
+extern "C" SEXP node_remove(SEXP node_sxp, SEXP free_sxp) {
+  XPtrNode node(node_sxp);
+  bool free = LOGICAL(free_sxp)[0];
+
+  xmlUnlinkNode(node.checked_get());
   if (free) {
-    xmlFreeNode(cur.checked_get());
+    xmlFreeNode(node.checked_get());
   }
-  return;
+
+  return R_NilValue;
 }
 
 // [[export]]
