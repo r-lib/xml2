@@ -248,18 +248,6 @@ BEGIN_RCPP
     return R_NilValue;
 END_RCPP
 }
-// node_new_ns
-XPtrNode node_new_ns(std::string name, XPtrNs ns);
-RcppExport SEXP _xml2_node_new_ns(SEXP nameSEXP, SEXP nsSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< std::string >::type name(nameSEXP);
-    Rcpp::traits::input_parameter< XPtrNs >::type ns(nsSEXP);
-    rcpp_result_gen = Rcpp::wrap(node_new_ns(name, ns));
-    return rcpp_result_gen;
-END_RCPP
-}
 // node_null
 XPtrNode node_null();
 RcppExport SEXP _xml2_node_null() {
