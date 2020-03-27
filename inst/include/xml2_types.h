@@ -13,6 +13,7 @@ inline void finaliseNs(xmlNsPtr ns) {
 }
 
 template <typename T> class XPtr {
+  protected:
   SEXP data_;
 
   public:
@@ -54,7 +55,33 @@ template <typename T> class XPtr {
   }
 };
 
-typedef Rcpp::XPtr<xmlDoc,Rcpp::PreserveStorage,xmlFreeDoc> XPtrDoc;
+
+class XPtrDoc : public ::XPtr<xmlDoc> {
+  static void finalizeXPtrDoc(SEXP p) {
+    if (TYPEOF(p) != EXTPTRSXP) {
+      return;
+    }
+
+    xmlDoc* ptr = (xmlDoc*) R_ExternalPtrAddr(p);
+
+    if (ptr == NULL) {
+      return;
+    }
+
+    R_ClearExternalPtr(p);
+
+    xmlFreeDoc(ptr);
+  }
+
+  public:
+  XPtrDoc(xmlDoc* p) : ::XPtr<xmlDoc>(p) {
+    R_RegisterCFinalizerEx(data_, finalizeXPtrDoc, (Rboolean) false);
+  }
+
+  XPtrDoc(SEXP x) : ::XPtr<xmlDoc>(x) {}
+};
+
+//typedef Rcpp::XPtr<xmlDoc,Rcpp::PreserveStorage,xmlFreeDoc> XPtrDoc;
 typedef ::XPtr<xmlNode> XPtrNode;
 typedef ::XPtr<xmlNs> XPtrNs;
 
