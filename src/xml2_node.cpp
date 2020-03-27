@@ -503,9 +503,12 @@ void node_new_text(XPtrNode node, std::string content) {
   return;
 }
 
-// [[Rcpp::export]]
-XPtrNode node_append_child(XPtrNode parent, XPtrNode cur) {
-  return XPtrNode(xmlAddChild(parent.checked_get(), cur.checked_get()));
+// [[export]]
+extern "C" SEXP node_append_child(SEXP parent_sxp, SEXP cur_sxp) {
+  XPtrNode parent(parent_sxp);
+  XPtrNode cur(cur_sxp);
+  XPtrNode out(xmlAddChild(parent.checked_get(), cur.checked_get()));
+  return SEXP(out);
 }
 
 // [[Rcpp::export]]
