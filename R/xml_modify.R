@@ -67,7 +67,7 @@ xml_add_sibling.xml_node <- function(.x, .value, ..., .where = c("after", "befor
   node <- create_node(.value, .parent = .x, .copy = .copy, ...)
 
   .x$node <- switch(.where,
-    before = node_prepend_sibling(.x$node, node$node),
+    before = .Call(node_prepend_sibling, .x$node, node$node),
     after = .Call(node_append_sibling, .x$node, node$node))
 
   invisible(.x)
