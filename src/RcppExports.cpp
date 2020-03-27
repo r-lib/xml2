@@ -39,32 +39,6 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// ns_lookup_uri
-XPtrNs ns_lookup_uri(XPtrDoc doc, XPtrNode node, std::string uri);
-RcppExport SEXP _xml2_ns_lookup_uri(SEXP docSEXP, SEXP nodeSEXP, SEXP uriSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< XPtrDoc >::type doc(docSEXP);
-    Rcpp::traits::input_parameter< XPtrNode >::type node(nodeSEXP);
-    Rcpp::traits::input_parameter< std::string >::type uri(uriSEXP);
-    rcpp_result_gen = Rcpp::wrap(ns_lookup_uri(doc, node, uri));
-    return rcpp_result_gen;
-END_RCPP
-}
-// ns_lookup
-XPtrNs ns_lookup(XPtrDoc doc, XPtrNode node, std::string prefix);
-RcppExport SEXP _xml2_ns_lookup(SEXP docSEXP, SEXP nodeSEXP, SEXP prefixSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< XPtrDoc >::type doc(docSEXP);
-    Rcpp::traits::input_parameter< XPtrNode >::type node(nodeSEXP);
-    Rcpp::traits::input_parameter< std::string >::type prefix(prefixSEXP);
-    rcpp_result_gen = Rcpp::wrap(ns_lookup(doc, node, prefix));
-    return rcpp_result_gen;
-END_RCPP
-}
 // xml_save_options
 Rcpp::IntegerVector xml_save_options();
 RcppExport SEXP _xml2_xml_save_options() {

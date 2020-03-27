@@ -13,14 +13,6 @@ unique_ns <- function(ns) {
     .Call(`_xml2_unique_ns`, ns)
 }
 
-ns_lookup_uri <- function(doc, node, uri) {
-    .Call(`_xml2_ns_lookup_uri`, doc, node, uri)
-}
-
-ns_lookup <- function(doc, node, prefix) {
-    .Call(`_xml2_ns_lookup`, doc, node, prefix)
-}
-
 xml_save_options <- function() {
     .Call(`_xml2_xml_save_options`)
 }

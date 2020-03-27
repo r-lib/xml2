@@ -34,25 +34,34 @@ extern "C" SEXP doc_namespaces(SEXP doc_sxp) {
   return nsMap.out();
 }
 
-// [[Rcpp::export]]
-XPtrNs ns_lookup_uri(XPtrDoc doc, XPtrNode node, std::string uri) {
-  xmlNsPtr ns = xmlSearchNsByHref(doc.checked_get(), node.checked_get(), asXmlChar(uri));
+// [[export]]
+extern "C" SEXP ns_lookup_uri(SEXP doc_sxp, SEXP node_sxp, SEXP uri_sxp) {
+  XPtrDoc doc(doc_sxp);
+  XPtrNode node(node_sxp);
+
+  xmlNsPtr ns = xmlSearchNsByHref(doc.checked_get(), node.checked_get(), asXmlChar(uri_sxp));
   if (ns == NULL) {
-    stop("No namespace with URI `%s` found", uri);
+    Rf_error("No namespace with URI `%s` found", CHAR(STRING_ELT(uri_sxp, 0)));
   }
-  return XPtrNs(ns);
+  XPtrNs out(ns);
+  return SEXP(out);
 }
 
-// [[Rcpp::export]]
-XPtrNs ns_lookup(XPtrDoc doc, XPtrNode node, std::string prefix) {
+// [[export]]
+extern "C" SEXP ns_lookup(SEXP doc_sxp, SEXP node_sxp, SEXP prefix_sxp) {
+  XPtrDoc doc(doc_sxp);
+  XPtrNode node(node_sxp);
+
   xmlNsPtr ns = NULL;
-  if (prefix.length() == 0) {
+  if (Rf_xlength(STRING_ELT(prefix_sxp, 0)) == 0) {
     ns = xmlSearchNs(doc.checked_get(), node.checked_get(), NULL);
   } else {
-    ns = xmlSearchNs(doc.checked_get(), node.checked_get(), asXmlChar(prefix));
+    ns = xmlSearchNs(doc.checked_get(), node.checked_get(), asXmlChar(prefix_sxp));
     if (ns == NULL) {
-      stop("No namespace with prefix `%s` found", prefix);
+      Rf_error("No namespace with prefix `%s` found", CHAR(STRING_ELT(prefix_sxp, 0)));
     }
   }
-  return XPtrNs(ns);
+
+  XPtrNs out(ns);
+  return SEXP(out);
 }

@@ -59,8 +59,8 @@ extern SEXP node_write_character(SEXP, SEXP, SEXP);
 extern SEXP node_write_connection(SEXP, SEXP, SEXP, SEXP);
 extern SEXP node_write_file(SEXP, SEXP, SEXP, SEXP);
 extern SEXP nodes_duplicated(SEXP);
-extern SEXP _xml2_ns_lookup(SEXP, SEXP, SEXP);
-extern SEXP _xml2_ns_lookup_uri(SEXP, SEXP, SEXP);
+extern SEXP ns_lookup(SEXP, SEXP, SEXP);
+extern SEXP ns_lookup_uri(SEXP, SEXP, SEXP);
 extern SEXP _xml2_read_connection_(SEXP, SEXP);
 extern SEXP _xml2_unique_ns(SEXP);
 extern SEXP _xml2_url_absolute(SEXP, SEXP);
@@ -124,8 +124,8 @@ static const R_CallMethodDef CallEntries[] = {
     {"node_write_connection",     (DL_FUNC) &node_write_connection,     4},
     {"node_write_file",           (DL_FUNC) &node_write_file,           4},
     {"nodes_duplicated",          (DL_FUNC) &nodes_duplicated,          1},
-    {"_xml2_ns_lookup",                 (DL_FUNC) &_xml2_ns_lookup,                 3},
-    {"_xml2_ns_lookup_uri",             (DL_FUNC) &_xml2_ns_lookup_uri,             3},
+    {"ns_lookup",                 (DL_FUNC) &ns_lookup,                 3},
+    {"ns_lookup_uri",             (DL_FUNC) &ns_lookup_uri,             3},
     {"_xml2_read_connection_",          (DL_FUNC) &_xml2_read_connection_,          2},
     {"_xml2_unique_ns",                 (DL_FUNC) &_xml2_unique_ns,                 1},
     {"_xml2_url_absolute",              (DL_FUNC) &_xml2_url_absolute,              2},
