@@ -13,7 +13,7 @@
 #include "xml2_utils.h"
 
 template<typename T> // for xmlAttr and xmlNode
-std::string nodeName(T* node, SEXP nsMap) {
+std::string nodeName(T* node, SEXP nsMap) noexcept {
   std::string name = Xml2String(node->name).asStdString();
   if (Rf_xlength(nsMap) == 0) {
     return name;
@@ -398,11 +398,13 @@ extern "C" SEXP node_remove_attr(SEXP node_sxp, SEXP name_sxp, SEXP nsMap) {
 }
 
 SEXP asList(std::vector<xmlNode*> nodes) {
-  SEXP out = Rf_allocVector(VECSXP, nodes.size());
+  SEXP out = PROTECT(Rf_allocVector(VECSXP, nodes.size()));
   for (size_t i = 0; i < nodes.size(); ++i) {
     XPtrNode node(nodes[i]);
     SET_VECTOR_ELT(out, i, SEXP(node));
   }
+
+  UNPROTECT(1);
 
   return out;
 }

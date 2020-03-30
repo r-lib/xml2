@@ -4,9 +4,11 @@
 // Wrapper around R's read_bin function
 SEXP read_bin(SEXP con, size_t bytes) {
   SEXP e;
-  PROTECT(e = Rf_lang4(Rf_install("readBin"), con, Rf_mkString("raw"), Rf_ScalarInteger(bytes)));
+  SEXP raw_sxp = PROTECT(Rf_mkString("raw"));
+  SEXP bytes_sxp = PROTECT(Rf_ScalarInteger(bytes));
+  PROTECT(e = Rf_lang4(Rf_install("readBin"), con, raw_sxp, bytes_sxp));
   SEXP res = Rf_eval(e, R_GlobalEnv);
-  UNPROTECT(1);
+  UNPROTECT(3);
   return res;
 }
 
