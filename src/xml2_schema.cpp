@@ -4,6 +4,7 @@
 #include "xml2_types.h"
 #include <vector>
 #include <string>
+#include "xml2_utils.h"
 
 void handleSchemaError(void* userData, xmlError* error) {
   std::vector<std::string> * vec = (std::vector<std::string> *) userData;
@@ -19,6 +20,8 @@ extern "C" SEXP doc_validate(SEXP doc_sxp, SEXP schema_sxp) {
   XPtrDoc schema(schema_sxp);
 
   xmlLineNumbersDefault(1);
+
+  BEGIN_CPP
 
   std::vector<std::string> vec;
 
@@ -46,6 +49,9 @@ extern "C" SEXP doc_validate(SEXP doc_sxp, SEXP schema_sxp) {
   }
   Rf_setAttrib(out, Rf_install("errors"), errors);
 
+
   UNPROTECT(2);
   return out;
+
+  END_CPP
 }

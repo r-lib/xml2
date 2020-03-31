@@ -41,7 +41,7 @@ typedef struct {
   int value;
 } xml_save_def;
 
-// [[::export]]
+// [[export]]
 extern "C" SEXP xml_save_options_() {
 
   static const xml_save_def entries[] = {
@@ -98,6 +98,7 @@ int xml_write_callback(SEXP con, const char * buffer, int len) {
 // [[export]]
 extern "C" SEXP doc_write_file(SEXP doc_sxp, SEXP path_sxp, SEXP encoding_sxp, SEXP options_sxp) {
 
+  BEGIN_CPP
   XPtrDoc doc(doc_sxp);
   const char* path = CHAR(STRING_ELT(path_sxp, 0));
   const char* encoding = CHAR(STRING_ELT(encoding_sxp, 0));
@@ -113,10 +114,12 @@ extern "C" SEXP doc_write_file(SEXP doc_sxp, SEXP path_sxp, SEXP encoding_sxp, S
   }
 
   return R_NilValue;
+  END_CPP
 }
 
 // [[export]]
 extern "C" SEXP doc_write_connection(SEXP doc_sxp, SEXP connection, SEXP encoding_sxp, SEXP options_sxp) {
+  BEGIN_CPP
   XPtrDoc doc(doc_sxp);
   const char* encoding = CHAR(STRING_ELT(encoding_sxp, 0));
   int options = INTEGER(options_sxp)[0];
@@ -136,10 +139,12 @@ extern "C" SEXP doc_write_connection(SEXP doc_sxp, SEXP connection, SEXP encodin
   }
 
   return R_NilValue;
+  END_CPP
 }
 
 // [[export]]
 extern "C" SEXP doc_write_character(SEXP doc_sxp, SEXP encoding_sxp, SEXP options_sxp) {
+  BEGIN_CPP
   XPtrDoc doc(doc_sxp);
   const char* encoding = CHAR(STRING_ELT(encoding_sxp, 0));
   int options = INTEGER(options_sxp)[0];
@@ -164,10 +169,12 @@ extern "C" SEXP doc_write_character(SEXP doc_sxp, SEXP encoding_sxp, SEXP option
   UNPROTECT(1);
 
   return out;
+  END_CPP
 }
 
 // [[export]]
 extern "C" SEXP node_write_file(SEXP node_sxp, SEXP path_sxp, SEXP encoding_sxp, SEXP options_sxp) {
+  BEGIN_CPP
   XPtrNode node(node_sxp);
   const char* path = CHAR(STRING_ELT(path_sxp, 0));
   const char* encoding = CHAR(STRING_ELT(encoding_sxp, 0));
@@ -183,10 +190,12 @@ extern "C" SEXP node_write_file(SEXP node_sxp, SEXP path_sxp, SEXP encoding_sxp,
   }
 
   return R_NilValue;
+  END_CPP
 }
 
 // [[export]]
 extern "C" SEXP node_write_connection(SEXP node_sxp, SEXP connection, SEXP encoding_sxp, SEXP options_sxp) {
+  BEGIN_CPP
   XPtrNode node(node_sxp);
   SEXP con = R_GetConnection(connection);
   const char* encoding = CHAR(STRING_ELT(encoding_sxp, 0));
@@ -205,10 +214,12 @@ extern "C" SEXP node_write_connection(SEXP node_sxp, SEXP connection, SEXP encod
   }
 
   return R_NilValue;
+  END_CPP
 }
 
 // [[export]]
 extern "C" SEXP node_write_character(SEXP node_sxp, SEXP encoding_sxp, SEXP options_sxp) {
+  BEGIN_CPP
   XPtrNode node(node_sxp);
   const char* encoding = CHAR(STRING_ELT(encoding_sxp, 0));
   int options = INTEGER(options_sxp)[0];
@@ -230,4 +241,5 @@ extern "C" SEXP node_write_character(SEXP node_sxp, SEXP encoding_sxp, SEXP opti
 
   UNPROTECT(1);
   return out;
+  END_CPP
 }

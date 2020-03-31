@@ -14,6 +14,15 @@ inline const xmlChar* asXmlChar(SEXP x, int n = 0) {
   return (const xmlChar*) CHAR(STRING_ELT(x, n));
 }
 
+#define BEGIN_CPP try {
+
+#define END_CPP                                                                \
+  }                                                                            \
+  catch (std::exception & e) {                                                 \
+    Rf_error("C++ exception: %s", e.what());                                   \
+  }
+
+
 // If we are using C++11 disallow moves
 #if __cplusplus >= 201103L
 void asXmlChar(std::string&&) = delete;

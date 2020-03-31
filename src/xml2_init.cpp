@@ -8,8 +8,11 @@
 #include <libxml/xmlerror.h>
 #include <libxml/parser.h>
 #include <string>
+#include "xml2_utils.h"
 
 void handleStructuredError(void* userData, xmlError* error) {
+
+  BEGIN_CPP
   std::string message = std::string(error->message);
   message.resize(message.size() - 1); // trim off trailing newline
 
@@ -18,6 +21,8 @@ void handleStructuredError(void* userData, xmlError* error) {
   } else {
     Rf_error("%s [%i]", message.c_str(), (int) error->code);
   }
+  END_CPP
+
 }
 
 void handleGenericError(void *ctx, const char *fmt, ...)

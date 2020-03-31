@@ -220,6 +220,7 @@ extern "C" SEXP doc_parse_raw(
     SEXP as_html_sxp,
     SEXP options_sxp) {
 
+  BEGIN_CPP
   std::string encoding(CHAR(STRING_ELT(encoding_sxp, 0)));
   std::string base_url(CHAR(STRING_ELT(encoding_sxp, 0)));
   bool as_html = LOGICAL(as_html_sxp)[0];
@@ -249,23 +250,30 @@ extern "C" SEXP doc_parse_raw(
   }
 
   return SEXP(XPtrDoc(pDoc));
+
+  END_CPP
 }
 
 // [[export]]
 extern "C" SEXP doc_root(SEXP x) {
+  BEGIN_CPP
   XPtrDoc doc(x);
   XPtrNode node(xmlDocGetRootElement(doc.checked_get()));
   return SEXP(node);
+  END_CPP
 }
 
 // [[export]]
 extern "C" SEXP doc_has_root(SEXP x_sxp) {
+  BEGIN_CPP
   XPtrDoc x(x_sxp);
   return Rf_ScalarLogical(xmlDocGetRootElement(x.get()) != NULL);
+  END_CPP
 }
 
 // [[export]]
 extern "C" SEXP  doc_url(SEXP doc_sxp) {
+  BEGIN_CPP
 
   XPtrDoc doc(doc_sxp);
   if (doc->URL == NULL) {
@@ -277,6 +285,7 @@ extern "C" SEXP  doc_url(SEXP doc_sxp) {
   UNPROTECT(1);
 
   return out;
+  END_CPP
 }
 
 // [[export]]
@@ -284,22 +293,28 @@ extern "C" SEXP  doc_new(SEXP version_sxp, SEXP encoding_sxp) {
 
   const char* encoding = CHAR(STRING_ELT(encoding_sxp, 0));
 
+  BEGIN_CPP
   XPtrDoc x(xmlNewDoc(asXmlChar(version_sxp)));
   xmlCharEncodingHandlerPtr p = xmlFindCharEncodingHandler(encoding);
   x->encoding = xmlStrdup(reinterpret_cast<const xmlChar *>(p->name));
   return SEXP(x);
+  END_CPP
 }
 
 // [[export]]
 extern "C" SEXP doc_set_root(SEXP doc_sxp, SEXP root_sxp) {
+  BEGIN_CPP
   XPtrDoc doc(doc_sxp);
   XPtrNode root(root_sxp);
   XPtrNode out(xmlDocSetRootElement(doc, root));
   return SEXP(out);
+  END_CPP
 }
 
 // [[export]]
 extern "C" SEXP doc_is_html(SEXP doc_sxp) {
+  BEGIN_CPP
   XPtrDoc doc(doc_sxp);
   return Rf_ScalarLogical(doc->properties & XML_DOC_HTML);
+  END_CPP
 }

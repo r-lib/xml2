@@ -1,5 +1,6 @@
 #include <Rinternals.h>
 #include <vector>
+#include "xml2_utils.h"
 
 // Wrapper around R's read_bin function
 SEXP read_bin(SEXP con, size_t bytes) {
@@ -26,6 +27,8 @@ SEXP write_bin(SEXP data, SEXP con) {
 //
 // [[export]]
 extern "C" SEXP read_connection_(SEXP con_sxp, SEXP read_size_sxp) {
+
+  BEGIN_CPP
   std::vector<char> buffer;
   size_t read_size = REAL(read_size_sxp)[0];
 
@@ -45,4 +48,6 @@ extern "C" SEXP read_connection_(SEXP con_sxp, SEXP read_size_sxp) {
   UNPROTECT(1);
 
   return out;
+
+  END_CPP
 }

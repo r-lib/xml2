@@ -141,8 +141,6 @@ extern "C" SEXP url_unescape_(SEXP x_sxp) {
   R_xlen_t n = Rf_xlength(x_sxp);
   SEXP out = PROTECT(Rf_allocVector(STRSXP, n));
 
-  std::string buffer;
-
   for (int i = 0; i < n; ++i) {
     const char* xx = Rf_translateCharUTF8(STRING_ELT(x_sxp, i));
 

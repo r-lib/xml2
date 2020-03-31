@@ -6,7 +6,9 @@
 
 // [[export]]
 extern "C" SEXP unique_ns(SEXP ns) {
+  BEGIN_CPP
   return NsMap(ns).out();
+  END_CPP
 }
 
 void cache_namespace(xmlNode* node, NsMap* nsMap) {
@@ -23,6 +25,7 @@ void cache_namespace(xmlNode* node, NsMap* nsMap) {
 
 // [[export]]
 extern "C" SEXP doc_namespaces(SEXP doc_sxp) {
+  BEGIN_CPP
   XPtrDoc doc(doc_sxp);
 
   NsMap nsMap;
@@ -31,10 +34,12 @@ extern "C" SEXP doc_namespaces(SEXP doc_sxp) {
   cache_namespace(root, &nsMap);
 
   return nsMap.out();
+  END_CPP
 }
 
 // [[export]]
 extern "C" SEXP ns_lookup_uri(SEXP doc_sxp, SEXP node_sxp, SEXP uri_sxp) {
+  BEGIN_CPP
   XPtrDoc doc(doc_sxp);
   XPtrNode node(node_sxp);
 
@@ -44,10 +49,12 @@ extern "C" SEXP ns_lookup_uri(SEXP doc_sxp, SEXP node_sxp, SEXP uri_sxp) {
   }
   XPtrNs out(ns);
   return SEXP(out);
+  END_CPP
 }
 
 // [[export]]
 extern "C" SEXP ns_lookup(SEXP doc_sxp, SEXP node_sxp, SEXP prefix_sxp) {
+  BEGIN_CPP
   XPtrDoc doc(doc_sxp);
   XPtrNode node(node_sxp);
 
@@ -63,4 +70,5 @@ extern "C" SEXP ns_lookup(SEXP doc_sxp, SEXP node_sxp, SEXP prefix_sxp) {
 
   XPtrNs out(ns);
   return SEXP(out);
+  END_CPP
 }
