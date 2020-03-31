@@ -18,3 +18,4 @@ windows
 ^docs$
 ^CRAN-RELEASE$
 ^LICENSE\.md$
+^Makefile$
