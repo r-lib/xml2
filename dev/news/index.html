@@ -10,23 +10,27 @@
 
 
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
 <!-- headroom.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -35,7 +39,7 @@
 
 <!-- docsearch -->
 <script src="../docsearch.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/docsearch.js/2.6.1/docsearch.min.css" integrity="sha256-QOSRU/ra9ActyXkIBbiIB144aDBdtvXBcNc3OTNuX/Q=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/docsearch.js/2.6.3/docsearch.min.css" integrity="sha256-QOSRU/ra9ActyXkIBbiIB144aDBdtvXBcNc3OTNuX/Q=" crossorigin="anonymous" />
 <link href="../docsearch.css" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
 
@@ -69,7 +73,7 @@
 
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-news">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -83,7 +87,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">xml2</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.2.2.9000</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.2.5.9000</span>
       </span>
     </div>
 
@@ -119,7 +123,7 @@
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/r-lib/xml2">
+  <a href="https://github.com/r-lib/xml2/">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -143,32 +147,48 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Changelog <small></small></h1>
+      <h1 data-toc-skip>Changelog <small></small></h1>
       <small>Source: <a href='https://github.com/r-lib/xml2/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
     <div id="xml2-development-version" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="development version">
 <a href="#xml2-development-version" class="anchor"></a>xml2 (development version)<small> Unreleased </small>
 </h1>
 <ul>
-<li><p>Fix potential dangling pointer with internal <code>asXmlChar()</code> function (<a href='https://github.com/michaelquinn32'>@michaelquinn32</a>, <a href='https://github.com/r-lib/xml2/issues/287'>#287</a>).</p></li>
-<li><p><code><a href="../reference/xml_replace.html">xml_add_child()</a></code> can now create nodes with a <code>par</code> attribute. These previously errored due to partial name matching of the <code>parent</code> function in the internal <code>create_node()</code> function. (<a href='https://github.com/jennybc'>@jennybc</a>, <a href='https://github.com/r-lib/xml2/issues/285'>#285</a>)</p></li>
-<li><p><code>libxml2_version()</code> now returns a semantic version rather than alphanumeric version, so “2.9.10” &gt; “2.9.9” (<a href='https://github.com/r-lib/xml2/issues/277'>#277</a>)</p></li>
-<li><p><code><a href="../reference/as_xml_document.html">as_xml_document()</a></code> now handles cases with text nodes trailing normal nodes (<a href='https://github.com/r-lib/xml2/issues/274'>#274</a>).</p></li>
+<li>Removes the Rcpp dependency</li>
 </ul>
 </div>
-    <div id="xml2-1-2-2" class="section level1">
-<h1 class="page-header">
-<a href="#xml2-1-2-2" class="anchor"></a>xml2 1.2.2<small> 2019-08-09 </small>
+    <div id="xml2-125" class="section level1">
+<h1 class="page-header" data-toc-text="1.2.5">
+<a href="#xml2-125" class="anchor"></a>xml2 1.2.5<small> 2020-03-11 </small>
+</h1>
+<ul>
+<li>Fix compilation issue on macOS versions after High Sierra when not using homebrew supplied libxml2</li>
+</ul>
+</div>
+    <div id="xml2-124" class="section level1">
+<h1 class="page-header" data-toc-text="1.2.4">
+<a href="#xml2-124" class="anchor"></a>xml2 1.2.4<small> 2020-03-10 </small>
+</h1>
+<ul>
+<li><p>Fix potential dangling pointer with internal <code>asXmlChar()</code> function (<a href='https://github.com/michaelquinn32'>@michaelquinn32</a>, <a href='https://github.com/r-lib/xml2/issues/287'>#287</a>).</p></li>
+<li><p><code><a href="../reference/as_xml_document.html">as_xml_document()</a></code> now handles cases with text nodes trailing normal nodes (<a href='https://github.com/r-lib/xml2/issues/274'>#274</a>).</p></li>
+<li><p><code><a href="../reference/xml_replace.html">xml_add_child()</a></code> can now create nodes with a <code>par</code> attribute. These previously errored due to partial name matching of the <code>parent</code> function in the internal <code>create_node()</code> function. (<a href='https://github.com/jennybc'>@jennybc</a>, <a href='https://github.com/r-lib/xml2/issues/285'>#285</a>)</p></li>
+<li><p><code>libxml2_version()</code> now returns a semantic version rather than alphanumeric version, so â2.9.10â &gt; â2.9.9â (<a href='https://github.com/r-lib/xml2/issues/277'>#277</a>)</p></li>
+</ul>
+</div>
+    <div id="xml2-122" class="section level1">
+<h1 class="page-header" data-toc-text="1.2.2">
+<a href="#xml2-122" class="anchor"></a>xml2 1.2.2<small> 2019-08-09 </small>
 </h1>
 <ul>
 <li>Export S4 classes with documentation, so they can be used in other packages without Warnings (<a href='https://github.com/nuest'>@nuest</a>, <a href='https://github.com/r-lib/xml2/issues/267'>#267</a>)</li>
 </ul>
 </div>
-    <div id="xml2-1-2-1" class="section level1">
-<h1 class="page-header">
-<a href="#xml2-1-2-1" class="anchor"></a>xml2 1.2.1<small> 2019-07-29 </small>
+    <div id="xml2-121" class="section level1">
+<h1 class="page-header" data-toc-text="1.2.1">
+<a href="#xml2-121" class="anchor"></a>xml2 1.2.1<small> 2019-07-29 </small>
 </h1>
 <div id="new-features" class="section level2">
 <h2 class="hasAnchor">
@@ -176,7 +196,7 @@
 <ul>
 <li><p>xml2 now has a pkgdown site! <a href="http://xml2.r-lib.org" class="uri">http://xml2.r-lib.org</a> (<a href='https://github.com/jayhesselberth'>@jayhesselberth</a>, <a href='https://github.com/r-lib/xml2/issues/211'>#211</a>).</p></li>
 <li><p>Windows: upgrade to libxml2 2.9.8</p></li>
-<li><p>print methods now match the type of document, e.g. <code><a href="../reference/read_xml.html">read_html()</a></code> prints as “{html_document}” rather than “{xml_document}” (<a href='https://github.com/r-lib/xml2/issues/227'>#227</a>)</p></li>
+<li><p>print methods now match the type of document, e.g.Â <code><a href="../reference/read_xml.html">read_html()</a></code> prints as â{html_document}â rather than â{xml_document}â (<a href='https://github.com/r-lib/xml2/issues/227'>#227</a>)</p></li>
 </ul>
 </div>
 <div id="bugfixes-and-miscellaneous-features" class="section level2">
@@ -199,9 +219,9 @@
 </ul>
 </div>
 </div>
-    <div id="xml2-1-2-0" class="section level1">
-<h1 class="page-header">
-<a href="#xml2-1-2-0" class="anchor"></a>xml2 1.2.0<small> 2018-01-24 </small>
+    <div id="xml2-120" class="section level1">
+<h1 class="page-header" data-toc-text="1.2.0">
+<a href="#xml2-120" class="anchor"></a>xml2 1.2.0<small> 2018-01-24 </small>
 </h1>
 <div id="breaking-changes" class="section level2">
 <h2 class="hasAnchor">
@@ -232,17 +252,17 @@
 </ul>
 </div>
 </div>
-    <div id="xml2-1-1-1" class="section level1">
-<h1 class="page-header">
-<a href="#xml2-1-1-1" class="anchor"></a>xml2 1.1.1<small> 2017-01-24 </small>
+    <div id="xml2-111" class="section level1">
+<h1 class="page-header" data-toc-text="1.1.1">
+<a href="#xml2-111" class="anchor"></a>xml2 1.1.1<small> 2017-01-24 </small>
 </h1>
 <ul>
 <li>This is a small point release addressing installation issues found with older libxml2 versions shipped with RedHat Linux 6 / CentOS 6 (<a href='https://github.com/r-lib/xml2/issues/163'>#163</a>, <a href='https://github.com/r-lib/xml2/issues/164'>#164</a>).</li>
 </ul>
 </div>
-    <div id="xml2-1-1-0" class="section level1">
-<h1 class="page-header">
-<a href="#xml2-1-1-0" class="anchor"></a>xml2 1.1.0<small> 2017-01-07 </small>
+    <div id="xml2-110" class="section level1">
+<h1 class="page-header" data-toc-text="1.1.0">
+<a href="#xml2-110" class="anchor"></a>xml2 1.1.0<small> 2017-01-07 </small>
 </h1>
 <div id="new-features-2" class="section level2">
 <h2 class="hasAnchor">
@@ -280,12 +300,13 @@
 </ul>
 </div>
 </div>
-    <div id="xml2-1-0-0" class="section level1">
-<h1 class="page-header">
-<a href="#xml2-1-0-0" class="anchor"></a>xml2 1.0.0<small> 2016-06-24 </small>
+    <div id="xml2-100" class="section level1">
+<h1 class="page-header" data-toc-text="1.0.0">
+<a href="#xml2-100" class="anchor"></a>xml2 1.0.0<small> 2016-06-24 </small>
 </h1>
 <ul>
-<li>All C++ functions now use <code>checked_get()</code> instead of <code><a href="https://rdrr.io/r/base/get.html">get()</a></code> where possible, so NULL XPtrs properly throw an error rather than crashing. (<a href='https://github.com/jimhester'>@jimhester</a>,
+<li>
+<p>All C++ functions now use <code>checked_get()</code> instead of <code><a href="https://rdrr.io/r/base/get.html">get()</a></code> where possible, so NULL XPtrs properly throw an error rather than crashing. (<a href='https://github.com/jimhester'>@jimhester</a>,</p>
 <p><a href='https://github.com/r-lib/xml2/issues/101'>#101</a>, <a href='https://github.com/r-lib/xml2/issues/104'>#104</a>).</p>
 </li>
 <li><p><code><a href="../reference/xml_text.html">xml_integer()</a></code> and <code><a href="../reference/xml_text.html">xml_double()</a></code> functions to make it easy to extract integer and double text from nodes (<a href='https://github.com/jimhester'>@jimhester</a>, <a href='https://github.com/r-lib/xml2/issues/97'>#97</a>, <a href='https://github.com/r-lib/xml2/issues/99'>#99</a>).</p></li>
@@ -294,26 +315,26 @@
 <li><p><code><a href="../reference/read_xml.html">read_xml()</a></code> and <code><a href="../reference/read_xml.html">read_html()</a></code> methods added for <code><a href="https://httr.r-lib.org/reference/response.html">httr::response()</a></code> objects. (<a href='https://github.com/jimhester'>@jimhester</a>, <a href='https://github.com/r-lib/xml2/issues/63'>#63</a>, <a href='https://github.com/r-lib/xml2/issues/93'>#93</a>)</p></li>
 <li><p><code><a href="../reference/xml_children.html">xml_child()</a></code> function to make selecting children a little easier (<a href='https://github.com/jimhester'>@jimhester</a>, <a href='https://github.com/r-lib/xml2/issues/23'>#23</a>, <a href='https://github.com/r-lib/xml2/issues/94'>#94</a>)</p></li>
 <li><p><code><a href="../reference/xml_find_all.html">xml_find_one()</a></code> has been deprecated in favor of <code><a href="../reference/xml_find_all.html">xml_find_first()</a></code> (<a href='https://github.com/jimhester'>@jimhester</a>, <a href='https://github.com/r-lib/xml2/issues/58'>#58</a>, <a href='https://github.com/r-lib/xml2/issues/92'>#92</a>)</p></li>
-<li><p><code>xml_read()</code> functions now default to passing the document’s namespace object. Namespace definitions can now be removed as well as added and <code><a href="../reference/xml_ns_strip.html">xml_ns_strip()</a></code> added to remove all default namespaces from a document. (<a href='https://github.com/jimhester'>@jimhester</a>, <a href='https://github.com/r-lib/xml2/issues/28'>#28</a>, <a href='https://github.com/r-lib/xml2/issues/89'>#89</a>)</p></li>
+<li><p><code>xml_read()</code> functions now default to passing the documentâs namespace object. Namespace definitions can now be removed as well as added and <code><a href="../reference/xml_ns_strip.html">xml_ns_strip()</a></code> added to remove all default namespaces from a document. (<a href='https://github.com/jimhester'>@jimhester</a>, <a href='https://github.com/r-lib/xml2/issues/28'>#28</a>, <a href='https://github.com/r-lib/xml2/issues/89'>#89</a>)</p></li>
 <li><p><code>xml_read()</code> gains a <code>options</code> argument to control all available parsing options, including <code>HUGE</code> to turn off limits for parsing very large documents and now drops blank text nodes by default, mimicking default behavior of XML package. (<a href='https://github.com/jimhester'>@jimhester</a>, <a href='https://github.com/r-lib/xml2/issues/49'>#49</a>, <a href='https://github.com/r-lib/xml2/issues/62'>#62</a>, <a href='https://github.com/r-lib/xml2/issues/85'>#85</a>, <a href='https://github.com/r-lib/xml2/issues/88'>#88</a>)</p></li>
-<li><p><code>xml_write()</code> expands the path on filenames, so directories can be specified with ‘~/’ (<a href='https://github.com/jimhester'>@jimhester</a>, <a href='https://github.com/r-lib/xml2/issues/86'>#86</a>, <a href='https://github.com/r-lib/xml2/issues/80'>#80</a>)</p></li>
-<li><p><code><a href="../reference/xml_find_all.html">xml_find_one()</a></code> now returns a ‘xml_missing’ node object if there are 0 matches (<a href='https://github.com/jimhester'>@jimhester</a>, <a href='https://github.com/r-lib/xml2/issues/55'>#55</a>, <a href='https://github.com/r-lib/xml2/issues/53'>#53</a>, hadley/rvest<a href='https://github.com/r-lib/xml2/issues/82'>#82</a>).</p></li>
+<li><p><code>xml_write()</code> expands the path on filenames, so directories can be specified with â~/â (<a href='https://github.com/jimhester'>@jimhester</a>, <a href='https://github.com/r-lib/xml2/issues/86'>#86</a>, <a href='https://github.com/r-lib/xml2/issues/80'>#80</a>)</p></li>
+<li><p><code><a href="../reference/xml_find_all.html">xml_find_one()</a></code> now returns a âxml_missingâ node object if there are 0 matches (<a href='https://github.com/jimhester'>@jimhester</a>, <a href='https://github.com/r-lib/xml2/issues/55'>#55</a>, <a href='https://github.com/r-lib/xml2/issues/53'>#53</a>, hadley/rvest<a href='https://github.com/r-lib/xml2/issues/82'>#82</a>).</p></li>
 <li><p><code><a href="../reference/xml_find_all.html">xml_find_num()</a></code>, <code><a href="../reference/xml_find_all.html">xml_find_chr()</a></code>, <code><a href="../reference/xml_find_all.html">xml_find_lgl()</a></code> functions added to return numeric, character and logical results from XPath expressions. (<a href='https://github.com/jimhester'>@jimhester</a>, <a href='https://github.com/r-lib/xml2/issues/55'>#55</a>)</p></li>
 <li><p><code><a href="../reference/xml_name.html">xml_name()</a></code> and <code><a href="../reference/xml_text.html">xml_text()</a></code> always correctly encode returned value as UTF-8 (<a href='https://github.com/r-lib/xml2/issues/54'>#54</a>).</p></li>
 </ul>
 </div>
-    <div id="xml2-0-1-2" class="section level1">
-<h1 class="page-header">
-<a href="#xml2-0-1-2" class="anchor"></a>xml2 0.1.2<small> 2015-09-01 </small>
+    <div id="xml2-012" class="section level1">
+<h1 class="page-header" data-toc-text="0.1.2">
+<a href="#xml2-012" class="anchor"></a>xml2 0.1.2<small> 2015-09-01 </small>
 </h1>
 <ul>
 <li><p>Improved configure script - now works again on R-devel on windows.</p></li>
 <li><p>Compiles with older versions of libxml2.,</p></li>
 </ul>
 </div>
-    <div id="xml2-0-1-1" class="section level1">
-<h1 class="page-header">
-<a href="#xml2-0-1-1" class="anchor"></a>xml2 0.1.1<small> 2015-06-02 </small>
+    <div id="xml2-011" class="section level1">
+<h1 class="page-header" data-toc-text="0.1.1">
+<a href="#xml2-011" class="anchor"></a>xml2 0.1.1<small> 2015-06-02 </small>
 </h1>
 <ul>
 <li><p>Make configure script more cross platform.</p></li>
@@ -322,21 +343,10 @@
 </div>
   </div>
 
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <div id="tocnav">
-      <h2>Contents</h2>
-      <ul class="nav nav-pills nav-stacked">
-        <li><a href="#xml2-development-version">development version</a></li>
-        <li><a href="#xml2-1-2-2">1.2.2</a></li>
-        <li><a href="#xml2-1-2-1">1.2.1</a></li>
-        <li><a href="#xml2-1-2-0">1.2.0</a></li>
-        <li><a href="#xml2-1-1-1">1.1.1</a></li>
-        <li><a href="#xml2-1-1-0">1.1.0</a></li>
-        <li><a href="#xml2-1-0-0">1.0.0</a></li>
-        <li><a href="#xml2-0-1-2">0.1.2</a></li>
-        <li><a href="#xml2-0-1-1">0.1.1</a></li>
-      </ul>
-    </div>
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 
 </div>
@@ -348,7 +358,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.0.9000.</p>
 </div>
 
       </footer>
