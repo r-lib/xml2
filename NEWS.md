@@ -1,5 +1,7 @@
 # xml2 (development version)
 
+* Removes the Rcpp dependency
+
 # xml2 1.2.5
 
 * Fix compilation issue on macOS versions after High Sierra when not using homebrew supplied libxml2
