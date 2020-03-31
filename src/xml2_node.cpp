@@ -13,7 +13,7 @@
 #include "xml2_utils.h"
 
 template<typename T> // for xmlAttr and xmlNode
-std::string nodeName(T* node, SEXP nsMap) noexcept {
+std::string nodeName(T* node, SEXP nsMap) {
   std::string name = Xml2String(node->name).asStdString();
   if (Rf_xlength(nsMap) == 0) {
     return name;
