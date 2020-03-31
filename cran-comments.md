@@ -1,7 +1,5 @@
 ## Release summary
 
-This release fixes errors in the previous release on macOS versions after High Sierra
-
 ## Test environments
 
 * local macOS install, R 3.6.2.
