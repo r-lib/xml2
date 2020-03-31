@@ -1,4 +1,4 @@
-# xml2 (development version)
+# xml2 1.3.0
 
 * Removes the Rcpp dependency
 
