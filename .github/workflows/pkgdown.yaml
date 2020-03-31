@@ -18,6 +18,7 @@ jobs:
         run: |
           install.packages('remotes')
           saveRDS(remotes::dev_package_deps(dependencies = TRUE), "depends.Rds", version = 2)
+          install.packages('xslt')
         shell: Rscript {0}
 
       - name: Cache R packages
