@@ -1,5 +1,7 @@
 # xml2 (development version)
 
+* `read_html()` now again works with HTML files with non-ASCII encodings (#293).
+
 # xml2 1.3.0
 
 * Removes the Rcpp dependency

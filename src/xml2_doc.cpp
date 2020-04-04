@@ -194,13 +194,13 @@ extern "C" SEXP doc_parse_file(
   if (as_html) {
     pDoc = htmlReadFile(
       path,
-      strncmp(encoding, "", 0) == 0 ? NULL : encoding,
+      encoding[0] == '\0' ? NULL : encoding,
       options
     );
   } else {
     pDoc = xmlReadFile(
       path,
-      strncmp(encoding, "", 0) == 0 ? NULL : encoding,
+      encoding[0] == '\0' ? NULL : encoding,
       options
     );
   }

@@ -85,3 +85,15 @@ test_that("read_xml and read_html fail for bad status codes", {
     class = "http_404"
   )
 })
+
+test_that("read_html works with non-ASCII encodings", {
+  tmp <- tempfile()
+  on.exit(unlink(tmp))
+
+  writeLines("<html><body>\U2019</body></html>", tmp)
+  res <- read_html(tmp, encoding = "UTF-8")
+
+  expect_equal(as.character(res, options = ""),
+    "<!DOCTYPE html PUBLIC \"-//W3C//DTD HTML 4.0 Transitional//EN\" \"http://www.w3.org/TR/REC-html40/loose.dtd\">\n<html><body>\U2019</body></html>\n")
+})
+
