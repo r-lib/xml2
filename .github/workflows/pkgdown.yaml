@@ -18,7 +18,6 @@ jobs:
         run: |
           install.packages('remotes')
           saveRDS(remotes::dev_package_deps(dependencies = TRUE), "depends.Rds", version = 2)
-          install.packages('xslt')
         shell: Rscript {0}
 
       - name: Cache R packages
@@ -39,5 +38,7 @@ jobs:
         run: R CMD INSTALL .
 
       - name: Deploy package
-        run: pkgdown::deploy_to_branch(new_process = FALSE)
+        run: |
+          install.packages('xslt')
+          pkgdown::deploy_to_branch(new_process = FALSE)
         shell: Rscript {0}
