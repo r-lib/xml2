@@ -1,4 +1,4 @@
-# xml2 (development version)
+# xml2 1.3.1
 
 * `read_html()` now again works with HTML files with non-ASCII encodings (#293).
 
