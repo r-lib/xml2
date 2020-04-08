@@ -90,7 +90,7 @@ test_that("read_html works with non-ASCII encodings", {
   tmp <- tempfile()
   on.exit(unlink(tmp))
 
-  writeLines("<html><body>\U2019</body></html>", tmp)
+  writeLines("<html><body>\U2019</body></html>", tmp, useBytes = TRUE)
   res <- read_html(tmp, encoding = "UTF-8")
 
   expect_equal(as.character(res, options = ""),
