@@ -1,5 +1,7 @@
 ## Release summary
 
+This is a small patch release fixing an unintended regression in the previous release
+
 ## Test environments
 
 * local macOS install, R 3.6.2.
