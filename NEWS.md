@@ -1,5 +1,7 @@
 # xml2 (development version)
 
+* Compilation fix on macOS 10.15.4 (@kevinushey, #296)
+
 # xml2 1.3.1
 
 * `read_html()` now again works with HTML files with non-ASCII encodings (#293).
