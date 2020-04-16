@@ -69,6 +69,11 @@ test_that("read_html works with httr response objects", {
   expect_equal(length(xml_find_all(x, "//slide")), 2)
 })
 
+test_that("read_xml works with raw inputs", {
+  x <- read_xml("<foo/>")
+  expect_equal(xml_url(x), NA_character_)
+})
+
 test_that("read_xml and read_html fail for bad status codes", {
 
   skip_on_cran()

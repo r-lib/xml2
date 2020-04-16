@@ -222,7 +222,7 @@ extern "C" SEXP doc_parse_raw(
 
   BEGIN_CPP
   std::string encoding(CHAR(STRING_ELT(encoding_sxp, 0)));
-  std::string base_url(CHAR(STRING_ELT(encoding_sxp, 0)));
+  std::string base_url(CHAR(STRING_ELT(base_url_sxp, 0)));
   bool as_html = LOGICAL(as_html_sxp)[0];
   int options = INTEGER(options_sxp)[0];
 
@@ -277,7 +277,7 @@ extern "C" SEXP  doc_url(SEXP doc_sxp) {
 
   XPtrDoc doc(doc_sxp);
   if (doc->URL == NULL) {
-    return NA_STRING;
+    return Rf_ScalarString(NA_STRING);
   }
 
   SEXP out = PROTECT(Rf_allocVector(STRSXP, 1));
