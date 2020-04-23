@@ -26,4 +26,4 @@ There were 1 NOTEs:
 ## Downstream dependencies
 I ran `R CMD check` on all reverse dependencies (https://github.com/r-lib/xml2/tree/master/revdep#readme).
 
-There were no breaking changes with this release.
+There were no breaking changes detected with this release.
