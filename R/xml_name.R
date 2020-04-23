@@ -38,7 +38,6 @@ xml_name.xml_node <- function(x, ns = character()) {
 
 #' Modify the (tag) name of an element
 #'
-#' @inheritParams xml_name
 #' @param value a character vector with replacement name.
 #' @rdname xml_name
 #' @export
@@ -75,8 +74,6 @@ set_name <- function(x, value, ns = character()) {
 }
 
 #' @rdname xml_name
-#' @inheritParams xml_name
-#' @export
 #' @export
 xml_set_name <- function(x, value, ns = character()) {
   UseMethod("xml_set_name")
