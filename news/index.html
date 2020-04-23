@@ -87,7 +87,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">xml2</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.2</span>
       </span>
     </div>
 
@@ -151,9 +151,28 @@
       <small>Source: <a href='https://github.com/r-lib/xml2/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
+    <div id="xml2-132" class="section level1">
+<h1 class="page-header" data-toc-text="1.3.2">
+<a href="#xml2-132" class="anchor"></a>xml2 1.3.2<small> Unreleased </small>
+</h1>
+<ul>
+<li><p><code><a href="../reference/read_xml.html">read_html()</a></code> and <code><a href="../reference/read_xml.html">read_xml()</a></code> now error if passed strings of length greater than one (<a href='https://github.com/r-lib/xml2/issues/121'>#121</a>)</p></li>
+<li><p><code><a href="../reference/read_xml.html">read_xml.raw()</a></code> had an inadvertent regression in 1.3.0 and is now again fixed (<a href='https://github.com/r-lib/xml2/issues/300'>#300</a>)</p></li>
+<li><p>Compilation fix on macOS 10.15.4 (<a href='https://github.com/kevinushey'>@kevinushey</a>, <a href='https://github.com/r-lib/xml2/issues/296'>#296</a>)</p></li>
+</ul>
+</div>
+    <div id="xml2-131" class="section level1">
+<h1 class="page-header" data-toc-text="1.3.1">
+<a href="#xml2-131" class="anchor"></a>xml2 1.3.1<small> 2020-04-09 </small>
+</h1>
+<ul>
+<li>
+<code><a href="../reference/read_xml.html">read_html()</a></code> now again works with HTML files with non-ASCII encodings (<a href='https://github.com/r-lib/xml2/issues/293'>#293</a>).</li>
+</ul>
+</div>
     <div id="xml2-130" class="section level1">
 <h1 class="page-header" data-toc-text="1.3.0">
-<a href="#xml2-130" class="anchor"></a>xml2 1.3.0<small> Unreleased </small>
+<a href="#xml2-130" class="anchor"></a>xml2 1.3.0<small> 2020-04-01 </small>
 </h1>
 <ul>
 <li>Removes the Rcpp dependency</li>
@@ -175,7 +194,7 @@
 <li><p>Fix potential dangling pointer with internal <code>asXmlChar()</code> function (<a href='https://github.com/michaelquinn32'>@michaelquinn32</a>, <a href='https://github.com/r-lib/xml2/issues/287'>#287</a>).</p></li>
 <li><p><code><a href="../reference/as_xml_document.html">as_xml_document()</a></code> now handles cases with text nodes trailing normal nodes (<a href='https://github.com/r-lib/xml2/issues/274'>#274</a>).</p></li>
 <li><p><code><a href="../reference/xml_replace.html">xml_add_child()</a></code> can now create nodes with a <code>par</code> attribute. These previously errored due to partial name matching of the <code>parent</code> function in the internal <code>create_node()</code> function. (<a href='https://github.com/jennybc'>@jennybc</a>, <a href='https://github.com/r-lib/xml2/issues/285'>#285</a>)</p></li>
-<li><p><code>libxml2_version()</code> now returns a semantic version rather than alphanumeric version, so â2.9.10â &gt; â2.9.9â (<a href='https://github.com/r-lib/xml2/issues/277'>#277</a>)</p></li>
+<li><p><code>libxml2_version()</code> now returns a semantic version rather than alphanumeric version, so “2.9.10” &gt; “2.9.9” (<a href='https://github.com/r-lib/xml2/issues/277'>#277</a>)</p></li>
 </ul>
 </div>
     <div id="xml2-122" class="section level1">
@@ -196,7 +215,7 @@
 <ul>
 <li><p>xml2 now has a pkgdown site! <a href="http://xml2.r-lib.org" class="uri">http://xml2.r-lib.org</a> (<a href='https://github.com/jayhesselberth'>@jayhesselberth</a>, <a href='https://github.com/r-lib/xml2/issues/211'>#211</a>).</p></li>
 <li><p>Windows: upgrade to libxml2 2.9.8</p></li>
-<li><p>print methods now match the type of document, e.g.Â <code><a href="../reference/read_xml.html">read_html()</a></code> prints as â{html_document}â rather than â{xml_document}â (<a href='https://github.com/r-lib/xml2/issues/227'>#227</a>)</p></li>
+<li><p>print methods now match the type of document, e.g. <code><a href="../reference/read_xml.html">read_html()</a></code> prints as “{html_document}” rather than “{xml_document}” (<a href='https://github.com/r-lib/xml2/issues/227'>#227</a>)</p></li>
 </ul>
 </div>
 <div id="bugfixes-and-miscellaneous-features" class="section level2">
@@ -315,10 +334,10 @@
 <li><p><code><a href="../reference/read_xml.html">read_xml()</a></code> and <code><a href="../reference/read_xml.html">read_html()</a></code> methods added for <code><a href="https://httr.r-lib.org/reference/response.html">httr::response()</a></code> objects. (<a href='https://github.com/jimhester'>@jimhester</a>, <a href='https://github.com/r-lib/xml2/issues/63'>#63</a>, <a href='https://github.com/r-lib/xml2/issues/93'>#93</a>)</p></li>
 <li><p><code><a href="../reference/xml_children.html">xml_child()</a></code> function to make selecting children a little easier (<a href='https://github.com/jimhester'>@jimhester</a>, <a href='https://github.com/r-lib/xml2/issues/23'>#23</a>, <a href='https://github.com/r-lib/xml2/issues/94'>#94</a>)</p></li>
 <li><p><code><a href="../reference/xml_find_all.html">xml_find_one()</a></code> has been deprecated in favor of <code><a href="../reference/xml_find_all.html">xml_find_first()</a></code> (<a href='https://github.com/jimhester'>@jimhester</a>, <a href='https://github.com/r-lib/xml2/issues/58'>#58</a>, <a href='https://github.com/r-lib/xml2/issues/92'>#92</a>)</p></li>
-<li><p><code>xml_read()</code> functions now default to passing the documentâs namespace object. Namespace definitions can now be removed as well as added and <code><a href="../reference/xml_ns_strip.html">xml_ns_strip()</a></code> added to remove all default namespaces from a document. (<a href='https://github.com/jimhester'>@jimhester</a>, <a href='https://github.com/r-lib/xml2/issues/28'>#28</a>, <a href='https://github.com/r-lib/xml2/issues/89'>#89</a>)</p></li>
+<li><p><code>xml_read()</code> functions now default to passing the document’s namespace object. Namespace definitions can now be removed as well as added and <code><a href="../reference/xml_ns_strip.html">xml_ns_strip()</a></code> added to remove all default namespaces from a document. (<a href='https://github.com/jimhester'>@jimhester</a>, <a href='https://github.com/r-lib/xml2/issues/28'>#28</a>, <a href='https://github.com/r-lib/xml2/issues/89'>#89</a>)</p></li>
 <li><p><code>xml_read()</code> gains a <code>options</code> argument to control all available parsing options, including <code>HUGE</code> to turn off limits for parsing very large documents and now drops blank text nodes by default, mimicking default behavior of XML package. (<a href='https://github.com/jimhester'>@jimhester</a>, <a href='https://github.com/r-lib/xml2/issues/49'>#49</a>, <a href='https://github.com/r-lib/xml2/issues/62'>#62</a>, <a href='https://github.com/r-lib/xml2/issues/85'>#85</a>, <a href='https://github.com/r-lib/xml2/issues/88'>#88</a>)</p></li>
-<li><p><code>xml_write()</code> expands the path on filenames, so directories can be specified with â~/â (<a href='https://github.com/jimhester'>@jimhester</a>, <a href='https://github.com/r-lib/xml2/issues/86'>#86</a>, <a href='https://github.com/r-lib/xml2/issues/80'>#80</a>)</p></li>
-<li><p><code><a href="../reference/xml_find_all.html">xml_find_one()</a></code> now returns a âxml_missingâ node object if there are 0 matches (<a href='https://github.com/jimhester'>@jimhester</a>, <a href='https://github.com/r-lib/xml2/issues/55'>#55</a>, <a href='https://github.com/r-lib/xml2/issues/53'>#53</a>, hadley/rvest<a href='https://github.com/r-lib/xml2/issues/82'>#82</a>).</p></li>
+<li><p><code>xml_write()</code> expands the path on filenames, so directories can be specified with ‘~/’ (<a href='https://github.com/jimhester'>@jimhester</a>, <a href='https://github.com/r-lib/xml2/issues/86'>#86</a>, <a href='https://github.com/r-lib/xml2/issues/80'>#80</a>)</p></li>
+<li><p><code><a href="../reference/xml_find_all.html">xml_find_one()</a></code> now returns a ‘xml_missing’ node object if there are 0 matches (<a href='https://github.com/jimhester'>@jimhester</a>, <a href='https://github.com/r-lib/xml2/issues/55'>#55</a>, <a href='https://github.com/r-lib/xml2/issues/53'>#53</a>, hadley/rvest<a href='https://github.com/r-lib/xml2/issues/82'>#82</a>).</p></li>
 <li><p><code><a href="../reference/xml_find_all.html">xml_find_num()</a></code>, <code><a href="../reference/xml_find_all.html">xml_find_chr()</a></code>, <code><a href="../reference/xml_find_all.html">xml_find_lgl()</a></code> functions added to return numeric, character and logical results from XPath expressions. (<a href='https://github.com/jimhester'>@jimhester</a>, <a href='https://github.com/r-lib/xml2/issues/55'>#55</a>)</p></li>
 <li><p><code><a href="../reference/xml_name.html">xml_name()</a></code> and <code><a href="../reference/xml_text.html">xml_text()</a></code> always correctly encode returned value as UTF-8 (<a href='https://github.com/r-lib/xml2/issues/54'>#54</a>).</p></li>
 </ul>
@@ -358,7 +377,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.0.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
 
       </footer>
