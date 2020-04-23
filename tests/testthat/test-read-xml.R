@@ -102,3 +102,7 @@ test_that("read_html works with non-ASCII encodings", {
     "<!DOCTYPE html PUBLIC \"-//W3C//DTD HTML 4.0 Transitional//EN\" \"http://www.w3.org/TR/REC-html40/loose.dtd\">\n<html><body>\U2019</body></html>\n")
 })
 
+test_that("read_xml and read_html fail with > 1 input", {
+  expect_error(read_xml(c("foo", "bar")), "`x` must be a string of length 1")
+  expect_error(read_html(c("foo", "bar")), "`x` must be a string of length 1")
+})

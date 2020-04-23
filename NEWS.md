@@ -1,5 +1,7 @@
 # xml2 (development version)
 
+* `read_html()` and `read_xml()` now error if passed strings of length greater than one (#121)
+
 * `read_xml.raw()` had an inadvertent regression in 1.3.0 and is now again fixed (#300)
 
 * Compilation fix on macOS 10.15.4 (@kevinushey, #296)
