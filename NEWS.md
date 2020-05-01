@@ -1,3 +1,5 @@
+# xml2 (development version)
+
 # xml2 1.3.2
 
 * `read_html()` and `read_xml()` now error if passed strings of length greater than one (#121)
