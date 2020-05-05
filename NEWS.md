@@ -1,5 +1,7 @@
 # xml2 (development version)
 
+* `write_xml()` and `write_html()` now return NULL invisibly, as they did prior to version 1.3.0 (#307)
+
 # xml2 1.3.2
 
 * `read_html()` and `read_xml()` now error if passed strings of length greater than one (#121)

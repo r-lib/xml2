@@ -51,6 +51,8 @@ write_xml.xml_document <- function(x, file, ..., options = "format", encoding = 
     }
     .Call(doc_write_file, x$doc, file, encoding, options)
   }
+
+  invisible()
 }
 
 #' @export
@@ -74,6 +76,8 @@ write_xml.xml_nodeset <- function(x, file, ..., options = "format", encoding = "
     }
     .Call(node_write_file, x[[1]]$node, file, encoding, options)
   }
+
+  invisible()
 }
 
 #' @export
@@ -93,6 +97,8 @@ write_xml.xml_node <- function(x, file, ..., options = "format", encoding = "UTF
     }
     .Call(node_write_file, x$node, file, encoding, options)
   }
+
+  invisible()
 }
 
 

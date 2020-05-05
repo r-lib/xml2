@@ -110,3 +110,14 @@ test_that("write_html work with html input", {
   expect_identical(readChar(file, 1000L),
     "<!DOCTYPE html PUBLIC \"-//W3C//DTD HTML 4.0 Transitional//EN\" \"http://www.w3.org/TR/REC-html40/loose.dtd\">\n<html><head>\n<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\n<title>Foo</title>\n</head></html>\n")
 })
+
+test_that("write_xml returns invisibly", {
+  x <- read_xml("<x>foo</x>")
+  tf <- tempfile()
+  on.exit(unlink(tf))
+
+  res <- withVisible(write_xml(x, tf))
+
+  expect_equal(res$value, NULL)
+  expect_equal(res$visible, FALSE)
+})
