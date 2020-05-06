@@ -213,10 +213,12 @@ encoding is &#8216;UTF-8&#8217;. Available encodings are specified at
     <pre class="examples"><div class='input'><span class='no'>h</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='read_xml.html'>read_html</a></span>(<span class='st'>"&lt;p&gt;Hi!&lt;/p&gt;"</span>)
 
 <span class='no'>tmp</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempfile</a></span>(<span class='kw'>fileext</span> <span class='kw'>=</span> <span class='st'>".xml"</span>)
-<span class='fu'>write_xml</span>(<span class='no'>h</span>, <span class='no'>tmp</span>, <span class='kw'>options</span> <span class='kw'>=</span> <span class='st'>"format"</span>)</div><div class='output co'>#&gt; NULL</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/readLines.html'>readLines</a></span>(<span class='no'>tmp</span>)</div><div class='output co'>#&gt; [1] "&lt;!DOCTYPE html PUBLIC \"-//W3C//DTD HTML 4.0 Transitional//EN\" \"http://www.w3.org/TR/REC-html40/loose.dtd\"&gt;"
+<span class='fu'>write_xml</span>(<span class='no'>h</span>, <span class='no'>tmp</span>, <span class='kw'>options</span> <span class='kw'>=</span> <span class='st'>"format"</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/readLines.html'>readLines</a></span>(<span class='no'>tmp</span>)</div><div class='output co'>#&gt; [1] "&lt;!DOCTYPE html PUBLIC \"-//W3C//DTD HTML 4.0 Transitional//EN\" \"http://www.w3.org/TR/REC-html40/loose.dtd\"&gt;"
 #&gt; [2] "&lt;html&gt;&lt;body&gt;&lt;p&gt;Hi!&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;"                                                                          </div><div class='input'>
 <span class='co'># write formatted HTML output</span>
-<span class='fu'>write_html</span>(<span class='no'>h</span>, <span class='no'>tmp</span>, <span class='kw'>options</span> <span class='kw'>=</span> <span class='st'>"format"</span>)</div><div class='output co'>#&gt; NULL</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/readLines.html'>readLines</a></span>(<span class='no'>tmp</span>)</div><div class='output co'>#&gt; [1] "&lt;!DOCTYPE html PUBLIC \"-//W3C//DTD HTML 4.0 Transitional//EN\" \"http://www.w3.org/TR/REC-html40/loose.dtd\"&gt;"
+<span class='fu'>write_html</span>(<span class='no'>h</span>, <span class='no'>tmp</span>, <span class='kw'>options</span> <span class='kw'>=</span> <span class='st'>"format"</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/readLines.html'>readLines</a></span>(<span class='no'>tmp</span>)</div><div class='output co'>#&gt; [1] "&lt;!DOCTYPE html PUBLIC \"-//W3C//DTD HTML 4.0 Transitional//EN\" \"http://www.w3.org/TR/REC-html40/loose.dtd\"&gt;"
 #&gt; [2] "&lt;html&gt;&lt;body&gt;&lt;p&gt;Hi!&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;"                                                                          </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
