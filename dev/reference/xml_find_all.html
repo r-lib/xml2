@@ -92,7 +92,7 @@ if there's no match you'll get an xml_missing node." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">xml2</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.3.2.9000</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.3.2.9001</span>
       </span>
     </div>
 
@@ -165,7 +165,10 @@ get an empty result. Use <code>xml_find_first</code> to find a specific match -
 if there's no match you'll get an <code>xml_missing</code> node.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>xml_find_all</span>(<span class='no'>x</span>, <span class='no'>xpath</span>, <span class='kw'>ns</span> <span class='kw'>=</span> <span class='fu'><a href='xml_ns.html'>xml_ns</a></span>(<span class='no'>x</span>))
+    <pre class="usage"><span class='fu'>xml_find_all</span>(<span class='no'>x</span>, <span class='no'>xpath</span>, <span class='kw'>ns</span> <span class='kw'>=</span> <span class='fu'><a href='xml_ns.html'>xml_ns</a></span>(<span class='no'>x</span>), <span class='no'>...</span>)
+
+<span class='co'># S3 method for xml_nodeset</span>
+<span class='fu'>xml_find_all</span>(<span class='no'>x</span>, <span class='no'>xpath</span>, <span class='kw'>ns</span> <span class='kw'>=</span> <span class='fu'><a href='xml_ns.html'>xml_ns</a></span>(<span class='no'>x</span>), <span class='kw'>flatten</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)
 
 <span class='fu'>xml_find_first</span>(<span class='no'>x</span>, <span class='no'>xpath</span>, <span class='kw'>ns</span> <span class='kw'>=</span> <span class='fu'><a href='xml_ns.html'>xml_ns</a></span>(<span class='no'>x</span>))
 
@@ -196,13 +199,23 @@ similarly for attributes). Default namespaces must be given an explicit
 name. The ns is ignored when using <code><a href='xml_name.html'>xml_name&lt;-()</a></code> and
 <code><a href='xml_name.html'>xml_set_name()</a></code>.</p></td>
     </tr>
+    <tr>
+      <th>...</th>
+      <td><p>Further arguments passed to or from other methods.</p></td>
+    </tr>
+    <tr>
+      <th>flatten</th>
+      <td><p>A logical indicating whether to return a single, flattened
+nodeset or a list of nodesets.</p></td>
+    </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p><code>xml_find_all</code> always returns a nodeset: if there are no matches
-the nodeset will be empty. The result will always be unique; repeated
-nodes are automatically de-duplicated.</p>
+    <p><code>xml_find_all</code> returns a nodeset if applied to a node, and a nodeset
+or a list of nodesets if applied to a nodeset. If there are no matches,
+the nodeset(s) will be empty. Within each nodeset, the result will always
+be unique; repeated nodes are automatically de-duplicated.</p>
 <p><code>xml_find_first</code> returns a node if applied to a node, and a nodeset
 if applied to a nodeset. The output is <em>always</em> the same size as
 the input. If there are no matches, <code>xml_find_first</code> will return a
@@ -241,13 +254,28 @@ numeric, character and logical results respectively.</p>
 &lt;/body&gt;"</span>)
 <span class='no'>para</span> <span class='kw'>&lt;-</span> <span class='fu'>xml_find_all</span>(<span class='no'>x</span>, <span class='st'>".//p"</span>)
 
-<span class='co'># If you apply xml_find_all to a nodeset, it finds all matches,</span>
-<span class='co'># de-duplicates them, and returns as a single list. This means you</span>
+<span class='co'># By default, if you apply xml_find_all to a nodeset, it finds all matches,</span>
+<span class='co'># de-duplicates them, and returns as a single nodeset. This means you</span>
 <span class='co'># never know how many results you'll get</span>
 <span class='fu'>xml_find_all</span>(<span class='no'>para</span>, <span class='st'>".//b"</span>)</div><div class='output co'>#&gt; {xml_nodeset (3)}
 #&gt; [1] &lt;b&gt;text&lt;/b&gt;
 #&gt; [2] &lt;b&gt;other&lt;/b&gt;
 #&gt; [3] &lt;b&gt;text&lt;/b&gt;</div><div class='input'>
+<span class='co'># If you set flatten to FALSE, though, xml_find_all will return a list of</span>
+<span class='co'># nodesets, where each nodeset contains the matches for the corresponding</span>
+<span class='co'># node in the original nodeset.</span>
+<span class='fu'>xml_find_all</span>(<span class='no'>para</span>, <span class='st'>".//b"</span>, <span class='kw'>flatten</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; [[1]]
+#&gt; {xml_nodeset (1)}
+#&gt; [1] &lt;b&gt;text&lt;/b&gt;
+#&gt; 
+#&gt; [[2]]
+#&gt; {xml_nodeset (2)}
+#&gt; [1] &lt;b&gt;other&lt;/b&gt;
+#&gt; [2] &lt;b&gt;text&lt;/b&gt;
+#&gt; 
+#&gt; [[3]]
+#&gt; {xml_nodeset (0)}
+#&gt; </div><div class='input'>
 <span class='co'># xml_find_first only returns the first match per input node. If there are 0</span>
 <span class='co'># matches it will return a missing node</span>
 <span class='fu'>xml_find_first</span>(<span class='no'>para</span>, <span class='st'>".//b"</span>)</div><div class='output co'>#&gt; {xml_nodeset (3)}

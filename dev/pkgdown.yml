@@ -4,7 +4,7 @@ pkgdown_sha: ~
 articles:
   modification: modification.html
   xml2-1.1.1: releases/xml2-1.1.1.html
-last_built: 2020-05-28T14:03Z
+last_built: 2020-07-14T13:30Z
 urls:
   reference: http://xml2.r-lib.org/reference
   article: http://xml2.r-lib.org/articles
