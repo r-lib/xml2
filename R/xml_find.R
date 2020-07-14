@@ -12,9 +12,11 @@
 
 #' @param xpath A string containing a xpath (1.0) expression.
 #' @inheritParams xml_name
-#' @return `xml_find_all` always returns a nodeset: if there are no matches
-#'   the nodeset will be empty. The result will always be unique; repeated
-#'   nodes are automatically de-duplicated.
+#' @param ... Further arguments passed to or from other methods.
+#' @return `xml_find_all` returns a nodeset if applied to a node, and a nodeset
+#'   or a list of nodesets if applied to a nodeset. If there are no matches,
+#'   the nodeset(s) will be empty. Within each nodeset, the result will always
+#'   be unique; repeated nodes are automatically de-duplicated.
 #'
 #'   `xml_find_first` returns a node if applied to a node, and a nodeset
 #'   if applied to a nodeset. The output is *always* the same size as
@@ -46,10 +48,15 @@
 #' </body>")
 #' para <- xml_find_all(x, ".//p")
 #'
-#' # If you apply xml_find_all to a nodeset, it finds all matches,
-#' # de-duplicates them, and returns as a single list. This means you
+#' # By default, if you apply xml_find_all to a nodeset, it finds all matches,
+#' # de-duplicates them, and returns as a single nodeset. This means you
 #' # never know how many results you'll get
 #' xml_find_all(para, ".//b")
+#'
+#' # If you set flatten to FALSE, though, xml_find_all will return a list of
+#' # nodesets, where each nodeset contains the matches for the corresponding
+#' # node in the original nodeset.
+#' xml_find_all(para, ".//b", flatten = FALSE)
 #'
 #' # xml_find_first only returns the first match per input node. If there are 0
 #' # matches it will return a missing node
@@ -67,32 +74,47 @@
 #' ')
 #' xml_find_all(x, ".//f:doc")
 #' xml_find_all(x, ".//f:doc", xml_ns(x))
-xml_find_all <- function(x, xpath, ns = xml_ns(x)) {
+xml_find_all <- function(x, xpath, ns = xml_ns(x), ...) {
   UseMethod("xml_find_all")
 }
 
 #' @export
-xml_find_all.xml_missing <- function(x, xpath, ns = xml_ns(x)) {
+xml_find_all.xml_missing <- function(x, xpath, ns = xml_ns(x), ...) {
   xml_nodeset()
 }
 
 #' @export
-xml_find_all.xml_node <- function(x, xpath, ns = xml_ns(x)) {
+xml_find_all.xml_node <- function(x, xpath, ns = xml_ns(x), ...) {
   nodes <- .Call(xpath_search, x$node, x$doc, xpath, ns, Inf)
   xml_nodeset(nodes)
 }
 
+#' @param flatten A logical indicating whether to return a single, flattened
+#'   nodeset or a list of nodesets.
 #' @export
-xml_find_all.xml_nodeset <- function(x, xpath, ns = xml_ns(x)) {
+#' @rdname xml_find_all
+xml_find_all.xml_nodeset <- function(x, xpath, ns = xml_ns(x), flatten = TRUE, ...) {
   if (length(x) == 0)
     return(xml_nodeset())
 
-  nodes <- unlist(recursive = FALSE,
-    lapply(x, function(x)
-      .Call(xpath_search, x$node, x$doc, xpath, ns, Inf)))
+  res <- lapply(x, function(x) .Call(xpath_search, x$node, x$doc, xpath, ns, Inf))
 
-  xml_nodeset(nodes)
+  if (isTRUE(flatten)) {
+    return(xml_nodeset(unlist(recursive = FALSE, res)))
+  }
+
+  res[] <- lapply(res, xml_nodeset)
+  res
 }
+
+#' #' @export
+#' xml_find_all_list <- function(x, xpath, ns = xml_ns(x)) {
+#'   if (length(x) == 0)
+#'     return(xml_nodeset())
+#'
+#'   lapply(x, function(x)
+#'     xml_nodeset(.Call(xpath_search, x$node, x$doc, xpath, ns, Inf)))
+#' }
 
 #' @export
 #' @rdname xml_find_all

@@ -2,6 +2,7 @@
 % Please edit documentation in R/xml_find.R
 \name{xml_find_all}
 \alias{xml_find_all}
+\alias{xml_find_all.xml_nodeset}
 \alias{xml_find_first}
 \alias{xml_find_num}
 \alias{xml_find_chr}
@@ -9,7 +10,9 @@
 \alias{xml_find_one}
 \title{Find nodes that match an xpath expression.}
 \usage{
-xml_find_all(x, xpath, ns = xml_ns(x))
+xml_find_all(x, xpath, ns = xml_ns(x), ...)
+
+\method{xml_find_all}{xml_nodeset}(x, xpath, ns = xml_ns(x), flatten = TRUE, ...)
 
 xml_find_first(x, xpath, ns = xml_ns(x))
 
@@ -31,11 +34,17 @@ in namespace \code{foo}, it will be called \code{foo:bar}. (And
 similarly for attributes). Default namespaces must be given an explicit
 name. The ns is ignored when using \code{\link[=xml_name<-]{xml_name<-()}} and
 \code{\link[=xml_set_name]{xml_set_name()}}.}
+
+\item{...}{Further arguments passed to or from other methods.}
+
+\item{flatten}{A logical indicating whether to return a single, flattened
+nodeset or a list of nodesets.}
 }
 \value{
-\code{xml_find_all} always returns a nodeset: if there are no matches
-the nodeset will be empty. The result will always be unique; repeated
-nodes are automatically de-duplicated.
+\code{xml_find_all} returns a nodeset if applied to a node, and a nodeset
+or a list of nodesets if applied to a nodeset. If there are no matches,
+the nodeset(s) will be empty. Within each nodeset, the result will always
+be unique; repeated nodes are automatically de-duplicated.
 
 \code{xml_find_first} returns a node if applied to a node, and a nodeset
 if applied to a nodeset. The output is \emph{always} the same size as
@@ -52,6 +61,8 @@ you're trying to extract nodes from arbitrary locations in a document.
 Use \code{xml_find_all} to find all matches - if there's no match you'll
 get an empty result. Use \code{xml_find_first} to find a specific match -
 if there's no match you'll get an \code{xml_missing} node.
+
+
 }
 \section{Deprecated functions}{
 
@@ -79,10 +90,15 @@ x <- read_xml("<body>
 </body>")
 para <- xml_find_all(x, ".//p")
 
-# If you apply xml_find_all to a nodeset, it finds all matches,
-# de-duplicates them, and returns as a single list. This means you
+# By default, if you apply xml_find_all to a nodeset, it finds all matches,
+# de-duplicates them, and returns as a single nodeset. This means you
 # never know how many results you'll get
 xml_find_all(para, ".//b")
+
+# If you set flatten to FALSE, though, xml_find_all will return a list of
+# nodesets, where each nodeset contains the matches for the corresponding
+# node in the original nodeset.
+xml_find_all(para, ".//b", flatten = FALSE)
 
 # xml_find_first only returns the first match per input node. If there are 0
 # matches it will return a missing node
