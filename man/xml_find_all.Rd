@@ -61,8 +61,6 @@ you're trying to extract nodes from arbitrary locations in a document.
 Use \code{xml_find_all} to find all matches - if there's no match you'll
 get an empty result. Use \code{xml_find_first} to find a specific match -
 if there's no match you'll get an \code{xml_missing} node.
-
-
 }
 \section{Deprecated functions}{
 

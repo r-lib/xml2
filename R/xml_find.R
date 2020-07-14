@@ -107,15 +107,6 @@ xml_find_all.xml_nodeset <- function(x, xpath, ns = xml_ns(x), flatten = TRUE, .
   res
 }
 
-#' #' @export
-#' xml_find_all_list <- function(x, xpath, ns = xml_ns(x)) {
-#'   if (length(x) == 0)
-#'     return(xml_nodeset())
-#'
-#'   lapply(x, function(x)
-#'     xml_nodeset(.Call(xpath_search, x$node, x$doc, xpath, ns, Inf)))
-#' }
-
 #' @export
 #' @rdname xml_find_all
 xml_find_first <- function(x, xpath, ns = xml_ns(x)) {
