@@ -1,3 +1,3 @@
-PKG_CPPFLAGS=-I../inst/include @cflags@ -DUCHAR_TYPE=wchar_t
+PKG_CPPFLAGS=-I../inst/include @cflags@ -DUCHAR_TYPE=wchar_t -DU_SHOW_CPLUSPLUS_API=0
 PKG_CXXFLAGS=$(C_VISIBILITY)
 PKG_LIBS=@libs@
