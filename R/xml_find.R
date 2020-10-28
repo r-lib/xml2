@@ -10,7 +10,7 @@
 #' `xml_find_one()` has been deprecated. Instead use
 #' `xml_find_first()`.
 
-#' @param xpath A string containing a xpath (1.0) expression.
+#' @param xpath A string containing an xpath (1.0) expression.
 #' @inheritParams xml_name
 #' @param ... Further arguments passed to or from other methods.
 #' @return `xml_find_all` returns a nodeset if applied to a node, and a nodeset
