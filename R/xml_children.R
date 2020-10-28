@@ -13,6 +13,7 @@
 #' @param search For `xml_child`, either the child number to return (by
 #'   position), or the name of the child node to return. If there are multiple
 #'   child nodes with the same name, the first will be returned
+#' @param ... Additional options passed to internal functions.
 #' @return A node or nodeset (possibly empty). Results are always de-duplicated.
 #' @export
 #' @examples
@@ -23,6 +24,9 @@
 #'
 #' # Note the each unique node only appears once in the output
 #' xml_parent(xml_children(x))
+#'
+#' # But you avoid this deduplication if needed
+#' xml_parent(xml_children(x), deduplicate = FALSE)
 #'
 #' # Mixed content
 #' x <- read_xml("<foo> a <b/> c <d>e</d> f</foo>")
@@ -37,8 +41,8 @@
 #' xml_child(x)
 #' xml_child(x, 2)
 #' xml_child(x, "baz")
-xml_children <- function(x) {
-  nodeset_apply(x, function(x) .Call(node_children, x, TRUE))
+xml_children <- function(x, ...) {
+  nodeset_apply(x, function(x) .Call(node_children, x, TRUE), ...)
 }
 
 #' @export
@@ -65,8 +69,8 @@ xml_contents <- function(x) {
 
 #' @export
 #' @rdname xml_children
-xml_parents <- function(x) {
-  nodeset_apply(x, function(x) .Call(node_parents, x))
+xml_parents <- function(x, ...) {
+  nodeset_apply(x, function(x) .Call(node_parents, x), ...)
 }
 
 #' @export
@@ -77,23 +81,23 @@ xml_siblings <- function(x) {
 
 #' @export
 #' @rdname xml_children
-xml_parent <- function(x) {
+xml_parent <- function(x, ...) {
   UseMethod("xml_parent")
 }
 
 #' @export
-xml_parent.xml_missing <- function(x) {
+xml_parent.xml_missing <- function(x, ...) {
   xml_missing()
 }
 
 #' @export
-xml_parent.xml_node <- function(x) {
+xml_parent.xml_node <- function(x, ...) {
   xml_node(.Call(node_parent, x$node), x$doc)
 }
 
 #' @export
-xml_parent.xml_nodeset <- function(x) {
-  nodeset_apply(x, function(x) .Call(node_parent, x))
+xml_parent.xml_nodeset <- function(x, ...) {
+  nodeset_apply(x, function(x) .Call(node_parent, x), ...)
 }
 
 

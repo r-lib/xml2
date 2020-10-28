@@ -1,5 +1,7 @@
 # xml2 (development version)
 
+* `xml_parent()` now supports passing `deduplicate = TRUE` to avoid de-duplication of nodes in the returned nodeset.
+
 * `xml_find_all.xml_nodeset()` gains a `flatten` argument to control whether to return a single nodeset or a list of nodesets (#311, @jakejh)
 
 * `write_xml()` and `write_html()` now return NULL invisibly, as they did prior to version 1.3.0 (#307)
