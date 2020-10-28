@@ -11,17 +11,17 @@
 \alias{xml_root}
 \title{Navigate around the family tree.}
 \usage{
-xml_children(x)
+xml_children(x, ...)
 
 xml_child(x, search = 1, ns = xml_ns(x))
 
 xml_contents(x)
 
-xml_parents(x)
+xml_parents(x, ...)
 
 xml_siblings(x)
 
-xml_parent(x)
+xml_parent(x, ...)
 
 xml_length(x, only_elements = TRUE)
 
@@ -29,6 +29,8 @@ xml_root(x)
 }
 \arguments{
 \item{x}{A document, node, or node set.}
+
+\item{...}{Additional options passed to internal functions.}
 
 \item{search}{For \code{xml_child}, either the child number to return (by
 position), or the name of the child node to return. If there are multiple
@@ -64,6 +66,9 @@ xml_siblings(xml_children(x)[[1]])
 
 # Note the each unique node only appears once in the output
 xml_parent(xml_children(x))
+
+# But you avoid this deduplication if needed
+xml_parent(xml_children(x), deduplicate = FALSE)
 
 # Mixed content
 x <- read_xml("<foo> a <b/> c <d>e</d> f</foo>")

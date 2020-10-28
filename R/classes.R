@@ -81,10 +81,10 @@ xml_nodeset <- function(nodes = list(), deduplicate = TRUE) {
 #' @param nodes A list (possible nested) of external pointers to nodes
 #' @return a nodeset
 #' @noRd
-make_nodeset <- function(nodes, doc) {
+make_nodeset <- function(nodes, doc, ...) {
   nodes <- unlist(nodes, recursive = FALSE)
 
-  xml_nodeset(lapply(nodes, xml_node, doc = doc))
+  xml_nodeset(lapply(nodes, xml_node, doc = doc), ...)
 }
 
 #' @export
@@ -147,7 +147,7 @@ nodeset_apply.xml_missing <- function(x, fun, ...) {
 }
 
 #' @export
-nodeset_apply.xml_nodeset <- function(x, fun, ...) {
+nodeset_apply.xml_nodeset <- function(x, fun, ..., deduplicate = TRUE) {
   if (length(x) == 0)
     return(xml_nodeset())
 
@@ -159,7 +159,7 @@ nodeset_apply.xml_nodeset <- function(x, fun, ...) {
     res[!is_missing] <- lapply(x[!is_missing], function(x) fun(x$node, ...))
   }
 
-  make_nodeset(res, x[[1]]$doc)
+  make_nodeset(res, x[[1]]$doc, deduplicate = deduplicate)
 }
 
 #' @export
