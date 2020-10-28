@@ -25,7 +25,7 @@ xml_find_lgl(x, xpath, ns = xml_ns(x))
 \arguments{
 \item{x}{A document, node, or node set.}
 
-\item{xpath}{A string containing a xpath (1.0) expression.}
+\item{xpath}{A string containing an xpath (1.0) expression.}
 
 \item{ns}{Optionally, a named vector giving prefix-url pairs, as produced
 by \code{\link[=xml_ns]{xml_ns()}}. If provided, all names will be explicitly
