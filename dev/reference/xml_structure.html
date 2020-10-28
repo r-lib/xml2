@@ -163,9 +163,9 @@ way a document is organised. Compared to <code>xml_structure</code>,
 <code>html_structure</code> prints the id and class attributes.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>xml_structure</span>(<span class='no'>x</span>, <span class='kw'>indent</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>file</span> <span class='kw'>=</span> <span class='st'>""</span>)
+    <pre class="usage"><span class='fu'>xml_structure</span><span class='op'>(</span><span class='va'>x</span>, indent <span class='op'>=</span> <span class='fl'>2</span>, file <span class='op'>=</span> <span class='st'>""</span><span class='op'>)</span>
 
-<span class='fu'>html_structure</span>(<span class='no'>x</span>, <span class='kw'>indent</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>file</span> <span class='kw'>=</span> <span class='st'>""</span>)</pre>
+<span class='fu'>html_structure</span><span class='op'>(</span><span class='va'>x</span>, indent <span class='op'>=</span> <span class='fl'>2</span>, file <span class='op'>=</span> <span class='st'>""</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -191,13 +191,15 @@ way a document is organised. Compared to <code>xml_structure</code>,
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>xml_structure</span>(<span class='fu'><a href='read_xml.html'>read_xml</a></span>(<span class='st'>"&lt;a&gt;&lt;b&gt;&lt;c/&gt;&lt;c/&gt;&lt;/b&gt;&lt;d/&gt;&lt;/a&gt;"</span>))</div><div class='output co'>#&gt; &lt;a&gt;
+    <pre class="examples"><div class='input'><span class='fu'>xml_structure</span><span class='op'>(</span><span class='fu'><a href='read_xml.html'>read_xml</a></span><span class='op'>(</span><span class='st'>"&lt;a&gt;&lt;b&gt;&lt;c/&gt;&lt;c/&gt;&lt;/b&gt;&lt;d/&gt;&lt;/a&gt;"</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; &lt;a&gt;
 #&gt;   &lt;b&gt;
 #&gt;     &lt;c&gt;
 #&gt;     &lt;c&gt;
 #&gt;   &lt;d&gt;</div><div class='input'>
-<span class='no'>rproj</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='read_xml.html'>read_html</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata"</span>,<span class='st'>"r-project.html"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"xml2"</span>))
-<span class='fu'>xml_structure</span>(<span class='no'>rproj</span>)</div><div class='output co'>#&gt; &lt;html [lang]&gt;
+<span class='va'>rproj</span> <span class='op'>&lt;-</span> <span class='fu'><a href='read_xml.html'>read_html</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span><span class='op'>(</span><span class='st'>"extdata"</span>,<span class='st'>"r-project.html"</span>, package <span class='op'>=</span> <span class='st'>"xml2"</span><span class='op'>)</span><span class='op'>)</span>
+<span class='fu'>xml_structure</span><span class='op'>(</span><span class='va'>rproj</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; &lt;html [lang]&gt;
 #&gt;   &lt;head&gt;
 #&gt;     &lt;meta [charset]&gt;
 #&gt;     &lt;meta [http-equiv, content]&gt;
@@ -427,7 +429,8 @@ way a document is organised. Compared to <code>xml_structure</code>,
 #&gt;     {text}
 #&gt;     &lt;script [src]&gt;
 #&gt;     {comment}
-#&gt;     &lt;script [src]&gt;</div><div class='input'><span class='fu'>xml_structure</span>(<span class='fu'><a href='xml_find_all.html'>xml_find_all</a></span>(<span class='no'>rproj</span>, <span class='st'>".//p"</span>))</div><div class='output co'>#&gt; [[1]]
+#&gt;     &lt;script [src]&gt;</div><div class='input'><span class='fu'>xml_structure</span><span class='op'>(</span><span class='fu'><a href='xml_find_all.html'>xml_find_all</a></span><span class='op'>(</span><span class='va'>rproj</span>, <span class='st'>".//p"</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [[1]]
 #&gt; &lt;p&gt;
 #&gt;   &lt;a [href]&gt;
 #&gt;     &lt;img [src, alt]&gt;
@@ -501,8 +504,9 @@ way a document is organised. Compared to <code>xml_structure</code>,
 #&gt;       {text}
 #&gt;   {text}
 #&gt; </div><div class='input'>
-<span class='no'>h</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='read_xml.html'>read_html</a></span>(<span class='st'>"&lt;body&gt;&lt;p id = 'a'&gt;&lt;/p&gt;&lt;p class = 'c d'&gt;&lt;/p&gt;&lt;/body&gt;"</span>)
-<span class='fu'>html_structure</span>(<span class='no'>h</span>)</div><div class='output co'>#&gt; &lt;html&gt;
+<span class='va'>h</span> <span class='op'>&lt;-</span> <span class='fu'><a href='read_xml.html'>read_html</a></span><span class='op'>(</span><span class='st'>"&lt;body&gt;&lt;p id = 'a'&gt;&lt;/p&gt;&lt;p class = 'c d'&gt;&lt;/p&gt;&lt;/body&gt;"</span><span class='op'>)</span>
+<span class='fu'>html_structure</span><span class='op'>(</span><span class='va'>h</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; &lt;html&gt;
 #&gt;   &lt;body&gt;
 #&gt;     &lt;p#a&gt;
 #&gt;     &lt;p.c.d&gt;</div></pre>
@@ -521,7 +525,7 @@ way a document is organised. Compared to <code>xml_structure</code>,
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

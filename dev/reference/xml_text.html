@@ -159,15 +159,15 @@ numeric vector, xml_integer returns an integer vector." />
 numeric vector, <code>xml_integer</code> returns an integer vector.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>xml_text</span>(<span class='no'>x</span>, <span class='kw'>trim</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+    <pre class="usage"><span class='fu'>xml_text</span><span class='op'>(</span><span class='va'>x</span>, trim <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 
-<span class='fu'>xml_text</span>(<span class='no'>x</span>) <span class='kw'>&lt;-</span> <span class='no'>value</span>
+<span class='fu'>xml_text</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='va'>value</span>
 
-<span class='fu'>xml_set_text</span>(<span class='no'>x</span>, <span class='no'>value</span>)
+<span class='fu'>xml_set_text</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>value</span><span class='op'>)</span>
 
-<span class='fu'>xml_double</span>(<span class='no'>x</span>)
+<span class='fu'>xml_double</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
 
-<span class='fu'>xml_integer</span>(<span class='no'>x</span>)</pre>
+<span class='fu'>xml_integer</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -191,16 +191,23 @@ numeric vector, <code>xml_integer</code> returns an integer vector.</p>
     <p>A character vector, the same length as x.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='read_xml.html'>read_xml</a></span>(<span class='st'>"&lt;p&gt;This is some text. This is &lt;b&gt;bold!&lt;/b&gt;&lt;/p&gt;"</span>)
-<span class='fu'>xml_text</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] "This is some text. This is bold!"</div><div class='input'><span class='fu'>xml_text</span>(<span class='fu'><a href='xml_children.html'>xml_children</a></span>(<span class='no'>x</span>))</div><div class='output co'>#&gt; [1] "bold!"</div><div class='input'>
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='read_xml.html'>read_xml</a></span>(<span class='st'>"&lt;x&gt;This is some text. &lt;x&gt;This is some nested text.&lt;/x&gt;&lt;/x&gt;"</span>)
-<span class='fu'>xml_text</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt; [1] "This is some text. This is some nested text."</div><div class='input'><span class='fu'>xml_text</span>(<span class='fu'><a href='xml_find_all.html'>xml_find_all</a></span>(<span class='no'>x</span>, <span class='st'>"//x"</span>))</div><div class='output co'>#&gt; [1] "This is some text. This is some nested text."
+    <pre class="examples"><div class='input'><span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='read_xml.html'>read_xml</a></span><span class='op'>(</span><span class='st'>"&lt;p&gt;This is some text. This is &lt;b&gt;bold!&lt;/b&gt;&lt;/p&gt;"</span><span class='op'>)</span>
+<span class='fu'>xml_text</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "This is some text. This is bold!"</div><div class='input'><span class='fu'>xml_text</span><span class='op'>(</span><span class='fu'><a href='xml_children.html'>xml_children</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "bold!"</div><div class='input'>
+<span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='read_xml.html'>read_xml</a></span><span class='op'>(</span><span class='st'>"&lt;x&gt;This is some text. &lt;x&gt;This is some nested text.&lt;/x&gt;&lt;/x&gt;"</span><span class='op'>)</span>
+<span class='fu'>xml_text</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "This is some text. This is some nested text."</div><div class='input'><span class='fu'>xml_text</span><span class='op'>(</span><span class='fu'><a href='xml_find_all.html'>xml_find_all</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='st'>"//x"</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "This is some text. This is some nested text."
 #&gt; [2] "This is some nested text."                   </div><div class='input'>
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='read_xml.html'>read_xml</a></span>(<span class='st'>"&lt;p&gt;   Some text    &lt;/p&gt;"</span>)
-<span class='fu'>xml_text</span>(<span class='no'>x</span>, <span class='kw'>trim</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; [1] "Some text"</div><div class='input'>
+<span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='read_xml.html'>read_xml</a></span><span class='op'>(</span><span class='st'>"&lt;p&gt;   Some text    &lt;/p&gt;"</span><span class='op'>)</span>
+<span class='fu'>xml_text</span><span class='op'>(</span><span class='va'>x</span>, trim <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "Some text"</div><div class='input'>
 <span class='co'># xml_double() and xml_integer() are useful for extracting numeric</span>
-<span class='no'>attributes</span></div><div class='output co'>#&gt; function (x)  .Primitive("attributes")</div><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='read_xml.html'>read_xml</a></span>(<span class='st'>"&lt;plot&gt;&lt;point x='1' y='2' /&gt;&lt;point x='2' y='1' /&gt;&lt;/plot&gt;"</span>)
-<span class='fu'>xml_integer</span>(<span class='fu'><a href='xml_find_all.html'>xml_find_all</a></span>(<span class='no'>x</span>, <span class='st'>"//@x"</span>))</div><div class='output co'>#&gt; [1] 1 2</div></pre>
+<span class='va'>attributes</span>
+</div><div class='output co'>#&gt; function (x)  .Primitive("attributes")</div><div class='input'><span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='read_xml.html'>read_xml</a></span><span class='op'>(</span><span class='st'>"&lt;plot&gt;&lt;point x='1' y='2' /&gt;&lt;point x='2' y='1' /&gt;&lt;/plot&gt;"</span><span class='op'>)</span>
+<span class='fu'>xml_integer</span><span class='op'>(</span><span class='fu'><a href='xml_find_all.html'>xml_find_all</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='st'>"//@x"</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] 1 2</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -216,7 +223,7 @@ numeric vector, <code>xml_integer</code> returns an integer vector.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

@@ -167,19 +167,19 @@ attribute doesn't exist, it will return <code>default</code>, which defaults to
 <code>NA</code>. <code>xml_has_attr()</code> tests if an attribute is present.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>xml_attr</span>(<span class='no'>x</span>, <span class='no'>attr</span>, <span class='kw'>ns</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/character.html'>character</a></span>(), <span class='kw'>default</span> <span class='kw'>=</span> <span class='fl'>NA_character_</span>)
+    <pre class="usage"><span class='fu'>xml_attr</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>attr</span>, ns <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/character.html'>character</a></span><span class='op'>(</span><span class='op'>)</span>, default <span class='op'>=</span> <span class='cn'>NA_character_</span><span class='op'>)</span>
 
-<span class='fu'>xml_has_attr</span>(<span class='no'>x</span>, <span class='no'>attr</span>, <span class='kw'>ns</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/character.html'>character</a></span>())
+<span class='fu'>xml_has_attr</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>attr</span>, ns <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/character.html'>character</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
 
-<span class='fu'>xml_attrs</span>(<span class='no'>x</span>, <span class='kw'>ns</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/character.html'>character</a></span>())
+<span class='fu'>xml_attrs</span><span class='op'>(</span><span class='va'>x</span>, ns <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/character.html'>character</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
 
-<span class='fu'>xml_attr</span>(<span class='no'>x</span>, <span class='no'>attr</span>, <span class='kw'>ns</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/character.html'>character</a></span>()) <span class='kw'>&lt;-</span> <span class='no'>value</span>
+<span class='fu'>xml_attr</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>attr</span>, ns <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/character.html'>character</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='va'>value</span>
 
-<span class='fu'>xml_set_attr</span>(<span class='no'>x</span>, <span class='no'>attr</span>, <span class='no'>value</span>, <span class='kw'>ns</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/character.html'>character</a></span>())
+<span class='fu'>xml_set_attr</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>attr</span>, <span class='va'>value</span>, ns <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/character.html'>character</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
 
-<span class='fu'>xml_attrs</span>(<span class='no'>x</span>, <span class='kw'>ns</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/character.html'>character</a></span>()) <span class='kw'>&lt;-</span> <span class='no'>value</span>
+<span class='fu'>xml_attrs</span><span class='op'>(</span><span class='va'>x</span>, ns <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/character.html'>character</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='va'>value</span>
 
-<span class='fu'>xml_set_attrs</span>(<span class='no'>x</span>, <span class='no'>value</span>, <span class='kw'>ns</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/character.html'>character</a></span>())</pre>
+<span class='fu'>xml_set_attrs</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>value</span>, ns <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/character.html'>character</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -221,13 +221,20 @@ to represent of attributes that aren't defined.</p>
 node, or a list of character vectors if given a nodeset</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='read_xml.html'>read_xml</a></span>(<span class='st'>"&lt;root id='1'&gt;&lt;child id ='a' /&gt;&lt;child id='b' d='b'/&gt;&lt;/root&gt;"</span>)
-<span class='fu'>xml_attr</span>(<span class='no'>x</span>, <span class='st'>"id"</span>)</div><div class='output co'>#&gt; [1] "1"</div><div class='input'><span class='fu'>xml_attr</span>(<span class='no'>x</span>, <span class='st'>"apple"</span>)</div><div class='output co'>#&gt; [1] NA</div><div class='input'><span class='fu'>xml_attrs</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt;  id 
+    <pre class="examples"><div class='input'><span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='read_xml.html'>read_xml</a></span><span class='op'>(</span><span class='st'>"&lt;root id='1'&gt;&lt;child id ='a' /&gt;&lt;child id='b' d='b'/&gt;&lt;/root&gt;"</span><span class='op'>)</span>
+<span class='fu'>xml_attr</span><span class='op'>(</span><span class='va'>x</span>, <span class='st'>"id"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "1"</div><div class='input'><span class='fu'>xml_attr</span><span class='op'>(</span><span class='va'>x</span>, <span class='st'>"apple"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] NA</div><div class='input'><span class='fu'>xml_attrs</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;  id 
 #&gt; "1" </div><div class='input'>
-<span class='no'>kids</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='xml_children.html'>xml_children</a></span>(<span class='no'>x</span>)
-<span class='no'>kids</span></div><div class='output co'>#&gt; {xml_nodeset (2)}
+<span class='va'>kids</span> <span class='op'>&lt;-</span> <span class='fu'><a href='xml_children.html'>xml_children</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
+<span class='va'>kids</span>
+</div><div class='output co'>#&gt; {xml_nodeset (2)}
 #&gt; [1] &lt;child id="a"/&gt;
-#&gt; [2] &lt;child id="b" d="b"/&gt;</div><div class='input'><span class='fu'>xml_attr</span>(<span class='no'>kids</span>, <span class='st'>"id"</span>)</div><div class='output co'>#&gt; [1] "a" "b"</div><div class='input'><span class='fu'>xml_has_attr</span>(<span class='no'>kids</span>, <span class='st'>"id"</span>)</div><div class='output co'>#&gt; [1] TRUE TRUE</div><div class='input'><span class='fu'>xml_attrs</span>(<span class='no'>kids</span>)</div><div class='output co'>#&gt; [[1]]
+#&gt; [2] &lt;child id="b" d="b"/&gt;</div><div class='input'><span class='fu'>xml_attr</span><span class='op'>(</span><span class='va'>kids</span>, <span class='st'>"id"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "a" "b"</div><div class='input'><span class='fu'>xml_has_attr</span><span class='op'>(</span><span class='va'>kids</span>, <span class='st'>"id"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] TRUE TRUE</div><div class='input'><span class='fu'>xml_attrs</span><span class='op'>(</span><span class='va'>kids</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [[1]]
 #&gt;  id 
 #&gt; "a" 
 #&gt; 
@@ -236,29 +243,37 @@ node, or a list of character vectors if given a nodeset</p>
 #&gt; "b" "b" 
 #&gt; </div><div class='input'>
 <span class='co'># Missing attributes give missing values</span>
-<span class='fu'>xml_attr</span>(<span class='fu'><a href='xml_children.html'>xml_children</a></span>(<span class='no'>x</span>), <span class='st'>"d"</span>)</div><div class='output co'>#&gt; [1] NA  "b"</div><div class='input'><span class='fu'>xml_has_attr</span>(<span class='fu'><a href='xml_children.html'>xml_children</a></span>(<span class='no'>x</span>), <span class='st'>"d"</span>)</div><div class='output co'>#&gt; [1] FALSE  TRUE</div><div class='input'>
+<span class='fu'>xml_attr</span><span class='op'>(</span><span class='fu'><a href='xml_children.html'>xml_children</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>, <span class='st'>"d"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] NA  "b"</div><div class='input'><span class='fu'>xml_has_attr</span><span class='op'>(</span><span class='fu'><a href='xml_children.html'>xml_children</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>, <span class='st'>"d"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] FALSE  TRUE</div><div class='input'>
 <span class='co'># If the document has a namespace, use the ns argument and</span>
 <span class='co'># qualified attribute names</span>
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='read_xml.html'>read_xml</a></span>(<span class='st'>'
+<span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='read_xml.html'>read_xml</a></span><span class='op'>(</span><span class='st'>'
  &lt;root xmlns:b="http://bar.com" xmlns:f="http://foo.com"&gt;
    &lt;doc b:id="b" f:id="f" id="" /&gt;
  &lt;/root&gt;
-'</span>)
-<span class='no'>doc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='xml_children.html'>xml_children</a></span>(<span class='no'>x</span>)<span class='kw'>[[</span><span class='fl'>1</span>]]
-<span class='no'>ns</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='xml_ns.html'>xml_ns</a></span>(<span class='no'>x</span>)
+'</span><span class='op'>)</span>
+<span class='va'>doc</span> <span class='op'>&lt;-</span> <span class='fu'><a href='xml_children.html'>xml_children</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span><span class='op'>[[</span><span class='fl'>1</span><span class='op'>]</span><span class='op'>]</span>
+<span class='va'>ns</span> <span class='op'>&lt;-</span> <span class='fu'><a href='xml_ns.html'>xml_ns</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
 
-<span class='fu'>xml_attrs</span>(<span class='no'>doc</span>)</div><div class='output co'>#&gt;  id  id  id 
-#&gt; "b" "f" "b" </div><div class='input'><span class='fu'>xml_attrs</span>(<span class='no'>doc</span>, <span class='no'>ns</span>)</div><div class='output co'>#&gt; b:id f:id   id 
+<span class='fu'>xml_attrs</span><span class='op'>(</span><span class='va'>doc</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;  id  id  id 
+#&gt; "b" "f" "b" </div><div class='input'><span class='fu'>xml_attrs</span><span class='op'>(</span><span class='va'>doc</span>, <span class='va'>ns</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; b:id f:id   id 
 #&gt;  "b"  "f"   "" </div><div class='input'>
 <span class='co'># If you don't supply a ns spec, you get the first matching attribute</span>
-<span class='fu'>xml_attr</span>(<span class='no'>doc</span>, <span class='st'>"id"</span>)</div><div class='output co'>#&gt; [1] "b"</div><div class='input'><span class='fu'>xml_attr</span>(<span class='no'>doc</span>, <span class='st'>"b:id"</span>, <span class='no'>ns</span>)</div><div class='output co'>#&gt; [1] "b"</div><div class='input'><span class='fu'>xml_attr</span>(<span class='no'>doc</span>, <span class='st'>"id"</span>, <span class='no'>ns</span>)</div><div class='output co'>#&gt; [1] ""</div><div class='input'>
+<span class='fu'>xml_attr</span><span class='op'>(</span><span class='va'>doc</span>, <span class='st'>"id"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "b"</div><div class='input'><span class='fu'>xml_attr</span><span class='op'>(</span><span class='va'>doc</span>, <span class='st'>"b:id"</span>, <span class='va'>ns</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "b"</div><div class='input'><span class='fu'>xml_attr</span><span class='op'>(</span><span class='va'>doc</span>, <span class='st'>"id"</span>, <span class='va'>ns</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] ""</div><div class='input'>
 <span class='co'># Can set a single attribute with `xml_attr() &lt;-` or `xml_set_attr()`</span>
-<span class='fu'>xml_attr</span>(<span class='no'>doc</span>, <span class='st'>"id"</span>) <span class='kw'>&lt;-</span> <span class='st'>"one"</span>
-<span class='fu'>xml_set_attr</span>(<span class='no'>doc</span>, <span class='st'>"id"</span>, <span class='st'>"two"</span>)
+<span class='fu'>xml_attr</span><span class='op'>(</span><span class='va'>doc</span>, <span class='st'>"id"</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='st'>"one"</span>
+<span class='fu'>xml_set_attr</span><span class='op'>(</span><span class='va'>doc</span>, <span class='st'>"id"</span>, <span class='st'>"two"</span><span class='op'>)</span>
 
 <span class='co'># Or set multiple attributes with `xml_attrs()` or `xml_set_attrs()`</span>
-<span class='fu'>xml_attrs</span>(<span class='no'>doc</span>) <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"b:id"</span> <span class='kw'>=</span> <span class='st'>"one"</span>, <span class='st'>"f:id"</span> <span class='kw'>=</span> <span class='st'>"two"</span>, <span class='st'>"id"</span> <span class='kw'>=</span> <span class='st'>"three"</span>)
-<span class='fu'>xml_set_attrs</span>(<span class='no'>doc</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"b:id"</span> <span class='kw'>=</span> <span class='st'>"one"</span>, <span class='st'>"f:id"</span> <span class='kw'>=</span> <span class='st'>"two"</span>, <span class='st'>"id"</span> <span class='kw'>=</span> <span class='st'>"three"</span>))</div></pre>
+<span class='fu'>xml_attrs</span><span class='op'>(</span><span class='va'>doc</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"b:id"</span> <span class='op'>=</span> <span class='st'>"one"</span>, <span class='st'>"f:id"</span> <span class='op'>=</span> <span class='st'>"two"</span>, <span class='st'>"id"</span> <span class='op'>=</span> <span class='st'>"three"</span><span class='op'>)</span>
+<span class='fu'>xml_set_attrs</span><span class='op'>(</span><span class='va'>doc</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"b:id"</span> <span class='op'>=</span> <span class='st'>"one"</span>, <span class='st'>"f:id"</span> <span class='op'>=</span> <span class='st'>"two"</span>, <span class='st'>"id"</span> <span class='op'>=</span> <span class='st'>"three"</span><span class='op'>)</span><span class='op'>)</span>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -274,7 +289,7 @@ node, or a list of character vectors if given a nodeset</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

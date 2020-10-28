@@ -97,7 +97,8 @@
 
       
 
-      </header><script src="xml2-1.1.1_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+      </header><script src="xml2-1.1.1_files/accessible-code-block-0.0.1/empty-anchor.js"></script><link href="xml2-1.1.1_files/anchor-sections-1.0/anchor-sections.css" rel="stylesheet">
+<script src="xml2-1.1.1_files/anchor-sections-1.0/anchor-sections.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>xml2 1.1.1</h1>
@@ -112,7 +113,8 @@
     
 <meta charset="utf-8">
 <p>Today we are pleased to release version 1.1.1 of xml2. xml2 makes it easy to read, create, and modify XML with R. You can install it with:</p>
-<div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"xml2"</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb1"><pre class="downlit">
+<span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"xml2"</span><span class="op">)</span></pre></div>
 <p>As well as fixing many bugs, this release:</p>
 <ul>
 <li>Makes it easier to create an modify XML</li>
@@ -127,34 +129,36 @@
 <ul>
 <li>
 <p><code><a href="../../reference/xml_new_document.html">xml_new_root()</a></code> can be used to create a new document and root node simultaneously.</p>
-<div class="sourceCode" id="cb2"><html><body><pre class="r"><span class="fu"><a href="../../reference/xml_new_document.html">xml_new_root</a></span>(<span class="st">"x"</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../../reference/xml_replace.html">xml_add_child</a></span>(<span class="st">"y"</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../../reference/xml_children.html">xml_root</a></span>()
+<div class="sourceCode" id="cb2"><pre class="downlit">
+<span class="fu"><a href="../../reference/xml_new_document.html">xml_new_root</a></span><span class="op">(</span><span class="st">"x"</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="../../reference/xml_replace.html">xml_add_child</a></span><span class="op">(</span><span class="st">"y"</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="../../reference/xml_children.html">xml_root</a></span><span class="op">(</span><span class="op">)</span>
 <span class="co">#&gt; {xml_document}</span>
 <span class="co">#&gt; &lt;x&gt;</span>
-<span class="co">#&gt; [1] &lt;y/&gt;</span></pre></body></html></div>
+<span class="co">#&gt; [1] &lt;y/&gt;</span></pre></div>
 </li>
 <li>
 <p>New <code><a href="../../reference/xml_text.html">xml_set_text()</a></code>, <code><a href="../../reference/xml_name.html">xml_set_name()</a></code>, <code><a href="../../reference/xml_attr.html">xml_set_attr()</a></code>, and <code><a href="../../reference/xml_attr.html">xml_set_attrs()</a></code> make it easy to modify nodes within a pipeline.</p>
-<div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="no">x</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../../reference/read_xml.html">read_xml</a></span>(<span class="st">"&lt;a&gt;
+<div class="sourceCode" id="cb3"><pre class="downlit">
+<span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/read_xml.html">read_xml</a></span><span class="op">(</span><span class="st">"&lt;a&gt;
     &lt;b /&gt;
     &lt;c&gt;&lt;b/&gt;&lt;/c&gt;
-  &lt;/a&gt;"</span>)
-<span class="no">x</span>
+  &lt;/a&gt;"</span><span class="op">)</span>
+<span class="va">x</span>
 <span class="co">#&gt; {xml_document}</span>
 <span class="co">#&gt; &lt;a&gt;</span>
 <span class="co">#&gt; [1] &lt;b/&gt;</span>
 <span class="co">#&gt; [2] &lt;c&gt;\n  &lt;b/&gt;\n&lt;/c&gt;</span>
 
-<span class="no">x</span> <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../../reference/xml_find_all.html">xml_find_all</a></span>(<span class="st">".//b"</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../../reference/xml_name.html">xml_set_name</a></span>(<span class="st">"banana"</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../../reference/xml_attr.html">xml_set_attr</a></span>(<span class="st">"oldname"</span>, <span class="st">"b"</span>)
-<span class="no">x</span>
+<span class="va">x</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="../../reference/xml_find_all.html">xml_find_all</a></span><span class="op">(</span><span class="st">".//b"</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="../../reference/xml_name.html">xml_set_name</a></span><span class="op">(</span><span class="st">"banana"</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="../../reference/xml_attr.html">xml_set_attr</a></span><span class="op">(</span><span class="st">"oldname"</span>, <span class="st">"b"</span><span class="op">)</span>
+<span class="va">x</span>
 <span class="co">#&gt; {xml_document}</span>
 <span class="co">#&gt; &lt;a&gt;</span>
 <span class="co">#&gt; [1] &lt;banana oldname="b"/&gt;</span>
-<span class="co">#&gt; [2] &lt;c&gt;\n  &lt;banana oldname="b"/&gt;\n&lt;/c&gt;</span></pre></body></html></div>
+<span class="co">#&gt; [2] &lt;c&gt;\n  &lt;banana oldname="b"/&gt;\n&lt;/c&gt;</span></pre></div>
 </li>
 <li><p>New <code><a href="../../reference/xml_replace.html">xml_add_parent()</a></code> makes it easy to insert a node as the parent of an existing node.</p></li>
 <li><p>You can create more esoteric node types with <code><a href="../../reference/xml_comment.html">xml_comment()</a></code> (comments), <code><a href="../../reference/xml_cdata.html">xml_cdata()</a></code> (CDATA nodes), and <code><a href="../../reference/xml_dtd.html">xml_dtd()</a></code> (DTDs).</p></li>
@@ -164,32 +168,34 @@
 <h2 class="hasAnchor">
 <a href="#coercion-to-and-from-r-lists" class="anchor"></a>Coercion to and from R Lists</h2>
 <p>xml2 1.1.1 improves support for converting to and from R lists, thanks in part to work by <a href="https://github.com/peterfoley">Peter Foley</a> and <a href="https://github.com/jennybc">Jenny Bryan</a>. In particular xml2 now supports preserving the root node name as well as saving all xml2 attributes as R attributes. These changes allows you to convert most XML documents to and from R lists with <code><a href="../../reference/as_list.html">as_list()</a></code> and <code><a href="../../reference/as_xml_document.html">as_xml_document()</a></code> without loss of data.</p>
-<div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="no">x</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../../reference/read_xml.html">read_xml</a></span>(<span class="st">"&lt;fruits&gt;&lt;apple color = 'red' /&gt;&lt;/fruits&gt;"</span>)
-<span class="no">x</span>
+<div class="sourceCode" id="cb4"><pre class="downlit">
+<span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/read_xml.html">read_xml</a></span><span class="op">(</span><span class="st">"&lt;fruits&gt;&lt;apple color = 'red' /&gt;&lt;/fruits&gt;"</span><span class="op">)</span>
+<span class="va">x</span>
 <span class="co">#&gt; {xml_document}</span>
 <span class="co">#&gt; &lt;fruits&gt;</span>
 <span class="co">#&gt; [1] &lt;apple color="red"/&gt;</span>
-<span class="fu"><a href="../../reference/as_list.html">as_list</a></span>(<span class="no">x</span>)
+<span class="fu"><a href="../../reference/as_list.html">as_list</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
 <span class="co">#&gt; $fruits</span>
 <span class="co">#&gt; $fruits$apple</span>
 <span class="co">#&gt; list()</span>
 <span class="co">#&gt; attr(,"color")</span>
 <span class="co">#&gt; [1] "red"</span>
-<span class="fu"><a href="../../reference/as_xml_document.html">as_xml_document</a></span>(<span class="fu"><a href="../../reference/as_list.html">as_list</a></span>(<span class="no">x</span>))
+<span class="fu"><a href="../../reference/as_xml_document.html">as_xml_document</a></span><span class="op">(</span><span class="fu"><a href="../../reference/as_list.html">as_list</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt; {xml_document}</span>
 <span class="co">#&gt; &lt;fruits&gt;</span>
-<span class="co">#&gt; [1] &lt;apple color="red"/&gt;</span></pre></body></html></div>
+<span class="co">#&gt; [1] &lt;apple color="red"/&gt;</span></pre></div>
 </div>
 <div id="xml-validation-and-xslt" class="section level2">
 <h2 class="hasAnchor">
 <a href="#xml-validation-and-xslt" class="anchor"></a>XML validation and xslt</h2>
 <p>xml2 1.1.1 also adds support for XML validation, thanks to <a href="https://github.com/jeroenooms">Jeroen Ooms</a>. Simply read the document and schema files and call <code><a href="../../reference/xml_validate.html">xml_validate()</a></code>.</p>
-<div class="sourceCode" id="cb5"><html><body><pre class="r"><span class="no">doc</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../../reference/read_xml.html">read_xml</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span>(<span class="st">"extdata/order-doc.xml"</span>, <span class="kw">package</span> <span class="kw">=</span> <span class="st">"xml2"</span>))
-<span class="no">schema</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../../reference/read_xml.html">read_xml</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span>(<span class="st">"extdata/order-schema.xml"</span>, <span class="kw">package</span> <span class="kw">=</span> <span class="st">"xml2"</span>))
-<span class="fu"><a href="../../reference/xml_validate.html">xml_validate</a></span>(<span class="no">doc</span>, <span class="no">schema</span>)
+<div class="sourceCode" id="cb5"><pre class="downlit">
+<span class="va">doc</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/read_xml.html">read_xml</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">"extdata/order-doc.xml"</span>, package <span class="op">=</span> <span class="st">"xml2"</span><span class="op">)</span><span class="op">)</span>
+<span class="va">schema</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/read_xml.html">read_xml</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">"extdata/order-schema.xml"</span>, package <span class="op">=</span> <span class="st">"xml2"</span><span class="op">)</span><span class="op">)</span>
+<span class="fu"><a href="../../reference/xml_validate.html">xml_validate</a></span><span class="op">(</span><span class="va">doc</span>, <span class="va">schema</span><span class="op">)</span>
 <span class="co">#&gt; [1] TRUE</span>
 <span class="co">#&gt; attr(,"errors")</span>
-<span class="co">#&gt; character(0)</span></pre></body></html></div>
+<span class="co">#&gt; character(0)</span></pre></div>
 <p>Jeroen also released the first xml2 extension package in conjunction with xml2 1.1.1, <a href="https://cran.r-project.org/package=xslt">xslt</a>. xslt allows one to apply <a href="https://en.wikipedia.org/wiki/XSLT">XSLT (Extensible Stylesheet Language Transformations)</a> to XML documents, which are great for transforming XML data into other formats such as HTML.</p>
 </div>
   </div>
@@ -209,7 +215,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>
