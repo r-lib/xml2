@@ -104,7 +104,7 @@
       <h1 data-toc-skip>Node Modification</h1>
                         <h4 class="author">Jim Hester</h4>
             
-            <h4 class="date">2020-10-30</h4>
+            <h4 class="date">2020-11-30</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/r-lib/xml2/blob/master/vignettes/modification.Rmd"><code>vignettes/modification.Rmd</code></a></small>
       <div class="hidden name"><code>modification.Rmd</code></div>
@@ -121,8 +121,8 @@
 <h2 class="hasAnchor">
 <a href="#text-modification" class="anchor"></a>Text Modification</h2>
 <p>Text modification only happens on text nodes. If a given node has more than one text node only the first will be affected. If you want to modify additional text nodes you need to select them explicitly with <code>/text()</code>.</p>
-<div class="sourceCode" id="cb1"><pre class="downlit">
-<span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/read_xml.html">read_xml</a></span><span class="op">(</span><span class="st">"&lt;p&gt;This is some &lt;b&gt;text&lt;/b&gt;. This is more.&lt;/p&gt;"</span><span class="op">)</span>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/read_xml.html">read_xml</a></span><span class="op">(</span><span class="st">"&lt;p&gt;This is some &lt;b&gt;text&lt;/b&gt;. This is more.&lt;/p&gt;"</span><span class="op">)</span>
 <span class="fu"><a href="../reference/xml_text.html">xml_text</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
 <span class="co">#&gt; [1] "This is some text. This is more."</span>
 
@@ -141,14 +141,14 @@
 <span class="co">#&gt; &lt;p&gt;</span>
 <span class="co">#&gt;   {text}</span>
 <span class="co">#&gt;   &lt;b&gt;</span>
-<span class="co">#&gt;     {text}</span></pre></div>
+<span class="co">#&gt;     {text}</span></code></pre></div>
 </div>
 <div id="attribute-and-namespace-definition-modification" class="section level2">
 <h2 class="hasAnchor">
 <a href="#attribute-and-namespace-definition-modification" class="anchor"></a>Attribute and Namespace Definition Modification</h2>
 <p>Attributes and namespace definitions are modified one at a time with <code><a href="../reference/xml_attr.html">xml_attr()</a></code> or all at once with <code><a href="../reference/xml_attr.html">xml_attrs()</a></code>. In both cases using <code>NULL</code> as the value will remove the attribute completely.</p>
-<div class="sourceCode" id="cb2"><pre class="downlit">
-<span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/read_xml.html">read_xml</a></span><span class="op">(</span><span class="st">"&lt;a href='invalid!'&gt;xml2&lt;/a&gt;"</span><span class="op">)</span>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/read_xml.html">read_xml</a></span><span class="op">(</span><span class="st">"&lt;a href='invalid!'&gt;xml2&lt;/a&gt;"</span><span class="op">)</span>
 <span class="fu"><a href="../reference/xml_attr.html">xml_attr</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">"href"</span><span class="op">)</span>
 <span class="co">#&gt; [1] "invalid!"</span>
 
@@ -178,14 +178,14 @@
 <span class="fu"><a href="../reference/xml_attr.html">xml_attr</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">"xmlns:bar"</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="st">"http://bar"</span>
 <span class="va">x</span>
 <span class="co">#&gt; {xml_document}</span>
-<span class="co">#&gt; &lt;a xmlns="http://foo" xmlns:bar="http://bar"&gt;</span></pre></div>
+<span class="co">#&gt; &lt;a xmlns="http://foo" xmlns:bar="http://bar"&gt;</span></code></pre></div>
 </div>
 <div id="name-modification" class="section level2">
 <h2 class="hasAnchor">
 <a href="#name-modification" class="anchor"></a>Name Modification</h2>
 <p>Node names are modified with <code><a href="../reference/xml_name.html">xml_name()</a></code>.</p>
-<div class="sourceCode" id="cb3"><pre class="downlit">
-<span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/read_xml.html">read_xml</a></span><span class="op">(</span><span class="st">"&lt;a&gt;&lt;b/&gt;&lt;/a&gt;"</span><span class="op">)</span>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/read_xml.html">read_xml</a></span><span class="op">(</span><span class="st">"&lt;a&gt;&lt;b/&gt;&lt;/a&gt;"</span><span class="op">)</span>
 <span class="va">x</span>
 <span class="co">#&gt; {xml_document}</span>
 <span class="co">#&gt; &lt;a&gt;</span>
@@ -196,7 +196,7 @@
 <span class="va">x</span>
 <span class="co">#&gt; {xml_document}</span>
 <span class="co">#&gt; &lt;c&gt;</span>
-<span class="co">#&gt; [1] &lt;b/&gt;</span></pre></div>
+<span class="co">#&gt; [1] &lt;b/&gt;</span></code></pre></div>
 </div>
 </div>
 <div id="node-modification" class="section level1">
@@ -206,8 +206,8 @@
 <div id="replacing-existing-nodes" class="section level2">
 <h2 class="hasAnchor">
 <a href="#replacing-existing-nodes" class="anchor"></a>Replacing existing nodes</h2>
-<div class="sourceCode" id="cb4"><pre class="downlit">
-<span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/read_xml.html">read_xml</a></span><span class="op">(</span><span class="st">"&lt;parent&gt;&lt;child&gt;1&lt;/child&gt;&lt;child&gt;2&lt;child&gt;3&lt;/child&gt;&lt;/child&gt;&lt;/parent&gt;"</span><span class="op">)</span>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/read_xml.html">read_xml</a></span><span class="op">(</span><span class="st">"&lt;parent&gt;&lt;child&gt;1&lt;/child&gt;&lt;child&gt;2&lt;child&gt;3&lt;/child&gt;&lt;/child&gt;&lt;/parent&gt;"</span><span class="op">)</span>
 <span class="va">children</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/xml_children.html">xml_children</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
 <span class="va">t1</span> <span class="op">&lt;-</span> <span class="va">children</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>
 <span class="va">t2</span> <span class="op">&lt;-</span> <span class="va">children</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span>
@@ -220,13 +220,13 @@
 <span class="co">#&gt; {xml_document}</span>
 <span class="co">#&gt; &lt;parent&gt;</span>
 <span class="co">#&gt; [1] &lt;child&gt;3&lt;/child&gt;</span>
-<span class="co">#&gt; [2] &lt;child&gt;2&lt;child&gt;3&lt;/child&gt;&lt;/child&gt;</span></pre></div>
+<span class="co">#&gt; [2] &lt;child&gt;2&lt;child&gt;3&lt;/child&gt;&lt;/child&gt;</span></code></pre></div>
 </div>
 <div id="add-a-sibling" class="section level2">
 <h2 class="hasAnchor">
 <a href="#add-a-sibling" class="anchor"></a>Add a sibling</h2>
-<div class="sourceCode" id="cb5"><pre class="downlit">
-<span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/read_xml.html">read_xml</a></span><span class="op">(</span><span class="st">"&lt;parent&gt;&lt;child&gt;1&lt;/child&gt;&lt;child&gt;2&lt;child&gt;3&lt;/child&gt;&lt;/child&gt;&lt;/parent&gt;"</span><span class="op">)</span>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/read_xml.html">read_xml</a></span><span class="op">(</span><span class="st">"&lt;parent&gt;&lt;child&gt;1&lt;/child&gt;&lt;child&gt;2&lt;child&gt;3&lt;/child&gt;&lt;/child&gt;&lt;/parent&gt;"</span><span class="op">)</span>
 <span class="va">children</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/xml_children.html">xml_children</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
 <span class="va">t1</span> <span class="op">&lt;-</span> <span class="va">children</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>
 <span class="va">t2</span> <span class="op">&lt;-</span> <span class="va">children</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span>
@@ -246,13 +246,13 @@
 <span class="co">#&gt; &lt;parent&gt;</span>
 <span class="co">#&gt; [1] &lt;child&gt;1&lt;/child&gt;</span>
 <span class="co">#&gt; [2] &lt;child&gt;3&lt;/child&gt;</span>
-<span class="co">#&gt; [3] &lt;child&gt;2&lt;child&gt;3&lt;/child&gt;&lt;child&gt;1&lt;/child&gt;&lt;/child&gt;</span></pre></div>
+<span class="co">#&gt; [3] &lt;child&gt;2&lt;child&gt;3&lt;/child&gt;&lt;child&gt;1&lt;/child&gt;&lt;/child&gt;</span></code></pre></div>
 </div>
 <div id="add-a-child" class="section level2">
 <h2 class="hasAnchor">
 <a href="#add-a-child" class="anchor"></a>Add a child</h2>
-<div class="sourceCode" id="cb6"><pre class="downlit">
-<span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/read_xml.html">read_xml</a></span><span class="op">(</span><span class="st">"&lt;parent&gt;&lt;child&gt;1&lt;/child&gt;&lt;child&gt;2&lt;child&gt;3&lt;/child&gt;&lt;/child&gt;&lt;/parent&gt;"</span><span class="op">)</span>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/read_xml.html">read_xml</a></span><span class="op">(</span><span class="st">"&lt;parent&gt;&lt;child&gt;1&lt;/child&gt;&lt;child&gt;2&lt;child&gt;3&lt;/child&gt;&lt;/child&gt;&lt;/parent&gt;"</span><span class="op">)</span>
 <span class="va">children</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/xml_children.html">xml_children</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
 <span class="va">t1</span> <span class="op">&lt;-</span> <span class="va">children</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>
 <span class="va">t2</span> <span class="op">&lt;-</span> <span class="va">children</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span>
@@ -270,15 +270,15 @@
 <span class="co">#&gt; {xml_document}</span>
 <span class="co">#&gt; &lt;parent&gt;</span>
 <span class="co">#&gt; [1] &lt;child&gt;1&lt;child&gt;3&lt;/child&gt;&lt;test/&gt;&lt;/child&gt;</span>
-<span class="co">#&gt; [2] &lt;child&gt;2&lt;child&gt;3&lt;/child&gt;&lt;/child&gt;</span></pre></div>
+<span class="co">#&gt; [2] &lt;child&gt;2&lt;child&gt;3&lt;/child&gt;&lt;/child&gt;</span></code></pre></div>
 </div>
 <div id="removing-nodes" class="section level2">
 <h2 class="hasAnchor">
 <a href="#removing-nodes" class="anchor"></a>Removing nodes</h2>
 <p>The <code><a href="../reference/xml_replace.html">xml_remove()</a></code> can be used to remove a node (and its children) from a tree. The default behavior is to unlink the node from the tree, but does <em>not</em> free the memory for the node, so R objects pointing to the node are still valid.</p>
 <p>This allows code like the following to work without crashing R</p>
-<div class="sourceCode" id="cb7"><pre class="downlit">
-<span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/read_xml.html">read_xml</a></span><span class="op">(</span><span class="st">"&lt;foo&gt;&lt;bar&gt;&lt;baz/&gt;&lt;/bar&gt;&lt;/foo&gt;"</span><span class="op">)</span>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/read_xml.html">read_xml</a></span><span class="op">(</span><span class="st">"&lt;foo&gt;&lt;bar&gt;&lt;baz/&gt;&lt;/bar&gt;&lt;/foo&gt;"</span><span class="op">)</span>
 <span class="va">x1</span> <span class="op">&lt;-</span> <span class="va">x</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/xml_children.html">xml_children</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="va">.</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>
 <span class="va">x2</span> <span class="op">&lt;-</span> <span class="va">x1</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/xml_children.html">xml_children</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="va">.</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>
 
@@ -286,24 +286,24 @@
 <span class="fu"><a href="https://rdrr.io/r/base/rm.html">rm</a></span><span class="op">(</span><span class="va">x1</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/gc.html">gc</a></span><span class="op">(</span><span class="op">)</span>
 <span class="co">#&gt;          used (Mb) gc trigger (Mb) limit (Mb) max used (Mb)</span>
-<span class="co">#&gt; Ncells 496925 26.6    1083908 57.9         NA   671754 35.9</span>
-<span class="co">#&gt; Vcells 918182  7.1    8388608 64.0      16384  1924384 14.7</span>
+<span class="co">#&gt; Ncells 495859 26.5    1081381 57.8         NA   670717 35.9</span>
+<span class="co">#&gt; Vcells 915634  7.0    8388608 64.0      16384  1924706 14.7</span>
 
 <span class="va">x2</span>
 <span class="co">#&gt; {xml_node}</span>
-<span class="co">#&gt; &lt;baz&gt;</span></pre></div>
+<span class="co">#&gt; &lt;baz&gt;</span></code></pre></div>
 <p>If you are not planning on referencing these nodes again this memory is wasted. Calling <code><a href="../reference/xml_replace.html">xml_remove(free = TRUE)</a></code> will remove the nodes <em>and</em> free the memory used to store them. <strong>Note</strong> In this case <em>any</em> node which previously pointed to the node or its children will instead be pointing to free memory and may cause R to crash. xml2 can’t figure this out for you, so it’s your responsibility to remove any objects which are no longer valid.</p>
 <p>In particular <code>xml_find_*()</code> results are easy to overlook, for example</p>
-<div class="sourceCode" id="cb8"><pre class="downlit">
-<span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/read_xml.html">read_xml</a></span><span class="op">(</span><span class="st">"&lt;a&gt;&lt;b /&gt;&lt;b&gt;&lt;b /&gt;&lt;/b&gt;&lt;/a&gt;"</span><span class="op">)</span>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/read_xml.html">read_xml</a></span><span class="op">(</span><span class="st">"&lt;a&gt;&lt;b /&gt;&lt;b&gt;&lt;b /&gt;&lt;/b&gt;&lt;/a&gt;"</span><span class="op">)</span>
 <span class="va">bees</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/xml_find_all.html">xml_find_all</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">"//b"</span><span class="op">)</span>
 <span class="fu"><a href="../reference/xml_replace.html">xml_remove</a></span><span class="op">(</span><span class="fu"><a href="../reference/xml_children.html">xml_child</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>, free <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
 <span class="co"># bees[[1]] is no longer valid!!!</span>
 <span class="fu"><a href="https://rdrr.io/r/base/rm.html">rm</a></span><span class="op">(</span><span class="va">bees</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/gc.html">gc</a></span><span class="op">(</span><span class="op">)</span>
 <span class="co">#&gt;          used (Mb) gc trigger (Mb) limit (Mb) max used (Mb)</span>
-<span class="co">#&gt; Ncells 497018 26.6    1083908 57.9         NA   671754 35.9</span>
-<span class="co">#&gt; Vcells 918319  7.1    8388608 64.0      16384  1924384 14.7</span></pre></div>
+<span class="co">#&gt; Ncells 495952 26.5    1081381 57.8         NA   670717 35.9</span>
+<span class="co">#&gt; Vcells 915771  7.0    8388608 64.0      16384  1924706 14.7</span></code></pre></div>
 </div>
 <div id="namespaces" class="section level2">
 <h2 class="hasAnchor">
@@ -318,8 +318,8 @@
 <span id="cb9-7"><a href="#cb9-7"></a><span class="kw">&lt;se:Name&gt;</span>My Layer<span class="kw">&lt;/se:Name&gt;</span></span>
 <span id="cb9-8"><a href="#cb9-8"></a><span class="kw">&lt;/layer&gt;</span></span>
 <span id="cb9-9"><a href="#cb9-9"></a><span class="kw">&lt;/sld&gt;</span></span></code></pre></div>
-<div class="sourceCode" id="cb10"><pre class="downlit">
-<span class="va">d</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/xml_new_document.html">xml_new_root</a></span><span class="op">(</span><span class="st">"sld"</span>,
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">d</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/xml_new_document.html">xml_new_root</a></span><span class="op">(</span><span class="st">"sld"</span>,
     xmlns <span class="op">=</span> <span class="st">"http://www.o.net/sld"</span>,
     <span class="st">"xmlns:ogc"</span> <span class="op">=</span> <span class="st">"http://www.o.net/ogc"</span>,
     <span class="st">"xmlns:se"</span> <span class="op">=</span> <span class="st">"http://www.o.net/se"</span>,
@@ -331,7 +331,7 @@
 <span class="va">d</span>
 <span class="co">#&gt; {xml_document}</span>
 <span class="co">#&gt; &lt;sld version="1.1.0" xmlns="http://www.o.net/sld" xmlns:ogc="http://www.o.net/ogc" xmlns:se="http://www.o.net/se"&gt;</span>
-<span class="co">#&gt; [1] &lt;layer&gt;\n  &lt;se:Name&gt;My Layer&lt;/se:Name&gt;\n&lt;/layer&gt;</span></pre></div>
+<span class="co">#&gt; [1] &lt;layer&gt;\n  &lt;se:Name&gt;My Layer&lt;/se:Name&gt;\n&lt;/layer&gt;</span></code></pre></div>
 </div>
 </div>
   </div>

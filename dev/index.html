@@ -110,18 +110,18 @@
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
 <p>You can install xml2 from CRAN,</p>
-<div class="sourceCode" id="cb1"><pre class="downlit">
-<span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"xml2"</span><span class="op">)</span></pre></div>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"xml2"</span><span class="op">)</span></code></pre></div>
 <p>or you can install the development version from github, using <code>devtools</code>:</p>
-<div class="sourceCode" id="cb2"><pre class="downlit">
-<span class="co"># install.packages("devtools")</span>
-<span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"r-lib/xml2"</span><span class="op">)</span></pre></div>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># install.packages("devtools")</span>
+<span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"r-lib/xml2"</span><span class="op">)</span></code></pre></div>
 </div>
 <div id="usage" class="section level2">
 <h2 class="hasAnchor">
 <a href="#usage" class="anchor"></a>Usage</h2>
-<div class="sourceCode" id="cb3"><pre class="downlit">
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://xml2.r-lib.org/">"xml2"</a></span><span class="op">)</span>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://xml2.r-lib.org/">"xml2"</a></span><span class="op">)</span>
 <span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/read_xml.html">read_xml</a></span><span class="op">(</span><span class="st">"&lt;foo&gt; &lt;bar&gt; text &lt;baz/&gt; &lt;/bar&gt; &lt;/foo&gt;"</span><span class="op">)</span>
 <span class="va">x</span>
 
@@ -133,7 +133,7 @@
 <span class="va">h</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/read_xml.html">read_html</a></span><span class="op">(</span><span class="st">"&lt;html&gt;&lt;p&gt;Hi &lt;b&gt;!"</span><span class="op">)</span>
 <span class="va">h</span>
 <span class="fu"><a href="reference/xml_name.html">xml_name</a></span><span class="op">(</span><span class="va">h</span><span class="op">)</span>
-<span class="fu"><a href="reference/xml_text.html">xml_text</a></span><span class="op">(</span><span class="va">h</span><span class="op">)</span></pre></div>
+<span class="fu"><a href="reference/xml_text.html">xml_text</a></span><span class="op">(</span><span class="va">h</span><span class="op">)</span></code></pre></div>
 <p>There are three key classes:</p>
 <ul>
 <li><p><code>xml_node</code>: a single node in a document.</p></li>
