@@ -150,3 +150,10 @@ test_that("Searches with entities work (#241)", {
 
   expect_equal(xml_text(field1), "foo bar Quantitative Consultancy")
 })
+
+test_that("A helpful error is given from non-string xpath in xml_find_first/all", {
+  node <- read_xml("<a>1</a>")
+
+  expect_error(xml_find_all(node, 1), "XPath must be a string", fixed = TRUE)
+  expect_error(xml_find_first(node, 1), "XPath must be a string", fixed = TRUE)
+})
