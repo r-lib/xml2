@@ -29,7 +29,7 @@ template <typename T> class XPtr {
   
   XPtr& operator=(const XPtr<T> &other) {
     R_PreserveObject(other.data_);
-    if (data_ != nullptr) {
+    if (data_ != NULL) {
       R_ReleaseObject(data_);
     }
     data_ = other.data_;
