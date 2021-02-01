@@ -21,6 +21,20 @@ template <typename T> class XPtr {
     data_ = R_MakeExternalPtr((void *) p, R_NilValue, R_NilValue);
     R_PreserveObject(data_);
   }
+  
+  XPtr(const XPtr<T> &old) {
+    data_ = old.data_;
+    R_PreserveObject(data_);
+  }
+  
+  XPtr& operator=(const XPtr<T> &other) {
+    R_PreserveObject(other.data_);
+    if (data_ != NULL) {
+      R_ReleaseObject(data_);
+    }
+    data_ = other.data_;
+    return *this;
+  }
 
   operator SEXP() const { return data_; }
 

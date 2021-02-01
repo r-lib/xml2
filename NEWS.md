@@ -8,6 +8,8 @@
 
 * `xml_find_all.xml_node()` fails more informatively the `xpath` parameter is the wrong type (@michaelchirico)
 
+* `XPtr` gets explicit copy constructor and assignment operator definitions, which were two missing components of the [Rule of three](https://en.wikipedia.org/wiki/Rule_of_three_(C%2B%2B_programming)) (@michaelchirico)
+
 # xml2 1.3.2
 
 * `read_html()` and `read_xml()` now error if passed strings of length greater than one (#121)
