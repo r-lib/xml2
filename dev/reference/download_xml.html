@@ -160,7 +160,7 @@ a custom curl::handle()." />
     <p>Libcurl implementation of <code>C_download</code> (the "internal" download method)
 with added support for https, ftps, gzip, etc. Default behavior is identical
 to <code><a href='https://rdrr.io/r/utils/download.file.html'>download.file()</a></code>, but request can be fully configured by passing
-a custom <code><a href='https://jeroen.cran.dev/curl/reference/handle.html'>curl::handle()</a></code>.</p>
+a custom <code><a href='https://rdrr.io/pkg/curl/man/handle.html'>curl::handle()</a></code>.</p>
     </div>
 
     <pre class="usage"><span class='fu'>download_xml</span><span class='op'>(</span>
@@ -168,7 +168,7 @@ a custom <code><a href='https://jeroen.cran.dev/curl/reference/handle.html'>curl
   file <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/basename.html'>basename</a></span><span class='op'>(</span><span class='va'>url</span><span class='op'>)</span>,
   quiet <span class='op'>=</span> <span class='cn'>TRUE</span>,
   mode <span class='op'>=</span> <span class='st'>"wb"</span>,
-  handle <span class='op'>=</span> <span class='fu'>curl</span><span class='fu'>::</span><span class='fu'><a href='https://jeroen.cran.dev/curl/reference/handle.html'>new_handle</a></span><span class='op'>(</span><span class='op'>)</span>
+  handle <span class='op'>=</span> <span class='fu'>curl</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/curl/man/handle.html'>new_handle</a></span><span class='op'>(</span><span class='op'>)</span>
 <span class='op'>)</span>
 
 <span class='fu'>download_html</span><span class='op'>(</span>
@@ -176,7 +176,7 @@ a custom <code><a href='https://jeroen.cran.dev/curl/reference/handle.html'>curl
   file <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/basename.html'>basename</a></span><span class='op'>(</span><span class='va'>url</span><span class='op'>)</span>,
   quiet <span class='op'>=</span> <span class='cn'>TRUE</span>,
   mode <span class='op'>=</span> <span class='st'>"wb"</span>,
-  handle <span class='op'>=</span> <span class='fu'>curl</span><span class='fu'>::</span><span class='fu'><a href='https://jeroen.cran.dev/curl/reference/handle.html'>new_handle</a></span><span class='op'>(</span><span class='op'>)</span>
+  handle <span class='op'>=</span> <span class='fu'>curl</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/curl/man/handle.html'>new_handle</a></span><span class='op'>(</span><span class='op'>)</span>
 <span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -220,7 +220,7 @@ download, and raises an error when status is non-successful. The behavior of
 the error page to disk in case of a non success response.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><a href='https://jeroen.cran.dev/curl/reference/curl_download.html'>curl_download</a></p></div>
+    <div class='dont-index'><p><a href='https://rdrr.io/pkg/curl/man/curl_download.html'>curl_download</a></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
