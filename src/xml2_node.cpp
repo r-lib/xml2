@@ -112,7 +112,7 @@ extern "C" SEXP node_attr(
   if (Rf_xlength(nsMap_sxp) == 0) {
     string = xmlGetProp(node.checked_get(), asXmlChar(name));
   } else {
-    size_t colon = name.find(":");
+    size_t colon = name.find(':');
     if (colon == std::string::npos) {
       // Has namespace spec, but attribute not qualified, so look for attribute
       // without namespace
@@ -346,7 +346,7 @@ extern "C" SEXP node_set_attr(SEXP node_sxp, SEXP name_sxp, SEXP value, SEXP nsM
   if (Rf_xlength(nsMap) == 0) {
       xmlSetProp(node, asXmlChar(name), asXmlChar(value));
   } else {
-    size_t colon = name.find(":");
+    size_t colon = name.find(':');
     if (colon == std::string::npos) {
       // Has namespace spec, but attribute not qualified, so just use that name
       xmlSetProp(node, asXmlChar(name), asXmlChar(value));
@@ -389,7 +389,7 @@ extern "C" SEXP node_remove_attr(SEXP node_sxp, SEXP name_sxp, SEXP nsMap) {
   if (Rf_xlength(nsMap) == 0) {
       xmlUnsetProp(node, asXmlChar(name));
   } else {
-    size_t colon = name.find(":");
+    size_t colon = name.find(':');
     if (colon == std::string::npos) {
       // Has namespace spec, but attribute not qualified, so just use that name
       xmlUnsetNsProp(node, NULL, asXmlChar(name));
