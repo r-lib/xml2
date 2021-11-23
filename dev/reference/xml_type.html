@@ -170,10 +170,12 @@
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='read_xml.html'>read_xml</a></span><span class='op'>(</span><span class='st'>"&lt;foo&gt; a &lt;b /&gt; &lt;![CDATA[ blah]]&gt;&lt;/foo&gt;"</span><span class='op'>)</span>
-<span class='fu'>xml_type</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] "element"</div><div class='input'><span class='fu'>xml_type</span><span class='op'>(</span><span class='fu'><a href='xml_children.html'>xml_contents</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] "text"    "element" "text"    "cdata"  </div></pre>
+    <pre class="examples"><span class='r-in'><span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='read_xml.html'>read_xml</a></span><span class='op'>(</span><span class='st'>"&lt;foo&gt; a &lt;b /&gt; &lt;![CDATA[ blah]]&gt;&lt;/foo&gt;"</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'>xml_type</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "element"</span>
+<span class='r-in'><span class='fu'>xml_type</span><span class='op'>(</span><span class='fu'><a href='xml_children.html'>xml_contents</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "text"    "element" "text"    "cdata"  </span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

@@ -189,47 +189,55 @@ other functions to work with fully qualified names instead of local names.</p>
 default display is a little nicer.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='read_xml.html'>read_xml</a></span><span class='op'>(</span><span class='st'>'
- &lt;root&gt;
-   &lt;doc1 xmlns = "http://foo.com"&gt;&lt;baz /&gt;&lt;/doc1&gt;
-   &lt;doc2 xmlns = "http://bar.com"&gt;&lt;baz /&gt;&lt;/doc2&gt;
- &lt;/root&gt;
-'</span><span class='op'>)</span>
-<span class='fu'>xml_ns</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; d1 &lt;-&gt; http://foo.com
-#&gt; d2 &lt;-&gt; http://bar.com</div><div class='input'>
-<span class='co'># When there are default namespaces, it's a good idea to rename</span>
-<span class='co'># them to give informative names:</span>
-<span class='va'>ns</span> <span class='op'>&lt;-</span> <span class='fu'>xml_ns_rename</span><span class='op'>(</span><span class='fu'>xml_ns</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>, d1 <span class='op'>=</span> <span class='st'>"foo"</span>, d2 <span class='op'>=</span> <span class='st'>"bar"</span><span class='op'>)</span>
-<span class='va'>ns</span>
-</div><div class='output co'>#&gt; foo &lt;-&gt; http://foo.com
-#&gt; bar &lt;-&gt; http://bar.com</div><div class='input'>
-<span class='co'># Now we can pass ns to other xml function to use fully qualified names</span>
-<span class='va'>baz</span> <span class='op'>&lt;-</span> <span class='fu'><a href='xml_children.html'>xml_children</a></span><span class='op'>(</span><span class='fu'><a href='xml_children.html'>xml_children</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span><span class='op'>)</span>
-<span class='fu'><a href='xml_name.html'>xml_name</a></span><span class='op'>(</span><span class='va'>baz</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] "baz" "baz"</div><div class='input'><span class='fu'><a href='xml_name.html'>xml_name</a></span><span class='op'>(</span><span class='va'>baz</span>, <span class='va'>ns</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] "foo:baz" "bar:baz"</div><div class='input'>
-<span class='fu'><a href='xml_find_all.html'>xml_find_all</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='st'>"//baz"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; {xml_nodeset (0)}</div><div class='input'><span class='fu'><a href='xml_find_all.html'>xml_find_all</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='st'>"//foo:baz"</span>, <span class='va'>ns</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; {xml_nodeset (1)}
-#&gt; [1] &lt;baz/&gt;</div><div class='input'>
-<span class='fu'><a href='https://rdrr.io/r/utils/str.html'>str</a></span><span class='op'>(</span><span class='fu'><a href='as_list.html'>as_list</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; List of 1
-#&gt;  $ root:List of 2
-#&gt;   ..$ doc1:List of 1
-#&gt;   .. ..$ baz: list()
-#&gt;   .. ..- attr(*, "xmlns")= chr "http://foo.com"
-#&gt;   ..$ doc2:List of 1
-#&gt;   .. ..$ baz: list()
-#&gt;   .. ..- attr(*, "xmlns")= chr "http://bar.com"</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/str.html'>str</a></span><span class='op'>(</span><span class='fu'><a href='as_list.html'>as_list</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>ns</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; List of 1
-#&gt;  $ root:List of 2
-#&gt;   ..$ foo:doc1:List of 1
-#&gt;   .. ..$ foo:baz: list()
-#&gt;   .. ..- attr(*, "xmlns")= chr "http://foo.com"
-#&gt;   ..$ bar:doc2:List of 1
-#&gt;   .. ..$ bar:baz: list()
-#&gt;   .. ..- attr(*, "xmlns")= chr "http://bar.com"</div></pre>
+    <pre class="examples"><span class='r-in'><span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='read_xml.html'>read_xml</a></span><span class='op'>(</span><span class='st'>'</span>
+<span class='r-in'> &lt;root&gt;</span>
+<span class='r-in'>   &lt;doc1 xmlns = "http://foo.com"&gt;&lt;baz /&gt;&lt;/doc1&gt;</span>
+<span class='r-in'>   &lt;doc2 xmlns = "http://bar.com"&gt;&lt;baz /&gt;&lt;/doc2&gt;</span>
+<span class='r-in'> &lt;/root&gt;</span>
+<span class='r-in'>'</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'>xml_ns</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> d1 &lt;-&gt; http://foo.com</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> d2 &lt;-&gt; http://bar.com</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># When there are default namespaces, it's a good idea to rename</span></span>
+<span class='r-in'><span class='co'># them to give informative names:</span></span>
+<span class='r-in'><span class='va'>ns</span> <span class='op'>&lt;-</span> <span class='fu'>xml_ns_rename</span><span class='op'>(</span><span class='fu'>xml_ns</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>, d1 <span class='op'>=</span> <span class='st'>"foo"</span>, d2 <span class='op'>=</span> <span class='st'>"bar"</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>ns</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> foo &lt;-&gt; http://foo.com</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> bar &lt;-&gt; http://bar.com</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Now we can pass ns to other xml function to use fully qualified names</span></span>
+<span class='r-in'><span class='va'>baz</span> <span class='op'>&lt;-</span> <span class='fu'><a href='xml_children.html'>xml_children</a></span><span class='op'>(</span><span class='fu'><a href='xml_children.html'>xml_children</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'><a href='xml_name.html'>xml_name</a></span><span class='op'>(</span><span class='va'>baz</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "baz" "baz"</span>
+<span class='r-in'><span class='fu'><a href='xml_name.html'>xml_name</a></span><span class='op'>(</span><span class='va'>baz</span>, <span class='va'>ns</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "foo:baz" "bar:baz"</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'><a href='xml_find_all.html'>xml_find_all</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='st'>"//baz"</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> {xml_nodeset (0)}</span>
+<span class='r-in'><span class='fu'><a href='xml_find_all.html'>xml_find_all</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='st'>"//foo:baz"</span>, <span class='va'>ns</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> {xml_nodeset (1)}</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] &lt;baz/&gt;</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/utils/str.html'>str</a></span><span class='op'>(</span><span class='fu'><a href='as_list.html'>as_list</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> List of 1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  $ root:List of 2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   ..$ doc1:List of 1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .. ..$ baz: list()</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .. ..- attr(*, "xmlns")= chr "http://foo.com"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   ..$ doc2:List of 1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .. ..$ baz: list()</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .. ..- attr(*, "xmlns")= chr "http://bar.com"</span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/utils/str.html'>str</a></span><span class='op'>(</span><span class='fu'><a href='as_list.html'>as_list</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>ns</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> List of 1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  $ root:List of 2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   ..$ foo:doc1:List of 1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .. ..$ foo:baz: list()</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .. ..- attr(*, "xmlns")= chr "http://foo.com"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   ..$ bar:doc2:List of 1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .. ..$ bar:baz: list()</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   .. ..- attr(*, "xmlns")= chr "http://bar.com"</span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

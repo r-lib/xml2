@@ -187,18 +187,19 @@
 <p>For <code>unserialize</code> an <span style="R">R</span> object.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://xml2.r-lib.org/'>xml2</a></span><span class='op'>)</span>
-<span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='read_xml.html'>read_xml</a></span><span class='op'>(</span><span class='st'>"&lt;a&gt;
-  &lt;b&gt;&lt;c&gt;123&lt;/c&gt;&lt;/b&gt;
-  &lt;b&gt;&lt;c&gt;456&lt;/c&gt;&lt;/b&gt;
-&lt;/a&gt;"</span><span class='op'>)</span>
-
-<span class='va'>b</span> <span class='op'>&lt;-</span> <span class='fu'><a href='xml_find_all.html'>xml_find_all</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='st'>"//b"</span><span class='op'>)</span>
-<span class='va'>out</span> <span class='op'>&lt;-</span> <span class='fu'>xml_serialize</span><span class='op'>(</span><span class='va'>b</span>, <span class='cn'>NULL</span><span class='op'>)</span>
-<span class='fu'>xml_unserialize</span><span class='op'>(</span><span class='va'>out</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; {xml_nodeset (2)}
-#&gt; [1] &lt;b&gt;\n  &lt;c&gt;123&lt;/c&gt;\n&lt;/b&gt;
-#&gt; [2] &lt;b&gt;\n  &lt;c&gt;456&lt;/c&gt;\n&lt;/b&gt;</div></pre>
+    <pre class="examples"><span class='r-in'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://xml2.r-lib.org/'>xml2</a></span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='read_xml.html'>read_xml</a></span><span class='op'>(</span><span class='st'>"&lt;a&gt;</span>
+<span class='r-in'>  &lt;b&gt;&lt;c&gt;123&lt;/c&gt;&lt;/b&gt;</span>
+<span class='r-in'>  &lt;b&gt;&lt;c&gt;456&lt;/c&gt;&lt;/b&gt;</span>
+<span class='r-in'>&lt;/a&gt;"</span><span class='op'>)</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='va'>b</span> <span class='op'>&lt;-</span> <span class='fu'><a href='xml_find_all.html'>xml_find_all</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='st'>"//b"</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>out</span> <span class='op'>&lt;-</span> <span class='fu'>xml_serialize</span><span class='op'>(</span><span class='va'>b</span>, <span class='cn'>NULL</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'>xml_unserialize</span><span class='op'>(</span><span class='va'>out</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> {xml_nodeset (2)}</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] &lt;b&gt;\n  &lt;c&gt;123&lt;/c&gt;\n&lt;/b&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [2] &lt;b&gt;\n  &lt;c&gt;456&lt;/c&gt;\n&lt;/b&gt;</span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

@@ -278,34 +278,38 @@ this value should be set to provide the web resource owner information on who yo
 and the intent of your actions like this Google scraping bot user agent identifier:
 <code>Googlebot/2.1 (+http://www.google.com/bot.html)</code>.</p>
 <p>You can set the HTTP user agent for URL-based requests using <code><a href='https://httr.r-lib.org/reference/set_config.html'>httr::set_config()</a></code> and <code><a href='https://httr.r-lib.org/reference/user_agent.html'>httr::user_agent()</a></code>:</p>
-<p><code><a href='https://httr.r-lib.org/reference/set_config.html'>httr::set_config(httr::user_agent("me@example.com; +https://example.com/info.html"))</a></code></p>
+<p><code>httr::set_config(httr::user_agent("me@example.com; +https://example.com/info.html"))</code></p>
 <p><code><a href='https://httr.r-lib.org/reference/set_config.html'>httr::set_config()</a></code> changes the configuration globally,
 <code><a href='https://httr.r-lib.org/reference/with_config.html'>httr::with_config()</a></code> can be used to change configuration temporarily.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># Literal xml/html is useful for small examples</span>
-<span class='fu'>read_xml</span><span class='op'>(</span><span class='st'>"&lt;foo&gt;&lt;bar /&gt;&lt;/foo&gt;"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; {xml_document}
-#&gt; &lt;foo&gt;
-#&gt; [1] &lt;bar/&gt;</div><div class='input'><span class='fu'>read_html</span><span class='op'>(</span><span class='st'>"&lt;html&gt;&lt;title&gt;Hi&lt;title&gt;&lt;/html&gt;"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; {html_document}
-#&gt; &lt;html&gt;
-#&gt; [1] &lt;head&gt;\n&lt;meta http-equiv="Content-Type" content="text/html; charset=UTF-8 ...</div><div class='input'><span class='fu'>read_html</span><span class='op'>(</span><span class='st'>"&lt;html&gt;&lt;title&gt;Hi"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; {html_document}
-#&gt; &lt;html&gt;
-#&gt; [1] &lt;head&gt;\n&lt;meta http-equiv="Content-Type" content="text/html; charset=UTF-8 ...</div><div class='input'>
-<span class='co'># From a local path</span>
-<span class='fu'>read_html</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span><span class='op'>(</span><span class='st'>"extdata"</span>, <span class='st'>"r-project.html"</span>, package <span class='op'>=</span> <span class='st'>"xml2"</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; {html_document}
-#&gt; &lt;html lang="en"&gt;
-#&gt; [1] &lt;head&gt;\n&lt;meta http-equiv="Content-Type" content="text/html; charset=UTF-8 ...
-#&gt; [2] &lt;body&gt;\n    &lt;div class="container page"&gt;\n      &lt;div class="row"&gt;\n       ...</div><div class='input'>
-<span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
-<span class='co'># From a url</span>
-<span class='va'>cd</span> <span class='op'>&lt;-</span> <span class='fu'>read_xml</span><span class='op'>(</span><span class='fu'><a href='xml2_example.html'>xml2_example</a></span><span class='op'>(</span><span class='st'>"cd_catalog.xml"</span><span class='op'>)</span><span class='op'>)</span>
-<span class='va'>me</span> <span class='op'>&lt;-</span> <span class='fu'>read_html</span><span class='op'>(</span><span class='st'>"http://had.co.nz"</span><span class='op'>)</span>
-<span class='op'>}</span>
-</div></pre>
+    <pre class="examples"><span class='r-in'><span class='co'># Literal xml/html is useful for small examples</span></span>
+<span class='r-in'><span class='fu'>read_xml</span><span class='op'>(</span><span class='st'>"&lt;foo&gt;&lt;bar /&gt;&lt;/foo&gt;"</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> {xml_document}</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> &lt;foo&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] &lt;bar/&gt;</span>
+<span class='r-in'><span class='fu'>read_html</span><span class='op'>(</span><span class='st'>"&lt;html&gt;&lt;title&gt;Hi&lt;title&gt;&lt;/html&gt;"</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> {html_document}</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> &lt;html&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] &lt;head&gt;\n&lt;meta http-equiv="Content-Type" content="text/html; charset=UTF-8 ...</span>
+<span class='r-in'><span class='fu'>read_html</span><span class='op'>(</span><span class='st'>"&lt;html&gt;&lt;title&gt;Hi"</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> {html_document}</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> &lt;html&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] &lt;head&gt;\n&lt;meta http-equiv="Content-Type" content="text/html; charset=UTF-8 ...</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># From a local path</span></span>
+<span class='r-in'><span class='fu'>read_html</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span><span class='op'>(</span><span class='st'>"extdata"</span>, <span class='st'>"r-project.html"</span>, package <span class='op'>=</span> <span class='st'>"xml2"</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> {html_document}</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> &lt;html lang="en"&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] &lt;head&gt;\n&lt;meta http-equiv="Content-Type" content="text/html; charset=UTF-8 ...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [2] &lt;body&gt;\n    &lt;div class="container page"&gt;\n      &lt;div class="row"&gt;\n       ...</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span></span>
+<span class='r-in'><span class='co'># From a url</span></span>
+<span class='r-in'><span class='va'>cd</span> <span class='op'>&lt;-</span> <span class='fu'>read_xml</span><span class='op'>(</span><span class='fu'><a href='xml2_example.html'>xml2_example</a></span><span class='op'>(</span><span class='st'>"cd_catalog.xml"</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>me</span> <span class='op'>&lt;-</span> <span class='fu'>read_html</span><span class='op'>(</span><span class='st'>"http://had.co.nz"</span><span class='op'>)</span></span>
+<span class='r-in'><span class='op'>}</span></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

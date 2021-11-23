@@ -191,325 +191,329 @@ way a document is organised. Compared to <code>xml_structure</code>,
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>xml_structure</span><span class='op'>(</span><span class='fu'><a href='read_xml.html'>read_xml</a></span><span class='op'>(</span><span class='st'>"&lt;a&gt;&lt;b&gt;&lt;c/&gt;&lt;c/&gt;&lt;/b&gt;&lt;d/&gt;&lt;/a&gt;"</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; &lt;a&gt;
-#&gt;   &lt;b&gt;
-#&gt;     &lt;c&gt;
-#&gt;     &lt;c&gt;
-#&gt;   &lt;d&gt;</div><div class='input'>
-<span class='va'>rproj</span> <span class='op'>&lt;-</span> <span class='fu'><a href='read_xml.html'>read_html</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span><span class='op'>(</span><span class='st'>"extdata"</span>,<span class='st'>"r-project.html"</span>, package <span class='op'>=</span> <span class='st'>"xml2"</span><span class='op'>)</span><span class='op'>)</span>
-<span class='fu'>xml_structure</span><span class='op'>(</span><span class='va'>rproj</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; &lt;html [lang]&gt;
-#&gt;   &lt;head&gt;
-#&gt;     &lt;meta [charset]&gt;
-#&gt;     &lt;meta [http-equiv, content]&gt;
-#&gt;     &lt;meta [name, content]&gt;
-#&gt;     &lt;title&gt;
-#&gt;       {text}
-#&gt;     &lt;link [rel, type, href, sizes]&gt;
-#&gt;     &lt;link [rel, type, href, sizes]&gt;
-#&gt;     {comment}
-#&gt;     &lt;link [href, rel]&gt;
-#&gt;     &lt;link [href, rel]&gt;
-#&gt;     {comment}
-#&gt;     {comment}
-#&gt;     {comment}
-#&gt;   &lt;body&gt;
-#&gt;     {text}
-#&gt;     &lt;div [class]&gt;
-#&gt;       {text}
-#&gt;       &lt;div [class]&gt;
-#&gt;         {text}
-#&gt;         &lt;div [class, role]&gt;
-#&gt;           {text}
-#&gt;           &lt;div [class]&gt;
-#&gt;             {text}
-#&gt;             &lt;div [class]&gt;
-#&gt;               {text}
-#&gt;               &lt;p&gt;
-#&gt;                 &lt;a [href]&gt;
-#&gt;                   &lt;img [src, alt]&gt;
-#&gt;               {text}
-#&gt;               &lt;p&gt;
-#&gt;                 &lt;small&gt;
-#&gt;                   &lt;a [href]&gt;
-#&gt;                     {text}
-#&gt;               {text}
-#&gt;               &lt;h2&gt;
-#&gt;                 {text}
-#&gt;               {text}
-#&gt;               &lt;p&gt;
-#&gt;                 &lt;a [href]&gt;
-#&gt;                   {text}
-#&gt;               {text}
-#&gt;               &lt;h2&gt;
-#&gt;                 {text}
-#&gt;               {text}
-#&gt;               &lt;ul&gt;
-#&gt;                 &lt;li&gt;
-#&gt;                   &lt;a [href]&gt;
-#&gt;                     {text}
-#&gt;                 {text}
-#&gt;                 &lt;li&gt;
-#&gt;                   &lt;a [href]&gt;
-#&gt;                     {text}
-#&gt;                 {text}
-#&gt;                 &lt;li&gt;
-#&gt;                   &lt;a [href]&gt;
-#&gt;                     {text}
-#&gt;                 {text}
-#&gt;                 &lt;li&gt;
-#&gt;                   &lt;a [href]&gt;
-#&gt;                     {text}
-#&gt;                 {text}
-#&gt;                 &lt;li&gt;
-#&gt;                   &lt;a [href]&gt;
-#&gt;                     {text}
-#&gt;                 {text}
-#&gt;                 &lt;li&gt;
-#&gt;                   &lt;a [href]&gt;
-#&gt;                     {text}
-#&gt;                 {text}
-#&gt;                 &lt;li&gt;
-#&gt;                   &lt;a [href]&gt;
-#&gt;                     {text}
-#&gt;                 {text}
-#&gt;             {text}
-#&gt;             &lt;div [class]&gt;
-#&gt;               {text}
-#&gt;               &lt;h2&gt;
-#&gt;                 {text}
-#&gt;               {text}
-#&gt;               &lt;ul&gt;
-#&gt;                 &lt;li&gt;
-#&gt;                   &lt;a [href]&gt;
-#&gt;                     {text}
-#&gt;                 {text}
-#&gt;                 &lt;li&gt;
-#&gt;                   &lt;a [href]&gt;
-#&gt;                     {text}
-#&gt;                 {text}
-#&gt;                 &lt;li&gt;
-#&gt;                   &lt;a [href]&gt;
-#&gt;                     {text}
-#&gt;                 {text}
-#&gt;                 &lt;li&gt;
-#&gt;                   &lt;a [href]&gt;
-#&gt;                     {text}
-#&gt;                 {text}
-#&gt;                 &lt;li&gt;
-#&gt;                   &lt;a [href]&gt;
-#&gt;                     {text}
-#&gt;                 {text}
-#&gt;             {text}
-#&gt;             &lt;div [class]&gt;
-#&gt;               {text}
-#&gt;               &lt;h2&gt;
-#&gt;                 {text}
-#&gt;               {text}
-#&gt;               &lt;ul&gt;
-#&gt;                 &lt;li&gt;
-#&gt;                   &lt;a [href]&gt;
-#&gt;                     {text}
-#&gt;                 {text}
-#&gt;                 &lt;li&gt;
-#&gt;                   &lt;a [href]&gt;
-#&gt;                     {text}
-#&gt;                 {text}
-#&gt;                 &lt;li&gt;
-#&gt;                   &lt;a [href]&gt;
-#&gt;                     {text}
-#&gt;                 {text}
-#&gt;                 &lt;li&gt;
-#&gt;                   &lt;a [href]&gt;
-#&gt;                     {text}
-#&gt;                 {text}
-#&gt;                 &lt;li&gt;
-#&gt;                   &lt;a [href]&gt;
-#&gt;                     {text}
-#&gt;                 {text}
-#&gt;                 &lt;li&gt;
-#&gt;                   &lt;a [href]&gt;
-#&gt;                     {text}
-#&gt;                 {text}
-#&gt;             {text}
-#&gt;             &lt;div [class]&gt;
-#&gt;               {text}
-#&gt;               &lt;h2&gt;
-#&gt;                 {text}
-#&gt;               {text}
-#&gt;               &lt;ul&gt;
-#&gt;                 &lt;li&gt;
-#&gt;                   &lt;a [href]&gt;
-#&gt;                     {text}
-#&gt;                 {text}
-#&gt;                 &lt;li&gt;
-#&gt;                   &lt;a [href]&gt;
-#&gt;                     {text}
-#&gt;                 {text}
-#&gt;             {text}
-#&gt;           {text}
-#&gt;         {text}
-#&gt;         &lt;div [class]&gt;
-#&gt;           {text}
-#&gt;           &lt;h1&gt;
-#&gt;             {text}
-#&gt;           {text}
-#&gt;           &lt;h2 [id]&gt;
-#&gt;             {text}
-#&gt;           {text}
-#&gt;           &lt;p&gt;
-#&gt;             {text}
-#&gt;             &lt;strong&gt;
-#&gt;               &lt;a [href]&gt;
-#&gt;                 {text}
-#&gt;             {text}
-#&gt;             &lt;a [href]&gt;
-#&gt;               {text}
-#&gt;             {text}
-#&gt;           {text}
-#&gt;           &lt;p&gt;
-#&gt;             {text}
-#&gt;             &lt;a [href]&gt;
-#&gt;               {text}
-#&gt;             {text}
-#&gt;           {text}
-#&gt;           &lt;h2 [id]&gt;
-#&gt;             {text}
-#&gt;           {text}
-#&gt;           &lt;ul&gt;
-#&gt;             &lt;li&gt;
-#&gt;               &lt;p&gt;
-#&gt;                 &lt;a [href]&gt;
-#&gt;                   &lt;strong&gt;
-#&gt;                     {text}
-#&gt;                 {text}
-#&gt;             {text}
-#&gt;             &lt;li&gt;
-#&gt;               &lt;p&gt;
-#&gt;                 &lt;strong&gt;
-#&gt;                   {text}
-#&gt;                 {text}
-#&gt;             {text}
-#&gt;             &lt;li&gt;
-#&gt;               &lt;p&gt;
-#&gt;                 &lt;a [href]&gt;
-#&gt;                   &lt;strong&gt;
-#&gt;                     {text}
-#&gt;                 {text}
-#&gt;             {text}
-#&gt;             &lt;li&gt;
-#&gt;               &lt;p&gt;
-#&gt;                 &lt;strong&gt;
-#&gt;                   {text}
-#&gt;                 {text}
-#&gt;             {text}
-#&gt;             &lt;li&gt;
-#&gt;               &lt;p&gt;
-#&gt;                 &lt;strong&gt;
-#&gt;                   &lt;a [href]&gt;
-#&gt;                     {text}
-#&gt;                 {text}
-#&gt;             {text}
-#&gt;             &lt;li&gt;
-#&gt;               &lt;p&gt;
-#&gt;                 &lt;strong&gt;
-#&gt;                   &lt;a [href]&gt;
-#&gt;                     {text}
-#&gt;                 {text}
-#&gt;             {text}
-#&gt;           {comment}
-#&gt;         {text}
-#&gt;       {text}
-#&gt;       &lt;div [class]&gt;
-#&gt;         {text}
-#&gt;       {text}
-#&gt;     {text}
-#&gt;     {comment}
-#&gt;     {text}
-#&gt;     &lt;script [src]&gt;
-#&gt;     {comment}
-#&gt;     &lt;script [src]&gt;</div><div class='input'><span class='fu'>xml_structure</span><span class='op'>(</span><span class='fu'><a href='xml_find_all.html'>xml_find_all</a></span><span class='op'>(</span><span class='va'>rproj</span>, <span class='st'>".//p"</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [[1]]
-#&gt; &lt;p&gt;
-#&gt;   &lt;a [href]&gt;
-#&gt;     &lt;img [src, alt]&gt;
-#&gt; 
-#&gt; [[2]]
-#&gt; &lt;p&gt;
-#&gt;   &lt;small&gt;
-#&gt;     &lt;a [href]&gt;
-#&gt;       {text}
-#&gt; 
-#&gt; [[3]]
-#&gt; &lt;p&gt;
-#&gt;   &lt;a [href]&gt;
-#&gt;     {text}
-#&gt; 
-#&gt; [[4]]
-#&gt; &lt;p&gt;
-#&gt;   {text}
-#&gt;   &lt;strong&gt;
-#&gt;     &lt;a [href]&gt;
-#&gt;       {text}
-#&gt;   {text}
-#&gt;   &lt;a [href]&gt;
-#&gt;     {text}
-#&gt;   {text}
-#&gt; 
-#&gt; [[5]]
-#&gt; &lt;p&gt;
-#&gt;   {text}
-#&gt;   &lt;a [href]&gt;
-#&gt;     {text}
-#&gt;   {text}
-#&gt; 
-#&gt; [[6]]
-#&gt; &lt;p&gt;
-#&gt;   &lt;a [href]&gt;
-#&gt;     &lt;strong&gt;
-#&gt;       {text}
-#&gt;   {text}
-#&gt; 
-#&gt; [[7]]
-#&gt; &lt;p&gt;
-#&gt;   &lt;strong&gt;
-#&gt;     {text}
-#&gt;   {text}
-#&gt; 
-#&gt; [[8]]
-#&gt; &lt;p&gt;
-#&gt;   &lt;a [href]&gt;
-#&gt;     &lt;strong&gt;
-#&gt;       {text}
-#&gt;   {text}
-#&gt; 
-#&gt; [[9]]
-#&gt; &lt;p&gt;
-#&gt;   &lt;strong&gt;
-#&gt;     {text}
-#&gt;   {text}
-#&gt; 
-#&gt; [[10]]
-#&gt; &lt;p&gt;
-#&gt;   &lt;strong&gt;
-#&gt;     &lt;a [href]&gt;
-#&gt;       {text}
-#&gt;   {text}
-#&gt; 
-#&gt; [[11]]
-#&gt; &lt;p&gt;
-#&gt;   &lt;strong&gt;
-#&gt;     &lt;a [href]&gt;
-#&gt;       {text}
-#&gt;   {text}
-#&gt; </div><div class='input'>
-<span class='va'>h</span> <span class='op'>&lt;-</span> <span class='fu'><a href='read_xml.html'>read_html</a></span><span class='op'>(</span><span class='st'>"&lt;body&gt;&lt;p id = 'a'&gt;&lt;/p&gt;&lt;p class = 'c d'&gt;&lt;/p&gt;&lt;/body&gt;"</span><span class='op'>)</span>
-<span class='fu'>html_structure</span><span class='op'>(</span><span class='va'>h</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; &lt;html&gt;
-#&gt;   &lt;body&gt;
-#&gt;     &lt;p#a&gt;
-#&gt;     &lt;p.c.d&gt;</div></pre>
+    <pre class="examples"><span class='r-in'><span class='fu'>xml_structure</span><span class='op'>(</span><span class='fu'><a href='read_xml.html'>read_xml</a></span><span class='op'>(</span><span class='st'>"&lt;a&gt;&lt;b&gt;&lt;c/&gt;&lt;c/&gt;&lt;/b&gt;&lt;d/&gt;&lt;/a&gt;"</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> &lt;a&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   &lt;b&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     &lt;c&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     &lt;c&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   &lt;d&gt;</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='va'>rproj</span> <span class='op'>&lt;-</span> <span class='fu'><a href='read_xml.html'>read_html</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span><span class='op'>(</span><span class='st'>"extdata"</span>,<span class='st'>"r-project.html"</span>, package <span class='op'>=</span> <span class='st'>"xml2"</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'>xml_structure</span><span class='op'>(</span><span class='va'>rproj</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> &lt;html [lang]&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   &lt;head&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     &lt;meta [charset]&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     &lt;meta [http-equiv, content]&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     &lt;meta [name, content]&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     &lt;title&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       {text}</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     &lt;link [rel, type, href, sizes]&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     &lt;link [rel, type, href, sizes]&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     {comment}</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     &lt;link [href, rel]&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     &lt;link [href, rel]&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     {comment}</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     {comment}</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     {comment}</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   &lt;body&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     {text}</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     &lt;div [class]&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       {text}</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       &lt;div [class]&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         {text}</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         &lt;div [class, role]&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>           {text}</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>           &lt;div [class]&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>             {text}</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>             &lt;div [class]&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>               {text}</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>               &lt;p&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                 &lt;a [href]&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                   &lt;img [src, alt]&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>               {text}</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>               &lt;p&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                 &lt;small&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                   &lt;a [href]&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                     {text}</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>               {text}</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>               &lt;h2&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                 {text}</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>               {text}</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>               &lt;p&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                 &lt;a [href]&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                   {text}</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>               {text}</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>               &lt;h2&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                 {text}</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>               {text}</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>               &lt;ul&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                 &lt;li&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                   &lt;a [href]&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                     {text}</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                 {text}</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                 &lt;li&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                   &lt;a [href]&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                     {text}</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                 {text}</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                 &lt;li&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                   &lt;a [href]&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                     {text}</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                 {text}</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                 &lt;li&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                   &lt;a [href]&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                     {text}</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                 {text}</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                 &lt;li&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                   &lt;a [href]&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                     {text}</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                 {text}</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                 &lt;li&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                   &lt;a [href]&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                     {text}</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                 {text}</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                 &lt;li&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                   &lt;a [href]&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                     {text}</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                 {text}</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>             {text}</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>             &lt;div [class]&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>               {text}</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>               &lt;h2&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                 {text}</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>               {text}</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>               &lt;ul&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                 &lt;li&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                   &lt;a [href]&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                     {text}</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                 {text}</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                 &lt;li&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                   &lt;a [href]&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                     {text}</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                 {text}</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                 &lt;li&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                   &lt;a [href]&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                     {text}</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                 {text}</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                 &lt;li&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                   &lt;a [href]&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                     {text}</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                 {text}</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                 &lt;li&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                   &lt;a [href]&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                     {text}</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                 {text}</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>             {text}</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>             &lt;div [class]&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>               {text}</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>               &lt;h2&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                 {text}</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>               {text}</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>               &lt;ul&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                 &lt;li&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                   &lt;a [href]&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                     {text}</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                 {text}</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                 &lt;li&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                   &lt;a [href]&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                     {text}</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                 {text}</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                 &lt;li&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                   &lt;a [href]&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                     {text}</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                 {text}</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                 &lt;li&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                   &lt;a [href]&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                     {text}</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                 {text}</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                 &lt;li&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                   &lt;a [href]&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                     {text}</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                 {text}</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                 &lt;li&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                   &lt;a [href]&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                     {text}</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                 {text}</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>             {text}</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>             &lt;div [class]&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>               {text}</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>               &lt;h2&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                 {text}</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>               {text}</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>               &lt;ul&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                 &lt;li&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                   &lt;a [href]&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                     {text}</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                 {text}</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                 &lt;li&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                   &lt;a [href]&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                     {text}</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                 {text}</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>             {text}</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>           {text}</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         {text}</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         &lt;div [class]&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>           {text}</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>           &lt;h1&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>             {text}</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>           {text}</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>           &lt;h2 [id]&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>             {text}</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>           {text}</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>           &lt;p&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>             {text}</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>             &lt;strong&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>               &lt;a [href]&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                 {text}</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>             {text}</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>             &lt;a [href]&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>               {text}</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>             {text}</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>           {text}</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>           &lt;p&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>             {text}</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>             &lt;a [href]&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>               {text}</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>             {text}</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>           {text}</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>           &lt;h2 [id]&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>             {text}</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>           {text}</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>           &lt;ul&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>             &lt;li&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>               &lt;p&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                 &lt;a [href]&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                   &lt;strong&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                     {text}</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                 {text}</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>             {text}</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>             &lt;li&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>               &lt;p&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                 &lt;strong&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                   {text}</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                 {text}</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>             {text}</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>             &lt;li&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>               &lt;p&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                 &lt;a [href]&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                   &lt;strong&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                     {text}</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                 {text}</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>             {text}</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>             &lt;li&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>               &lt;p&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                 &lt;strong&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                   {text}</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                 {text}</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>             {text}</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>             &lt;li&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>               &lt;p&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                 &lt;strong&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                   &lt;a [href]&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                     {text}</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                 {text}</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>             {text}</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>             &lt;li&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>               &lt;p&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                 &lt;strong&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                   &lt;a [href]&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                     {text}</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                 {text}</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>             {text}</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>           {comment}</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         {text}</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       {text}</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       &lt;div [class]&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         {text}</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       {text}</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     {text}</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     {comment}</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     {text}</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     &lt;script [src]&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     {comment}</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     &lt;script [src]&gt;</span>
+<span class='r-in'><span class='fu'>xml_structure</span><span class='op'>(</span><span class='fu'><a href='xml_find_all.html'>xml_find_all</a></span><span class='op'>(</span><span class='va'>rproj</span>, <span class='st'>".//p"</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [[1]]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> &lt;p&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   &lt;a [href]&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     &lt;img [src, alt]&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [[2]]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> &lt;p&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   &lt;small&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     &lt;a [href]&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       {text}</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [[3]]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> &lt;p&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   &lt;a [href]&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     {text}</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [[4]]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> &lt;p&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   {text}</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   &lt;strong&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     &lt;a [href]&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       {text}</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   {text}</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   &lt;a [href]&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     {text}</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   {text}</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [[5]]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> &lt;p&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   {text}</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   &lt;a [href]&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     {text}</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   {text}</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [[6]]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> &lt;p&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   &lt;a [href]&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     &lt;strong&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       {text}</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   {text}</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [[7]]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> &lt;p&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   &lt;strong&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     {text}</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   {text}</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [[8]]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> &lt;p&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   &lt;a [href]&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     &lt;strong&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       {text}</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   {text}</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [[9]]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> &lt;p&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   &lt;strong&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     {text}</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   {text}</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [[10]]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> &lt;p&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   &lt;strong&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     &lt;a [href]&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       {text}</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   {text}</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [[11]]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> &lt;p&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   &lt;strong&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     &lt;a [href]&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       {text}</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   {text}</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-in'></span>
+<span class='r-in'><span class='va'>h</span> <span class='op'>&lt;-</span> <span class='fu'><a href='read_xml.html'>read_html</a></span><span class='op'>(</span><span class='st'>"&lt;body&gt;&lt;p id = 'a'&gt;&lt;/p&gt;&lt;p class = 'c d'&gt;&lt;/p&gt;&lt;/body&gt;"</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'>html_structure</span><span class='op'>(</span><span class='va'>h</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> &lt;html&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   &lt;body&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     &lt;p#a&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     &lt;p.c.d&gt;</span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

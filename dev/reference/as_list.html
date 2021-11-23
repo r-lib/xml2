@@ -203,44 +203,48 @@ children that an element might have:</p>
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>as_list</span><span class='op'>(</span><span class='fu'><a href='read_xml.html'>read_xml</a></span><span class='op'>(</span><span class='st'>"&lt;foo&gt; a &lt;b /&gt;&lt;c&gt;&lt;![CDATA[&lt;d&gt;&lt;/d&gt;]]&gt;&lt;/c&gt;&lt;/foo&gt;"</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; $foo
-#&gt; $foo[[1]]
-#&gt; [1] " a "
-#&gt; 
-#&gt; $foo$b
-#&gt; list()
-#&gt; 
-#&gt; $foo$c
-#&gt; $foo$c[[1]]
-#&gt; [1] "&lt;d&gt;&lt;/d&gt;"
-#&gt; 
-#&gt; 
-#&gt; </div><div class='input'><span class='fu'>as_list</span><span class='op'>(</span><span class='fu'><a href='read_xml.html'>read_xml</a></span><span class='op'>(</span><span class='st'>"&lt;foo&gt; &lt;bar&gt;&lt;baz /&gt;&lt;/bar&gt; &lt;/foo&gt;"</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; $foo
-#&gt; $foo$bar
-#&gt; $foo$bar$baz
-#&gt; list()
-#&gt; 
-#&gt; 
-#&gt; </div><div class='input'><span class='fu'>as_list</span><span class='op'>(</span><span class='fu'><a href='read_xml.html'>read_xml</a></span><span class='op'>(</span><span class='st'>"&lt;foo id = 'a'&gt;&lt;/foo&gt;"</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; $foo
-#&gt; list()
-#&gt; attr(,"id")
-#&gt; [1] "a"
-#&gt; </div><div class='input'><span class='fu'>as_list</span><span class='op'>(</span><span class='fu'><a href='read_xml.html'>read_xml</a></span><span class='op'>(</span><span class='st'>"&lt;foo&gt;&lt;bar id='a'/&gt;&lt;bar id='b'/&gt;&lt;/foo&gt;"</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; $foo
-#&gt; $foo$bar
-#&gt; list()
-#&gt; attr(,"id")
-#&gt; [1] "a"
-#&gt; 
-#&gt; $foo$bar
-#&gt; list()
-#&gt; attr(,"id")
-#&gt; [1] "b"
-#&gt; 
-#&gt; </div></pre>
+    <pre class="examples"><span class='r-in'><span class='fu'>as_list</span><span class='op'>(</span><span class='fu'><a href='read_xml.html'>read_xml</a></span><span class='op'>(</span><span class='st'>"&lt;foo&gt; a &lt;b /&gt;&lt;c&gt;&lt;![CDATA[&lt;d&gt;&lt;/d&gt;]]&gt;&lt;/c&gt;&lt;/foo&gt;"</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $foo</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $foo[[1]]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] " a "</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $foo$b</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> list()</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $foo$c</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $foo$c[[1]]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "&lt;d&gt;&lt;/d&gt;"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-in'><span class='fu'>as_list</span><span class='op'>(</span><span class='fu'><a href='read_xml.html'>read_xml</a></span><span class='op'>(</span><span class='st'>"&lt;foo&gt; &lt;bar&gt;&lt;baz /&gt;&lt;/bar&gt; &lt;/foo&gt;"</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $foo</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $foo$bar</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $foo$bar$baz</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> list()</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-in'><span class='fu'>as_list</span><span class='op'>(</span><span class='fu'><a href='read_xml.html'>read_xml</a></span><span class='op'>(</span><span class='st'>"&lt;foo id = 'a'&gt;&lt;/foo&gt;"</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $foo</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> list()</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> attr(,"id")</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "a"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-in'><span class='fu'>as_list</span><span class='op'>(</span><span class='fu'><a href='read_xml.html'>read_xml</a></span><span class='op'>(</span><span class='st'>"&lt;foo&gt;&lt;bar id='a'/&gt;&lt;bar id='b'/&gt;&lt;/foo&gt;"</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $foo</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $foo$bar</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> list()</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> attr(,"id")</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "a"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $foo$bar</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> list()</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> attr(,"id")</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "b"</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

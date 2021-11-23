@@ -218,43 +218,54 @@ or just children that are elements (the default)?</p></td>
     <p>A node or nodeset (possibly empty). Results are always de-duplicated.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='read_xml.html'>read_xml</a></span><span class='op'>(</span><span class='st'>"&lt;foo&gt; &lt;bar&gt;&lt;boo /&gt;&lt;/bar&gt; &lt;baz/&gt; &lt;/foo&gt;"</span><span class='op'>)</span>
-<span class='fu'>xml_children</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; {xml_nodeset (2)}
-#&gt; [1] &lt;bar&gt;\n  &lt;boo/&gt;\n&lt;/bar&gt;
-#&gt; [2] &lt;baz/&gt;</div><div class='input'><span class='fu'>xml_children</span><span class='op'>(</span><span class='fu'>xml_children</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; {xml_nodeset (1)}
-#&gt; [1] &lt;boo/&gt;</div><div class='input'><span class='fu'>xml_siblings</span><span class='op'>(</span><span class='fu'>xml_children</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span><span class='op'>[[</span><span class='fl'>1</span><span class='op'>]</span><span class='op'>]</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; {xml_nodeset (1)}
-#&gt; [1] &lt;baz/&gt;</div><div class='input'>
-<span class='co'># Note the each unique node only appears once in the output</span>
-<span class='fu'>xml_parent</span><span class='op'>(</span><span class='fu'>xml_children</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; {xml_nodeset (1)}
-#&gt; [1] &lt;foo&gt;\n  &lt;bar&gt;\n    &lt;boo/&gt;\n  &lt;/bar&gt;\n  &lt;baz/&gt;\n&lt;/foo&gt;</div><div class='input'>
-<span class='co'># Mixed content</span>
-<span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='read_xml.html'>read_xml</a></span><span class='op'>(</span><span class='st'>"&lt;foo&gt; a &lt;b/&gt; c &lt;d&gt;e&lt;/d&gt; f&lt;/foo&gt;"</span><span class='op'>)</span>
-<span class='co'># Childen gets the elements, contents gets all node types</span>
-<span class='fu'>xml_children</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; {xml_nodeset (2)}
-#&gt; [1] &lt;b/&gt;
-#&gt; [2] &lt;d&gt;e&lt;/d&gt;</div><div class='input'><span class='fu'>xml_contents</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; {xml_nodeset (5)}
-#&gt; [1]  a 
-#&gt; [2] &lt;b/&gt;
-#&gt; [3]  c 
-#&gt; [4] &lt;d&gt;e&lt;/d&gt;
-#&gt; [5]  f</div><div class='input'>
-<span class='fu'>xml_length</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] 2</div><div class='input'><span class='fu'>xml_length</span><span class='op'>(</span><span class='va'>x</span>, only_elements <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] 5</div><div class='input'>
-<span class='co'># xml_child makes it easier to select specific children</span>
-<span class='fu'>xml_child</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; {xml_node}
-#&gt; &lt;b&gt;</div><div class='input'><span class='fu'>xml_child</span><span class='op'>(</span><span class='va'>x</span>, <span class='fl'>2</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; {xml_node}
-#&gt; &lt;d&gt;</div><div class='input'><span class='fu'>xml_child</span><span class='op'>(</span><span class='va'>x</span>, <span class='st'>"baz"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; {xml_missing}
-#&gt; &lt;NA&gt;</div></pre>
+    <pre class="examples"><span class='r-in'><span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='read_xml.html'>read_xml</a></span><span class='op'>(</span><span class='st'>"&lt;foo&gt; &lt;bar&gt;&lt;boo /&gt;&lt;/bar&gt; &lt;baz/&gt; &lt;/foo&gt;"</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'>xml_children</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> {xml_nodeset (2)}</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] &lt;bar&gt;\n  &lt;boo/&gt;\n&lt;/bar&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [2] &lt;baz/&gt;</span>
+<span class='r-in'><span class='fu'>xml_children</span><span class='op'>(</span><span class='fu'>xml_children</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> {xml_nodeset (1)}</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] &lt;boo/&gt;</span>
+<span class='r-in'><span class='fu'>xml_siblings</span><span class='op'>(</span><span class='fu'>xml_children</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span><span class='op'>[[</span><span class='fl'>1</span><span class='op'>]</span><span class='op'>]</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> {xml_nodeset (1)}</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] &lt;baz/&gt;</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Note the each unique node only appears once in the output</span></span>
+<span class='r-in'><span class='fu'>xml_parent</span><span class='op'>(</span><span class='fu'>xml_children</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> {xml_nodeset (1)}</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] &lt;foo&gt;\n  &lt;bar&gt;\n    &lt;boo/&gt;\n  &lt;/bar&gt;\n  &lt;baz/&gt;\n&lt;/foo&gt;</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># Mixed content</span></span>
+<span class='r-in'><span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='read_xml.html'>read_xml</a></span><span class='op'>(</span><span class='st'>"&lt;foo&gt; a &lt;b/&gt; c &lt;d&gt;e&lt;/d&gt; f&lt;/foo&gt;"</span><span class='op'>)</span></span>
+<span class='r-in'><span class='co'># Childen gets the elements, contents gets all node types</span></span>
+<span class='r-in'><span class='fu'>xml_children</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> {xml_nodeset (2)}</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] &lt;b/&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [2] &lt;d&gt;e&lt;/d&gt;</span>
+<span class='r-in'><span class='fu'>xml_contents</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> {xml_nodeset (5)}</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1]  a </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [2] &lt;b/&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [3]  c </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [4] &lt;d&gt;e&lt;/d&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [5]  f</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'>xml_length</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 2</span>
+<span class='r-in'><span class='fu'>xml_length</span><span class='op'>(</span><span class='va'>x</span>, only_elements <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 5</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># xml_child makes it easier to select specific children</span></span>
+<span class='r-in'><span class='fu'>xml_child</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> {xml_node}</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> &lt;b&gt;</span>
+<span class='r-in'><span class='fu'>xml_child</span><span class='op'>(</span><span class='va'>x</span>, <span class='fl'>2</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> {xml_node}</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> &lt;d&gt;</span>
+<span class='r-in'><span class='fu'>xml_child</span><span class='op'>(</span><span class='va'>x</span>, <span class='st'>"baz"</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> {xml_missing}</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> &lt;NA&gt;</span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

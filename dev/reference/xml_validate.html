@@ -177,13 +177,14 @@
     <p>TRUE or FALSE</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># Example from https://msdn.microsoft.com/en-us/library/ms256129(v=vs.110).aspx</span>
-<span class='va'>doc</span> <span class='op'>&lt;-</span> <span class='fu'><a href='read_xml.html'>read_xml</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span><span class='op'>(</span><span class='st'>"extdata/order-doc.xml"</span>, package <span class='op'>=</span> <span class='st'>"xml2"</span><span class='op'>)</span><span class='op'>)</span>
-<span class='va'>schema</span> <span class='op'>&lt;-</span> <span class='fu'><a href='read_xml.html'>read_xml</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span><span class='op'>(</span><span class='st'>"extdata/order-schema.xml"</span>, package <span class='op'>=</span> <span class='st'>"xml2"</span><span class='op'>)</span><span class='op'>)</span>
-<span class='fu'>xml_validate</span><span class='op'>(</span><span class='va'>doc</span>, <span class='va'>schema</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] TRUE
-#&gt; attr(,"errors")
-#&gt; character(0)</div></pre>
+    <pre class="examples"><span class='r-in'><span class='co'># Example from https://msdn.microsoft.com/en-us/library/ms256129(v=vs.110).aspx</span></span>
+<span class='r-in'><span class='va'>doc</span> <span class='op'>&lt;-</span> <span class='fu'><a href='read_xml.html'>read_xml</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span><span class='op'>(</span><span class='st'>"extdata/order-doc.xml"</span>, package <span class='op'>=</span> <span class='st'>"xml2"</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>schema</span> <span class='op'>&lt;-</span> <span class='fu'><a href='read_xml.html'>read_xml</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span><span class='op'>(</span><span class='st'>"extdata/order-schema.xml"</span>, package <span class='op'>=</span> <span class='st'>"xml2"</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'>xml_validate</span><span class='op'>(</span><span class='va'>doc</span>, <span class='va'>schema</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] TRUE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> attr(,"errors")</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> character(0)</span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
