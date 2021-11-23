@@ -2,8 +2,8 @@ context("write_xml")
 
 test_that("write_xml errors for incorrect directory and with invalid inputs", {
   x <- read_xml("<x/>")
-  filename <- ".../test.xml"
-  expect_error(write_xml(x, filename), "'...' does not exist in current working directory")
+  filename <- "does_not_exist/test.xml"
+  expect_error(write_xml(x, filename), "'does_not_exist' does not exist in current working directory")
 
 
   expect_error(write_xml(x, c("test.xml", "foo")), "`file` must be a non-zero character of length 1")
