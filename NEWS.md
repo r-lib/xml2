@@ -1,5 +1,7 @@
 # xml2 (development version)
 
+* Hadley Wickham is now (again) the maintainer.
+
 * xml2 has been re-licensed as MIT (#317).
 
 * `xml_find_all.xml_nodeset()` gains a `flatten` argument to control whether to return a single nodeset or a list of nodesets (#311, @jakejh)
