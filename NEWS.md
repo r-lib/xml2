@@ -4,11 +4,11 @@
 
 * xml2 has been re-licensed as MIT (#317).
 
+* `xml_find_all.xml_node()` fails more informatively the `xpath` parameter is the wrong type (@michaelchirico)
+
 * `xml_find_all.xml_nodeset()` gains a `flatten` argument to control whether to return a single nodeset or a list of nodesets (#311, @jakejh)
 
 * `write_xml()` and `write_html()` now return NULL invisibly, as they did prior to version 1.3.0 (#307)
-
-* `xml_find_all.xml_node()` fails more informatively the `xpath` parameter is the wrong type (@michaelchirico)
 
 * `XPtr` gets explicit copy constructor and assignment operator definitions, which were two missing components of the [Rule of three](https://en.wikipedia.org/wiki/Rule_of_three_(C%2B%2B_programming)) (@michaelchirico)
 
