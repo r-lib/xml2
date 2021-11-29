@@ -1,4 +1,4 @@
-# xml2 (development version)
+# xml2 1.3.3
 
 * Hadley Wickham is now (again) the maintainer.
 
