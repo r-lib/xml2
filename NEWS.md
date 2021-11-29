@@ -53,7 +53,7 @@ without Warnings (@nuest, #267)
 
 ## New Features
 
-* xml2 now has a pkgdown site! <http://xml2.r-lib.org> (@jayhesselberth, #211).
+* xml2 now has a pkgdown site! <https://xml2.r-lib.org> (@jayhesselberth, #211).
 
 * Windows: upgrade to libxml2 2.9.8
 

@@ -171,7 +171,7 @@ gc()
 ## Namespaces ##
 
 We want to construct a document with the following namespace layout. (From
-http://stackoverflow.com/questions/32939229/creating-xml-in-r-with-namespaces/32941524#32941524).
+https://stackoverflow.com/questions/32939229/creating-xml-in-r-with-namespaces/32941524#32941524).
 ```xml
 <?xml version = "1.0" encoding="UTF-8"?>
 <sld xmlns="http://www.o.net/sld"
