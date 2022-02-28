@@ -17,6 +17,7 @@ reference:
     - starts_with("read_")
     - starts_with("write_")
     - starts_with("download_")
+    - xml_document-class
 
   - title: Class coercion
     contents:
