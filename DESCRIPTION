@@ -5,7 +5,7 @@ Authors@R: c(
     person("Hadley", "Wickham", , "hadley@rstudio.com", role = c("aut", "cre")),
     person("Jim", "Hester", role = "aut"),
     person("Jeroen", "Ooms", role = "aut"),
-    person("RStudio", role = "cph"),
+    person("RStudio", role = c("cph", "fnd")),
     person("R Foundation", role = "ctb",
            comment = "Copy of R-project homepage cached as example")
   )
