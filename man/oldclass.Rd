@@ -8,16 +8,11 @@
 \title{Register S4 classes}
 \description{
 Classes are exported so they can be re-used within S4 classes, see \code{\link[methods:setOldClass]{methods::setOldClass()}}.
-
-\code{xml_document}: a complete document.
-
-\code{xml_missing}: a missing object, e.g. for an empty result set.
-
-\code{xml_node}: a single node in a document.
-
-\code{xml_nodeset}: a \emph{set} of nodes within a document.
+\itemize{
+\item \code{xml_document}: a complete document.
+\item \code{xml_nodeset}: a \emph{set} of nodes within a document.
+\item \code{xml_missing}: a missing object, e.g. for an empty result set.
+\item \code{xml_node}: a single node in a document.
 }
-\concept{xml_document}
-\concept{xml_missing}
-\concept{xml_node}
-\concept{xml_nodeset}
+}
+\keyword{internal}
