@@ -1,10 +1,9 @@
-pandoc: 2.7.3
-pkgdown: 1.6.1
+pandoc: 2.14.2
+pkgdown: 2.0.2
 pkgdown_sha: ~
 articles:
   modification: modification.html
-  releases/xml2-1.1.1: xml2-1.1.1.html
-last_built: 2021-11-23T13:20Z
+last_built: 2022-02-28T20:27Z
 urls:
   reference: http://xml2.r-lib.org/reference
   article: http://xml2.r-lib.org/articles
