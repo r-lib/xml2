@@ -1,18 +1,15 @@
 url: http://xml2.r-lib.org
 
+template:
+  bootstrap: 5
+  package: tidytemplate
+
+  includes:
+    in_header: |
+      <script defer data-domain="xml2.r-lib.org,all.tidyverse.org" src="https://plausible.io/js/plausible.js"></script>
+
 development:
   mode: auto
-
-authors:
-  "Jim Hester":
-    href: http://jimhester.com
-
-template:
-  params:
-    docsearch:
-      api_key: fbd8d79ed49f21fc9ca7b2cf601a3f5b
-      index_name: xml2
-    ganalytics: UA-115082821-1
 
 reference:
   - title: Read and write documents
@@ -60,3 +57,10 @@ reference:
     contents:
     - ends_with("serialize")
     - xml2_example
+
+news:
+  releases:
+  - text: Version 1.0.0
+    href: https://www.rstudio.com/blog/xml2-1-0-0/
+  - text: Version 1.1.1
+    href: https://www.rstudio.com/blog/xml-1-1-1/

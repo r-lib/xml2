@@ -1,6 +1,7 @@
 # xml2
 
 <!-- badges: start -->
+[![R-CMD-check](https://github.com/r-lib/xml2/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/r-lib/xml2/actions/workflows/R-CMD-check.yaml)
 [![R build status](https://github.com/r-lib/xml2/workflows/R-CMD-check/badge.svg)](https://github.com/r-lib/xml2/actions)
 [![Coverage Status](https://img.shields.io/codecov/c/github/r-lib/xml2/master.svg)](https://codecov.io/github/r-lib/xml2?branch=master)
 <!-- badges: end -->

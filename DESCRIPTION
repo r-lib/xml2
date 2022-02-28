@@ -1,24 +1,16 @@
 Package: xml2
 Title: Parse XML
 Version: 1.3.3.9000
-Authors@R: 
-    c(person(given = "Hadley",
-             family = "Wickham",
-             role = c("aut", "cre"),
-             email = "hadley@rstudio.com"),
-      person(given = "Jim",
-             family = "Hester",
-             role = "aut"),
-      person(given = "Jeroen",
-             family = "Ooms",
-             role = "aut"),
-      person(given = "RStudio",
-             role = "cph"),
-      person(given = "R Foundation",
-             role = "ctb",
-             comment = "Copy of R-project homepage cached as example"))
-Description: Work with XML files using a simple, consistent
-    interface. Built on top of the 'libxml2' C library.
+Authors@R: c(
+    person("Hadley", "Wickham", , "hadley@rstudio.com", role = c("aut", "cre")),
+    person("Jim", "Hester", role = "aut"),
+    person("Jeroen", "Ooms", role = "aut"),
+    person("RStudio", role = c("cph", "fnd")),
+    person("R Foundation", role = "ctb",
+           comment = "Copy of R-project homepage cached as example")
+  )
+Description: Work with XML files using a simple, consistent interface.
+    Built on top of the 'libxml2' C library.
 License: MIT + file LICENSE
 URL: https://xml2.r-lib.org/, https://github.com/r-lib/xml2
 BugReports: https://github.com/r-lib/xml2/issues
@@ -37,11 +29,11 @@ Suggests:
     testthat (>= 2.1.0)
 VignetteBuilder: 
     knitr
+Config/Needs/website: tidyverse/tidytemplate
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.1.1
-SystemRequirements: libxml2: libxml2-dev (deb), libxml2-devel
-    (rpm)
+RoxygenNote: 7.1.2
+SystemRequirements: libxml2: libxml2-dev (deb), libxml2-devel (rpm)
 Collate: 
     'S4.R'
     'as_list.R'
