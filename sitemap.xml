@@ -1,7 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>http://xml2.r-lib.org/404.html</loc>
+  </url>
+  <url>
+    <loc>http://xml2.r-lib.org/CODE_OF_CONDUCT.html</loc>
+  </url>
+  <url>
+    <loc>http://xml2.r-lib.org/CONTRIBUTING.html</loc>
+  </url>
+  <url>
+    <loc>http://xml2.r-lib.org/ISSUE_TEMPLATE.html</loc>
+  </url>
+  <url>
+    <loc>http://xml2.r-lib.org/LICENSE-text.html</loc>
+  </url>
+  <url>
+    <loc>http://xml2.r-lib.org/LICENSE.html</loc>
+  </url>
+  <url>
+    <loc>http://xml2.r-lib.org/SUPPORT.html</loc>
+  </url>
+  <url>
+    <loc>http://xml2.r-lib.org/articles/index.html</loc>
+  </url>
+  <url>
+    <loc>http://xml2.r-lib.org/articles/modification.html</loc>
+  </url>
+  <url>
+    <loc>http://xml2.r-lib.org/authors.html</loc>
+  </url>
+  <url>
     <loc>http://xml2.r-lib.org/index.html</loc>
+  </url>
+  <url>
+    <loc>http://xml2.r-lib.org/news/index.html</loc>
   </url>
   <url>
     <loc>http://xml2.r-lib.org/reference/as_list.html</loc>
@@ -11,6 +44,9 @@
   </url>
   <url>
     <loc>http://xml2.r-lib.org/reference/download_xml.html</loc>
+  </url>
+  <url>
+    <loc>http://xml2.r-lib.org/reference/index.html</loc>
   </url>
   <url>
     <loc>http://xml2.r-lib.org/reference/oldclass.html</loc>
@@ -92,11 +128,5 @@
   </url>
   <url>
     <loc>http://xml2.r-lib.org/reference/xml_validate.html</loc>
-  </url>
-  <url>
-    <loc>http://xml2.r-lib.org/articles/modification.html</loc>
-  </url>
-  <url>
-    <loc>http://xml2.r-lib.org/articles/releases/xml2-1.1.1.html</loc>
   </url>
 </urlset>
