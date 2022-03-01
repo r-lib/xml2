@@ -9,6 +9,7 @@
 #' @family xml_document
 #' @importFrom methods setOldClass
 #' @exportClass xml_document
+#' @keywords internal
 #' @rdname oldclass
 setOldClass("xml_document")
 

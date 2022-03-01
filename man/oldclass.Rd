@@ -21,3 +21,4 @@ Classes are exported so they can be re-used within S4 classes, see \code{\link[m
 \concept{xml_missing}
 \concept{xml_node}
 \concept{xml_nodeset}
+\keyword{internal}
