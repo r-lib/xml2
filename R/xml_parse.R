@@ -49,7 +49,7 @@
 #' @examples
 #' # Literal xml/html is useful for small examples
 #' read_xml("<foo><bar /></foo>")
-#' read_html("<html><title>Hi<title></html>")
+#' read_html("<html><title>Hi</title></html>")
 #' read_html("<html><title>Hi")
 #'
 #' # From a local path
