@@ -7,7 +7,7 @@
 #include <cstring>
 
 // [[export]]
-extern "C" SEXP  xml_parse_options_() {
+extern "C" SEXP  xml_parse_options_(void) {
 
 #if defined(LIBXML_VERSION) && (LIBXML_VERSION >= 20700)
 #define HAS_OLD10
