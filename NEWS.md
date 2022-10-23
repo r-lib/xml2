@@ -1,5 +1,8 @@
 # xml2 (development version)
 
+* xml2 is now compliant with `-Wstrict-prototypes` as requested by CRAN
+  (#374, @IndrajeetPatil).
+
 # xml2 1.3.3
 
 * Hadley Wickham is now (again) the maintainer.

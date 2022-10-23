@@ -38,7 +38,7 @@ void handleGenericError(void *ctx, const char *fmt, ...)
 }
 
 // [[export]]
-extern "C" SEXP init_libxml2() {
+extern "C" SEXP init_libxml2(void) {
   // Check that header and libs are compatible
   LIBXML_TEST_VERSION
 
@@ -57,6 +57,6 @@ extern "C" {
 }
 
 // [[export]]
-extern "C" SEXP libxml2_version_(){
+extern "C" SEXP libxml2_version_(void){
   return Rf_mkString(LIBXML_DOTTED_VERSION);
 }

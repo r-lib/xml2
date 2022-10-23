@@ -42,7 +42,7 @@ typedef struct {
 } xml_save_def;
 
 // [[export]]
-extern "C" SEXP xml_save_options_() {
+extern "C" SEXP xml_save_options_(void) {
 
   static const xml_save_def entries[] = {
     {"format", "Format output", XML_SAVE_FORMAT},
