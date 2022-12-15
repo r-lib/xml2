@@ -106,3 +106,14 @@ test_that("read_xml and read_html fail with > 1 input", {
   expect_error(read_xml(c("foo", "bar")), "`x` must be a string of length 1")
   expect_error(read_html(c("foo", "bar")), "`x` must be a string of length 1")
 })
+
+test_that("read_xml with an invalid file allows deletion of the file (#376)", {
+  tmp <- tempfile(fileext = ".xml")
+  on.exit(unlink(tmp))
+  writeLines("<a>", con = tmp)
+
+  expect_error(
+    read_xml(tmp)
+  )
+  expect_true(file.remove(tmp))
+})
