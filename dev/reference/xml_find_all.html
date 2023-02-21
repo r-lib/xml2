@@ -3,7 +3,7 @@
 you're trying to extract nodes from arbitrary locations in a document.
 Use xml_find_all to find all matches - if there's no match you'll
 get an empty result. Use xml_find_first to find a specific match -
-if there's no match you'll get an xml_missing node."><title>Find nodes that match an xpath expression. — xml_find_all • xml2</title><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link href="../deps/bootstrap-5.1.0/bootstrap.min.css" rel="stylesheet"><script src="../deps/bootstrap-5.1.0/bootstrap.bundle.min.js"></script><link href="../deps/_Source%20Sans%20Pro-0.4.0/font.css" rel="stylesheet"><link href="../deps/_Source%20Code%20Pro-0.4.0/font.css" rel="stylesheet"><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous"><!-- bootstrap-toc --><script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Find nodes that match an xpath expression. — xml_find_all"><meta property="og:description" content="Xpath is like regular expressions for trees - it's worth learning if
+if there's no match you'll get an xml_missing node."><title>Find nodes that match an xpath expression. — xml_find_all • xml2</title><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link href="../deps/bootstrap-5.2.2/bootstrap.min.css" rel="stylesheet"><script src="../deps/bootstrap-5.2.2/bootstrap.bundle.min.js"></script><link href="../deps/Source_Sans_Pro-0.4.5/font.css" rel="stylesheet"><link href="../deps/Source_Code_Pro-0.4.5/font.css" rel="stylesheet"><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous"><!-- bootstrap-toc --><script src="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@v1.0.1/dist/bootstrap-toc.min.js" integrity="sha256-4veVQbu7//Lk5TSmc7YV48MxtMy98e26cf5MrgZYnwo=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Find nodes that match an xpath expression. — xml_find_all"><meta property="og:description" content="Xpath is like regular expressions for trees - it's worth learning if
 you're trying to extract nodes from arbitrary locations in a document.
 Use xml_find_all to find all matches - if there's no match you'll
 get an empty result. Use xml_find_first to find a specific match -
@@ -76,26 +76,30 @@ if there's no match you'll get an <code>xml_missing</code> node.</p>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">xml_find_all</span><span class="op">(</span><span class="va">x</span>, <span class="va">xpath</span>, ns <span class="op">=</span> <span class="fu"><a href="xml_ns.html">xml_ns</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="co"># S3 method for xml_nodeset</span>
-<span class="fu">xml_find_all</span><span class="op">(</span><span class="va">x</span>, <span class="va">xpath</span>, ns <span class="op">=</span> <span class="fu"><a href="xml_ns.html">xml_ns</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>, flatten <span class="op">=</span> <span class="cn">TRUE</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="fu">xml_find_first</span><span class="op">(</span><span class="va">x</span>, <span class="va">xpath</span>, ns <span class="op">=</span> <span class="fu"><a href="xml_ns.html">xml_ns</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span>
-
-<span class="fu">xml_find_num</span><span class="op">(</span><span class="va">x</span>, <span class="va">xpath</span>, ns <span class="op">=</span> <span class="fu"><a href="xml_ns.html">xml_ns</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span>
-
-<span class="fu">xml_find_chr</span><span class="op">(</span><span class="va">x</span>, <span class="va">xpath</span>, ns <span class="op">=</span> <span class="fu"><a href="xml_ns.html">xml_ns</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span>
-
-<span class="fu">xml_find_lgl</span><span class="op">(</span><span class="va">x</span>, <span class="va">xpath</span>, ns <span class="op">=</span> <span class="fu"><a href="xml_ns.html">xml_ns</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">xml_find_all</span><span class="op">(</span><span class="va">x</span>, <span class="va">xpath</span>, ns <span class="op">=</span> <span class="fu"><a href="xml_ns.html">xml_ns</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for xml_nodeset</span></span>
+<span><span class="fu">xml_find_all</span><span class="op">(</span><span class="va">x</span>, <span class="va">xpath</span>, ns <span class="op">=</span> <span class="fu"><a href="xml_ns.html">xml_ns</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>, flatten <span class="op">=</span> <span class="cn">TRUE</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">xml_find_first</span><span class="op">(</span><span class="va">x</span>, <span class="va">xpath</span>, ns <span class="op">=</span> <span class="fu"><a href="xml_ns.html">xml_ns</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">xml_find_num</span><span class="op">(</span><span class="va">x</span>, <span class="va">xpath</span>, ns <span class="op">=</span> <span class="fu"><a href="xml_ns.html">xml_ns</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">xml_find_chr</span><span class="op">(</span><span class="va">x</span>, <span class="va">xpath</span>, ns <span class="op">=</span> <span class="fu"><a href="xml_ns.html">xml_ns</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">xml_find_lgl</span><span class="op">(</span><span class="va">x</span>, <span class="va">xpath</span>, ns <span class="op">=</span> <span class="fu"><a href="xml_ns.html">xml_ns</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>x</dt>
 <dd><p>A document, node, or node set.</p></dd>
+
+
 <dt>xpath</dt>
 <dd><p>A string containing an xpath (1.0) expression.</p></dd>
+
+
 <dt>ns</dt>
 <dd><p>Optionally, a named vector giving prefix-url pairs, as produced
 by <code><a href="xml_ns.html">xml_ns()</a></code>. If provided, all names will be explicitly
@@ -104,24 +108,35 @@ in namespace <code>foo</code>, it will be called <code>foo:bar</code>. (And
 similarly for attributes). Default namespaces must be given an explicit
 name. The ns is ignored when using <code><a href="xml_name.html">xml_name&lt;-()</a></code> and
 <code><a href="xml_name.html">xml_set_name()</a></code>.</p></dd>
+
+
 <dt>...</dt>
 <dd><p>Further arguments passed to or from other methods.</p></dd>
+
+
 <dt>flatten</dt>
 <dd><p>A logical indicating whether to return a single, flattened
 nodeset or a list of nodesets.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p><code>xml_find_all</code> returns a nodeset if applied to a node, and a nodeset
+    
+
+<p><code>xml_find_all</code> returns a nodeset if applied to a node, and a nodeset
 or a list of nodesets if applied to a nodeset. If there are no matches,
 the nodeset(s) will be empty. Within each nodeset, the result will always
-be unique; repeated nodes are automatically de-duplicated.
-<code>xml_find_first</code> returns a node if applied to a node, and a nodeset
+be unique; repeated nodes are automatically de-duplicated.</p>
+
+
+<p><code>xml_find_first</code> returns a node if applied to a node, and a nodeset
 if applied to a nodeset. The output is <em>always</em> the same size as
 the input. If there are no matches, <code>xml_find_first</code> will return a
 missing node; if there are multiple matches, it will return the first
-only.
-<code>xml_find_num</code>, <code>xml_find_chr</code>, <code>xml_find_lgl</code> return
+only.</p>
+
+
+<p><code>xml_find_num</code>, <code>xml_find_chr</code>, <code>xml_find_lgl</code> return
 numeric, character and logical results respectively.</p>
     </div>
     <div class="section level2">
@@ -138,49 +153,49 @@ numeric, character and logical results respectively.</p>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="read_xml.html">read_xml</a></span><span class="op">(</span><span class="st">"&lt;foo&gt;&lt;bar&gt;&lt;baz/&gt;&lt;/bar&gt;&lt;baz/&gt;&lt;/foo&gt;"</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">xml_find_all</span><span class="op">(</span><span class="va">x</span>, <span class="st">".//baz"</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="read_xml.html">read_xml</a></span><span class="op">(</span><span class="st">"&lt;foo&gt;&lt;bar&gt;&lt;baz/&gt;&lt;/bar&gt;&lt;baz/&gt;&lt;/foo&gt;"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">xml_find_all</span><span class="op">(</span><span class="va">x</span>, <span class="st">".//baz"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> {xml_nodeset (2)}</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] &lt;baz/&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [2] &lt;baz/&gt;</span>
-<span class="r-in"><span class="fu"><a href="xml_path.html">xml_path</a></span><span class="op">(</span><span class="fu">xml_find_all</span><span class="op">(</span><span class="va">x</span>, <span class="st">".//baz"</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu"><a href="xml_path.html">xml_path</a></span><span class="op">(</span><span class="fu">xml_find_all</span><span class="op">(</span><span class="va">x</span>, <span class="st">".//baz"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "/foo/bar/baz" "/foo/baz"    </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Note the difference between .// and //</span></span>
-<span class="r-in"><span class="co"># //  finds anywhere in the document (ignoring the current node)</span></span>
-<span class="r-in"><span class="co"># .// finds anywhere beneath the current node</span></span>
-<span class="r-in"><span class="op">(</span><span class="va">bar</span> <span class="op">&lt;-</span> <span class="fu">xml_find_all</span><span class="op">(</span><span class="va">x</span>, <span class="st">".//bar"</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Note the difference between .// and //</span></span></span>
+<span class="r-in"><span><span class="co"># //  finds anywhere in the document (ignoring the current node)</span></span></span>
+<span class="r-in"><span><span class="co"># .// finds anywhere beneath the current node</span></span></span>
+<span class="r-in"><span><span class="op">(</span><span class="va">bar</span> <span class="op">&lt;-</span> <span class="fu">xml_find_all</span><span class="op">(</span><span class="va">x</span>, <span class="st">".//bar"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> {xml_nodeset (1)}</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] &lt;bar&gt;\n  &lt;baz/&gt;\n&lt;/bar&gt;</span>
-<span class="r-in"><span class="fu">xml_find_all</span><span class="op">(</span><span class="va">bar</span>, <span class="st">".//baz"</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">xml_find_all</span><span class="op">(</span><span class="va">bar</span>, <span class="st">".//baz"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> {xml_nodeset (1)}</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] &lt;baz/&gt;</span>
-<span class="r-in"><span class="fu">xml_find_all</span><span class="op">(</span><span class="va">bar</span>, <span class="st">"//baz"</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">xml_find_all</span><span class="op">(</span><span class="va">bar</span>, <span class="st">"//baz"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> {xml_nodeset (2)}</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] &lt;baz/&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [2] &lt;baz/&gt;</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Find all vs find one -----------------------------------------------------</span></span>
-<span class="r-in"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="read_xml.html">read_xml</a></span><span class="op">(</span><span class="st">"&lt;body&gt;</span>
-<span class="r-in">  &lt;p&gt;Some &lt;b&gt;text&lt;/b&gt;.&lt;/p&gt;</span>
-<span class="r-in">  &lt;p&gt;Some &lt;b&gt;other&lt;/b&gt; &lt;b&gt;text&lt;/b&gt;.&lt;/p&gt;</span>
-<span class="r-in">  &lt;p&gt;No bold here!&lt;/p&gt;</span>
-<span class="r-in">&lt;/body&gt;"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">para</span> <span class="op">&lt;-</span> <span class="fu">xml_find_all</span><span class="op">(</span><span class="va">x</span>, <span class="st">".//p"</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># By default, if you apply xml_find_all to a nodeset, it finds all matches,</span></span>
-<span class="r-in"><span class="co"># de-duplicates them, and returns as a single nodeset. This means you</span></span>
-<span class="r-in"><span class="co"># never know how many results you'll get</span></span>
-<span class="r-in"><span class="fu">xml_find_all</span><span class="op">(</span><span class="va">para</span>, <span class="st">".//b"</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Find all vs find one -----------------------------------------------------</span></span></span>
+<span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="read_xml.html">read_xml</a></span><span class="op">(</span><span class="st">"&lt;body&gt;</span></span></span>
+<span class="r-in"><span><span class="st">  &lt;p&gt;Some &lt;b&gt;text&lt;/b&gt;.&lt;/p&gt;</span></span></span>
+<span class="r-in"><span><span class="st">  &lt;p&gt;Some &lt;b&gt;other&lt;/b&gt; &lt;b&gt;text&lt;/b&gt;.&lt;/p&gt;</span></span></span>
+<span class="r-in"><span><span class="st">  &lt;p&gt;No bold here!&lt;/p&gt;</span></span></span>
+<span class="r-in"><span><span class="st">&lt;/body&gt;"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">para</span> <span class="op">&lt;-</span> <span class="fu">xml_find_all</span><span class="op">(</span><span class="va">x</span>, <span class="st">".//p"</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># By default, if you apply xml_find_all to a nodeset, it finds all matches,</span></span></span>
+<span class="r-in"><span><span class="co"># de-duplicates them, and returns as a single nodeset. This means you</span></span></span>
+<span class="r-in"><span><span class="co"># never know how many results you'll get</span></span></span>
+<span class="r-in"><span><span class="fu">xml_find_all</span><span class="op">(</span><span class="va">para</span>, <span class="st">".//b"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> {xml_nodeset (3)}</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] &lt;b&gt;text&lt;/b&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [2] &lt;b&gt;other&lt;/b&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [3] &lt;b&gt;text&lt;/b&gt;</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># If you set flatten to FALSE, though, xml_find_all will return a list of</span></span>
-<span class="r-in"><span class="co"># nodesets, where each nodeset contains the matches for the corresponding</span></span>
-<span class="r-in"><span class="co"># node in the original nodeset.</span></span>
-<span class="r-in"><span class="fu">xml_find_all</span><span class="op">(</span><span class="va">para</span>, <span class="st">".//b"</span>, flatten <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># If you set flatten to FALSE, though, xml_find_all will return a list of</span></span></span>
+<span class="r-in"><span><span class="co"># nodesets, where each nodeset contains the matches for the corresponding</span></span></span>
+<span class="r-in"><span><span class="co"># node in the original nodeset.</span></span></span>
+<span class="r-in"><span><span class="fu">xml_find_all</span><span class="op">(</span><span class="va">para</span>, <span class="st">".//b"</span>, flatten <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [[1]]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> {xml_nodeset (1)}</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] &lt;b&gt;text&lt;/b&gt;</span>
@@ -193,31 +208,31 @@ numeric, character and logical results respectively.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [[3]]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> {xml_nodeset (0)}</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># xml_find_first only returns the first match per input node. If there are 0</span></span>
-<span class="r-in"><span class="co"># matches it will return a missing node</span></span>
-<span class="r-in"><span class="fu">xml_find_first</span><span class="op">(</span><span class="va">para</span>, <span class="st">".//b"</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># xml_find_first only returns the first match per input node. If there are 0</span></span></span>
+<span class="r-in"><span><span class="co"># matches it will return a missing node</span></span></span>
+<span class="r-in"><span><span class="fu">xml_find_first</span><span class="op">(</span><span class="va">para</span>, <span class="st">".//b"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> {xml_nodeset (3)}</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] &lt;b&gt;text&lt;/b&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [2] &lt;b&gt;other&lt;/b&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [3] &lt;NA&gt;</span>
-<span class="r-in"><span class="fu"><a href="xml_text.html">xml_text</a></span><span class="op">(</span><span class="fu">xml_find_first</span><span class="op">(</span><span class="va">para</span>, <span class="st">".//b"</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu"><a href="xml_text.html">xml_text</a></span><span class="op">(</span><span class="fu">xml_find_first</span><span class="op">(</span><span class="va">para</span>, <span class="st">".//b"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "text"  "other" NA     </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Namespaces ---------------------------------------------------------------</span></span>
-<span class="r-in"><span class="co"># If the document uses namespaces, you'll need use xml_ns to form</span></span>
-<span class="r-in"><span class="co"># a unique mapping between full namespace url and a short prefix</span></span>
-<span class="r-in"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="read_xml.html">read_xml</a></span><span class="op">(</span><span class="st">'</span>
-<span class="r-in"> &lt;root xmlns:f = "http://foo.com" xmlns:g = "http://bar.com"&gt;</span>
-<span class="r-in">   &lt;f:doc&gt;&lt;g:baz /&gt;&lt;/f:doc&gt;</span>
-<span class="r-in">   &lt;f:doc&gt;&lt;g:baz /&gt;&lt;/f:doc&gt;</span>
-<span class="r-in"> &lt;/root&gt;</span>
-<span class="r-in">'</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">xml_find_all</span><span class="op">(</span><span class="va">x</span>, <span class="st">".//f:doc"</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Namespaces ---------------------------------------------------------------</span></span></span>
+<span class="r-in"><span><span class="co"># If the document uses namespaces, you'll need use xml_ns to form</span></span></span>
+<span class="r-in"><span><span class="co"># a unique mapping between full namespace url and a short prefix</span></span></span>
+<span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="read_xml.html">read_xml</a></span><span class="op">(</span><span class="st">'</span></span></span>
+<span class="r-in"><span><span class="st"> &lt;root xmlns:f = "http://foo.com" xmlns:g = "http://bar.com"&gt;</span></span></span>
+<span class="r-in"><span><span class="st">   &lt;f:doc&gt;&lt;g:baz /&gt;&lt;/f:doc&gt;</span></span></span>
+<span class="r-in"><span><span class="st">   &lt;f:doc&gt;&lt;g:baz /&gt;&lt;/f:doc&gt;</span></span></span>
+<span class="r-in"><span><span class="st"> &lt;/root&gt;</span></span></span>
+<span class="r-in"><span><span class="st">'</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">xml_find_all</span><span class="op">(</span><span class="va">x</span>, <span class="st">".//f:doc"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> {xml_nodeset (2)}</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] &lt;f:doc&gt;\n  &lt;g:baz/&gt;\n&lt;/f:doc&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [2] &lt;f:doc&gt;\n  &lt;g:baz/&gt;\n&lt;/f:doc&gt;</span>
-<span class="r-in"><span class="fu">xml_find_all</span><span class="op">(</span><span class="va">x</span>, <span class="st">".//f:doc"</span>, <span class="fu"><a href="xml_ns.html">xml_ns</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">xml_find_all</span><span class="op">(</span><span class="va">x</span>, <span class="st">".//f:doc"</span>, <span class="fu"><a href="xml_ns.html">xml_ns</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> {xml_nodeset (2)}</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] &lt;f:doc&gt;\n  &lt;g:baz/&gt;\n&lt;/f:doc&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [2] &lt;f:doc&gt;\n  &lt;g:baz/&gt;\n&lt;/f:doc&gt;</span>
@@ -234,7 +249,7 @@ numeric, character and logical results respectively.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
   </div></footer></body></html>

@@ -4,7 +4,7 @@ vector, xml_attrs() &amp;lt;- or xml_set_attrs() sets all attribute
 values. xml_attr() retrieves the value of single attribute and
 xml_attr() &amp;lt;- or xml_set_attr() modifies its value. If the
 attribute doesn't exist, it will return default, which defaults to
-NA. xml_has_attr() tests if an attribute is present."><title>Retrieve an attribute. — xml_attr • xml2</title><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link href="../deps/bootstrap-5.1.0/bootstrap.min.css" rel="stylesheet"><script src="../deps/bootstrap-5.1.0/bootstrap.bundle.min.js"></script><link href="../deps/_Source%20Sans%20Pro-0.4.0/font.css" rel="stylesheet"><link href="../deps/_Source%20Code%20Pro-0.4.0/font.css" rel="stylesheet"><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous"><!-- bootstrap-toc --><script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Retrieve an attribute. — xml_attr"><meta property="og:description" content="xml_attrs() retrieves all attributes values as a named character
+NA. xml_has_attr() tests if an attribute is present."><title>Retrieve an attribute. — xml_attr • xml2</title><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link href="../deps/bootstrap-5.2.2/bootstrap.min.css" rel="stylesheet"><script src="../deps/bootstrap-5.2.2/bootstrap.bundle.min.js"></script><link href="../deps/Source_Sans_Pro-0.4.5/font.css" rel="stylesheet"><link href="../deps/Source_Code_Pro-0.4.5/font.css" rel="stylesheet"><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous"><!-- bootstrap-toc --><script src="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@v1.0.1/dist/bootstrap-toc.min.js" integrity="sha256-4veVQbu7//Lk5TSmc7YV48MxtMy98e26cf5MrgZYnwo=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Retrieve an attribute. — xml_attr"><meta property="og:description" content="xml_attrs() retrieves all attributes values as a named character
 vector, xml_attrs() &amp;lt;- or xml_set_attrs() sets all attribute
 values. xml_attr() retrieves the value of single attribute and
 xml_attr() &amp;lt;- or xml_set_attr() modifies its value. If the
@@ -79,27 +79,31 @@ attribute doesn't exist, it will return <code>default</code>, which defaults to
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">xml_attr</span><span class="op">(</span><span class="va">x</span>, <span class="va">attr</span>, ns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a></span><span class="op">(</span><span class="op">)</span>, default <span class="op">=</span> <span class="cn">NA_character_</span><span class="op">)</span>
-
-<span class="fu">xml_has_attr</span><span class="op">(</span><span class="va">x</span>, <span class="va">attr</span>, ns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>
-
-<span class="fu">xml_attrs</span><span class="op">(</span><span class="va">x</span>, ns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>
-
-<span class="fu">xml_attr</span><span class="op">(</span><span class="va">x</span>, <span class="va">attr</span>, ns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">value</span>
-
-<span class="fu">xml_set_attr</span><span class="op">(</span><span class="va">x</span>, <span class="va">attr</span>, <span class="va">value</span>, ns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>
-
-<span class="fu">xml_attrs</span><span class="op">(</span><span class="va">x</span>, ns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">value</span>
-
-<span class="fu">xml_set_attrs</span><span class="op">(</span><span class="va">x</span>, <span class="va">value</span>, ns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">xml_attr</span><span class="op">(</span><span class="va">x</span>, <span class="va">attr</span>, ns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a></span><span class="op">(</span><span class="op">)</span>, default <span class="op">=</span> <span class="cn">NA_character_</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">xml_has_attr</span><span class="op">(</span><span class="va">x</span>, <span class="va">attr</span>, ns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">xml_attrs</span><span class="op">(</span><span class="va">x</span>, ns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">xml_attr</span><span class="op">(</span><span class="va">x</span>, <span class="va">attr</span>, ns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">value</span></span>
+<span></span>
+<span><span class="fu">xml_set_attr</span><span class="op">(</span><span class="va">x</span>, <span class="va">attr</span>, <span class="va">value</span>, ns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">xml_attrs</span><span class="op">(</span><span class="va">x</span>, ns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">value</span></span>
+<span></span>
+<span><span class="fu">xml_set_attrs</span><span class="op">(</span><span class="va">x</span>, <span class="va">value</span>, ns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>x</dt>
 <dd><p>A document, node, or node set.</p></dd>
+
+
 <dt>attr</dt>
 <dd><p>Name of attribute to extract.</p></dd>
+
+
 <dt>ns</dt>
 <dd><p>Optionally, a named vector giving prefix-url pairs, as produced
 by <code><a href="xml_ns.html">xml_ns()</a></code>. If provided, all names will be explicitly
@@ -108,41 +112,52 @@ in namespace <code>foo</code>, it will be called <code>foo:bar</code>. (And
 similarly for attributes). Default namespaces must be given an explicit
 name. The ns is ignored when using <code><a href="xml_name.html">xml_name&lt;-()</a></code> and
 <code><a href="xml_name.html">xml_set_name()</a></code>.</p></dd>
+
+
 <dt>default</dt>
 <dd><p>Default value to use when attribute is not present.</p></dd>
+
+
 <dt>value</dt>
 <dd><p>character vector of new value.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p><code>xml_attr()</code> returns a character vector. <code>NA</code> is used
-to represent of attributes that aren't defined.
-<code>xml_has_attr()</code> returns a logical vector.
-<code>xml_attrs()</code> returns a named character vector if <code>x</code> x is single
+    
+
+<p><code>xml_attr()</code> returns a character vector. <code>NA</code> is used
+to represent of attributes that aren't defined.</p>
+
+
+<p><code>xml_has_attr()</code> returns a logical vector.</p>
+
+
+<p><code>xml_attrs()</code> returns a named character vector if <code>x</code> x is single
 node, or a list of character vectors if given a nodeset</p>
     </div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="read_xml.html">read_xml</a></span><span class="op">(</span><span class="st">"&lt;root id='1'&gt;&lt;child id ='a' /&gt;&lt;child id='b' d='b'/&gt;&lt;/root&gt;"</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">xml_attr</span><span class="op">(</span><span class="va">x</span>, <span class="st">"id"</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="read_xml.html">read_xml</a></span><span class="op">(</span><span class="st">"&lt;root id='1'&gt;&lt;child id ='a' /&gt;&lt;child id='b' d='b'/&gt;&lt;/root&gt;"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">xml_attr</span><span class="op">(</span><span class="va">x</span>, <span class="st">"id"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "1"</span>
-<span class="r-in"><span class="fu">xml_attr</span><span class="op">(</span><span class="va">x</span>, <span class="st">"apple"</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">xml_attr</span><span class="op">(</span><span class="va">x</span>, <span class="st">"apple"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] NA</span>
-<span class="r-in"><span class="fu">xml_attrs</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">xml_attrs</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  id </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> "1" </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">kids</span> <span class="op">&lt;-</span> <span class="fu"><a href="xml_children.html">xml_children</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">kids</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">kids</span> <span class="op">&lt;-</span> <span class="fu"><a href="xml_children.html">xml_children</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">kids</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> {xml_nodeset (2)}</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] &lt;child id="a"/&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [2] &lt;child id="b" d="b"/&gt;</span>
-<span class="r-in"><span class="fu">xml_attr</span><span class="op">(</span><span class="va">kids</span>, <span class="st">"id"</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">xml_attr</span><span class="op">(</span><span class="va">kids</span>, <span class="st">"id"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "a" "b"</span>
-<span class="r-in"><span class="fu">xml_has_attr</span><span class="op">(</span><span class="va">kids</span>, <span class="st">"id"</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">xml_has_attr</span><span class="op">(</span><span class="va">kids</span>, <span class="st">"id"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE TRUE</span>
-<span class="r-in"><span class="fu">xml_attrs</span><span class="op">(</span><span class="va">kids</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">xml_attrs</span><span class="op">(</span><span class="va">kids</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [[1]]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  id </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> "a" </span>
@@ -151,45 +166,45 @@ node, or a list of character vectors if given a nodeset</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  id   d </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> "b" "b" </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Missing attributes give missing values</span></span>
-<span class="r-in"><span class="fu">xml_attr</span><span class="op">(</span><span class="fu"><a href="xml_children.html">xml_children</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>, <span class="st">"d"</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Missing attributes give missing values</span></span></span>
+<span class="r-in"><span><span class="fu">xml_attr</span><span class="op">(</span><span class="fu"><a href="xml_children.html">xml_children</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>, <span class="st">"d"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] NA  "b"</span>
-<span class="r-in"><span class="fu">xml_has_attr</span><span class="op">(</span><span class="fu"><a href="xml_children.html">xml_children</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>, <span class="st">"d"</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">xml_has_attr</span><span class="op">(</span><span class="fu"><a href="xml_children.html">xml_children</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>, <span class="st">"d"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] FALSE  TRUE</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># If the document has a namespace, use the ns argument and</span></span>
-<span class="r-in"><span class="co"># qualified attribute names</span></span>
-<span class="r-in"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="read_xml.html">read_xml</a></span><span class="op">(</span><span class="st">'</span>
-<span class="r-in"> &lt;root xmlns:b="http://bar.com" xmlns:f="http://foo.com"&gt;</span>
-<span class="r-in">   &lt;doc b:id="b" f:id="f" id="" /&gt;</span>
-<span class="r-in"> &lt;/root&gt;</span>
-<span class="r-in">'</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">doc</span> <span class="op">&lt;-</span> <span class="fu"><a href="xml_children.html">xml_children</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span>
-<span class="r-in"><span class="va">ns</span> <span class="op">&lt;-</span> <span class="fu"><a href="xml_ns.html">xml_ns</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu">xml_attrs</span><span class="op">(</span><span class="va">doc</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># If the document has a namespace, use the ns argument and</span></span></span>
+<span class="r-in"><span><span class="co"># qualified attribute names</span></span></span>
+<span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="read_xml.html">read_xml</a></span><span class="op">(</span><span class="st">'</span></span></span>
+<span class="r-in"><span><span class="st"> &lt;root xmlns:b="http://bar.com" xmlns:f="http://foo.com"&gt;</span></span></span>
+<span class="r-in"><span><span class="st">   &lt;doc b:id="b" f:id="f" id="" /&gt;</span></span></span>
+<span class="r-in"><span><span class="st"> &lt;/root&gt;</span></span></span>
+<span class="r-in"><span><span class="st">'</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">doc</span> <span class="op">&lt;-</span> <span class="fu"><a href="xml_children.html">xml_children</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span></span>
+<span class="r-in"><span><span class="va">ns</span> <span class="op">&lt;-</span> <span class="fu"><a href="xml_ns.html">xml_ns</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">xml_attrs</span><span class="op">(</span><span class="va">doc</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  id  id  id </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> "b" "f" "b" </span>
-<span class="r-in"><span class="fu">xml_attrs</span><span class="op">(</span><span class="va">doc</span>, <span class="va">ns</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">xml_attrs</span><span class="op">(</span><span class="va">doc</span>, <span class="va">ns</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> b:id f:id   id </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  "b"  "f"   "" </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># If you don't supply a ns spec, you get the first matching attribute</span></span>
-<span class="r-in"><span class="fu">xml_attr</span><span class="op">(</span><span class="va">doc</span>, <span class="st">"id"</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># If you don't supply a ns spec, you get the first matching attribute</span></span></span>
+<span class="r-in"><span><span class="fu">xml_attr</span><span class="op">(</span><span class="va">doc</span>, <span class="st">"id"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "b"</span>
-<span class="r-in"><span class="fu">xml_attr</span><span class="op">(</span><span class="va">doc</span>, <span class="st">"b:id"</span>, <span class="va">ns</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">xml_attr</span><span class="op">(</span><span class="va">doc</span>, <span class="st">"b:id"</span>, <span class="va">ns</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "b"</span>
-<span class="r-in"><span class="fu">xml_attr</span><span class="op">(</span><span class="va">doc</span>, <span class="st">"id"</span>, <span class="va">ns</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">xml_attr</span><span class="op">(</span><span class="va">doc</span>, <span class="st">"id"</span>, <span class="va">ns</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] ""</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Can set a single attribute with `xml_attr() &lt;-` or `xml_set_attr()`</span></span>
-<span class="r-in"><span class="fu">xml_attr</span><span class="op">(</span><span class="va">doc</span>, <span class="st">"id"</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="st">"one"</span></span>
-<span class="r-in"><span class="fu">xml_set_attr</span><span class="op">(</span><span class="va">doc</span>, <span class="st">"id"</span>, <span class="st">"two"</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Or set multiple attributes with `xml_attrs()` or `xml_set_attrs()`</span></span>
-<span class="r-in"><span class="fu">xml_attrs</span><span class="op">(</span><span class="va">doc</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"b:id"</span> <span class="op">=</span> <span class="st">"one"</span>, <span class="st">"f:id"</span> <span class="op">=</span> <span class="st">"two"</span>, <span class="st">"id"</span> <span class="op">=</span> <span class="st">"three"</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">xml_set_attrs</span><span class="op">(</span><span class="va">doc</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"b:id"</span> <span class="op">=</span> <span class="st">"one"</span>, <span class="st">"f:id"</span> <span class="op">=</span> <span class="st">"two"</span>, <span class="st">"id"</span> <span class="op">=</span> <span class="st">"three"</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Can set a single attribute with `xml_attr() &lt;-` or `xml_set_attr()`</span></span></span>
+<span class="r-in"><span><span class="fu">xml_attr</span><span class="op">(</span><span class="va">doc</span>, <span class="st">"id"</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="st">"one"</span></span></span>
+<span class="r-in"><span><span class="fu">xml_set_attr</span><span class="op">(</span><span class="va">doc</span>, <span class="st">"id"</span>, <span class="st">"two"</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Or set multiple attributes with `xml_attrs()` or `xml_set_attrs()`</span></span></span>
+<span class="r-in"><span><span class="fu">xml_attrs</span><span class="op">(</span><span class="va">doc</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"b:id"</span> <span class="op">=</span> <span class="st">"one"</span>, <span class="st">"f:id"</span> <span class="op">=</span> <span class="st">"two"</span>, <span class="st">"id"</span> <span class="op">=</span> <span class="st">"three"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">xml_set_attrs</span><span class="op">(</span><span class="va">doc</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"b:id"</span> <span class="op">=</span> <span class="st">"one"</span>, <span class="st">"f:id"</span> <span class="op">=</span> <span class="st">"two"</span>, <span class="st">"id"</span> <span class="op">=</span> <span class="st">"three"</span><span class="op">)</span><span class="op">)</span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
@@ -203,7 +218,7 @@ node, or a list of character vectors if given a nodeset</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
   </div></footer></body></html>
