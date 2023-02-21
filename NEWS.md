@@ -1,5 +1,7 @@
 # xml2 (development version)
 
+* Windows: update to libxml2 2.10.3
+
 # xml2 1.3.3
 
 * Hadley Wickham is now (again) the maintainer.
