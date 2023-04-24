@@ -1,3 +1,4 @@
+#include <iterator>
 #include <Rinternals.h>
 #include <vector>
 #include "xml2_utils.h"
