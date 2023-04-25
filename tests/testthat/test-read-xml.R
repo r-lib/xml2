@@ -11,7 +11,7 @@ test_that("read_xml errors with an empty document", {
 })
 
 test_that("read_html correctly parses malformed document", {
-  lego <- read_html("lego.html.bz2")
+  lego <- read_html(test_path("lego.html.bz2"))
   expect_equal(length(xml_find_all(lego, ".//p")), 39)
 })
 
@@ -49,36 +49,17 @@ test_that("read_html properly passes parser arguments", {
 })
 
 test_that("read_xml works with httr response objects", {
-  skip_on_cran()
-  skip_if_offline()
-  skip_if_not_installed("httr")
+  x <- skip_on_http_error(read_xml(httr::GET("http://httpbin.org/xml")))
 
-  x <- read_xml(httr::GET("http://httpbin.org/xml"))
   expect_is(x, "xml_document")
 
   expect_equal(length(xml_find_all(x, "//slide")), 2)
-})
-
-test_that("read_html works with httr response objects", {
-  skip_on_cran()
-  skip_if_offline()
-
-  x <- read_html(httr::GET("http://httpbin.org/xml"))
-  expect_is(x, "xml_document")
-
-  expect_equal(length(xml_find_all(x, "//slide")), 2)
-})
-
-test_that("read_xml works with raw inputs", {
-  x <- read_xml("<foo/>")
-  expect_equal(xml_url(x), NA_character_)
 })
 
 test_that("read_xml and read_html fail for bad status codes", {
-
-  skip_on_cran()
-  skip_if_not_installed("httr")
-  skip_if_offline()
+  skip_on_http_error(
+    httr::stop_for_status(httr::GET("http://httpbin.org/status/200"))
+  )
 
   expect_error(
     read_xml(httr::GET("http://httpbin.org/status/404")),
@@ -89,6 +70,11 @@ test_that("read_xml and read_html fail for bad status codes", {
     read_html(httr::GET("http://httpbin.org/status/404")),
     class = "http_404"
   )
+})
+
+test_that("read_xml works with raw inputs", {
+  x <- read_xml("<foo/>")
+  expect_equal(xml_url(x), NA_character_)
 })
 
 test_that("read_html works with non-ASCII encodings", {
