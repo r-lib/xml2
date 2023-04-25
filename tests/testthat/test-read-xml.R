@@ -49,7 +49,8 @@ test_that("read_html properly passes parser arguments", {
 })
 
 test_that("read_xml works with httr response objects", {
-  x <- skip_on_http_error(read_xml(httr::GET("http://httpbin.org/xml")))
+  skip("httpbin is unreliable")
+  x <- read_xml(httr::GET("http://httpbin.org/xml"))
 
   expect_is(x, "xml_document")
 
@@ -57,9 +58,7 @@ test_that("read_xml works with httr response objects", {
 })
 
 test_that("read_xml and read_html fail for bad status codes", {
-  skip_on_http_error(
-    httr::stop_for_status(httr::GET("http://httpbin.org/status/200"))
-  )
+  skip("httpbin is unreliable")
 
   expect_error(
     read_xml(httr::GET("http://httpbin.org/status/404")),
