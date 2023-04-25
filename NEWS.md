@@ -1,5 +1,7 @@
 # xml2 (development version)
 
+* Fixes for R CMD check problems.
+
 * Windows: update to libxml2 2.10.3
 
 # xml2 1.3.3
