@@ -3,7 +3,7 @@
 #include <stdlib.h> // for NULL
 #include <R_ext/Rdynload.h>
 
-/* FIXME: 
+/* FIXME:
    Check these declarations against the C/Fortran source code.
 */
 
@@ -21,8 +21,8 @@ extern SEXP doc_validate(SEXP, SEXP);
 extern SEXP doc_write_character(SEXP, SEXP, SEXP);
 extern SEXP doc_write_connection(SEXP, SEXP, SEXP, SEXP);
 extern SEXP doc_write_file(SEXP, SEXP, SEXP, SEXP);
-extern SEXP init_libxml2();
-extern SEXP libxml2_version_();
+extern SEXP init_libxml2(void);
+extern SEXP libxml2_version_(void);
 extern SEXP node_append_child(SEXP, SEXP);
 extern SEXP node_append_content(SEXP, SEXP);
 extern SEXP node_append_sibling(SEXP, SEXP);
@@ -68,8 +68,8 @@ extern SEXP url_escape_(SEXP, SEXP);
 extern SEXP url_parse_(SEXP);
 extern SEXP url_relative_(SEXP, SEXP);
 extern SEXP url_unescape_(SEXP);
-extern SEXP xml_parse_options_();
-extern SEXP xml_save_options_();
+extern SEXP xml_parse_options_(void);
+extern SEXP xml_save_options_(void);
 extern SEXP xpath_search(SEXP, SEXP, SEXP, SEXP, SEXP);
 
 static const R_CallMethodDef CallEntries[] = {
