@@ -129,6 +129,8 @@ is that <code>curl_download</code> checks the http status code before starting t
 download, and raises an error when status is non-successful. The behavior of
 <code>curl_fetch_disk</code> on the other hand is to proceed as normal and write
 the error page to disk in case of a non success response.</p>
+<p>For a more advanced download interface which supports concurrent requests and
+resuming large files, have a look at the <a href="https://rdrr.io/pkg/curl/man/multi_download.html" class="external-link">multi_download</a> function.</p>
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
