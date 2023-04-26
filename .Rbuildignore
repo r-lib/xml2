@@ -22,3 +22,4 @@ windows
 \.dll$
 \.o$
 \.so$
+^CRAN-SUBMISSION$
