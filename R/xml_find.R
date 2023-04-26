@@ -113,6 +113,7 @@ xml_find_first <- function(x, xpath, ns = xml_ns(x)) {
   UseMethod("xml_find_first")
 }
 
+#' @export
 xml_find_first.xml_missing <- function(x, xpath, ns = xml_ns(x)) {
   xml_missing()
 }
@@ -121,7 +122,7 @@ xml_find_first.xml_missing <- function(x, xpath, ns = xml_ns(x)) {
 xml_find_first.xml_node <- function(x, xpath, ns = xml_ns(x)) {
   res <- .Call(xpath_search, x$node, x$doc, xpath, ns, 1)
   if (length(res) == 1) {
-     res[[1]]
+    res[[1]]
   } else {
     res
   }
