@@ -1,3 +1,5 @@
+# xml2 (development version)
+
 # xml2 1.3.4
 
 * Fixes for R CMD check problems.
