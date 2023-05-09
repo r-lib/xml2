@@ -1,6 +1,6 @@
 #include <iterator>
-#include <Rinternals.h>
 #include <vector>
+#include <Rinternals.h>
 #include "xml2_utils.h"
 
 // Wrapper around R's read_bin function
