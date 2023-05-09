@@ -1,9 +1,9 @@
-#include <Rinternals.h>
-
 #include <libxml/xmlschemas.h>
-#include "xml2_types.h"
 #include <vector>
 #include <string>
+
+#include <Rinternals.h>
+#include "xml2_types.h"
 #include "xml2_utils.h"
 
 void handleSchemaError(void* userData, xmlError* error) {
