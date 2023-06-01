@@ -123,10 +123,11 @@ create_node <- function(.value, ..., .parent, .copy) {
   parts <- strsplit(.value, ":")[[1]]
   if (length(parts) == 2 && !is.null(.parent$node)) {
       namespace <- .Call(ns_lookup, .parent$doc, .parent$node, parts[[1]])
-      node <- structure(list(node = .Call(node_new_ns, parts[[2]], namespace), doc = .parent$doc), class = "xml_node")
+      node <- list(node = .Call(node_new_ns, parts[[2]], namespace), doc = .parent$doc)
   } else {
-    node <- structure(list(node = .Call(node_new, .value), doc = .parent$doc), class = "xml_node")
+    node <- list(node = .Call(node_new, .value), doc = .parent$doc)
   }
+  class(node) <- "xml_node"
 
   args <- list(...)
   named <- has_names(args)
@@ -296,7 +297,9 @@ xml_set_namespace <- function(.x, prefix = "", uri = "") {
 # TODO: jimhester 2016-12-16 Deprecate this in the future?
 xml_new_document <- function(version = "1.0", encoding = "UTF-8") {
   doc <- .Call(doc_new, version, encoding)
-  structure(list(doc = doc), class = "xml_document")
+  out <- list(doc = doc)
+  class(out) <- "xml_document"
+  out
 }
 
 #' @param .version The version number of the document, passed to `xml_new_document(version)`.

@@ -7,7 +7,9 @@ xml_node <- function(node = NULL, doc = NULL) {
   if (inherits(node, "xml_node")) {
     node
   } else {
-    structure(list(node = node, doc = doc), class = "xml_node")
+    out <- list(node = node, doc = doc)
+    class(out) <- "xml_node"
+    out
   }
 }
 
@@ -38,7 +40,9 @@ xml_document <- function(doc) {
     class(x) <- c("xml_document", class(x))
     x
   } else {
-    structure(list(doc = doc), class = "xml_document")
+    out <- list(doc = doc)
+    class(out) <- "xml_document"
+    out
   }
 }
 
@@ -75,7 +79,8 @@ xml_nodeset <- function(nodes = list(), deduplicate = TRUE) {
   if (isTRUE(deduplicate)) {
     nodes <- nodes[!.Call(nodes_duplicated, nodes)]
   }
-  structure(nodes, class = "xml_nodeset")
+  class(nodes) <- "xml_nodeset"
+  nodes
 }
 
 #' @param nodes A list (possible nested) of external pointers to nodes
@@ -200,7 +205,9 @@ format_attributes <- function(x) {
 #' @export
 #' @keywords internal
 xml_missing <- function() {
-  structure(list(), class = "xml_missing")
+  out <- list()
+  class(out) <- "xml_missing"
+  out
 }
 
 #' @export
@@ -243,7 +250,8 @@ as.character.xml_missing <- function(x, ...) {
 #' as.character(x)
 #' @export
 xml_cdata <- function(content) {
-  structure(content, class = "xml_cdata")
+  class(content) <- "xml_cdata"
+  content
 }
 
 #' Construct a comment node
@@ -255,7 +263,8 @@ xml_cdata <- function(content) {
 #' as.character(x)
 #' @export
 xml_comment <- function(content) {
-  structure(content, class = "xml_comment")
+  class(content) <- "xml_comment"
+  content
 }
 
 #' Construct a document type definition
@@ -281,5 +290,7 @@ xml_comment <- function(content) {
 #' <doc>This is a valid document &foo; !</doc>')
 #' @export
 xml_dtd <- function(name = "", external_id = "", system_id = "") {
-  structure(list(name = name, external_id = external_id, system_id = system_id), class = "xml_dtd")
+  out <- list(name = name, external_id = external_id, system_id = system_id)
+  class(out) <- "xml_dtd"
+  out
 }
