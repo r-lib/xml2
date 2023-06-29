@@ -2,6 +2,8 @@
 
 * Small speedup for `xml_find_all()` (@mgirlich, #393).
 
+* Fixes for R CMD check problems.
+
 # xml2 1.3.4
 
 * Fixes for R CMD check problems.
