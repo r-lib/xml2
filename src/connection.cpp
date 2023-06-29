@@ -1,5 +1,8 @@
-#include <iterator>
+#define R_NO_REMAP
 #include <Rinternals.h>
+#undef R_NO_REMAP
+
+#include <iterator>
 #include <vector>
 #include "xml2_utils.h"
 
