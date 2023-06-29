@@ -1,4 +1,7 @@
+#define R_NO_REMAP
 #include <Rinternals.h>
+#undef R_NO_REMAP
+
 #include <libxml/xpath.h>
 #include <libxml/xpathInternals.h>
 #include <libxml/tree.h>
@@ -105,7 +108,7 @@ extern "C" SEXP xpath_search(SEXP node_sxp, SEXP doc_sxp, SEXP xpath_sxp, SEXP n
   XPtrNode node(node_sxp);
   XPtrDoc doc(doc_sxp);
   if (TYPEOF(xpath_sxp) != STRSXP) {
-    Rf_error("XPath must be a string, received %s", type2char(TYPEOF(xpath_sxp)));
+    Rf_error("XPath must be a string, received %s", Rf_type2char(TYPEOF(xpath_sxp)));
   }
   const char* xpath = CHAR(STRING_ELT(xpath_sxp, 0));
 

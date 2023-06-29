@@ -1,10 +1,12 @@
+#define R_NO_REMAP
 #include <Rinternals.h>
-#include "connection.h"
+#undef R_NO_REMAP
 
 #include <libxml/tree.h>
 #include <libxml/HTMLtree.h>
 #include <libxml/xmlsave.h>
 
+#include "connection.h"
 #include "xml2_types.h"
 #include "xml2_utils.h"
 

@@ -1,5 +1,8 @@
-#include <R.h>
+#define R_NO_REMAP
 #include <Rinternals.h>
+#undef R_NO_REMAP
+
+#include <R.h>
 #include <stdlib.h> // for NULL
 #include <R_ext/Rdynload.h>
 
