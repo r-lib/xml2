@@ -171,12 +171,12 @@ gc()
 ## Namespaces ##
 
 We want to construct a document with the following namespace layout. (From
-https://stackoverflow.com/questions/32939229/creating-xml-in-r-with-namespaces/32941524#32941524).
+<https://stackoverflow.com/questions/32939229/creating-xml-in-r-with-namespaces/32941524#32941524>).
 ```xml
 <?xml version = "1.0" encoding="UTF-8"?>
-<sld xmlns="http://www.o.net/sld"
-     xmlns:ogc="http://www.o.net/ogc"
-     xmlns:se="http://www.o.net/se"
+<sld xmlns="http://www.opengis.net/sld"
+     xmlns:ogc="http://www.opengis.net/ogc"
+     xmlns:se="http://www.opengis.net/se"
      version="1.1.0" >
 <layer>
 <se:Name>My Layer</se:Name>
@@ -186,10 +186,11 @@ https://stackoverflow.com/questions/32939229/creating-xml-in-r-with-namespaces/3
 
 ```{r}
 d <- xml_new_root("sld",
-    xmlns = "http://www.o.net/sld",
-    "xmlns:ogc" = "http://www.o.net/ogc",
-    "xmlns:se" = "http://www.o.net/se",
-    version = "1.1.0") %>%
+    "xmlns" = "http://www.opengis.net/sld",
+    "xmlns:ogc" = "http://www.opengis.net/ogc",
+    "xmlns:se" = "http://www.opengis.net//se",
+    version = "1.1.0"
+  ) %>%
   xml_add_child("layer") %>%
   xml_add_child("se:Name", "My Layer") %>%
   xml_root()
