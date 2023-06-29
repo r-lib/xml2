@@ -281,8 +281,8 @@ objects pointing to the node are still valid.</p>
 <span><span class="fu"><a href="https://rdrr.io/r/base/rm.html" class="external-link">rm</a></span><span class="op">(</span><span class="va">x1</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/gc.html" class="external-link">gc</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt;           used (Mb) gc trigger (Mb) max used (Mb)</span></span>
-<span><span class="co">#&gt; Ncells  668102 35.7    1323397 70.7  1323397 70.7</span></span>
-<span><span class="co">#&gt; Vcells 1160867  8.9    8388608 64.0  2570337 19.7</span></span>
+<span><span class="co">#&gt; Ncells  668106 35.7    1323402 70.7  1323402 70.7</span></span>
+<span><span class="co">#&gt; Vcells 1160874  8.9    8388608 64.0  2570437 19.7</span></span>
 <span></span>
 <span><span class="va">x2</span></span>
 <span><span class="co">#&gt; {xml_node}</span></span>
@@ -305,8 +305,8 @@ for example</p>
 <span><span class="fu"><a href="https://rdrr.io/r/base/rm.html" class="external-link">rm</a></span><span class="op">(</span><span class="va">bees</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/gc.html" class="external-link">gc</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt;           used (Mb) gc trigger (Mb) max used (Mb)</span></span>
-<span><span class="co">#&gt; Ncells  668117 35.7    1323397 70.7  1323397 70.7</span></span>
-<span><span class="co">#&gt; Vcells 1160866  8.9    8388608 64.0  2570337 19.7</span></span></code></pre></div>
+<span><span class="co">#&gt; Ncells  668118 35.7    1323402 70.7  1323402 70.7</span></span>
+<span><span class="co">#&gt; Vcells 1160876  8.9    8388608 64.0  2570437 19.7</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="namespaces">Namespaces<a class="anchor" aria-label="anchor" href="#namespaces"></a>
@@ -314,9 +314,9 @@ for example</p>
 <p>We want to construct a document with the following namespace layout.
 (From <a href="https://stackoverflow.com/questions/32939229/creating-xml-in-r-with-namespaces/32941524#32941524" class="external-link uri">https://stackoverflow.com/questions/32939229/creating-xml-in-r-with-namespaces/32941524#32941524</a>).</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">&lt;?xml</span><span class="ot"> version</span> <span class="ot">=</span> <span class="st">"1.0"</span><span class="ot"> encoding=</span><span class="st">"UTF-8"</span><span class="fu">?&gt;</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">sld</span><span class="ot"> xmlns=</span><span class="st">"http://www.o.net/sld"</span></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="ot">     xmlns:ogc=</span><span class="st">"http://www.o.net/ogc"</span></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="ot">     xmlns:se=</span><span class="st">"http://www.o.net/se"</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">sld</span><span class="ot"> xmlns=</span><span class="st">"http://www.opengis.net/sld"</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="ot">     xmlns:ogc=</span><span class="st">"http://www.opengis.net/ogc"</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="ot">     xmlns:se=</span><span class="st">"http://www.opengis.net/se"</span></span>
 <span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="ot">     version=</span><span class="st">"1.1.0"</span> &gt;</span>
 <span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">layer</span>&gt;</span>
 <span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">se:Name</span>&gt;My Layer&lt;/<span class="kw">se:Name</span>&gt;</span>
@@ -324,17 +324,18 @@ for example</p>
 <span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">sld</span>&gt;</span></code></pre></div>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">d</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/xml_new_document.html">xml_new_root</a></span><span class="op">(</span><span class="st">"sld"</span>,</span>
-<span>    xmlns <span class="op">=</span> <span class="st">"http://www.o.net/sld"</span>,</span>
-<span>    <span class="st">"xmlns:ogc"</span> <span class="op">=</span> <span class="st">"http://www.o.net/ogc"</span>,</span>
-<span>    <span class="st">"xmlns:se"</span> <span class="op">=</span> <span class="st">"http://www.o.net/se"</span>,</span>
-<span>    version <span class="op">=</span> <span class="st">"1.1.0"</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
+<span>    <span class="st">"xmlns"</span> <span class="op">=</span> <span class="st">"http://www.opengis.net/sld"</span>,</span>
+<span>    <span class="st">"xmlns:ogc"</span> <span class="op">=</span> <span class="st">"http://www.opengis.net/ogc"</span>,</span>
+<span>    <span class="st">"xmlns:se"</span> <span class="op">=</span> <span class="st">"http://www.opengis.net//se"</span>,</span>
+<span>    version <span class="op">=</span> <span class="st">"1.1.0"</span></span>
+<span>  <span class="op">)</span> <span class="op">%&gt;%</span></span>
 <span>  <span class="fu"><a href="../reference/xml_replace.html">xml_add_child</a></span><span class="op">(</span><span class="st">"layer"</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
 <span>  <span class="fu"><a href="../reference/xml_replace.html">xml_add_child</a></span><span class="op">(</span><span class="st">"se:Name"</span>, <span class="st">"My Layer"</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
 <span>  <span class="fu"><a href="../reference/xml_children.html">xml_root</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">d</span></span>
 <span><span class="co">#&gt; {xml_document}</span></span>
-<span><span class="co">#&gt; &lt;sld version="1.1.0" xmlns="http://www.o.net/sld" xmlns:ogc="http://www.o.net/ogc" xmlns:se="http://www.o.net/se"&gt;</span></span>
+<span><span class="co">#&gt; &lt;sld version="1.1.0" xmlns="http://www.opengis.net/sld" xmlns:ogc="http://www.opengis.net/ogc" xmlns:se="http://www.opengis.net//se"&gt;</span></span>
 <span><span class="co">#&gt; [1] &lt;layer&gt;\n  &lt;se:Name&gt;My Layer&lt;/se:Name&gt;\n&lt;/layer&gt;</span></span></code></pre></div>
 </div>
 </div>
