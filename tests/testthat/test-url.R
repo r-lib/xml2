@@ -10,16 +10,16 @@ test_that("url_absolute", {
 })
 
 test_that("url_relative", {
+  # The behavior of libxml2 with relative paths is fragile so we skip this test
+  skip("libxml2-dependent")
 
   expect_equal(
     url_relative("http://hadley.nz/a/c", "http://hadley.nz"),
     "/a/c")
 
-  # The behavior of libxml2 with relative paths is fragile so we skip this
-  # test
-  # expect_equal(
-  #   url_relative("http://hadley.nz/a/c", "http://hadley.nz/"),
-  #   "a/c")
+  expect_equal(
+    url_relative("http://hadley.nz/a/c", "http://hadley.nz/"),
+    "a/c")
 
   expect_equal(
     url_relative("http://hadley.nz/a/c", "http://hadley.nz/a/b"),
