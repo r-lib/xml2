@@ -210,7 +210,7 @@ xml_add_parent <- function(.x, .value, ...) {
 
 #' @export
 xml_add_parent.xml_node <- function(.x, .value, ...) {
-  new_parent <- xml_replace(.x, .value = .value, ..., .copy = FALSE)
+  new_parent <- xml_replace(.x, .value = .value, ..., .copy = TRUE)
   node <- xml_add_child(new_parent, .value = .x, .copy = FALSE)
 
   invisible(node)

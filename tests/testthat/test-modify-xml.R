@@ -194,6 +194,17 @@ test_that("xml_add_parent works with xml_missing input", {
     expect_equal(xml_name(xml_children(y)), c("em", "em"))
 })
 
+test_that("xml_add_parent not generating segfault during iteration", {
+  add_parent <- function() {
+    fruits <- read_xml("<fruits>
+      <apple color='red'></apple>
+      </fruits>")
+    xml_add_parent(fruits, read_xml("<food></food>"))
+  }
+
+  expect_no_error(for(i in 1:100) add_parent())
+})
+
 test_that("xml_new_document adds a default character encoding", {
 
   x <- read_xml("<root>\u00E1\u00FC\u00EE</root>")
