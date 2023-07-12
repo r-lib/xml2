@@ -197,7 +197,7 @@ test_that("xml_add_parent works with xml_missing input", {
 test_that("xml_add_parent not generating segfault during iteration", {
   add_parent <- function() {
     fruits <- read_xml("<fruits>
-      <apple color='red'></apple>
+      <apple></apple>
       </fruits>")
     xml_add_parent(fruits, read_xml("<food></food>"))
   }
