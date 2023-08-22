@@ -10,6 +10,7 @@
 coverage](https://codecov.io/gh/r-lib/xml2/branch/master/graph/badge.svg)](https://app.codecov.io/gh/r-lib/xml2?branch=main)
 [![R build
 status](https://github.com/r-lib/xml2/workflows/R-CMD-check/badge.svg)](https://github.com/r-lib/xml2/actions)
+[![R-CMD-check](https://github.com/r-lib/xml2/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/r-lib/xml2/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
 The xml2 package is a binding to [libxml2](http://xmlsoft.org), making
