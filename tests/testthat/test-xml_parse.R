@@ -66,7 +66,7 @@ test_that("read_xml works with httr response objects", {
   skip("httpbin is unreliable")
   x <- read_xml(httr::GET("http://httpbin.org/xml"))
 
-  expect_is(x, "xml_document")
+  expect_s3_class(x, "xml_document")
 
   expect_equal(length(xml_find_all(x, "//slide")), 2)
 })

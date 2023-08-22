@@ -8,14 +8,14 @@ test_that("xml_find_first returns a missing object if no match", {
 test_that("xml_find_first returns the first match if more than one match", {
   x <- read_xml("<x><y/><y/></x>")
   y <- xml_find_first(x, ".//y")
-  expect_is(y, "xml_node")
+  expect_s3_class(y, "xml_node")
 })
 
 test_that("xml_find_first does not deduplicate identical results", {
   x <- read_xml("<x><y/><y/></x>")
   y <- xml_find_all(x, ".//y")
   z <- xml_find_first(y, "..")
-  expect_is(z, "xml_nodeset")
+  expect_s3_class(z, "xml_nodeset")
   expect_equal(length(z), 2)
 })
 
@@ -55,7 +55,7 @@ test_that("xml_find_all returns nodeset or list of nodesets based on flatten", {
   y <- xml_find_all(x, ".//p")
   z <- xml_find_all(y, ".//b", flatten = FALSE)
   expect_s3_class(xml_find_all(y, ".//b"), "xml_nodeset")
-  expect_type(z, "list")
+  expect_s3_class(z, "list")
   expect_s3_class(z[[1L]], "xml_nodeset")
 })
 

@@ -41,7 +41,7 @@ test_that("xml_parents", {
 test_that("xml_root", {
   doc <- xml_new_document()
 
-  expect_is(xml_root(doc), "xml_missing")
+  expect_s3_class(xml_root(doc), "xml_missing")
 
   a <- xml_add_child(doc, "a")
   b <- xml_add_child(doc, "b")
