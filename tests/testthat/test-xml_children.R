@@ -46,6 +46,6 @@ test_that("xml_root", {
   a <- xml_add_child(doc, "a")
   b <- xml_add_child(doc, "b")
 
-  expect_that(xml_name(xml_root(b)), equals("a"))
-  expect_that(xml_name(xml_root(doc)), equals("a"))
+  expect_equal(xml_name(xml_root(b)), "a")
+  expect_equal(xml_name(xml_root(doc)), "a")
 })
