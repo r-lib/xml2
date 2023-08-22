@@ -1,6 +1,6 @@
 context("print")
 
-x <- read_html("lego.html.bz2")
+x <- read_html(test_path("lego.html.bz2"))
 body <- xml_find_first(x, "//body")
 divs <- xml_find_all(body, ".//div")[1:10]
 quicklinks <- xml_find_first(body, "//div[contains(@div, 'quicklinks')]")

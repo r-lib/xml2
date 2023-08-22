@@ -1,7 +1,7 @@
 context("xml_name")
 
 test_that("qualified names returned when ns given", {
-  x <- read_xml("ns-multiple-default.xml")
+  x <- read_xml(test_path("ns-multiple-default.xml"))
   ns <- xml_ns(x)
 
   bars <- xml_children(xml_children(x))
@@ -10,7 +10,7 @@ test_that("qualified names returned when ns given", {
 })
 
 test_that("error if missing ns spec", {
-  x <- read_xml("ns-multiple-default.xml")
+  x <- read_xml(test_path("ns-multiple-default.xml"))
   ns <- xml_ns(x)[1]
 
   bars <- xml_children(xml_children(x))
@@ -18,7 +18,7 @@ test_that("error if missing ns spec", {
 })
 
 test_that("xml_name<- modifies the name", {
-  x <- read_xml("ns-multiple-default.xml")
+  x <- read_xml(test_path("ns-multiple-default.xml"))
   ns <- xml_ns(x)
 
   bars <- xml_children(xml_children(x))
@@ -42,7 +42,7 @@ test_that("xml_name<- modifies the name", {
 })
 
 test_that("xml_set_name modifies the name", {
-  x <- read_xml("ns-multiple-default.xml")
+  x <- read_xml(test_path("ns-multiple-default.xml"))
   ns <- xml_ns(x)
 
   bars <- xml_children(xml_children(x))

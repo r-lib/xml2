@@ -24,13 +24,13 @@ test_that("xml_find_first does not deduplicate identical results", {
 # Find all ---------------------------------------------------------------------
 
 test_that("unqualified names don't look in default ns", {
-  x <- read_xml("ns-multiple-default.xml")
+  x <- read_xml(test_path("ns-multiple-default.xml"))
 
   expect_equal(length(xml_find_all(x, "//bar")), 0)
 })
 
 test_that("qualified names matches to namespace", {
-  x <- read_xml("ns-multiple-default.xml")
+  x <- read_xml(test_path("ns-multiple-default.xml"))
   ns <- xml_ns(x)
 
   expect_equal(length(xml_find_all(x, "//d1:bar", ns)), 1)

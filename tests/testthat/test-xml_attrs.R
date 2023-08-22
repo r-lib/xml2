@@ -31,7 +31,7 @@ test_that("returning an attribute node prints properly", {
 # Default namespace doesn't apply to attributes
 
 test_that("qualified names returned when ns given", {
-  x <- read_xml("ns-multiple.xml")
+  x <- read_xml(test_path("ns-multiple.xml"))
   ns <- xml_ns(x)
 
   bars <- xml_children(xml_children(x))

@@ -3,17 +3,17 @@ context("Namespaces")
 # XML parsing tests ------------------------------------------------------------
 
 test_that("multiple default namespaces given unique names", {
-  ns <- unclass(xml_ns(read_xml("ns-multiple-default.xml")))
+  ns <- unclass(xml_ns(read_xml(test_path("ns-multiple-default.xml"))))
   expect_equal(ns, c(d1 = "http://foo.com", d2 = "http://bar.com"))
 })
 
 test_that("repeated prefixes given unique names", {
-  ns <- unclass(xml_ns(read_xml("ns-multiple-prefix.xml")))
+  ns <- unclass(xml_ns(read_xml(test_path("ns-multiple-prefix.xml"))))
   expect_equal(ns, c(b = "http://baz.com", b1 = "http://bar.com"))
 })
 
 test_that("aliased prefixes retained", {
-  ns <- unclass(xml_ns(read_xml("ns-multiple-aliases.xml")))
+  ns <- unclass(xml_ns(read_xml(test_path("ns-multiple-aliases.xml"))))
   expect_equal(ns, c(b = "http://bar.com", c = "http://bar.com"))
 })
 
@@ -31,7 +31,7 @@ test_that("all prefixs kept", {
 })
 
 test_that("multiple default namespaces can be stripped", {
-  x <- read_xml("ns-multiple-default.xml")
+  x <- read_xml(test_path("ns-multiple-default.xml"))
   ns <- unclass(xml_ns(x))
   expect_equal(ns, c(d1 = "http://foo.com", d2 = "http://bar.com"))
   expect_equal(length(xml_find_all(x, "//bar")), 0)
