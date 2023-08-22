@@ -29,3 +29,10 @@ test_that("xml_structure can write to a file (#244)", {
   xml_structure(read_xml("<a><b><c/><c/></b><d/></a>"), file = tmp)
   expect_equal(readLines(tmp), c("<a>", "  <b>", "    <c>", "    <c>", "  <d>"))
 })
+
+test_that("xml_structure is correct", {
+  x <- read_html(test_path("lego.html.bz2"))
+
+  quicklinks <- xml_find_first(x, "//div[contains(@div, 'quicklinks')]")
+  expect_output_file(html_structure(quicklinks), "output/html_structure.txt", update = FALSE)
+})
