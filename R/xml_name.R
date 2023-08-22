@@ -42,7 +42,7 @@ xml_name.xml_node <- function(x, ns = character()) {
 #' @rdname xml_name
 #' @export
 `xml_name<-` <- function(x, ns = character(), value) {
-   UseMethod("xml_name<-")
+  UseMethod("xml_name<-")
 }
 
 #' @export
@@ -57,7 +57,7 @@ xml_name.xml_node <- function(x, ns = character()) {
     return(x)
   }
   if (!is.list(ns)) {
-     ns <- list(ns)
+    ns <- list(ns)
   }
   Map(`xml_name<-`, x, ns, value)
   x

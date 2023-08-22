@@ -7,7 +7,6 @@ saveRDS(data, file = tf)
 x <- readRDS(tf)
 
 test_that("accessors all fail rather than crash with NULL Xptrs", {
-
   expect_error(as_list(x), "external pointer is not valid")
 
   expect_error(html_structure(x), "external pointer is not valid")

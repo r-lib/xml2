@@ -38,7 +38,6 @@ test_that("xml_text<- creates new text nodes if needed", {
 })
 
 test_that("xml_remove removes nodes", {
-
   x <- read_xml("<parent><child>1</child><child>2<child>3</child></child></parent>")
   children <- xml_children(x)
   t1 <- children[[1]]
@@ -47,7 +46,6 @@ test_that("xml_remove removes nodes", {
 })
 
 test_that("xml_replace replaces nodes", {
-
   x <- read_xml("<parent><child>1</child><child>2<child>3</child></child></parent>")
   children <- xml_children(x)
   t1 <- children[[1]]
@@ -70,7 +68,6 @@ test_that("xml_replace replaces nodes", {
 })
 
 test_that("xml_replace works with nodesets", {
-
   x <- read_xml("<parent><child>1</child><child>2<child>3</child></child></parent>")
   children <- xml_children(x)
   t1 <- children[[1]]
@@ -186,16 +183,15 @@ test_that("xml_add_parent works with xml_missing input", {
     <p>No bold text</p>
     </body>")
 
-    y <- xml_find_all(x, ".//p")
-    z <- xml_find_first(y, ".//b")
-    xml_add_parent(z, "em")
+  y <- xml_find_all(x, ".//p")
+  z <- xml_find_first(y, ".//b")
+  xml_add_parent(z, "em")
 
-    expect_equal(xml_name(xml_parent(z)), c("em", "em"))
-    expect_equal(xml_name(xml_children(y)), c("em", "em"))
+  expect_equal(xml_name(xml_parent(z)), c("em", "em"))
+  expect_equal(xml_name(xml_children(y)), c("em", "em"))
 })
 
 test_that("xml_new_document adds a default character encoding", {
-
   x <- read_xml("<root>\u00E1\u00FC\u00EE</root>")
   expect_equal(as.character(x), "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<root>\u00E1\u00FC\u00EE</root>\n")
 
@@ -235,18 +231,17 @@ test_that("xml_add_child can insert anywhere in a nodeset", {
     <p>No bold text</p>
     </body>")
 
-    y <- xml_find_all(x, ".//p")
-    z <- xml_find_first(y, ".//b")
+  y <- xml_find_all(x, ".//p")
+  z <- xml_find_first(y, ".//b")
 
-    xml_add_child(z, "bar")
-    xml_add_child(z, "foo", .where = 0)
+  xml_add_child(z, "bar")
+  xml_add_child(z, "foo", .where = 0)
 
-    expect_equal(c("foo", "bar", "foo", "bar"), xml_name(xml_children(z)))
+  expect_equal(c("foo", "bar", "foo", "bar"), xml_name(xml_children(z)))
 })
 
 test_that("Can write root nodes with namespaces", {
-
-  x <- xml_new_root("foo:bar", "xmlns:foo"="http://foo/bar")
+  x <- xml_new_root("foo:bar", "xmlns:foo" = "http://foo/bar")
   expect_equal(unclass(xml_ns(x)), c(foo = "http://foo/bar"))
   expect_equal(as.character(xml_find_first(x, "/*")), "<foo:bar xmlns:foo=\"http://foo/bar\"/>")
 })

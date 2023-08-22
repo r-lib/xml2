@@ -44,7 +44,10 @@ test_that("write_xml works with an implicit connections", {
   filename <- "../test.xml.gz"
   write_xml(x, filename, options = "no_declaration")
   file <- gzfile(filename, "rb")
-  on.exit({unlink(filename); close(file)})
+  on.exit({
+    unlink(filename)
+    close(file)
+  })
   expect_identical(readChar(file, 1000L), "<x/>\n")
 })
 
@@ -54,8 +57,10 @@ test_that("write_xml works with nodeset input and files", {
 
   filename <- "../test.xml"
   on.exit(unlink(filename))
-  expect_error(write_xml(y, filename, options = "no_declaration"),
-    "Can only save length 1 node sets")
+  expect_error(
+    write_xml(y, filename, options = "no_declaration"),
+    "Can only save length 1 node sets"
+  )
 
   write_xml(y[1], filename, options = "no_declaration")
   expect_identical(readChar(filename, 1000L), "<y/>")
@@ -66,14 +71,19 @@ test_that("write_xml works with nodeset input and connections", {
   y <- xml_find_all(x, "//y")
 
   filename <- "../test.xml.gz"
-  expect_error(write_xml(y, filename, options = "no_declaration"),
-    "Can only save length 1 node sets")
+  expect_error(
+    write_xml(y, filename, options = "no_declaration"),
+    "Can only save length 1 node sets"
+  )
 
   expect_error(write_xml(y[1], c(filename, "foo")), "`file` must be a non-zero character of length 1")
 
   write_xml(y[1], filename, options = "no_declaration")
   file <- gzfile(filename, "rb")
-  on.exit({unlink(filename); close(file)})
+  on.exit({
+    unlink(filename)
+    close(file)
+  })
   expect_identical(readChar(file, 1000L), "<y/>")
 })
 
@@ -96,7 +106,10 @@ test_that("write_xml works with node input and connections", {
   filename <- "../test.xml.gz"
   write_xml(y, filename, options = "no_declaration")
   file <- gzfile(filename, "rb")
-  on.exit({unlink(filename); close(file)})
+  on.exit({
+    unlink(filename)
+    close(file)
+  })
   expect_identical(readChar(file, 1000L), "<y/>")
 })
 
@@ -106,9 +119,14 @@ test_that("write_html work with html input", {
   filename <- "../test.html.gz"
   write_html(x, filename)
   file <- gzfile(filename, "rb")
-  on.exit({unlink(filename); close(file)})
-  expect_identical(readChar(file, 1000L),
-    "<!DOCTYPE html PUBLIC \"-//W3C//DTD HTML 4.0 Transitional//EN\" \"http://www.w3.org/TR/REC-html40/loose.dtd\">\n<html><head>\n<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\n<title>Foo</title>\n</head></html>\n")
+  on.exit({
+    unlink(filename)
+    close(file)
+  })
+  expect_identical(
+    readChar(file, 1000L),
+    "<!DOCTYPE html PUBLIC \"-//W3C//DTD HTML 4.0 Transitional//EN\" \"http://www.w3.org/TR/REC-html40/loose.dtd\">\n<html><head>\n<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\n<title>Foo</title>\n</head></html>\n"
+  )
 })
 
 test_that("write_xml returns invisibly", {

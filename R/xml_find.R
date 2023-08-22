@@ -94,8 +94,9 @@ xml_find_all.xml_node <- function(x, xpath, ns = xml_ns(x), ...) {
 #' @export
 #' @rdname xml_find_all
 xml_find_all.xml_nodeset <- function(x, xpath, ns = xml_ns(x), flatten = TRUE, ...) {
-  if (length(x) == 0)
+  if (length(x) == 0) {
     return(xml_nodeset())
+  }
 
   res <- lapply(x, function(x) .Call(xpath_search, x$node, x$doc, xpath, ns, Inf))
 
@@ -130,11 +131,19 @@ xml_find_first.xml_node <- function(x, xpath, ns = xml_ns(x)) {
 
 #' @export
 xml_find_first.xml_nodeset <- function(x, xpath, ns = xml_ns(x)) {
-  if (length(x) == 0)
+  if (length(x) == 0) {
     return(xml_nodeset())
+  }
 
-  xml_nodeset(lapply(x, function(x)
-      xml_find_first(x, xpath = xpath, ns = ns)), deduplicate = FALSE)
+  xml_nodeset(
+    lapply(
+      x,
+      function(x) {
+        xml_find_first(x, xpath = xpath, ns = ns)
+      }
+    ),
+    deduplicate = FALSE
+  )
 }
 
 
@@ -155,15 +164,16 @@ xml_find_num.xml_node <- function(x, xpath, ns = xml_ns(x)) {
 
 #' @export
 xml_find_num.xml_nodeset <- function(x, xpath, ns = xml_ns(x)) {
-  if (length(x) == 0)
+  if (length(x) == 0) {
     return(numeric())
+  }
 
   vapply(x, function(x) xml_find_num(x, xpath = xpath, ns = ns), numeric(1))
 }
 
 #' @export
 xml_find_num.xml_missing <- function(x, xpath, ns = xml_ns(x)) {
-   numeric(0)
+  numeric(0)
 }
 
 #' @export
@@ -183,15 +193,16 @@ xml_find_chr.xml_node <- function(x, xpath, ns = xml_ns(x)) {
 
 #' @export
 xml_find_chr.xml_nodeset <- function(x, xpath, ns = xml_ns(x)) {
-  if (length(x) == 0)
+  if (length(x) == 0) {
     return(character())
+  }
 
   vapply(x, function(x) xml_find_chr(x, xpath = xpath, ns = ns), character(1))
 }
 
 #' @export
 xml_find_chr.xml_missing <- function(x, xpath, ns = xml_ns(x)) {
-   character(0)
+  character(0)
 }
 
 #' @export
@@ -211,15 +222,16 @@ xml_find_lgl.xml_node <- function(x, xpath, ns = xml_ns(x)) {
 
 #' @export
 xml_find_lgl.xml_nodeset <- function(x, xpath, ns = xml_ns(x)) {
-  if (length(x) == 0)
+  if (length(x) == 0) {
     return(logical())
+  }
 
   vapply(x, function(x) xml_find_lgl(x, xpath = xpath, ns = ns), logical(1))
 }
 
 #' @export
 xml_find_lgl.xml_missing <- function(x, xpath, ns = xml_ns(x)) {
-   logical(0)
+  logical(0)
 }
 
 # Deprecated functions ----------------------------------------------------

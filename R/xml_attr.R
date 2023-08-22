@@ -75,10 +75,16 @@ xml_attr.xml_node <- function(x, attr, ns = character(),
 }
 
 #' @export
-xml_attr.xml_nodeset <- function(x, attr,  ns = character(),
+xml_attr.xml_nodeset <- function(x, attr, ns = character(),
                                  default = NA_character_) {
-  vapply(x, xml_attr, attr = attr, default = default, ns = ns,
-    FUN.VALUE = character(1))
+  vapply(
+    x,
+    xml_attr,
+    attr = attr,
+    default = default,
+    ns = ns,
+    FUN.VALUE = character(1)
+  )
 }
 
 #' @export
@@ -191,7 +197,7 @@ xml_set_attr.xml_missing <- set_attr_fun
 
   # replace existing attributes and add new ones
   Map(function(attr, val) {
-      xml_attr(x, attr, ns) <- val
+    xml_attr(x, attr, ns) <- val
   }, attr = c(existing, new), value[c(existing, new)])
 
 
@@ -209,10 +215,10 @@ xml_set_attr.xml_missing <- set_attr_fun
     return(x)
   }
   if (!is.list(ns)) {
-     ns <- list(ns)
+    ns <- list(ns)
   }
   if (!is.list(value)) {
-     value <- list(value)
+    value <- list(value)
   }
   if (!all(vapply(value, is_named, logical(1)))) {
     stop("`value` must be a list of named character vectors")

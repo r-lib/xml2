@@ -9,13 +9,12 @@ b <- xml_find_first(para, ".//b")
 mss <- b[[3]]
 
 test_that("xml_find returns nodes of class 'xml_missing' for missing nodes", {
-    expect_equal(length(b), 3L)
-    expect_equal(vapply(b, length, integer(1)), c(2L, 2L, 0L))
-    expect_is(mss, "xml_missing")
+  expect_equal(length(b), 3L)
+  expect_equal(vapply(b, length, integer(1)), c(2L, 2L, 0L))
+  expect_is(mss, "xml_missing")
 })
 
 test_that("xml_missing methods return properly for all S3 methods", {
-
   expect_equal(as.character(mss), NA_character_)
   expect_equal(as_list(mss), list())
   expect_equal(nodeset_apply(mss), xml_nodeset())
@@ -39,6 +38,7 @@ test_that("xml_missing methods return properly for all S3 methods", {
   expect_equal(xml_url(mss), NA_character_)
 })
 
-test_that("is.na() should return TRUE for xml_missing",
+test_that(
+  "is.na() should return TRUE for xml_missing",
   expect_true(is.na(xml_missing()))
 )

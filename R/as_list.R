@@ -52,10 +52,12 @@ as_list.xml_node <- function(x, ns = character(), ...) {
     # Base case - contents
     type <- xml_type(x)
 
-    if (type %in% c("text", "cdata"))
+    if (type %in% c("text", "cdata")) {
       return(xml_text(x))
-    if (type != "element" && type != "document")
+    }
+    if (type != "element" && type != "document") {
       return(paste("[", type, "]"))
+    }
 
     out <- list()
   } else {

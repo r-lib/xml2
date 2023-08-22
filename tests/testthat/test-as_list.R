@@ -22,16 +22,22 @@ test_that("xml attributes become R attibutes", {
 })
 
 test_that("xml names are preserved when attributes exist", {
-  expect_equal(list_xml("<x a='1' b='2'><y>3</y><z>4</z></x>"),
-               list(x = structure(list(y = list('3'), z = list('4')), a = "1", b = "2")))
+  expect_equal(
+    list_xml("<x a='1' b='2'><y>3</y><z>4</z></x>"),
+    list(x = structure(list(y = list("3"), z = list("4")), a = "1", b = "2"))
+  )
 })
 
 test_that("special attributes are escaped", {
-  expect_equal(list_xml("<x a='1' b='2' names='esc'><y>3</y><z>4</z></x>"),
-               list(x = structure(list(y = list('3'), z = list('4')), a = "1", b = "2", .names='esc')))
+  expect_equal(
+    list_xml("<x a='1' b='2' names='esc'><y>3</y><z>4</z></x>"),
+    list(x = structure(list(y = list("3"), z = list("4")), a = "1", b = "2", .names = "esc"))
+  )
 })
 
 test_that("attributes in child nodes", {
-  expect_equal(list_xml("<w aa = '0'><x a='1' b='2' names='esc'><y>3</y><z>4</z></x></w>"),
-               list(w = structure(list(x = structure(list(y = list('3'), z = list('4')), a = "1", b = "2", .names='esc')), aa = "0")))
+  expect_equal(
+    list_xml("<w aa = '0'><x a='1' b='2' names='esc'><y>3</y><z>4</z></x></w>"),
+    list(w = structure(list(x = structure(list(y = list("3"), z = list("4")), a = "1", b = "2", .names = "esc")), aa = "0"))
+  )
 })

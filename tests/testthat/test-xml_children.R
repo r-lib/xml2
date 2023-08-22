@@ -36,7 +36,8 @@ test_that("xml_parent", {
 test_that("xml_parents", {
   expect_equal(
     xml_name(xml_parents(xml_find_first(x, "//boo"))),
-    c("bar", "foo"))
+    c("bar", "foo")
+  )
 })
 
 test_that("xml_root", {

@@ -1,8 +1,9 @@
 path_to_connection <- function(path, check = c("file", "dir")) {
   check <- match.arg(check)
 
-  if (!is.character(path) || length(path) != 1L)
+  if (!is.character(path) || length(path) != 1L) {
     return(path)
+  }
 
   if (is_url(path)) {
     if (requireNamespace("curl", quietly = TRUE)) {
@@ -31,12 +32,14 @@ is_url <- function(path) {
 }
 
 check_path <- function(path) {
-  if (file.exists(path))
+  if (file.exists(path)) {
     return(normalizePath(path, "/", mustWork = FALSE))
+  }
 
   stop("'", path, "' does not exist",
-    if (!is_absolute_path(path))
-      paste0(" in current working directory ('", getwd(), "')"),
+    if (!is_absolute_path(path)) {
+      paste0(" in current working directory ('", getwd(), "')")
+    },
     ".",
     call. = FALSE
   )

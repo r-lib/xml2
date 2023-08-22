@@ -66,20 +66,28 @@ read_xml <- function(x, encoding = "", ..., as_html = FALSE, options = "NOBLANKS
 
 #' @export
 #' @rdname read_xml
-read_html <- function(x, encoding = "", ..., options = c("RECOVER", "NOERROR", "NOBLANKS")) {
+read_html <- function(x,
+                      encoding = "",
+                      ...,
+                      options = c("RECOVER", "NOERROR", "NOBLANKS")) {
   UseMethod("read_html")
 }
 
 #' @export
-read_html.default <- function(x, encoding = "", ..., options = c("RECOVER", "NOERROR", "NOBLANKS")) {
+read_html.default <- function(x,
+                              encoding = "",
+                              ...,
+                              options = c("RECOVER", "NOERROR", "NOBLANKS")) {
   options <- parse_options(options, xml_parse_options())
 
   suppressWarnings(read_xml(x, encoding = encoding, ..., as_html = TRUE, options = options))
 }
 
 #' @export
-read_html.response <- function(x, encoding = "", options = c("RECOVER",
-    "NOERROR", "NOBLANKS"), ...) {
+read_html.response <- function(x,
+                               encoding = "",
+                               options = c("RECOVER", "NOERROR", "NOBLANKS"),
+                               ...) {
   need_package("httr")
 
   options <- parse_options(options, xml_parse_options())
@@ -91,9 +99,11 @@ read_html.response <- function(x, encoding = "", options = c("RECOVER",
 
 #' @export
 #' @rdname read_xml
-read_xml.character <- function(x, encoding = "", ..., as_html = FALSE,
+read_xml.character <- function(x,
+                               encoding = "",
+                               ...,
+                               as_html = FALSE,
                                options = "NOBLANKS") {
-
   if (length(x) == 0) {
     stop("Document is empty", call. = FALSE)
   }
@@ -108,11 +118,15 @@ read_xml.character <- function(x, encoding = "", ..., as_html = FALSE,
   } else {
     con <- path_to_connection(x)
     if (inherits(con, "connection")) {
-      read_xml.connection(con, encoding = encoding, ..., as_html = as_html,
-        base_url = x, options = options)
+      read_xml.connection(con,
+        encoding = encoding, ..., as_html = as_html,
+        base_url = x, options = options
+      )
     } else {
-      doc <- .Call(doc_parse_file, con, encoding = encoding, as_html = as_html,
-        options = options)
+      doc <- .Call(doc_parse_file, con,
+        encoding = encoding, as_html = as_html,
+        options = options
+      )
       xml_document(doc)
     }
   }
@@ -120,8 +134,12 @@ read_xml.character <- function(x, encoding = "", ..., as_html = FALSE,
 
 #' @export
 #' @rdname read_xml
-read_xml.raw <- function(x, encoding = "", base_url = "", ...,
-                         as_html = FALSE, options = "NOBLANKS") {
+read_xml.raw <- function(x,
+                         encoding = "",
+                         base_url = "",
+                         ...,
+                         as_html = FALSE,
+                         options = "NOBLANKS") {
   options <- parse_options(options, xml_parse_options())
 
   doc <- .Call(doc_parse_raw, x, encoding, base_url, as_html, options)
@@ -130,9 +148,14 @@ read_xml.raw <- function(x, encoding = "", base_url = "", ...,
 
 #' @export
 #' @rdname read_xml
-read_xml.connection <- function(x, encoding = "", n = 64 * 1024,
-                                verbose = FALSE, ..., base_url = "",
-                                as_html = FALSE, options = "NOBLANKS") {
+read_xml.connection <- function(x,
+                                encoding = "",
+                                n = 64 * 1024,
+                                verbose = FALSE,
+                                ...,
+                                base_url = "",
+                                as_html = FALSE,
+                                options = "NOBLANKS") {
   options <- parse_options(options, xml_parse_options())
 
   if (!isOpen(x)) {
@@ -141,20 +164,28 @@ read_xml.connection <- function(x, encoding = "", n = 64 * 1024,
   }
 
   raw <- .Call(read_connection_, x, n)
-  read_xml.raw(raw, encoding = encoding, base_url = base_url, as_html =
-    as_html, options = options)
+  read_xml.raw(raw,
+    encoding = encoding, base_url = base_url, as_html =
+      as_html, options = options
+  )
 }
 
 #' @export
-read_xml.response <- function(x, encoding = "", base_url = "", ...,
-                              as_html = FALSE, options = "NOBLANKS") {
+read_xml.response <- function(x,
+                              encoding = "",
+                              base_url = "",
+                              ...,
+                              as_html = FALSE,
+                              options = "NOBLANKS") {
   need_package("httr")
 
   options <- parse_options(options, xml_parse_options())
   httr::stop_for_status(x)
   content <- httr::content(x, as = "raw")
-  xml2::read_xml(content, encoding = encoding, base_url = if (nzchar(base_url)) base_url else x$url,
-    as_html = as_html, option = options, ...)
+  xml2::read_xml(content,
+    encoding = encoding, base_url = if (nzchar(base_url)) base_url else x$url,
+    as_html = as_html, option = options, ...
+  )
 }
 
 #' Download a HTML or XML file
@@ -172,9 +203,11 @@ read_xml.response <- function(x, encoding = "", base_url = "", ...,
 #' \dontrun{
 #' download_html("http://tidyverse.org/index.html")
 #' }
-download_xml <- function(url, file = basename(url), quiet = TRUE, mode = "wb",
-  handle = curl::new_handle()) {
-
+download_xml <- function(url,
+                         file = basename(url),
+                         quiet = TRUE,
+                         mode = "wb",
+                         handle = curl::new_handle()) {
   if (!requireNamespace("curl", quietly = TRUE)) {
     stop("`curl` must be installed to use `download_xml()`", call. = FALSE)
   }

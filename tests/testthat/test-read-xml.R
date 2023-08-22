@@ -16,11 +16,15 @@ test_that("read_html correctly parses malformed document", {
 })
 
 test_that("parse_options errors when given an invalid option", {
-  expect_error(parse_options("INVALID", xml_parse_options()),
-    "`options` 'INVALID' is not a valid option")
+  expect_error(
+    parse_options("INVALID", xml_parse_options()),
+    "`options` 'INVALID' is not a valid option"
+  )
 
-  expect_error(read_html(test_path("lego.html.bz2"), options = "INVALID"),
-    "`options` 'INVALID' is not a valid option")
+  expect_error(
+    read_html(test_path("lego.html.bz2"), options = "INVALID"),
+    "`options` 'INVALID' is not a valid option"
+  )
 
   # Empty inputs returned as 0
   expect_identical(0L, parse_options("", xml_parse_options()))
@@ -35,17 +39,20 @@ test_that("parse_options errors when given an invalid option", {
 })
 
 test_that("read_html properly passes parser arguments", {
-
   skip_if_not(libxml2_version() >= "2.9.2")
 
   blanks <- read_html(xml2_example("cd_catalog.xml"), options = c("RECOVER", "NOERROR"))
-  expect_equal(as_list(blanks)$html$body$catalog$cd[[1]],
-    "\r\n    ")
+  expect_equal(
+    as_list(blanks)$html$body$catalog$cd[[1]],
+    "\r\n    "
+  )
 
   no_blanks <- read_html(xml2_example("cd_catalog.xml"), options = c("RECOVER", "NOERROR", "NOBLANKS"))
 
-  expect_equal(as_list(no_blanks)$html$body$catalog$cd[[1]],
-    list("Empire Burlesque"))
+  expect_equal(
+    as_list(no_blanks)$html$body$catalog$cd[[1]],
+    list("Empire Burlesque")
+  )
 })
 
 test_that("read_xml works with httr response objects", {
@@ -83,8 +90,10 @@ test_that("read_html works with non-ASCII encodings", {
   writeLines("<html><body>\U2019</body></html>", tmp, useBytes = TRUE)
   res <- read_html(tmp, encoding = "UTF-8")
 
-  expect_equal(as.character(res, options = ""),
-    "<!DOCTYPE html PUBLIC \"-//W3C//DTD HTML 4.0 Transitional//EN\" \"http://www.w3.org/TR/REC-html40/loose.dtd\">\n<html><body>\U2019</body></html>\n")
+  expect_equal(
+    as.character(res, options = ""),
+    "<!DOCTYPE html PUBLIC \"-//W3C//DTD HTML 4.0 Transitional//EN\" \"http://www.w3.org/TR/REC-html40/loose.dtd\">\n<html><body>\U2019</body></html>\n"
+  )
 })
 
 test_that("read_xml and read_html fail with > 1 input", {

@@ -1,11 +1,9 @@
 context("format")
 test_that("format.xml_node prints attributes for root nodes", {
-
   x <- read_xml("<parent foo = 'bar' />")
   expect_equal(format(x), "<parent foo=\"bar\">")
 })
 test_that("format.xml_node prints namespaces for root nodes", {
-
   x <- read_xml("<parent/>")
   expect_equal(format(x), "<parent>")
 

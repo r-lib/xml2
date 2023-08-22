@@ -15,7 +15,7 @@ xml_node <- function(node = NULL, doc = NULL) {
 
 #' @export
 as.character.xml_node <- function(x, ..., options = "format", encoding = "UTF-8") {
-  options  <- parse_options(options, xml_save_options())
+  options <- parse_options(options, xml_save_options())
   .Call(node_write_character, x$node, encoding, options)
 }
 
@@ -69,7 +69,7 @@ print.xml_document <- function(x, width = getOption("width"), max_n = 20, ...) {
 
 #' @export
 as.character.xml_document <- function(x, ..., options = "format", encoding = "UTF-8") {
-  options  <- parse_options(options, xml_save_options())
+  options <- parse_options(options, xml_save_options())
   .Call(doc_write_character, x$doc, encoding, options)
 }
 
@@ -97,8 +97,9 @@ print.xml_nodeset <- function(x, width = getOption("width"), max_n = 20, ...) {
   n <- length(x)
   cat("{", doc_type(x), "_nodeset (", n, ")}\n", sep = "")
 
-  if (n > 0)
+  if (n > 0) {
     show_nodes(x, width = width, max_n = max_n)
+  }
 }
 
 #' @export
@@ -118,8 +119,9 @@ show_nodes <- function(x, width = getOption("width"), max_n = 20) {
   stopifnot(inherits(x, "xml_nodeset"))
 
   n <- length(x)
-  if (n == 0)
+  if (n == 0) {
     return()
+  }
 
   if (n > max_n) {
     n <- max_n
@@ -153,8 +155,9 @@ nodeset_apply.xml_missing <- function(x, fun, ...) {
 
 #' @export
 nodeset_apply.xml_nodeset <- function(x, fun, ...) {
-  if (length(x) == 0)
+  if (length(x) == 0) {
     return(xml_nodeset())
+  }
 
   is_missing <- is.na(x)
   res <- list(length(x))
@@ -187,10 +190,15 @@ format.xml_node <- function(x, ...) {
   attrs <- xml_attrs(x)
   paste("<",
     paste(
-      c(xml_name(x),
-        format_attributes(attrs)),
-      collapse = " "),
-    ">", sep = "")
+      c(
+        xml_name(x),
+        format_attributes(attrs)
+      ),
+      collapse = " "
+    ),
+    ">",
+    sep = ""
+  )
 }
 
 format_attributes <- function(x) {
@@ -277,17 +285,21 @@ xml_comment <- function(content) {
 #' @param system_id The system ID of the declaration
 #' @examples
 #' r <- xml_new_root(
-#'   xml_dtd("html",
+#'   xml_dtd(
+#'     "html",
 #'     "-//W3C//DTD XHTML 1.0 Transitional//EN",
-#'     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"))
+#'     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"
+#'   )
+#' )
 #'
 #' # Use read_xml directly for more complicated DTD
 #' d <- read_xml(
-#' '<!DOCTYPE doc [
+#'   '<!DOCTYPE doc [
 #' <!ELEMENT doc (#PCDATA)>
 #' <!ENTITY foo " test ">
 #' ]>
-#' <doc>This is a valid document &foo; !</doc>')
+#' <doc>This is a valid document &foo; !</doc>'
+#' )
 #' @export
 xml_dtd <- function(name = "", external_id = "", system_id = "") {
   out <- list(name = name, external_id = external_id, system_id = system_id)

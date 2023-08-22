@@ -105,17 +105,20 @@ test_that("xml_attrs<- modifies all attributes", {
   expect_error(xml_attrs(docs) <- "test", "`value` must be a list of named character vectors")
 
   xml_attrs(docs, ns) <- c("b:id" = "b", "id" = "test")
-  expect_equal(xml_attrs(docs, ns),
+  expect_equal(
+    xml_attrs(docs, ns),
     list(
       c("b:id" = "b", "id" = "test"),
-      c("b:id" = "b", "id" = "test")))
+      c("b:id" = "b", "id" = "test")
+    )
+  )
 
   xml_attrs(docs, ns) <- NULL
   expect_equivalent(xml_attrs(docs, ns), list(character(0), character(0)))
 })
 
 test_that("xml_attr<- accepts non-character values", {
-  x <- read_xml('<svg><rect /></svg>')
+  x <- read_xml("<svg><rect /></svg>")
   svg <- xml_root(x)
 
   xml_attr(svg, "width") <- 8L

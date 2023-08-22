@@ -36,7 +36,7 @@ write_xml.xml_missing <- function(x, file, ...) {
 #' @rdname write_xml
 #' @export
 write_xml.xml_document <- function(x, file, ..., options = "format", encoding = "UTF-8") {
-  options  <- parse_options(options, xml_save_options())
+  options <- parse_options(options, xml_save_options())
   file <- path_to_connection(file, check = "dir")
 
   if (inherits(file, "connection")) {
@@ -61,7 +61,7 @@ write_xml.xml_nodeset <- function(x, file, ..., options = "format", encoding = "
     stop("Can only save length 1 node sets", call. = FALSE)
   }
 
-  options  <- parse_options(options, xml_save_options())
+  options <- parse_options(options, xml_save_options())
   file <- path_to_connection(file, check = "dir")
 
   if (inherits(file, "connection")) {
@@ -82,7 +82,7 @@ write_xml.xml_nodeset <- function(x, file, ..., options = "format", encoding = "
 
 #' @export
 write_xml.xml_node <- function(x, file, ..., options = "format", encoding = "UTF-8") {
-  options  <- parse_options(options, xml_save_options())
+  options <- parse_options(options, xml_save_options())
 
   file <- path_to_connection(file, check = "dir")
   if (inherits(file, "connection")) {

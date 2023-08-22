@@ -27,7 +27,6 @@ xml_replace <- function(.x, .value, ..., .copy = TRUE) {
 
 #' @export
 xml_replace.xml_node <- function(.x, .value, ..., .copy = TRUE) {
-
   node <- create_node(.value, .parent = .x, .copy = .copy, ...)
 
   .x$node <- .Call(node_replace, .x$node, node$node)
@@ -36,7 +35,6 @@ xml_replace.xml_node <- function(.x, .value, ..., .copy = TRUE) {
 
 #' @export
 xml_replace.xml_nodeset <- function(.x, .value, ..., .copy = TRUE) {
-
   if (length(.x) == 0) {
     return(.x)
   }
@@ -68,7 +66,8 @@ xml_add_sibling.xml_node <- function(.x, .value, ..., .where = c("after", "befor
 
   .x$node <- switch(.where,
     before = .Call(node_prepend_sibling, .x$node, node$node),
-    after = .Call(node_append_sibling, .x$node, node$node))
+    after = .Call(node_append_sibling, .x$node, node$node)
+  )
 
   invisible(.x)
 }
@@ -122,8 +121,8 @@ create_node <- function(.value, ..., .parent, .copy) {
 
   parts <- strsplit(.value, ":")[[1]]
   if (length(parts) == 2 && !is.null(.parent$node)) {
-      namespace <- .Call(ns_lookup, .parent$doc, .parent$node, parts[[1]])
-      node <- list(node = .Call(node_new_ns, parts[[2]], namespace), doc = .parent$doc)
+    namespace <- .Call(ns_lookup, .parent$doc, .parent$node, parts[[1]])
+    node <- list(node = .Call(node_new_ns, parts[[2]], namespace), doc = .parent$doc)
   } else {
     node <- list(node = .Call(node_new, .value), doc = .parent$doc)
   }
@@ -145,22 +144,21 @@ xml_add_child <- function(.x, .value, ..., .where = length(xml_children(.x)), .c
 
 #' @export
 xml_add_child.xml_node <- function(.x, .value, ..., .where = length(xml_children(.x)), .copy = inherits(.value, "xml_node")) {
-
   node <- create_node(.value, .parent = .x, .copy = .copy, ...)
 
   if (.where == 0L) {
-    if(.Call(node_has_children, .x$node, TRUE)) {
+    if (.Call(node_has_children, .x$node, TRUE)) {
       .Call(node_prepend_child, .x$node, node$node)
-    }
-    else {
+    } else {
       .Call(node_append_child, .x$node, node$node)
     }
   } else {
     num_children <- length(xml_children(.x))
     if (.where >= num_children) {
       .Call(node_append_child, .x$node, node$node)
-    } else
+    } else {
       .Call(node_append_sibling, xml_child(.x, search = .where)$node, node$node)
+    }
   }
 
   invisible(node)
@@ -239,7 +237,7 @@ xml_add_parent.xml_missing <- function(.x, .value, ..., .copy = TRUE) {
 #' @rdname xml_replace
 #' @export
 xml_remove <- function(.x, free = FALSE) {
-   UseMethod("xml_remove")
+  UseMethod("xml_remove")
 }
 
 #' @export
@@ -316,12 +314,13 @@ xml_new_root <- function(.value, ..., .copy = inherits(.value, "xml_node"), .ver
 #' @inheritParams xml_name
 #' @examples
 #' x <- read_xml(
-#'  "<foo xmlns = 'http://foo.com'>
+#'   "<foo xmlns = 'http://foo.com'>
 #'    <baz/>
 #'    <bar xmlns = 'http://bar.com'>
 #'      <baz/>
 #'    </bar>
-#'   </foo>")
+#'   </foo>"
+#' )
 #' # Need to specify the default namespaces to find the baz nodes
 #' xml_find_all(x, "//d1:baz")
 #' xml_find_all(x, "//d2:baz")
@@ -331,7 +330,6 @@ xml_new_root <- function(.value, ..., .copy = inherits(.value, "xml_node"), .ver
 #' xml_find_all(x, "//baz")
 #' @export
 xml_ns_strip <- function(x) {
-
   # //namespace::*[name()=''] finds all the namespace definition nodes with no
   # prefix (default namespaces).
   # What we actually want is the element node the definitions are contained in

@@ -10,16 +10,17 @@
 #' @export
 #' @examples
 # empty lists generate empty nodes
-#'as_xml_document(list(x = list()))
+#' as_xml_document(list(x = list()))
 #'
-#'# Nesting multiple nodes
-#'as_xml_document(list(foo = list(bar = list(baz = list()))))
+#' # Nesting multiple nodes
+#' as_xml_document(list(foo = list(bar = list(baz = list()))))
 #'
-#'# attributes are stored as R attributes
-#'as_xml_document(list(foo = structure(list(), id = "a")))
-#'as_xml_document(list(foo = list(
-#'      bar = structure(list(), id = "a"),
-#'      bar = structure(list(), id = "b"))))
+#' # attributes are stored as R attributes
+#' as_xml_document(list(foo = structure(list(), id = "a")))
+#' as_xml_document(list(foo = list(
+#'   bar = structure(list(), id = "a"),
+#'   bar = structure(list(), id = "b")
+#' )))
 as_xml_document <- function(x, ...) {
   UseMethod("as_xml_document")
 }

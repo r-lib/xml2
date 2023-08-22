@@ -1,4 +1,4 @@
-.onLoad <- function(lib, pkg){
+.onLoad <- function(lib, pkg) {
   .Call(init_libxml2)
 }
 
