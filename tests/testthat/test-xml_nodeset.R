@@ -75,5 +75,5 @@ test_that("print method is correct", {
   x <- read_html(test_path("lego.html.bz2"))
   body <- xml_find_first(x, "//body")
   divs <- xml_find_all(body, ".//div")[1:10]
-  expect_output_file(print(divs), "output/print-xml_nodeset.txt", update = FALSE)
+  expect_snapshot(print(divs))
 })

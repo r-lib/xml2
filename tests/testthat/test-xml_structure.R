@@ -32,5 +32,5 @@ test_that("xml_structure is correct", {
   x <- read_html(test_path("lego.html.bz2"))
 
   quicklinks <- xml_find_first(x, "//div[contains(@div, 'quicklinks')]")
-  expect_output_file(html_structure(quicklinks), "output/html_structure.txt", update = FALSE)
+  expect_snapshot(html_structure(quicklinks))
 })
