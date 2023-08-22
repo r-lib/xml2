@@ -1,13 +1,10 @@
-context("Null XPtr")
-
-data <- read_xml("ns-multiple.xml")
+data <- read_xml(test_path("ns-multiple.xml"))
 tf <- tempfile()
 on.exit(unlink(tf))
 saveRDS(data, file = tf)
 x <- readRDS(tf)
 
 test_that("accessors all fail rather than crash with NULL Xptrs", {
-
   expect_error(as_list(x), "external pointer is not valid")
 
   expect_error(html_structure(x), "external pointer is not valid")

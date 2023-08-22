@@ -1,8 +1,9 @@
 path_to_connection <- function(path, check = c("file", "dir")) {
   check <- match.arg(check)
 
-  if (!is.character(path) || length(path) != 1L)
+  if (!is.character(path) || length(path) != 1L) {
     return(path)
+  }
 
   if (is_url(path)) {
     if (requireNamespace("curl", quietly = TRUE)) {
@@ -30,16 +31,19 @@ is_url <- function(path) {
   grepl("^(http|ftp)s?://", path)
 }
 
-check_path <- function(path) {
-  if (file.exists(path))
+check_path <- function(path, call = caller_env()) {
+  if (file.exists(path)) {
     return(normalizePath(path, "/", mustWork = FALSE))
+  }
 
-  stop("'", path, "' does not exist",
-    if (!is_absolute_path(path))
-      paste0(" in current working directory ('", getwd(), "')"),
-    ".",
-    call. = FALSE
-  )
+
+  msg <- "{.file {path}} does not exist"
+  if (!is_absolute_path(path)) {
+    msg <- paste0(msg, " in current working directory ({.path {getwd()}})")
+  }
+  msg <- paste0(msg, ".")
+
+  cli::cli_abort(msg, call = call)
 }
 
 is_absolute_path <- function(path) {

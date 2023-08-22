@@ -94,8 +94,9 @@ xml_find_all.xml_node <- function(x, xpath, ns = xml_ns(x), ...) {
 #' @export
 #' @rdname xml_find_all
 xml_find_all.xml_nodeset <- function(x, xpath, ns = xml_ns(x), flatten = TRUE, ...) {
-  if (length(x) == 0)
+  if (length(x) == 0) {
     return(xml_nodeset())
+  }
 
   res <- lapply(x, function(x) .Call(xpath_search, x$node, x$doc, xpath, ns, Inf))
 
@@ -130,11 +131,19 @@ xml_find_first.xml_node <- function(x, xpath, ns = xml_ns(x)) {
 
 #' @export
 xml_find_first.xml_nodeset <- function(x, xpath, ns = xml_ns(x)) {
-  if (length(x) == 0)
+  if (length(x) == 0) {
     return(xml_nodeset())
+  }
 
-  xml_nodeset(lapply(x, function(x)
-      xml_find_first(x, xpath = xpath, ns = ns)), deduplicate = FALSE)
+  xml_nodeset(
+    lapply(
+      x,
+      function(x) {
+        xml_find_first(x, xpath = xpath, ns = ns)
+      }
+    ),
+    deduplicate = FALSE
+  )
 }
 
 
@@ -147,23 +156,26 @@ xml_find_num <- function(x, xpath, ns = xml_ns(x)) {
 #' @export
 xml_find_num.xml_node <- function(x, xpath, ns = xml_ns(x)) {
   res <- .Call(xpath_search, x$node, x$doc, xpath, ns, Inf)
-  if (!is.numeric(res)) {
-    stop("result of type: ", sQuote(class(res)), ", not numeric", call. = FALSE)
+  if (is.numeric(res) && is.nan(res)) {
+    return(res)
   }
+
+  check_number_decimal(res, arg = I(paste0("Element at path `", xpath, "`")))
   res
 }
 
 #' @export
 xml_find_num.xml_nodeset <- function(x, xpath, ns = xml_ns(x)) {
-  if (length(x) == 0)
+  if (length(x) == 0) {
     return(numeric())
+  }
 
   vapply(x, function(x) xml_find_num(x, xpath = xpath, ns = ns), numeric(1))
 }
 
 #' @export
 xml_find_num.xml_missing <- function(x, xpath, ns = xml_ns(x)) {
-   numeric(0)
+  numeric(0)
 }
 
 #' @export
@@ -175,23 +187,22 @@ xml_find_chr <- function(x, xpath, ns = xml_ns(x)) {
 #' @export
 xml_find_chr.xml_node <- function(x, xpath, ns = xml_ns(x)) {
   res <- .Call(xpath_search, x$node, x$doc, xpath, ns, Inf)
-  if (!is.character(res)) {
-    stop("result of type: ", sQuote(class(res)), ", not character", call. = FALSE)
-  }
+  check_string(res, arg = I(paste0("Element at path `", xpath, "`")))
   res
 }
 
 #' @export
 xml_find_chr.xml_nodeset <- function(x, xpath, ns = xml_ns(x)) {
-  if (length(x) == 0)
+  if (length(x) == 0) {
     return(character())
+  }
 
   vapply(x, function(x) xml_find_chr(x, xpath = xpath, ns = ns), character(1))
 }
 
 #' @export
 xml_find_chr.xml_missing <- function(x, xpath, ns = xml_ns(x)) {
-   character(0)
+  character(0)
 }
 
 #' @export
@@ -203,23 +214,22 @@ xml_find_lgl <- function(x, xpath, ns = xml_ns(x)) {
 #' @export
 xml_find_lgl.xml_node <- function(x, xpath, ns = xml_ns(x)) {
   res <- .Call(xpath_search, x$node, x$doc, xpath, ns, Inf)
-  if (!is.logical(res)) {
-    stop("result of type: ", sQuote(class(res)), ", not logical", call. = FALSE)
-  }
+  check_bool(res, arg = I(paste0("Element at path `", xpath, "`")))
   res
 }
 
 #' @export
 xml_find_lgl.xml_nodeset <- function(x, xpath, ns = xml_ns(x)) {
-  if (length(x) == 0)
+  if (length(x) == 0) {
     return(logical())
+  }
 
   vapply(x, function(x) xml_find_lgl(x, xpath = xpath, ns = ns), logical(1))
 }
 
 #' @export
 xml_find_lgl.xml_missing <- function(x, xpath, ns = xml_ns(x)) {
-   logical(0)
+  logical(0)
 }
 
 # Deprecated functions ----------------------------------------------------

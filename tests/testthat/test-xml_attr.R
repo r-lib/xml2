@@ -1,5 +1,3 @@
-context("xml_attrs")
-
 test_that("missing attributes returned as NA by default", {
   x <- read_xml("<x/>")
   expect_equal(xml_attr(x, "id"), NA_character_)
@@ -31,7 +29,7 @@ test_that("returning an attribute node prints properly", {
 # Default namespace doesn't apply to attributes
 
 test_that("qualified names returned when ns given", {
-  x <- read_xml("ns-multiple.xml")
+  x <- read_xml(test_path("ns-multiple.xml"))
   ns <- xml_ns(x)
 
   bars <- xml_children(xml_children(x))
@@ -102,32 +100,35 @@ test_that("xml_attrs<- modifies all attributes", {
   xml_attrs(doc, ns) <- c("b:id" = "b", "id" = "test")
   expect_equal(xml_attrs(doc, ns), c("b:id" = "b", "id" = "test"))
 
-  expect_error(xml_attrs(docs) <- "test", "`value` must be a list of named character vectors")
+  expect_snapshot_error(xml_attrs(docs) <- "test")
 
   xml_attrs(docs, ns) <- c("b:id" = "b", "id" = "test")
-  expect_equal(xml_attrs(docs, ns),
+  expect_equal(
+    xml_attrs(docs, ns),
     list(
       c("b:id" = "b", "id" = "test"),
-      c("b:id" = "b", "id" = "test")))
+      c("b:id" = "b", "id" = "test")
+    )
+  )
 
   xml_attrs(docs, ns) <- NULL
-  expect_equivalent(xml_attrs(docs, ns), list(character(0), character(0)))
+  expect_equal(xml_attrs(docs, ns), list(setNames(character(0), character()), setNames(character(0), character())))
 })
 
 test_that("xml_attr<- accepts non-character values", {
-  x <- read_xml('<svg><rect /></svg>')
+  x <- read_xml("<svg><rect /></svg>")
   svg <- xml_root(x)
 
   xml_attr(svg, "width") <- 8L
-  expect_that(xml_attr(svg, "width"), equals("8"))
+  expect_equal(xml_attr(svg, "width"), "8")
 
   xml_attr(svg, "height") <- 12.5
-  expect_that(xml_attr(svg, "height"), equals("12.5"))
+  expect_equal(xml_attr(svg, "height"), "12.5")
 
-  expect_that(xml_attrs(svg), equals(c(width = "8", height = "12.5")))
+  expect_equal(xml_attrs(svg), c(width = "8", height = "12.5"))
 
   xml_attrs(svg) <- c(width = 14L, height = 23.45)
-  expect_that(xml_attrs(svg), equals(c(width = "14", height = "23.45")))
+  expect_equal(xml_attrs(svg), c(width = "14", height = "23.45"))
 })
 
 test_that("xml_attr<- can set empty strings, and removes attributes with NULL", {

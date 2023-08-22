@@ -1,5 +1,3 @@
-context("as_xml_document")
-
 roundtrip_xml <- function(x) {
   xml <- read_xml(x)
   lst <- as_list(xml)

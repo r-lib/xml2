@@ -14,12 +14,13 @@ Strip the default namespaces from a document
 }
 \examples{
 x <- read_xml(
- "<foo xmlns = 'http://foo.com'>
+  "<foo xmlns = 'http://foo.com'>
    <baz/>
    <bar xmlns = 'http://bar.com'>
      <baz/>
    </bar>
-  </foo>")
+  </foo>"
+)
 # Need to specify the default namespaces to find the baz nodes
 xml_find_all(x, "//d1:baz")
 xml_find_all(x, "//d2:baz")

@@ -1,5 +1,3 @@
-context("xml_schema")
-
 test_that("xml schema validates", {
   doc <- read_xml(system.file("extdata/order-doc.xml", package = "xml2"))
   schema <- read_xml(system.file("extdata/order-schema.xml", package = "xml2"))
@@ -16,6 +14,6 @@ test_that("xml schema errors", {
   out <- xml_validate(doc, schema)
   expect_false(out)
   errors <- attr(out, "errors")
-  expect_is(errors, "character")
+  expect_type(errors, "character")
   expect_length(errors, 4)
 })

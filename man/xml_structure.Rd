@@ -31,7 +31,7 @@ way a document is organised. Compared to \code{xml_structure},
 \examples{
 xml_structure(read_xml("<a><b><c/><c/></b><d/></a>"))
 
-rproj <- read_html(system.file("extdata","r-project.html", package = "xml2"))
+rproj <- read_html(system.file("extdata", "r-project.html", package = "xml2"))
 xml_structure(rproj)
 xml_structure(xml_find_all(rproj, ".//p"))
 

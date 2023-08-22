@@ -10,16 +10,17 @@
 #' @export
 #' @examples
 # empty lists generate empty nodes
-#'as_xml_document(list(x = list()))
+#' as_xml_document(list(x = list()))
 #'
-#'# Nesting multiple nodes
-#'as_xml_document(list(foo = list(bar = list(baz = list()))))
+#' # Nesting multiple nodes
+#' as_xml_document(list(foo = list(bar = list(baz = list()))))
 #'
-#'# attributes are stored as R attributes
-#'as_xml_document(list(foo = structure(list(), id = "a")))
-#'as_xml_document(list(foo = list(
-#'      bar = structure(list(), id = "a"),
-#'      bar = structure(list(), id = "b"))))
+#' # attributes are stored as R attributes
+#' as_xml_document(list(foo = structure(list(), id = "a")))
+#' as_xml_document(list(foo = list(
+#'   bar = structure(list(), id = "a"),
+#'   bar = structure(list(), id = "b")
+#' )))
 as_xml_document <- function(x, ...) {
   UseMethod("as_xml_document")
 }
@@ -39,7 +40,7 @@ as_xml_document.response <- read_xml.response
 #' @export
 as_xml_document.list <- function(x, ...) {
   if (length(x) > 1) {
-    stop("Root nodes must be of length 1", call. = FALSE)
+    abort("Root nodes must be of length 1")
   }
 
 

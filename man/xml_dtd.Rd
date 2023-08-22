@@ -20,15 +20,19 @@ to parse a string directly with \code{read_xml()}.
 }
 \examples{
 r <- xml_new_root(
-  xml_dtd("html",
+  xml_dtd(
+    "html",
     "-//W3C//DTD XHTML 1.0 Transitional//EN",
-    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"))
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"
+  )
+)
 
 # Use read_xml directly for more complicated DTD
 d <- read_xml(
-'<!DOCTYPE doc [
+  '<!DOCTYPE doc [
 <!ELEMENT doc (#PCDATA)>
 <!ENTITY foo " test ">
 ]>
-<doc>This is a valid document &foo; !</doc>')
+<doc>This is a valid document &foo; !</doc>'
+)
 }

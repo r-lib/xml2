@@ -1,5 +1,3 @@
-context("xml_find")
-
 # Find one ---------------------------------------------------------------------
 
 test_that("xml_find_first returns a missing object if no match", {
@@ -10,27 +8,27 @@ test_that("xml_find_first returns a missing object if no match", {
 test_that("xml_find_first returns the first match if more than one match", {
   x <- read_xml("<x><y/><y/></x>")
   y <- xml_find_first(x, ".//y")
-  expect_is(y, "xml_node")
+  expect_s3_class(y, "xml_node")
 })
 
 test_that("xml_find_first does not deduplicate identical results", {
   x <- read_xml("<x><y/><y/></x>")
   y <- xml_find_all(x, ".//y")
   z <- xml_find_first(y, "..")
-  expect_is(z, "xml_nodeset")
+  expect_s3_class(z, "xml_nodeset")
   expect_equal(length(z), 2)
 })
 
 # Find all ---------------------------------------------------------------------
 
 test_that("unqualified names don't look in default ns", {
-  x <- read_xml("ns-multiple-default.xml")
+  x <- read_xml(test_path("ns-multiple-default.xml"))
 
   expect_equal(length(xml_find_all(x, "//bar")), 0)
 })
 
 test_that("qualified names matches to namespace", {
-  x <- read_xml("ns-multiple-default.xml")
+  x <- read_xml(test_path("ns-multiple-default.xml"))
   ns <- xml_ns(x)
 
   expect_equal(length(xml_find_all(x, "//d1:bar", ns)), 1)
@@ -41,7 +39,8 @@ test_that("warning if unknown namespace", {
   x <- read_xml("<foo><bar /></foo>")
   maybe_error(
     expect_warning(xml_find_all(x, "//g:bar"), "Undefined namespace prefix"),
-    "evaluation failed")
+    "evaluation failed"
+  )
 })
 
 test_that("no matches returns empty nodeset", {
@@ -53,20 +52,22 @@ test_that("xml_find_all returns nodeset or list of nodesets based on flatten", {
   x <- read_xml("<body><p>Some <b>text</b>.</p>
                  <p>Some <b>other</b> <b>text</b>.</p>
                  <p>No bold here!</p></body>")
-  y <- xml_find_all(x, './/p')
-  z <- xml_find_all(y, './/b', flatten = FALSE)
-  expect_s3_class(xml_find_all(y, './/b'), 'xml_nodeset')
-  expect_type(z, 'list')
-  expect_s3_class(z[[1L]], 'xml_nodeset')
+  y <- xml_find_all(x, ".//p")
+  z <- xml_find_all(y, ".//b", flatten = FALSE)
+  expect_s3_class(xml_find_all(y, ".//b"), "xml_nodeset")
+  expect_type(z, "list")
+  expect_s3_class(z[[1L]], "xml_nodeset")
 })
 
 # Find num ---------------------------------------------------------------------
 test_that("xml_find_num errors with non numeric results", {
   x <- read_xml("<x><y/><y/></x>")
-  expect_error(xml_find_num(x, "//z"), "result of type:.*xml_missing.*, not numeric")
-  expect_error(xml_find_num(x, "//y"), "result of type:.*list.*, not numeric")
-  expect_error(xml_find_num(x, "1=1"), "result of type:.*logical.*, not numeric")
-  expect_error(xml_find_num(x, "string(5)"), "result of type:.*character.*, not numeric")
+  expect_snapshot_error({
+    xml_find_num(x, "//z")
+    xml_find_num(x, "//y")
+    xml_find_num(x, "1=1")
+    xml_find_num(x, "string(5)")
+  })
 })
 
 test_that("xml_find_num returns a numeric result", {
@@ -87,10 +88,12 @@ test_that("xml_find_num returns a numeric result", {
 # Find chr ---------------------------------------------------------------------
 test_that("xml_find_chr errors with non character results", {
   x <- read_xml("<x><y/><y/></x>")
-  expect_error(xml_find_chr(x, "//z"), "result of type:.*xml_missing.*, not character")
-  expect_error(xml_find_chr(x, "//y"), "result of type:.*list.*, not character")
-  expect_error(xml_find_chr(x, "1=1"), "result of type:.*logical.*, not character")
-  expect_error(xml_find_chr(x, "1+1"), "result of type:.*numeric.*, not character")
+  expect_snapshot_error({
+    xml_find_chr(x, "//z")
+    xml_find_chr(x, "//y")
+    xml_find_chr(x, "1=1")
+    xml_find_chr(x, "1+1")
+  })
 })
 
 test_that("xml_find_chr returns a character result", {
@@ -113,10 +116,12 @@ test_that("xml_find_chr returns a character result", {
 # Find lgl ---------------------------------------------------------------------
 test_that("xml_find_lgl errors with non logical results", {
   x <- read_xml("<x><y/><y/></x>")
-  expect_error(xml_find_lgl(x, "//z"), "result of type:.*xml_missing.*, not logical")
-  expect_error(xml_find_lgl(x, "//y"), "result of type:.*list.*, not logical")
-  expect_error(xml_find_lgl(x, "string(5)"), "result of type:.*character.*, not logical")
-  expect_error(xml_find_lgl(x, "1+1"), "result of type:.*numeric.*, not logical")
+  expect_snapshot_error({
+    xml_find_lgl(x, "//z")
+    xml_find_lgl(x, "//y")
+    xml_find_lgl(x, "string(5)")
+    xml_find_lgl(x, "1+1")
+  })
 })
 
 test_that("xml_find_lgl returns a logical result", {

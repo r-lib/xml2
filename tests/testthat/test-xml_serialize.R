@@ -1,5 +1,3 @@
-context("xml_serialize")
-
 x <- read_xml("<a>
   <b><c>123</c></b>
   <b><c>456</c></b>

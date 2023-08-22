@@ -26,19 +26,15 @@ is_installed <- function(pkg) {
   requireNamespace(pkg, quietly = TRUE)
 }
 
-need_package <- function(pkg) {
-  if (is_installed(pkg)) return(invisible())
-
-  stop("Please install ", pkg, " package", call. = FALSE)
-}
-
 # Format the C bitwise flags for display in Rd. The input object is a named
 # integer vector with a 'descriptions' character vector attribute that
 # corresponds to each flag.
 describe_options <- function(x) {
-  paste0("\\describe{\n",
+  paste0(
+    "\\describe{\n",
     paste0("  \\item{", names(x), "}{", attr(x, "descriptions"), "}", collapse = "\n"),
-  "\n}")
+    "\n}"
+  )
 }
 
 s_quote <- function(x) paste0("'", x, "'")
@@ -59,10 +55,14 @@ parse_options <- function(arg, options) {
   # non-matches, then take only unique results
   i <- pmatch(arg, names(options), duplicates.ok = TRUE)
   if (any(is.na(i))) {
-    stop(sprintf("`options` %s is not a valid option, should be one of %s",
-      s_quote(arg[is.na(i)][1L]),
-      paste(s_quote(names(options)), collapse = ", ")),
-      call. = FALSE)
+    stop(
+      sprintf(
+        "`options` %s is not a valid option, should be one of %s",
+        s_quote(arg[is.na(i)][1L]),
+        paste(s_quote(names(options)), collapse = ", ")
+      ),
+      call. = FALSE
+    )
   }
   sum(options[unique(i)])
 }

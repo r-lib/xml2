@@ -45,7 +45,7 @@ xml_children <- function(x) {
 #' @rdname xml_children
 xml_child <- function(x, search = 1, ns = xml_ns(x)) {
   if (length(search) != 1) {
-    stop("`search` must be of length 1", call. = FALSE)
+    cli::cli_abort("{.arg {search}} must be of length 1.")
   }
 
   if (is.numeric(search)) {
@@ -53,7 +53,7 @@ xml_child <- function(x, search = 1, ns = xml_ns(x)) {
   } else if (is.character(search)) {
     xml_find_first(x, xpath = paste0("./", search), ns = ns)
   } else {
-    stop("`search` must be `numeric` or `character`", call. = FALSE)
+    cli::cli_abort("{.arg search} must be `numeric` or `character`.")
   }
 }
 
@@ -115,8 +115,9 @@ xml_length.xml_node <- function(x, only_elements = TRUE) {
 
 #' @export
 xml_length.xml_nodeset <- function(x, only_elements = TRUE) {
-  if (length(x) == 0)
+  if (length(x) == 0) {
     return(0L)
+  }
 
   vapply(x, xml_length, only_elements = only_elements, FUN.VALUE = integer(1))
 }

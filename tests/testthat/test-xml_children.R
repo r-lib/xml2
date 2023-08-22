@@ -1,5 +1,3 @@
-context("xml_children")
-
 x <- read_xml("<foo> <bar><boo /></bar> <baz/> </foo>")
 
 test_that("xml_child() returns the proper child", {
@@ -13,7 +11,7 @@ test_that("xml_child() returns child by name", {
 })
 
 test_that("xml_child() errors if more than one search is given", {
-  expect_error(xml_child(x, 1:2), "`search` must be of length 1")
+  expect_snapshot_error(xml_child(x, 1:2))
 })
 
 test_that("xml_child() errors if search is not numeric or character", {
@@ -36,17 +34,18 @@ test_that("xml_parent", {
 test_that("xml_parents", {
   expect_equal(
     xml_name(xml_parents(xml_find_first(x, "//boo"))),
-    c("bar", "foo"))
+    c("bar", "foo")
+  )
 })
 
 test_that("xml_root", {
   doc <- xml_new_document()
 
-  expect_is(xml_root(doc), "xml_missing")
+  expect_s3_class(xml_root(doc), "xml_missing")
 
   a <- xml_add_child(doc, "a")
   b <- xml_add_child(doc, "b")
 
-  expect_that(xml_name(xml_root(b)), equals("a"))
-  expect_that(xml_name(xml_root(doc)), equals("a"))
+  expect_equal(xml_name(xml_root(b)), "a")
+  expect_equal(xml_name(xml_root(doc)), "a")
 })

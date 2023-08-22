@@ -12,7 +12,7 @@
 #' @examples
 #' xml_structure(read_xml("<a><b><c/><c/></b><d/></a>"))
 #'
-#' rproj <- read_html(system.file("extdata","r-project.html", package = "xml2"))
+#' rproj <- read_html(system.file("extdata", "r-project.html", package = "xml2"))
 #' xml_structure(rproj)
 #' xml_structure(xml_find_all(rproj, ".//p"))
 #'
@@ -51,7 +51,7 @@ tree_structure.xml_nodeset <- function(x, indent = 2, html = FALSE, file = "") {
 }
 
 #' @export
-tree_structure.xml_node <-  function(x, indent = 2, html = FALSE, file = "") {
+tree_structure.xml_node <- function(x, indent = 2, html = FALSE, file = "") {
   print_xml_structure(x, indent = indent, html = html, file = file)
   invisible()
 }
@@ -61,7 +61,6 @@ print_xml_structure <- function(x, prefix = 0, indent = 2, html = FALSE, file = 
   type <- xml_type(x)
 
   if (type == "element") {
-
     attr <- xml_attrs(x)
     if (html) {
       html_attrs <- list()
@@ -87,8 +86,14 @@ print_xml_structure <- function(x, prefix = 0, indent = 2, html = FALSE, file = 
     node <- paste0("<", xml_name(x), attr_str, ">")
 
     cat(padding, node, "\n", sep = "", file = file, append = TRUE)
-    lapply(xml_contents(x), print_xml_structure, prefix = prefix + indent,
-      indent = indent, html = html, file = file)
+    lapply(
+      xml_contents(x),
+      print_xml_structure,
+      prefix = prefix + indent,
+      indent = indent,
+      html = html,
+      file = file
+    )
   } else {
     cat(padding, "{", type, "}\n", sep = "", file = file, append = TRUE)
   }
