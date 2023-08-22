@@ -156,9 +156,11 @@ xml_find_num <- function(x, xpath, ns = xml_ns(x)) {
 #' @export
 xml_find_num.xml_node <- function(x, xpath, ns = xml_ns(x)) {
   res <- .Call(xpath_search, x$node, x$doc, xpath, ns, Inf)
-  if (!is.numeric(res)) {
-    stop("result of type: ", sQuote(class(res)), ", not numeric", call. = FALSE)
+  if (is.numeric(res) && is.nan(res)) {
+    return(res)
   }
+
+  check_number_decimal(res, arg = I(paste0("Element at path `", xpath, "`")))
   res
 }
 
@@ -185,9 +187,7 @@ xml_find_chr <- function(x, xpath, ns = xml_ns(x)) {
 #' @export
 xml_find_chr.xml_node <- function(x, xpath, ns = xml_ns(x)) {
   res <- .Call(xpath_search, x$node, x$doc, xpath, ns, Inf)
-  if (!is.character(res)) {
-    stop("result of type: ", sQuote(class(res)), ", not character", call. = FALSE)
-  }
+  check_string(res, arg = I(paste0("Element at path `", xpath, "`")))
   res
 }
 
@@ -214,9 +214,7 @@ xml_find_lgl <- function(x, xpath, ns = xml_ns(x)) {
 #' @export
 xml_find_lgl.xml_node <- function(x, xpath, ns = xml_ns(x)) {
   res <- .Call(xpath_search, x$node, x$doc, xpath, ns, Inf)
-  if (!is.logical(res)) {
-    stop("result of type: ", sQuote(class(res)), ", not logical", call. = FALSE)
-  }
+  check_bool(res, arg = I(paste0("Element at path `", xpath, "`")))
   res
 }
 

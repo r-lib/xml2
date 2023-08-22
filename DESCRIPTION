@@ -21,7 +21,7 @@ Imports:
     glue,
     lifecycle,
     methods,
-    rlang,
+    rlang (>= 1.1.0),
     withr
 Suggests:
     covr,

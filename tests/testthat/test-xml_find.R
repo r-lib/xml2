@@ -62,10 +62,12 @@ test_that("xml_find_all returns nodeset or list of nodesets based on flatten", {
 # Find num ---------------------------------------------------------------------
 test_that("xml_find_num errors with non numeric results", {
   x <- read_xml("<x><y/><y/></x>")
-  expect_error(xml_find_num(x, "//z"), "result of type:.*xml_missing.*, not numeric")
-  expect_error(xml_find_num(x, "//y"), "result of type:.*list.*, not numeric")
-  expect_error(xml_find_num(x, "1=1"), "result of type:.*logical.*, not numeric")
-  expect_error(xml_find_num(x, "string(5)"), "result of type:.*character.*, not numeric")
+  expect_snapshot_error({
+    xml_find_num(x, "//z")
+    xml_find_num(x, "//y")
+    xml_find_num(x, "1=1")
+    xml_find_num(x, "string(5)")
+  })
 })
 
 test_that("xml_find_num returns a numeric result", {
@@ -86,10 +88,12 @@ test_that("xml_find_num returns a numeric result", {
 # Find chr ---------------------------------------------------------------------
 test_that("xml_find_chr errors with non character results", {
   x <- read_xml("<x><y/><y/></x>")
-  expect_error(xml_find_chr(x, "//z"), "result of type:.*xml_missing.*, not character")
-  expect_error(xml_find_chr(x, "//y"), "result of type:.*list.*, not character")
-  expect_error(xml_find_chr(x, "1=1"), "result of type:.*logical.*, not character")
-  expect_error(xml_find_chr(x, "1+1"), "result of type:.*numeric.*, not character")
+  expect_snapshot_error({
+    xml_find_chr(x, "//z")
+    xml_find_chr(x, "//y")
+    xml_find_chr(x, "1=1")
+    xml_find_chr(x, "1+1")
+  })
 })
 
 test_that("xml_find_chr returns a character result", {
@@ -112,10 +116,12 @@ test_that("xml_find_chr returns a character result", {
 # Find lgl ---------------------------------------------------------------------
 test_that("xml_find_lgl errors with non logical results", {
   x <- read_xml("<x><y/><y/></x>")
-  expect_error(xml_find_lgl(x, "//z"), "result of type:.*xml_missing.*, not logical")
-  expect_error(xml_find_lgl(x, "//y"), "result of type:.*list.*, not logical")
-  expect_error(xml_find_lgl(x, "string(5)"), "result of type:.*character.*, not logical")
-  expect_error(xml_find_lgl(x, "1+1"), "result of type:.*numeric.*, not logical")
+  expect_snapshot_error({
+    xml_find_lgl(x, "//z")
+    xml_find_lgl(x, "//y")
+    xml_find_lgl(x, "string(5)")
+    xml_find_lgl(x, "1+1")
+  })
 })
 
 test_that("xml_find_lgl returns a logical result", {
