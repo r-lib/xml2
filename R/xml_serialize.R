@@ -66,7 +66,7 @@ xml_unserialize <- function(connection, ...) {
   } else if (inherits(object, "xml_serialized_document")) {
     res <- read_xml(unclass(object), ...)
   } else {
-    stop("Not a serialized xml2 object", call. = FALSE)
+    abort("Not a serialized xml2 object")
   }
   res
 }

@@ -26,14 +26,6 @@ is_installed <- function(pkg) {
   requireNamespace(pkg, quietly = TRUE)
 }
 
-need_package <- function(pkg) {
-  if (is_installed(pkg)) {
-    return(invisible())
-  }
-
-  stop("Please install ", pkg, " package", call. = FALSE)
-}
-
 # Format the C bitwise flags for display in Rd. The input object is a named
 # integer vector with a 'descriptions' character vector attribute that
 # corresponds to each flag.

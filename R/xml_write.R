@@ -30,7 +30,7 @@ write_xml <- function(x, file, ...) {
 
 #' @export
 write_xml.xml_missing <- function(x, file, ...) {
-  stop("Missing data cannot be written", call. = FALSE)
+  abort("Missing data cannot be written")
 }
 
 #' @rdname write_xml
@@ -56,7 +56,7 @@ write_xml.xml_document <- function(x, file, ..., options = "format", encoding = 
 #' @export
 write_xml.xml_nodeset <- function(x, file, ..., options = "format", encoding = "UTF-8") {
   if (length(x) != 1) {
-    stop("Can only save length 1 node sets", call. = FALSE)
+    abort("Can only save length 1 node sets")
   }
 
   options <- parse_options(options, xml_save_options())
@@ -104,7 +104,7 @@ write_html <- function(x, file, ...) {
 
 #' @export
 write_html.xml_missing <- function(x, file, ...) {
-  stop("Missing data cannot be written", call. = FALSE)
+  abort("Missing data cannot be written")
 }
 
 #' @rdname write_xml

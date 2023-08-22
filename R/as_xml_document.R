@@ -40,7 +40,7 @@ as_xml_document.response <- read_xml.response
 #' @export
 as_xml_document.list <- function(x, ...) {
   if (length(x) > 1) {
-    stop("Root nodes must be of length 1", call. = FALSE)
+    abort("Root nodes must be of length 1")
   }
 
 

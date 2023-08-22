@@ -88,7 +88,7 @@ read_html.response <- function(x,
                                encoding = "",
                                options = c("RECOVER", "NOERROR", "NOBLANKS"),
                                ...) {
-  need_package("httr")
+  check_installed("httr")
 
   options <- parse_options(options, xml_parse_options())
 
@@ -104,13 +104,7 @@ read_xml.character <- function(x,
                                ...,
                                as_html = FALSE,
                                options = "NOBLANKS") {
-  if (length(x) == 0) {
-    stop("Document is empty", call. = FALSE)
-  }
-
-  if (length(x) > 1) {
-    stop("`x` must be a string of length 1", call. = FALSE)
-  }
+  check_string(x)
 
   options <- parse_options(options, xml_parse_options())
   if (grepl("<|>", x)) {
@@ -177,7 +171,7 @@ read_xml.response <- function(x,
                               ...,
                               as_html = FALSE,
                               options = "NOBLANKS") {
-  need_package("httr")
+  check_installed("httr")
 
   options <- parse_options(options, xml_parse_options())
   httr::stop_for_status(x)
@@ -208,9 +202,7 @@ download_xml <- function(url,
                          quiet = TRUE,
                          mode = "wb",
                          handle = curl::new_handle()) {
-  if (!requireNamespace("curl", quietly = TRUE)) {
-    stop("`curl` must be installed to use `download_xml()`", call. = FALSE)
-  }
+  check_installed("curl", "to use `download_xml()`.")
 
   curl::curl_download(url, file, quiet = quiet, mode = mode, handle = handle)
 

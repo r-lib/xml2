@@ -115,9 +115,7 @@ create_node <- function(.value, ..., .parent, .copy) {
     return()
   }
 
-  if (!is.character(.value)) {
-    stop("`.value` must be a character", call. = FALSE)
-  }
+  check_character(.value)
 
   parts <- strsplit(.value, ":")[[1]]
   if (length(parts) == 2 && !is.null(.parent$node)) {

@@ -181,7 +181,7 @@ xml_set_attr.xml_missing <- set_attr_fun
 #' @export
 `xml_attrs<-.xml_node` <- function(x, ns = character(), value) {
   if (!is_named(value)) {
-    stop("`value` must be a named character vector or `NULL`", call. = FALSE)
+    cli::cli_abort("{.arg value} must be a named character vector or `NULL`")
   }
 
   attrs <- names(value)
@@ -221,7 +221,7 @@ xml_set_attr.xml_missing <- set_attr_fun
     value <- list(value)
   }
   if (!all(vapply(value, is_named, logical(1)))) {
-    stop("`value` must be a list of named character vectors")
+    cli::cli_abort("{.arg {value}} must be a list of named character vectors.")
   }
 
   Map(`xml_attrs<-`, x, ns, value)
