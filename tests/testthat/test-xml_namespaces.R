@@ -37,6 +37,6 @@ test_that("multiple default namespaces can be stripped", {
   xml_ns_strip(x)
   ns <- unclass(xml_ns(x))
 
-  expect_equivalent(ns, character())
+  expect_equal(unname(ns), character())
   expect_equal(length(xml_find_all(x, "//bar")), 2)
 })

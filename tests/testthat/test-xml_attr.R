@@ -112,7 +112,7 @@ test_that("xml_attrs<- modifies all attributes", {
   )
 
   xml_attrs(docs, ns) <- NULL
-  expect_equivalent(xml_attrs(docs, ns), list(character(0), character(0)))
+  expect_equal(xml_attrs(docs, ns), list(setNames(character(0), character()), setNames(character(0), character())))
 })
 
 test_that("xml_attr<- accepts non-character values", {
