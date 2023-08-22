@@ -55,7 +55,7 @@ test_that("xml_find_all returns nodeset or list of nodesets based on flatten", {
   y <- xml_find_all(x, ".//p")
   z <- xml_find_all(y, ".//b", flatten = FALSE)
   expect_s3_class(xml_find_all(y, ".//b"), "xml_nodeset")
-  expect_s3_class(z, "list")
+  expect_type(z, "list")
   expect_s3_class(z[[1L]], "xml_nodeset")
 })
 

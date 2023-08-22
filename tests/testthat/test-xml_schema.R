@@ -14,6 +14,6 @@ test_that("xml schema errors", {
   out <- xml_validate(doc, schema)
   expect_false(out)
   errors <- attr(out, "errors")
-  expect_s3_class(errors, "character")
+  expect_type(errors, "character")
   expect_length(errors, 4)
 })
