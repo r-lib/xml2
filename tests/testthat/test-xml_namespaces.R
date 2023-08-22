@@ -1,5 +1,3 @@
-context("Namespaces")
-
 # XML parsing tests ------------------------------------------------------------
 
 test_that("multiple default namespaces given unique names", {

@@ -1,5 +1,3 @@
-context("xml_schema")
-
 test_that("xml schema validates", {
   doc <- read_xml(system.file("extdata/order-doc.xml", package = "xml2"))
   schema <- read_xml(system.file("extdata/order-schema.xml", package = "xml2"))

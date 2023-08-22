@@ -1,5 +1,3 @@
-context("read_xml")
-
 test_that("download_xml fails if curl is not installed", {
   mockery::stub(download_xml, "requireNamespace", function(...) FALSE)
 

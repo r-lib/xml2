@@ -1,5 +1,3 @@
-context("Null XPtr")
-
 data <- read_xml(test_path("ns-multiple.xml"))
 tf <- tempfile()
 on.exit(unlink(tf))

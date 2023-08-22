@@ -1,5 +1,3 @@
-context("modify nodes")
-
 test_that("modifying nodes works", {
   x <- read_xml("<x><y/></x>")
   node <- xml_find_first(x, "//x")

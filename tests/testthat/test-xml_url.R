@@ -1,5 +1,3 @@
-context("url")
-
 test_that("url_absolute", {
   expect_equal(
     url_absolute(c(".", "..", "/", "/x"), "http://hadley.nz/a/b/c/d"),

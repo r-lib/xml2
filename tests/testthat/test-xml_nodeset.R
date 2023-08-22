@@ -1,5 +1,3 @@
-context("xml_nodeset")
-
 test_that("methods work on empty nodesets", {
   x <- read_xml("<a><b/></a>")
   empty <- xml_find_all(x, "//c")

@@ -1,5 +1,3 @@
-context("write_xml")
-
 test_that("write_xml errors for incorrect directory and with invalid inputs", {
   x <- read_xml("<x/>")
   filename <- "does_not_exist/test.xml"

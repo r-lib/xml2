@@ -1,4 +1,3 @@
-context("xml_missing")
 x <- read_xml("<body>
   <p>Some <b>text</b>.</p>
   <p>Some <b>other</b>.</p>

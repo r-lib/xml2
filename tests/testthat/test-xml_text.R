@@ -1,5 +1,3 @@
-context("xml_text")
-
 test_that("xml_text returns only text without markup", {
   x <- read_xml("<p>This is some text. This is <b>bold!</b></p>")
 

@@ -1,5 +1,3 @@
-context("xml_find")
-
 # Find one ---------------------------------------------------------------------
 
 test_that("xml_find_first returns a missing object if no match", {

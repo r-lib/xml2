@@ -1,5 +1,3 @@
-context("xml_name")
-
 test_that("qualified names returned when ns given", {
   x <- read_xml(test_path("ns-multiple-default.xml"))
   ns <- xml_ns(x)

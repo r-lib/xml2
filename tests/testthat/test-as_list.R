@@ -1,5 +1,3 @@
-context("as_list")
-
 list_xml <- function(x) as_list(read_xml(x))
 
 test_that("empty elements become empty lists", {

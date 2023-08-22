@@ -1,5 +1,3 @@
-context("xml_children")
-
 x <- read_xml("<foo> <bar><boo /></bar> <baz/> </foo>")
 
 test_that("xml_child() returns the proper child", {

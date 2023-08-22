@@ -1,5 +1,3 @@
-context("xml_attrs")
-
 test_that("missing attributes returned as NA by default", {
   x <- read_xml("<x/>")
   expect_equal(xml_attr(x, "id"), NA_character_)
