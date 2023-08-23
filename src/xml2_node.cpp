@@ -38,6 +38,36 @@ extern "C" SEXP node_name(SEXP node_sxp, SEXP nsMap) {
 }
 
 // [[export]]
+extern "C" SEXP nodeset_name(SEXP node_sxp, SEXP nsMap) {
+  BEGIN_CPP
+
+  int n = Rf_xlength(node_sxp);
+
+  SEXP out = PROTECT(Rf_allocVector(STRSXP, n));
+
+  for (int i = 0; i < n; ++i) {
+    SEXP node_sxp_i = VECTOR_ELT(node_sxp, i);
+
+    if (Rf_inherits(node_sxp_i, "xml_node")) {
+      SEXP node_field_i = VECTOR_ELT(node_sxp_i, 0);
+      XPtrNode node_i(node_field_i);
+      std::string name_i = nodeName(node_i.checked_get(), nsMap);
+      SET_STRING_ELT(out, i, Rf_mkCharLenCE(name_i.c_str(), name_i.size(), CE_UTF8));
+    } else if (Rf_inherits(node_sxp_i, "xml_missing")) {
+      SET_STRING_ELT(out, i, NA_STRING);
+    } else {
+      // xml_nodeset can't appear
+      Rf_error("Unexpected node type");
+    }
+  }
+
+  UNPROTECT(1);
+  return out;
+
+  END_CPP
+}
+
+// [[export]]
 extern "C" SEXP node_set_name(SEXP node_sxp, SEXP value) {
   BEGIN_CPP
   XPtrNode node(node_sxp);
