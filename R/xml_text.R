@@ -118,7 +118,7 @@ xml_double.xml_node <- function(x) {
 
 #' @export
 xml_double.xml_nodeset <- function(x) {
-  vapply(x, xml_double, numeric(1))
+  as.numeric(xml_text(x))
 }
 
 #' @export
@@ -144,5 +144,5 @@ xml_integer.xml_node <- function(x) {
 
 #' @export
 xml_integer.xml_nodeset <- function(x) {
-  vapply(x, xml_integer, integer(1))
+  as.integer(xml_text(x))
 }
