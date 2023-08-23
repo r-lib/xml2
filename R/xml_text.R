@@ -34,15 +34,24 @@ xml_text.xml_missing <- function(x, trim = FALSE) {
 xml_text.xml_node <- function(x, trim = FALSE) {
   res <- .Call(node_text, x$node)
   if (isTRUE(trim)) {
-    res <- sub("^[[:space:]\u00a0]+", "", res)
-    res <- sub("[[:space:]\u00a0]+$", "", res)
+    res <- trim_text(res)
   }
   res
 }
 
 #' @export
 xml_text.xml_nodeset <- function(x, trim = FALSE) {
-  vapply(x, xml_text, trim = trim, FUN.VALUE = character(1))
+  res <- .Call(nodeset_text, x)
+
+  if (isTRUE(trim)) {
+    res <- trim_text(res)
+  }
+  res
+}
+
+trim_text <- function(x) {
+  x <- sub("^[[:space:]\u00a0]+", "", x)
+  sub("[[:space:]\u00a0]+$", "", x)
 }
 
 #' @rdname xml_text

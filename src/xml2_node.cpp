@@ -87,6 +87,36 @@ extern "C" SEXP node_text(SEXP node_sxp) {
   END_CPP
 }
 
+// [[export]]
+extern "C" SEXP nodeset_text(SEXP node_sxp) {
+  BEGIN_CPP
+
+  int n = Rf_xlength(node_sxp);
+
+  SEXP out = PROTECT(Rf_allocVector(STRSXP, n));
+
+  for (int i = 0; i < n; ++i) {
+    SEXP node_sxp_i = VECTOR_ELT(node_sxp, i);
+
+    if (Rf_inherits(node_sxp_i, "xml_node")) {
+      SEXP node_field_i = VECTOR_ELT(node_sxp_i, 0);
+      XPtrNode node_i(node_field_i);
+      SEXP text_i = Xml2String(xmlNodeGetContent(node_i.checked_get())).asRString();
+      SET_STRING_ELT(out, i, text_i);
+    } else if (Rf_inherits(node_sxp_i, "xml_missing")) {
+      SET_STRING_ELT(out, i, NA_STRING);
+    } else {
+      // xml_nodeset can't appear
+      Rf_error("Unexpected node type");
+    }
+  }
+
+  UNPROTECT(1);
+  return out;
+
+  END_CPP
+}
+
 bool hasPrefix(std::string lhs, std::string rhs) {
   if (lhs.length() > rhs.length()) {
     return false;
