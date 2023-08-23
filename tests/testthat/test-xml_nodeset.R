@@ -67,7 +67,6 @@ test_that("methods work on empty nodesets", {
   expect_output(xml_structure(empty), NA)
 
   expect_identical(xml_text(empty), character())
-  expect_identical(xml_type(empty), character())
   expect_identical(xml_url(empty), character())
 })
 

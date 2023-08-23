@@ -22,7 +22,7 @@ xml_type.xml_node <- function(x) {
 
 #' @export
 xml_type.xml_nodeset <- function(x) {
-  types <- vapply(x, function(x) .Call(node_type, x$node), integer(1))
+  types <- .Call(nodeset_type, x)
   xmlElementType[types]
 }
 

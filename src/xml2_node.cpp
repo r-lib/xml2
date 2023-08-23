@@ -645,6 +645,36 @@ extern "C" SEXP node_type(SEXP node_sxp) {
 }
 
 // [[export]]
+extern "C" SEXP nodeset_type(SEXP node_sxp) {
+  BEGIN_CPP
+
+  int n = Rf_xlength(node_sxp);
+
+  SEXP out = PROTECT(Rf_allocVector(INTSXP, n));
+
+  for (int i = 0; i < n; ++i) {
+    SEXP node_sxp_i = VECTOR_ELT(node_sxp, i);
+
+    if (Rf_inherits(node_sxp_i, "xml_node")) {
+      SEXP node_field_i = VECTOR_ELT(node_sxp_i, 0);
+      XPtrNode node_i(node_field_i);
+      INTEGER(out)[i] = node_i->type;
+    } else if (Rf_inherits(node_sxp_i, "xml_missing")) {
+      INTEGER(out)[i] = NA_INTEGER;
+    } else {
+      // xml_nodeset can't appear
+      Rf_error("Unexpected node type");
+    }
+  }
+
+  UNPROTECT(1);
+  return out;
+
+  END_CPP
+}
+
+
+// [[export]]
 extern "C" SEXP node_copy(SEXP node_sxp) {
   BEGIN_CPP
   XPtrNode node(node_sxp);

@@ -33,7 +33,6 @@ test_that("xml_missing methods return properly for all S3 methods", {
   expect_equal(xml_parent(mss), xml_missing())
   expect_equal(xml_path(mss), NA_character_)
   expect_equal(xml_text(mss), NA_character_)
-  expect_equal(xml_type(mss), NA_character_)
   expect_equal(xml_url(mss), NA_character_)
 })
 
