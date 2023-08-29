@@ -261,63 +261,101 @@ extern "C" SEXP node_attr(
   END_CPP
 }
 
-// [[export]]
-extern "C" SEXP node_attrs(SEXP node_sxp, SEXP nsMap_sxp) {
-  BEGIN_CPP
-  XPtrNode node_(node_sxp);
+SEXP node_attrs_impl(SEXP x, SEXP nsMap_sxp) {
+  NodeType type = getNodeType(x);
 
-  int n = 0;
-  xmlNodePtr node = node_.checked_get();
+  switch(type) {
+  case NodeType::missing:
+    return Rf_ScalarString(NA_STRING);
+    break;
+  case NodeType::node: {
+    SEXP node_sxp = VECTOR_ELT(x, 0);
+    XPtrNode node_(node_sxp);
 
-  if (node->type == XML_ELEMENT_NODE) {
-    // attributes
-    for(xmlAttr* cur = node->properties; cur != NULL; cur = cur->next)
-      n++;
+    int n = 0;
+    xmlNodePtr node = node_.checked_get();
 
-    // namespace definitions
-    for(xmlNsPtr cur = node->nsDef; cur != NULL; cur = cur->next)
-      n++;
+    if (node->type == XML_ELEMENT_NODE) {
+      // attributes
+      for(xmlAttr* cur = node->properties; cur != NULL; cur = cur->next)
+        n++;
 
-    SEXP names = PROTECT(Rf_allocVector(STRSXP, n));
-    SEXP values = PROTECT(Rf_allocVector(STRSXP, n));
+      // namespace definitions
+      for(xmlNsPtr cur = node->nsDef; cur != NULL; cur = cur->next)
+        n++;
 
-    int i = 0;
-    for(xmlAttr* cur = node->properties; cur != NULL; cur = cur->next, ++i) {
-      std::string name = nodeName(cur, nsMap_sxp);
-      SET_STRING_ELT(names, i, Rf_mkCharLenCE(name.c_str(), name.size(), CE_UTF8));
+      SEXP names = PROTECT(Rf_allocVector(STRSXP, n));
+      SEXP values = PROTECT(Rf_allocVector(STRSXP, n));
 
-      xmlNs* ns = cur->ns;
-      if (ns == NULL) {
-        if (Rf_xlength(nsMap_sxp) > 0) {
-          SET_STRING_ELT(values, i, Xml2String(xmlGetNoNsProp(node, cur->name)).asRString());
+      int i = 0;
+      for(xmlAttr* cur = node->properties; cur != NULL; cur = cur->next, ++i) {
+        std::string name = nodeName(cur, nsMap_sxp);
+        SET_STRING_ELT(names, i, Rf_mkCharLenCE(name.c_str(), name.size(), CE_UTF8));
+
+        xmlNs* ns = cur->ns;
+        if (ns == NULL) {
+          if (Rf_xlength(nsMap_sxp) > 0) {
+            SET_STRING_ELT(values, i, Xml2String(xmlGetNoNsProp(node, cur->name)).asRString());
+          } else {
+            SET_STRING_ELT(values, i, Xml2String(xmlGetProp(node, cur->name)).asRString());
+          }
         } else {
-          SET_STRING_ELT(values, i, Xml2String(xmlGetProp(node, cur->name)).asRString());
+          SET_STRING_ELT(values, i, Xml2String(xmlGetNsProp(node, cur->name, ns->href)).asRString());
         }
-      } else {
-        SET_STRING_ELT(values, i, Xml2String(xmlGetNsProp(node, cur->name, ns->href)).asRString());
       }
+
+      for(xmlNsPtr cur = node->nsDef; cur != NULL; cur = cur->next, ++i) {
+        if (cur->prefix == NULL) {
+          SET_STRING_ELT(names, i, Rf_mkChar("xmlns"));
+        } else {
+          std::string name = std::string("xmlns:") + Xml2String(cur->prefix).asStdString();
+          SET_STRING_ELT(names,i, Rf_mkCharLenCE(name.c_str(), name.size(), CE_UTF8));
+        }
+        SET_STRING_ELT(values, i, Xml2String(cur->href).asRString());
+      }
+
+      Rf_setAttrib(values, R_NamesSymbol, names);
+
+      UNPROTECT(2);
+      return values;
     }
 
-    for(xmlNsPtr cur = node->nsDef; cur != NULL; cur = cur->next, ++i) {
-      if (cur->prefix == NULL) {
-        SET_STRING_ELT(names, i, Rf_mkChar("xmlns"));
-      } else {
-        std::string name = std::string("xmlns:") + Xml2String(cur->prefix).asStdString();
-        SET_STRING_ELT(names,i, Rf_mkCharLenCE(name.c_str(), name.size(), CE_UTF8));
-      }
-      SET_STRING_ELT(values, i, Xml2String(cur->href).asRString());
-    }
-
-    Rf_setAttrib(values, R_NamesSymbol, names);
-
-    UNPROTECT(2);
-    return values;
+    return Rf_allocVector(STRSXP, 0);
+    break;
   }
-
-  return Rf_allocVector(STRSXP, 0);
-  END_CPP
+  default: Rf_error("Unexpected node type");
+  }
 }
 
+// [[export]]
+extern "C" SEXP node_attrs(SEXP x, SEXP nsMap_sxp) {
+  BEGIN_CPP
+  NodeType type = getNodeType(x);
+
+  switch(type)
+  {
+  case NodeType::missing:
+  case NodeType::node   :
+    return(node_attrs_impl(x, nsMap_sxp));
+    break;
+  case NodeType::nodeset: {
+    int n = Rf_xlength(x);
+
+    SEXP out = PROTECT(Rf_allocVector(VECSXP, n));
+
+    for (int i = 0; i < n; ++i) {
+      SEXP x_i = VECTOR_ELT(x, i);
+      SEXP name_i = node_attrs_impl(x_i, nsMap_sxp);
+      SET_VECTOR_ELT(out, i, name_i);
+    }
+
+    UNPROTECT(1);
+    return(out);
+  };
+  }
+
+  END_CPP
+}
 
 // Fix the tree by removing the namespace pointers to the given tree
 void xmlRemoveNamespace(xmlNodePtr tree, xmlNsPtr ns) {

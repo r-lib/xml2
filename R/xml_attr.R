@@ -72,22 +72,7 @@ xml_has_attr <- function(x, attr, ns = character()) {
 #' @export
 #' @rdname xml_attr
 xml_attrs <- function(x, ns = character()) {
-  UseMethod("xml_attrs")
-}
-
-#' @export
-xml_attrs.xml_missing <- function(x, ns = character()) {
-  NA_character_
-}
-
-#' @export
-xml_attrs.xml_node <- function(x, ns = character()) {
-  .Call(node_attrs, x$node, nsMap = ns)
-}
-
-#' @export
-xml_attrs.xml_nodeset <- function(x, ns = character()) {
-  lapply(x, xml_attrs, ns = ns)
+  .Call(node_attrs, x, nsMap = ns)
 }
 
 #' @param value character vector of new value.
