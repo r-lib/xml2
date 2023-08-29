@@ -22,27 +22,7 @@
 #' xml_integer(xml_find_all(x, "//@x"))
 #' @export
 xml_text <- function(x, trim = FALSE) {
-  UseMethod("xml_text")
-}
-
-#' @export
-xml_text.xml_missing <- function(x, trim = FALSE) {
-  NA_character_
-}
-
-#' @export
-xml_text.xml_node <- function(x, trim = FALSE) {
-  res <- .Call(node_text, x$node)
-  if (isTRUE(trim)) {
-    res <- trim_text(res)
-  }
-  res
-}
-
-#' @export
-xml_text.xml_nodeset <- function(x, trim = FALSE) {
-  res <- .Call(nodeset_text, x)
-
+  res <- .Call(node_text, x)
   if (isTRUE(trim)) {
     res <- trim_text(res)
   }
