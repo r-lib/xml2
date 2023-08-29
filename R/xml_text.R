@@ -83,46 +83,10 @@ trim_text <- function(x) {
 #' @rdname xml_text
 #' @export
 xml_double <- function(x) {
-  UseMethod("xml_double")
-}
-
-#' @export
-xml_double.xml_missing <- function(x) {
-  NA_real_
-}
-
-#' @export
-xml_double.xml_node <- function(x) {
-  as.numeric(xml_text(x))
-}
-
-#' @export
-xml_double.xml_nodeset <- function(x) {
   as.numeric(xml_text(x))
 }
 
 #' @export
 xml_integer <- function(x) {
-  UseMethod("xml_integer")
-}
-
-#' @export
-xml_integer.xml_missing <- function(x) {
-  NA_integer_
-}
-
-#' @rdname xml_text
-#' @export
-xml_integer <- function(x) {
-  UseMethod("xml_integer")
-}
-
-#' @export
-xml_integer.xml_node <- function(x) {
-  as.integer(xml_text(x))
-}
-
-#' @export
-xml_integer.xml_nodeset <- function(x) {
   as.integer(xml_text(x))
 }
