@@ -27,42 +27,55 @@ std::string nodeName(T* node, SEXP nsMap) {
   return prefix + ":" + name;
 }
 
-// [[export]]
-extern "C" SEXP node_name(SEXP node_sxp, SEXP nsMap) {
-  BEGIN_CPP
-  XPtrNode node(node_sxp);
+SEXP node_name_impl(SEXP x, SEXP nsMap) {
+  NodeType type = getNodeType(x);
 
-  std::string name = nodeName(node.checked_get(), nsMap);
-  return Rf_ScalarString(Rf_mkCharLenCE(name.c_str(), name.size(), CE_UTF8));
-  END_CPP
+  SEXP out;
+
+  switch(type) {
+  case NodeType::missing:
+    out = NA_STRING;
+    break;
+  case NodeType::node: {
+    SEXP node_sxp = VECTOR_ELT(x, 0);
+    XPtrNode node(node_sxp);
+
+    std::string name = nodeName(node.checked_get(), nsMap);
+    out = Rf_mkCharLenCE(name.c_str(), name.size(), CE_UTF8);
+    break;
+  }
+  default: Rf_error("Unexpected node type");
+  }
+
+  return(out);
 }
 
 // [[export]]
-extern "C" SEXP nodeset_name(SEXP node_sxp, SEXP nsMap) {
+extern "C" SEXP node_name(SEXP x, SEXP nsMap) {
   BEGIN_CPP
+  NodeType type = getNodeType(x);
 
-  int n = Rf_xlength(node_sxp);
+  switch(type)
+  {
+  case NodeType::missing:
+  case NodeType::node   :
+    return(Rf_ScalarString(node_name_impl(x, nsMap)));
+    break;
+  case NodeType::nodeset: {
+    int n = Rf_xlength(x);
 
-  SEXP out = PROTECT(Rf_allocVector(STRSXP, n));
+    SEXP out = PROTECT(Rf_allocVector(STRSXP, n));
 
-  for (int i = 0; i < n; ++i) {
-    SEXP node_sxp_i = VECTOR_ELT(node_sxp, i);
-
-    if (Rf_inherits(node_sxp_i, "xml_node")) {
-      SEXP node_field_i = VECTOR_ELT(node_sxp_i, 0);
-      XPtrNode node_i(node_field_i);
-      std::string name_i = nodeName(node_i.checked_get(), nsMap);
-      SET_STRING_ELT(out, i, Rf_mkCharLenCE(name_i.c_str(), name_i.size(), CE_UTF8));
-    } else if (Rf_inherits(node_sxp_i, "xml_missing")) {
-      SET_STRING_ELT(out, i, NA_STRING);
-    } else {
-      // xml_nodeset can't appear
-      Rf_error("Unexpected node type");
+    for (int i = 0; i < n; ++i) {
+      SEXP x_i = VECTOR_ELT(x, i);
+      SEXP name_i = node_name_impl(x_i, nsMap);
+      SET_STRING_ELT(out, i, name_i);
     }
-  }
 
-  UNPROTECT(1);
-  return out;
+    UNPROTECT(1);
+    return(out);
+  };
+  }
 
   END_CPP
 }
