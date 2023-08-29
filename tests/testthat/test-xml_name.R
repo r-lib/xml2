@@ -1,5 +1,12 @@
 test_that("xml_name() returns the name", {
-  x <- sample_nodeset()
+  x <- read_xml("<body>
+    <p>Some <b>text</b>.</p>
+    <p>Some <i>other</i>.</p>
+    <p>No bold text</p>
+    </body>")
+
+  children <- xml_children(x)
+  x <- xml_find_first(children, ".//b|.//i")
 
   expect_equal(xml_name(x[[1]]), "b")
   expect_equal(xml_name(x[[2]]), "i")

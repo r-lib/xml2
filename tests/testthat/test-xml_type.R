@@ -1,5 +1,12 @@
 test_that("multiplication works", {
-  x <- sample_nodeset()
+  x <- read_xml("<body>
+    <p>Some <b>text</b>.</p>
+    <p>Some <i>other</i>.</p>
+    <p>No bold text</p>
+    </body>")
+
+  children <- xml_children(x)
+  x <- xml_find_first(children, ".//b|.//i")
 
   expect_equal(xml_type(x[[1]]), "element")
   expect_equal(xml_type(x[[3]]), NA_character_)

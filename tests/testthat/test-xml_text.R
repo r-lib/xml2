@@ -7,8 +7,17 @@ test_that("xml_text returns only text without markup", {
 })
 
 test_that("xml_text works properly with xml_nodeset objects", {
+  x <- read_xml("<body>
+    <p>Some <b>text</b>.</p>
+    <p>Some <i>other</i>.</p>
+    <p>No bold text</p>
+    </body>")
+
+  children <- xml_children(x)
+  x <- xml_find_first(children, ".//b|.//i")
+
   expect_identical(
-    xml_text(sample_nodeset()),
+    xml_text(x),
     c("text", "other", NA)
   )
 })
