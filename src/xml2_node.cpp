@@ -529,22 +529,69 @@ extern "C" SEXP node_children(SEXP node_sxp, SEXP only_node_sxp) {
   END_CPP
 }
 
-// [[export]]
-extern "C" SEXP node_length(SEXP node_sxp, SEXP only_node_sxp) {
-  BEGIN_CPP
+int node_length_impl(SEXP x, bool only_node) {
+  NodeType type = getNodeType(x);
 
-  XPtrNode node(node_sxp);
-  bool only_node = LOGICAL(only_node_sxp)[0];
+  int out;
 
-  int i = 0;
-  for(xmlNode* cur = node->xmlChildrenNode; cur != NULL; cur = cur->next) {
-    if (only_node && cur->type != XML_ELEMENT_NODE) {
-      continue;
+  switch(type) {
+  case NodeType::missing:
+    out = 0;
+    break;
+  case NodeType::node: {
+    SEXP node_sxp = VECTOR_ELT(x, 0);
+    XPtrNode node(node_sxp);
+
+    out = 0;
+    for(xmlNode* cur = node->xmlChildrenNode; cur != NULL; cur = cur->next) {
+      if (only_node && cur->type != XML_ELEMENT_NODE) {
+        continue;
+      }
+      ++out;
     }
-    ++i;
+    break;
+  }
+  default: Rf_error("Unexpected node type");
   }
 
-  return Rf_ScalarInteger(i);
+  return out;
+}
+
+// [[export]]
+extern "C" SEXP node_length(SEXP x, SEXP only_node_sxp) {
+  BEGIN_CPP
+  NodeType type = getNodeType(x);
+
+  bool only_node = LOGICAL(only_node_sxp)[0];
+
+  switch(type)
+  {
+  case NodeType::missing:
+  case NodeType::node   :
+    return(Rf_ScalarInteger(node_length_impl(x, only_node)));
+    break;
+  case NodeType::nodeset: {
+    int n = Rf_xlength(x);
+
+    if (n == 0) {
+      return(Rf_ScalarInteger(0));
+    }
+
+    SEXP out = PROTECT(Rf_allocVector(INTSXP, n));
+    int* p_out = INTEGER(out);
+
+    for (int i = 0; i < n; ++i) {
+      SEXP x_i = VECTOR_ELT(x, i);
+      int length_i = node_length_impl(x_i, only_node);
+      *p_out = length_i;
+      p_out++;
+    }
+
+    UNPROTECT(1);
+    return(out);
+  };
+  }
+
   END_CPP
 }
 
