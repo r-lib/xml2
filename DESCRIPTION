@@ -18,11 +18,8 @@ Depends:
     R (>= 3.6.0)
 Imports:
     cli,
-    glue,
-    lifecycle,
     methods,
-    rlang (>= 1.1.0),
-    withr
+    rlang (>= 1.1.0)
 Suggests:
     covr,
     curl,

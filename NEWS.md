@@ -1,5 +1,7 @@
 # xml2 (development version)
 
+* Remove unused dependencies on glue, withr and lifecycle (@mgirlich).
+
 # xml2 1.3.5
 
 * Small speedup for `xml_find_all()` (@mgirlich, #393).
