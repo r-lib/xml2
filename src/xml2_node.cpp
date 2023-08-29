@@ -168,15 +168,66 @@ const xmlChar* xmlNsDefinition(xmlNodePtr node, const xmlChar* lookup) {
   return NULL;
 }
 
+
+SEXP node_attr_impl(SEXP x,
+                    std::string name,
+                    SEXP missingVal,
+                    SEXP nsMap_sxp) {
+  NodeType type = getNodeType(x);
+
+  switch(type) {
+  case NodeType::missing:
+    return NA_STRING;
+    break;
+  case NodeType::node: {
+    SEXP node_sxp = VECTOR_ELT(x, 0);
+    XPtrNode node(node_sxp);
+    if (name == "xmlns") {
+      return Xml2String(xmlNsDefinition(node, NULL)).asRString(missingVal);
+    }
+
+    if (hasPrefix("xmlns:", name)) {
+      std::string prefix = name.substr(6);
+      return Xml2String(xmlNsDefinition(node, asXmlChar(prefix))).asRString(missingVal);
+    }
+
+    xmlChar* string;
+    if (Rf_xlength(nsMap_sxp) == 0) {
+      string = xmlGetProp(node.checked_get(), asXmlChar(name));
+    } else {
+      size_t colon = name.find(':');
+      if (colon == std::string::npos) {
+        // Has namespace spec, but attribute not qualified, so look for attribute
+        // without namespace
+        string = xmlGetNoNsProp(node.checked_get(), asXmlChar(name));
+      } else {
+        // Split name into prefix & attr, then look up full url
+        std::string
+        prefix = name.substr(0, colon),
+          attr = name.substr(colon + 1, name.size() - 1);
+
+        std::string url = NsMap(nsMap_sxp).findUrl(prefix);
+
+        string = xmlGetNsProp(node.checked_get(), asXmlChar(attr), asXmlChar(url));
+      }
+    }
+
+    return Xml2String(string).asRString(missingVal);
+    break;
+  }
+  default: Rf_error("Unexpected node type");
+  }
+}
+
 // [[export]]
 extern "C" SEXP node_attr(
-    SEXP node_sxp,
+    SEXP x,
     SEXP name_sxp,
     SEXP missing_sxp,
     SEXP nsMap_sxp) {
   BEGIN_CPP
+  NodeType type = getNodeType(x);
 
-  XPtrNode node(node_sxp);
   std::string name(CHAR(STRING_ELT(name_sxp, 0)));
 
   if (Rf_xlength(missing_sxp) != 1) {
@@ -185,37 +236,28 @@ extern "C" SEXP node_attr(
 
   SEXP missingVal = STRING_ELT(missing_sxp, 0);
 
-  if (name == "xmlns") {
-    return Rf_ScalarString(Xml2String(xmlNsDefinition(node, NULL)).asRString(missingVal));
-  }
+  switch(type)
+  {
+  case NodeType::missing:
+  case NodeType::node   :
+    return Rf_ScalarString(node_attr_impl(x, name, missingVal, nsMap_sxp));
+    break;
+  case NodeType::nodeset: {
+    int n = Rf_xlength(x);
 
-  if (hasPrefix("xmlns:", name)) {
-    std::string prefix = name.substr(6);
-    return Rf_ScalarString(Xml2String(xmlNsDefinition(node, asXmlChar(prefix))).asRString(missingVal));
-  }
+    SEXP out = PROTECT(Rf_allocVector(STRSXP, n));
 
-  xmlChar* string;
-  if (Rf_xlength(nsMap_sxp) == 0) {
-    string = xmlGetProp(node.checked_get(), asXmlChar(name));
-  } else {
-    size_t colon = name.find(':');
-    if (colon == std::string::npos) {
-      // Has namespace spec, but attribute not qualified, so look for attribute
-      // without namespace
-      string = xmlGetNoNsProp(node.checked_get(), asXmlChar(name));
-    } else {
-      // Split name into prefix & attr, then look up full url
-      std::string
-        prefix = name.substr(0, colon),
-               attr = name.substr(colon + 1, name.size() - 1);
-
-      std::string url = NsMap(nsMap_sxp).findUrl(prefix);
-
-      string = xmlGetNsProp(node.checked_get(), asXmlChar(attr), asXmlChar(url));
+    for (int i = 0; i < n; ++i) {
+      SEXP x_i = VECTOR_ELT(x, i);
+      SEXP attr_i = node_attr_impl(x_i, name, missingVal, nsMap_sxp);
+      SET_STRING_ELT(out, i, attr_i);
     }
+
+    UNPROTECT(1);
+    return(out);
+  };
   }
 
-  return Rf_ScalarString(Xml2String(string).asRString(missingVal));
   END_CPP
 }
 
