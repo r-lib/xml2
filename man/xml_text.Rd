@@ -5,6 +5,7 @@
 \alias{xml_text<-}
 \alias{xml_set_text}
 \alias{xml_double}
+\alias{xml_integer}
 \title{Extract or modify the text}
 \usage{
 xml_text(x, trim = FALSE)
@@ -14,6 +15,8 @@ xml_text(x) <- value
 xml_set_text(x, value)
 
 xml_double(x)
+
+xml_integer(x)
 }
 \arguments{
 \item{x}{A document, node, or node set.}

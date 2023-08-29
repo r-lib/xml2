@@ -86,6 +86,7 @@ xml_double <- function(x) {
   as.numeric(xml_text(x))
 }
 
+#' @rdname xml_text
 #' @export
 xml_integer <- function(x) {
   as.integer(xml_text(x))
