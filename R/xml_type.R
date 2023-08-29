@@ -7,22 +7,7 @@
 #' xml_type(x)
 #' xml_type(xml_contents(x))
 xml_type <- function(x) {
-  UseMethod("xml_type")
-}
-
-#' @export
-xml_type.xml_missing <- function(x) {
-  NA_character_
-}
-
-#' @export
-xml_type.xml_node <- function(x) {
-  xmlElementType[.Call(node_type, x$node)]
-}
-
-#' @export
-xml_type.xml_nodeset <- function(x) {
-  types <- .Call(nodeset_type, x)
+  types <- .Call(node_type, x)
   xmlElementType[types]
 }
 

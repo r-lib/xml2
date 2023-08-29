@@ -661,44 +661,59 @@ extern "C" SEXP nodes_duplicated(SEXP nodes) {
   END_CPP
 }
 
-// [[export]]
-extern "C" SEXP node_type(SEXP node_sxp) {
-  BEGIN_CPP
-  XPtrNode node(node_sxp);
+int node_type_impl(SEXP x) {
+  NodeType type = getNodeType(x);
 
-  return Rf_ScalarInteger(node->type);
-  END_CPP
-}
+  int out;
 
-// [[export]]
-extern "C" SEXP nodeset_type(SEXP node_sxp) {
-  BEGIN_CPP
+  switch(type) {
+  case NodeType::missing:
+    out = NA_INTEGER;
+    break;
+  case NodeType::node: {
+    SEXP node_sxp = VECTOR_ELT(x, 0);
+    XPtrNode node(node_sxp);
 
-  int n = Rf_xlength(node_sxp);
-
-  SEXP out = PROTECT(Rf_allocVector(INTSXP, n));
-
-  for (int i = 0; i < n; ++i) {
-    SEXP node_sxp_i = VECTOR_ELT(node_sxp, i);
-
-    if (Rf_inherits(node_sxp_i, "xml_node")) {
-      SEXP node_field_i = VECTOR_ELT(node_sxp_i, 0);
-      XPtrNode node_i(node_field_i);
-      INTEGER(out)[i] = node_i->type;
-    } else if (Rf_inherits(node_sxp_i, "xml_missing")) {
-      INTEGER(out)[i] = NA_INTEGER;
-    } else {
-      // xml_nodeset can't appear
-      Rf_error("Unexpected node type");
-    }
+    out = node->type;
+    break;
+  }
+  default: Rf_error("Unexpected node type");
   }
 
-  UNPROTECT(1);
-  return out;
+  return(out);
+}
+
+// [[export]]
+extern "C" SEXP node_type(SEXP x) {
+  BEGIN_CPP
+  NodeType type = getNodeType(x);
+
+  switch(type)
+  {
+  case NodeType::missing:
+  case NodeType::node   :
+    return(Rf_ScalarInteger(node_type_impl(x)));
+    break;
+  case NodeType::nodeset: {
+    int n = Rf_xlength(x);
+
+    SEXP out = PROTECT(Rf_allocVector(INTSXP, n));
+    int* p_out = INTEGER(out);
+
+    for (int i = 0; i < n; ++i) {
+      SEXP x_i = VECTOR_ELT(x, i);
+      int type_i = node_type_impl(x_i);
+      *p_out = type_i;
+      ++p_out;
+    }
+
+    UNPROTECT(1);
+    return(out);
+  };
+  }
 
   END_CPP
 }
-
 
 // [[export]]
 extern "C" SEXP node_copy(SEXP node_sxp) {
