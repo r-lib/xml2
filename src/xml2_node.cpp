@@ -47,7 +47,7 @@ SEXP node_name_impl(SEXP x, SEXP nsMap) {
   default: Rf_error("Unexpected node type");
   }
 
-  return(out);
+  return out;
 }
 
 // [[export]]
@@ -59,7 +59,7 @@ extern "C" SEXP node_name(SEXP x, SEXP nsMap) {
   {
   case NodeType::missing:
   case NodeType::node   :
-    return(Rf_ScalarString(node_name_impl(x, nsMap)));
+    return Rf_ScalarString(node_name_impl(x, nsMap));
     break;
   case NodeType::nodeset: {
     int n = Rf_xlength(x);
@@ -73,7 +73,7 @@ extern "C" SEXP node_name(SEXP x, SEXP nsMap) {
     }
 
     UNPROTECT(1);
-    return(out);
+    return out;
   };
   }
 
@@ -110,7 +110,7 @@ SEXP node_text_impl(SEXP x) {
   default: Rf_error("Unexpected node type");
   }
 
-  return(out);
+  return out;
 }
 
 // [[export]]
@@ -122,7 +122,7 @@ extern "C" SEXP node_text(SEXP x) {
   {
   case NodeType::missing:
   case NodeType::node   :
-    return(Rf_ScalarString(node_text_impl(x)));
+    return Rf_ScalarString(node_text_impl(x));
     break;
   case NodeType::nodeset: {
     int n = Rf_xlength(x);
@@ -136,7 +136,7 @@ extern "C" SEXP node_text(SEXP x) {
     }
 
     UNPROTECT(1);
-    return(out);
+    return out;
   };
   }
 
@@ -254,7 +254,7 @@ extern "C" SEXP node_attr(
     }
 
     UNPROTECT(1);
-    return(out);
+    return out;
   };
   }
 
@@ -336,7 +336,7 @@ extern "C" SEXP node_attrs(SEXP x, SEXP nsMap_sxp) {
   {
   case NodeType::missing:
   case NodeType::node   :
-    return(node_attrs_impl(x, nsMap_sxp));
+    return node_attrs_impl(x, nsMap_sxp);
     break;
   case NodeType::nodeset: {
     int n = Rf_xlength(x);
@@ -350,7 +350,7 @@ extern "C" SEXP node_attrs(SEXP x, SEXP nsMap_sxp) {
     }
 
     UNPROTECT(1);
-    return(out);
+    return out;
   };
   }
 
@@ -648,13 +648,13 @@ extern "C" SEXP node_length(SEXP x, SEXP only_node_sxp) {
   {
   case NodeType::missing:
   case NodeType::node   :
-    return(Rf_ScalarInteger(node_length_impl(x, only_node)));
+    return Rf_ScalarInteger(node_length_impl(x, only_node));
     break;
   case NodeType::nodeset: {
     int n = Rf_xlength(x);
 
     if (n == 0) {
-      return(Rf_ScalarInteger(0));
+      return Rf_ScalarInteger(0);
     }
 
     SEXP out = PROTECT(Rf_allocVector(INTSXP, n));
@@ -668,7 +668,7 @@ extern "C" SEXP node_length(SEXP x, SEXP only_node_sxp) {
     }
 
     UNPROTECT(1);
-    return(out);
+    return out;
   };
   }
 
@@ -768,7 +768,7 @@ SEXP node_path_impl(SEXP x) {
   default: Rf_error("Unexpected node type");
   }
 
-  return(out);
+  return out;
 }
 
 // [[export]]
@@ -780,7 +780,7 @@ extern "C" SEXP node_path(SEXP x) {
   {
   case NodeType::missing:
   case NodeType::node   :
-    return(Rf_ScalarString(node_path_impl(x)));
+    return Rf_ScalarString(node_path_impl(x));
     break;
   case NodeType::nodeset: {
     int n = Rf_xlength(x);
@@ -794,7 +794,7 @@ extern "C" SEXP node_path(SEXP x) {
     }
 
     UNPROTECT(1);
-    return(out);
+    return out;
   };
   }
 
@@ -850,7 +850,7 @@ int node_type_impl(SEXP x) {
   default: Rf_error("Unexpected node type");
   }
 
-  return(out);
+  return out;
 }
 
 // [[export]]
@@ -862,7 +862,7 @@ extern "C" SEXP node_type(SEXP x) {
   {
   case NodeType::missing:
   case NodeType::node   :
-    return(Rf_ScalarInteger(node_type_impl(x)));
+    return Rf_ScalarInteger(node_type_impl(x));
     break;
   case NodeType::nodeset: {
     int n = Rf_xlength(x);
@@ -878,7 +878,7 @@ extern "C" SEXP node_type(SEXP x) {
     }
 
     UNPROTECT(1);
-    return(out);
+    return out;
   };
   }
 
