@@ -749,12 +749,55 @@ extern "C" SEXP node_parent(SEXP node_sxp) {
   END_CPP
 }
 
-// [[export]]
-extern "C" SEXP node_path(SEXP node_sxp) {
-  BEGIN_CPP
-  XPtrNode node(node_sxp);
+SEXP node_path_impl(SEXP x) {
+  NodeType type = getNodeType(x);
 
-  return Rf_ScalarString(Xml2String(xmlGetNodePath(node.checked_get())).asRString());
+  SEXP out;
+
+  switch(type) {
+  case NodeType::missing:
+    out = NA_STRING;
+    break;
+  case NodeType::node: {
+    SEXP node_sxp = VECTOR_ELT(x, 0);
+    XPtrNode node(node_sxp);
+
+    out = Xml2String(xmlGetNodePath(node.checked_get())).asRString();
+    break;
+  }
+  default: Rf_error("Unexpected node type");
+  }
+
+  return(out);
+}
+
+// [[export]]
+extern "C" SEXP node_path(SEXP x) {
+  BEGIN_CPP
+  NodeType type = getNodeType(x);
+
+  switch(type)
+  {
+  case NodeType::missing:
+  case NodeType::node   :
+    return(Rf_ScalarString(node_path_impl(x)));
+    break;
+  case NodeType::nodeset: {
+    int n = Rf_xlength(x);
+
+    SEXP out = PROTECT(Rf_allocVector(STRSXP, n));
+
+    for (int i = 0; i < n; ++i) {
+      SEXP x_i = VECTOR_ELT(x, i);
+      SEXP name_i = node_path_impl(x_i);
+      SET_STRING_ELT(out, i, name_i);
+    }
+
+    UNPROTECT(1);
+    return(out);
+  };
+  }
+
   END_CPP
 }
 
