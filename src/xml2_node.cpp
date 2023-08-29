@@ -75,6 +75,7 @@ extern "C" SEXP node_name(SEXP x, SEXP nsMap) {
     UNPROTECT(1);
     return out;
   };
+  default: Rf_error("Unexpected node type");
   }
 
   END_CPP
@@ -138,6 +139,7 @@ extern "C" SEXP node_text(SEXP x) {
     UNPROTECT(1);
     return out;
   };
+  default: Rf_error("Unexpected node type");
   }
 
   END_CPP
@@ -256,6 +258,7 @@ extern "C" SEXP node_attr(
     UNPROTECT(1);
     return out;
   };
+  default: Rf_error("Unexpected node type");
   }
 
   END_CPP
@@ -352,6 +355,7 @@ extern "C" SEXP node_attrs(SEXP x, SEXP nsMap_sxp) {
     UNPROTECT(1);
     return out;
   };
+  default: Rf_error("Unexpected node type");
   }
 
   END_CPP
@@ -670,6 +674,7 @@ extern "C" SEXP node_length(SEXP x, SEXP only_node_sxp) {
     UNPROTECT(1);
     return out;
   };
+  default: Rf_error("Unexpected node type");
   }
 
   END_CPP
@@ -796,6 +801,7 @@ extern "C" SEXP node_path(SEXP x) {
     UNPROTECT(1);
     return out;
   };
+  default: Rf_error("Unexpected node type");
   }
 
   END_CPP
@@ -880,6 +886,7 @@ extern "C" SEXP node_type(SEXP x) {
     UNPROTECT(1);
     return out;
   };
+  default: Rf_error("Unexpected node type");
   }
 
   END_CPP
