@@ -17,5 +17,5 @@ xml_validate <- function(x, schema) {
 #' @export
 xml_validate.xml_document <- function(x, schema) {
   stopifnot(inherits(schema, "xml_document"))
-  .Call(doc_validate, x$doc, schema$doc)
+  doc_validate(x$doc, schema$doc)
 }

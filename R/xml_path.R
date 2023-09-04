@@ -20,7 +20,7 @@ xml_path.xml_missing <- function(x) {
 
 #' @export
 xml_path.xml_node <- function(x) {
-  .Call(node_path, x$node)
+  node_path(x$node)
 }
 
 #' @export

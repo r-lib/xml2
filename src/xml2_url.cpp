@@ -1,3 +1,5 @@
+#include <cpp11.hpp>
+
 #define R_NO_REMAP
 #include <Rinternals.h>
 #undef R_NO_REMAP
@@ -5,7 +7,7 @@
 #include <libxml/uri.h>
 #include "xml2_utils.h"
 
-// [[export]]
+[[cpp11::register]]
 extern "C" SEXP url_absolute_(SEXP x_sxp, SEXP base_sxp) {
   R_xlen_t n = Rf_xlength(x_sxp);
   SEXP out = PROTECT(Rf_allocVector(STRSXP, n));
@@ -25,7 +27,7 @@ extern "C" SEXP url_absolute_(SEXP x_sxp, SEXP base_sxp) {
   return out;
 }
 
-// [[export]]
+[[cpp11::register]]
 extern "C" SEXP url_relative_(SEXP x_sxp, SEXP base_sxp) {
   R_xlen_t n = Rf_xlength(x_sxp);
   SEXP out = PROTECT(Rf_allocVector(STRSXP, n));
@@ -45,7 +47,7 @@ extern "C" SEXP url_relative_(SEXP x_sxp, SEXP base_sxp) {
   return out;
 }
 
-// [[export]]
+[[cpp11::register]]
 extern "C" SEXP url_parse_(SEXP x_sxp) {
   R_xlen_t n = Rf_xlength(x_sxp);
 
@@ -118,7 +120,7 @@ extern "C" SEXP url_parse_(SEXP x_sxp) {
   return out;
 }
 
-// [[export]]
+[[cpp11::register]]
 extern "C" SEXP url_escape_(SEXP x_sxp, SEXP reserved_sxp) {
   R_xlen_t n = Rf_xlength(x_sxp);
   SEXP out = PROTECT(Rf_allocVector(STRSXP, n));
@@ -138,7 +140,7 @@ extern "C" SEXP url_escape_(SEXP x_sxp, SEXP reserved_sxp) {
   return out;
 }
 
-// [[export]]
+[[cpp11::register]]
 extern "C" SEXP url_unescape_(SEXP x_sxp) {
   R_xlen_t n = Rf_xlength(x_sxp);
   SEXP out = PROTECT(Rf_allocVector(STRSXP, n));

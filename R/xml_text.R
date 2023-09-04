@@ -32,7 +32,7 @@ xml_text.xml_missing <- function(x, trim = FALSE) {
 
 #' @export
 xml_text.xml_node <- function(x, trim = FALSE) {
-  res <- .Call(node_text, x$node)
+  res <- node_text(x$node)
   if (isTRUE(trim)) {
     res <- sub("^[[:space:]\u00a0]+", "", res)
     res <- sub("[[:space:]\u00a0]+$", "", res)
@@ -71,12 +71,12 @@ xml_text.xml_nodeset <- function(x, trim = FALSE) {
   if (xml_type(x) != "text") {
     text_child <- xml_find_first(x, ".//text()[1]", ns = character())
     if (inherits(text_child, "xml_missing")) {
-      .Call(node_append_content, x$node, value)
+      node_append_content(x$node, value)
     } else {
-      .Call(node_set_content, text_child$node, value)
+      node_set_content(text_child$node, value)
     }
   } else {
-    .Call(node_set_content, x$node, value)
+    node_set_content(x$node, value)
   }
 
   x

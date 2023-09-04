@@ -1,3 +1,5 @@
+#include <cpp11.hpp>
+
 #define R_NO_REMAP
 #include <Rinternals.h>
 #undef R_NO_REMAP
@@ -102,7 +104,7 @@ public:
 
 };
 
-// [[export]]
+[[cpp11::register]]
 extern "C" SEXP xpath_search(SEXP node_sxp, SEXP doc_sxp, SEXP xpath_sxp, SEXP nsMap_sxp, SEXP num_results_sxp) {
 
   XPtrNode node(node_sxp);

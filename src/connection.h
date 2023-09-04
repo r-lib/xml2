@@ -1,5 +1,7 @@
 #pragma once
 
+#include <cpp11.hpp>
+
 #define R_NO_REMAP
 #include <Rinternals.h>
 #undef R_NO_REMAP

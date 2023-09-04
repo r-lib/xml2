@@ -117,9 +117,11 @@ read_xml.character <- function(x,
         base_url = x, options = options
       )
     } else {
-      doc <- .Call(doc_parse_file, con,
-        encoding = encoding, as_html = as_html,
-        options = options
+      doc <- doc_parse_file(
+        con,
+        encoding_sxp = encoding,
+        as_html_sxp = as_html,
+        options_sxp = options
       )
       xml_document(doc)
     }
@@ -136,7 +138,7 @@ read_xml.raw <- function(x,
                          options = "NOBLANKS") {
   options <- parse_options(options, xml_parse_options())
 
-  doc <- .Call(doc_parse_raw, x, encoding, base_url, as_html, options)
+  doc <- doc_parse_raw(x, encoding, base_url, as_html, options)
   xml_document(doc)
 }
 
@@ -157,7 +159,7 @@ read_xml.connection <- function(x,
     on.exit(close(x))
   }
 
-  raw <- .Call(read_connection_, x, n)
+  raw <- read_connection_(x, n)
   read_xml.raw(raw,
     encoding = encoding, base_url = base_url, as_html =
       as_html, options = options

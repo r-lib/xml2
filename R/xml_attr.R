@@ -71,7 +71,7 @@ xml_attr.xml_missing <- function(x, attr, ns = character(), default = NA_charact
 #' @export
 xml_attr.xml_node <- function(x, attr, ns = character(),
                               default = NA_character_) {
-  .Call(node_attr, x$node, attr, as.character(default), ns)
+  node_attr(x$node, attr, as.character(default), ns)
 }
 
 #' @export
@@ -106,7 +106,7 @@ xml_attrs.xml_missing <- function(x, ns = character()) {
 
 #' @export
 xml_attrs.xml_node <- function(x, ns = character()) {
-  .Call(node_attrs, x$node, nsMap = ns)
+  node_attrs(x$node, nsMap_sxp = ns)
 }
 
 #' @export
@@ -124,10 +124,10 @@ xml_attrs.xml_nodeset <- function(x, ns = character()) {
 #' @export
 `xml_attr<-.xml_node` <- function(x, attr, ns = character(), value) {
   if (is.null(value)) {
-    .Call(node_remove_attr, x$node, attr, ns)
+    node_remove_attr(x$node, attr, ns)
   } else {
     value <- as.character(value)
-    .Call(node_set_attr, x$node, attr, value, ns)
+    node_set_attr(x$node, attr, value, ns)
   }
   x
 }

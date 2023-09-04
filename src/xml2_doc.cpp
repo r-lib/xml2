@@ -1,3 +1,5 @@
+#include <cpp11.hpp>
+
 #define R_NO_REMAP
 #include <Rinternals.h>
 #undef R_NO_REMAP
@@ -8,7 +10,7 @@
 #include "xml2_utils.h"
 #include <cstring>
 
-// [[export]]
+[[cpp11::register]]
 extern "C" SEXP  xml_parse_options_() {
 
 #if defined(LIBXML_VERSION) && (LIBXML_VERSION >= 20700)
@@ -181,7 +183,7 @@ extern "C" SEXP  xml_parse_options_() {
 #undef HAS_IGNORE_ENC
 }
 
-// [[export]]
+[[cpp11::register]]
 extern "C" SEXP doc_parse_file(
     SEXP path_sxp,
     SEXP encoding_sxp,
@@ -214,7 +216,7 @@ extern "C" SEXP doc_parse_file(
   return SEXP(XPtrDoc(pDoc));
 }
 
-// [[export]]
+[[cpp11::register]]
 extern "C" SEXP doc_parse_raw(
     SEXP x,
     SEXP encoding_sxp,
@@ -256,7 +258,7 @@ extern "C" SEXP doc_parse_raw(
   END_CPP
 }
 
-// [[export]]
+[[cpp11::register]]
 extern "C" SEXP doc_root(SEXP x) {
   BEGIN_CPP
   XPtrDoc doc(x);
@@ -265,7 +267,7 @@ extern "C" SEXP doc_root(SEXP x) {
   END_CPP
 }
 
-// [[export]]
+[[cpp11::register]]
 extern "C" SEXP doc_has_root(SEXP x_sxp) {
   BEGIN_CPP
   XPtrDoc x(x_sxp);
@@ -273,7 +275,7 @@ extern "C" SEXP doc_has_root(SEXP x_sxp) {
   END_CPP
 }
 
-// [[export]]
+[[cpp11::register]]
 extern "C" SEXP  doc_url(SEXP doc_sxp) {
   BEGIN_CPP
 
@@ -290,7 +292,7 @@ extern "C" SEXP  doc_url(SEXP doc_sxp) {
   END_CPP
 }
 
-// [[export]]
+[[cpp11::register]]
 extern "C" SEXP  doc_new(SEXP version_sxp, SEXP encoding_sxp) {
 
   const char* encoding = CHAR(STRING_ELT(encoding_sxp, 0));
@@ -303,7 +305,7 @@ extern "C" SEXP  doc_new(SEXP version_sxp, SEXP encoding_sxp) {
   END_CPP
 }
 
-// [[export]]
+[[cpp11::register]]
 extern "C" SEXP doc_set_root(SEXP doc_sxp, SEXP root_sxp) {
   BEGIN_CPP
   XPtrDoc doc(doc_sxp);
@@ -313,7 +315,7 @@ extern "C" SEXP doc_set_root(SEXP doc_sxp, SEXP root_sxp) {
   END_CPP
 }
 
-// [[export]]
+[[cpp11::register]]
 extern "C" SEXP doc_is_html(SEXP doc_sxp) {
   BEGIN_CPP
   XPtrDoc doc(doc_sxp);

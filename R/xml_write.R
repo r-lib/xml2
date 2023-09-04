@@ -44,10 +44,10 @@ write_xml.xml_document <- function(x, file, ..., options = "format", encoding = 
       open(file, "wb")
       on.exit(close(file))
     }
-    .Call(doc_write_connection, x$doc, file, encoding, options)
+    doc_write_connection(x$doc, file, encoding, options)
   } else {
     check_string(file)
-    .Call(doc_write_file, x$doc, file, encoding, options)
+    doc_write_file(x$doc, file, encoding, options)
   }
 
   invisible()
@@ -67,10 +67,10 @@ write_xml.xml_nodeset <- function(x, file, ..., options = "format", encoding = "
       open(file, "wb")
       on.exit(close(file))
     }
-    .Call(node_write_connection, x[[1]]$node, file, encoding, options)
+    node_write_connection(x[[1]]$node, file, encoding, options)
   } else {
     check_string(file)
-    .Call(node_write_file, x[[1]]$node, file, encoding, options)
+    node_write_file(x[[1]]$node, file, encoding, options)
   }
 
   invisible()
@@ -86,10 +86,10 @@ write_xml.xml_node <- function(x, file, ..., options = "format", encoding = "UTF
       open(file, "wb")
       on.exit(close(file))
     }
-    .Call(node_write_connection, x$node, file, encoding, options)
+    node_write_connection(x$node, file, encoding, options)
   } else {
     check_string(file)
-    .Call(node_write_file, x$node, file, encoding, options)
+    node_write_file(x$node, file, encoding, options)
   }
 
   invisible()

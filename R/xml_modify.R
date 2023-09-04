@@ -29,7 +29,7 @@ xml_replace <- function(.x, .value, ..., .copy = TRUE) {
 xml_replace.xml_node <- function(.x, .value, ..., .copy = TRUE) {
   node <- create_node(.value, .parent = .x, .copy = .copy, ...)
 
-  .x$node <- .Call(node_replace, .x$node, node$node)
+  .x$node <- node_replace(.x$node, node$node)
   node
 }
 
@@ -65,8 +65,8 @@ xml_add_sibling.xml_node <- function(.x, .value, ..., .where = c("after", "befor
   node <- create_node(.value, .parent = .x, .copy = .copy, ...)
 
   .x$node <- switch(.where,
-    before = .Call(node_prepend_sibling, .x$node, node$node),
-    after = .Call(node_append_sibling, .x$node, node$node)
+    before = node_prepend_sibling(.x$node, node$node),
+    after = node_append_sibling(.x$node, node$node)
   )
 
   invisible(.x)
@@ -97,21 +97,21 @@ xml_add_sibling.xml_missing <- function(.x, .value, ..., .where = c("after", "be
 create_node <- function(.value, ..., .parent, .copy) {
   if (inherits(.value, "xml_node")) {
     if (isTRUE(.copy)) {
-      .value$node <- .Call(node_copy, .value$node)
+      .value$node <- node_copy(.value$node)
     }
     return(.value)
   }
 
   if (inherits(.value, "xml_cdata")) {
-    return(xml_node(.Call(node_cdata_new, .parent$doc, .value), doc = .parent$doc))
+    return(xml_node(node_cdata_new(.parent$doc, .value), doc = .parent$doc))
   }
 
   if (inherits(.value, "xml_comment")) {
-    return(xml_node(.Call(node_comment_new, .value), doc = .parent$doc))
+    return(xml_node(node_comment_new(.value), doc = .parent$doc))
   }
 
   if (inherits(.value, "xml_dtd")) {
-    .Call(node_new_dtd, .parent$doc, .value$name, .value$external_id, .value$system_id)
+    node_new_dtd(.parent$doc, .value$name, .value$external_id, .value$system_id)
     return()
   }
 
@@ -119,10 +119,10 @@ create_node <- function(.value, ..., .parent, .copy) {
 
   parts <- strsplit(.value, ":")[[1]]
   if (length(parts) == 2 && !is.null(.parent$node)) {
-    namespace <- .Call(ns_lookup, .parent$doc, .parent$node, parts[[1]])
-    node <- list(node = .Call(node_new_ns, parts[[2]], namespace), doc = .parent$doc)
+    namespace <- ns_lookup(.parent$doc, .parent$node, parts[[1]])
+    node <- list(node = node_new_ns(parts[[2]], namespace), doc = .parent$doc)
   } else {
-    node <- list(node = .Call(node_new, .value), doc = .parent$doc)
+    node <- list(node = node_new(.value), doc = .parent$doc)
   }
   class(node) <- "xml_node"
 
@@ -145,17 +145,17 @@ xml_add_child.xml_node <- function(.x, .value, ..., .where = length(xml_children
   node <- create_node(.value, .parent = .x, .copy = .copy, ...)
 
   if (.where == 0L) {
-    if (.Call(node_has_children, .x$node, TRUE)) {
-      .Call(node_prepend_child, .x$node, node$node)
+    if (node_has_children(.x$node, TRUE)) {
+      node_prepend_child(.x$node, node$node)
     } else {
-      .Call(node_append_child, .x$node, node$node)
+      node_append_child(.x$node, node$node)
     }
   } else {
     num_children <- length(xml_children(.x))
     if (.where >= num_children) {
-      .Call(node_append_child, .x$node, node$node)
+      node_append_child(.x$node, node$node)
     } else {
-      .Call(node_append_sibling, xml_child(.x, search = .where)$node, node$node)
+      node_append_sibling(xml_child(.x, search = .where)$node, node$node)
     }
   }
 
@@ -169,10 +169,10 @@ xml_add_child.xml_document <- function(.x, .value, ..., .where = length(xml_chil
   } else {
     node <- create_node(.value, .parent = .x, .copy = .copy, ...)
     if (!is.null(node)) {
-      if (!.Call(doc_has_root, .x$doc)) {
-        .Call(doc_set_root, .x$doc, node$node)
+      if (!doc_has_root(.x$doc)) {
+        doc_set_root(.x$doc, node$node)
       }
-      .Call(node_append_child, .Call(doc_root, .x$doc), node$node)
+      node_append_child(doc_root(.x$doc), node$node)
     }
     invisible(xml_document(.x$doc))
   }
@@ -240,7 +240,7 @@ xml_remove <- function(.x, free = FALSE) {
 
 #' @export
 xml_remove.xml_node <- function(.x, free = FALSE) {
-  .Call(node_remove, .x$node, free)
+  node_remove(.x$node, free)
 
   invisible(.x)
 }
@@ -272,9 +272,9 @@ xml_set_namespace <- function(.x, prefix = "", uri = "") {
   stopifnot(inherits(.x, "xml_node"))
 
   if (nzchar(uri)) {
-    .Call(node_set_namespace_uri, .x$doc, .x$node, uri)
+    node_set_namespace_uri(.x$doc, .x$node, uri)
   } else {
-    .Call(node_set_namespace_prefix, .x$doc, .x$node, prefix)
+    node_set_namespace_prefix(.x$doc, .x$node, prefix)
   }
   invisible(.x)
 }
@@ -292,7 +292,7 @@ xml_set_namespace <- function(.x, prefix = "", uri = "") {
 #' @export
 # TODO: jimhester 2016-12-16 Deprecate this in the future?
 xml_new_document <- function(version = "1.0", encoding = "UTF-8") {
-  doc <- .Call(doc_new, version, encoding)
+  doc <- doc_new(version, encoding)
   out <- list(doc = doc)
   class(out) <- "xml_document"
   out

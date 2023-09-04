@@ -1,3 +1,5 @@
+#include <cpp11.hpp>
+
 #define R_NO_REMAP
 #include <Rinternals.h>
 #undef R_NO_REMAP
@@ -29,7 +31,7 @@ SEXP write_bin(SEXP data, SEXP con) {
 // Read data from a connection in chunks and then combine into a single
 // raw vector.
 //
-// [[export]]
+[[cpp11::register]]
 extern "C" SEXP read_connection_(SEXP con_sxp, SEXP read_size_sxp) {
 
   BEGIN_CPP

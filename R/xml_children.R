@@ -38,7 +38,7 @@
 #' xml_child(x, 2)
 #' xml_child(x, "baz")
 xml_children <- function(x) {
-  nodeset_apply(x, function(x) .Call(node_children, x, TRUE))
+  nodeset_apply(x, function(x) node_children(x, TRUE))
 }
 
 #' @export
@@ -60,19 +60,19 @@ xml_child <- function(x, search = 1, ns = xml_ns(x)) {
 #' @export
 #' @rdname xml_children
 xml_contents <- function(x) {
-  nodeset_apply(x, function(x) .Call(node_children, x, FALSE))
+  nodeset_apply(x, function(x) node_children(x, FALSE))
 }
 
 #' @export
 #' @rdname xml_children
 xml_parents <- function(x) {
-  nodeset_apply(x, function(x) .Call(node_parents, x))
+  nodeset_apply(x, function(x) node_parents(x))
 }
 
 #' @export
 #' @rdname xml_children
 xml_siblings <- function(x) {
-  nodeset_apply(x, function(x) .Call(node_siblings, x, TRUE))
+  nodeset_apply(x, function(x) node_siblings(x, TRUE))
 }
 
 #' @export
@@ -88,12 +88,12 @@ xml_parent.xml_missing <- function(x) {
 
 #' @export
 xml_parent.xml_node <- function(x) {
-  xml_node(.Call(node_parent, x$node), x$doc)
+  xml_node(node_parent(x$node), x$doc)
 }
 
 #' @export
 xml_parent.xml_nodeset <- function(x) {
-  nodeset_apply(x, function(x) .Call(node_parent, x))
+  nodeset_apply(x, function(x) node_parent(x))
 }
 
 
@@ -110,7 +110,7 @@ xml_length.xml_missing <- function(x, only_elements = TRUE) {
 
 #' @export
 xml_length.xml_node <- function(x, only_elements = TRUE) {
-  .Call(node_length, x$node, only_elements)
+  node_length(x$node, only_elements)
 }
 
 #' @export
@@ -134,7 +134,7 @@ xml_root <- function(x) {
       return(xml_root(x[[1]]))
     }
   }
-  if (!.Call(doc_has_root, x$doc)) {
+  if (!doc_has_root(x$doc)) {
     xml_missing()
   } else {
     xml_document(x$doc)

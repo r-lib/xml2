@@ -1,3 +1,5 @@
+#include <cpp11.hpp>
+
 #define R_NO_REMAP
 #include <Rinternals.h>
 #undef R_NO_REMAP
@@ -16,7 +18,7 @@ void handleSchemaError(void* userData, xmlError* error) {
   vec->push_back(message);
 }
 
-// [[export]]
+[[cpp11::register]]
 extern "C" SEXP doc_validate(SEXP doc_sxp, SEXP schema_sxp) {
 
   XPtrDoc doc(doc_sxp);

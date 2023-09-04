@@ -1,3 +1,5 @@
+#include <cpp11.hpp>
+
 #define R_NO_REMAP
 #include <Rinternals.h>
 #undef R_NO_REMAP
@@ -43,7 +45,7 @@ typedef struct {
   int value;
 } xml_save_def;
 
-// [[export]]
+[[cpp11::register]]
 extern "C" SEXP xml_save_options_() {
 
   static const xml_save_def entries[] = {
@@ -97,7 +99,7 @@ int xml_write_callback(SEXP con, const char * buffer, int len) {
   return write_size;
 }
 
-// [[export]]
+[[cpp11::register]]
 extern "C" SEXP doc_write_file(SEXP doc_sxp, SEXP path_sxp, SEXP encoding_sxp, SEXP options_sxp) {
 
   BEGIN_CPP
@@ -119,7 +121,7 @@ extern "C" SEXP doc_write_file(SEXP doc_sxp, SEXP path_sxp, SEXP encoding_sxp, S
   END_CPP
 }
 
-// [[export]]
+[[cpp11::register]]
 extern "C" SEXP doc_write_connection(SEXP doc_sxp, SEXP connection, SEXP encoding_sxp, SEXP options_sxp) {
   BEGIN_CPP
   XPtrDoc doc(doc_sxp);
@@ -144,7 +146,7 @@ extern "C" SEXP doc_write_connection(SEXP doc_sxp, SEXP connection, SEXP encodin
   END_CPP
 }
 
-// [[export]]
+[[cpp11::register]]
 extern "C" SEXP doc_write_character(SEXP doc_sxp, SEXP encoding_sxp, SEXP options_sxp) {
   BEGIN_CPP
   XPtrDoc doc(doc_sxp);
@@ -174,7 +176,7 @@ extern "C" SEXP doc_write_character(SEXP doc_sxp, SEXP encoding_sxp, SEXP option
   END_CPP
 }
 
-// [[export]]
+[[cpp11::register]]
 extern "C" SEXP node_write_file(SEXP node_sxp, SEXP path_sxp, SEXP encoding_sxp, SEXP options_sxp) {
   BEGIN_CPP
   XPtrNode node(node_sxp);
@@ -195,7 +197,7 @@ extern "C" SEXP node_write_file(SEXP node_sxp, SEXP path_sxp, SEXP encoding_sxp,
   END_CPP
 }
 
-// [[export]]
+[[cpp11::register]]
 extern "C" SEXP node_write_connection(SEXP node_sxp, SEXP connection, SEXP encoding_sxp, SEXP options_sxp) {
   BEGIN_CPP
   XPtrNode node(node_sxp);
@@ -219,7 +221,7 @@ extern "C" SEXP node_write_connection(SEXP node_sxp, SEXP connection, SEXP encod
   END_CPP
 }
 
-// [[export]]
+[[cpp11::register]]
 extern "C" SEXP node_write_character(SEXP node_sxp, SEXP encoding_sxp, SEXP options_sxp) {
   BEGIN_CPP
   XPtrNode node(node_sxp);

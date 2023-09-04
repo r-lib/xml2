@@ -20,12 +20,12 @@ test_that("aliased prefixes retained", {
 
 test_that("unique prefix-url combo unchanged", {
   x <- c(blah = "http://blah.com", rah = "http://rah.com")
-  expect_equal(.Call(unique_ns, x), x)
+  expect_equal(unique_ns(x), x)
 })
 
 test_that("all prefixs kept", {
   x <- c(blah = "http://blah.com", rah = "http://blah.com")
-  expect_equal(names(.Call(unique_ns, x)), c("blah", "rah"))
+  expect_equal(names(unique_ns(x)), c("blah", "rah"))
 })
 
 test_that("multiple default namespaces can be stripped", {

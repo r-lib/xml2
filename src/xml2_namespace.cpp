@@ -1,3 +1,5 @@
+#include <cpp11.hpp>
+
 #define R_NO_REMAP
 #include <Rinternals.h>
 #undef R_NO_REMAP
@@ -7,7 +9,7 @@
 #include "xml2_types.h"
 #include "xml2_utils.h"
 
-// [[export]]
+[[cpp11::register]]
 extern "C" SEXP unique_ns(SEXP ns) {
   BEGIN_CPP
   return NsMap(ns).out();
@@ -26,7 +28,7 @@ void cache_namespace(xmlNode* node, NsMap* nsMap) {
     cache_namespace(cur, nsMap);
 }
 
-// [[export]]
+[[cpp11::register]]
 extern "C" SEXP doc_namespaces(SEXP doc_sxp) {
   BEGIN_CPP
   XPtrDoc doc(doc_sxp);
@@ -40,7 +42,7 @@ extern "C" SEXP doc_namespaces(SEXP doc_sxp) {
   END_CPP
 }
 
-// [[export]]
+[[cpp11::register]]
 extern "C" SEXP ns_lookup_uri(SEXP doc_sxp, SEXP node_sxp, SEXP uri_sxp) {
   BEGIN_CPP
   XPtrDoc doc(doc_sxp);
@@ -55,7 +57,7 @@ extern "C" SEXP ns_lookup_uri(SEXP doc_sxp, SEXP node_sxp, SEXP uri_sxp) {
   END_CPP
 }
 
-// [[export]]
+[[cpp11::register]]
 extern "C" SEXP ns_lookup(SEXP doc_sxp, SEXP node_sxp, SEXP prefix_sxp) {
   BEGIN_CPP
   XPtrDoc doc(doc_sxp);

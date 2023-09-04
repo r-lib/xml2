@@ -1,6 +1,8 @@
 #ifndef __XML2_XML_UTILS__
 #define __XML2_XML_UTILS__
 
+#include <cpp11.hpp>
+
 #define R_NO_REMAP
 #include <Rinternals.h>
 #undef R_NO_REMAP

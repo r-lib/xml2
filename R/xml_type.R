@@ -17,12 +17,12 @@ xml_type.xml_missing <- function(x) {
 
 #' @export
 xml_type.xml_node <- function(x) {
-  xmlElementType[.Call(node_type, x$node)]
+  xmlElementType[node_type(x$node)]
 }
 
 #' @export
 xml_type.xml_nodeset <- function(x) {
-  types <- vapply(x, function(x) .Call(node_type, x$node), integer(1))
+  types <- vapply(x, function(x) node_type(x$node), integer(1))
   xmlElementType[types]
 }
 

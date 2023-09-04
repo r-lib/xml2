@@ -1,3 +1,5 @@
+#include <cpp11.hpp>
+
 #define R_NO_REMAP
 #include <Rinternals.h>
 #undef R_NO_REMAP
@@ -37,7 +39,7 @@ void handleGenericError(void *ctx, const char *fmt, ...)
   Rf_error(buffer);
 }
 
-// [[export]]
+[[cpp11::register]]
 extern "C" SEXP init_libxml2() {
   // Check that header and libs are compatible
   LIBXML_TEST_VERSION
@@ -56,7 +58,7 @@ extern "C" {
 
 }
 
-// [[export]]
+[[cpp11::register]]
 extern "C" SEXP libxml2_version_(){
   return Rf_mkString(LIBXML_DOTTED_VERSION);
 }

@@ -1,3 +1,5 @@
+#include <cpp11.hpp>
+
 #define R_NO_REMAP
 #include <Rinternals.h>
 #undef R_NO_REMAP
@@ -27,7 +29,7 @@ std::string nodeName(T* node, SEXP nsMap) {
   return prefix + ":" + name;
 }
 
-// [[export]]
+[[cpp11::register]]
 extern "C" SEXP node_name(SEXP node_sxp, SEXP nsMap) {
   BEGIN_CPP
   XPtrNode node(node_sxp);
@@ -37,7 +39,7 @@ extern "C" SEXP node_name(SEXP node_sxp, SEXP nsMap) {
   END_CPP
 }
 
-// [[export]]
+[[cpp11::register]]
 extern "C" SEXP node_set_name(SEXP node_sxp, SEXP value) {
   BEGIN_CPP
   XPtrNode node(node_sxp);
@@ -48,7 +50,7 @@ extern "C" SEXP node_set_name(SEXP node_sxp, SEXP value) {
   END_CPP
 }
 
-// [[export]]
+[[cpp11::register]]
 extern "C" SEXP node_text(SEXP node_sxp) {
   BEGIN_CPP
   XPtrNode node(node_sxp);
@@ -82,7 +84,7 @@ const xmlChar* xmlNsDefinition(xmlNodePtr node, const xmlChar* lookup) {
   return NULL;
 }
 
-// [[export]]
+[[cpp11::register]]
 extern "C" SEXP node_attr(
     SEXP node_sxp,
     SEXP name_sxp,
@@ -133,7 +135,7 @@ extern "C" SEXP node_attr(
   END_CPP
 }
 
-// [[export]]
+[[cpp11::register]]
 extern "C" SEXP node_attrs(SEXP node_sxp, SEXP nsMap_sxp) {
   BEGIN_CPP
   XPtrNode node_(node_sxp);
@@ -324,7 +326,7 @@ void removeNs(xmlNodePtr node, const xmlChar* prefix) {
   return;
 }
 
-// [[export]]
+[[cpp11::register]]
 extern "C" SEXP node_set_attr(SEXP node_sxp, SEXP name_sxp, SEXP value, SEXP nsMap) {
   BEGIN_CPP
   XPtrNode node_(node_sxp);
@@ -368,7 +370,7 @@ extern "C" SEXP node_set_attr(SEXP node_sxp, SEXP name_sxp, SEXP value, SEXP nsM
   END_CPP
 }
 
-// [[export]]
+[[cpp11::register]]
 extern "C" SEXP node_remove_attr(SEXP node_sxp, SEXP name_sxp, SEXP nsMap) {
   BEGIN_CPP
   XPtrNode node_(node_sxp);
@@ -423,7 +425,7 @@ SEXP asList(std::vector<xmlNode*> nodes) {
   return out;
 }
 
-// [[export]]
+[[cpp11::register]]
 extern "C" SEXP node_children(SEXP node_sxp, SEXP only_node_sxp) {
   BEGIN_CPP
   XPtrNode node(node_sxp);
@@ -443,7 +445,7 @@ extern "C" SEXP node_children(SEXP node_sxp, SEXP only_node_sxp) {
   END_CPP
 }
 
-// [[export]]
+[[cpp11::register]]
 extern "C" SEXP node_length(SEXP node_sxp, SEXP only_node_sxp) {
   BEGIN_CPP
 
@@ -462,7 +464,7 @@ extern "C" SEXP node_length(SEXP node_sxp, SEXP only_node_sxp) {
   END_CPP
 }
 
-// [[export]]
+[[cpp11::register]]
 extern "C" SEXP node_has_children(SEXP node_sxp, SEXP only_node_sxp) {
   BEGIN_CPP
   XPtrNode node(node_sxp);
@@ -478,7 +480,7 @@ extern "C" SEXP node_has_children(SEXP node_sxp, SEXP only_node_sxp) {
   END_CPP
 }
 
-// [[export]]
+[[cpp11::register]]
 extern "C" SEXP node_parents(SEXP node_sxp) {
   BEGIN_CPP
   XPtrNode node(node_sxp);
@@ -495,7 +497,7 @@ extern "C" SEXP node_parents(SEXP node_sxp) {
   END_CPP
 }
 
-// [[export]]
+[[cpp11::register]]
 extern "C" SEXP node_siblings(SEXP node_sxp, SEXP only_node_sxp) {
   BEGIN_CPP
   XPtrNode node(node_sxp);
@@ -523,7 +525,7 @@ extern "C" SEXP node_siblings(SEXP node_sxp, SEXP only_node_sxp) {
 }
 
 
-// [[export]]
+[[cpp11::register]]
 extern "C" SEXP node_parent(SEXP node_sxp) {
   BEGIN_CPP
   XPtrNode node(node_sxp);
@@ -536,7 +538,7 @@ extern "C" SEXP node_parent(SEXP node_sxp) {
   END_CPP
 }
 
-// [[export]]
+[[cpp11::register]]
 extern "C" SEXP node_path(SEXP node_sxp) {
   BEGIN_CPP
   XPtrNode node(node_sxp);
@@ -545,7 +547,7 @@ extern "C" SEXP node_path(SEXP node_sxp) {
   END_CPP
 }
 
-// [[export]]
+[[cpp11::register]]
 extern "C" SEXP nodes_duplicated(SEXP nodes) {
   BEGIN_CPP
 
@@ -575,7 +577,7 @@ extern "C" SEXP nodes_duplicated(SEXP nodes) {
   END_CPP
 }
 
-// [[export]]
+[[cpp11::register]]
 extern "C" SEXP node_type(SEXP node_sxp) {
   BEGIN_CPP
   XPtrNode node(node_sxp);
@@ -584,7 +586,7 @@ extern "C" SEXP node_type(SEXP node_sxp) {
   END_CPP
 }
 
-// [[export]]
+[[cpp11::register]]
 extern "C" SEXP node_copy(SEXP node_sxp) {
   BEGIN_CPP
   XPtrNode node(node_sxp);
@@ -595,7 +597,7 @@ extern "C" SEXP node_copy(SEXP node_sxp) {
   END_CPP
 }
 
-// [[export]]
+[[cpp11::register]]
 extern "C" SEXP node_set_content(SEXP node_sxp, SEXP content) {
   BEGIN_CPP
   XPtrNode node(node_sxp);
@@ -606,7 +608,7 @@ extern "C" SEXP node_set_content(SEXP node_sxp, SEXP content) {
   END_CPP
 }
 
-// [[export]]
+[[cpp11::register]]
 extern "C" SEXP node_append_content(SEXP node_sxp, SEXP content) {
   BEGIN_CPP
   XPtrNode node(node_sxp);
@@ -617,7 +619,7 @@ extern "C" SEXP node_append_content(SEXP node_sxp, SEXP content) {
   END_CPP
 }
 
-// [[export]]
+[[cpp11::register]]
 extern "C" SEXP node_new_text(SEXP node_sxp, SEXP content) {
   BEGIN_CPP
   XPtrNode node(node_sxp);
@@ -628,7 +630,7 @@ extern "C" SEXP node_new_text(SEXP node_sxp, SEXP content) {
   END_CPP
 }
 
-// [[export]]
+[[cpp11::register]]
 extern "C" SEXP node_append_child(SEXP parent_sxp, SEXP cur_sxp) {
   BEGIN_CPP
   XPtrNode parent(parent_sxp);
@@ -638,7 +640,7 @@ extern "C" SEXP node_append_child(SEXP parent_sxp, SEXP cur_sxp) {
   END_CPP
 }
 
-// [[export]]
+[[cpp11::register]]
 extern "C" SEXP node_prepend_child(SEXP parent_sxp, SEXP cur_sxp) {
   BEGIN_CPP
   XPtrNode parent(parent_sxp);
@@ -651,7 +653,7 @@ extern "C" SEXP node_prepend_child(SEXP parent_sxp, SEXP cur_sxp) {
 }
 
 // Previous sibling
-// [[export]]
+[[cpp11::register]]
 extern "C" SEXP node_prepend_sibling(SEXP cur_sxp, SEXP elem_sxp) {
   BEGIN_CPP
   XPtrNode cur(cur_sxp);
@@ -664,7 +666,7 @@ extern "C" SEXP node_prepend_sibling(SEXP cur_sxp, SEXP elem_sxp) {
 }
 
 // Append sibling
-// [[export]]
+[[cpp11::register]]
 extern "C" SEXP node_append_sibling(SEXP cur_sxp, SEXP elem_sxp) {
   BEGIN_CPP
   XPtrNode cur(cur_sxp);
@@ -676,7 +678,7 @@ extern "C" SEXP node_append_sibling(SEXP cur_sxp, SEXP elem_sxp) {
 }
 
 // Replace node
-// [[export]]
+[[cpp11::register]]
 extern "C" SEXP node_replace(SEXP old_sxp, SEXP cur_sxp) {
   BEGIN_CPP
   XPtrNode old(old_sxp);
@@ -687,7 +689,7 @@ extern "C" SEXP node_replace(SEXP old_sxp, SEXP cur_sxp) {
   END_CPP
 }
 
-// [[export]]
+[[cpp11::register]]
 extern "C" SEXP node_remove(SEXP node_sxp, SEXP free_sxp) {
   BEGIN_CPP
   XPtrNode node(node_sxp);
@@ -702,7 +704,7 @@ extern "C" SEXP node_remove(SEXP node_sxp, SEXP free_sxp) {
   END_CPP
 }
 
-// [[export]]
+[[cpp11::register]]
 extern "C" SEXP node_new(SEXP name) {
   BEGIN_CPP
   XPtrNode node(xmlNewNode(NULL, asXmlChar(name)));
@@ -711,7 +713,7 @@ extern "C" SEXP node_new(SEXP name) {
 }
 
 
-// [[export]]
+[[cpp11::register]]
 extern "C" SEXP node_cdata_new(SEXP doc_sxp, SEXP content_sxp) {
   BEGIN_CPP
   XPtrDoc doc(doc_sxp);
@@ -720,7 +722,7 @@ extern "C" SEXP node_cdata_new(SEXP doc_sxp, SEXP content_sxp) {
   END_CPP
 }
 
-// [[export]]
+[[cpp11::register]]
 extern "C" SEXP node_comment_new(SEXP content) {
   BEGIN_CPP
   XPtrNode node(xmlNewComment(asXmlChar(content)));
@@ -728,7 +730,7 @@ extern "C" SEXP node_comment_new(SEXP content) {
   END_CPP
 }
 
-// [[export]]
+[[cpp11::register]]
 extern "C" SEXP node_new_ns(SEXP name, SEXP ns_sxp) {
   BEGIN_CPP
   XPtrNs ns(ns_sxp);
@@ -737,7 +739,7 @@ extern "C" SEXP node_new_ns(SEXP name, SEXP ns_sxp) {
   END_CPP
 }
 
-// [[export]]
+[[cpp11::register]]
 extern "C" SEXP node_set_namespace_uri(SEXP doc_sxp, SEXP node_sxp, SEXP uri) {
   BEGIN_CPP
   XPtrDoc doc(doc_sxp);
@@ -751,7 +753,7 @@ extern "C" SEXP node_set_namespace_uri(SEXP doc_sxp, SEXP node_sxp, SEXP uri) {
   END_CPP
 }
 
-// [[export]]
+[[cpp11::register]]
 extern "C" SEXP node_set_namespace_prefix(SEXP doc_sxp, SEXP node_sxp, SEXP prefix_sxp) {
   BEGIN_CPP
   XPtrDoc doc(doc_sxp);
@@ -770,7 +772,7 @@ extern "C" SEXP node_set_namespace_prefix(SEXP doc_sxp, SEXP node_sxp, SEXP pref
   END_CPP
 }
 
-// [[export]]
+[[cpp11::register]]
 extern "C" SEXP node_new_dtd(SEXP doc_sxp, SEXP name_sxp, SEXP eid_sxp, SEXP sid_sxp) {
   BEGIN_CPP
   XPtrDoc doc(doc_sxp);
