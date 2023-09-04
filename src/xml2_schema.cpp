@@ -19,14 +19,12 @@ void handleSchemaError(void* userData, xmlError* error) {
 }
 
 [[cpp11::register]]
-cpp11::sexp doc_validate(SEXP doc_sxp, SEXP schema_sxp) {
+cpp11::logicals doc_validate(cpp11::sexp doc_sxp, cpp11::sexp schema_sxp) {
 
   XPtrDoc doc(doc_sxp);
   XPtrDoc schema(schema_sxp);
 
   xmlLineNumbersDefault(1);
-
-  BEGIN_CPP
 
   std::vector<std::string> vec;
 
@@ -40,23 +38,14 @@ cpp11::sexp doc_validate(SEXP doc_sxp, SEXP schema_sxp) {
 
   xmlSchemaSetValidStructuredErrors(vptr, handleSchemaError, &vec);
 
-  SEXP out = PROTECT(Rf_allocVector(LGLSXP, 1));
-
-  LOGICAL(out)[0] = xmlSchemaValidateDoc(vptr, doc.checked_get()) == 0;
+  bool valid = (xmlSchemaValidateDoc(vptr, doc.checked_get()) == 0);
+  cpp11::writable::logicals out{valid};
 
   xmlSchemaFreeParserCtxt(cptr);
   xmlSchemaFreeValidCtxt(vptr);
   xmlSchemaFree(sptr);
 
-  SEXP errors = PROTECT(Rf_allocVector(STRSXP, vec.size()));
-  for (size_t i = 0; i < vec.size(); ++i) {
-    SET_STRING_ELT(errors, i, Rf_mkCharLenCE(vec[i].c_str(), vec[i].size(), CE_UTF8));
-  }
-  Rf_setAttrib(out, Rf_install("errors"), errors);
+  out.attr("errors") = vec;
 
-
-  UNPROTECT(2);
   return out;
-
-  END_CPP
 }

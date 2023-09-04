@@ -398,10 +398,10 @@ extern "C" SEXP _xml2_node_write_character(SEXP node_sxp, SEXP encoding_sxp, SEX
   END_CPP11
 }
 // xml2_schema.cpp
-cpp11::sexp doc_validate(SEXP doc_sxp, SEXP schema_sxp);
+cpp11::logicals doc_validate(cpp11::sexp doc_sxp, cpp11::sexp schema_sxp);
 extern "C" SEXP _xml2_doc_validate(SEXP doc_sxp, SEXP schema_sxp) {
   BEGIN_CPP11
-    return cpp11::as_sexp(doc_validate(cpp11::as_cpp<cpp11::decay_t<SEXP>>(doc_sxp), cpp11::as_cpp<cpp11::decay_t<SEXP>>(schema_sxp)));
+    return cpp11::as_sexp(doc_validate(cpp11::as_cpp<cpp11::decay_t<cpp11::sexp>>(doc_sxp), cpp11::as_cpp<cpp11::decay_t<cpp11::sexp>>(schema_sxp)));
   END_CPP11
 }
 // xml2_url.cpp
