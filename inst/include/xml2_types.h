@@ -5,24 +5,6 @@
 #define R_NO_REMAP
 #include <Rinternals.h>
 
-enum NodeType {
-  missing = 1,
-  node = 2,
-  nodeset = 3,
-};
-
-inline const NodeType getNodeType(SEXP x) {
-  if (Rf_inherits(x, "xml_node")) {
-    return(NodeType::node);
-  } else if (Rf_inherits(x, "xml_nodeset")) {
-    return(NodeType::nodeset);
-  } else if (Rf_inherits(x, "xml_missing")) {
-    return(NodeType::missing);
-  } else {
-    Rf_error("Unexpected node type");
-  }
-}
-
 template <typename T> class XPtr {
   protected:
   SEXP data_;
@@ -39,12 +21,12 @@ template <typename T> class XPtr {
     data_ = R_MakeExternalPtr((void *) p, R_NilValue, R_NilValue);
     R_PreserveObject(data_);
   }
-  
+
   XPtr(const XPtr<T> &old) {
     data_ = old.data_;
     R_PreserveObject(data_);
   }
-  
+
   XPtr& operator=(const XPtr<T> &other) {
     R_PreserveObject(other.data_);
     if (data_ != NULL) {
