@@ -20,59 +20,59 @@ extern "C" SEXP _xml2_xml_parse_options_() {
   END_CPP11
 }
 // xml2_doc.cpp
-cpp11::sexp doc_parse_file(SEXP path_sxp, SEXP encoding_sxp, SEXP as_html_sxp, SEXP options_sxp);
+cpp11::sexp doc_parse_file(cpp11::strings path_sxp, cpp11::strings encoding_sxp, cpp11::logicals as_html_sxp, cpp11::integers options_sxp);
 extern "C" SEXP _xml2_doc_parse_file(SEXP path_sxp, SEXP encoding_sxp, SEXP as_html_sxp, SEXP options_sxp) {
   BEGIN_CPP11
-    return cpp11::as_sexp(doc_parse_file(cpp11::as_cpp<cpp11::decay_t<SEXP>>(path_sxp), cpp11::as_cpp<cpp11::decay_t<SEXP>>(encoding_sxp), cpp11::as_cpp<cpp11::decay_t<SEXP>>(as_html_sxp), cpp11::as_cpp<cpp11::decay_t<SEXP>>(options_sxp)));
+    return cpp11::as_sexp(doc_parse_file(cpp11::as_cpp<cpp11::decay_t<cpp11::strings>>(path_sxp), cpp11::as_cpp<cpp11::decay_t<cpp11::strings>>(encoding_sxp), cpp11::as_cpp<cpp11::decay_t<cpp11::logicals>>(as_html_sxp), cpp11::as_cpp<cpp11::decay_t<cpp11::integers>>(options_sxp)));
   END_CPP11
 }
 // xml2_doc.cpp
-cpp11::sexp doc_parse_raw(SEXP x, SEXP encoding_sxp, SEXP base_url_sxp, SEXP as_html_sxp, SEXP options_sxp);
+cpp11::sexp doc_parse_raw(cpp11::raws x, cpp11::strings encoding_sxp, cpp11::strings base_url_sxp, cpp11::logicals as_html_sxp, cpp11::integers options_sxp);
 extern "C" SEXP _xml2_doc_parse_raw(SEXP x, SEXP encoding_sxp, SEXP base_url_sxp, SEXP as_html_sxp, SEXP options_sxp) {
   BEGIN_CPP11
-    return cpp11::as_sexp(doc_parse_raw(cpp11::as_cpp<cpp11::decay_t<SEXP>>(x), cpp11::as_cpp<cpp11::decay_t<SEXP>>(encoding_sxp), cpp11::as_cpp<cpp11::decay_t<SEXP>>(base_url_sxp), cpp11::as_cpp<cpp11::decay_t<SEXP>>(as_html_sxp), cpp11::as_cpp<cpp11::decay_t<SEXP>>(options_sxp)));
+    return cpp11::as_sexp(doc_parse_raw(cpp11::as_cpp<cpp11::decay_t<cpp11::raws>>(x), cpp11::as_cpp<cpp11::decay_t<cpp11::strings>>(encoding_sxp), cpp11::as_cpp<cpp11::decay_t<cpp11::strings>>(base_url_sxp), cpp11::as_cpp<cpp11::decay_t<cpp11::logicals>>(as_html_sxp), cpp11::as_cpp<cpp11::decay_t<cpp11::integers>>(options_sxp)));
   END_CPP11
 }
 // xml2_doc.cpp
-cpp11::sexp doc_root(SEXP x);
+cpp11::sexp doc_root(cpp11::sexp x);
 extern "C" SEXP _xml2_doc_root(SEXP x) {
   BEGIN_CPP11
-    return cpp11::as_sexp(doc_root(cpp11::as_cpp<cpp11::decay_t<SEXP>>(x)));
+    return cpp11::as_sexp(doc_root(cpp11::as_cpp<cpp11::decay_t<cpp11::sexp>>(x)));
   END_CPP11
 }
 // xml2_doc.cpp
-cpp11::sexp doc_has_root(SEXP x_sxp);
+cpp11::logicals doc_has_root(cpp11::sexp x_sxp);
 extern "C" SEXP _xml2_doc_has_root(SEXP x_sxp) {
   BEGIN_CPP11
-    return cpp11::as_sexp(doc_has_root(cpp11::as_cpp<cpp11::decay_t<SEXP>>(x_sxp)));
+    return cpp11::as_sexp(doc_has_root(cpp11::as_cpp<cpp11::decay_t<cpp11::sexp>>(x_sxp)));
   END_CPP11
 }
 // xml2_doc.cpp
-cpp11::sexp  doc_url(SEXP doc_sxp);
+cpp11::strings doc_url(cpp11::sexp doc_sxp);
 extern "C" SEXP _xml2_doc_url(SEXP doc_sxp) {
   BEGIN_CPP11
-    return cpp11::as_sexp(doc_url(cpp11::as_cpp<cpp11::decay_t<SEXP>>(doc_sxp)));
+    return cpp11::as_sexp(doc_url(cpp11::as_cpp<cpp11::decay_t<cpp11::sexp>>(doc_sxp)));
   END_CPP11
 }
 // xml2_doc.cpp
-cpp11::sexp  doc_new(SEXP version_sxp, SEXP encoding_sxp);
+cpp11::sexp doc_new(cpp11::sexp version_sxp, cpp11::strings encoding_sxp);
 extern "C" SEXP _xml2_doc_new(SEXP version_sxp, SEXP encoding_sxp) {
   BEGIN_CPP11
-    return cpp11::as_sexp(doc_new(cpp11::as_cpp<cpp11::decay_t<SEXP>>(version_sxp), cpp11::as_cpp<cpp11::decay_t<SEXP>>(encoding_sxp)));
+    return cpp11::as_sexp(doc_new(cpp11::as_cpp<cpp11::decay_t<cpp11::sexp>>(version_sxp), cpp11::as_cpp<cpp11::decay_t<cpp11::strings>>(encoding_sxp)));
   END_CPP11
 }
 // xml2_doc.cpp
-cpp11::sexp doc_set_root(SEXP doc_sxp, SEXP root_sxp);
+cpp11::sexp doc_set_root(cpp11::sexp doc_sxp, cpp11::sexp root_sxp);
 extern "C" SEXP _xml2_doc_set_root(SEXP doc_sxp, SEXP root_sxp) {
   BEGIN_CPP11
-    return cpp11::as_sexp(doc_set_root(cpp11::as_cpp<cpp11::decay_t<SEXP>>(doc_sxp), cpp11::as_cpp<cpp11::decay_t<SEXP>>(root_sxp)));
+    return cpp11::as_sexp(doc_set_root(cpp11::as_cpp<cpp11::decay_t<cpp11::sexp>>(doc_sxp), cpp11::as_cpp<cpp11::decay_t<cpp11::sexp>>(root_sxp)));
   END_CPP11
 }
 // xml2_doc.cpp
-cpp11::sexp doc_is_html(SEXP doc_sxp);
+cpp11::sexp doc_is_html(cpp11::sexp doc_sxp);
 extern "C" SEXP _xml2_doc_is_html(SEXP doc_sxp) {
   BEGIN_CPP11
-    return cpp11::as_sexp(doc_is_html(cpp11::as_cpp<cpp11::decay_t<SEXP>>(doc_sxp)));
+    return cpp11::as_sexp(doc_is_html(cpp11::as_cpp<cpp11::decay_t<cpp11::sexp>>(doc_sxp)));
   END_CPP11
 }
 // xml2_init.cpp
