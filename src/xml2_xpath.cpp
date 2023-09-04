@@ -105,7 +105,7 @@ public:
 };
 
 [[cpp11::register]]
-extern "C" SEXP xpath_search(SEXP node_sxp, SEXP doc_sxp, SEXP xpath_sxp, SEXP nsMap_sxp, SEXP num_results_sxp) {
+cpp11::sexp xpath_search(SEXP node_sxp, SEXP doc_sxp, SEXP xpath_sxp, SEXP nsMap_sxp, SEXP num_results_sxp) {
 
   XPtrNode node(node_sxp);
   XPtrDoc doc(doc_sxp);

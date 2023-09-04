@@ -10,7 +10,7 @@
 #include "xml2_utils.h"
 
 [[cpp11::register]]
-extern "C" SEXP unique_ns(SEXP ns) {
+cpp11::sexp unique_ns(SEXP ns) {
   BEGIN_CPP
   return NsMap(ns).out();
   END_CPP
@@ -29,7 +29,7 @@ void cache_namespace(xmlNode* node, NsMap* nsMap) {
 }
 
 [[cpp11::register]]
-extern "C" SEXP doc_namespaces(SEXP doc_sxp) {
+cpp11::sexp doc_namespaces(SEXP doc_sxp) {
   BEGIN_CPP
   XPtrDoc doc(doc_sxp);
 
@@ -43,7 +43,7 @@ extern "C" SEXP doc_namespaces(SEXP doc_sxp) {
 }
 
 [[cpp11::register]]
-extern "C" SEXP ns_lookup_uri(SEXP doc_sxp, SEXP node_sxp, SEXP uri_sxp) {
+cpp11::sexp ns_lookup_uri(SEXP doc_sxp, SEXP node_sxp, SEXP uri_sxp) {
   BEGIN_CPP
   XPtrDoc doc(doc_sxp);
   XPtrNode node(node_sxp);
@@ -58,7 +58,7 @@ extern "C" SEXP ns_lookup_uri(SEXP doc_sxp, SEXP node_sxp, SEXP uri_sxp) {
 }
 
 [[cpp11::register]]
-extern "C" SEXP ns_lookup(SEXP doc_sxp, SEXP node_sxp, SEXP prefix_sxp) {
+cpp11::sexp ns_lookup(SEXP doc_sxp, SEXP node_sxp, SEXP prefix_sxp) {
   BEGIN_CPP
   XPtrDoc doc(doc_sxp);
   XPtrNode node(node_sxp);

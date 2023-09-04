@@ -32,7 +32,7 @@ SEXP write_bin(SEXP data, SEXP con) {
 // raw vector.
 //
 [[cpp11::register]]
-extern "C" SEXP read_connection_(SEXP con_sxp, SEXP read_size_sxp) {
+cpp11::sexp read_connection_(SEXP con_sxp, SEXP read_size_sxp) {
 
   BEGIN_CPP
   std::vector<char> buffer;

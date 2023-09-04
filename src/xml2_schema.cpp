@@ -19,7 +19,7 @@ void handleSchemaError(void* userData, xmlError* error) {
 }
 
 [[cpp11::register]]
-extern "C" SEXP doc_validate(SEXP doc_sxp, SEXP schema_sxp) {
+cpp11::sexp doc_validate(SEXP doc_sxp, SEXP schema_sxp) {
 
   XPtrDoc doc(doc_sxp);
   XPtrDoc schema(schema_sxp);

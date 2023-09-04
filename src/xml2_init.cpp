@@ -40,7 +40,7 @@ void handleGenericError(void *ctx, const char *fmt, ...)
 }
 
 [[cpp11::register]]
-extern "C" SEXP init_libxml2() {
+cpp11::sexp init_libxml2() {
   // Check that header and libs are compatible
   LIBXML_TEST_VERSION
 
@@ -59,6 +59,6 @@ extern "C" {
 }
 
 [[cpp11::register]]
-extern "C" SEXP libxml2_version_(){
+cpp11::sexp libxml2_version_(){
   return Rf_mkString(LIBXML_DOTTED_VERSION);
 }

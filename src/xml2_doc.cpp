@@ -11,7 +11,7 @@
 #include <cstring>
 
 [[cpp11::register]]
-extern "C" SEXP  xml_parse_options_() {
+cpp11::sexp  xml_parse_options_() {
 
 #if defined(LIBXML_VERSION) && (LIBXML_VERSION >= 20700)
 #define HAS_OLD10
@@ -184,7 +184,7 @@ extern "C" SEXP  xml_parse_options_() {
 }
 
 [[cpp11::register]]
-extern "C" SEXP doc_parse_file(
+cpp11::sexp doc_parse_file(
     SEXP path_sxp,
     SEXP encoding_sxp,
     SEXP as_html_sxp,
@@ -217,7 +217,7 @@ extern "C" SEXP doc_parse_file(
 }
 
 [[cpp11::register]]
-extern "C" SEXP doc_parse_raw(
+cpp11::sexp doc_parse_raw(
     SEXP x,
     SEXP encoding_sxp,
     SEXP base_url_sxp,
@@ -259,7 +259,7 @@ extern "C" SEXP doc_parse_raw(
 }
 
 [[cpp11::register]]
-extern "C" SEXP doc_root(SEXP x) {
+cpp11::sexp doc_root(SEXP x) {
   BEGIN_CPP
   XPtrDoc doc(x);
   XPtrNode node(xmlDocGetRootElement(doc.checked_get()));
@@ -268,7 +268,7 @@ extern "C" SEXP doc_root(SEXP x) {
 }
 
 [[cpp11::register]]
-extern "C" SEXP doc_has_root(SEXP x_sxp) {
+cpp11::sexp doc_has_root(SEXP x_sxp) {
   BEGIN_CPP
   XPtrDoc x(x_sxp);
   return Rf_ScalarLogical(xmlDocGetRootElement(x.get()) != NULL);
@@ -276,7 +276,7 @@ extern "C" SEXP doc_has_root(SEXP x_sxp) {
 }
 
 [[cpp11::register]]
-extern "C" SEXP  doc_url(SEXP doc_sxp) {
+cpp11::sexp  doc_url(SEXP doc_sxp) {
   BEGIN_CPP
 
   XPtrDoc doc(doc_sxp);
@@ -293,7 +293,7 @@ extern "C" SEXP  doc_url(SEXP doc_sxp) {
 }
 
 [[cpp11::register]]
-extern "C" SEXP  doc_new(SEXP version_sxp, SEXP encoding_sxp) {
+cpp11::sexp  doc_new(SEXP version_sxp, SEXP encoding_sxp) {
 
   const char* encoding = CHAR(STRING_ELT(encoding_sxp, 0));
 
@@ -306,7 +306,7 @@ extern "C" SEXP  doc_new(SEXP version_sxp, SEXP encoding_sxp) {
 }
 
 [[cpp11::register]]
-extern "C" SEXP doc_set_root(SEXP doc_sxp, SEXP root_sxp) {
+cpp11::sexp doc_set_root(SEXP doc_sxp, SEXP root_sxp) {
   BEGIN_CPP
   XPtrDoc doc(doc_sxp);
   XPtrNode root(root_sxp);
@@ -316,7 +316,7 @@ extern "C" SEXP doc_set_root(SEXP doc_sxp, SEXP root_sxp) {
 }
 
 [[cpp11::register]]
-extern "C" SEXP doc_is_html(SEXP doc_sxp) {
+cpp11::sexp doc_is_html(SEXP doc_sxp) {
   BEGIN_CPP
   XPtrDoc doc(doc_sxp);
   return Rf_ScalarLogical(doc->properties & XML_DOC_HTML);
