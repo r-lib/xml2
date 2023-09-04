@@ -20,12 +20,9 @@ SEXP read_bin(SEXP con, size_t bytes) {
 }
 
 // Wrapper around R's write_bin function
-SEXP write_bin(SEXP data, SEXP con) {
-  SEXP e;
-  PROTECT(e = Rf_lang3(Rf_install("writeBin"), data, con));
-  SEXP res = Rf_eval(e, R_GlobalEnv);
-  UNPROTECT(1);
-  return res;
+cpp11::sexp write_bin(cpp11::sexp data, cpp11::sexp con) {
+  cpp11::function write_bin = cpp11::package("base")["writeBin"];
+  return write_bin(data, con);
 }
 
 // Read data from a connection in chunks and then combine into a single

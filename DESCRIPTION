@@ -42,10 +42,10 @@ SystemRequirements: libxml2: libxml2-dev (deb), libxml2-devel (rpm)
 Collate: 
     'S4.R'
     'as_list.R'
-    'cpp11.R'
     'xml_parse.R'
     'as_xml_document.R'
     'classes.R'
+    'cpp11.R'
     'format.R'
     'import-standalone-obj-type.R'
     'import-standalone-purrr.R'

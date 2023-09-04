@@ -46,7 +46,7 @@ typedef struct {
 } xml_save_def;
 
 [[cpp11::register]]
-cpp11::sexp xml_save_options_() {
+cpp11::writable::integers xml_save_options_() {
 
   static const xml_save_def entries[] = {
     {"format", "Format output", XML_SAVE_FORMAT},
@@ -71,21 +71,18 @@ cpp11::sexp xml_save_options_() {
     ++n;
   }
 
-  SEXP names = PROTECT(Rf_allocVector(STRSXP, n));
-  SEXP descriptions = PROTECT(Rf_allocVector(STRSXP, n));
-  SEXP values = PROTECT(Rf_allocVector(INTSXP, n));
+  cpp11::writable::strings names(n);
+  cpp11::writable::strings descriptions(n);
+  cpp11::writable::integers values(n);
 
-
-  for (R_xlen_t i = 0;i < n; ++i) {
-    SET_STRING_ELT(names, i, Rf_mkChar(entries[i].name));
-    SET_STRING_ELT(descriptions, i, Rf_mkChar(entries[i].description));
-    INTEGER(values)[i] = entries[i].value;
+  for (R_xlen_t i = 0; i < n; ++i) {
+    names[i] = entries[i].name;
+    descriptions[i] = entries[i].description;
+    values[i] = entries[i].value;
   }
 
-  Rf_setAttrib(values, R_NamesSymbol, names);
-  Rf_setAttrib(values, Rf_install("descriptions"), descriptions);
-
-  UNPROTECT(3);
+  values.names() = names;
+  values.attr("descriptions") = descriptions;
 
   return values;
 }
@@ -94,19 +91,17 @@ int xml_write_callback(SEXP con, const char * buffer, int len) {
   size_t write_size;
 
   if ((write_size = R_WriteConnection(con, (void *) buffer, len)) != static_cast<size_t>(len)) {
-    Rf_error("write failed, expected %l, got %l", len, write_size);
+    cpp11::stop("write failed, expected %l, got %l", len, write_size);
   }
   return write_size;
 }
 
 [[cpp11::register]]
-cpp11::sexp doc_write_file(SEXP doc_sxp, SEXP path_sxp, SEXP encoding_sxp, SEXP options_sxp) {
-
-  BEGIN_CPP
+cpp11::sexp doc_write_file(cpp11::sexp doc_sxp, cpp11::strings path_sxp, cpp11::strings encoding_sxp, cpp11::integers options_sxp) {
   XPtrDoc doc(doc_sxp);
-  const char* path = CHAR(STRING_ELT(path_sxp, 0));
-  const char* encoding = CHAR(STRING_ELT(encoding_sxp, 0));
-  int options = INTEGER(options_sxp)[0];
+  const char* path = cpp11::as_cpp<const char*>(path_sxp);
+  const char* encoding = cpp11::as_cpp<const char*>(encoding_sxp);
+  int options = options_sxp[0];
 
   xmlSaveCtxtPtr savectx = xmlSaveToFilename(
       path,
@@ -114,42 +109,38 @@ cpp11::sexp doc_write_file(SEXP doc_sxp, SEXP path_sxp, SEXP encoding_sxp, SEXP 
       options);
   xmlSaveDoc(savectx, doc.checked_get());
   if (xmlSaveClose(savectx) == -1) {
-    Rf_error("Error closing file");
+    cpp11::stop("Error closing file");
   }
 
   return R_NilValue;
-  END_CPP
 }
 
 [[cpp11::register]]
-cpp11::sexp doc_write_connection(SEXP doc_sxp, SEXP connection, SEXP encoding_sxp, SEXP options_sxp) {
-  BEGIN_CPP
+cpp11::sexp doc_write_connection(cpp11::sexp doc_sxp, cpp11::sexp connection, cpp11::strings encoding_sxp, cpp11::integers options_sxp) {
   XPtrDoc doc(doc_sxp);
-  const char* encoding = CHAR(STRING_ELT(encoding_sxp, 0));
-  int options = INTEGER(options_sxp)[0];
+  const char* encoding = cpp11::as_cpp<const char*>(encoding_sxp);
+  int options = options_sxp[0];
 
   xmlSaveCtxtPtr savectx = xmlSaveToIO(
       reinterpret_cast<xmlOutputWriteCallback>(xml_write_callback),
       NULL,
-      con,
+      connection,
       encoding,
       options);
 
   xmlSaveDoc(savectx, doc.checked_get());
   if (xmlSaveClose(savectx) == -1) {
-    Rf_error("Error closing connection");
+    cpp11::stop("Error closing connection");
   }
 
   return R_NilValue;
-  END_CPP
 }
 
 [[cpp11::register]]
-cpp11::sexp doc_write_character(SEXP doc_sxp, SEXP encoding_sxp, SEXP options_sxp) {
-  BEGIN_CPP
+cpp11::writable::strings doc_write_character(cpp11::sexp doc_sxp, cpp11::strings encoding_sxp, cpp11::integers options_sxp) {
   XPtrDoc doc(doc_sxp);
-  const char* encoding = CHAR(STRING_ELT(encoding_sxp, 0));
-  int options = INTEGER(options_sxp)[0];
+  const char* encoding = cpp11::as_cpp<const char*>(encoding_sxp);
+  int options = options_sxp[0];
 
   xmlBufferPtr buffer = xmlBufferCreate();
 
@@ -161,26 +152,21 @@ cpp11::sexp doc_write_character(SEXP doc_sxp, SEXP encoding_sxp, SEXP options_sx
   xmlSaveDoc(savectx, doc.checked_get());
   if (xmlSaveClose(savectx) == -1) {
     xmlFree(buffer);
-    Rf_error("Error writing to buffer");
+    cpp11::stop("Error writing to buffer");
   }
-  SEXP out = PROTECT(Rf_allocVector(STRSXP, 1));
-  SET_STRING_ELT(out, 0, Xml2String(buffer->content).asRString());
+  cpp11::writable::strings out(Xml2String(buffer->content).asRString());
 
   xmlFree(buffer);
 
-  UNPROTECT(1);
-
   return out;
-  END_CPP
 }
 
 [[cpp11::register]]
-cpp11::sexp node_write_file(SEXP node_sxp, SEXP path_sxp, SEXP encoding_sxp, SEXP options_sxp) {
-  BEGIN_CPP
+cpp11::sexp node_write_file(cpp11::sexp node_sxp, cpp11::strings path_sxp, cpp11::strings encoding_sxp, cpp11::integers options_sxp) {
   XPtrNode node(node_sxp);
-  const char* path = CHAR(STRING_ELT(path_sxp, 0));
-  const char* encoding = CHAR(STRING_ELT(encoding_sxp, 0));
-  int options = INTEGER(options_sxp)[0];
+  const char* path = cpp11::as_cpp<const char*>(path_sxp);
+  const char* encoding = cpp11::as_cpp<const char*>(encoding_sxp);
+  int options = options_sxp[0];
 
   xmlSaveCtxtPtr savectx = xmlSaveToFilename(
       path,
@@ -188,42 +174,38 @@ cpp11::sexp node_write_file(SEXP node_sxp, SEXP path_sxp, SEXP encoding_sxp, SEX
       options);
   xmlSaveTree(savectx, node.checked_get());
   if (xmlSaveClose(savectx) == -1) {
-    Rf_error("Error closing file");
+    cpp11::stop("Error closing file");
   }
 
   return R_NilValue;
-  END_CPP
 }
 
 [[cpp11::register]]
-cpp11::sexp node_write_connection(SEXP node_sxp, SEXP connection, SEXP encoding_sxp, SEXP options_sxp) {
-  BEGIN_CPP
+cpp11::sexp node_write_connection(cpp11::sexp node_sxp, cpp11::sexp connection, cpp11::strings encoding_sxp, cpp11::integers options_sxp) {
   XPtrNode node(node_sxp);
-  const char* encoding = CHAR(STRING_ELT(encoding_sxp, 0));
-  int options = INTEGER(options_sxp)[0];
+  const char* encoding = cpp11::as_cpp<const char*>(encoding_sxp);
+  int options = options_sxp[0];
 
   xmlSaveCtxtPtr savectx = xmlSaveToIO(
       (xmlOutputWriteCallback)xml_write_callback,
       NULL,
-      con,
+      connection,
       encoding,
       options);
 
   xmlSaveTree(savectx, node.checked_get());
   if (xmlSaveClose(savectx) == -1) {
-    Rf_error("Error closing connection");
+    cpp11::stop("Error closing connection");
   }
 
   return R_NilValue;
-  END_CPP
 }
 
 [[cpp11::register]]
-cpp11::sexp node_write_character(SEXP node_sxp, SEXP encoding_sxp, SEXP options_sxp) {
-  BEGIN_CPP
+cpp11::writable::strings node_write_character(cpp11::sexp node_sxp, cpp11::strings encoding_sxp, cpp11::integers options_sxp) {
   XPtrNode node(node_sxp);
-  const char* encoding = CHAR(STRING_ELT(encoding_sxp, 0));
-  int options = INTEGER(options_sxp)[0];
+  const char* encoding = cpp11::as_cpp<const char*>(encoding_sxp);
+  int options = options_sxp[0];
 
   xmlBufferPtr buffer = xmlBufferCreate();
 
@@ -235,12 +217,10 @@ cpp11::sexp node_write_character(SEXP node_sxp, SEXP encoding_sxp, SEXP options_
   xmlSaveTree(savectx, node.checked_get());
   if (xmlSaveClose(savectx) == -1) {
     xmlFree(buffer);
-    Rf_error("Error writing to buffer");
+    cpp11::stop("Error writing to buffer");
   }
-  SEXP out = PROTECT(Rf_ScalarString(Xml2String(buffer->content).asRString()));
+  cpp11::writable::strings out(Xml2String(buffer->content).asRString());
   xmlFree(buffer);
 
-  UNPROTECT(1);
   return out;
-  END_CPP
 }
