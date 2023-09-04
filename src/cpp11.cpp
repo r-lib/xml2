@@ -405,38 +405,38 @@ extern "C" SEXP _xml2_doc_validate(SEXP doc_sxp, SEXP schema_sxp) {
   END_CPP11
 }
 // xml2_url.cpp
-extern "C" SEXP url_absolute_(SEXP x_sxp, SEXP base_sxp);
+cpp11::strings url_absolute_(cpp11::strings x_sxp, cpp11::strings base_sxp);
 extern "C" SEXP _xml2_url_absolute_(SEXP x_sxp, SEXP base_sxp) {
   BEGIN_CPP11
-    return cpp11::as_sexp(url_absolute_(cpp11::as_cpp<cpp11::decay_t<SEXP>>(x_sxp), cpp11::as_cpp<cpp11::decay_t<SEXP>>(base_sxp)));
+    return cpp11::as_sexp(url_absolute_(cpp11::as_cpp<cpp11::decay_t<cpp11::strings>>(x_sxp), cpp11::as_cpp<cpp11::decay_t<cpp11::strings>>(base_sxp)));
   END_CPP11
 }
 // xml2_url.cpp
-extern "C" SEXP url_relative_(SEXP x_sxp, SEXP base_sxp);
+cpp11::strings url_relative_(cpp11::strings x_sxp, cpp11::strings base_sxp);
 extern "C" SEXP _xml2_url_relative_(SEXP x_sxp, SEXP base_sxp) {
   BEGIN_CPP11
-    return cpp11::as_sexp(url_relative_(cpp11::as_cpp<cpp11::decay_t<SEXP>>(x_sxp), cpp11::as_cpp<cpp11::decay_t<SEXP>>(base_sxp)));
+    return cpp11::as_sexp(url_relative_(cpp11::as_cpp<cpp11::decay_t<cpp11::strings>>(x_sxp), cpp11::as_cpp<cpp11::decay_t<cpp11::strings>>(base_sxp)));
   END_CPP11
 }
 // xml2_url.cpp
-extern "C" SEXP url_parse_(SEXP x_sxp);
+cpp11::data_frame url_parse_(cpp11::strings x_sxp);
 extern "C" SEXP _xml2_url_parse_(SEXP x_sxp) {
   BEGIN_CPP11
-    return cpp11::as_sexp(url_parse_(cpp11::as_cpp<cpp11::decay_t<SEXP>>(x_sxp)));
+    return cpp11::as_sexp(url_parse_(cpp11::as_cpp<cpp11::decay_t<cpp11::strings>>(x_sxp)));
   END_CPP11
 }
 // xml2_url.cpp
-extern "C" SEXP url_escape_(SEXP x_sxp, SEXP reserved_sxp);
+cpp11::strings url_escape_(cpp11::strings x_sxp, cpp11::strings reserved_sxp);
 extern "C" SEXP _xml2_url_escape_(SEXP x_sxp, SEXP reserved_sxp) {
   BEGIN_CPP11
-    return cpp11::as_sexp(url_escape_(cpp11::as_cpp<cpp11::decay_t<SEXP>>(x_sxp), cpp11::as_cpp<cpp11::decay_t<SEXP>>(reserved_sxp)));
+    return cpp11::as_sexp(url_escape_(cpp11::as_cpp<cpp11::decay_t<cpp11::strings>>(x_sxp), cpp11::as_cpp<cpp11::decay_t<cpp11::strings>>(reserved_sxp)));
   END_CPP11
 }
 // xml2_url.cpp
-extern "C" SEXP url_unescape_(SEXP x_sxp);
+cpp11::strings url_unescape_(cpp11::strings x_sxp);
 extern "C" SEXP _xml2_url_unescape_(SEXP x_sxp) {
   BEGIN_CPP11
-    return cpp11::as_sexp(url_unescape_(cpp11::as_cpp<cpp11::decay_t<SEXP>>(x_sxp)));
+    return cpp11::as_sexp(url_unescape_(cpp11::as_cpp<cpp11::decay_t<cpp11::strings>>(x_sxp)));
   END_CPP11
 }
 // xml2_xpath.cpp

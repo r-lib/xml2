@@ -4,10 +4,9 @@ test_that("url_absolute", {
     c("http://hadley.nz/a/b/c/", "http://hadley.nz/a/b/", "http://hadley.nz/", "http://hadley.nz/x")
   )
 
-  expect_error(
-    url_absolute(c(".", "..", "/", "/x"), c("http://hadley.nz/a/b/c/d", "http://foo.bar")),
-    "Base URL must be length 1"
-  )
+  expect_snapshot(error = TRUE, {
+    url_absolute(c(".", "..", "/", "/x"), c("http://hadley.nz/a/b/c/d", "http://foo.bar"))
+  })
 })
 
 test_that("url_relative", {
@@ -34,10 +33,9 @@ test_that("url_relative", {
     "../c"
   )
 
-  expect_error(
-    url_relative("http://hadley.nz/a/c", c("http://hadley.nz/a/b/c/d", "http://foo.bar")),
-    "Base URL must be length 1"
-  )
+  expect_snapshot(error = TRUE, {
+    url_relative("http://hadley.nz/a/c", c("http://hadley.nz/a/b/c/d", "http://foo.bar"))
+  })
 })
 
 test_that("url_parse", {
@@ -75,10 +73,9 @@ test_that("url_parse", {
 })
 
 test_that("url_escape", {
-  expect_error(
-    url_escape("a b c", reserved = c("a", "b")),
-    "`reserved` must be character vector of length 1"
-  )
+  expect_snapshot(error = TRUE, {
+    url_escape("a b c", reserved = c("a", "b"))
+  })
 
   expect_equal(
     url_escape("a b c"),
