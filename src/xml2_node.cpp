@@ -12,6 +12,7 @@
 #include "xml2_types.h"
 #include "xml2_utils.h"
 
+__attribute__ ((noreturn))
 void stop_unexpected_node_type() {
   Rf_error("Unexpected node type");
 }
