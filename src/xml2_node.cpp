@@ -58,7 +58,7 @@ extern "C" SEXP node_name(SEXP x, SEXP nsMap) {
   switch(type)
   {
   case NodeType::missing:
-  case NodeType::node   :
+  case NodeType::node:
     return Rf_ScalarString(node_name_impl(x, nsMap));
     break;
   case NodeType::nodeset: {
@@ -122,7 +122,7 @@ extern "C" SEXP node_text(SEXP x) {
   switch(type)
   {
   case NodeType::missing:
-  case NodeType::node   :
+  case NodeType::node:
     return Rf_ScalarString(node_text_impl(x));
     break;
   case NodeType::nodeset: {
@@ -241,7 +241,7 @@ extern "C" SEXP node_attr(
   switch(type)
   {
   case NodeType::missing:
-  case NodeType::node   :
+  case NodeType::node:
     return Rf_ScalarString(node_attr_impl(x, name, missingVal, nsMap_sxp));
     break;
   case NodeType::nodeset: {
@@ -338,7 +338,7 @@ extern "C" SEXP node_attrs(SEXP x, SEXP nsMap_sxp) {
   switch(type)
   {
   case NodeType::missing:
-  case NodeType::node   :
+  case NodeType::node:
     return node_attrs_impl(x, nsMap_sxp);
     break;
   case NodeType::nodeset: {
@@ -651,7 +651,7 @@ extern "C" SEXP node_length(SEXP x, SEXP only_node_sxp) {
   switch(type)
   {
   case NodeType::missing:
-  case NodeType::node   :
+  case NodeType::node:
     return Rf_ScalarInteger(node_length_impl(x, only_node));
     break;
   case NodeType::nodeset: {
@@ -784,7 +784,7 @@ extern "C" SEXP node_path(SEXP x) {
   switch(type)
   {
   case NodeType::missing:
-  case NodeType::node   :
+  case NodeType::node:
     return Rf_ScalarString(node_path_impl(x));
     break;
   case NodeType::nodeset: {
@@ -867,7 +867,7 @@ extern "C" SEXP node_type(SEXP x) {
   switch(type)
   {
   case NodeType::missing:
-  case NodeType::node   :
+  case NodeType::node:
     return Rf_ScalarInteger(node_type_impl(x));
     break;
   case NodeType::nodeset: {
