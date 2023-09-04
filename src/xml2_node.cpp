@@ -12,6 +12,10 @@
 #include "xml2_types.h"
 #include "xml2_utils.h"
 
+void stop_unexpected_node_type() {
+  Rf_error("Unexpected node type");
+}
+
 template<typename T> // for xmlAttr and xmlNode
 std::string nodeName(T* node, SEXP nsMap) {
   std::string name = Xml2String(node->name).asStdString();
@@ -44,7 +48,7 @@ SEXP node_name_impl(SEXP x, SEXP nsMap) {
     out = Rf_mkCharLenCE(name.c_str(), name.size(), CE_UTF8);
     break;
   }
-  default: Rf_error("Unexpected node type");
+  default: stop_unexpected_node_type();
   }
 
   return out;
@@ -75,7 +79,7 @@ extern "C" SEXP node_name(SEXP x, SEXP nsMap) {
     UNPROTECT(1);
     return out;
   };
-  default: Rf_error("Unexpected node type");
+  default: stop_unexpected_node_type();
   }
 
   END_CPP
@@ -108,7 +112,7 @@ SEXP node_text_impl(SEXP x) {
     out = Xml2String(xmlNodeGetContent(node.checked_get())).asRString();
     break;
   }
-  default: Rf_error("Unexpected node type");
+  default: stop_unexpected_node_type();
   }
 
   return out;
@@ -139,7 +143,7 @@ extern "C" SEXP node_text(SEXP x) {
     UNPROTECT(1);
     return out;
   };
-  default: Rf_error("Unexpected node type");
+  default: stop_unexpected_node_type();
   }
 
   END_CPP
@@ -217,7 +221,7 @@ SEXP node_attr_impl(SEXP x,
     return Xml2String(string).asRString(missingVal);
     break;
   }
-  default: Rf_error("Unexpected node type");
+  default: stop_unexpected_node_type();
   }
 }
 
@@ -258,7 +262,7 @@ extern "C" SEXP node_attr(
     UNPROTECT(1);
     return out;
   };
-  default: Rf_error("Unexpected node type");
+  default: stop_unexpected_node_type();
   }
 
   END_CPP
@@ -326,7 +330,7 @@ SEXP node_attrs_impl(SEXP x, SEXP nsMap_sxp) {
     return Rf_allocVector(STRSXP, 0);
     break;
   }
-  default: Rf_error("Unexpected node type");
+  default: stop_unexpected_node_type();
   }
 }
 
@@ -355,7 +359,7 @@ extern "C" SEXP node_attrs(SEXP x, SEXP nsMap_sxp) {
     UNPROTECT(1);
     return out;
   };
-  default: Rf_error("Unexpected node type");
+  default: stop_unexpected_node_type();
   }
 
   END_CPP
@@ -635,7 +639,7 @@ int node_length_impl(SEXP x, bool only_node) {
     }
     break;
   }
-  default: Rf_error("Unexpected node type");
+  default: stop_unexpected_node_type();
   }
 
   return out;
@@ -673,7 +677,7 @@ extern "C" SEXP node_length(SEXP x, SEXP only_node_sxp) {
     UNPROTECT(1);
     return out;
   };
-  default: Rf_error("Unexpected node type");
+  default: stop_unexpected_node_type();
   }
 
   END_CPP
@@ -769,7 +773,7 @@ SEXP node_path_impl(SEXP x) {
     out = Xml2String(xmlGetNodePath(node.checked_get())).asRString();
     break;
   }
-  default: Rf_error("Unexpected node type");
+  default: stop_unexpected_node_type();
   }
 
   return out;
@@ -800,7 +804,7 @@ extern "C" SEXP node_path(SEXP x) {
     UNPROTECT(1);
     return out;
   };
-  default: Rf_error("Unexpected node type");
+  default: stop_unexpected_node_type();
   }
 
   END_CPP
@@ -852,7 +856,7 @@ int node_type_impl(SEXP x) {
     out = node->type;
     break;
   }
-  default: Rf_error("Unexpected node type");
+  default: stop_unexpected_node_type();
   }
 
   return out;
@@ -884,7 +888,7 @@ extern "C" SEXP node_type(SEXP x) {
     UNPROTECT(1);
     return out;
   };
-  default: Rf_error("Unexpected node type");
+  default: stop_unexpected_node_type();
   }
 
   END_CPP
