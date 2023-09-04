@@ -259,7 +259,7 @@ cpp11::logicals doc_has_root(cpp11::sexp x_sxp) {
 cpp11::strings doc_url(cpp11::sexp doc_sxp) {
   XPtrDoc doc(doc_sxp);
   if (doc->URL == NULL) {
-    return Rf_ScalarString(NA_STRING);
+    return cpp11::writable::strings({NA_STRING});
   }
 
   return cpp11::as_sexp((const char*) doc->URL);

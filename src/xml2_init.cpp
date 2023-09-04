@@ -59,6 +59,6 @@ extern "C" {
 }
 
 [[cpp11::register]]
-cpp11::sexp libxml2_version_(){
-  return Rf_mkString(LIBXML_DOTTED_VERSION);
+cpp11::strings libxml2_version_(){
+  return cpp11::strings({LIBXML_DOTTED_VERSION});
 }
