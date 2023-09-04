@@ -12,7 +12,6 @@
 SEXP read_bin(SEXP con, size_t bytes = 64 * 1024);
 SEXP write_bin(SEXP data, SEXP con);
 
-inline SEXP R_GetConnection(SEXP con) { return con; }
 
 inline size_t R_WriteConnection(SEXP con, void* buf, size_t n) {
   SEXP payload = PROTECT(Rf_allocVector(RAWSXP, n));

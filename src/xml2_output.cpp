@@ -128,8 +128,6 @@ cpp11::sexp doc_write_connection(SEXP doc_sxp, SEXP connection, SEXP encoding_sx
   const char* encoding = CHAR(STRING_ELT(encoding_sxp, 0));
   int options = INTEGER(options_sxp)[0];
 
-  SEXP con = R_GetConnection(connection);
-
   xmlSaveCtxtPtr savectx = xmlSaveToIO(
       reinterpret_cast<xmlOutputWriteCallback>(xml_write_callback),
       NULL,
@@ -201,7 +199,6 @@ cpp11::sexp node_write_file(SEXP node_sxp, SEXP path_sxp, SEXP encoding_sxp, SEX
 cpp11::sexp node_write_connection(SEXP node_sxp, SEXP connection, SEXP encoding_sxp, SEXP options_sxp) {
   BEGIN_CPP
   XPtrNode node(node_sxp);
-  SEXP con = R_GetConnection(connection);
   const char* encoding = CHAR(STRING_ELT(encoding_sxp, 0));
   int options = INTEGER(options_sxp)[0];
 
