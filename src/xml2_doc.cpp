@@ -262,7 +262,7 @@ cpp11::strings doc_url(cpp11::sexp doc_sxp) {
     return Rf_ScalarString(NA_STRING);
   }
 
-  return cpp11::strings({(const char*) doc->URL});
+  return cpp11::as_sexp((const char*) doc->URL);
 }
 
 [[cpp11::register]]
