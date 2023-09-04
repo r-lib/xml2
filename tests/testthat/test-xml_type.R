@@ -1,4 +1,4 @@
-test_that("multiplication works", {
+test_that("xml_type() works", {
   x <- read_xml("<body>
     <p>Some <b>text</b>.</p>
     <p>Some <i>other</i>.</p>
