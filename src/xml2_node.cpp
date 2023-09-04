@@ -667,8 +667,7 @@ extern "C" SEXP node_length(SEXP x, SEXP only_node_sxp) {
     for (int i = 0; i < n; ++i) {
       SEXP x_i = VECTOR_ELT(x, i);
       int length_i = node_length_impl(x_i, only_node);
-      *p_out = length_i;
-      p_out++;
+      p_out[i] = length_i;
     }
 
     UNPROTECT(1);
@@ -879,8 +878,7 @@ extern "C" SEXP node_type(SEXP x) {
     for (int i = 0; i < n; ++i) {
       SEXP x_i = VECTOR_ELT(x, i);
       int type_i = node_type_impl(x_i);
-      *p_out = type_i;
-      ++p_out;
+      p_out[i] = type_i;
     }
 
     UNPROTECT(1);
