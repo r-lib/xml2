@@ -172,7 +172,7 @@ const xmlChar* xmlNsDefinition(xmlNodePtr node, const xmlChar* lookup) {
 
 
 SEXP node_attr_impl(SEXP x,
-                    std::string name,
+                    const std::string& name,
                     SEXP missingVal,
                     SEXP nsMap_sxp) {
   NodeType type = getNodeType(x);
