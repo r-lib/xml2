@@ -23,24 +23,24 @@ public:
     context_->node = node;
   }
 
-  void registerNamespace(SEXP nsMap) {
-    R_xlen_t n = Rf_xlength(nsMap);
+  void registerNamespace(cpp11::strings nsMap) {
+    R_xlen_t n = nsMap.size();
     if (n == 0) {
       return;
     }
 
-    SEXP prefix = Rf_getAttrib(nsMap, R_NamesSymbol);
+    cpp11::strings prefix = nsMap.names();
 
     for (int i = 0; i < n; ++i) {
-      xmlChar* prefixI = (xmlChar*) CHAR(STRING_ELT(prefix, i));
-      xmlChar* urlI = (xmlChar*) CHAR(STRING_ELT(nsMap, i));
+      xmlChar* prefixI = (xmlChar*) CHAR(prefix[i]);
+      xmlChar* urlI = (xmlChar*) CHAR(nsMap[i]);
 
       if (xmlXPathRegisterNs(context_, prefixI, urlI) != 0)
-        Rf_error("Failed to register namespace (%s <-> %s)", prefixI, urlI);
+        cpp11::stop("Failed to register namespace (%s <-> %s)", prefixI, urlI);
     }
   }
 
-  SEXP search(const char* xpath, int num_results) {
+  cpp11::sexp search(const char* xpath, int num_results) {
     result_ = xmlXPathEval((const xmlChar*)xpath, context_);
     if (result_ == NULL) {
       SEXP ret = PROTECT(Rf_allocVector(VECSXP, 0));
@@ -61,34 +61,29 @@ public:
           }
           int n = std::min(result_->nodesetval->nodeNr, num_results);
 
-          SEXP out = PROTECT(Rf_allocVector(VECSXP, n));
+          cpp11::writable::list out(n);
 
-          SEXP names = PROTECT(Rf_allocVector(STRSXP, 2));
-          SET_STRING_ELT(names, 0, Rf_mkChar("node"));
-          SET_STRING_ELT(names, 1, Rf_mkChar("doc"));
+          cpp11::strings names({"node", "doc"});
 
           for (int i = 0; i < n; i++) {
-            SEXP ret = PROTECT(Rf_allocVector(VECSXP, 2));
+            cpp11::writable::list ret({
+              XPtrNode(nodes->nodeTab[i]),
+              doc_
+            });
 
-            SET_VECTOR_ELT(ret, 0, XPtrNode(nodes->nodeTab[i]));
-            SET_VECTOR_ELT(ret, 1, doc_);
+            ret.names() = names;
+            ret.attr("class") = "xml_node";
 
-            Rf_setAttrib(ret, R_NamesSymbol, names);
-            Rf_setAttrib(ret, R_ClassSymbol, Rf_mkString("xml_node"));
-
-            SET_VECTOR_ELT(out, i, ret);
-
-            UNPROTECT(1);
+            out[i] = ret;
           }
 
-          UNPROTECT(2);
           return out;
         }
-      case XPATH_NUMBER: { return Rf_ScalarReal(result_->floatval); }
-      case XPATH_BOOLEAN: { return Rf_ScalarLogical(result_->boolval); }
-      case XPATH_STRING: { return Rf_ScalarString(Rf_mkCharCE((char *) result_->stringval, CE_UTF8)); }
+      case XPATH_NUMBER: { return cpp11::doubles({result_->floatval}); }
+      case XPATH_BOOLEAN: { return cpp11::logicals({result_->boolval}); }
+      case XPATH_STRING: { return cpp11::as_sexp((const char*) result_->stringval); }
       default:
-        Rf_error("XPath result type: %d not supported", result_->type);
+        cpp11::stop("XPath result type: %d not supported", result_->type);
     }
 
     return R_NilValue;
@@ -105,16 +100,15 @@ public:
 };
 
 [[cpp11::register]]
-cpp11::sexp xpath_search(SEXP node_sxp, SEXP doc_sxp, SEXP xpath_sxp, SEXP nsMap_sxp, SEXP num_results_sxp) {
-
+cpp11::sexp xpath_search(cpp11::sexp node_sxp, cpp11::sexp doc_sxp, cpp11::sexp xpath_sxp, cpp11::strings nsMap_sxp, cpp11::doubles num_results_sxp) {
   XPtrNode node(node_sxp);
   XPtrDoc doc(doc_sxp);
   if (TYPEOF(xpath_sxp) != STRSXP) {
     Rf_error("XPath must be a string, received %s", Rf_type2char(TYPEOF(xpath_sxp)));
   }
-  const char* xpath = CHAR(STRING_ELT(xpath_sxp, 0));
+  const char* xpath = CHAR(cpp11::strings(xpath_sxp)[0]);
 
-  double num_results = REAL(num_results_sxp)[0];
+  double num_results = num_results_sxp[0];
 
   if (num_results == R_PosInf) {
     num_results = INT_MAX;

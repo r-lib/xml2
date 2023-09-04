@@ -440,10 +440,10 @@ extern "C" SEXP _xml2_url_unescape_(SEXP x_sxp) {
   END_CPP11
 }
 // xml2_xpath.cpp
-cpp11::sexp xpath_search(SEXP node_sxp, SEXP doc_sxp, SEXP xpath_sxp, SEXP nsMap_sxp, SEXP num_results_sxp);
+cpp11::sexp xpath_search(cpp11::sexp node_sxp, cpp11::sexp doc_sxp, cpp11::sexp xpath_sxp, cpp11::strings nsMap_sxp, cpp11::doubles num_results_sxp);
 extern "C" SEXP _xml2_xpath_search(SEXP node_sxp, SEXP doc_sxp, SEXP xpath_sxp, SEXP nsMap_sxp, SEXP num_results_sxp) {
   BEGIN_CPP11
-    return cpp11::as_sexp(xpath_search(cpp11::as_cpp<cpp11::decay_t<SEXP>>(node_sxp), cpp11::as_cpp<cpp11::decay_t<SEXP>>(doc_sxp), cpp11::as_cpp<cpp11::decay_t<SEXP>>(xpath_sxp), cpp11::as_cpp<cpp11::decay_t<SEXP>>(nsMap_sxp), cpp11::as_cpp<cpp11::decay_t<SEXP>>(num_results_sxp)));
+    return cpp11::as_sexp(xpath_search(cpp11::as_cpp<cpp11::decay_t<cpp11::sexp>>(node_sxp), cpp11::as_cpp<cpp11::decay_t<cpp11::sexp>>(doc_sxp), cpp11::as_cpp<cpp11::decay_t<cpp11::sexp>>(xpath_sxp), cpp11::as_cpp<cpp11::decay_t<cpp11::strings>>(nsMap_sxp), cpp11::as_cpp<cpp11::decay_t<cpp11::doubles>>(num_results_sxp)));
   END_CPP11
 }
 
