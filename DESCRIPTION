@@ -2,10 +2,10 @@ Package: xml2
 Title: Parse XML
 Version: 1.3.5.9000
 Authors@R: c(
-    person("Hadley", "Wickham", , "hadley@rstudio.com", role = c("aut", "cre")),
+    person("Hadley", "Wickham", , "hadley@posit.co", role = c("aut", "cre")),
     person("Jim", "Hester", role = "aut"),
     person("Jeroen", "Ooms", role = "aut"),
-    person("RStudio", role = c("cph", "fnd")),
+    person("Posit Software, PBC", role = c("cph", "fnd")),
     person("R Foundation", role = "ctb",
            comment = "Copy of R-project homepage cached as example")
   )
