@@ -112,12 +112,10 @@ test_that("read_xml and read_html fail with > 1 input", {
 })
 
 test_that("read_xml with an invalid file allows deletion of the file (#376)", {
-  tmp <- tempfile(fileext = ".xml")
-  on.exit(unlink(tmp))
-  writeLines("<a>", con = tmp)
+  tmp <- withr::local_tempfile(lines = "<a>")
 
-  expect_error(
-    read_xml(tmp)
-  )
+  n_cons <- nrow(showConnections())
+  try(read_xml(tmp), silent = TRUE)
+  expect_equal(nrow(showConnections()), n_cons)
   expect_true(file.remove(tmp))
 })
