@@ -28,7 +28,8 @@ Suggests:
     magrittr,
     mockery,
     rmarkdown,
-    testthat (>= 3.0.0)
+    testthat (>= 3.0.0),
+    withr
 VignetteBuilder: 
     knitr
 Config/Needs/website: tidyverse/tidytemplate
