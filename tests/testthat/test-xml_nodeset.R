@@ -1,7 +1,4 @@
-context("xml_nodeset")
-
 test_that("methods work on empty nodesets", {
-
   x <- read_xml("<a><b/></a>")
   empty <- xml_find_all(x, "//c")
 
@@ -72,4 +69,11 @@ test_that("methods work on empty nodesets", {
   expect_identical(xml_text(empty), character())
   expect_identical(xml_type(empty), character())
   expect_identical(xml_url(empty), character())
+})
+
+test_that("print method is correct", {
+  x <- read_html(test_path("lego.html.bz2"))
+  body <- xml_find_first(x, "//body")
+  divs <- xml_find_all(body, ".//div")[1:10]
+  expect_snapshot(print(divs))
 })

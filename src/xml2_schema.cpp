@@ -1,9 +1,12 @@
+#define R_NO_REMAP
 #include <Rinternals.h>
+#undef R_NO_REMAP
 
 #include <libxml/xmlschemas.h>
-#include "xml2_types.h"
 #include <vector>
 #include <string>
+
+#include "xml2_types.h"
 #include "xml2_utils.h"
 
 void handleSchemaError(void* userData, xmlError* error) {

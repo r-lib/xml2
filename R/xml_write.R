@@ -30,13 +30,13 @@ write_xml <- function(x, file, ...) {
 
 #' @export
 write_xml.xml_missing <- function(x, file, ...) {
-  stop("Missing data cannot be written", call. = FALSE)
+  abort("Missing data cannot be written")
 }
 
 #' @rdname write_xml
 #' @export
 write_xml.xml_document <- function(x, file, ..., options = "format", encoding = "UTF-8") {
-  options  <- parse_options(options, xml_save_options())
+  options <- parse_options(options, xml_save_options())
   file <- path_to_connection(file, check = "dir")
 
   if (inherits(file, "connection")) {
@@ -46,9 +46,7 @@ write_xml.xml_document <- function(x, file, ..., options = "format", encoding = 
     }
     .Call(doc_write_connection, x$doc, file, encoding, options)
   } else {
-    if (!(is.character(file) && length(file) == 1 && nzchar(file))) {
-      stop("`file` must be a non-zero character of length 1", call. = FALSE)
-    }
+    check_string(file)
     .Call(doc_write_file, x$doc, file, encoding, options)
   }
 
@@ -58,10 +56,10 @@ write_xml.xml_document <- function(x, file, ..., options = "format", encoding = 
 #' @export
 write_xml.xml_nodeset <- function(x, file, ..., options = "format", encoding = "UTF-8") {
   if (length(x) != 1) {
-    stop("Can only save length 1 node sets", call. = FALSE)
+    abort("Can only save length 1 node sets")
   }
 
-  options  <- parse_options(options, xml_save_options())
+  options <- parse_options(options, xml_save_options())
   file <- path_to_connection(file, check = "dir")
 
   if (inherits(file, "connection")) {
@@ -71,9 +69,7 @@ write_xml.xml_nodeset <- function(x, file, ..., options = "format", encoding = "
     }
     .Call(node_write_connection, x[[1]]$node, file, encoding, options)
   } else {
-    if (!(is.character(file) && length(file) == 1 && nzchar(file))) {
-      stop("`file` must be a non-zero character of length 1", call. = FALSE)
-    }
+    check_string(file)
     .Call(node_write_file, x[[1]]$node, file, encoding, options)
   }
 
@@ -82,7 +78,7 @@ write_xml.xml_nodeset <- function(x, file, ..., options = "format", encoding = "
 
 #' @export
 write_xml.xml_node <- function(x, file, ..., options = "format", encoding = "UTF-8") {
-  options  <- parse_options(options, xml_save_options())
+  options <- parse_options(options, xml_save_options())
 
   file <- path_to_connection(file, check = "dir")
   if (inherits(file, "connection")) {
@@ -92,9 +88,7 @@ write_xml.xml_node <- function(x, file, ..., options = "format", encoding = "UTF
     }
     .Call(node_write_connection, x$node, file, encoding, options)
   } else {
-    if (!(is.character(file) && length(file) == 1 && nzchar(file))) {
-      stop("`file` must be a non-zero character of length 1", call. = FALSE)
-    }
+    check_string(file)
     .Call(node_write_file, x$node, file, encoding, options)
   }
 
@@ -110,7 +104,7 @@ write_html <- function(x, file, ...) {
 
 #' @export
 write_html.xml_missing <- function(x, file, ...) {
-  stop("Missing data cannot be written", call. = FALSE)
+  abort("Missing data cannot be written")
 }
 
 #' @rdname write_xml

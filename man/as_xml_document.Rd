@@ -26,6 +26,7 @@ as_xml_document(list(foo = list(bar = list(baz = list()))))
 # attributes are stored as R attributes
 as_xml_document(list(foo = structure(list(), id = "a")))
 as_xml_document(list(foo = list(
-     bar = structure(list(), id = "a"),
-     bar = structure(list(), id = "b"))))
+  bar = structure(list(), id = "a"),
+  bar = structure(list(), id = "b")
+)))
 }
