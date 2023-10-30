@@ -29,8 +29,8 @@ or you can install the development version from github, using
 `devtools`:
 
 ``` r
-# install.packages("devtools")
-devtools::install_github("r-lib/xml2")
+# install.packages("pak")
+pak::pak("r-lib/xml2")
 ```
 
 ## Usage
