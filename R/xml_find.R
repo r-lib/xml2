@@ -181,14 +181,14 @@ xml_find_num.xml_missing <- function(x, xpath, ns = xml_ns(x)) {
 #' @export
 #' @rdname xml_find_all
 xml_find_int <- function(x, xpath, ns = xml_ns(x)) {
-  UseMethod("xml_find_num")
+  UseMethod("xml_find_int")
 }
 
 #' @export
 xml_find_int.xml_node <- function(x, xpath, ns = xml_ns(x)) {
   res <- .Call(xpath_search, x$node, x$doc, xpath, ns, Inf)
   check_number_whole(res, arg = I(paste0("Element at path `", xpath, "`")))
-  res
+  as.integer(res)
 }
 
 #' @export

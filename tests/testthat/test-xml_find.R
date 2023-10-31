@@ -85,6 +85,26 @@ test_that("xml_find_num returns a numeric result", {
   expect_equal(xml_find_num(x, "1 div floor(-0)"), -Inf)
 })
 
+# Find int ---------------------------------------------------------------------
+test_that("xml_find_int errors with non integer results", {
+  x <- read_xml("<x><y/><y/></x>")
+  expect_snapshot_error({
+    xml_find_int(x, "//z")
+    xml_find_int(x, "//y")
+    xml_find_int(x, "1=1")
+    xml_find_int(x, "string(5)")
+    xml_find_int(x, "number(1.1)")
+  })
+})
+
+test_that("xml_find_int returns a integer result", {
+  x <- read_xml("<x><y>1</y><y/></x>")
+
+  expect_identical(xml_find_int(x, "1 div floor(-0.1)"), -1L)
+  expect_identical(xml_find_int(x, "number(//y)"), 1L)
+  expect_identical(xml_find_int(x, "string-length(string('abcd'))"), 4L)
+})
+
 # Find chr ---------------------------------------------------------------------
 test_that("xml_find_chr errors with non character results", {
   x <- read_xml("<x><y/><y/></x>")

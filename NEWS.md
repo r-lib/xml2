@@ -2,6 +2,8 @@
 
 * Remove unused dependencies on glue, withr and lifecycle (@mgirlich).
 
+* `xml_find_int()` analogous to `xml_find_num()` for returning integers matched by an XPath (#365, @michaelchirico).
+
 # xml2 1.3.5
 
 * Small speedup for `xml_find_all()` (@mgirlich, #393).

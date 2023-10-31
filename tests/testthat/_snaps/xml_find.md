@@ -2,6 +2,10 @@
 
     Element at path `//z` must be a number, not a <xml_missing> object.
 
+# xml_find_int errors with non integer results
+
+    Element at path `//z` must be a whole number, not a <xml_missing> object.
+
 # xml_find_chr errors with non character results
 
     Element at path `//z` must be a single string, not a <xml_missing> object.
