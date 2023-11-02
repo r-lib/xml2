@@ -83,7 +83,7 @@ extern "C" SEXP _xml2_init_libxml2() {
   END_CPP11
 }
 // xml2_init.cpp
-cpp11::sexp libxml2_version_();
+cpp11::strings libxml2_version_();
 extern "C" SEXP _xml2_libxml2_version_() {
   BEGIN_CPP11
     return cpp11::as_sexp(libxml2_version_());

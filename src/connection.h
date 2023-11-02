@@ -13,13 +13,12 @@ SEXP read_bin(SEXP con, size_t bytes = 64 * 1024);
 cpp11::sexp write_bin(cpp11::sexp data, cpp11::sexp con);
 
 inline size_t R_WriteConnection(SEXP con, void* buf, size_t n) {
-  SEXP payload = PROTECT(Rf_allocVector(RAWSXP, n));
+  cpp11::writable::raws payload(n);
+  SEXP payload_sexp = SEXP(payload);
 
-  memcpy(RAW(payload), buf, n);
+  memcpy(RAW(payload_sexp), buf, n);
 
-  write_bin(payload, con);
-
-  UNPROTECT(1);
+  write_bin(payload_sexp, con);
 
   return n;
 }
