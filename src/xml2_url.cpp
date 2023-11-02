@@ -17,12 +17,12 @@ const xmlChar* to_xml_chr(cpp11::strings x, const char* arg) {
 
 [[cpp11::register]]
 cpp11::strings url_absolute_(cpp11::strings x_sxp, cpp11::strings base_sxp) {
-  int n = x_sxp.size();
+  R_xlen_t n = x_sxp.size();
   cpp11::writable::strings out(n);
 
   const xmlChar* base_uri = to_xml_chr(base_sxp, "Base URL");
 
-  for (int i = 0; i < n; ++i) {
+  for (R_xlen_t i = 0; i < n; ++i) {
     const xmlChar* uri = (xmlChar*) Rf_translateCharUTF8(x_sxp[i]);
     out[i] = Xml2String(xmlBuildURI(uri, base_uri)).asRString();
   }
@@ -32,12 +32,12 @@ cpp11::strings url_absolute_(cpp11::strings x_sxp, cpp11::strings base_sxp) {
 
 [[cpp11::register]]
 cpp11::strings url_relative_(cpp11::strings x_sxp, cpp11::strings base_sxp) {
-  int n = x_sxp.size();
+  R_xlen_t n = x_sxp.size();
   cpp11::writable::strings out(n);
 
   const xmlChar* base_uri = to_xml_chr(base_sxp, "Base URL");
 
-  for (int i = 0; i < n; ++i) {
+  for (R_xlen_t i = 0; i < n; ++i) {
     const xmlChar* uri = (xmlChar*) Rf_translateCharUTF8(x_sxp[i]);
     out[i] = Xml2String(xmlBuildRelativeURI(uri, base_uri)).asRString();
   }
@@ -47,7 +47,7 @@ cpp11::strings url_relative_(cpp11::strings x_sxp, cpp11::strings base_sxp) {
 
 [[cpp11::register]]
 cpp11::data_frame url_parse_(cpp11::strings x_sxp) {
-  int n = x_sxp.size();
+  R_xlen_t n = x_sxp.size();
 
   cpp11::writable::strings scheme(n);
   cpp11::writable::strings server(n);
@@ -58,7 +58,7 @@ cpp11::data_frame url_parse_(cpp11::strings x_sxp) {
 
   cpp11::writable::integers port(n);
 
-  for (int i = 0; i < n; ++i) {
+  for (R_xlen_t i = 0; i < n; ++i) {
     const char* raw = Rf_translateCharUTF8(x_sxp[i]);
     xmlURI* uri = xmlParseURI(raw);
     if (uri == NULL) {
@@ -103,12 +103,12 @@ cpp11::data_frame url_parse_(cpp11::strings x_sxp) {
 
 [[cpp11::register]]
 cpp11::strings url_escape_(cpp11::strings x_sxp, cpp11::strings reserved_sxp) {
-  int n = x_sxp.size();
+  R_xlen_t n = x_sxp.size();
   cpp11::writable::strings out(n);
 
   const xmlChar* xReserved = to_xml_chr(reserved_sxp, "`reserved`");
 
-  for (int i = 0; i < n; ++i) {
+  for (R_xlen_t i = 0; i < n; ++i) {
     const xmlChar* xx = (xmlChar*) Rf_translateCharUTF8(x_sxp[i]);
     out[i] = Xml2String(xmlURIEscapeStr(xx, xReserved)).asRString();
   }
@@ -118,10 +118,10 @@ cpp11::strings url_escape_(cpp11::strings x_sxp, cpp11::strings reserved_sxp) {
 
 [[cpp11::register]]
 cpp11::strings url_unescape_(cpp11::strings x_sxp) {
-  int n = x_sxp.size();
+  R_xlen_t n = x_sxp.size();
   cpp11::writable::strings out(n);
 
-  for (int i = 0; i < n; ++i) {
+  for (R_xlen_t i = 0; i < n; ++i) {
     const char* xx = Rf_translateCharUTF8(x_sxp[i]);
 
     char* unescaped = xmlURIUnescapeString(xx, 0, NULL);
