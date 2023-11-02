@@ -22,27 +22,16 @@
 #' xml_integer(xml_find_all(x, "//@x"))
 #' @export
 xml_text <- function(x, trim = FALSE) {
-  UseMethod("xml_text")
-}
-
-#' @export
-xml_text.xml_missing <- function(x, trim = FALSE) {
-  NA_character_
-}
-
-#' @export
-xml_text.xml_node <- function(x, trim = FALSE) {
-  res <- .Call(node_text, x$node)
+  res <- .Call(node_text, x)
   if (isTRUE(trim)) {
-    res <- sub("^[[:space:]\u00a0]+", "", res)
-    res <- sub("[[:space:]\u00a0]+$", "", res)
+    res <- trim_text(res)
   }
   res
 }
 
-#' @export
-xml_text.xml_nodeset <- function(x, trim = FALSE) {
-  vapply(x, xml_text, trim = trim, FUN.VALUE = character(1))
+trim_text <- function(x) {
+  x <- sub("^[[:space:]\u00a0]+", "", x)
+  sub("[[:space:]\u00a0]+$", "", x)
 }
 
 #' @rdname xml_text
@@ -94,46 +83,11 @@ xml_text.xml_nodeset <- function(x, trim = FALSE) {
 #' @rdname xml_text
 #' @export
 xml_double <- function(x) {
-  UseMethod("xml_double")
-}
-
-#' @export
-xml_double.xml_missing <- function(x) {
-  NA_real_
-}
-
-#' @export
-xml_double.xml_node <- function(x) {
   as.numeric(xml_text(x))
-}
-
-#' @export
-xml_double.xml_nodeset <- function(x) {
-  vapply(x, xml_double, numeric(1))
-}
-
-#' @export
-xml_integer <- function(x) {
-  UseMethod("xml_integer")
-}
-
-#' @export
-xml_integer.xml_missing <- function(x) {
-  NA_integer_
 }
 
 #' @rdname xml_text
 #' @export
 xml_integer <- function(x) {
-  UseMethod("xml_integer")
-}
-
-#' @export
-xml_integer.xml_node <- function(x) {
   as.integer(xml_text(x))
-}
-
-#' @export
-xml_integer.xml_nodeset <- function(x) {
-  vapply(x, xml_integer, integer(1))
 }
