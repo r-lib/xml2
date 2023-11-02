@@ -266,7 +266,7 @@ cpp11::strings doc_url(cpp11::sexp doc_sxp) {
 }
 
 [[cpp11::register]]
-cpp11::sexp doc_new(cpp11::sexp version_sxp, cpp11::strings encoding_sxp) {
+cpp11::sexp doc_new(cpp11::strings version_sxp, cpp11::strings encoding_sxp) {
   const char* encoding = cpp11::as_cpp<const char*>(encoding_sxp);
 
   XPtrDoc x(xmlNewDoc(asXmlChar(version_sxp)));

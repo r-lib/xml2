@@ -55,10 +55,10 @@ extern "C" SEXP _xml2_doc_url(SEXP doc_sxp) {
   END_CPP11
 }
 // xml2_doc.cpp
-cpp11::sexp doc_new(cpp11::sexp version_sxp, cpp11::strings encoding_sxp);
+cpp11::sexp doc_new(cpp11::strings version_sxp, cpp11::strings encoding_sxp);
 extern "C" SEXP _xml2_doc_new(SEXP version_sxp, SEXP encoding_sxp) {
   BEGIN_CPP11
-    return cpp11::as_sexp(doc_new(cpp11::as_cpp<cpp11::decay_t<cpp11::sexp>>(version_sxp), cpp11::as_cpp<cpp11::decay_t<cpp11::strings>>(encoding_sxp)));
+    return cpp11::as_sexp(doc_new(cpp11::as_cpp<cpp11::decay_t<cpp11::strings>>(version_sxp), cpp11::as_cpp<cpp11::decay_t<cpp11::strings>>(encoding_sxp)));
   END_CPP11
 }
 // xml2_doc.cpp

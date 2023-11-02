@@ -15,8 +15,8 @@ inline const xmlChar* asXmlChar(std::string const& x) {
   return (const xmlChar*) x.c_str();
 }
 
-inline const xmlChar* asXmlChar(SEXP x, int n = 0) {
-  return (const xmlChar*) CHAR(STRING_ELT(x, n));
+inline const xmlChar* asXmlChar(cpp11::strings x) {
+  return (const xmlChar*) cpp11::as_cpp<const char*>(x);
 }
 
 #define BEGIN_CPP try {
@@ -64,11 +64,11 @@ public:
     return std::string((char*) string_);
   }
 
-  SEXP asRString(SEXP missing = NA_STRING) {
+  cpp11::r_string asRString(cpp11::r_string missing = NA_STRING) {
     if (string_ == NULL)
       return missing;
 
-    return Rf_mkCharCE((char*) string_, CE_UTF8);
+    return cpp11::r_string((char*) string_);
   };
 };
 
@@ -87,10 +87,10 @@ class NsMap {
   }
 
   // Initialise from an existing STRSXP
-  NsMap(SEXP x) {
-    SEXP names = Rf_getAttrib(x, R_NamesSymbol);
-    for (R_len_t i = 0; i < Rf_xlength(x); ++i) {
-      add(std::string(CHAR(STRING_ELT(names, i))), std::string(CHAR(STRING_ELT(x, i))));
+  NsMap(cpp11::strings x) {
+    cpp11::strings names = x.names();
+    for (R_len_t i = 0; i < x.size(); ++i) {
+      add(cpp11::r_string(names[i]), cpp11::r_string(x[i]));
     }
   }
 
@@ -128,20 +128,20 @@ class NsMap {
     return true;
   }
 
-  SEXP out() {
-    SEXP out = PROTECT(Rf_allocVector(STRSXP, prefix2url.size()));
-    SEXP names = PROTECT(Rf_allocVector(STRSXP, prefix2url.size()));
+  cpp11::sexp out() {
+    int n = prefix2url.size();
+    cpp11::writable::strings out(n);
+    cpp11::writable::strings names(n);
 
     size_t i = 0;
     for (prefix2url_t::const_iterator it = prefix2url.begin(); it != prefix2url.end(); ++it) {
-      SET_STRING_ELT(out, i, Rf_mkChar(it->second.c_str()));
-      SET_STRING_ELT(names, i, Rf_mkChar(it->first.c_str()));
+      out[i] = it->second.c_str();
+      names[i] = it->first.c_str();
       ++i;
     }
 
-    Rf_setAttrib(out, R_NamesSymbol, names);
+    out.names() = names;
 
-    UNPROTECT(2);
     return out;
   }
 };
