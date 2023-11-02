@@ -46,6 +46,9 @@ public:
       SEXP ret = PROTECT(Rf_allocVector(VECSXP, 0));
       Rf_setAttrib(ret, R_ClassSymbol, Rf_mkString("xml_missing"));
       UNPROTECT(1);
+      // TODO creating an empty list doesn't work; fails test-xml_find.R:40:3
+      // cpp11::writable::list ret;
+      // ret.attr("class") = "xml_missing";
       return ret;
     }
 
@@ -54,6 +57,7 @@ public:
         {
           xmlNodeSet* nodes = result_->nodesetval;
           if (nodes == NULL || nodes->nodeNr == 0) {
+            // TODO
             SEXP ret = PROTECT(Rf_allocVector(VECSXP, 0));
             Rf_setAttrib(ret, R_ClassSymbol, Rf_mkString("xml_missing"));
             UNPROTECT(1);
@@ -104,9 +108,9 @@ cpp11::sexp xpath_search(cpp11::sexp node_sxp, cpp11::sexp doc_sxp, cpp11::sexp 
   XPtrNode node(node_sxp);
   XPtrDoc doc(doc_sxp);
   if (TYPEOF(xpath_sxp) != STRSXP) {
-    Rf_error("XPath must be a string, received %s", Rf_type2char(TYPEOF(xpath_sxp)));
+    cpp11::stop("XPath must be a string, received %s", Rf_type2char(TYPEOF(xpath_sxp)));
   }
-  const char* xpath = CHAR(cpp11::strings(xpath_sxp)[0]);
+  const char* xpath = cpp11::as_cpp<const char*>(xpath_sxp);
 
   double num_results = num_results_sxp[0];
 
