@@ -60,5 +60,5 @@ extern "C" {
 
 [[cpp11::register]]
 cpp11::strings libxml2_version_(){
-  return cpp11::strings({LIBXML_DOTTED_VERSION});
+  return cpp11::writable::strings(cpp11::r_string(LIBXML_DOTTED_VERSION));
 }
