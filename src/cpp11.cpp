@@ -118,231 +118,231 @@ extern "C" SEXP _xml2_ns_lookup(SEXP doc_sxp, SEXP node_sxp, SEXP prefix_sxp) {
   END_CPP11
 }
 // xml2_node.cpp
-cpp11::sexp node_name(SEXP node_sxp, SEXP nsMap);
-extern "C" SEXP _xml2_node_name(SEXP node_sxp, SEXP nsMap) {
+SEXP node_name(SEXP x, SEXP nsMap);
+extern "C" SEXP _xml2_node_name(SEXP x, SEXP nsMap) {
   BEGIN_CPP11
-    return cpp11::as_sexp(node_name(cpp11::as_cpp<cpp11::decay_t<SEXP>>(node_sxp), cpp11::as_cpp<cpp11::decay_t<SEXP>>(nsMap)));
+    return cpp11::as_sexp(node_name(cpp11::as_cpp<cpp11::decay_t<SEXP>>(x), cpp11::as_cpp<cpp11::decay_t<SEXP>>(nsMap)));
   END_CPP11
 }
 // xml2_node.cpp
-cpp11::sexp node_set_name(SEXP node_sxp, SEXP value);
+SEXP node_set_name(SEXP node_sxp, SEXP value);
 extern "C" SEXP _xml2_node_set_name(SEXP node_sxp, SEXP value) {
   BEGIN_CPP11
     return cpp11::as_sexp(node_set_name(cpp11::as_cpp<cpp11::decay_t<SEXP>>(node_sxp), cpp11::as_cpp<cpp11::decay_t<SEXP>>(value)));
   END_CPP11
 }
 // xml2_node.cpp
-cpp11::sexp node_text(SEXP node_sxp);
-extern "C" SEXP _xml2_node_text(SEXP node_sxp) {
+SEXP node_text(SEXP x);
+extern "C" SEXP _xml2_node_text(SEXP x) {
   BEGIN_CPP11
-    return cpp11::as_sexp(node_text(cpp11::as_cpp<cpp11::decay_t<SEXP>>(node_sxp)));
+    return cpp11::as_sexp(node_text(cpp11::as_cpp<cpp11::decay_t<SEXP>>(x)));
   END_CPP11
 }
 // xml2_node.cpp
-cpp11::sexp node_attr(SEXP node_sxp, SEXP name_sxp, SEXP missing_sxp, SEXP nsMap_sxp);
-extern "C" SEXP _xml2_node_attr(SEXP node_sxp, SEXP name_sxp, SEXP missing_sxp, SEXP nsMap_sxp) {
+SEXP node_attr(SEXP x, SEXP name_sxp, SEXP missing_sxp, SEXP nsMap_sxp);
+extern "C" SEXP _xml2_node_attr(SEXP x, SEXP name_sxp, SEXP missing_sxp, SEXP nsMap_sxp) {
   BEGIN_CPP11
-    return cpp11::as_sexp(node_attr(cpp11::as_cpp<cpp11::decay_t<SEXP>>(node_sxp), cpp11::as_cpp<cpp11::decay_t<SEXP>>(name_sxp), cpp11::as_cpp<cpp11::decay_t<SEXP>>(missing_sxp), cpp11::as_cpp<cpp11::decay_t<SEXP>>(nsMap_sxp)));
+    return cpp11::as_sexp(node_attr(cpp11::as_cpp<cpp11::decay_t<SEXP>>(x), cpp11::as_cpp<cpp11::decay_t<SEXP>>(name_sxp), cpp11::as_cpp<cpp11::decay_t<SEXP>>(missing_sxp), cpp11::as_cpp<cpp11::decay_t<SEXP>>(nsMap_sxp)));
   END_CPP11
 }
 // xml2_node.cpp
-cpp11::sexp node_attrs(SEXP node_sxp, SEXP nsMap_sxp);
-extern "C" SEXP _xml2_node_attrs(SEXP node_sxp, SEXP nsMap_sxp) {
+SEXP node_attrs(SEXP x, SEXP nsMap_sxp);
+extern "C" SEXP _xml2_node_attrs(SEXP x, SEXP nsMap_sxp) {
   BEGIN_CPP11
-    return cpp11::as_sexp(node_attrs(cpp11::as_cpp<cpp11::decay_t<SEXP>>(node_sxp), cpp11::as_cpp<cpp11::decay_t<SEXP>>(nsMap_sxp)));
+    return cpp11::as_sexp(node_attrs(cpp11::as_cpp<cpp11::decay_t<SEXP>>(x), cpp11::as_cpp<cpp11::decay_t<SEXP>>(nsMap_sxp)));
   END_CPP11
 }
 // xml2_node.cpp
-cpp11::sexp node_set_attr(SEXP node_sxp, SEXP name_sxp, SEXP value, SEXP nsMap);
+SEXP node_set_attr(SEXP node_sxp, SEXP name_sxp, SEXP value, SEXP nsMap);
 extern "C" SEXP _xml2_node_set_attr(SEXP node_sxp, SEXP name_sxp, SEXP value, SEXP nsMap) {
   BEGIN_CPP11
     return cpp11::as_sexp(node_set_attr(cpp11::as_cpp<cpp11::decay_t<SEXP>>(node_sxp), cpp11::as_cpp<cpp11::decay_t<SEXP>>(name_sxp), cpp11::as_cpp<cpp11::decay_t<SEXP>>(value), cpp11::as_cpp<cpp11::decay_t<SEXP>>(nsMap)));
   END_CPP11
 }
 // xml2_node.cpp
-cpp11::sexp node_remove_attr(SEXP node_sxp, SEXP name_sxp, SEXP nsMap);
+SEXP node_remove_attr(SEXP node_sxp, SEXP name_sxp, SEXP nsMap);
 extern "C" SEXP _xml2_node_remove_attr(SEXP node_sxp, SEXP name_sxp, SEXP nsMap) {
   BEGIN_CPP11
     return cpp11::as_sexp(node_remove_attr(cpp11::as_cpp<cpp11::decay_t<SEXP>>(node_sxp), cpp11::as_cpp<cpp11::decay_t<SEXP>>(name_sxp), cpp11::as_cpp<cpp11::decay_t<SEXP>>(nsMap)));
   END_CPP11
 }
 // xml2_node.cpp
-cpp11::sexp node_children(SEXP node_sxp, SEXP only_node_sxp);
+SEXP node_children(SEXP node_sxp, SEXP only_node_sxp);
 extern "C" SEXP _xml2_node_children(SEXP node_sxp, SEXP only_node_sxp) {
   BEGIN_CPP11
     return cpp11::as_sexp(node_children(cpp11::as_cpp<cpp11::decay_t<SEXP>>(node_sxp), cpp11::as_cpp<cpp11::decay_t<SEXP>>(only_node_sxp)));
   END_CPP11
 }
 // xml2_node.cpp
-cpp11::sexp node_length(SEXP node_sxp, SEXP only_node_sxp);
-extern "C" SEXP _xml2_node_length(SEXP node_sxp, SEXP only_node_sxp) {
+SEXP node_length(SEXP x, SEXP only_node_sxp);
+extern "C" SEXP _xml2_node_length(SEXP x, SEXP only_node_sxp) {
   BEGIN_CPP11
-    return cpp11::as_sexp(node_length(cpp11::as_cpp<cpp11::decay_t<SEXP>>(node_sxp), cpp11::as_cpp<cpp11::decay_t<SEXP>>(only_node_sxp)));
+    return cpp11::as_sexp(node_length(cpp11::as_cpp<cpp11::decay_t<SEXP>>(x), cpp11::as_cpp<cpp11::decay_t<SEXP>>(only_node_sxp)));
   END_CPP11
 }
 // xml2_node.cpp
-cpp11::sexp node_has_children(SEXP node_sxp, SEXP only_node_sxp);
+SEXP node_has_children(SEXP node_sxp, SEXP only_node_sxp);
 extern "C" SEXP _xml2_node_has_children(SEXP node_sxp, SEXP only_node_sxp) {
   BEGIN_CPP11
     return cpp11::as_sexp(node_has_children(cpp11::as_cpp<cpp11::decay_t<SEXP>>(node_sxp), cpp11::as_cpp<cpp11::decay_t<SEXP>>(only_node_sxp)));
   END_CPP11
 }
 // xml2_node.cpp
-cpp11::sexp node_parents(SEXP node_sxp);
+SEXP node_parents(SEXP node_sxp);
 extern "C" SEXP _xml2_node_parents(SEXP node_sxp) {
   BEGIN_CPP11
     return cpp11::as_sexp(node_parents(cpp11::as_cpp<cpp11::decay_t<SEXP>>(node_sxp)));
   END_CPP11
 }
 // xml2_node.cpp
-cpp11::sexp node_siblings(SEXP node_sxp, SEXP only_node_sxp);
+SEXP node_siblings(SEXP node_sxp, SEXP only_node_sxp);
 extern "C" SEXP _xml2_node_siblings(SEXP node_sxp, SEXP only_node_sxp) {
   BEGIN_CPP11
     return cpp11::as_sexp(node_siblings(cpp11::as_cpp<cpp11::decay_t<SEXP>>(node_sxp), cpp11::as_cpp<cpp11::decay_t<SEXP>>(only_node_sxp)));
   END_CPP11
 }
 // xml2_node.cpp
-cpp11::sexp node_parent(SEXP node_sxp);
+SEXP node_parent(SEXP node_sxp);
 extern "C" SEXP _xml2_node_parent(SEXP node_sxp) {
   BEGIN_CPP11
     return cpp11::as_sexp(node_parent(cpp11::as_cpp<cpp11::decay_t<SEXP>>(node_sxp)));
   END_CPP11
 }
 // xml2_node.cpp
-cpp11::sexp node_path(SEXP node_sxp);
-extern "C" SEXP _xml2_node_path(SEXP node_sxp) {
+SEXP node_path(SEXP x);
+extern "C" SEXP _xml2_node_path(SEXP x) {
   BEGIN_CPP11
-    return cpp11::as_sexp(node_path(cpp11::as_cpp<cpp11::decay_t<SEXP>>(node_sxp)));
+    return cpp11::as_sexp(node_path(cpp11::as_cpp<cpp11::decay_t<SEXP>>(x)));
   END_CPP11
 }
 // xml2_node.cpp
-cpp11::sexp nodes_duplicated(SEXP nodes);
+SEXP nodes_duplicated(SEXP nodes);
 extern "C" SEXP _xml2_nodes_duplicated(SEXP nodes) {
   BEGIN_CPP11
     return cpp11::as_sexp(nodes_duplicated(cpp11::as_cpp<cpp11::decay_t<SEXP>>(nodes)));
   END_CPP11
 }
 // xml2_node.cpp
-cpp11::sexp node_type(SEXP node_sxp);
-extern "C" SEXP _xml2_node_type(SEXP node_sxp) {
+SEXP node_type(SEXP x);
+extern "C" SEXP _xml2_node_type(SEXP x) {
   BEGIN_CPP11
-    return cpp11::as_sexp(node_type(cpp11::as_cpp<cpp11::decay_t<SEXP>>(node_sxp)));
+    return cpp11::as_sexp(node_type(cpp11::as_cpp<cpp11::decay_t<SEXP>>(x)));
   END_CPP11
 }
 // xml2_node.cpp
-cpp11::sexp node_copy(SEXP node_sxp);
+SEXP node_copy(SEXP node_sxp);
 extern "C" SEXP _xml2_node_copy(SEXP node_sxp) {
   BEGIN_CPP11
     return cpp11::as_sexp(node_copy(cpp11::as_cpp<cpp11::decay_t<SEXP>>(node_sxp)));
   END_CPP11
 }
 // xml2_node.cpp
-cpp11::sexp node_set_content(SEXP node_sxp, SEXP content);
+SEXP node_set_content(SEXP node_sxp, SEXP content);
 extern "C" SEXP _xml2_node_set_content(SEXP node_sxp, SEXP content) {
   BEGIN_CPP11
     return cpp11::as_sexp(node_set_content(cpp11::as_cpp<cpp11::decay_t<SEXP>>(node_sxp), cpp11::as_cpp<cpp11::decay_t<SEXP>>(content)));
   END_CPP11
 }
 // xml2_node.cpp
-cpp11::sexp node_append_content(SEXP node_sxp, SEXP content);
+SEXP node_append_content(SEXP node_sxp, SEXP content);
 extern "C" SEXP _xml2_node_append_content(SEXP node_sxp, SEXP content) {
   BEGIN_CPP11
     return cpp11::as_sexp(node_append_content(cpp11::as_cpp<cpp11::decay_t<SEXP>>(node_sxp), cpp11::as_cpp<cpp11::decay_t<SEXP>>(content)));
   END_CPP11
 }
 // xml2_node.cpp
-cpp11::sexp node_new_text(SEXP node_sxp, SEXP content);
+SEXP node_new_text(SEXP node_sxp, SEXP content);
 extern "C" SEXP _xml2_node_new_text(SEXP node_sxp, SEXP content) {
   BEGIN_CPP11
     return cpp11::as_sexp(node_new_text(cpp11::as_cpp<cpp11::decay_t<SEXP>>(node_sxp), cpp11::as_cpp<cpp11::decay_t<SEXP>>(content)));
   END_CPP11
 }
 // xml2_node.cpp
-cpp11::sexp node_append_child(SEXP parent_sxp, SEXP cur_sxp);
+SEXP node_append_child(SEXP parent_sxp, SEXP cur_sxp);
 extern "C" SEXP _xml2_node_append_child(SEXP parent_sxp, SEXP cur_sxp) {
   BEGIN_CPP11
     return cpp11::as_sexp(node_append_child(cpp11::as_cpp<cpp11::decay_t<SEXP>>(parent_sxp), cpp11::as_cpp<cpp11::decay_t<SEXP>>(cur_sxp)));
   END_CPP11
 }
 // xml2_node.cpp
-cpp11::sexp node_prepend_child(SEXP parent_sxp, SEXP cur_sxp);
+SEXP node_prepend_child(SEXP parent_sxp, SEXP cur_sxp);
 extern "C" SEXP _xml2_node_prepend_child(SEXP parent_sxp, SEXP cur_sxp) {
   BEGIN_CPP11
     return cpp11::as_sexp(node_prepend_child(cpp11::as_cpp<cpp11::decay_t<SEXP>>(parent_sxp), cpp11::as_cpp<cpp11::decay_t<SEXP>>(cur_sxp)));
   END_CPP11
 }
 // xml2_node.cpp
-cpp11::sexp node_prepend_sibling(SEXP cur_sxp, SEXP elem_sxp);
+SEXP node_prepend_sibling(SEXP cur_sxp, SEXP elem_sxp);
 extern "C" SEXP _xml2_node_prepend_sibling(SEXP cur_sxp, SEXP elem_sxp) {
   BEGIN_CPP11
     return cpp11::as_sexp(node_prepend_sibling(cpp11::as_cpp<cpp11::decay_t<SEXP>>(cur_sxp), cpp11::as_cpp<cpp11::decay_t<SEXP>>(elem_sxp)));
   END_CPP11
 }
 // xml2_node.cpp
-cpp11::sexp node_append_sibling(SEXP cur_sxp, SEXP elem_sxp);
+SEXP node_append_sibling(SEXP cur_sxp, SEXP elem_sxp);
 extern "C" SEXP _xml2_node_append_sibling(SEXP cur_sxp, SEXP elem_sxp) {
   BEGIN_CPP11
     return cpp11::as_sexp(node_append_sibling(cpp11::as_cpp<cpp11::decay_t<SEXP>>(cur_sxp), cpp11::as_cpp<cpp11::decay_t<SEXP>>(elem_sxp)));
   END_CPP11
 }
 // xml2_node.cpp
-cpp11::sexp node_replace(SEXP old_sxp, SEXP cur_sxp);
+SEXP node_replace(SEXP old_sxp, SEXP cur_sxp);
 extern "C" SEXP _xml2_node_replace(SEXP old_sxp, SEXP cur_sxp) {
   BEGIN_CPP11
     return cpp11::as_sexp(node_replace(cpp11::as_cpp<cpp11::decay_t<SEXP>>(old_sxp), cpp11::as_cpp<cpp11::decay_t<SEXP>>(cur_sxp)));
   END_CPP11
 }
 // xml2_node.cpp
-cpp11::sexp node_remove(SEXP node_sxp, SEXP free_sxp);
+SEXP node_remove(SEXP node_sxp, SEXP free_sxp);
 extern "C" SEXP _xml2_node_remove(SEXP node_sxp, SEXP free_sxp) {
   BEGIN_CPP11
     return cpp11::as_sexp(node_remove(cpp11::as_cpp<cpp11::decay_t<SEXP>>(node_sxp), cpp11::as_cpp<cpp11::decay_t<SEXP>>(free_sxp)));
   END_CPP11
 }
 // xml2_node.cpp
-cpp11::sexp node_new(SEXP name);
+SEXP node_new(SEXP name);
 extern "C" SEXP _xml2_node_new(SEXP name) {
   BEGIN_CPP11
     return cpp11::as_sexp(node_new(cpp11::as_cpp<cpp11::decay_t<SEXP>>(name)));
   END_CPP11
 }
 // xml2_node.cpp
-cpp11::sexp node_cdata_new(SEXP doc_sxp, SEXP content_sxp);
+SEXP node_cdata_new(SEXP doc_sxp, SEXP content_sxp);
 extern "C" SEXP _xml2_node_cdata_new(SEXP doc_sxp, SEXP content_sxp) {
   BEGIN_CPP11
     return cpp11::as_sexp(node_cdata_new(cpp11::as_cpp<cpp11::decay_t<SEXP>>(doc_sxp), cpp11::as_cpp<cpp11::decay_t<SEXP>>(content_sxp)));
   END_CPP11
 }
 // xml2_node.cpp
-cpp11::sexp node_comment_new(SEXP content);
+SEXP node_comment_new(SEXP content);
 extern "C" SEXP _xml2_node_comment_new(SEXP content) {
   BEGIN_CPP11
     return cpp11::as_sexp(node_comment_new(cpp11::as_cpp<cpp11::decay_t<SEXP>>(content)));
   END_CPP11
 }
 // xml2_node.cpp
-cpp11::sexp node_new_ns(SEXP name, SEXP ns_sxp);
+SEXP node_new_ns(SEXP name, SEXP ns_sxp);
 extern "C" SEXP _xml2_node_new_ns(SEXP name, SEXP ns_sxp) {
   BEGIN_CPP11
     return cpp11::as_sexp(node_new_ns(cpp11::as_cpp<cpp11::decay_t<SEXP>>(name), cpp11::as_cpp<cpp11::decay_t<SEXP>>(ns_sxp)));
   END_CPP11
 }
 // xml2_node.cpp
-cpp11::sexp node_set_namespace_uri(SEXP doc_sxp, SEXP node_sxp, SEXP uri);
+SEXP node_set_namespace_uri(SEXP doc_sxp, SEXP node_sxp, SEXP uri);
 extern "C" SEXP _xml2_node_set_namespace_uri(SEXP doc_sxp, SEXP node_sxp, SEXP uri) {
   BEGIN_CPP11
     return cpp11::as_sexp(node_set_namespace_uri(cpp11::as_cpp<cpp11::decay_t<SEXP>>(doc_sxp), cpp11::as_cpp<cpp11::decay_t<SEXP>>(node_sxp), cpp11::as_cpp<cpp11::decay_t<SEXP>>(uri)));
   END_CPP11
 }
 // xml2_node.cpp
-cpp11::sexp node_set_namespace_prefix(SEXP doc_sxp, SEXP node_sxp, SEXP prefix_sxp);
+SEXP node_set_namespace_prefix(SEXP doc_sxp, SEXP node_sxp, SEXP prefix_sxp);
 extern "C" SEXP _xml2_node_set_namespace_prefix(SEXP doc_sxp, SEXP node_sxp, SEXP prefix_sxp) {
   BEGIN_CPP11
     return cpp11::as_sexp(node_set_namespace_prefix(cpp11::as_cpp<cpp11::decay_t<SEXP>>(doc_sxp), cpp11::as_cpp<cpp11::decay_t<SEXP>>(node_sxp), cpp11::as_cpp<cpp11::decay_t<SEXP>>(prefix_sxp)));
   END_CPP11
 }
 // xml2_node.cpp
-cpp11::sexp node_new_dtd(SEXP doc_sxp, SEXP name_sxp, SEXP eid_sxp, SEXP sid_sxp);
+SEXP node_new_dtd(SEXP doc_sxp, SEXP name_sxp, SEXP eid_sxp, SEXP sid_sxp);
 extern "C" SEXP _xml2_node_new_dtd(SEXP doc_sxp, SEXP name_sxp, SEXP eid_sxp, SEXP sid_sxp) {
   BEGIN_CPP11
     return cpp11::as_sexp(node_new_dtd(cpp11::as_cpp<cpp11::decay_t<SEXP>>(doc_sxp), cpp11::as_cpp<cpp11::decay_t<SEXP>>(name_sxp), cpp11::as_cpp<cpp11::decay_t<SEXP>>(eid_sxp), cpp11::as_cpp<cpp11::decay_t<SEXP>>(sid_sxp)));

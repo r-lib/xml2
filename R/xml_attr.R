@@ -60,31 +60,7 @@
 #' xml_attrs(doc) <- c("b:id" = "one", "f:id" = "two", "id" = "three")
 #' xml_set_attrs(doc, c("b:id" = "one", "f:id" = "two", "id" = "three"))
 xml_attr <- function(x, attr, ns = character(), default = NA_character_) {
-  UseMethod("xml_attr")
-}
-
-#' @export
-xml_attr.xml_missing <- function(x, attr, ns = character(), default = NA_character_) {
-  default
-}
-
-#' @export
-xml_attr.xml_node <- function(x, attr, ns = character(),
-                              default = NA_character_) {
-  node_attr(x$node, attr, as.character(default), ns)
-}
-
-#' @export
-xml_attr.xml_nodeset <- function(x, attr, ns = character(),
-                                 default = NA_character_) {
-  vapply(
-    x,
-    xml_attr,
-    attr = attr,
-    default = default,
-    ns = ns,
-    FUN.VALUE = character(1)
-  )
+  node_attr(x, attr, as.character(default), ns)
 }
 
 #' @export
@@ -96,22 +72,7 @@ xml_has_attr <- function(x, attr, ns = character()) {
 #' @export
 #' @rdname xml_attr
 xml_attrs <- function(x, ns = character()) {
-  UseMethod("xml_attrs")
-}
-
-#' @export
-xml_attrs.xml_missing <- function(x, ns = character()) {
-  NA_character_
-}
-
-#' @export
-xml_attrs.xml_node <- function(x, ns = character()) {
-  node_attrs(x$node, nsMap_sxp = ns)
-}
-
-#' @export
-xml_attrs.xml_nodeset <- function(x, ns = character()) {
-  lapply(x, xml_attrs, ns = ns)
+  node_attrs(x, nsMap_sxp = ns)
 }
 
 #' @param value character vector of new value.

@@ -10,20 +10,5 @@
 #' x <- read_xml("<foo><bar><baz /></bar><baz /></foo>")
 #' xml_path(xml_find_all(x, ".//baz"))
 xml_path <- function(x) {
-  UseMethod("xml_path")
-}
-
-#' @export
-xml_path.xml_missing <- function(x) {
-  NA_character_
-}
-
-#' @export
-xml_path.xml_node <- function(x) {
-  node_path(x$node)
-}
-
-#' @export
-xml_path.xml_nodeset <- function(x) {
-  vapply(x, xml_path, FUN.VALUE = character(1))
+  node_path(x)
 }

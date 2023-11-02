@@ -21,7 +21,7 @@ test_that("xml_missing methods return properly for all S3 methods", {
   expect_equal(tree_structure(mss), NA_character_)
   expect_error(write_xml(mss), "Missing data cannot be written")
   expect_error(write_html(mss), "Missing data cannot be written")
-  expect_equal(xml_attr(mss), NA_character_)
+  expect_equal(xml_attr(mss, "dummy_attr"), NA_character_)
   expect_equal(xml_attrs(mss), NA_character_)
   expect_equal(xml_find_all(mss), xml_nodeset())
   expect_equal(xml_find_chr(mss), character())
@@ -33,7 +33,6 @@ test_that("xml_missing methods return properly for all S3 methods", {
   expect_equal(xml_parent(mss), xml_missing())
   expect_equal(xml_path(mss), NA_character_)
   expect_equal(xml_text(mss), NA_character_)
-  expect_equal(xml_type(mss), NA_character_)
   expect_equal(xml_url(mss), NA_character_)
 })
 

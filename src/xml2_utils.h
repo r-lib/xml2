@@ -11,6 +11,24 @@
 #include <map>
 #include <string>
 
+enum NodeType {
+  missing = 1,
+  node = 2,
+  nodeset = 3,
+};
+
+inline const NodeType getNodeType(SEXP x) {
+  if (Rf_inherits(x, "xml_node")) {
+    return(NodeType::node);
+  } else if (Rf_inherits(x, "xml_nodeset")) {
+    return(NodeType::nodeset);
+  } else if (Rf_inherits(x, "xml_missing")) {
+    return(NodeType::missing);
+  } else {
+    Rf_error("Unexpected node type");
+  }
+}
+
 inline const xmlChar* asXmlChar(std::string const& x) {
   return (const xmlChar*) x.c_str();
 }

@@ -64,24 +64,24 @@ ns_lookup <- function(doc_sxp, node_sxp, prefix_sxp) {
   .Call(`_xml2_ns_lookup`, doc_sxp, node_sxp, prefix_sxp)
 }
 
-node_name <- function(node_sxp, nsMap) {
-  .Call(`_xml2_node_name`, node_sxp, nsMap)
+node_name <- function(x, nsMap) {
+  .Call(`_xml2_node_name`, x, nsMap)
 }
 
 node_set_name <- function(node_sxp, value) {
   .Call(`_xml2_node_set_name`, node_sxp, value)
 }
 
-node_text <- function(node_sxp) {
-  .Call(`_xml2_node_text`, node_sxp)
+node_text <- function(x) {
+  .Call(`_xml2_node_text`, x)
 }
 
-node_attr <- function(node_sxp, name_sxp, missing_sxp, nsMap_sxp) {
-  .Call(`_xml2_node_attr`, node_sxp, name_sxp, missing_sxp, nsMap_sxp)
+node_attr <- function(x, name_sxp, missing_sxp, nsMap_sxp) {
+  .Call(`_xml2_node_attr`, x, name_sxp, missing_sxp, nsMap_sxp)
 }
 
-node_attrs <- function(node_sxp, nsMap_sxp) {
-  .Call(`_xml2_node_attrs`, node_sxp, nsMap_sxp)
+node_attrs <- function(x, nsMap_sxp) {
+  .Call(`_xml2_node_attrs`, x, nsMap_sxp)
 }
 
 node_set_attr <- function(node_sxp, name_sxp, value, nsMap) {
@@ -96,8 +96,8 @@ node_children <- function(node_sxp, only_node_sxp) {
   .Call(`_xml2_node_children`, node_sxp, only_node_sxp)
 }
 
-node_length <- function(node_sxp, only_node_sxp) {
-  .Call(`_xml2_node_length`, node_sxp, only_node_sxp)
+node_length <- function(x, only_node_sxp) {
+  .Call(`_xml2_node_length`, x, only_node_sxp)
 }
 
 node_has_children <- function(node_sxp, only_node_sxp) {
@@ -116,16 +116,16 @@ node_parent <- function(node_sxp) {
   .Call(`_xml2_node_parent`, node_sxp)
 }
 
-node_path <- function(node_sxp) {
-  .Call(`_xml2_node_path`, node_sxp)
+node_path <- function(x) {
+  .Call(`_xml2_node_path`, x)
 }
 
 nodes_duplicated <- function(nodes) {
   .Call(`_xml2_nodes_duplicated`, nodes)
 }
 
-node_type <- function(node_sxp) {
-  .Call(`_xml2_node_type`, node_sxp)
+node_type <- function(x) {
+  .Call(`_xml2_node_type`, x)
 }
 
 node_copy <- function(node_sxp) {

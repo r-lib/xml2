@@ -38,6 +38,23 @@ as.character.xml_nodeset <- function(x, ...) {
   xml_nodeset(NextMethod())
 }
 
+#' Wrapper for encodeString() that takes width into consideration
+#'
+#' encodeString() is relatively expensive to run (see #366), so
+#'   avoid doing so to very wide inputs by first trimming inputs
+#'   to approximately the correct width, then encoding. A second
+#'   round of truncation occurs after encoding to account for
+#'   any newly-inserted characters bumping an input too wide.
+#' @noRd
+encode_with_width <- function(x, width) {
+  truncate_raw <- nchar(x) > width
+  x[truncate_raw] <- substr(x[truncate_raw], 1L, width - 3L)
+  x <- encodeString(x)
+  truncate_encoded <- truncate_raw | nchar(x) > width
+  x[truncate_encoded] <- paste(substr(x[truncate_encoded], 1L, width - 3L), "...")
+  x
+}
+
 show_nodes <- function(x, width = getOption("width"), max_n = 20) {
   stopifnot(inherits(x, "xml_nodeset"))
 
@@ -46,20 +63,16 @@ show_nodes <- function(x, width = getOption("width"), max_n = 20) {
     return()
   }
 
-  if (n > max_n) {
+  trunc <- n > max_n
+  if (trunc) {
     n <- max_n
     x <- x[seq_len(n)]
-    trunc <- TRUE
-  } else {
-    trunc <- FALSE
   }
 
   label <- format(paste0("[", seq_len(n), "]"), justify = "right")
-  contents <- encodeString(vapply(x, as.character, FUN.VALUE = character(1)))
+  contents <- vapply(x, as.character, FUN.VALUE = character(1L))
 
-  desc <- paste0(label, " ", contents)
-  needs_trunc <- nchar(desc) > width
-  desc[needs_trunc] <- paste(substr(desc[needs_trunc], 1, width - 3), "...")
+  desc <- encode_with_width(paste(label, contents), width)
 
   cat(desc, sep = "\n")
   if (trunc) {
