@@ -9,12 +9,12 @@
 #include <algorithm>
 #include <cstring>
 
-SEXP read_bin(SEXP con, size_t bytes = 64 * 1024);
+cpp11::sexp read_bin(cpp11::sexp con, size_t bytes = 64 * 1024);
 cpp11::sexp write_bin(cpp11::sexp data, cpp11::sexp con);
 
-inline size_t R_WriteConnection(SEXP con, void* buf, size_t n) {
+inline size_t R_WriteConnection(cpp11::sexp con, void* buf, size_t n) {
   cpp11::writable::raws payload(n);
-  SEXP payload_sexp = SEXP(payload);
+  cpp11::sexp payload_sexp = cpp11::sexp(payload);
 
   memcpy(RAW(payload_sexp), buf, n);
 

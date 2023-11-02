@@ -211,8 +211,8 @@ cpp11::sexp doc_parse_raw(
     cpp11::strings base_url_sxp,
     cpp11::logicals as_html_sxp,
     cpp11::integers options_sxp) {
-  std::string encoding = cpp11::as_cpp<const char*>(encoding_sxp);
-  std::string base_url = cpp11::as_cpp<const char*>(base_url_sxp);
+  std::string encoding = cpp11::r_string(encoding_sxp[0]);
+  std::string base_url = cpp11::r_string(base_url_sxp[0]);
   bool as_html = cpp11::as_cpp<bool>(as_html_sxp);
   int options = cpp11::as_cpp<int>(options_sxp);
 
