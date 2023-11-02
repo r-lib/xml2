@@ -8,7 +8,7 @@
 #include "xml2_utils.h"
 
 const xmlChar* to_xml_chr(cpp11::strings x, const char* arg) {
-  if (x.size() > 1) {
+  if (x.size() != 1) {
     cpp11::stop("%s must be a character vector of length 1", arg);
   }
 
