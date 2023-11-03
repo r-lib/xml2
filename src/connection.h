@@ -14,11 +14,8 @@ cpp11::sexp write_bin(cpp11::sexp data, cpp11::sexp con);
 
 inline size_t R_WriteConnection(cpp11::sexp con, void* buf, size_t n) {
   cpp11::writable::raws payload(n);
-  cpp11::sexp payload_sexp = cpp11::sexp(payload);
-
-  memcpy(RAW(payload_sexp), buf, n);
-
-  write_bin(payload_sexp, con);
+  memcpy(RAW(payload), buf, n);
+  write_bin(payload, con);
 
   return n;
 }

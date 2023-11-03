@@ -580,7 +580,7 @@ cpp11::sexp node_remove_attr(
 cpp11::list asList(std::vector<xmlNode*> nodes) {
   R_xlen_t n = nodes.size();
   cpp11::writable::list out(n);
-  for (size_t i = 0; i < n; ++i) {
+  for (R_xlen_t i = 0; i < n; ++i) {
     XPtrNode node(nodes[i]);
     out[i] = SEXP(node);
   }
