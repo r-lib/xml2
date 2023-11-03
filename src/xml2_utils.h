@@ -17,6 +17,11 @@ enum NodeType {
   nodeset = 3,
 };
 
+__attribute__ ((noreturn))
+inline void stop_unexpected_node_type() {
+  cpp11::stop("Unexpected node type");
+}
+
 inline const NodeType getNodeType(SEXP x) {
   if (Rf_inherits(x, "xml_node")) {
     return(NodeType::node);
@@ -25,7 +30,7 @@ inline const NodeType getNodeType(SEXP x) {
   } else if (Rf_inherits(x, "xml_missing")) {
     return(NodeType::missing);
   } else {
-    Rf_error("Unexpected node type");
+    stop_unexpected_node_type();
   }
 }
 
@@ -36,15 +41,6 @@ inline const xmlChar* asXmlChar(std::string const& x) {
 inline const xmlChar* asXmlChar(cpp11::strings x) {
   return (const xmlChar*) cpp11::as_cpp<const char*>(x);
 }
-
-#define BEGIN_CPP try {
-
-#define END_CPP                                                                \
-  }                                                                            \
-  catch (std::exception & e) {                                                 \
-    Rf_error("C++ exception: %s", e.what());                                   \
-  }
-
 
 // If we are using C++11 disallow moves
 #if __cplusplus >= 201103L
@@ -122,7 +118,7 @@ class NsMap {
       return it->second;
     }
 
-    Rf_error("Couldn't find url for prefix %s", prefix.c_str());
+    cpp11::stop("Couldn't find url for prefix %s", prefix.c_str());
     return std::string();
   }
 
@@ -133,7 +129,7 @@ class NsMap {
       }
     }
 
-    Rf_error("Couldn't find prefix for url %s", url.c_str());
+    cpp11::stop("Couldn't find prefix for url %s", url.c_str());
     return std::string();
   }
 

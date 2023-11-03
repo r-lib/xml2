@@ -12,6 +12,14 @@
 #include <string>
 #include "xml2_utils.h"
 
+#define BEGIN_CPP try {
+
+#define END_CPP                                                                \
+  }                                                                            \
+  catch (std::exception & e) {                                                 \
+    Rf_error("C++ exception: %s", e.what());                                   \
+  }
+
 void handleStructuredError(void* userData, xmlError* error) {
 
   BEGIN_CPP

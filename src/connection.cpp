@@ -30,8 +30,6 @@ cpp11::sexp write_bin(cpp11::sexp data, cpp11::sexp con) {
 //
 [[cpp11::register]]
 cpp11::sexp read_connection_(cpp11::sexp con_sxp, cpp11::doubles read_size_sxp) {
-
-  BEGIN_CPP
   std::vector<char> buffer;
 
   cpp11::sexp chunk = read_bin(con_sxp, read_size_sxp);
@@ -45,6 +43,4 @@ cpp11::sexp read_connection_(cpp11::sexp con_sxp, cpp11::doubles read_size_sxp) 
   cpp11::raws out(buffer);
 
   return out;
-
-  END_CPP
 }

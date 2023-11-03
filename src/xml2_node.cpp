@@ -14,11 +14,6 @@
 #include "xml2_types.h"
 #include "xml2_utils.h"
 
-__attribute__ ((noreturn))
-void stop_unexpected_node_type() {
-  Rf_error("Unexpected node type");
-}
-
 template<typename T> // for xmlAttr and xmlNode
 std::string nodeName(T* node, cpp11::strings nsMap) {
   std::string name = Xml2String(node->name).asStdString();
@@ -57,7 +52,6 @@ cpp11::r_string node_name_impl(cpp11::list x, cpp11::strings nsMap) {
 
 [[cpp11::register]]
 cpp11::strings node_name(cpp11::list x, cpp11::strings nsMap) {
-  BEGIN_CPP
   NodeType type = getNodeType(x);
 
   switch(type)
@@ -79,19 +73,15 @@ cpp11::strings node_name(cpp11::list x, cpp11::strings nsMap) {
   };
   default: stop_unexpected_node_type();
   }
-
-  END_CPP
 }
 
 [[cpp11::register]]
 SEXP node_set_name(node_pointer node_sxp, cpp11::strings value) {
-  BEGIN_CPP
   XPtrNode node(node_sxp);
 
   xmlNodeSetName(node, asXmlChar(value));
 
   return R_NilValue;
-  END_CPP
 }
 
 cpp11::r_string node_text_impl(cpp11::list x) {
@@ -117,7 +107,6 @@ cpp11::r_string node_text_impl(cpp11::list x) {
 
 [[cpp11::register]]
 cpp11::strings node_text(cpp11::list x) {
-  BEGIN_CPP
   NodeType type = getNodeType(x);
 
   switch(type)
@@ -139,8 +128,6 @@ cpp11::strings node_text(cpp11::list x) {
   };
   default: stop_unexpected_node_type();
   }
-
-  END_CPP
 }
 
 bool hasPrefix(std::string lhs, std::string rhs) {
@@ -224,13 +211,12 @@ cpp11::strings node_attr(
     cpp11::strings name_sxp,
     cpp11::strings missing_sxp,
     cpp11::strings nsMap_sxp) {
-  BEGIN_CPP
   NodeType type = getNodeType(x);
 
   std::string name(cpp11::as_cpp<const char*>(name_sxp));
 
   if (missing_sxp.size() != 1) {
-    Rf_error("`missing` should be length 1");
+    cpp11::stop("`missing` should be length 1");
   }
 
   cpp11::r_string missingVal = missing_sxp[0];
@@ -254,8 +240,6 @@ cpp11::strings node_attr(
   };
   default: stop_unexpected_node_type();
   }
-
-  END_CPP
 }
 
 cpp11::strings node_attrs_impl(cpp11::list x, cpp11::strings nsMap_sxp) {
@@ -324,7 +308,6 @@ cpp11::strings node_attrs_impl(cpp11::list x, cpp11::strings nsMap_sxp) {
 
 [[cpp11::register]]
 cpp11::sexp node_attrs(cpp11::list x, cpp11::strings nsMap_sxp) {
-  BEGIN_CPP
   NodeType type = getNodeType(x);
 
   switch(type)
@@ -346,8 +329,6 @@ cpp11::sexp node_attrs(cpp11::list x, cpp11::strings nsMap_sxp) {
   };
   default: stop_unexpected_node_type();
   }
-
-  END_CPP
 }
 
 // Fix the tree by removing the namespace pointers to the given tree
@@ -489,7 +470,6 @@ cpp11::sexp node_set_attr(
     cpp11::strings name_sxp,
     cpp11::strings value,
     cpp11::strings nsMap) {
-  BEGIN_CPP
   XPtrNode node_(node_sxp);
   std::string name(cpp11::as_cpp<const char*>(name_sxp));
 
@@ -528,7 +508,6 @@ cpp11::sexp node_set_attr(
   }
 
   return R_NilValue;
-  END_CPP
 }
 
 [[cpp11::register]]
@@ -536,7 +515,6 @@ cpp11::sexp node_remove_attr(
     node_pointer node_sxp,
     cpp11::strings name_sxp,
     cpp11::strings nsMap) {
-  BEGIN_CPP
   XPtrNode node_(node_sxp);
   std::string name(cpp11::as_cpp<const char*>(name_sxp));
 
@@ -574,7 +552,6 @@ cpp11::sexp node_remove_attr(
   }
 
   return R_NilValue;
-  END_CPP
 }
 
 cpp11::list asList(std::vector<xmlNode*> nodes) {
@@ -590,7 +567,6 @@ cpp11::list asList(std::vector<xmlNode*> nodes) {
 
 [[cpp11::register]]
 cpp11::list node_children(node_pointer node_sxp, cpp11::logicals only_node_sxp) {
-  BEGIN_CPP
   XPtrNode node(node_sxp);
   bool only_node = cpp11::as_cpp<bool>(only_node_sxp);
 
@@ -605,7 +581,6 @@ cpp11::list node_children(node_pointer node_sxp, cpp11::logicals only_node_sxp) 
   }
 
   return asList(out);
-  END_CPP
 }
 
 int node_length_impl(cpp11::list x, bool only_node) {
@@ -637,7 +612,6 @@ int node_length_impl(cpp11::list x, bool only_node) {
 
 [[cpp11::register]]
 cpp11::integers node_length(cpp11::list x, cpp11::logicals only_node_sxp) {
-  BEGIN_CPP
   NodeType type = getNodeType(x);
 
   bool only_node = cpp11::as_cpp<bool>(only_node_sxp);
@@ -665,13 +639,10 @@ cpp11::integers node_length(cpp11::list x, cpp11::logicals only_node_sxp) {
   };
   default: stop_unexpected_node_type();
   }
-
-  END_CPP
 }
 
 [[cpp11::register]]
 cpp11::logicals node_has_children(node_pointer node_sxp, cpp11::logicals only_node_sxp) {
-  BEGIN_CPP
   XPtrNode node(node_sxp);
   bool only_node = cpp11::as_cpp<bool>(only_node_sxp);
 
@@ -682,12 +653,10 @@ cpp11::logicals node_has_children(node_pointer node_sxp, cpp11::logicals only_no
     return cpp11::logicals({true});
   }
   return cpp11::logicals({false});
-  END_CPP
 }
 
 [[cpp11::register]]
 cpp11::list node_parents(node_pointer node_sxp) {
-  BEGIN_CPP
   XPtrNode node(node_sxp);
 
   std::vector<xmlNode*> out;
@@ -699,12 +668,10 @@ cpp11::list node_parents(node_pointer node_sxp) {
   }
 
   return asList(out);
-  END_CPP
 }
 
 [[cpp11::register]]
 cpp11::list node_siblings(node_pointer node_sxp, cpp11::logicals only_node_sxp) {
-  BEGIN_CPP
   XPtrNode node(node_sxp);
   bool only_node = cpp11::as_cpp<bool>(only_node_sxp);
 
@@ -726,21 +693,18 @@ cpp11::list node_siblings(node_pointer node_sxp, cpp11::logicals only_node_sxp) 
   }
 
   return asList(out);
-  END_CPP
 }
 
 
 [[cpp11::register]]
 node_pointer node_parent(node_pointer node_sxp) {
-  BEGIN_CPP
   XPtrNode node(node_sxp);
 
   if (node->parent == NULL) {
-    Rf_error("Parent does not exist");
+    cpp11::stop("Parent does not exist");
   }
   XPtrNode out(node->parent);
   return SEXP(out);
-  END_CPP
 }
 
 cpp11::r_string node_path_impl(cpp11::list x) {
@@ -762,7 +726,6 @@ cpp11::r_string node_path_impl(cpp11::list x) {
 
 [[cpp11::register]]
 cpp11::strings node_path(cpp11::list x) {
-  BEGIN_CPP
   NodeType type = getNodeType(x);
 
   switch(type)
@@ -784,14 +747,10 @@ cpp11::strings node_path(cpp11::list x) {
   };
   default: stop_unexpected_node_type();
   }
-
-  END_CPP
 }
 
 [[cpp11::register]]
 cpp11::logicals nodes_duplicated(cpp11::list nodes) {
-  BEGIN_CPP
-
   std::set<xmlNode*> seen;
 
   R_xlen_t n = nodes.size();
@@ -814,7 +773,6 @@ cpp11::logicals nodes_duplicated(cpp11::list nodes) {
   }
 
   return out;
-  END_CPP
 }
 
 int node_type_impl(cpp11::list x) {
@@ -840,7 +798,6 @@ int node_type_impl(cpp11::list x) {
 
 [[cpp11::register]]
 cpp11::integers node_type(cpp11::list x) {
-  BEGIN_CPP
   NodeType type = getNodeType(x);
 
   switch(type)
@@ -862,116 +819,95 @@ cpp11::integers node_type(cpp11::list x) {
   };
   default: stop_unexpected_node_type();
   }
-
-  END_CPP
 }
 
 [[cpp11::register]]
 node_pointer node_copy(node_pointer node_sxp) {
-  BEGIN_CPP
   XPtrNode node(node_sxp);
 
   XPtrNode copy(xmlCopyNode(node.checked_get(), 1));
 
   return SEXP(copy);
-  END_CPP
 }
 
 [[cpp11::register]]
 cpp11::sexp node_set_content(node_pointer node_sxp, cpp11::strings content) {
-  BEGIN_CPP
   XPtrNode node(node_sxp);
 
   xmlNodeSetContentLen(node.checked_get(), asXmlChar(content), content[0].size());
 
   return R_NilValue;
-  END_CPP
 }
 
 [[cpp11::register]]
 cpp11::sexp node_append_content(node_pointer node_sxp, cpp11::strings content) {
-  BEGIN_CPP
   XPtrNode node(node_sxp);
 
   xmlNodeAddContentLen(node.checked_get(), asXmlChar(content), content[0].size());
 
   return R_NilValue;
-  END_CPP
 }
 
 [[cpp11::register]]
 cpp11::sexp node_new_text(node_pointer node_sxp, cpp11::strings content) {
-  BEGIN_CPP
   XPtrNode node(node_sxp);
 
   xmlAddChild(node.checked_get(), xmlNewTextLen(asXmlChar(content), content[0].size()));
 
   return R_NilValue;
-  END_CPP
 }
 
 [[cpp11::register]]
 node_pointer node_append_child(node_pointer parent_sxp, node_pointer cur_sxp) {
-  BEGIN_CPP
   XPtrNode parent(parent_sxp);
   XPtrNode cur(cur_sxp);
   XPtrNode out(xmlAddChild(parent.checked_get(), cur.checked_get()));
   return SEXP(out);
-  END_CPP
 }
 
 [[cpp11::register]]
 node_pointer node_prepend_child(node_pointer parent_sxp, node_pointer cur_sxp) {
-  BEGIN_CPP
   XPtrNode parent(parent_sxp);
   XPtrNode cur(cur_sxp);
 
   XPtrNode out(xmlAddPrevSibling(parent.checked_get()->children, cur.checked_get()));
 
   return SEXP(out);
-  END_CPP
 }
 
 // Previous sibling
 [[cpp11::register]]
 node_pointer node_prepend_sibling(node_pointer cur_sxp, node_pointer elem_sxp) {
-  BEGIN_CPP
   XPtrNode cur(cur_sxp);
   XPtrNode elem(elem_sxp);
 
   XPtrNode out(xmlAddPrevSibling(cur.checked_get(), elem.checked_get()));
 
   return SEXP(out);
-  END_CPP
 }
 
 // Append sibling
 [[cpp11::register]]
 node_pointer node_append_sibling(node_pointer cur_sxp, node_pointer elem_sxp) {
-  BEGIN_CPP
   XPtrNode cur(cur_sxp);
   XPtrNode elem(elem_sxp);
   XPtrNode out(xmlAddNextSibling(cur.checked_get(), elem.checked_get()));
 
   return SEXP(out);
-  END_CPP
 }
 
 // Replace node
 [[cpp11::register]]
 node_pointer node_replace(node_pointer old_sxp, node_pointer cur_sxp) {
-  BEGIN_CPP
   XPtrNode old(old_sxp);
   XPtrNode cur(cur_sxp);
   XPtrNode out(xmlReplaceNode(old.checked_get(), cur.checked_get()));
 
   return SEXP(out);
-  END_CPP
 }
 
 [[cpp11::register]]
 cpp11::sexp node_remove(node_pointer node_sxp, cpp11::logicals free_sxp) {
-  BEGIN_CPP
   XPtrNode node(node_sxp);
   bool free = cpp11::as_cpp<bool>(free_sxp);
 
@@ -981,47 +917,37 @@ cpp11::sexp node_remove(node_pointer node_sxp, cpp11::logicals free_sxp) {
   }
 
   return R_NilValue;
-  END_CPP
 }
 
 [[cpp11::register]]
 cpp11::sexp node_new(cpp11::strings name) {
-  BEGIN_CPP
   XPtrNode node(xmlNewNode(NULL, asXmlChar(name)));
   return SEXP(node);
-  END_CPP
 }
 
 
 [[cpp11::register]]
 cpp11::sexp node_cdata_new(cpp11::sexp doc_sxp, cpp11::strings content_sxp) {
-  BEGIN_CPP
   XPtrDoc doc(doc_sxp);
   XPtrNode node(xmlNewCDataBlock(doc.checked_get(), asXmlChar(content_sxp), content_sxp[0].size()));
   return SEXP(node);
-  END_CPP
 }
 
 [[cpp11::register]]
 node_pointer node_comment_new(cpp11::strings content) {
-  BEGIN_CPP
   XPtrNode node(xmlNewComment(asXmlChar(content)));
   return SEXP(node);
-  END_CPP
 }
 
 [[cpp11::register]]
 node_pointer node_new_ns(cpp11::strings name, cpp11::external_pointer<xmlNs> ns_sxp) {
-  BEGIN_CPP
   XPtrNs ns(ns_sxp);
   XPtrNode node(xmlNewNode(ns.checked_get(), asXmlChar(name)));
   return SEXP(node);
-  END_CPP
 }
 
 [[cpp11::register]]
 cpp11::sexp node_set_namespace_uri(doc_pointer doc_sxp, node_pointer node_sxp, cpp11::strings uri) {
-  BEGIN_CPP
   XPtrDoc doc(doc_sxp);
   XPtrNode node(node_sxp);
 
@@ -1030,12 +956,10 @@ cpp11::sexp node_set_namespace_uri(doc_pointer doc_sxp, node_pointer node_sxp, c
   xmlSetNs(node.checked_get(), ns);
 
   return R_NilValue;
-  END_CPP
 }
 
 [[cpp11::register]]
 cpp11::sexp node_set_namespace_prefix(doc_pointer doc_sxp, node_pointer node_sxp, cpp11::strings prefix_sxp) {
-  BEGIN_CPP
   XPtrDoc doc(doc_sxp);
   XPtrNode node(node_sxp);
 
@@ -1049,12 +973,10 @@ cpp11::sexp node_set_namespace_prefix(doc_pointer doc_sxp, node_pointer node_sxp
   xmlSetNs(node.checked_get(), ns);
 
   return R_NilValue;
-  END_CPP
 }
 
 [[cpp11::register]]
 cpp11::sexp node_new_dtd(doc_pointer doc_sxp, cpp11::strings name_sxp, cpp11::strings eid_sxp, cpp11::strings sid_sxp) {
-  BEGIN_CPP
   XPtrDoc doc(doc_sxp);
   std::string name(cpp11::as_cpp<const char*>(name_sxp));
   std::string eid(cpp11::as_cpp<const char*>(eid_sxp));
@@ -1064,5 +986,4 @@ cpp11::sexp node_new_dtd(doc_pointer doc_sxp, cpp11::strings name_sxp, cpp11::st
   xmlAddChild(reinterpret_cast<xmlNodePtr>(doc.checked_get()), reinterpret_cast<xmlNodePtr>(dtd));
 
   return R_NilValue;
-  END_CPP
 }
