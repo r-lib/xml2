@@ -101,7 +101,7 @@ cpp11::sexp doc_write_file(cpp11::sexp doc_sxp, cpp11::strings path_sxp, cpp11::
   XPtrDoc doc(doc_sxp);
   const char* path = cpp11::as_cpp<const char*>(path_sxp);
   const char* encoding = cpp11::as_cpp<const char*>(encoding_sxp);
-  int options = options_sxp[0];
+  int options = cpp11::as_cpp<int>(options_sxp);
 
   xmlSaveCtxtPtr savectx = xmlSaveToFilename(
       path,
@@ -166,7 +166,7 @@ cpp11::sexp node_write_file(cpp11::sexp node_sxp, cpp11::strings path_sxp, cpp11
   XPtrNode node(node_sxp);
   const char* path = cpp11::as_cpp<const char*>(path_sxp);
   const char* encoding = cpp11::as_cpp<const char*>(encoding_sxp);
-  int options = options_sxp[0];
+  int options = cpp11::as_cpp<int>(options_sxp);
 
   xmlSaveCtxtPtr savectx = xmlSaveToFilename(
       path,
@@ -184,7 +184,7 @@ cpp11::sexp node_write_file(cpp11::sexp node_sxp, cpp11::strings path_sxp, cpp11
 cpp11::sexp node_write_connection(cpp11::sexp node_sxp, cpp11::sexp connection, cpp11::strings encoding_sxp, cpp11::integers options_sxp) {
   XPtrNode node(node_sxp);
   const char* encoding = cpp11::as_cpp<const char*>(encoding_sxp);
-  int options = options_sxp[0];
+  int options = cpp11::as_cpp<int>(options_sxp);
 
   xmlSaveCtxtPtr savectx = xmlSaveToIO(
       (xmlOutputWriteCallback)xml_write_callback,
@@ -205,7 +205,7 @@ cpp11::sexp node_write_connection(cpp11::sexp node_sxp, cpp11::sexp connection, 
 cpp11::writable::strings node_write_character(cpp11::sexp node_sxp, cpp11::strings encoding_sxp, cpp11::integers options_sxp) {
   XPtrNode node(node_sxp);
   const char* encoding = cpp11::as_cpp<const char*>(encoding_sxp);
-  int options = options_sxp[0];
+  int options = cpp11::as_cpp<int>(options_sxp);
 
   xmlBufferPtr buffer = xmlBufferCreate();
 

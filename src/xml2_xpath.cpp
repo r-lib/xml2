@@ -104,15 +104,20 @@ public:
 };
 
 [[cpp11::register]]
-cpp11::sexp xpath_search(cpp11::sexp node_sxp, cpp11::sexp doc_sxp, cpp11::sexp xpath_sxp, cpp11::strings nsMap_sxp, cpp11::doubles num_results_sxp) {
+cpp11::sexp xpath_search(
+    node_pointer node_sxp,
+    doc_pointer doc_sxp,
+    cpp11::sexp xpath_sxp,
+    cpp11::strings nsMap_sxp,
+    cpp11::doubles num_results_sxp) {
   XPtrNode node(node_sxp);
   XPtrDoc doc(doc_sxp);
+  // TODO can the type check be done nicer?
   if (TYPEOF(xpath_sxp) != STRSXP) {
     cpp11::stop("XPath must be a string, received %s", Rf_type2char(TYPEOF(xpath_sxp)));
   }
   const char* xpath = cpp11::as_cpp<const char*>(xpath_sxp);
-
-  double num_results = num_results_sxp[0];
+  double num_results = cpp11::as_cpp<double>(num_results_sxp);
 
   if (num_results == R_PosInf) {
     num_results = INT_MAX;

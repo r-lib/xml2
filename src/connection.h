@@ -9,7 +9,6 @@
 #include <algorithm>
 #include <cstring>
 
-cpp11::sexp read_bin(cpp11::sexp con, size_t bytes = 64 * 1024);
 cpp11::sexp write_bin(cpp11::sexp data, cpp11::sexp con);
 
 inline size_t R_WriteConnection(cpp11::sexp con, void* buf, size_t n) {

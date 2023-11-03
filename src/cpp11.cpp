@@ -398,10 +398,10 @@ extern "C" SEXP _xml2_node_write_character(SEXP node_sxp, SEXP encoding_sxp, SEX
   END_CPP11
 }
 // xml2_schema.cpp
-cpp11::logicals doc_validate(cpp11::sexp doc_sxp, cpp11::sexp schema_sxp);
+cpp11::logicals doc_validate(doc_pointer doc_sxp, doc_pointer schema_sxp);
 extern "C" SEXP _xml2_doc_validate(SEXP doc_sxp, SEXP schema_sxp) {
   BEGIN_CPP11
-    return cpp11::as_sexp(doc_validate(cpp11::as_cpp<cpp11::decay_t<cpp11::sexp>>(doc_sxp), cpp11::as_cpp<cpp11::decay_t<cpp11::sexp>>(schema_sxp)));
+    return cpp11::as_sexp(doc_validate(cpp11::as_cpp<cpp11::decay_t<doc_pointer>>(doc_sxp), cpp11::as_cpp<cpp11::decay_t<doc_pointer>>(schema_sxp)));
   END_CPP11
 }
 // xml2_url.cpp
@@ -440,10 +440,10 @@ extern "C" SEXP _xml2_url_unescape_(SEXP x_sxp) {
   END_CPP11
 }
 // xml2_xpath.cpp
-cpp11::sexp xpath_search(cpp11::sexp node_sxp, cpp11::sexp doc_sxp, cpp11::sexp xpath_sxp, cpp11::strings nsMap_sxp, cpp11::doubles num_results_sxp);
+cpp11::sexp xpath_search(node_pointer node_sxp, doc_pointer doc_sxp, cpp11::sexp xpath_sxp, cpp11::strings nsMap_sxp, cpp11::doubles num_results_sxp);
 extern "C" SEXP _xml2_xpath_search(SEXP node_sxp, SEXP doc_sxp, SEXP xpath_sxp, SEXP nsMap_sxp, SEXP num_results_sxp) {
   BEGIN_CPP11
-    return cpp11::as_sexp(xpath_search(cpp11::as_cpp<cpp11::decay_t<cpp11::sexp>>(node_sxp), cpp11::as_cpp<cpp11::decay_t<cpp11::sexp>>(doc_sxp), cpp11::as_cpp<cpp11::decay_t<cpp11::sexp>>(xpath_sxp), cpp11::as_cpp<cpp11::decay_t<cpp11::strings>>(nsMap_sxp), cpp11::as_cpp<cpp11::decay_t<cpp11::doubles>>(num_results_sxp)));
+    return cpp11::as_sexp(xpath_search(cpp11::as_cpp<cpp11::decay_t<node_pointer>>(node_sxp), cpp11::as_cpp<cpp11::decay_t<doc_pointer>>(doc_sxp), cpp11::as_cpp<cpp11::decay_t<cpp11::sexp>>(xpath_sxp), cpp11::as_cpp<cpp11::decay_t<cpp11::strings>>(nsMap_sxp), cpp11::as_cpp<cpp11::decay_t<cpp11::doubles>>(num_results_sxp)));
   END_CPP11
 }
 
