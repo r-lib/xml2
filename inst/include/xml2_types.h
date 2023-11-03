@@ -94,4 +94,7 @@ class XPtrDoc : public ::XPtr<xmlDoc> {
 typedef ::XPtr<xmlNode> XPtrNode;
 typedef ::XPtr<xmlNs> XPtrNs;
 
+using node_pointer = cpp11::external_pointer<xmlNode>;
+using doc_pointer = cpp11::external_pointer<xmlDoc>;
+
 #endif
