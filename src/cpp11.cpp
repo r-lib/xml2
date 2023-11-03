@@ -6,10 +6,10 @@
 #include <R_ext/Visibility.h>
 
 // connection.cpp
-cpp11::sexp read_connection_(SEXP con_sxp, SEXP read_size_sxp);
+cpp11::sexp read_connection_(cpp11::sexp con_sxp, cpp11::doubles read_size_sxp);
 extern "C" SEXP _xml2_read_connection_(SEXP con_sxp, SEXP read_size_sxp) {
   BEGIN_CPP11
-    return cpp11::as_sexp(read_connection_(cpp11::as_cpp<cpp11::decay_t<SEXP>>(con_sxp), cpp11::as_cpp<cpp11::decay_t<SEXP>>(read_size_sxp)));
+    return cpp11::as_sexp(read_connection_(cpp11::as_cpp<cpp11::decay_t<cpp11::sexp>>(con_sxp), cpp11::as_cpp<cpp11::decay_t<cpp11::doubles>>(read_size_sxp)));
   END_CPP11
 }
 // xml2_doc.cpp
@@ -97,24 +97,24 @@ extern "C" SEXP _xml2_unique_ns(SEXP ns) {
   END_CPP11
 }
 // xml2_namespace.cpp
-cpp11::sexp doc_namespaces(SEXP doc_sxp);
+cpp11::sexp doc_namespaces(doc_pointer doc_sxp);
 extern "C" SEXP _xml2_doc_namespaces(SEXP doc_sxp) {
   BEGIN_CPP11
-    return cpp11::as_sexp(doc_namespaces(cpp11::as_cpp<cpp11::decay_t<SEXP>>(doc_sxp)));
+    return cpp11::as_sexp(doc_namespaces(cpp11::as_cpp<cpp11::decay_t<doc_pointer>>(doc_sxp)));
   END_CPP11
 }
 // xml2_namespace.cpp
-cpp11::sexp ns_lookup_uri(SEXP doc_sxp, SEXP node_sxp, SEXP uri_sxp);
+cpp11::sexp ns_lookup_uri(doc_pointer doc_sxp, node_pointer node_sxp, cpp11::strings uri_sxp);
 extern "C" SEXP _xml2_ns_lookup_uri(SEXP doc_sxp, SEXP node_sxp, SEXP uri_sxp) {
   BEGIN_CPP11
-    return cpp11::as_sexp(ns_lookup_uri(cpp11::as_cpp<cpp11::decay_t<SEXP>>(doc_sxp), cpp11::as_cpp<cpp11::decay_t<SEXP>>(node_sxp), cpp11::as_cpp<cpp11::decay_t<SEXP>>(uri_sxp)));
+    return cpp11::as_sexp(ns_lookup_uri(cpp11::as_cpp<cpp11::decay_t<doc_pointer>>(doc_sxp), cpp11::as_cpp<cpp11::decay_t<node_pointer>>(node_sxp), cpp11::as_cpp<cpp11::decay_t<cpp11::strings>>(uri_sxp)));
   END_CPP11
 }
 // xml2_namespace.cpp
-cpp11::sexp ns_lookup(SEXP doc_sxp, SEXP node_sxp, SEXP prefix_sxp);
+cpp11::sexp ns_lookup(doc_pointer doc_sxp, node_pointer node_sxp, cpp11::strings prefix_sxp);
 extern "C" SEXP _xml2_ns_lookup(SEXP doc_sxp, SEXP node_sxp, SEXP prefix_sxp) {
   BEGIN_CPP11
-    return cpp11::as_sexp(ns_lookup(cpp11::as_cpp<cpp11::decay_t<SEXP>>(doc_sxp), cpp11::as_cpp<cpp11::decay_t<SEXP>>(node_sxp), cpp11::as_cpp<cpp11::decay_t<SEXP>>(prefix_sxp)));
+    return cpp11::as_sexp(ns_lookup(cpp11::as_cpp<cpp11::decay_t<doc_pointer>>(doc_sxp), cpp11::as_cpp<cpp11::decay_t<node_pointer>>(node_sxp), cpp11::as_cpp<cpp11::decay_t<cpp11::strings>>(prefix_sxp)));
   END_CPP11
 }
 // xml2_node.cpp

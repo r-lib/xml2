@@ -8,14 +8,14 @@
 #include <vector>
 #include "xml2_utils.h"
 
+using namespace cpp11::literals; // so we can use ""_nm syntax
+
 // Wrapper around R's read_bin function
-SEXP read_bin(SEXP con, size_t bytes) {
-  SEXP e;
-  SEXP raw_sxp = PROTECT(Rf_mkString("raw"));
-  SEXP bytes_sxp = PROTECT(Rf_ScalarInteger(bytes));
-  PROTECT(e = Rf_lang4(Rf_install("readBin"), con, raw_sxp, bytes_sxp));
-  SEXP res = Rf_eval(e, R_GlobalEnv);
-  UNPROTECT(3);
+SEXP read_bin(SEXP con, cpp11::doubles bytes_sxp) {
+  cpp11::strings raw_sxp({"raw"});
+
+  auto readBin = cpp11::package("base")["readBin"];
+  cpp11::sexp res = readBin("con"_nm = con, "what"_nm = raw_sxp, "n"_nm = bytes_sxp);
   return res;
 }
 
@@ -29,26 +29,20 @@ cpp11::sexp write_bin(cpp11::sexp data, cpp11::sexp con) {
 // raw vector.
 //
 [[cpp11::register]]
-cpp11::sexp read_connection_(SEXP con_sxp, SEXP read_size_sxp) {
+cpp11::sexp read_connection_(cpp11::sexp con_sxp, cpp11::doubles read_size_sxp) {
 
   BEGIN_CPP
   std::vector<char> buffer;
-  size_t read_size = REAL(read_size_sxp)[0];
 
-  SEXP chunk = read_bin(con_sxp, read_size);
+  cpp11::sexp chunk = read_bin(con_sxp, read_size_sxp);
   R_xlen_t chunk_size = Rf_xlength(chunk);
   while(chunk_size > 0) {
     std::copy(RAW(chunk), RAW(chunk) + chunk_size, std::back_inserter(buffer));
-    chunk = read_bin(con_sxp, read_size);
+    chunk = read_bin(con_sxp, read_size_sxp);
     chunk_size = Rf_xlength(chunk);
   }
 
-  size_t size = buffer.size();
-
-  SEXP out = PROTECT(Rf_allocVector(RAWSXP, size));
-  std::copy(buffer.begin(), buffer.end(), RAW(out));
-
-  UNPROTECT(1);
+  cpp11::raws out(buffer);
 
   return out;
 
