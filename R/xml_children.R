@@ -100,26 +100,7 @@ xml_parent.xml_nodeset <- function(x) {
 #' @export
 #' @rdname xml_children
 xml_length <- function(x, only_elements = TRUE) {
-  UseMethod("xml_length")
-}
-
-#' @export
-xml_length.xml_missing <- function(x, only_elements = TRUE) {
-  0L
-}
-
-#' @export
-xml_length.xml_node <- function(x, only_elements = TRUE) {
-  .Call(node_length, x$node, only_elements)
-}
-
-#' @export
-xml_length.xml_nodeset <- function(x, only_elements = TRUE) {
-  if (length(x) == 0) {
-    return(0L)
-  }
-
-  vapply(x, xml_length, only_elements = only_elements, FUN.VALUE = integer(1))
+  .Call(node_length, x, only_elements)
 }
 
 #' @export
