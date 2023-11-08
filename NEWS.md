@@ -1,5 +1,8 @@
 # xml2 (development version)
 
+* `xml_serialize()` now includes the document type so that `xml_unserialize()` works also for HTML documents (#407).
+
+
 # xml2 1.3.5
 
 * Small speedup for `xml_find_all()` (@mgirlich, #393).
