@@ -2,6 +2,7 @@ x <- read_xml("<a>
   <b><c>123</c></b>
   <b><c>456</c></b>
   </a>")
+  
 test_that("xml_serialize and xml_unserialize work with xml_document input", {
   out <- xml_unserialize(xml_serialize(x, NULL))
   expect_identical(as.character(x), as.character(out))
@@ -35,6 +36,20 @@ test_that("xml_serialize and xml_unserialize work with xml_nodeset input", {
 
   xml_serialize(b, f)
   expect_identical(as.character(xml_unserialize(f)), as.character(b))
+})
+
+test_that("xml_serialize and xml_unserialize work with HTML-based xml_document input", {
+  file <- system.file("extdata", "r-project.html", package = "xml2")
+  x <- read_html(file)
+
+  out <- xml_unserialize(xml_serialize(x, NULL))
+  expect_identical(as.character(x), as.character(out))
+
+  f <- tempfile()
+  on.exit(unlink(f))
+
+  xml_serialize(x, f)
+  expect_identical(as.character(xml_unserialize(f)), as.character(x))
 })
 
 test_that("xml_unserialize throws an error if given a invalid object", {
