@@ -1,3 +1,5 @@
+#include <cpp11.hpp>
+
 #define R_NO_REMAP
 #include <Rinternals.h>
 #undef R_NO_REMAP
@@ -7,9 +9,10 @@
 #include "xml2_types.h"
 #include "xml2_utils.h"
 #include <cstring>
+#include <vector>
 
-// [[export]]
-extern "C" SEXP  xml_parse_options_() {
+[[cpp11::register]]
+cpp11::sexp  xml_parse_options_() {
 
 #if defined(LIBXML_VERSION) && (LIBXML_VERSION >= 20700)
 #define HAS_OLD10
@@ -40,7 +43,7 @@ extern "C" SEXP  xml_parse_options_() {
 #define HAS_BIG_LINES
 #endif
 
-  const char * names[] = {
+  std::vector<std::string> names = {
     "RECOVER",
     "NOENT",
     "DTDLOAD",
@@ -78,7 +81,7 @@ extern "C" SEXP  xml_parse_options_() {
 #endif
   };
 
-  const int values[] = {
+  std::vector<int> values = {
     XML_PARSE_RECOVER,
     XML_PARSE_NOENT,
     XML_PARSE_DTDLOAD,
@@ -116,7 +119,7 @@ extern "C" SEXP  xml_parse_options_() {
 #endif
   };
 
-  const char * descriptions[] = {
+  std::vector<std::string> descriptions = {
     "recover on errors",
     "substitute entities",
     "load the external subset",
@@ -154,22 +157,10 @@ extern "C" SEXP  xml_parse_options_() {
 #endif
   };
 
-  size_t size = sizeof(values) / sizeof(values[0]);
+  cpp11::writable::integers out_values(values);
 
-  SEXP out_values = PROTECT(Rf_allocVector(INTSXP, size));
-  SEXP out_names = PROTECT(Rf_allocVector(STRSXP, size));
-  SEXP out_descriptions = PROTECT(Rf_allocVector(STRSXP, size));
-
-  for (size_t i = 0; i < size; ++i) {
-    INTEGER(out_values)[i] = values[i];
-    SET_STRING_ELT(out_names, i, Rf_mkChar(names[i]));
-    SET_STRING_ELT(out_descriptions, i, Rf_mkChar(descriptions[i]));
-  }
-
-  Rf_setAttrib(out_values, R_NamesSymbol, out_names);
-  Rf_setAttrib(out_values, Rf_install("descriptions"), out_descriptions);
-
-  UNPROTECT(3);
+  out_values.names() = names;
+  out_values.attr("descriptions") = descriptions;
 
   return out_values;
 
@@ -181,17 +172,16 @@ extern "C" SEXP  xml_parse_options_() {
 #undef HAS_IGNORE_ENC
 }
 
-// [[export]]
-extern "C" SEXP doc_parse_file(
-    SEXP path_sxp,
-    SEXP encoding_sxp,
-    SEXP as_html_sxp,
-    SEXP options_sxp) {
-
-  const char* path = CHAR(STRING_ELT(path_sxp, 0));
-  const char* encoding = CHAR(STRING_ELT(encoding_sxp, 0));
-  bool as_html = LOGICAL(as_html_sxp)[0];
-  int options = INTEGER(options_sxp)[0];
+[[cpp11::register]]
+cpp11::sexp doc_parse_file(
+    cpp11::strings path_sxp,
+    cpp11::strings encoding_sxp,
+    cpp11::logicals as_html_sxp,
+    cpp11::integers options_sxp) {
+  const char* path = cpp11::as_cpp<const char*>(path_sxp);
+  const char* encoding = cpp11::as_cpp<const char*>(encoding_sxp);
+  bool as_html = cpp11::as_cpp<bool>(as_html_sxp);
+  int options = cpp11::as_cpp<int>(options_sxp);
   xmlDoc* pDoc;
   if (as_html) {
     pDoc = htmlReadFile(
@@ -208,31 +198,29 @@ extern "C" SEXP doc_parse_file(
   }
 
   if (pDoc == NULL) {
-    Rf_error("Failed to parse %s", path);
+    cpp11::stop("Failed to parse %s", path);
   }
 
   return SEXP(XPtrDoc(pDoc));
 }
 
-// [[export]]
-extern "C" SEXP doc_parse_raw(
-    SEXP x,
-    SEXP encoding_sxp,
-    SEXP base_url_sxp,
-    SEXP as_html_sxp,
-    SEXP options_sxp) {
-
-  BEGIN_CPP
-  std::string encoding(CHAR(STRING_ELT(encoding_sxp, 0)));
-  std::string base_url(CHAR(STRING_ELT(base_url_sxp, 0)));
-  bool as_html = LOGICAL(as_html_sxp)[0];
-  int options = INTEGER(options_sxp)[0];
+[[cpp11::register]]
+cpp11::sexp doc_parse_raw(
+    cpp11::raws x,
+    cpp11::strings encoding_sxp,
+    cpp11::strings base_url_sxp,
+    cpp11::logicals as_html_sxp,
+    cpp11::integers options_sxp) {
+  std::string encoding = cpp11::r_string(encoding_sxp[0]);
+  std::string base_url = cpp11::r_string(base_url_sxp[0]);
+  bool as_html = cpp11::as_cpp<bool>(as_html_sxp);
+  int options = cpp11::as_cpp<int>(options_sxp);
 
   xmlDoc* pDoc;
   if (as_html) {
     pDoc = htmlReadMemory(
       (const char *) RAW(x),
-      Rf_length(x),
+      x.size(),
       base_url == "" ? NULL : base_url.c_str(),
       encoding == "" ? NULL : encoding.c_str(),
       options
@@ -240,7 +228,7 @@ extern "C" SEXP doc_parse_raw(
   } else {
     pDoc = xmlReadMemory(
       (const char *) RAW(x),
-      Rf_length(x),
+      x.size(),
       base_url == "" ? NULL : base_url.c_str(),
       encoding == "" ? NULL : encoding.c_str(),
       options
@@ -248,75 +236,55 @@ extern "C" SEXP doc_parse_raw(
   }
 
   if (pDoc == NULL) {
-    Rf_error("Failed to parse text");
+    cpp11::stop("Failed to parse text");
   }
 
   return SEXP(XPtrDoc(pDoc));
-
-  END_CPP
 }
 
-// [[export]]
-extern "C" SEXP doc_root(SEXP x) {
-  BEGIN_CPP
+[[cpp11::register]]
+cpp11::sexp doc_root(cpp11::sexp x) {
   XPtrDoc doc(x);
   XPtrNode node(xmlDocGetRootElement(doc.checked_get()));
   return SEXP(node);
-  END_CPP
 }
 
-// [[export]]
-extern "C" SEXP doc_has_root(SEXP x_sxp) {
-  BEGIN_CPP
+[[cpp11::register]]
+cpp11::logicals doc_has_root(cpp11::sexp x_sxp) {
   XPtrDoc x(x_sxp);
-  return Rf_ScalarLogical(xmlDocGetRootElement(x.get()) != NULL);
-  END_CPP
+  return cpp11::logicals({xmlDocGetRootElement(x.get()) != NULL});
 }
 
-// [[export]]
-extern "C" SEXP  doc_url(SEXP doc_sxp) {
-  BEGIN_CPP
-
+[[cpp11::register]]
+cpp11::strings doc_url(cpp11::sexp doc_sxp) {
   XPtrDoc doc(doc_sxp);
   if (doc->URL == NULL) {
-    return Rf_ScalarString(NA_STRING);
+    return cpp11::writable::strings({NA_STRING});
   }
 
-  SEXP out = PROTECT(Rf_allocVector(STRSXP, 1));
-  SET_STRING_ELT(out, 0, Rf_mkCharCE((const char*) doc->URL, CE_UTF8));
-  UNPROTECT(1);
-
-  return out;
-  END_CPP
+  return cpp11::as_sexp((const char*) doc->URL);
 }
 
-// [[export]]
-extern "C" SEXP  doc_new(SEXP version_sxp, SEXP encoding_sxp) {
+[[cpp11::register]]
+cpp11::sexp doc_new(cpp11::strings version_sxp, cpp11::strings encoding_sxp) {
+  const char* encoding = cpp11::as_cpp<const char*>(encoding_sxp);
 
-  const char* encoding = CHAR(STRING_ELT(encoding_sxp, 0));
-
-  BEGIN_CPP
   XPtrDoc x(xmlNewDoc(asXmlChar(version_sxp)));
   xmlCharEncodingHandlerPtr p = xmlFindCharEncodingHandler(encoding);
   x->encoding = xmlStrdup(reinterpret_cast<const xmlChar *>(p->name));
   return SEXP(x);
-  END_CPP
 }
 
-// [[export]]
-extern "C" SEXP doc_set_root(SEXP doc_sxp, SEXP root_sxp) {
-  BEGIN_CPP
+[[cpp11::register]]
+cpp11::sexp doc_set_root(cpp11::sexp doc_sxp, cpp11::sexp root_sxp) {
   XPtrDoc doc(doc_sxp);
   XPtrNode root(root_sxp);
   XPtrNode out(xmlDocSetRootElement(doc, root));
   return SEXP(out);
-  END_CPP
 }
 
-// [[export]]
-extern "C" SEXP doc_is_html(SEXP doc_sxp) {
-  BEGIN_CPP
+[[cpp11::register]]
+cpp11::sexp doc_is_html(cpp11::sexp doc_sxp) {
   XPtrDoc doc(doc_sxp);
-  return Rf_ScalarLogical(doc->properties & XML_DOC_HTML);
-  END_CPP
+  return cpp11::logicals({doc->properties & XML_DOC_HTML});
 }

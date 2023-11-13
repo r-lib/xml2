@@ -1,3 +1,5 @@
+#include <cpp11.hpp>
+
 #define R_NO_REMAP
 #include <Rinternals.h>
 #undef R_NO_REMAP
@@ -7,11 +9,9 @@
 #include "xml2_types.h"
 #include "xml2_utils.h"
 
-// [[export]]
-extern "C" SEXP unique_ns(SEXP ns) {
-  BEGIN_CPP
+[[cpp11::register]]
+cpp11::sexp unique_ns(SEXP ns) {
   return NsMap(ns).out();
-  END_CPP
 }
 
 void cache_namespace(xmlNode* node, NsMap* nsMap) {
@@ -26,9 +26,8 @@ void cache_namespace(xmlNode* node, NsMap* nsMap) {
     cache_namespace(cur, nsMap);
 }
 
-// [[export]]
-extern "C" SEXP doc_namespaces(SEXP doc_sxp) {
-  BEGIN_CPP
+[[cpp11::register]]
+cpp11::sexp doc_namespaces(doc_pointer doc_sxp) {
   XPtrDoc doc(doc_sxp);
 
   NsMap nsMap;
@@ -37,41 +36,36 @@ extern "C" SEXP doc_namespaces(SEXP doc_sxp) {
   cache_namespace(root, &nsMap);
 
   return nsMap.out();
-  END_CPP
 }
 
-// [[export]]
-extern "C" SEXP ns_lookup_uri(SEXP doc_sxp, SEXP node_sxp, SEXP uri_sxp) {
-  BEGIN_CPP
+[[cpp11::register]]
+cpp11::sexp ns_lookup_uri(doc_pointer doc_sxp, node_pointer node_sxp, cpp11::strings uri_sxp) {
   XPtrDoc doc(doc_sxp);
   XPtrNode node(node_sxp);
 
   xmlNsPtr ns = xmlSearchNsByHref(doc.checked_get(), node.checked_get(), asXmlChar(uri_sxp));
   if (ns == NULL) {
-    Rf_error("No namespace with URI `%s` found", CHAR(STRING_ELT(uri_sxp, 0)));
+    cpp11::stop("No namespace with URI `%s` found", cpp11::as_cpp<const char*>(uri_sxp));
   }
   XPtrNs out(ns);
   return SEXP(out);
-  END_CPP
 }
 
-// [[export]]
-extern "C" SEXP ns_lookup(SEXP doc_sxp, SEXP node_sxp, SEXP prefix_sxp) {
-  BEGIN_CPP
+[[cpp11::register]]
+cpp11::sexp ns_lookup(doc_pointer doc_sxp, node_pointer node_sxp, cpp11::strings prefix_sxp) {
   XPtrDoc doc(doc_sxp);
   XPtrNode node(node_sxp);
 
   xmlNsPtr ns = NULL;
-  if (Rf_xlength(STRING_ELT(prefix_sxp, 0)) == 0) {
+  if (prefix_sxp[0].size() == 0) {
     ns = xmlSearchNs(doc.checked_get(), node.checked_get(), NULL);
   } else {
     ns = xmlSearchNs(doc.checked_get(), node.checked_get(), asXmlChar(prefix_sxp));
     if (ns == NULL) {
-      Rf_error("No namespace with prefix `%s` found", CHAR(STRING_ELT(prefix_sxp, 0)));
+      cpp11::stop("No namespace with prefix `%s` found", cpp11::as_cpp<const char*>(prefix_sxp));
     }
   }
 
   XPtrNs out(ns);
   return SEXP(out);
-  END_CPP
 }

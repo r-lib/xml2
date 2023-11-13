@@ -1,6 +1,6 @@
 xml_nodeset <- function(nodes = list(), deduplicate = TRUE) {
   if (isTRUE(deduplicate)) {
-    nodes <- nodes[!.Call(nodes_duplicated, nodes)]
+    nodes <- nodes[!nodes_duplicated(nodes)]
   }
   class(nodes) <- "xml_nodeset"
   nodes

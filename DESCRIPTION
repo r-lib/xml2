@@ -42,6 +42,7 @@ Collate:
     'xml_parse.R'
     'as_xml_document.R'
     'classes.R'
+    'cpp11.R'
     'format.R'
     'import-standalone-obj-type.R'
     'import-standalone-purrr.R'
@@ -71,3 +72,5 @@ Collate:
     'xml_write.R'
     'zzz.R'
 Config/testthat/edition: 3
+LinkingTo: 
+    cpp11

@@ -7,7 +7,7 @@
 #' xml_type(x)
 #' xml_type(xml_contents(x))
 xml_type <- function(x) {
-  types <- .Call(node_type, x)
+  types <- node_type(x)
   xmlElementType[types]
 }
 

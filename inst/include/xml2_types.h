@@ -1,6 +1,8 @@
 #ifndef __XML2_XML2_TYPES__
 #define __XML2_XML2_TYPES__
 
+#include <cpp11.hpp>
+
 #include <libxml/tree.h>
 #define R_NO_REMAP
 #include <Rinternals.h>
@@ -91,5 +93,8 @@ class XPtrDoc : public ::XPtr<xmlDoc> {
 
 typedef ::XPtr<xmlNode> XPtrNode;
 typedef ::XPtr<xmlNs> XPtrNs;
+
+using node_pointer = cpp11::external_pointer<xmlNode>;
+using doc_pointer = cpp11::external_pointer<xmlDoc>;
 
 #endif

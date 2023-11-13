@@ -85,7 +85,7 @@ xml_find_all.xml_missing <- function(x, xpath, ns = xml_ns(x), ...) {
 
 #' @export
 xml_find_all.xml_node <- function(x, xpath, ns = xml_ns(x), ...) {
-  nodes <- .Call(xpath_search, x$node, x$doc, xpath, ns, Inf)
+  nodes <- xpath_search(x$node, x$doc, xpath, ns, Inf)
   xml_nodeset(nodes)
 }
 
@@ -98,7 +98,7 @@ xml_find_all.xml_nodeset <- function(x, xpath, ns = xml_ns(x), flatten = TRUE, .
     return(xml_nodeset())
   }
 
-  res <- lapply(x, function(x) .Call(xpath_search, x$node, x$doc, xpath, ns, Inf))
+  res <- lapply(x, function(x) xpath_search(x$node, x$doc, xpath, ns, Inf))
 
   if (isTRUE(flatten)) {
     return(xml_nodeset(unlist(recursive = FALSE, res)))
@@ -121,7 +121,7 @@ xml_find_first.xml_missing <- function(x, xpath, ns = xml_ns(x)) {
 
 #' @export
 xml_find_first.xml_node <- function(x, xpath, ns = xml_ns(x)) {
-  res <- .Call(xpath_search, x$node, x$doc, xpath, ns, 1)
+  res <- xpath_search(x$node, x$doc, xpath, ns, 1)
   if (length(res) == 1) {
     res[[1]]
   } else {
@@ -155,7 +155,7 @@ xml_find_num <- function(x, xpath, ns = xml_ns(x)) {
 
 #' @export
 xml_find_num.xml_node <- function(x, xpath, ns = xml_ns(x)) {
-  res <- .Call(xpath_search, x$node, x$doc, xpath, ns, Inf)
+  res <- xpath_search(x$node, x$doc, xpath, ns, Inf)
   if (is.numeric(res) && is.nan(res)) {
     return(res)
   }
@@ -186,7 +186,7 @@ xml_find_chr <- function(x, xpath, ns = xml_ns(x)) {
 
 #' @export
 xml_find_chr.xml_node <- function(x, xpath, ns = xml_ns(x)) {
-  res <- .Call(xpath_search, x$node, x$doc, xpath, ns, Inf)
+  res <- xpath_search(x$node, x$doc, xpath, ns, Inf)
   check_string(res, arg = I(paste0("Element at path `", xpath, "`")))
   res
 }
@@ -213,7 +213,7 @@ xml_find_lgl <- function(x, xpath, ns = xml_ns(x)) {
 
 #' @export
 xml_find_lgl.xml_node <- function(x, xpath, ns = xml_ns(x)) {
-  res <- .Call(xpath_search, x$node, x$doc, xpath, ns, Inf)
+  res <- xpath_search(x$node, x$doc, xpath, ns, Inf)
   check_bool(res, arg = I(paste0("Element at path `", xpath, "`")))
   res
 }

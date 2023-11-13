@@ -60,7 +60,7 @@
 #' xml_attrs(doc) <- c("b:id" = "one", "f:id" = "two", "id" = "three")
 #' xml_set_attrs(doc, c("b:id" = "one", "f:id" = "two", "id" = "three"))
 xml_attr <- function(x, attr, ns = character(), default = NA_character_) {
-  .Call(node_attr, x, attr, as.character(default), ns)
+  node_attr(x, attr, as.character(default), ns)
 }
 
 #' @export
@@ -72,7 +72,7 @@ xml_has_attr <- function(x, attr, ns = character()) {
 #' @export
 #' @rdname xml_attr
 xml_attrs <- function(x, ns = character()) {
-  .Call(node_attrs, x, nsMap = ns)
+  node_attrs(x, nsMap_sxp = ns)
 }
 
 #' @param value character vector of new value.
@@ -85,10 +85,10 @@ xml_attrs <- function(x, ns = character()) {
 #' @export
 `xml_attr<-.xml_node` <- function(x, attr, ns = character(), value) {
   if (is.null(value)) {
-    .Call(node_remove_attr, x$node, attr, ns)
+    node_remove_attr(x$node, attr, ns)
   } else {
     value <- as.character(value)
-    .Call(node_set_attr, x$node, attr, value, ns)
+    node_set_attr(x$node, attr, value, ns)
   }
   x
 }

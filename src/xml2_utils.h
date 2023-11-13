@@ -1,6 +1,8 @@
 #ifndef __XML2_XML_UTILS__
 #define __XML2_XML_UTILS__
 
+#include <cpp11.hpp>
+
 #define R_NO_REMAP
 #include <Rinternals.h>
 #undef R_NO_REMAP
@@ -15,6 +17,11 @@ enum NodeType {
   nodeset = 3,
 };
 
+__attribute__ ((noreturn))
+inline void stop_unexpected_node_type() {
+  cpp11::stop("Unexpected node type");
+}
+
 inline const NodeType getNodeType(SEXP x) {
   if (Rf_inherits(x, "xml_node")) {
     return(NodeType::node);
@@ -23,7 +30,7 @@ inline const NodeType getNodeType(SEXP x) {
   } else if (Rf_inherits(x, "xml_missing")) {
     return(NodeType::missing);
   } else {
-    Rf_error("Unexpected node type");
+    stop_unexpected_node_type();
   }
 }
 
@@ -31,18 +38,9 @@ inline const xmlChar* asXmlChar(std::string const& x) {
   return (const xmlChar*) x.c_str();
 }
 
-inline const xmlChar* asXmlChar(SEXP x, int n = 0) {
-  return (const xmlChar*) CHAR(STRING_ELT(x, n));
+inline const xmlChar* asXmlChar(cpp11::strings x) {
+  return (const xmlChar*) cpp11::as_cpp<const char*>(x);
 }
-
-#define BEGIN_CPP try {
-
-#define END_CPP                                                                \
-  }                                                                            \
-  catch (std::exception & e) {                                                 \
-    Rf_error("C++ exception: %s", e.what());                                   \
-  }
-
 
 // If we are using C++11 disallow moves
 #if __cplusplus >= 201103L
@@ -80,11 +78,11 @@ public:
     return std::string((char*) string_);
   }
 
-  SEXP asRString(SEXP missing = NA_STRING) {
+  cpp11::r_string asRString(cpp11::r_string missing = NA_STRING) {
     if (string_ == NULL)
       return missing;
 
-    return Rf_mkCharCE((char*) string_, CE_UTF8);
+    return cpp11::r_string((char*) string_);
   };
 };
 
@@ -103,10 +101,10 @@ class NsMap {
   }
 
   // Initialise from an existing STRSXP
-  NsMap(SEXP x) {
-    SEXP names = Rf_getAttrib(x, R_NamesSymbol);
-    for (R_len_t i = 0; i < Rf_xlength(x); ++i) {
-      add(std::string(CHAR(STRING_ELT(names, i))), std::string(CHAR(STRING_ELT(x, i))));
+  NsMap(cpp11::strings x) {
+    cpp11::strings names = x.names();
+    for (R_len_t i = 0; i < x.size(); ++i) {
+      add(cpp11::r_string(names[i]), cpp11::r_string(x[i]));
     }
   }
 
@@ -120,7 +118,7 @@ class NsMap {
       return it->second;
     }
 
-    Rf_error("Couldn't find url for prefix %s", prefix.c_str());
+    cpp11::stop("Couldn't find url for prefix %s", prefix.c_str());
     return std::string();
   }
 
@@ -131,7 +129,7 @@ class NsMap {
       }
     }
 
-    Rf_error("Couldn't find prefix for url %s", url.c_str());
+    cpp11::stop("Couldn't find prefix for url %s", url.c_str());
     return std::string();
   }
 
@@ -144,20 +142,20 @@ class NsMap {
     return true;
   }
 
-  SEXP out() {
-    SEXP out = PROTECT(Rf_allocVector(STRSXP, prefix2url.size()));
-    SEXP names = PROTECT(Rf_allocVector(STRSXP, prefix2url.size()));
+  cpp11::sexp out() {
+    int n = prefix2url.size();
+    cpp11::writable::strings out(n);
+    cpp11::writable::strings names(n);
 
     size_t i = 0;
     for (prefix2url_t::const_iterator it = prefix2url.begin(); it != prefix2url.end(); ++it) {
-      SET_STRING_ELT(out, i, Rf_mkChar(it->second.c_str()));
-      SET_STRING_ELT(names, i, Rf_mkChar(it->first.c_str()));
+      out[i] = it->second.c_str();
+      names[i] = it->first.c_str();
       ++i;
     }
 
-    Rf_setAttrib(out, R_NamesSymbol, names);
+    out.names() = names;
 
-    UNPROTECT(2);
     return out;
   }
 };

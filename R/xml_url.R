@@ -23,12 +23,12 @@ xml_url.xml_missing <- function(x) {
 
 #' @export
 xml_url.xml_node <- function(x) {
-  .Call(doc_url, x$doc)
+  doc_url(x$doc)
 }
 
 #' @export
 xml_url.xml_nodeset <- function(x) {
-  vapply(x, function(x) .Call(doc_url, x), character(1))
+  vapply(x, function(x) doc_url(x), character(1))
 }
 
 #' Convert between relative and absolute urls.
@@ -47,13 +47,13 @@ xml_url.xml_nodeset <- function(x) {
 #' url_relative("http://hadley.nz/a/c", "http://hadley.nz/a/b/")
 #' @export
 url_absolute <- function(x, base) {
-  .Call(url_absolute_, x, base)
+  url_absolute_(x, base)
 }
 
 #' @rdname url_absolute
 #' @export
 url_relative <- function(x, base) {
-  .Call(url_relative_, x, base)
+  url_relative_(x, base)
 }
 
 #' Escape and unescape urls.
@@ -68,13 +68,13 @@ url_relative <- function(x, base) {
 #' url_unescape("a%20b%2fc")
 #' url_unescape("%C2%B5")
 url_escape <- function(x, reserved = "") {
-  .Call(url_escape_, x, reserved)
+  url_escape_(x, reserved)
 }
 
 #' @rdname url_escape
 #' @export
 url_unescape <- function(x) {
-  .Call(url_unescape_, x)
+  url_unescape_(x)
 }
 
 #' Parse a url into its component pieces.
@@ -89,5 +89,5 @@ url_unescape <- function(x) {
 #' url_parse("http://had.co.nz:1234/?a=1&b=2")
 #' url_parse("http://had.co.nz:1234/?a=1&b=2#def")
 url_parse <- function(x) {
-  .Call(url_parse_, x)
+  url_parse_(x)
 }
