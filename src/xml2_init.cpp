@@ -10,7 +10,7 @@
 #include <string>
 #include "xml2_utils.h"
 
-void handleStructuredError(void* userData, xmlError* error) {
+void handleStructuredError(void* userData, const xmlError* error) {
 
   BEGIN_CPP
   std::string message = std::string(error->message);
