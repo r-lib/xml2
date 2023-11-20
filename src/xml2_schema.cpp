@@ -2,6 +2,7 @@
 #include <Rinternals.h>
 #undef R_NO_REMAP
 
+#include <libxml/parser.h>
 #include <libxml/xmlschemas.h>
 #include <vector>
 #include <string>
@@ -9,7 +10,7 @@
 #include "xml2_types.h"
 #include "xml2_utils.h"
 
-void handleSchemaError(void* userData, xmlError* error) {
+void handleSchemaError(void* userData, const xmlError* error) {
   std::vector<std::string> * vec = (std::vector<std::string> *) userData;
   std::string message = std::string(error->message);
   message.resize(message.size() - 1);
