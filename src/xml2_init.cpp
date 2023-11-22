@@ -12,10 +12,10 @@
 
 /* * *
  * Author: Nick Wellnhofer <wellnhofer@aevum.de>
- * Date:   Thu, 21 Sep 2023 23:52:52 +0200
- * https://github.com/GNOME/libxml2/commit/45470611b047db78106dcb2fdbd4164163c15ab7
+ * Date:   Tue, 24 Oct 2023 15:02:36 +0200
+ * https://github.com/GNOME/libxml2/commit/61034116d0a3c8b295c6137956adc3ae55720711
  *
- * error: Make xmlGetLastError return a const error
+ * error: Make more xmlError structs constant
  */
 #if defined(LIBXML_VERSION) && (LIBXML_VERSION >= 21200)
 void handleStructuredError(void* userData, const xmlError* error) {
