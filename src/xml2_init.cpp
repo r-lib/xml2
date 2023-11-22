@@ -10,7 +10,18 @@
 #include <string>
 #include "xml2_utils.h"
 
+/* * *
+ * Author: Nick Wellnhofer <wellnhofer@aevum.de>
+ * Date:   Thu, 21 Sep 2023 23:52:52 +0200
+ * https://github.com/GNOME/libxml2/commit/45470611b047db78106dcb2fdbd4164163c15ab7
+ *
+ * error: Make xmlGetLastError return a const error
+ */
+#if defined(LIBXML_VERSION) && (LIBXML_VERSION >= 21200)
 void handleStructuredError(void* userData, const xmlError* error) {
+#else
+void handleStructuredError(void* userData, xmlError* error) {
+#endif
 
   BEGIN_CPP
   std::string message = std::string(error->message);
