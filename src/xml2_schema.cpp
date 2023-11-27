@@ -2,7 +2,6 @@
 #include <Rinternals.h>
 #undef R_NO_REMAP
 
-#include <libxml/parser.h>
 #include <libxml/xmlschemas.h>
 #include <vector>
 #include <string>
@@ -33,8 +32,6 @@ extern "C" SEXP doc_validate(SEXP doc_sxp, SEXP schema_sxp) {
 
   XPtrDoc doc(doc_sxp);
   XPtrDoc schema(schema_sxp);
-
-  xmlLineNumbersDefault(1);
 
   BEGIN_CPP
 
