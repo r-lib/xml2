@@ -22,7 +22,7 @@ xml_serialize.xml_document <- function(object, connection, ...) {
     connection <- file(connection, "w", raw = TRUE)
     on.exit(close(connection))
   }
-  serialize(structure(as.character(object, ...), class = "xml_serialized_document"), connection)
+  serialize(structure(as.character(object, ...), doc_type = doc_type(object), class = "xml_serialized_document"), connection)
 }
 
 #' @export
@@ -64,7 +64,13 @@ xml_unserialize <- function(connection, ...) {
     # Select only the root
     res <- xml_find_first(x, "/node()")
   } else if (inherits(object, "xml_serialized_document")) {
-    res <- read_xml(unclass(object), ...)
+    read_xml_int <- function(object, as_html = FALSE, ...) {
+      if (missing(as_html)) {
+        as_html <- identical(attr(object, "doc_type", exact = TRUE), "html")
+      }
+      read_xml(unclass(object), as_html = as_html, ...)
+    }
+    res <- read_xml_int(unclass(object), ...)
   } else {
     abort("Not a serialized xml2 object")
   }

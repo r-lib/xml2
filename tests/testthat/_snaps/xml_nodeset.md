@@ -15,3 +15,22 @@
        [9] <div id="more_if_no_javascript"><a href="/search/">More</a></div>
       [10] <div class="magnifyingglass navbarSprite"></div>
 
+---
+
+    Code
+      print(x, width = 13L)
+    Output
+      {xml_document}
+      <doc>
+      [1] <a>123 ...
+      [2] <b>123 ...
+      [3] <c>12\ ...
+    Code
+      print(x, width = 14L)
+    Output
+      {xml_document}
+      <doc>
+      [1] <a>1234 ...
+      [2] <b>1234 ...
+      [3] <c>12\\ ...
+

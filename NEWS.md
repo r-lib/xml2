@@ -1,8 +1,13 @@
 # xml2 (development version)
 
+* `xml_find_int()` analogous to `xml_find_num()` for returning integers 
+  matched by an XPath (#365, @michaelchirico).
+
+* `xml_serialize()` now includes the document type so that `xml_unserialize()` works also for HTML documents (#407, @HenrikBengtsson).
+
 * Remove unused dependencies on glue, withr and lifecycle (@mgirlich).
 
-* `xml_find_int()` analogous to `xml_find_num()` for returning integers matched by an XPath (#365, @michaelchirico).
+* `print()` is faster for very long `xml_nodeset` inputs (#366, @michaelchirico).
 
 # xml2 1.3.5
 
