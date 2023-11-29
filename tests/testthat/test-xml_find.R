@@ -88,11 +88,9 @@ test_that("xml_find_num returns a numeric result", {
 # Find int ---------------------------------------------------------------------
 test_that("xml_find_int errors with non integer results", {
   x <- read_xml("<x><y/><y/></x>")
-  expect_snapshot_error({
+  expect_snapshot(error = TRUE, {
     xml_find_int(x, "//z")
     xml_find_int(x, "//y")
-    xml_find_int(x, "1=1")
-    xml_find_int(x, "string(5)")
     xml_find_int(x, "number(1.1)")
   })
 })
