@@ -15,7 +15,31 @@ enum NodeType {
   nodeset = 3,
 };
 
+
+inline int inherits3(SEXP x, const char *name) {
+  SEXP expr = PROTECT(Rf_lang3(Rf_install("inherits"), x, Rf_mkString(name)));
+  SEXP result = PROTECT(Rf_eval(expr, R_GlobalEnv));
+
+  int out = LOGICAL(result)[0];
+  UNPROTECT(2);
+  return out;
+}
+
 inline const NodeType getNodeType(SEXP x) {
+
+  // for fhircrackr
+  if (IS_S4_OBJECT(x)) {
+    if (inherits3(x, "xml_node")) {
+      return(NodeType::node);
+    } else if (inherits3(x, "xml_nodeset")) {
+      return(NodeType::nodeset);
+    } else if (inherits3(x, "xml_missing")) {
+      return(NodeType::missing);
+    } else {
+      Rf_error("Unexpected node type");
+    }
+  }
+
   if (Rf_inherits(x, "xml_node")) {
     return(NodeType::node);
   } else if (Rf_inherits(x, "xml_nodeset")) {
