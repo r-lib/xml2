@@ -92,7 +92,7 @@ int xml_write_callback(SEXP con, const char * buffer, int len) {
   size_t write_size;
 
   if ((write_size = R_WriteConnection(con, (void *) buffer, len)) != static_cast<size_t>(len)) {
-    Rf_error("write failed, expected %i, got %i", len, write_size);
+    Rf_error("write failed, expected %i, got %li", len, write_size);
   }
   return write_size;
 }
