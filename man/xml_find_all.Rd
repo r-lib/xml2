@@ -5,6 +5,7 @@
 \alias{xml_find_all.xml_nodeset}
 \alias{xml_find_first}
 \alias{xml_find_num}
+\alias{xml_find_int}
 \alias{xml_find_chr}
 \alias{xml_find_lgl}
 \alias{xml_find_one}
@@ -17,6 +18,8 @@ xml_find_all(x, xpath, ns = xml_ns(x), ...)
 xml_find_first(x, xpath, ns = xml_ns(x))
 
 xml_find_num(x, xpath, ns = xml_ns(x))
+
+xml_find_int(x, xpath, ns = xml_ns(x))
 
 xml_find_chr(x, xpath, ns = xml_ns(x))
 
