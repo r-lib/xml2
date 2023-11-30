@@ -34,7 +34,7 @@ void handleGenericError(void *ctx, const char *fmt, ...)
 
   va_start(arg, fmt);
   vsnprintf(buffer, BUFSIZ, fmt, arg);
-  Rf_error(buffer);
+  Rf_error("%s", buffer);
 }
 
 // [[export]]
