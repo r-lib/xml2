@@ -1,26 +1,58 @@
 # Revdeps
 
-## Failed to check (19)
+## Failed to check (44)
 
-|package            |version |error |warning |note |
-|:------------------|:-------|:-----|:-------|:----|
-|bcdata             |0.1.2   |1     |        |     |
-|cdcfluview         |0.9.1   |1     |        |     |
-|dataone            |2.1.4   |1     |        |     |
-|EML                |?       |      |        |     |
-|fgdr               |1.0.0   |1     |        |     |
-|finch              |?       |      |        |     |
-|forestChange       |1.0     |1     |        |     |
-|geouy              |0.1.9   |1     |        |     |
-|mapsapi            |0.4.5   |1     |        |     |
-|MazamaSpatialUtils |?       |      |        |     |
-|MODIStsp           |?       |      |        |     |
-|move               |3.3.0   |1     |        |     |
-|mregions           |?       |      |        |     |
-|nhdR               |0.5.3   |1     |        |     |
-|prisonbrief        |0.1.0   |1     |        |     |
-|rdefra             |0.3.8   |1     |        |     |
-|slga               |1.1.1   |1     |        |     |
-|stlcsb             |?       |      |        |     |
-|tidycensus         |0.9.9.2 |1     |        |     |
+|package                        |version |error |warning |note |
+|:------------------------------|:-------|:-----|:-------|:----|
+|BiocPkgTools                   |?       |      |        |     |
+|biodb                          |?       |      |        |     |
+|biomaRt                        |?       |      |        |     |
+|cola                           |?       |      |        |     |
+|CompoundDb                     |?       |      |        |     |
+|ELMER                          |?       |      |        |     |
+|EpiTxDb                        |?       |      |        |     |
+|ExpressionAtlas                |?       |      |        |     |
+|GenomicDataCommons             |?       |      |        |     |
+|GEOexplorer                    |?       |      |        |     |
+|GEOfastq                       |?       |      |        |     |
+|GEOquery                       |?       |      |        |     |
+|Gviz                           |?       |      |        |     |
+|healthyControlsPresenceChecker |?       |      |        |     |
+|HPAanalyze                     |?       |      |        |     |
+|immunotation                   |?       |      |        |     |
+|InterMineR                     |?       |      |        |     |
+|levi                           |?       |      |        |     |
+|Macarron                       |?       |      |        |     |
+|MACSQuantifyR                  |?       |      |        |     |
+|MBQN                           |?       |      |        |     |
+|memes                          |?       |      |        |     |
+|mosbi                          |?       |      |        |     |
+|ncRNAtools                     |?       |      |        |     |
+|OmnipathR                      |?       |      |        |     |
+|ORFik                          |?       |      |        |     |
+|PhyloProfile                   |?       |      |        |     |
+|RBioFormats                    |?       |      |        |     |
+|rfaRm                          |?       |      |        |     |
+|RGMQL                          |?       |      |        |     |
+|rpx                            |?       |      |        |     |
+|RTCGA                          |?       |      |        |     |
+|SBGNview                       |?       |      |        |     |
+|scPipe                         |?       |      |        |     |
+|scRNAseqApp                    |?       |      |        |     |
+|simona                         |?       |      |        |     |
+|spatialHeatmap                 |?       |      |        |     |
+|surfaltr                       |?       |      |        |     |
+|syntenet                       |?       |      |        |     |
+|TCGAbiolinks                   |?       |      |        |     |
+|TCGAutils                      |?       |      |        |     |
+|topdownr                       |?       |      |        |     |
+|treeio                         |?       |      |        |     |
+|tRNAdbImport                   |?       |      |        |     |
+
+## New problems (2)
+
+|package    |version |error  |warning |note |
+|:----------|:-------|:------|:-------|:----|
+|[fhircrackr](problems.md#fhircrackr)|2.1.1   |__+2__ |        |     |
+|[pmparser](problems.md#pmparser)|1.0.17  |__+2__ |        |     |
 
