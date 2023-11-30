@@ -1,5 +1,7 @@
 # xml2 (development version)
 
+* Fix format string issues detected in R-devel.
+
 * `xml_serialize()` now includes the document type so that `xml_unserialize()` works also for HTML documents (#407, @HenrikBengtsson).
 
 * Remove unused dependencies on glue, withr and lifecycle (@mgirlich).
