@@ -3,6 +3,8 @@
 * `xml_find_int()` analogous to `xml_find_num()` for returning integers 
   matched by an XPath (#365, @michaelchirico).
 
+* Now compatible with limxml2 2.12.0 and later (@KNnut).
+
 * Fix format string issues detected in R-devel.
 
 * `xml_serialize()` now includes the document type so that `xml_unserialize()` works also for HTML documents (#407, @HenrikBengtsson).

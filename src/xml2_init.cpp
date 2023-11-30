@@ -10,7 +10,18 @@
 #include <string>
 #include "xml2_utils.h"
 
+/* * *
+ * Author: Nick Wellnhofer <wellnhofer@aevum.de>
+ * Date:   Tue, 24 Oct 2023 15:02:36 +0200
+ * https://github.com/GNOME/libxml2/commit/61034116d0a3c8b295c6137956adc3ae55720711
+ *
+ * error: Make more xmlError structs constant
+ */
+#if defined(LIBXML_VERSION) && (LIBXML_VERSION >= 21200)
+void handleStructuredError(void* userData, const xmlError* error) {
+#else
 void handleStructuredError(void* userData, xmlError* error) {
+#endif
 
   BEGIN_CPP
   std::string message = std::string(error->message);
