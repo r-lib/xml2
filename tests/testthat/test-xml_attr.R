@@ -35,8 +35,8 @@ test_that("qualified names returned when ns given", {
   bars <- xml_children(xml_children(x))
   attr <- xml_attrs(bars, ns)
 
-  expect_equal(names(attr[[1]]), "f:id")
-  expect_equal(names(attr[[2]]), "g:id")
+  expect_named(attr[[1]], "f:id")
+  expect_named(attr[[2]], "g:id")
 })
 
 
