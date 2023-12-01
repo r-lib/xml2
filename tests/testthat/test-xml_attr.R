@@ -100,7 +100,7 @@ test_that("xml_attrs<- modifies all attributes", {
   xml_attrs(doc, ns) <- c("b:id" = "b", "id" = "test")
   expect_equal(xml_attrs(doc, ns), c("b:id" = "b", "id" = "test"))
 
-  expect_snapshot_error(xml_attrs(docs) <- "test")
+  expect_snapshot(error = TRUE, xml_attrs(docs) <- "test")
 
   xml_attrs(docs, ns) <- c("b:id" = "b", "id" = "test")
   expect_equal(

@@ -1,10 +1,10 @@
 test_that("write_xml errors for incorrect directory and with invalid inputs", {
-  x <- read_xml("<x/>")
-  filename <- "does_not_exist/test.xml"
-  expect_error(write_xml(x, filename), "'does_not_exist' does not exist in current working directory")
-
-
-  expect_snapshot_error(write_xml(x, c("test.xml", "foo")))
+  expect_snapshot(error = TRUE, {
+    x <- read_xml("<x/>")
+    filename <- "does_not_exist/test.xml"
+    write_xml(x, filename)
+    write_xml(x, c("test.xml", "foo"))
+  })
 })
 
 test_that("write_xml works with relative file paths", {
@@ -68,13 +68,13 @@ test_that("write_xml works with nodeset input and connections", {
   x <- read_xml("<x><y/><y/></x>")
   y <- xml_find_all(x, "//y")
 
-  filename <- "../test.xml.gz"
-  expect_error(
-    write_xml(y, filename, options = "no_declaration"),
-    "Can only save length 1 node sets"
-  )
 
-  expect_snapshot_error(write_xml(y[1], c(filename, "foo")))
+
+  expect_snapshot(error = TRUE, {
+    filename <- "../test.xml.gz"
+    write_xml(y, filename, options = "no_declaration")
+    write_xml(y[1], c(filename, "foo"))
+  })
 
   write_xml(y[1], filename, options = "no_declaration")
   file <- gzfile(filename, "rb")
@@ -90,7 +90,7 @@ test_that("write_xml works with node input and files", {
   y <- xml_find_first(x, "//y")
 
   filename <- "../test.xml"
-  expect_snapshot_error(write_xml(y, c(filename, "foo")))
+  expect_snapshot(error = TRUE, write_xml(y, c(filename, "foo")))
 
   write_xml(y, filename, options = "no_declaration")
   on.exit(unlink(filename))
