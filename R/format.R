@@ -1,7 +1,7 @@
 #' @export
 format.xml_node <- function(x, ...) {
   attrs <- xml_attrs(x)
-  paste("<",
+  paste0("<",
     paste(
       c(
         xml_name(x),
@@ -10,7 +10,6 @@ format.xml_node <- function(x, ...) {
       collapse = " "
     ),
     ">",
-    sep = ""
   )
 }
 
