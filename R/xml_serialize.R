@@ -72,7 +72,7 @@ xml_unserialize <- function(connection, ...) {
     }
     res <- read_xml_int(unclass(object), ...)
   } else {
-    abort("Not a serialized xml2 object")
+    cli::cli_abort("Not a serialized xml2 object.")
   }
   res
 }
