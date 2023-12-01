@@ -9,7 +9,7 @@ format.xml_node <- function(x, ...) {
       ),
       collapse = " "
     ),
-    ">",
+    ">"
   )
 }
 
