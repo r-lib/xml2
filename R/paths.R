@@ -55,7 +55,7 @@ zipfile <- function(path, open = "r") {
   file <- files$Name[[1]]
 
   if (nrow(files) > 1) {
-    message("Multiple files in zip: reading '", file, "'")
+    cli::cli_inform("Multiple files in zip: reading {.file {file}}")
   }
 
   unz(path, file, open = open)
