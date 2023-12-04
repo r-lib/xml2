@@ -1,6 +1,6 @@
 Package: xml2
 Title: Parse XML
-Version: 1.3.6
+Version: 1.3.6.9000
 Authors@R: c(
     person("Hadley", "Wickham", , "hadley@posit.co", role = c("aut", "cre")),
     person("Jim", "Hester", role = "aut"),

@@ -1,3 +1,5 @@
+# xml2 (development version)
+
 # xml2 1.3.6
 
 * Now compatible with libxml2 2.12.0 and later (@KNnut).
