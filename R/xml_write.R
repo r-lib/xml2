@@ -11,7 +11,7 @@
 #' encoding is \sQuote{UTF-8}. Available encodings are specified at
 #' <http://xmlsoft.org/html/libxml-encoding.html#xmlCharEncoding>.
 #' @param options default: \sQuote{format}. Zero or more of
-#' \Sexpr[results=rd]{xml2:::describe_options(xml2:::xml_save_options())}
+#' \Sexpr[results=rd, stage=build]{xml2:::describe_options(xml2:::xml_save_options())}
 #' @param ... additional arguments passed to methods.
 #' @export
 #' @examples

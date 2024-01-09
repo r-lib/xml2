@@ -24,7 +24,7 @@ save nodesets containing more than one node.}
 \item{...}{additional arguments passed to methods.}
 
 \item{options}{default: \sQuote{format}. Zero or more of
-\Sexpr[results=rd]{xml2:::describe_options(xml2:::xml_save_options())}}
+\Sexpr[results=rd, stage=build]{xml2:::describe_options(xml2:::xml_save_options())}}
 
 \item{encoding}{The character encoding to use in the document. The default
 encoding is \sQuote{UTF-8}. Available encodings are specified at
