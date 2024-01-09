@@ -2,7 +2,7 @@ x <- read_xml("<a>
   <b><c>123</c></b>
   <b><c>456</c></b>
   </a>")
-  
+
 test_that("xml_serialize and xml_unserialize work with xml_document input", {
   out <- xml_unserialize(xml_serialize(x, NULL))
   expect_identical(as.character(x), as.character(out))

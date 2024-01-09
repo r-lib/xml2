@@ -22,10 +22,6 @@ quote_str <- function(x, quote = "\"") {
   paste0(quote, x, quote)
 }
 
-is_installed <- function(pkg) {
-  requireNamespace(pkg, quietly = TRUE)
-}
-
 # Format the C bitwise flags for display in Rd. The input object is a named
 # integer vector with a 'descriptions' character vector attribute that
 # corresponds to each flag.

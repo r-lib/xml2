@@ -35,8 +35,8 @@ test_that("qualified names returned when ns given", {
   bars <- xml_children(xml_children(x))
   attr <- xml_attrs(bars, ns)
 
-  expect_equal(names(attr[[1]]), "f:id")
-  expect_equal(names(attr[[2]]), "g:id")
+  expect_named(attr[[1]], "f:id")
+  expect_named(attr[[2]], "g:id")
 })
 
 
@@ -150,21 +150,21 @@ test_that("xml_attr<- removes namespaces if desired", {
   x <- read_xml("<a xmlns = 'tag:foo'><b/></a>")
 
   # cannot find //b with a default namespace
-  expect_equal(length(xml_find_all(x, "//b")), 0)
+  expect_length(xml_find_all(x, "//b"), 0)
 
   # unless we specify it explicitly
-  expect_equal(length(xml_find_all(x, "//b")), 0)
-  expect_equal(length(xml_find_all(x, "//d1:b", xml_ns(x))), 1)
+  expect_length(xml_find_all(x, "//b"), 0)
+  expect_length(xml_find_all(x, "//d1:b", xml_ns(x)), 1)
 
   # but can find it once we remove the namespace
   xml_attr(x, "xmlns") <- NULL
-  expect_equal(length(xml_find_all(x, "//b")), 1)
+  expect_length(xml_find_all(x, "//b"), 1)
 
   # and add the old namespace back
   xml_attr(x, "xmlns") <- "tag:foo"
   expect_equal(xml_attr(x, "xmlns"), "tag:foo")
-  expect_equal(length(xml_find_all(x, "//b")), 0)
-  expect_equal(length(xml_find_all(x, "//d1:b", xml_ns(x))), 1)
+  expect_length(xml_find_all(x, "//b"), 0)
+  expect_length(xml_find_all(x, "//d1:b", xml_ns(x)), 1)
 
   expect_equal(xml_attr(x, "xmlns"), "tag:foo")
 })
@@ -173,22 +173,22 @@ test_that("xml_attr<- removes prefixed namespaces if desired", {
   x <- read_xml("<a xmlns:pre = 'tag:foo'><pre:b/></a>")
 
   # cannot find //b with a prefixed namespace
-  expect_equal(length(xml_find_all(x, "//b")), 0)
+  expect_length(xml_find_all(x, "//b"), 0)
 
   # unless we specify it explicitly
-  expect_equal(length(xml_find_all(x, "//b")), 0)
-  expect_equal(length(xml_find_all(x, "//pre:b", xml_ns(x))), 1)
+  expect_length(xml_find_all(x, "//b"), 0)
+  expect_length(xml_find_all(x, "//pre:b", xml_ns(x)), 1)
 
   # but can find it once we remove the namespace
   xml_attr(x, "xmlns:pre") <- NULL
-  expect_equal(length(xml_find_all(x, "//b")), 1)
+  expect_length(xml_find_all(x, "//b"), 1)
 
   # and add the old namespace back
   xml_attr(x, "xmlns:pre") <- "tag:foo"
   xml_set_namespace(xml_children(x)[[1]], "pre")
   expect_equal(xml_attr(x, "xmlns:pre"), "tag:foo")
-  expect_equal(length(xml_find_all(x, "//b")), 0)
-  expect_equal(length(xml_find_all(x, "//pre:b", xml_ns(x))), 1)
+  expect_length(xml_find_all(x, "//b"), 0)
+  expect_length(xml_find_all(x, "//pre:b", xml_ns(x)), 1)
 
   expect_equal(xml_attr(x, "xmlns:pre"), "tag:foo")
 })
@@ -213,8 +213,8 @@ test_that("xml_set_attr works identically to xml_attr<-", {
 
   # No errors for xml_missing
   mss <- xml_find_first(bx, "./c")
-  expect_error(xml_attr(mss[[2]], "b") <- "blah", NA)
-  expect_error(xml_set_attr(mss[[2]], "b", "blah"), NA)
+  expect_no_error(xml_attr(mss[[2]], "b") <- "blah")
+  expect_no_error(xml_set_attr(mss[[2]], "b", "blah"))
 })
 
 test_that("xml_set_attrs works identically to xml_attrs<-", {
@@ -237,8 +237,8 @@ test_that("xml_set_attrs works identically to xml_attrs<-", {
 
   # No errors for xml_missing
   mss <- xml_find_first(bx, "./c")
-  expect_error(xml_attrs(mss[[2]]) <- c("b" = "blah"), NA)
-  expect_error(xml_set_attrs(mss[[2]], c("b" = "blah")), NA)
+  expect_no_error(xml_attrs(mss[[2]]) <- c("b" = "blah"))
+  expect_no_error(xml_set_attrs(mss[[2]], c("b" = "blah")))
 })
 
 test_that("xml_set_attr can set the same namespace multiple times", {

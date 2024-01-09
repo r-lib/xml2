@@ -134,6 +134,6 @@ test_that("write_xml returns invisibly", {
 
   res <- withVisible(write_xml(x, tf))
 
-  expect_equal(res$value, NULL)
-  expect_equal(res$visible, FALSE)
+  expect_null(res$value)
+  expect_false(res$visible)
 })

@@ -16,7 +16,7 @@ test_that("xml_find_first does not deduplicate identical results", {
   y <- xml_find_all(x, ".//y")
   z <- xml_find_first(y, "..")
   expect_s3_class(z, "xml_nodeset")
-  expect_equal(length(z), 2)
+  expect_length(z, 2)
 })
 
 # Find all ---------------------------------------------------------------------
@@ -24,15 +24,15 @@ test_that("xml_find_first does not deduplicate identical results", {
 test_that("unqualified names don't look in default ns", {
   x <- read_xml(test_path("ns-multiple-default.xml"))
 
-  expect_equal(length(xml_find_all(x, "//bar")), 0)
+  expect_length(xml_find_all(x, "//bar"), 0)
 })
 
 test_that("qualified names matches to namespace", {
   x <- read_xml(test_path("ns-multiple-default.xml"))
   ns <- xml_ns(x)
 
-  expect_equal(length(xml_find_all(x, "//d1:bar", ns)), 1)
-  expect_equal(length(xml_find_all(x, "//d2:bar", ns)), 1)
+  expect_length(xml_find_all(x, "//d1:bar", ns), 1)
+  expect_length(xml_find_all(x, "//d2:bar", ns), 1)
 })
 
 test_that("warning if unknown namespace", {
@@ -45,7 +45,7 @@ test_that("warning if unknown namespace", {
 
 test_that("no matches returns empty nodeset", {
   x <- read_xml("<foo><bar /></foo>")
-  expect_equal(length(xml_find_all(x, "//baz")), 0)
+  expect_length(xml_find_all(x, "//baz"), 0)
 })
 
 test_that("xml_find_all returns nodeset or list of nodesets based on flatten", {
@@ -145,15 +145,15 @@ test_that("xml_find_lgl errors with non logical results", {
 test_that("xml_find_lgl returns a logical result", {
   x <- read_xml("<x><y>1</y><y/></x>")
 
-  expect_equal(xml_find_lgl(x, "1=1"), TRUE)
+  expect_true(xml_find_lgl(x, "1=1"))
 
-  expect_equal(xml_find_lgl(x, "1!=1"), FALSE)
+  expect_false(xml_find_lgl(x, "1!=1"))
 
-  expect_equal(xml_find_lgl(x, "true()=true()"), TRUE)
+  expect_true(xml_find_lgl(x, "true()=true()"))
 
-  expect_equal(xml_find_lgl(x, "true()=false()"), FALSE)
+  expect_false(xml_find_lgl(x, "true()=false()"))
 
-  expect_equal(xml_find_lgl(x, "'test'='test'"), TRUE)
+  expect_true(xml_find_lgl(x, "'test'='test'"))
 })
 
 test_that("Searches with empty inputs retain type stability", {

@@ -6,7 +6,7 @@ path_to_connection <- function(path, check = c("file", "dir")) {
   }
 
   if (is_url(path)) {
-    if (requireNamespace("curl", quietly = TRUE)) {
+    if (is_installed("curl")) {
       return(curl::curl(path))
     } else {
       return(url(path))

@@ -11,7 +11,7 @@ Work with XML files using a simple, consistent interface. Built on top of the 'l
 \seealso{
 Useful links:
 \itemize{
-  \item \url{https://xml2.r-lib.org/}
+  \item \url{https://xml2.r-lib.org}
   \item \url{https://github.com/r-lib/xml2}
   \item Report bugs at \url{https://github.com/r-lib/xml2/issues}
 }

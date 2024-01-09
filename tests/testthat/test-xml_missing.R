@@ -8,8 +8,8 @@ b <- xml_find_first(para, ".//b")
 mss <- b[[3]]
 
 test_that("xml_find returns nodes of class 'xml_missing' for missing nodes", {
-  expect_equal(length(b), 3L)
-  expect_equal(vapply(b, length, integer(1)), c(2L, 2L, 0L))
+  expect_length(b, 3L)
+  expect_equal(lengths(b), c(2L, 2L, 0L))
   expect_s3_class(mss, "xml_missing")
 })
 
