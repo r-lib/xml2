@@ -26,12 +26,11 @@ test_that("read_html correctly parses malformed document", {
 test_that("parse_options errors when given an invalid option", {
   expect_error(
     parse_options("INVALID", xml_parse_options()),
-    "`options` 'INVALID' is not a valid option"
+    '`options` "INVALID" is not a valid option'
   )
 
-  expect_error(
-    read_html(test_path("lego.html.bz2"), options = "INVALID"),
-    "`options` 'INVALID' is not a valid option"
+  expect_snapshot(error = TRUE,
+    read_html(test_path("lego.html.bz2"), options = "INVALID")
   )
 
   # Empty inputs returned as 0

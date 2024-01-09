@@ -42,7 +42,7 @@ s_quote <- function(x) paste0("'", x, "'")
 # Similar to match.arg, but returns character() with NULL or empty input and
 # errors if any of the inputs are not found (fixing
 # https://bugs.r-project.org/bugzilla3/show_bug.cgi?id=16659)
-parse_options <- function(arg, options) {
+parse_options <- function(arg, options, error_call = caller_env()) {
   if (is.numeric(arg)) {
     return(as.integer(arg))
   }
@@ -54,15 +54,13 @@ parse_options <- function(arg, options) {
   # set duplicates.ok = TRUE so any duplicates are counted differently than
   # non-matches, then take only unique results
   i <- pmatch(arg, names(options), duplicates.ok = TRUE)
-  if (any(is.na(i))) {
-    stop(
-      sprintf(
-        "`options` %s is not a valid option, should be one of %s",
-        s_quote(arg[is.na(i)][1L]),
-        paste(s_quote(names(options)), collapse = ", ")
-      ),
-      call. = FALSE
-    )
+  if (anyNA(i)) {
+    cli::cli_abort(c(
+      x = "{.arg options} {.val {arg[is.na(i)][1L]}} is not a valid option.",
+      i = "Valid options are one of {.or {.val {names(options)}}}.",
+      i = "See {.help [read_html](xml2::read_html)} for all options."
+    ),
+    call = error_call)
   }
   sum(options[unique(i)])
 }
