@@ -1,4 +1,8 @@
 # error if missing ns spec
 
-    Couldn't find prefix for url http://bar.com
+    Code
+      xml_name(bars, ns)
+    Condition
+      Error in `xml_name()`:
+      ! Couldn't find prefix for url http://bar.com
 

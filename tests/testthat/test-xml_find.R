@@ -62,7 +62,7 @@ test_that("xml_find_all returns nodeset or list of nodesets based on flatten", {
 # Find num ---------------------------------------------------------------------
 test_that("xml_find_num errors with non numeric results", {
   x <- read_xml("<x><y/><y/></x>")
-  expect_snapshot_error({
+  expect_snapshot(error = TRUE, {
     xml_find_num(x, "//z")
     xml_find_num(x, "//y")
     xml_find_num(x, "1=1")
@@ -106,7 +106,7 @@ test_that("xml_find_int returns a integer result", {
 # Find chr ---------------------------------------------------------------------
 test_that("xml_find_chr errors with non character results", {
   x <- read_xml("<x><y/><y/></x>")
-  expect_snapshot_error({
+  expect_snapshot(error = TRUE, {
     xml_find_chr(x, "//z")
     xml_find_chr(x, "//y")
     xml_find_chr(x, "1=1")
@@ -134,7 +134,7 @@ test_that("xml_find_chr returns a character result", {
 # Find lgl ---------------------------------------------------------------------
 test_that("xml_find_lgl errors with non logical results", {
   x <- read_xml("<x><y/><y/></x>")
-  expect_snapshot_error({
+  expect_snapshot(error = TRUE, {
     xml_find_lgl(x, "//z")
     xml_find_lgl(x, "//y")
     xml_find_lgl(x, "string(5)")

@@ -9,7 +9,9 @@ test_that("download_xml fails if curl is not installed", {
 })
 
 test_that("read_xml errors with an empty document", {
-  expect_snapshot_error({read_xml(character())})
+  expect_snapshot(error = TRUE, {
+    read_xml(character())
+  })
 
   tf <- tempfile()
   file.create(tf)
@@ -105,7 +107,7 @@ test_that("read_html works with non-ASCII encodings", {
 })
 
 test_that("read_xml and read_html fail with > 1 input", {
-  expect_snapshot_error({
+  expect_snapshot(error = TRUE, {
     read_xml(c("foo", "bar"))
     read_html(c("foo", "bar"))
   })
