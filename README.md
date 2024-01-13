@@ -26,7 +26,7 @@ install.packages("xml2")
 ```
 
 or you can install the development version from github, using
-`devtools`:
+`pak`:
 
 ``` r
 # install.packages("pak")
@@ -36,7 +36,7 @@ pak::pak("r-lib/xml2")
 ## Usage
 
 ``` r
-library("xml2")
+library(xml2)
 x <- read_xml("<foo> <bar> text <baz/> </bar> </foo>")
 x
 
