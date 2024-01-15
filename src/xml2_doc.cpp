@@ -127,7 +127,7 @@ extern "C" SEXP  xml_parse_options_() {
     "pedantic error reporting",
     "remove blank nodes",
     "use the SAX1 interface internally",
-    "Implement XInclude substitition",
+    "Implement XInclude substitution",
     "Forbid network access",
     "Do not reuse the context dictionary",
     "remove redundant namespaces declarations",
