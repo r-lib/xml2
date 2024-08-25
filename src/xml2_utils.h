@@ -2,6 +2,7 @@
 #define __XML2_XML_UTILS__
 
 #define R_NO_REMAP
+#include <R.h>
 #include <Rinternals.h>
 #undef R_NO_REMAP
 

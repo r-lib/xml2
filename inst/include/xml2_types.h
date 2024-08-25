@@ -3,6 +3,7 @@
 
 #include <libxml/tree.h>
 #define R_NO_REMAP
+#include <R.h>
 #include <Rinternals.h>
 
 template <typename T> class XPtr {
