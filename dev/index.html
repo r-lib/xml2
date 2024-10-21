@@ -77,7 +77,7 @@
 <p>You can install xml2 from CRAN,</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"xml2"</span><span class="op">)</span></span></code></pre></div>
-<p>or you can install the development version from github, using <code>devtools</code>:</p>
+<p>or you can install the development version from github, using <code>pak</code>:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># install.packages("pak")</span></span>
 <span><span class="fu">pak</span><span class="fu">::</span><span class="fu"><a href="https://pak.r-lib.org/reference/pak.html" class="external-link">pak</a></span><span class="op">(</span><span class="st">"r-lib/xml2"</span><span class="op">)</span></span></code></pre></div>
@@ -86,7 +86,7 @@
 <h2 id="usage">Usage<a class="anchor" aria-label="anchor" href="#usage"></a>
 </h2>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://xml2.r-lib.org/" class="external-link">"xml2"</a></span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://xml2.r-lib.org" class="external-link">xml2</a></span><span class="op">)</span></span>
 <span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/read_xml.html">read_xml</a></span><span class="op">(</span><span class="st">"&lt;foo&gt; &lt;bar&gt; text &lt;baz/&gt; &lt;/bar&gt; &lt;/foo&gt;"</span><span class="op">)</span></span>
 <span><span class="va">x</span></span>
 <span></span>
