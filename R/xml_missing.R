@@ -28,7 +28,7 @@ as.character.xml_missing <- function(x, ...) {
 `[.xml_missing` <- function(x, i, ...) x
 
 #' @export
-`[[.xml_missing` <- function(x, i, ...) if (i == 1L) x else abort("subscript out of bounds")
+`[[.xml_missing` <- function(x, i, ...) if (i == 1L) x else cli::cli_abort("subscript out of bounds")
 
 #' @export
 is.na.xml_missing <- function(x) {
