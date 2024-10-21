@@ -11,7 +11,7 @@ test_that("xml_child() returns child by name", {
 })
 
 test_that("xml_child() errors if more than one search is given", {
-  expect_snapshot_error(xml_child(x, 1:2))
+  expect_snapshot(error = TRUE, xml_child(x, 1:2))
 })
 
 test_that("xml_child() errors if search is not numeric or character", {

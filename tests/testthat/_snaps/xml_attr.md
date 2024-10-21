@@ -1,4 +1,8 @@
 # xml_attrs<- modifies all attributes
 
-    `test` must be a list of named character vectors.
+    Code
+      xml_attrs(docs) <- "test"
+    Condition
+      Error in `xml_attrs<-`:
+      ! `test` must be a list of named character vectors.
 

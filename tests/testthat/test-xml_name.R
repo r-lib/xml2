@@ -29,7 +29,7 @@ test_that("error if missing ns spec", {
   ns <- xml_ns(x)[1]
 
   bars <- xml_children(xml_children(x))
-  expect_snapshot_error(xml_name(bars, ns))
+  expect_snapshot(error = TRUE, xml_name(bars, ns))
 })
 
 test_that("xml_name<- modifies the name", {
