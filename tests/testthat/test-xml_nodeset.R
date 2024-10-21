@@ -22,7 +22,7 @@ test_that("methods work on empty nodesets", {
   expect_identical(as_list(empty), list())
   expect_identical(nodeset_apply(empty, identical), empty)
   expect_output(print(empty), "\\{xml_nodeset \\(0\\)\\}")
-  expect_output(tree_structure(empty), NA)
+  expect_silent(tree_structure(empty))
 
   xml_add_child(test, "test")
   expect_identical(test, empty)
@@ -64,7 +64,7 @@ test_that("methods work on empty nodesets", {
   expect_identical(test, empty)
 
   expect_identical(xml_siblings(empty), empty)
-  expect_output(xml_structure(empty), NA)
+  expect_silent(xml_structure(empty))
 
   expect_identical(xml_text(empty), character())
   expect_identical(xml_url(empty), character())

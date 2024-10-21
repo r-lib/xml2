@@ -20,7 +20,7 @@ test_that("read_xml errors with an empty document", {
 
 test_that("read_html correctly parses malformed document", {
   lego <- read_html(test_path("lego.html.bz2"))
-  expect_equal(length(xml_find_all(lego, ".//p")), 39)
+  expect_length(xml_find_all(lego, ".//p"), 39)
 })
 
 test_that("parse_options errors when given an invalid option", {
@@ -68,7 +68,7 @@ test_that("read_xml works with httr response objects", {
 
   expect_s3_class(x, "xml_document")
 
-  expect_equal(length(xml_find_all(x, "//slide")), 2)
+  expect_length(xml_find_all(x, "//slide"), 2)
 })
 
 test_that("read_xml and read_html fail for bad status codes", {
