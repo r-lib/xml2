@@ -4,6 +4,7 @@
 
 #include <stdlib.h> // for NULL
 #include <R_ext/Rdynload.h>
+#include <R_ext/Visibility.h>
 
 /* FIXME:
    Check these declarations against the C/Fortran source code.
@@ -141,7 +142,7 @@ static const R_CallMethodDef CallEntries[] = {
     {NULL, NULL, 0}
 };
 
-void R_init_xml2(DllInfo *dll)
+attribute_visible void R_init_xml2(DllInfo *dll)
 {
     R_registerRoutines(dll, NULL, CallEntries, NULL, NULL);
     R_useDynamicSymbols(dll, FALSE);
