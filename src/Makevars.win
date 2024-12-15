@@ -1,18 +1,24 @@
-VERSION=2.10.3
-RWINLIB=../windows/libxml2-$(VERSION)
-PKG_CPPFLAGS=-I../inst/include -I$(RWINLIB)/include/libxml2 \
-	-DLIBXML_STATIC
+PKG_CONFIG_NAME = libxml-2.0
+PKG_CONFIG ?= $(BINPREF)pkg-config
+PKG_LIBS := $(shell $(PKG_CONFIG) --libs $(PKG_CONFIG_NAME))
+STATIC_CFLAGS = -DLIBXML_STATIC -I../inst/include
 
+ifneq ($(PKG_LIBS),)
+$(info using $(PKG_CONFIG_NAME) from Rtools)
+PKG_CPPFLAGS := $(shell $(PKG_CONFIG) --cflags $(PKG_CONFIG_NAME)) $(STATIC_CFLAGS)
+else
+RWINLIB = ../windows/libxml2-2.10.3
+PKG_CPPFLAGS = -I$(RWINLIB)/include -I$(RWINLIB)/include/libxml2 $(STATIC_CFLAGS)
 PKG_LIBS = -L$(RWINLIB)/lib${subst gcc,,$(COMPILED_BY)}$(R_ARCH) \
-	-L$(RWINLIB)/lib$(R_ARCH)\
-	-lxml2 -llzma -liconv -lz -lws2_32
+	-L$(RWINLIB)/lib$(R_ARCH) -lxml2 -llzma -liconv -lz -lws2_32
+endif
 
-all: clean winlibs
+all: $(SHLIB)
+
+$(OBJECTS): $(RWINLIB)
+
+$(RWINLIB):
+	"${R_HOME}/bin${R_ARCH_BIN}/Rscript.exe" "../tools/winlibs.R"
 
 clean:
-	rm -f $(OBJECTS) $(SHLIB)
-
-winlibs:
-	"${R_HOME}/bin${R_ARCH_BIN}/Rscript.exe" "../tools/winlibs.R" $(VERSION)
-
-.PHONY: all winlibs clean
+	rm -f $(SHLIB) $(OBJECTS)

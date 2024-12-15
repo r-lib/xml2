@@ -1,5 +1,7 @@
 # xml2 (development version)
 
+* Windows: use libxml2 from Rtools if found
+
 # xml2 1.3.6
 
 * Now compatible with libxml2 2.12.0 and later (@KNnut).
