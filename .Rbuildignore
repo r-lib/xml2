@@ -24,3 +24,4 @@ windows
 \.so$
 ^CRAN-SUBMISSION$
 ^README\.Rmd$
+^configure.log$

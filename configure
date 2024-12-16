@@ -13,9 +13,6 @@ PKG_CSW_NAME="libxml2_dev"
 PKG_TEST_HEADER="<libxml/tree.h>"
 PKG_LIBS="-lxml2"
 
-OS_TYPE=`uname -s`
-OS_VERSION=`uname -r | cut -d '.' -f 1`
-
 # Note that cflags may be empty in case of success
 if [ "$INCLUDE_DIR" ] || [ "$LIB_DIR" ]; then
   echo "Found INCLUDE_DIR and/or LIB_DIR!"
@@ -28,17 +25,9 @@ else
     PKGCONFIG_CFLAGS=`xml2-config --cflags`
     PKGCONFIG_LIBS=`xml2-config --libs`
 
-    # MacOS versions El Capitan and later ship a xml2-config which appends `xcrun
-    # --show-sdk-path` to the xml2-config. So we remove it if it is present.
-    # (https://stat.ethz.ch/pipermail/r-sig-mac/2016-September/012046.html)
-    if [ "$OS_TYPE" = "Darwin" ] && [ "$OS_VERSION" -gt "13" ] && [ "$OS_VERSION" -lt "17" ]; then
-      PKGCONFIG_CFLAGS=`echo $PKGCONFIG_CFLAGS | perl -pe "s{\Q\`xcrun -show-sdk-path\`\E}{}"`
-      PKGCONFIG_LIBS=`echo $PKGCONFIG_LIBS | perl -pe "s{\Q\`xcrun -show-sdk-path\`\E}{}"`
-    fi
-
     # Fix a missing libxml2 directory on the requested include directory
     # https://github.com/r-lib/xml2/issues/296
-    if [ "${OS_TYPE}" = "Darwin" ] && echo "${PKGCONFIG_CFLAGS}" | grep -sq "/usr/include$"; then
+    if [ `uname` = "Darwin" ] && echo "${PKGCONFIG_CFLAGS}" | grep -sq "/usr/include$"; then
       PKGCONFIG_CFLAGS="$PKGCONFIG_CFLAGS/libxml2"
     fi
 
@@ -67,10 +56,10 @@ echo "Using PKG_CFLAGS=$PKG_CFLAGS"
 echo "Using PKG_LIBS=$PKG_LIBS"
 
 # Test configuration
-echo "#include $PKG_TEST_HEADER" | ${CC} ${CPPFLAGS} ${PKG_CFLAGS} ${CFLAGS} -E -xc - >/dev/null 2>&1 || R_CONFIG_ERROR=1;
+echo "#include $PKG_TEST_HEADER" | ${CC} ${CPPFLAGS} ${PKG_CFLAGS} ${CFLAGS} -E -xc - >/dev/null 2>configure.log
 
 # Customize the error
-if [ $R_CONFIG_ERROR ]; then
+if [ $? -ne 0 ]; then
   echo "------------------------- ANTICONF ERROR ---------------------------"
   echo "Configuration failed because $PKG_CONFIG_NAME was not found. Try installing:"
   echo " * deb: $PKG_DEB_NAME (Debian, Ubuntu, etc)"
@@ -80,8 +69,10 @@ if [ $R_CONFIG_ERROR ]; then
   echo "PATH and PKG_CONFIG_PATH contains a $PKG_CONFIG_NAME.pc file. If pkg-config"
   echo "is unavailable you can set INCLUDE_DIR and LIB_DIR manually via:"
   echo "R CMD INSTALL --configure-vars='INCLUDE_DIR=... LIB_DIR=...'"
+  echo "-------------------------- [ERROR MESSAGE] ---------------------------"
+  cat configure.log
   echo "--------------------------------------------------------------------"
-  exit 1;
+  exit 1
 fi
 
 # Write to Makevars
