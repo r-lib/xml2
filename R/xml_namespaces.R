@@ -93,7 +93,7 @@ xml_ns_rename <- function(old, ...) {
   new <- c(...)
 
   m <- match(names(new), names(old))
-  if (any(is.na(m))) {
+  if (anyNA(m)) {
     missing <- paste(names(new)[is.na(m)], collapse = ", ")
     cli::cli_abort("Some prefixes [{missing}] don't already exist.")
   }
