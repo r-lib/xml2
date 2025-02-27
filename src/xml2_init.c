@@ -2,6 +2,7 @@
 #include <libxml/xmlversion.h>
 #include <libxml/xmlerror.h>
 #include <libxml/parser.h>
+#include <string.h>
 
 /* * *
  * Author: Nick Wellnhofer <wellnhofer@aevum.de>
@@ -16,8 +17,11 @@ void handleStructuredError(void* userData, const xmlError* error) {
 void handleStructuredError(void* userData, xmlError* error) {
 #endif
 
-  //std::string message = std::string(error->message);
-  //message.resize(message.size() - 1); // trim off trailing newline
+  int len = strlen(error->message);
+  if(len > 2){
+    error->message[len-1] = '\0';
+  }
+
   if (error->level <= 2) {
     Rf_warning("%s [%i]", error->message, (int) error->code);
   } else {
