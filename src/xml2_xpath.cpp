@@ -1,7 +1,4 @@
-#define R_NO_REMAP
 #include <Rinternals.h>
-#undef R_NO_REMAP
-
 #include <libxml/xpath.h>
 #include <libxml/xpathInternals.h>
 #include <libxml/tree.h>

@@ -2,7 +2,6 @@
 #define __XML2_XML2_TYPES__
 
 #include <libxml/tree.h>
-#define R_NO_REMAP
 #include <Rinternals.h>
 
 template <typename T> class XPtr {

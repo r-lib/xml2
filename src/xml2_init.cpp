@@ -1,7 +1,4 @@
-#define R_NO_REMAP
 #include <Rinternals.h>
-#undef R_NO_REMAP
-
 #include <R_ext/Rdynload.h>
 #include <stdio.h>
 #include <libxml/xmlversion.h>

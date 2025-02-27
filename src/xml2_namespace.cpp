@@ -1,7 +1,4 @@
-#define R_NO_REMAP
 #include <Rinternals.h>
-#undef R_NO_REMAP
-
 #include <libxml/tree.h>
 
 #include "xml2_types.h"
