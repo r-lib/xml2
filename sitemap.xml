@@ -1,135 +1,47 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>http://xml2.r-lib.org/404.html</loc>
-  </url>
-  <url>
-    <loc>http://xml2.r-lib.org/CODE_OF_CONDUCT.html</loc>
-  </url>
-  <url>
-    <loc>http://xml2.r-lib.org/CONTRIBUTING.html</loc>
-  </url>
-  <url>
-    <loc>http://xml2.r-lib.org/ISSUE_TEMPLATE.html</loc>
-  </url>
-  <url>
-    <loc>http://xml2.r-lib.org/LICENSE-text.html</loc>
-  </url>
-  <url>
-    <loc>http://xml2.r-lib.org/LICENSE.html</loc>
-  </url>
-  <url>
-    <loc>http://xml2.r-lib.org/SUPPORT.html</loc>
-  </url>
-  <url>
-    <loc>http://xml2.r-lib.org/articles/index.html</loc>
-  </url>
-  <url>
-    <loc>http://xml2.r-lib.org/articles/modification.html</loc>
-  </url>
-  <url>
-    <loc>http://xml2.r-lib.org/authors.html</loc>
-  </url>
-  <url>
-    <loc>http://xml2.r-lib.org/index.html</loc>
-  </url>
-  <url>
-    <loc>http://xml2.r-lib.org/news/index.html</loc>
-  </url>
-  <url>
-    <loc>http://xml2.r-lib.org/reference/as_list.html</loc>
-  </url>
-  <url>
-    <loc>http://xml2.r-lib.org/reference/as_xml_document.html</loc>
-  </url>
-  <url>
-    <loc>http://xml2.r-lib.org/reference/download_xml.html</loc>
-  </url>
-  <url>
-    <loc>http://xml2.r-lib.org/reference/index.html</loc>
-  </url>
-  <url>
-    <loc>http://xml2.r-lib.org/reference/oldclass.html</loc>
-  </url>
-  <url>
-    <loc>http://xml2.r-lib.org/reference/read_xml.html</loc>
-  </url>
-  <url>
-    <loc>http://xml2.r-lib.org/reference/url_absolute.html</loc>
-  </url>
-  <url>
-    <loc>http://xml2.r-lib.org/reference/url_escape.html</loc>
-  </url>
-  <url>
-    <loc>http://xml2.r-lib.org/reference/url_parse.html</loc>
-  </url>
-  <url>
-    <loc>http://xml2.r-lib.org/reference/write_xml.html</loc>
-  </url>
-  <url>
-    <loc>http://xml2.r-lib.org/reference/xml2-package.html</loc>
-  </url>
-  <url>
-    <loc>http://xml2.r-lib.org/reference/xml2_example.html</loc>
-  </url>
-  <url>
-    <loc>http://xml2.r-lib.org/reference/xml_attr.html</loc>
-  </url>
-  <url>
-    <loc>http://xml2.r-lib.org/reference/xml_cdata.html</loc>
-  </url>
-  <url>
-    <loc>http://xml2.r-lib.org/reference/xml_children.html</loc>
-  </url>
-  <url>
-    <loc>http://xml2.r-lib.org/reference/xml_comment.html</loc>
-  </url>
-  <url>
-    <loc>http://xml2.r-lib.org/reference/xml_dtd.html</loc>
-  </url>
-  <url>
-    <loc>http://xml2.r-lib.org/reference/xml_find_all.html</loc>
-  </url>
-  <url>
-    <loc>http://xml2.r-lib.org/reference/xml_missing.html</loc>
-  </url>
-  <url>
-    <loc>http://xml2.r-lib.org/reference/xml_name.html</loc>
-  </url>
-  <url>
-    <loc>http://xml2.r-lib.org/reference/xml_new_document.html</loc>
-  </url>
-  <url>
-    <loc>http://xml2.r-lib.org/reference/xml_ns.html</loc>
-  </url>
-  <url>
-    <loc>http://xml2.r-lib.org/reference/xml_ns_strip.html</loc>
-  </url>
-  <url>
-    <loc>http://xml2.r-lib.org/reference/xml_path.html</loc>
-  </url>
-  <url>
-    <loc>http://xml2.r-lib.org/reference/xml_replace.html</loc>
-  </url>
-  <url>
-    <loc>http://xml2.r-lib.org/reference/xml_serialize.html</loc>
-  </url>
-  <url>
-    <loc>http://xml2.r-lib.org/reference/xml_set_namespace.html</loc>
-  </url>
-  <url>
-    <loc>http://xml2.r-lib.org/reference/xml_structure.html</loc>
-  </url>
-  <url>
-    <loc>http://xml2.r-lib.org/reference/xml_text.html</loc>
-  </url>
-  <url>
-    <loc>http://xml2.r-lib.org/reference/xml_type.html</loc>
-  </url>
-  <url>
-    <loc>http://xml2.r-lib.org/reference/xml_url.html</loc>
-  </url>
-  <url>
-    <loc>http://xml2.r-lib.org/reference/xml_validate.html</loc>
-  </url>
+<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
+<url><loc>http://xml2.r-lib.org/404.html</loc></url>
+<url><loc>http://xml2.r-lib.org/CODE_OF_CONDUCT.html</loc></url>
+<url><loc>http://xml2.r-lib.org/CONTRIBUTING.html</loc></url>
+<url><loc>http://xml2.r-lib.org/ISSUE_TEMPLATE.html</loc></url>
+<url><loc>http://xml2.r-lib.org/LICENSE-text.html</loc></url>
+<url><loc>http://xml2.r-lib.org/LICENSE.html</loc></url>
+<url><loc>http://xml2.r-lib.org/SUPPORT.html</loc></url>
+<url><loc>http://xml2.r-lib.org/articles/index.html</loc></url>
+<url><loc>http://xml2.r-lib.org/articles/modification.html</loc></url>
+<url><loc>http://xml2.r-lib.org/authors.html</loc></url>
+<url><loc>http://xml2.r-lib.org/index.html</loc></url>
+<url><loc>http://xml2.r-lib.org/news/index.html</loc></url>
+<url><loc>http://xml2.r-lib.org/reference/as_list.html</loc></url>
+<url><loc>http://xml2.r-lib.org/reference/as_xml_document.html</loc></url>
+<url><loc>http://xml2.r-lib.org/reference/download_xml.html</loc></url>
+<url><loc>http://xml2.r-lib.org/reference/index.html</loc></url>
+<url><loc>http://xml2.r-lib.org/reference/oldclass.html</loc></url>
+<url><loc>http://xml2.r-lib.org/reference/read_xml.html</loc></url>
+<url><loc>http://xml2.r-lib.org/reference/url_absolute.html</loc></url>
+<url><loc>http://xml2.r-lib.org/reference/url_escape.html</loc></url>
+<url><loc>http://xml2.r-lib.org/reference/url_parse.html</loc></url>
+<url><loc>http://xml2.r-lib.org/reference/write_xml.html</loc></url>
+<url><loc>http://xml2.r-lib.org/reference/xml2-package.html</loc></url>
+<url><loc>http://xml2.r-lib.org/reference/xml2_example.html</loc></url>
+<url><loc>http://xml2.r-lib.org/reference/xml_attr.html</loc></url>
+<url><loc>http://xml2.r-lib.org/reference/xml_cdata.html</loc></url>
+<url><loc>http://xml2.r-lib.org/reference/xml_children.html</loc></url>
+<url><loc>http://xml2.r-lib.org/reference/xml_comment.html</loc></url>
+<url><loc>http://xml2.r-lib.org/reference/xml_dtd.html</loc></url>
+<url><loc>http://xml2.r-lib.org/reference/xml_find_all.html</loc></url>
+<url><loc>http://xml2.r-lib.org/reference/xml_missing.html</loc></url>
+<url><loc>http://xml2.r-lib.org/reference/xml_name.html</loc></url>
+<url><loc>http://xml2.r-lib.org/reference/xml_new_document.html</loc></url>
+<url><loc>http://xml2.r-lib.org/reference/xml_ns.html</loc></url>
+<url><loc>http://xml2.r-lib.org/reference/xml_ns_strip.html</loc></url>
+<url><loc>http://xml2.r-lib.org/reference/xml_path.html</loc></url>
+<url><loc>http://xml2.r-lib.org/reference/xml_replace.html</loc></url>
+<url><loc>http://xml2.r-lib.org/reference/xml_serialize.html</loc></url>
+<url><loc>http://xml2.r-lib.org/reference/xml_set_namespace.html</loc></url>
+<url><loc>http://xml2.r-lib.org/reference/xml_structure.html</loc></url>
+<url><loc>http://xml2.r-lib.org/reference/xml_text.html</loc></url>
+<url><loc>http://xml2.r-lib.org/reference/xml_type.html</loc></url>
+<url><loc>http://xml2.r-lib.org/reference/xml_url.html</loc></url>
+<url><loc>http://xml2.r-lib.org/reference/xml_validate.html</loc></url>
 </urlset>
+
