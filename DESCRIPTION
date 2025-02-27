@@ -9,10 +9,10 @@ Authors@R: c(
     person("R Foundation", role = "ctb",
            comment = "Copy of R-project homepage cached as example")
   )
-Description: Work with XML files using a simple, consistent interface.
-    Built on top of the 'libxml2' C library.
+Description: Bindings to 'libxml2' for working with XML data using a simple, 
+    consistent interface.
 License: MIT + file LICENSE
-URL: https://xml2.r-lib.org, https://github.com/r-lib/xml2
+URL: https://xml2.r-lib.org, https://r-lib.r-universe.dev/xml2
 BugReports: https://github.com/r-lib/xml2/issues
 Depends:
     R (>= 3.6.0)
