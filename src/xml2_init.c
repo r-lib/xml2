@@ -36,7 +36,7 @@ void handleGenericError(void *ctx, const char *fmt, ...){
   Rf_error("%s", buffer);
 }
 
-void init_libxml2_library() {
+void init_libxml2_library(void) {
   // Check that header and libs are compatible
   LIBXML_TEST_VERSION
 

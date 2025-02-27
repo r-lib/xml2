@@ -136,7 +136,7 @@ static const R_CallMethodDef CallEntries[] = {
     {NULL, NULL, 0}
 };
 
-void init_libxml2_library();
+void init_libxml2_library(void);
 void R_init_xml2(DllInfo *dll)
 {
     R_registerRoutines(dll, NULL, CallEntries, NULL, NULL);
