@@ -1,7 +1,7 @@
 #include <Rinternals.h>
 #include <libxml/xmlversion.h>
 #include <libxml/xmlerror.h>
-
+#include <libxml/parser.h>
 
 /* * *
  * Author: Nick Wellnhofer <wellnhofer@aevum.de>
