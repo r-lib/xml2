@@ -2,6 +2,10 @@
 
 * Windows: use libxml2 from Rtools if found
 
+* Update maintainer
+
+* Minor cleanups 
+
 # xml2 1.3.6
 
 * Now compatible with libxml2 2.12.0 and later (@KNnut).
