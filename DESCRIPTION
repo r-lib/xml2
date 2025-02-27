@@ -10,7 +10,8 @@ Authors@R: c(
            comment = "Copy of R-project homepage cached as example")
   )
 Description: Bindings to 'libxml2' for working with XML data using a simple, 
-    consistent interface.
+    consistent interface based on 'XPath' expressions. Also supports XML schema 
+    validation; for XSLT transformations see the xslt package.
 License: MIT + file LICENSE
 URL: https://xml2.r-lib.org, https://r-lib.r-universe.dev/xml2
 BugReports: https://github.com/r-lib/xml2/issues
@@ -28,7 +29,8 @@ Suggests:
     magrittr,
     mockery,
     rmarkdown,
-    testthat (>= 3.2.0)
+    testthat (>= 3.2.0),
+    xslt
 VignetteBuilder: 
     knitr
 Config/Needs/website: tidyverse/tidytemplate
