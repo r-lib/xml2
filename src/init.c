@@ -20,7 +20,6 @@ extern SEXP doc_validate(SEXP, SEXP);
 extern SEXP doc_write_character(SEXP, SEXP, SEXP);
 extern SEXP doc_write_connection(SEXP, SEXP, SEXP, SEXP);
 extern SEXP doc_write_file(SEXP, SEXP, SEXP, SEXP);
-extern SEXP init_libxml2(void);
 extern SEXP libxml2_version_(void);
 extern SEXP node_append_child(SEXP, SEXP);
 extern SEXP node_append_content(SEXP, SEXP);
@@ -85,7 +84,6 @@ static const R_CallMethodDef CallEntries[] = {
     {"doc_write_character",       (DL_FUNC) &doc_write_character,       3},
     {"doc_write_connection",      (DL_FUNC) &doc_write_connection,      4},
     {"doc_write_file",            (DL_FUNC) &doc_write_file,            4},
-    {"init_libxml2",              (DL_FUNC) &init_libxml2,              0},
     {"libxml2_version_",          (DL_FUNC) &libxml2_version_,          0},
     {"node_append_child",         (DL_FUNC) &node_append_child,         2},
     {"node_append_content",       (DL_FUNC) &node_append_content,       2},
@@ -138,8 +136,10 @@ static const R_CallMethodDef CallEntries[] = {
     {NULL, NULL, 0}
 };
 
+void init_libxml2_library();
 void R_init_xml2(DllInfo *dll)
 {
     R_registerRoutines(dll, NULL, CallEntries, NULL, NULL);
     R_useDynamicSymbols(dll, FALSE);
+    init_libxml2_library();
 }

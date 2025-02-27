@@ -1,11 +1,7 @@
 #include <Rinternals.h>
-#include <R_ext/Rdynload.h>
-#include <stdio.h>
 #include <libxml/xmlversion.h>
 #include <libxml/xmlerror.h>
-#include <libxml/parser.h>
-#include <string>
-#include "xml2_utils.h"
+
 
 /* * *
  * Author: Nick Wellnhofer <wellnhofer@aevum.de>
@@ -20,21 +16,16 @@ void handleStructuredError(void* userData, const xmlError* error) {
 void handleStructuredError(void* userData, xmlError* error) {
 #endif
 
-  BEGIN_CPP
-  std::string message = std::string(error->message);
-  message.resize(message.size() - 1); // trim off trailing newline
-
+  //std::string message = std::string(error->message);
+  //message.resize(message.size() - 1); // trim off trailing newline
   if (error->level <= 2) {
-    Rf_warning("%s [%i]", message.c_str(), (int) error->code);
+    Rf_warning("%s [%i]", error->message, (int) error->code);
   } else {
-    Rf_error("%s [%i]", message.c_str(), (int) error->code);
+    Rf_error("%s [%i]", error->message, (int) error->code);
   }
-  END_CPP
-
 }
 
-void handleGenericError(void *ctx, const char *fmt, ...)
-{
+void handleGenericError(void *ctx, const char *fmt, ...){
   char buffer[BUFSIZ];
   va_list arg;
 
@@ -45,26 +36,12 @@ void handleGenericError(void *ctx, const char *fmt, ...)
   Rf_error("%s", buffer);
 }
 
-// [[export]]
-extern "C" SEXP init_libxml2() {
+void init_libxml2_library() {
   // Check that header and libs are compatible
   LIBXML_TEST_VERSION
 
   xmlInitParser();
   xmlSetStructuredErrorFunc(NULL, handleStructuredError);
   xmlSetGenericErrorFunc(NULL, handleGenericError);
-
-  return R_NilValue;
 }
 
-extern "C" {
-  void R_unload_xml2(DllInfo *info) {
-    xmlCleanupParser();
-  }
-
-}
-
-// [[export]]
-extern "C" SEXP libxml2_version_(){
-  return Rf_mkString(LIBXML_DOTTED_VERSION);
-}

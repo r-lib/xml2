@@ -1,7 +1,7 @@
 PKG_CONFIG_NAME = libxml-2.0
 PKG_CONFIG ?= $(BINPREF)pkg-config
 PKG_LIBS := $(shell $(PKG_CONFIG) --libs $(PKG_CONFIG_NAME))
-STATIC_CFLAGS = -DLIBXML_STATIC -I../inst/include
+STATIC_CFLAGS = -DSTRICT_R_HEADERS -DR_NO_REMAP -DLIBXML_STATIC -I../inst/include
 
 ifneq ($(PKG_LIBS),)
 $(info using $(PKG_CONFIG_NAME) from Rtools)

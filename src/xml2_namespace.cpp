@@ -72,3 +72,8 @@ extern "C" SEXP ns_lookup(SEXP doc_sxp, SEXP node_sxp, SEXP prefix_sxp) {
   return SEXP(out);
   END_CPP
 }
+
+// [[export]]
+extern "C" SEXP libxml2_version_(){
+  return Rf_mkString(LIBXML_DOTTED_VERSION);
+}
