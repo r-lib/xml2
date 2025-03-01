@@ -7,10 +7,10 @@ ifneq ($(PKG_LIBS),)
 $(info using $(PKG_CONFIG_NAME) from Rtools)
 PKG_CPPFLAGS := $(shell $(PKG_CONFIG) --cflags $(PKG_CONFIG_NAME)) $(STATIC_CFLAGS)
 else
-RWINLIB = ../windows/libxml2-2.10.3
+RWINLIB = ../windows/libxml2
 PKG_CPPFLAGS = -I$(RWINLIB)/include -I$(RWINLIB)/include/libxml2 $(STATIC_CFLAGS)
-PKG_LIBS = -L$(RWINLIB)/lib${subst gcc,,$(COMPILED_BY)}$(R_ARCH) \
-	-L$(RWINLIB)/lib$(R_ARCH) -lxml2 -llzma -liconv -lz -lws2_32
+PKG_LIBS = -L$(RWINLIB)/lib$(subst gcc,,$(COMPILED_BY))$(R_ARCH) -L$(RWINLIB)/lib \
+	-lxml2 -liconv -lz -lws2_32
 endif
 
 all: $(SHLIB)
