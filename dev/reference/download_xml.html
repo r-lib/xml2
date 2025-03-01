@@ -13,7 +13,7 @@ a custom curl::handle().'><meta name="robots" content="noindex"><script defer da
 
     <a class="navbar-brand me-2" href="../index.html">xml2</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">1.3.6.9000</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">1.3.7.9000</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -54,7 +54,7 @@ a custom curl::handle().'><meta name="robots" content="noindex"><script defer da
     <p>Libcurl implementation of <code>C_download</code> (the "internal" download method)
 with added support for https, ftps, gzip, etc. Default behavior is identical
 to <code><a href="https://rdrr.io/r/utils/download.file.html" class="external-link">download.file()</a></code>, but request can be fully configured by passing
-a custom <code><a href="https://rdrr.io/pkg/curl/man/handle.html" class="external-link">curl::handle()</a></code>.</p>
+a custom <code><a href="https://jeroen.r-universe.dev/curl/reference/handle.html" class="external-link">curl::handle()</a></code>.</p>
     </div>
 
     <div class="section level2">
@@ -64,7 +64,7 @@ a custom <code><a href="https://rdrr.io/pkg/curl/man/handle.html" class="externa
 <span>  file <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/basename.html" class="external-link">basename</a></span><span class="op">(</span><span class="va">url</span><span class="op">)</span>,</span>
 <span>  quiet <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  mode <span class="op">=</span> <span class="st">"wb"</span>,</span>
-<span>  handle <span class="op">=</span> <span class="fu">curl</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/curl/man/handle.html" class="external-link">new_handle</a></span><span class="op">(</span><span class="op">)</span></span>
+<span>  handle <span class="op">=</span> <span class="fu">curl</span><span class="fu">::</span><span class="fu"><a href="https://jeroen.r-universe.dev/curl/reference/handle.html" class="external-link">new_handle</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">download_html</span><span class="op">(</span></span>
@@ -72,7 +72,7 @@ a custom <code><a href="https://rdrr.io/pkg/curl/man/handle.html" class="externa
 <span>  file <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/basename.html" class="external-link">basename</a></span><span class="op">(</span><span class="va">url</span><span class="op">)</span>,</span>
 <span>  quiet <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  mode <span class="op">=</span> <span class="st">"wb"</span>,</span>
-<span>  handle <span class="op">=</span> <span class="fu">curl</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/curl/man/handle.html" class="external-link">new_handle</a></span><span class="op">(</span><span class="op">)</span></span>
+<span>  handle <span class="op">=</span> <span class="fu">curl</span><span class="fu">::</span><span class="fu"><a href="https://jeroen.r-universe.dev/curl/reference/handle.html" class="external-link">new_handle</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -116,11 +116,11 @@ download, and raises an error when status is non-successful. The behavior of
 <code>curl_fetch_disk</code> on the other hand is to proceed as normal and write
 the error page to disk in case of a non success response.</p>
 <p>For a more advanced download interface which supports concurrent requests and
-resuming large files, have a look at the <a href="https://rdrr.io/pkg/curl/man/multi_download.html" class="external-link">multi_download</a> function.</p>
+resuming large files, have a look at the <a href="https://jeroen.r-universe.dev/curl/reference/multi_download.html" class="external-link">multi_download</a> function.</p>
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
-    <div class="dont-index"><p><a href="https://rdrr.io/pkg/curl/man/curl_download.html" class="external-link">curl_download</a></p></div>
+    <div class="dont-index"><p><a href="https://jeroen.r-universe.dev/curl/reference/curl_download.html" class="external-link">curl_download</a></p></div>
     </div>
 
     <div class="section level2">

@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">xml2</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">1.3.6.9000</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">1.3.7.9000</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -88,7 +88,7 @@
 <dd><p>A string, a connection, or a raw vector.</p>
 <p>A string can be either a path, a url or literal xml. Urls will
 be converted into connections either using <code><a href="https://rdrr.io/r/base/connections.html" class="external-link">base::url</a></code> or, if
-installed, <code><a href="https://rdrr.io/pkg/curl/man/curl.html" class="external-link">curl::curl</a></code>. Local paths ending in <code>.gz</code>,
+installed, <code><a href="https://jeroen.r-universe.dev/curl/reference/curl.html" class="external-link">curl::curl</a></code>. Local paths ending in <code>.gz</code>,
 <code>.bz2</code>, <code>.xz</code>, <code>.zip</code> will be automatically uncompressed.</p>
 <p>If a connection, the complete connection is read into a raw vector before
 being parsed.</p></dd>
@@ -187,18 +187,18 @@ and the intent of your actions like this Google scraping bot user agent identifi
 <span class="r-in"><span><span class="fu">read_html</span><span class="op">(</span><span class="st">"&lt;html&gt;&lt;title&gt;Hi&lt;title&gt;&lt;/html&gt;"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> {html_document}</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;html&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] &lt;head&gt;\n&lt;meta http-equiv="Content-Type" content="text/html; charset ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] &lt;head&gt;\n&lt;meta http-equiv="Content-Type" content="text/html; char ...</span>
 <span class="r-in"><span><span class="fu">read_html</span><span class="op">(</span><span class="st">"&lt;html&gt;&lt;title&gt;Hi"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> {html_document}</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;html&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] &lt;head&gt;\n&lt;meta http-equiv="Content-Type" content="text/html; charset ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] &lt;head&gt;\n&lt;meta http-equiv="Content-Type" content="text/html; char ...</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># From a local path</span></span></span>
 <span class="r-in"><span><span class="fu">read_html</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"r-project.html"</span>, package <span class="op">=</span> <span class="st">"xml2"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> {html_document}</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;html lang="en"&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] &lt;head&gt;\n&lt;meta http-equiv="Content-Type" content="text/html; charset ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2] &lt;body&gt;\n    &lt;div class="container page"&gt;\n      &lt;div class="row"&gt;\n ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] &lt;head&gt;\n&lt;meta http-equiv="Content-Type" content="text/html; char ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2] &lt;body&gt;\n    &lt;div class="container page"&gt;\n      &lt;div class="row" ...</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span> <span class="co"># \dontrun{</span></span></span>
 <span class="r-in"><span><span class="co"># From a url</span></span></span>
