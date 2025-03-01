@@ -1,3 +1,9 @@
+# xml2 1.3.8
+
+* Replace new "non-api" call IS_S4_OBJECT with Rf_isS4
+
+* Windows: update fallback libs (for R < 4.3) to libxml2 2.11.5
+
 # xml2 1.3.7
 
 * Windows: use libxml2 from Rtools if found

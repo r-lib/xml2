@@ -26,7 +26,7 @@ inline int inherits3(SEXP x, const char *name) {
 inline const NodeType getNodeType(SEXP x) {
 
   // for fhircrackr
-  if (IS_S4_OBJECT(x)) {
+  if (Rf_isS4(x)) {
     if (inherits3(x, "xml_node")) {
       return(NodeType::node);
     } else if (inherits3(x, "xml_nodeset")) {
