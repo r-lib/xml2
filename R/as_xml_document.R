@@ -42,7 +42,9 @@ as_xml_document.list <- function(x, ...) {
   if (length(x) > 1) {
     cli::cli_abort("Root nodes must be of length 1.")
   }
-
+  if (length(x[[1]]) == 1 && is.vector(x[[1]])) {
+    x[[1]] <- list(x[[1]])
+  }
 
   add_node <- function(x, parent, tag = NULL) {
     if (is.atomic(x)) {

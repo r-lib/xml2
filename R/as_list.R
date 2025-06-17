@@ -134,7 +134,14 @@ r_attrs_to_xml <- function(x) {
 as_list2 <- function(x, ns = character(), ...) {
   result <- as_list(x, ns = ns, ...)
 
-  deduplicate(result)
+  if (length(result) == 1 && length(unlist(result)) == 1) {
+    item <- unlist(result)
+    result <- list(unname(item))
+    names(result) <- names(item)
+  } else {
+    result <- deduplicate(result)
+  }
+  return(result)
 }
 
 
