@@ -69,7 +69,7 @@ read_xml <- function(x, encoding = "", ..., as_html = FALSE, options = "NOBLANKS
 read_html <- function(x,
                       encoding = "",
                       ...,
-                      options = c("RECOVER", "NOERROR", "NOBLANKS")) {
+                      options = c("RECOVER", "NOERROR", "NOBLANKS", "HUGE")) {
   UseMethod("read_html")
 }
 
@@ -77,7 +77,7 @@ read_html <- function(x,
 read_html.default <- function(x,
                               encoding = "",
                               ...,
-                              options = c("RECOVER", "NOERROR", "NOBLANKS")) {
+                              options = c("RECOVER", "NOERROR", "NOBLANKS", "HUGE")) {
   options <- parse_options(options, xml_parse_options())
 
   suppressWarnings(read_xml(x, encoding = encoding, ..., as_html = TRUE, options = options))

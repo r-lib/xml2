@@ -10,7 +10,12 @@
 \usage{
 read_xml(x, encoding = "", ..., as_html = FALSE, options = "NOBLANKS")
 
-read_html(x, encoding = "", ..., options = c("RECOVER", "NOERROR", "NOBLANKS"))
+read_html(
+  x,
+  encoding = "",
+  ...,
+  options = c("RECOVER", "NOERROR", "NOBLANKS", "HUGE")
+)
 
 \method{read_xml}{character}(x, encoding = "", ..., as_html = FALSE, options = "NOBLANKS")
 
