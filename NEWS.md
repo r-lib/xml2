@@ -1,3 +1,7 @@
+# xml2 1.4.0
+
+* read_html() now allows huge elements by default (#455) 
+
 # xml2 1.3.8
 
 * Replace new "non-api" call IS_S4_OBJECT with Rf_isS4
