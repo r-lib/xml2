@@ -111,3 +111,8 @@ test_that("read_xml and read_html fail with > 1 input", {
     read_html(c("foo", "bar"))
   })
 })
+
+test_that("Truncated HTML should not error", {
+  res <- read_html('<html><head')
+  expect_s3_class(res, "xml_document")
+})
