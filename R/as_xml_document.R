@@ -42,7 +42,9 @@ as_xml_document.list <- function(x, ...) {
   if (length(x) > 1) {
     cli::cli_abort("Root nodes must be of length 1.")
   }
-
+  if (length(x[[1]]) == 1 && is.vector(x[[1]])) {
+    x[[1]] <- list(x[[1]])
+  }
 
   add_node <- function(x, parent, tag = NULL) {
     if (is.atomic(x)) {
@@ -56,7 +58,31 @@ as_xml_document.list <- function(x, ...) {
       }
     }
     for (i in seq_along(x)) {
-      add_node(x[[i]], parent, names(x)[[i]])
+      # Handle for duplicate-named elements
+      item <- x[[i]]
+      item_name <- names(x)[i]
+
+      if (is_contain_duplicated(item)) {
+        for (j in seq_along(item)) {
+          sub_item <- item[[j]]
+          new_node <- xml_add_child(parent, item_name)
+
+          if (is.character(sub_item) && length(sub_item) == 1) {
+            xml_text(new_node) <- sub_item
+          } else if (is.list(sub_item)) {
+            attr <- r_attrs_to_xml(attributes(sub_item))
+            for (k in seq_along(attr)) {
+              xml_set_attr(new_node, names(attr)[[k]], attr[[k]])
+            }
+
+            for (k in seq_along(sub_item)) {
+              add_node(sub_item[[k]], new_node, names(sub_item)[k])
+            }
+          }
+        }
+      } else {
+        add_node(item, parent, names(x)[[i]])
+      }
     }
   }
 
@@ -82,4 +108,13 @@ as_xml_document.xml_nodeset <- function(x, root, ...) {
 #' @export
 as_xml_document.xml_document <- function(x, ...) {
   x
+}
+
+is_contain_duplicated <- function(lst) {
+  if (is.null(names(lst)) || all(names(lst) == "")) {
+    if (length(lst) > 1 && all(sapply(lst, function(x) is.list(x) || is.character(x)))) {
+      return(TRUE)
+    }
+  }
+  return(FALSE)
 }

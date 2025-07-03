@@ -43,4 +43,5 @@ as_list(read_xml("<foo> a <b /><c><![CDATA[<d></d>]]></c></foo>"))
 as_list(read_xml("<foo> <bar><baz /></bar> </foo>"))
 as_list(read_xml("<foo id = 'a'></foo>"))
 as_list(read_xml("<foo><bar id='a'/><bar id='b'/></foo>"))
+as_list(read_xml("<foo><bar>a</bar><bar>b</bar></foo>"))
 }

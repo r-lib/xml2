@@ -1,4 +1,5 @@
 list_xml <- function(x) as_list(read_xml(x))
+list_xml2 <- function(x) as_list2(read_xml(x))
 
 test_that("empty elements become empty lists", {
   expect_equal(list_xml("<x></x>"), list(x = list()))
@@ -37,5 +38,12 @@ test_that("attributes in child nodes", {
   expect_equal(
     list_xml("<w aa = '0'><x a='1' b='2' names='esc'><y>3</y><z>4</z></x></w>"),
     list(w = structure(list(x = structure(list(y = list("3"), z = list("4")), a = "1", b = "2", .names = "esc")), aa = "0"))
+  )
+})
+
+test_that("Duplicated items", {
+  expect_equal(
+    list_xml2("<content><x>a</x><x>b</x></content>"),
+    list(content = list(x = list('a', 'b')))
   )
 })
