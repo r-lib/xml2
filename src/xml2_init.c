@@ -22,6 +22,15 @@ void handleStructuredError(void* userData, xmlError* error) {
     error->message[len-1] = '\0';
   }
 
+  //Workaround for https://github.com/r-lib/xml2/issues/458
+#ifdef __APPLE__
+  xmlParserCtxt *ctxt = error->ctxt;
+  static unsigned char icns[5] = { 'i', 'c', 'n', 's', '\0' };
+  if(error->code == XML_ERR_DOCUMENT_EMPTY && ctxt->input && ctxt->input->base && xmlStrcmp(ctxt->input->base, icns) == 0){
+    return;
+  }
+#endif
+
   if (error->level <= 2) {
     Rf_warning("%s [%i]", error->message, (int) error->code);
   } else {

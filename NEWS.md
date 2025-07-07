@@ -2,6 +2,8 @@
 
 * read_html() now allows huge elements by default (#455) 
 
+* Workaround for xQuartz/Cocoa on MacOS hitting our global error handler.
+
 # xml2 1.3.8
 
 * Replace new "non-api" call IS_S4_OBJECT with Rf_isS4
