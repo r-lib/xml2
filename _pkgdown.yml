@@ -57,6 +57,7 @@ reference:
     contents:
     - ends_with("serialize")
     - xml2_example
+    - deduplicate
 
 news:
   releases:
