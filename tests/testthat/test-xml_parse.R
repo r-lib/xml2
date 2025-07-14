@@ -117,3 +117,11 @@ test_that("read_xml and read_html fail with > 1 input", {
 #  res <- read_html('<html><head')
 #  expect_s3_class(res, "xml_document")
 #})
+
+test_that("read_xml from a textConnection", {
+  s <- '<?xml version="1.0" encoding="UTF-8"?>\n<outer>\n<inner>Inner</inner>\n</outer>'
+  con <- textConnection(s)
+  x <- read_xml(con)
+  close(con)
+  expect_s3_class(x, "xml_document")
+})
