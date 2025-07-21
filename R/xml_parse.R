@@ -182,6 +182,14 @@ read_xml.response <- function(x,
   )
 }
 
+#' @export
+read_xml.textConnection <- function(x,
+                                    encoding = "",
+                                    ...) {
+  s <- paste(readLines(x), collapse = "\n")
+  read_xml.character(s, ...)
+}
+
 #' Download a HTML or XML file
 #'
 #' Libcurl implementation of `C_download` (the "internal" download method)
