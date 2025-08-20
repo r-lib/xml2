@@ -52,8 +52,8 @@ test_that("read_html properly passes parser arguments", {
 
   blanks <- read_html(xml2_example("cd_catalog.xml"), options = c("RECOVER", "NOERROR"))
   expect_equal(
-    as_list(blanks)$html$body$catalog$cd[[1]],
-    "\r\n    "
+    sub("\r\n", "\n", fixed = TRUE, as_list(blanks)$html$body$catalog$cd[[1]]),
+    "\n    "
   )
 
   no_blanks <- read_html(xml2_example("cd_catalog.xml"), options = c("RECOVER", "NOERROR", "NOBLANKS"))
