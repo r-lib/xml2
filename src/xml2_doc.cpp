@@ -291,11 +291,14 @@ extern "C" SEXP  doc_url(SEXP doc_sxp) {
 extern "C" SEXP  doc_new(SEXP version_sxp, SEXP encoding_sxp) {
 
   const char* encoding = CHAR(STRING_ELT(encoding_sxp, 0));
+  const xmlCharEncoding enc = xmlParseCharEncoding(encoding);
+  if(enc < 0){
+    Rf_error("Requested unsupported encoding '%s'", encoding);
+  }
 
   BEGIN_CPP
   XPtrDoc x(xmlNewDoc(asXmlChar(version_sxp)));
-  xmlCharEncodingHandlerPtr p = xmlFindCharEncodingHandler(encoding);
-  x->encoding = xmlStrdup(reinterpret_cast<const xmlChar *>(p->name));
+  x->encoding = xmlStrdup(reinterpret_cast<const xmlChar *>(xmlGetCharEncodingName(enc)));
   return SEXP(x);
   END_CPP
 }

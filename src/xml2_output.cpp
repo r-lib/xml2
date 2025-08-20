@@ -161,7 +161,7 @@ extern "C" SEXP doc_write_character(SEXP doc_sxp, SEXP encoding_sxp, SEXP option
     Rf_error("Error writing to buffer");
   }
   SEXP out = PROTECT(Rf_allocVector(STRSXP, 1));
-  SET_STRING_ELT(out, 0, Xml2String(buffer->content).asRString());
+  SET_STRING_ELT(out, 0, Xml2String(xmlBufferContent(buffer)).asRString());
 
   xmlFree(buffer);
 
@@ -235,7 +235,7 @@ extern "C" SEXP node_write_character(SEXP node_sxp, SEXP encoding_sxp, SEXP opti
     xmlFree(buffer);
     Rf_error("Error writing to buffer");
   }
-  SEXP out = PROTECT(Rf_ScalarString(Xml2String(buffer->content).asRString()));
+  SEXP out = PROTECT(Rf_ScalarString(Xml2String(xmlBufferContent(buffer)).asRString()));
   xmlFree(buffer);
 
   UNPROTECT(1);
