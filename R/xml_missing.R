@@ -7,6 +7,7 @@ xml_missing <- function() {
   out
 }
 
+#' @export
 format.xml_missing <- function(x, ...) {
   "<NA>"
 }

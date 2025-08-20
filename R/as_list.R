@@ -25,6 +25,7 @@
 #' as_list(read_xml("<foo> <bar><baz /></bar> </foo>"))
 #' as_list(read_xml("<foo id = 'a'></foo>"))
 #' as_list(read_xml("<foo><bar id='a'/><bar id='b'/></foo>"))
+#' as_list(read_xml("<foo><bar>a</bar><bar>b</bar></foo>"))
 as_list <- function(x, ns = character(), ...) {
   UseMethod("as_list")
 }
@@ -105,4 +106,95 @@ r_attrs_to_xml <- function(x) {
 
   names(x)[special] <- sub("^\\.", "", names(x)[special])
   x
+}
+
+#' Coerce xml nodes to a list with better handling duplicate elements
+#'
+#' This turns an XML document (or node or nodeset) into the equivalent R
+#' list. This functions like `as_list()` but ensures elements with duplicate
+#' names are put into indexed lists.
+#'
+#' @inheritParams xml_name
+#' @param ... Needed for compatibility with generic. Unused.
+#' @export
+#'
+#' @examples
+#' # With duplicate elements
+#' xml <- read_xml("<content><x>a</x><x>b</x></content>")
+#' lst <- as_list(xml)
+#' lst$content$x        # Returns "a" solely
+#' lst2 <- as_list2(xml)
+#' lst2$content$x       # Returns "a" and "b"
+#' lst2$content$x[[1]]  # Returns "a"
+#' lst2$content$x[[2]]  # Returns "b"
+#'
+#' # With attributes preserved
+#' xml <- read_xml("<w aa='0'><x a='1' b='2'><y>3</y><z>4</z></x></w>")
+#' as_list2(xml)
+as_list2 <- function(x, ns = character(), ...) {
+  result <- as_list(x, ns = ns, ...)
+
+  if (length(result) == 1 && length(unlist(result)) == 1) {
+    item <- unlist(result)
+    result <- list(unname(item))
+    names(result) <- names(item)
+  } else {
+    result <- deduplicate(result)
+  }
+  return(result)
+}
+
+
+#' Deduplicate named elements in a list
+#' @param lst A list potentially containing duplicate named elements
+#' @return A list with duplicate elements consolidated
+#' @export
+deduplicate <- function(lst) {
+  if (!is.list(lst) || length(lst) == 0 || is.null(names(lst)) || all(names(lst) == "")) {
+    return(lst)
+  }
+
+  attrs <- attributes(lst)
+
+  nms <- names(lst)
+
+  duplicated_names <- unique(nms[duplicated(nms[nms != ""])])
+
+  if (length(duplicated_names) == 0) {
+    # Recursively deal with duplications in the list
+    result <- lapply(lst, deduplicate)
+    attributes(result) <- attrs
+    return(result)
+  }
+
+  for (name in duplicated_names) {
+    deduplicated_index <- which(nms == name)
+
+    values <- lapply(deduplicated_index, function(i) {
+      if (is.list(lst[[i]]) && length(lst[[i]]) == 1 && is.character(lst[[i]][[1]])) {
+        return(lst[[i]][[1]])
+      } else {
+        # Fallback option
+        return(lst[[i]])
+      }
+    })
+
+    lst[[deduplicated_index[1]]] <- values
+
+    if (length(deduplicated_index) > 1) {
+      lst <- lst[-deduplicated_index[-1]]
+      nms <- nms[-deduplicated_index[-1]]
+    }
+    names(lst) <- nms
+  }
+
+  for (i in seq_along(lst)) {
+    if (is.list(lst[[i]]) && !(i %in% which(names(lst) %in% duplicated_names))) {
+      lst[[i]] <- deduplicate(lst[[i]])
+    }
+  }
+
+  attrs$names <- names(lst)
+  attributes(lst) <- attrs
+  return(lst)
 }

@@ -1,6 +1,6 @@
-roundtrip_xml <- function(x) {
+roundtrip_xml <- function(x, as_list_version = 1) {
   xml <- read_xml(x)
-  lst <- as_list(xml)
+  lst <- if (as_list_version > 1) as_list2(xml) else as_list(xml)
   xml2 <- as_xml_document(lst)
   expect_equal(as.character(xml), as.character(xml2))
 }
@@ -32,6 +32,11 @@ test_that("roundtrips with multi children", {
 
 test_that("rountrips with special attributes", {
   roundtrip_xml("<a names = 'test'><b/></a>")
+})
+
+test_that("rountrips with only one element", {
+  roundtrip_xml("<foo>bar</foo>")
+  roundtrip_xml("<foo>bar</foo>", as_list_version = 2)
 })
 
 test_that("more than one root node is an error", {
