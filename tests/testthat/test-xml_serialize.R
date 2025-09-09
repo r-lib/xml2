@@ -1,7 +1,9 @@
-x <- read_xml("<a>
+x <- read_xml(
+  "<a>
   <b><c>123</c></b>
   <b><c>456</c></b>
-  </a>")
+  </a>"
+)
 
 test_that("xml_serialize and xml_unserialize work with xml_document input", {
   out <- xml_unserialize(xml_serialize(x, NULL))
@@ -53,5 +55,8 @@ test_that("xml_serialize and xml_unserialize work with HTML-based xml_document i
 })
 
 test_that("xml_unserialize throws an error if given a invalid object", {
-  expect_error(xml_unserialize(serialize(1, NULL)), "Not a serialized xml2 object")
+  expect_error(
+    xml_unserialize(serialize(1, NULL)),
+    "Not a serialized xml2 object"
+  )
 })

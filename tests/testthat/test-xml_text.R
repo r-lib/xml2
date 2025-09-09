@@ -7,11 +7,13 @@ test_that("xml_text returns only text without markup", {
 })
 
 test_that("xml_text works properly with xml_nodeset objects", {
-  x <- read_xml("<body>
+  x <- read_xml(
+    "<body>
     <p>Some <b>text</b>.</p>
     <p>Some <i>other</i>.</p>
     <p>No bold text</p>
-    </body>")
+    </body>"
+  )
 
   children <- xml_children(x)
   x <- xml_find_first(children, ".//b|.//i")
@@ -45,7 +47,9 @@ test_that("xml_text trims whitespace if requested, including non-breaking spaces
     "Some text \u20ac"
   )
 
-  x2 <- read_html("<body><p>   Some text &euro;  &nbsp;</p><p>  and more &euro; text   &nbsp;</body>")
+  x2 <- read_html(
+    "<body><p>   Some text &euro;  &nbsp;</p><p>  and more &euro; text   &nbsp;</body>"
+  )
   expect_identical(
     xml_text(xml_find_all(x2, ".//p"), trim = TRUE),
     c("Some text \u20ac", "and more \u20ac text")
@@ -63,7 +67,12 @@ test_that("xml_integer() returns an integer vector", {
 
 
 test_that("xml_double() returns a numeric vector", {
-  x <- read_xml("<earth><point latitude = '42.3466456' longitude = '-71.0390351' /><point latitude = '-36.8523378' longitude = '174.7691073' /></earth>")
+  x <- read_xml(
+    "<earth><point latitude = '42.3466456' longitude = '-71.0390351' /><point latitude = '-36.8523378' longitude = '174.7691073' /></earth>"
+  )
 
-  expect_identical(xml_double(xml_find_all(x, "//@latitude")), c(42.3466456, -36.8523378))
+  expect_identical(
+    xml_double(xml_find_all(x, "//@latitude")),
+    c(42.3466456, -36.8523378)
+  )
 })

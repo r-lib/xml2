@@ -43,7 +43,6 @@ as_xml_document.list <- function(x, ...) {
     cli::cli_abort("Root nodes must be of length 1.")
   }
 
-
   add_node <- function(x, parent, tag = NULL) {
     if (is.atomic(x)) {
       return(.Call(node_new_text, parent$node, as.character(x)))

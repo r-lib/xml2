@@ -35,7 +35,13 @@ write_xml.xml_missing <- function(x, file, ...) {
 
 #' @rdname write_xml
 #' @export
-write_xml.xml_document <- function(x, file, ..., options = "format", encoding = "UTF-8") {
+write_xml.xml_document <- function(
+  x,
+  file,
+  ...,
+  options = "format",
+  encoding = "UTF-8"
+) {
   options <- parse_options(options, xml_save_options())
   file <- path_to_connection(file, check = "dir")
 
@@ -54,7 +60,13 @@ write_xml.xml_document <- function(x, file, ..., options = "format", encoding = 
 }
 
 #' @export
-write_xml.xml_nodeset <- function(x, file, ..., options = "format", encoding = "UTF-8") {
+write_xml.xml_nodeset <- function(
+  x,
+  file,
+  ...,
+  options = "format",
+  encoding = "UTF-8"
+) {
   if (length(x) != 1) {
     cli::cli_abort("Can only save length 1 node sets.")
   }
@@ -77,7 +89,13 @@ write_xml.xml_nodeset <- function(x, file, ..., options = "format", encoding = "
 }
 
 #' @export
-write_xml.xml_node <- function(x, file, ..., options = "format", encoding = "UTF-8") {
+write_xml.xml_node <- function(
+  x,
+  file,
+  ...,
+  options = "format",
+  encoding = "UTF-8"
+) {
   options <- parse_options(options, xml_save_options())
 
   file <- path_to_connection(file, check = "dir")

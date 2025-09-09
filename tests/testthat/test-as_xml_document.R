@@ -27,7 +27,9 @@ test_that("roundtrips with multi children", {
   roundtrip_xml("<a><b>foo<c>bar</c><c>baz</c></b></a>")
 
   roundtrip_xml("<a x = '1'><b y = '2'>foo<c z = '3'>bar</c></b></a>")
-  roundtrip_xml("<a x = '1'><b y = '2'>foo<c z = '3'>bar</c></b><c zz = '4'>baz</c></a>")
+  roundtrip_xml(
+    "<a x = '1'><b y = '2'>foo<c z = '3'>bar</c></b><c zz = '4'>baz</c></a>"
+  )
 })
 
 test_that("rountrips with special attributes", {
@@ -35,7 +37,10 @@ test_that("rountrips with special attributes", {
 })
 
 test_that("more than one root node is an error", {
-  expect_error(as_xml_document(list(a = list(), b = list())), "Root nodes must be of length 1")
+  expect_error(
+    as_xml_document(list(a = list(), b = list())),
+    "Root nodes must be of length 1"
+  )
 })
 
 test_that("Can convert nodes with leading and trailing text", {

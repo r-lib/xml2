@@ -25,3 +25,5 @@ windows
 ^CRAN-SUBMISSION$
 ^README\.Rmd$
 ^configure.log$
+^[.]?air[.]toml$
+^\.vscode$

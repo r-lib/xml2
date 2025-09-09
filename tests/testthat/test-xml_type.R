@@ -1,9 +1,11 @@
 test_that("xml_type() works", {
-  x <- read_xml("<body>
+  x <- read_xml(
+    "<body>
     <p>Some <b>text</b>.</p>
     <p>Some <i>other</i>.</p>
     <p>No bold text</p>
-    </body>")
+    </body>"
+  )
 
   children <- xml_children(x)
   x <- xml_find_first(children, ".//b|.//i")

@@ -6,24 +6,24 @@
 \alias{xml2-package}
 \title{xml2: Parse XML}
 \description{
-Work with XML files using a simple, consistent interface. Built on top of the 'libxml2' C library.
+Bindings to 'libxml2' for working with XML data using a simple, consistent interface based on 'XPath' expressions. Also supports XML schema validation; for 'XSLT' transformations see the 'xslt' package.
 }
 \seealso{
 Useful links:
 \itemize{
   \item \url{https://xml2.r-lib.org}
-  \item \url{https://github.com/r-lib/xml2}
+  \item \url{https://r-lib.r-universe.dev/xml2}
   \item Report bugs at \url{https://github.com/r-lib/xml2/issues}
 }
 
 }
 \author{
-\strong{Maintainer}: Hadley Wickham \email{hadley@posit.co}
+\strong{Maintainer}: Jeroen Ooms \email{jeroenooms@gmail.com}
 
 Authors:
 \itemize{
+  \item Hadley Wickham
   \item Jim Hester
-  \item Jeroen Ooms
 }
 
 Other contributors:

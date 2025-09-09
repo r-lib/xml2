@@ -28,7 +28,14 @@ quote_str <- function(x, quote = "\"") {
 describe_options <- function(x) {
   paste0(
     "\\describe{\n",
-    paste0("  \\item{", names(x), "}{", attr(x, "descriptions"), "}", collapse = "\n"),
+    paste0(
+      "  \\item{",
+      names(x),
+      "}{",
+      attr(x, "descriptions"),
+      "}",
+      collapse = "\n"
+    ),
     "\n}"
   )
 }
@@ -51,12 +58,14 @@ parse_options <- function(arg, options, error_call = caller_env()) {
   # non-matches, then take only unique results
   i <- pmatch(arg, names(options), duplicates.ok = TRUE)
   if (anyNA(i)) {
-    cli::cli_abort(c(
-      x = "{.arg options} {.val {arg[is.na(i)][1L]}} is not a valid option.",
-      i = "Valid options are one of {.or {.val {names(options)}}}.",
-      i = "See {.help [read_html](xml2::read_html)} for all options."
-    ),
-    call = error_call)
+    cli::cli_abort(
+      c(
+        x = "{.arg options} {.val {arg[is.na(i)][1L]}} is not a valid option.",
+        i = "Valid options are one of {.or {.val {names(options)}}}.",
+        i = "See {.help [read_html](xml2::read_html)} for all options."
+      ),
+      call = error_call
+    )
   }
   sum(options[unique(i)])
 }

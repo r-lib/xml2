@@ -1,11 +1,19 @@
 test_that("url_absolute", {
   expect_equal(
     url_absolute(c(".", "..", "/", "/x"), "http://hadley.nz/a/b/c/d"),
-    c("http://hadley.nz/a/b/c/", "http://hadley.nz/a/b/", "http://hadley.nz/", "http://hadley.nz/x")
+    c(
+      "http://hadley.nz/a/b/c/",
+      "http://hadley.nz/a/b/",
+      "http://hadley.nz/",
+      "http://hadley.nz/x"
+    )
   )
 
   expect_error(
-    url_absolute(c(".", "..", "/", "/x"), c("http://hadley.nz/a/b/c/d", "http://foo.bar")),
+    url_absolute(
+      c(".", "..", "/", "/x"),
+      c("http://hadley.nz/a/b/c/d", "http://foo.bar")
+    ),
     "Base URL must be length 1"
   )
 })
@@ -35,7 +43,10 @@ test_that("url_relative", {
   )
 
   expect_error(
-    url_relative("http://hadley.nz/a/c", c("http://hadley.nz/a/b/c/d", "http://foo.bar")),
+    url_relative(
+      "http://hadley.nz/a/c",
+      c("http://hadley.nz/a/b/c/d", "http://foo.bar")
+    ),
     "Base URL must be length 1"
   )
 })
@@ -44,32 +55,56 @@ test_that("url_parse", {
   expect_equal(
     url_parse("http://had.co.nz/"),
     data.frame(
-      scheme = "http", server = "had.co.nz", port = NA_integer_,
-      user = "", path = "/", query = "", fragment = "", stringsAsFactors = FALSE
+      scheme = "http",
+      server = "had.co.nz",
+      port = NA_integer_,
+      user = "",
+      path = "/",
+      query = "",
+      fragment = "",
+      stringsAsFactors = FALSE
     )
   )
 
   expect_equal(
     url_parse("http://had.co.nz:1234/"),
     data.frame(
-      scheme = "http", server = "had.co.nz", port = 1234L,
-      user = "", path = "/", query = "", fragment = "", stringsAsFactors = FALSE
+      scheme = "http",
+      server = "had.co.nz",
+      port = 1234L,
+      user = "",
+      path = "/",
+      query = "",
+      fragment = "",
+      stringsAsFactors = FALSE
     )
   )
 
   expect_equal(
     url_parse("http://had.co.nz:1234/?a=1&b=2"),
     data.frame(
-      scheme = "http", server = "had.co.nz", port = 1234L,
-      user = "", path = "/", query = "a=1&b=2", fragment = "", stringsAsFactors = FALSE
+      scheme = "http",
+      server = "had.co.nz",
+      port = 1234L,
+      user = "",
+      path = "/",
+      query = "a=1&b=2",
+      fragment = "",
+      stringsAsFactors = FALSE
     )
   )
 
   expect_equal(
     url_parse("http://had.co.nz:1234/?a=1&b=2#def"),
     data.frame(
-      scheme = "http", server = "had.co.nz", port = 1234L,
-      user = "", path = "/", query = "a=1&b=2", fragment = "def", stringsAsFactors = FALSE
+      scheme = "http",
+      server = "had.co.nz",
+      port = 1234L,
+      user = "",
+      path = "/",
+      query = "a=1&b=2",
+      fragment = "def",
+      stringsAsFactors = FALSE
     )
   )
 })

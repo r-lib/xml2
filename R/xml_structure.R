@@ -56,7 +56,13 @@ tree_structure.xml_node <- function(x, indent = 2, html = FALSE, file = "") {
   invisible()
 }
 
-print_xml_structure <- function(x, prefix = 0, indent = 2, html = FALSE, file = "") {
+print_xml_structure <- function(
+  x,
+  prefix = 0,
+  indent = 2,
+  html = FALSE,
+  file = ""
+) {
   padding <- paste(rep(" ", prefix), collapse = "")
   type <- xml_type(x)
 
@@ -80,7 +86,12 @@ print_xml_structure <- function(x, prefix = 0, indent = 2, html = FALSE, file = 
     }
 
     if (length(attr) > 0) {
-      attr_str <- paste0(attr_str, " [", paste0(names(attr), collapse = ", "), "]")
+      attr_str <- paste0(
+        attr_str,
+        " [",
+        paste0(names(attr), collapse = ", "),
+        "]"
+      )
     }
 
     node <- paste0("<", xml_name(x), attr_str, ">")

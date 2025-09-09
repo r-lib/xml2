@@ -7,8 +7,16 @@ test_that("format.xml_node prints namespaces for root nodes", {
   expect_equal(format(x), "<parent>")
 
   y <- read_xml("<parent xmlns = 'tag:james.f.hester@gmail.com,2016:bar' />")
-  expect_equal(format(y), "<parent xmlns=\"tag:james.f.hester@gmail.com,2016:bar\">")
+  expect_equal(
+    format(y),
+    "<parent xmlns=\"tag:james.f.hester@gmail.com,2016:bar\">"
+  )
 
-  z <- read_xml("<parent xmlns:foo = 'tag:james.f.hester@gmail.com,2016:bar' />")
-  expect_equal(format(z), "<parent xmlns:foo=\"tag:james.f.hester@gmail.com,2016:bar\">")
+  z <- read_xml(
+    "<parent xmlns:foo = 'tag:james.f.hester@gmail.com,2016:bar' />"
+  )
+  expect_equal(
+    format(z),
+    "<parent xmlns:foo=\"tag:james.f.hester@gmail.com,2016:bar\">"
+  )
 })

@@ -81,12 +81,12 @@ test_that("print method is correct", {
   # double-substring() logic
   s <- c(
     "123456789\\", # always too wide, '\' never encoded
-    "12345",       # always fits
-    "12\\45"       # doesn't fit when '\' is encoded
+    "12345", # always fits
+    "12\\45" # doesn't fit when '\' is encoded
   )
   # embed as text on nodes <a>,<b>,<c>
   s <- sprintf("<%1$s>%2$s</%1$s>", letters[1:3], s)
-  x <- read_xml(sprintf("<doc>%s</doc>", paste(s, collapse="")))
+  x <- read_xml(sprintf("<doc>%s</doc>", paste(s, collapse = "")))
   expect_snapshot({
     print(x, width = 13L)
     print(x, width = 14L)
