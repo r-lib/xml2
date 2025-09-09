@@ -26,7 +26,6 @@ Suggests:
     curl,
     httr,
     knitr,
-    magrittr,
     mockery,
     rmarkdown,
     testthat (>= 3.2.0),
