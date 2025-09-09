@@ -32,7 +32,12 @@ print.xml_document <- function(x, width = getOption("width"), max_n = 20, ...) {
 }
 
 #' @export
-as.character.xml_document <- function(x, ..., options = "format", encoding = "UTF-8") {
+as.character.xml_document <- function(
+  x,
+  ...,
+  options = "format",
+  encoding = "UTF-8"
+) {
   options <- parse_options(options, xml_save_options())
   .Call(doc_write_character, x$doc, encoding, options)
 }

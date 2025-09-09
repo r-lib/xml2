@@ -40,12 +40,14 @@ test_that("qualified names returned when ns given", {
 })
 
 
-x <- read_xml('
+x <- read_xml(
+  '
  <root xmlns:b="http://bar.com" xmlns:f="http://foo.com">
    <doc b:id="b" f:id="f" id="" />
    <doc b:id="b" f:id="f" id="" />
  </root>
-')
+'
+)
 doc <- xml_children(x)[[1]]
 docs <- xml_find_all(x, "//doc")
 ns <- xml_ns(x)
@@ -88,8 +90,14 @@ test_that("xml_attr<- recycles values", {
 })
 
 test_that("xml_attrs<- modifies all attributes", {
-  expect_error(xml_attrs(doc) <- 1, "`value` must be a named character vector or `NULL`")
-  expect_error(xml_attrs(doc) <- "test", "`value` must be a named character vector or `NULL`")
+  expect_error(
+    xml_attrs(doc) <- 1,
+    "`value` must be a named character vector or `NULL`"
+  )
+  expect_error(
+    xml_attrs(doc) <- "test",
+    "`value` must be a named character vector or `NULL`"
+  )
 
   xml_attrs(doc, ns) <- c("b:id" = "b", "f:id" = "f", "id" = "test")
   expect_equal(xml_attrs(doc, ns), c("b:id" = "b", "id" = "test", "f:id" = "f"))
@@ -112,7 +120,13 @@ test_that("xml_attrs<- modifies all attributes", {
   )
 
   xml_attrs(docs, ns) <- NULL
-  expect_equal(xml_attrs(docs, ns), list(setNames(character(0), character()), setNames(character(0), character())))
+  expect_equal(
+    xml_attrs(docs, ns),
+    list(
+      setNames(character(0), character()),
+      setNames(character(0), character())
+    )
+  )
 })
 
 test_that("xml_attr<- accepts non-character values", {

@@ -36,7 +36,9 @@ test_that("xml_text<- creates new text nodes if needed", {
 })
 
 test_that("xml_remove removes nodes", {
-  x <- read_xml("<parent><child>1</child><child>2<child>3</child></child></parent>")
+  x <- read_xml(
+    "<parent><child>1</child><child>2<child>3</child></child></parent>"
+  )
   children <- xml_children(x)
   t1 <- children[[1]]
   xml_remove(children, free = TRUE)
@@ -44,7 +46,9 @@ test_that("xml_remove removes nodes", {
 })
 
 test_that("xml_replace replaces nodes", {
-  x <- read_xml("<parent><child>1</child><child>2<child>3</child></child></parent>")
+  x <- read_xml(
+    "<parent><child>1</child><child>2<child>3</child></child></parent>"
+  )
   children <- xml_children(x)
   t1 <- children[[1]]
   t2 <- children[[2]]
@@ -66,7 +70,9 @@ test_that("xml_replace replaces nodes", {
 })
 
 test_that("xml_replace works with nodesets", {
-  x <- read_xml("<parent><child>1</child><child>2<child>3</child></child></parent>")
+  x <- read_xml(
+    "<parent><child>1</child><child>2<child>3</child></child></parent>"
+  )
   children <- xml_children(x)
   t1 <- children[[1]]
   xml_replace(children, t1)
@@ -74,7 +80,9 @@ test_that("xml_replace works with nodesets", {
 })
 
 test_that("xml_sibling adds a sibling node", {
-  x <- read_xml("<parent><child>1</child><child>2<child>3</child></child></parent>")
+  x <- read_xml(
+    "<parent><child>1</child><child>2<child>3</child></child></parent>"
+  )
   children <- xml_children(x)
   t1 <- children[[1]]
   t2 <- children[[2]]
@@ -94,7 +102,9 @@ test_that("xml_sibling adds a sibling node", {
 })
 
 test_that("xml_add_child adds a child node", {
-  x <- read_xml("<parent><child>1</child><child>2<child>3</child></child></parent>")
+  x <- read_xml(
+    "<parent><child>1</child><child>2<child>3</child></child></parent>"
+  )
   children <- xml_children(x)
   t1 <- children[[1]]
   t2 <- children[[2]]
@@ -146,7 +156,10 @@ test_that("xml_add_child can create a new node with the specified prefix", {
 test_that("xml_add_child can create a new node with the specified prefix", {
   x <- xml_root(xml_add_child(xml_new_document(), "foo", "xmlns:bar" = "baz"))
 
-  expect_error(xml_add_child(x, "bar2:qux"), "No namespace with prefix `bar2` found")
+  expect_error(
+    xml_add_child(x, "bar2:qux"),
+    "No namespace with prefix `bar2` found"
+  )
 })
 
 # https://github.com/r-lib/xml2/issues/284
@@ -175,11 +188,13 @@ test_that("xml_add_parent works with xml_nodeset input", {
 })
 
 test_that("xml_add_parent works with xml_missing input", {
-  x <- read_xml("<body>
+  x <- read_xml(
+    "<body>
     <p>Some <b>text</b>.</p>
     <p>Some <b>other</b>.</p>
     <p>No bold text</p>
-    </body>")
+    </body>"
+  )
 
   y <- xml_find_all(x, ".//p")
   z <- xml_find_first(y, ".//b")
@@ -191,11 +206,17 @@ test_that("xml_add_parent works with xml_missing input", {
 
 test_that("xml_new_document adds a default character encoding", {
   x <- read_xml("<root>\u00E1\u00FC\u00EE</root>")
-  expect_equal(as.character(x), "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<root>\u00E1\u00FC\u00EE</root>\n")
+  expect_equal(
+    as.character(x),
+    "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<root>\u00E1\u00FC\u00EE</root>\n"
+  )
 
   x2 <- xml_new_document()
   xml_add_child(x2, "root", "\u00E1\u00FC\u00EE")
-  expect_equal(as.character(x2), "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<root>\u00E1\u00FC\u00EE</root>\n")
+  expect_equal(
+    as.character(x2),
+    "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<root>\u00E1\u00FC\u00EE</root>\n"
+  )
 })
 
 test_that("xml_new_root is equivalent to using xml_new_document xml_add_child", {
@@ -223,11 +244,13 @@ test_that("xml_add_child can insert anywhere in the child list", {
 })
 
 test_that("xml_add_child can insert anywhere in a nodeset", {
-  x <- read_xml("<body>
+  x <- read_xml(
+    "<body>
     <p>Some <b>text</b>.</p>
     <p>Some <b>other</b>.</p>
     <p>No bold text</p>
-    </body>")
+    </body>"
+  )
 
   y <- xml_find_all(x, ".//p")
   z <- xml_find_first(y, ".//b")
@@ -241,5 +264,8 @@ test_that("xml_add_child can insert anywhere in a nodeset", {
 test_that("Can write root nodes with namespaces", {
   x <- xml_new_root("foo:bar", "xmlns:foo" = "http://foo/bar")
   expect_equal(unclass(xml_ns(x)), c(foo = "http://foo/bar"))
-  expect_equal(as.character(xml_find_first(x, "/*")), "<foo:bar xmlns:foo=\"http://foo/bar\"/>")
+  expect_equal(
+    as.character(xml_find_first(x, "/*")),
+    "<foo:bar xmlns:foo=\"http://foo/bar\"/>"
+  )
 })

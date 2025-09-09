@@ -1,7 +1,10 @@
 test_that("write_xml errors for incorrect directory and with invalid inputs", {
   x <- read_xml("<x/>")
   filename <- "does_not_exist/test.xml"
-  expect_error(write_xml(x, filename), "'does_not_exist' does not exist in current working directory")
+  expect_error(
+    write_xml(x, filename),
+    "'does_not_exist' does not exist in current working directory"
+  )
 
   expect_snapshot(error = TRUE, {
     write_xml(x, c("test.xml", "foo"))
@@ -23,7 +26,10 @@ test_that("write_xml works with no options", {
   filename <- "../test.xml"
   on.exit(unlink(filename))
   write_xml(x, filename, options = NULL)
-  expect_identical(readChar(filename, 1000L), "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<x/>\n")
+  expect_identical(
+    readChar(filename, 1000L),
+    "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<x/>\n"
+  )
 })
 
 test_that("write_xml works with an explicit connections", {

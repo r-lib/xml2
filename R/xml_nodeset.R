@@ -51,7 +51,10 @@ encode_with_width <- function(x, width) {
   x[truncate_raw] <- substr(x[truncate_raw], 1L, width - 3L)
   x <- encodeString(x)
   truncate_encoded <- truncate_raw | nchar(x) > width
-  x[truncate_encoded] <- paste(substr(x[truncate_encoded], 1L, width - 3L), "...")
+  x[truncate_encoded] <- paste(
+    substr(x[truncate_encoded], 1L, width - 3L),
+    "..."
+  )
   x
 }
 

@@ -61,16 +61,25 @@ as_list.xml_node <- function(x, ns = character(), ...) {
 
     out <- list()
   } else {
-    out <- lapply(seq_along(contents), function(i) as_list(contents[[i]], ns = ns))
+    out <- lapply(seq_along(contents), function(i) {
+      as_list(contents[[i]], ns = ns)
+    })
 
-    nms <- ifelse(xml_type(contents) == "element", xml_name(contents, ns = ns), "")
+    nms <- ifelse(
+      xml_type(contents) == "element",
+      xml_name(contents, ns = ns),
+      ""
+    )
     if (any(nms != "")) {
       names(out) <- nms
     }
   }
 
   # Add xml attributes as R attributes
-  attributes(out) <- c(list(names = names(out)), xml_to_r_attrs(xml_attrs(x, ns = ns)))
+  attributes(out) <- c(
+    list(names = names(out)),
+    xml_to_r_attrs(xml_attrs(x, ns = ns))
+  )
 
   out
 }
@@ -80,7 +89,15 @@ as_list.xml_nodeset <- function(x, ns = character(), ...) {
   lapply(seq_along(x), function(i) as_list(x[[i]], ns = ns))
 }
 
-special_attributes <- c("class", "comment", "dim", "dimnames", "names", "row.names", "tsp")
+special_attributes <- c(
+  "class",
+  "comment",
+  "dim",
+  "dimnames",
+  "names",
+  "row.names",
+  "tsp"
+)
 
 xml_to_r_attrs <- function(x) {
   if (length(x) == 0) {

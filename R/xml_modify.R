@@ -54,17 +54,30 @@ xml_replace.xml_missing <- function(.x, .value, ..., .copy = TRUE) {
 
 #' @rdname xml_replace
 #' @export
-xml_add_sibling <- function(.x, .value, ..., .where = c("after", "before"), .copy = TRUE) {
+xml_add_sibling <- function(
+  .x,
+  .value,
+  ...,
+  .where = c("after", "before"),
+  .copy = TRUE
+) {
   UseMethod("xml_add_sibling")
 }
 
 #' @export
-xml_add_sibling.xml_node <- function(.x, .value, ..., .where = c("after", "before"), .copy = inherits(.value, "xml_node")) {
+xml_add_sibling.xml_node <- function(
+  .x,
+  .value,
+  ...,
+  .where = c("after", "before"),
+  .copy = inherits(.value, "xml_node")
+) {
   .where <- match.arg(.where)
 
   node <- create_node(.value, .parent = .x, .copy = .copy, ...)
 
-  .x$node <- switch(.where,
+  .x$node <- switch(
+    .where,
     before = .Call(node_prepend_sibling, .x$node, node$node),
     after = .Call(node_append_sibling, .x$node, node$node)
   )
@@ -73,7 +86,13 @@ xml_add_sibling.xml_node <- function(.x, .value, ..., .where = c("after", "befor
 }
 
 #' @export
-xml_add_sibling.xml_nodeset <- function(.x, .value, ..., .where = c("after", "before"), .copy = TRUE) {
+xml_add_sibling.xml_nodeset <- function(
+  .x,
+  .value,
+  ...,
+  .where = c("after", "before"),
+  .copy = TRUE
+) {
   if (length(.x) == 0) {
     return(.x)
   }
@@ -85,11 +104,24 @@ xml_add_sibling.xml_nodeset <- function(.x, .value, ..., .where = c("after", "be
     .value <- list(.value)
   }
 
-  invisible(Map(xml_add_sibling, rev(.x), rev(.value), ..., .where = .where, .copy = .copy))
+  invisible(Map(
+    xml_add_sibling,
+    rev(.x),
+    rev(.value),
+    ...,
+    .where = .where,
+    .copy = .copy
+  ))
 }
 
 #' @export
-xml_add_sibling.xml_missing <- function(.x, .value, ..., .where = c("after", "before"), .copy = TRUE) {
+xml_add_sibling.xml_missing <- function(
+  .x,
+  .value,
+  ...,
+  .where = c("after", "before"),
+  .copy = TRUE
+) {
   .x
 }
 
@@ -103,7 +135,10 @@ create_node <- function(.value, ..., .parent, .copy) {
   }
 
   if (inherits(.value, "xml_cdata")) {
-    return(xml_node(.Call(node_cdata_new, .parent$doc, .value), doc = .parent$doc))
+    return(xml_node(
+      .Call(node_cdata_new, .parent$doc, .value),
+      doc = .parent$doc
+    ))
   }
 
   if (inherits(.value, "xml_comment")) {
@@ -111,7 +146,13 @@ create_node <- function(.value, ..., .parent, .copy) {
   }
 
   if (inherits(.value, "xml_dtd")) {
-    .Call(node_new_dtd, .parent$doc, .value$name, .value$external_id, .value$system_id)
+    .Call(
+      node_new_dtd,
+      .parent$doc,
+      .value$name,
+      .value$external_id,
+      .value$system_id
+    )
     return()
   }
 
@@ -120,7 +161,10 @@ create_node <- function(.value, ..., .parent, .copy) {
   parts <- strsplit(.value, ":")[[1]]
   if (length(parts) == 2 && !is.null(.parent$node)) {
     namespace <- .Call(ns_lookup, .parent$doc, .parent$node, parts[[1]])
-    node <- list(node = .Call(node_new_ns, parts[[2]], namespace), doc = .parent$doc)
+    node <- list(
+      node = .Call(node_new_ns, parts[[2]], namespace),
+      doc = .parent$doc
+    )
   } else {
     node <- list(node = .Call(node_new, .value), doc = .parent$doc)
   }
@@ -136,12 +180,24 @@ create_node <- function(.value, ..., .parent, .copy) {
 
 #' @rdname xml_replace
 #' @export
-xml_add_child <- function(.x, .value, ..., .where = length(xml_children(.x)), .copy = TRUE) {
+xml_add_child <- function(
+  .x,
+  .value,
+  ...,
+  .where = length(xml_children(.x)),
+  .copy = TRUE
+) {
   UseMethod("xml_add_child")
 }
 
 #' @export
-xml_add_child.xml_node <- function(.x, .value, ..., .where = length(xml_children(.x)), .copy = inherits(.value, "xml_node")) {
+xml_add_child.xml_node <- function(
+  .x,
+  .value,
+  ...,
+  .where = length(xml_children(.x)),
+  .copy = inherits(.value, "xml_node")
+) {
   node <- create_node(.value, .parent = .x, .copy = .copy, ...)
 
   if (.where == 0L) {
@@ -163,7 +219,13 @@ xml_add_child.xml_node <- function(.x, .value, ..., .where = length(xml_children
 }
 
 #' @export
-xml_add_child.xml_document <- function(.x, .value, ..., .where = length(xml_children(.x)), .copy = inherits(.value, "xml_node")) {
+xml_add_child.xml_document <- function(
+  .x,
+  .value,
+  ...,
+  .where = length(xml_children(.x)),
+  .copy = inherits(.value, "xml_node")
+) {
   if (inherits(.x, "xml_node")) {
     NextMethod("xml_add_child")
   } else {
@@ -179,7 +241,13 @@ xml_add_child.xml_document <- function(.x, .value, ..., .where = length(xml_chil
 }
 
 #' @export
-xml_add_child.xml_nodeset <- function(.x, .value, ..., .where = length(xml_children(.x)), .copy = TRUE) {
+xml_add_child.xml_nodeset <- function(
+  .x,
+  .value,
+  ...,
+  .where = length(xml_children(.x)),
+  .copy = TRUE
+) {
   if (length(.x) == 0) {
     return(.x)
   }
@@ -303,8 +371,19 @@ xml_new_document <- function(version = "1.0", encoding = "UTF-8") {
 #' @inheritParams xml_add_child
 #' @rdname xml_new_document
 #' @export
-xml_new_root <- function(.value, ..., .copy = inherits(.value, "xml_node"), .version = "1.0", .encoding = "UTF-8") {
-  xml_add_child(xml_new_document(version = .version, encoding = .encoding), .value = .value, ... = ..., .copy = .copy)
+xml_new_root <- function(
+  .value,
+  ...,
+  .copy = inherits(.value, "xml_node"),
+  .version = "1.0",
+  .encoding = "UTF-8"
+) {
+  xml_add_child(
+    xml_new_document(version = .version, encoding = .encoding),
+    .value = .value,
+    ... = ...,
+    .copy = .copy
+  )
 }
 
 #' Strip the default namespaces from a document
@@ -332,7 +411,10 @@ xml_ns_strip <- function(x) {
   # prefix (default namespaces).
   # What we actually want is the element node the definitions are contained in
   # so return the parent (/parent::*)
-  namespace_element_nodes <- xml_find_all(x, "//namespace::*[name()='']/parent::*")
+  namespace_element_nodes <- xml_find_all(
+    x,
+    "//namespace::*[name()='']/parent::*"
+  )
   xml_attr(namespace_element_nodes, "xmlns") <- NULL
   invisible(x)
 }

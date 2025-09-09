@@ -18,7 +18,8 @@ path_to_connection <- function(path, check = c("file", "dir")) {
   } else {
     path <- file.path(check_path(dirname(path)), basename(path))
   }
-  switch(tools::file_ext(path),
+  switch(
+    tools::file_ext(path),
     gz = gzfile(path, ""),
     bz2 = bzfile(path, ""),
     xz = xzfile(path, ""),
@@ -35,7 +36,6 @@ check_path <- function(path, call = caller_env()) {
   if (file.exists(path)) {
     return(normalizePath(path, "/", mustWork = FALSE))
   }
-
 
   msg <- "{.file {path}} does not exist"
   if (!is_absolute_path(path)) {

@@ -1,8 +1,10 @@
-x <- read_xml("<body>
+x <- read_xml(
+  "<body>
   <p>Some <b>text</b>.</p>
   <p>Some <b>other</b>.</p>
   <p>No bold text</p>
-  </body>")
+  </body>"
+)
 para <- xml_find_all(x, ".//p")
 b <- xml_find_first(para, ".//b")
 mss <- b[[3]]

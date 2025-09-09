@@ -49,9 +49,11 @@ test_that("no matches returns empty nodeset", {
 })
 
 test_that("xml_find_all returns nodeset or list of nodesets based on flatten", {
-  x <- read_xml("<body><p>Some <b>text</b>.</p>
+  x <- read_xml(
+    "<body><p>Some <b>text</b>.</p>
                  <p>Some <b>other</b> <b>text</b>.</p>
-                 <p>No bold here!</p></body>")
+                 <p>No bold here!</p></body>"
+  )
   y <- xml_find_all(x, ".//p")
   z <- xml_find_all(y, ".//b", flatten = FALSE)
   expect_s3_class(xml_find_all(y, ".//b"), "xml_nodeset")

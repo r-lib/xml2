@@ -103,7 +103,14 @@ xml_attrs <- function(x, ns = character()) {
     value <- list(value)
   }
 
-  mapply(`xml_attr<-`, x, attr = attr, value = value, SIMPLIFY = FALSE, MoreArgs = list(ns = ns))
+  mapply(
+    `xml_attr<-`,
+    x,
+    attr = attr,
+    value = value,
+    SIMPLIFY = FALSE,
+    MoreArgs = list(ns = ns)
+  )
   x
 }
 
@@ -157,15 +164,21 @@ xml_set_attr.xml_missing <- set_attr_fun
   removed <- setdiff(current_attrs, attrs)
 
   # replace existing attributes and add new ones
-  Map(function(attr, val) {
-    xml_attr(x, attr, ns) <- val
-  }, attr = c(existing, new), value[c(existing, new)])
-
+  Map(
+    function(attr, val) {
+      xml_attr(x, attr, ns) <- val
+    },
+    attr = c(existing, new),
+    value[c(existing, new)]
+  )
 
   # Remove attributes which no longer exist
-  Map(function(attr) {
-    xml_attr(x, attr, ns) <- NULL
-  }, attr = removed)
+  Map(
+    function(attr) {
+      xml_attr(x, attr, ns) <- NULL
+    },
+    attr = removed
+  )
 
   x
 }

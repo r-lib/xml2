@@ -93,12 +93,20 @@ xml_find_all.xml_node <- function(x, xpath, ns = xml_ns(x), ...) {
 #'   nodeset or a list of nodesets.
 #' @export
 #' @rdname xml_find_all
-xml_find_all.xml_nodeset <- function(x, xpath, ns = xml_ns(x), flatten = TRUE, ...) {
+xml_find_all.xml_nodeset <- function(
+  x,
+  xpath,
+  ns = xml_ns(x),
+  flatten = TRUE,
+  ...
+) {
   if (length(x) == 0) {
     return(xml_nodeset())
   }
 
-  res <- lapply(x, function(x) .Call(xpath_search, x$node, x$doc, xpath, ns, Inf))
+  res <- lapply(x, function(x) {
+    .Call(xpath_search, x$node, x$doc, xpath, ns, Inf)
+  })
 
   if (isTRUE(flatten)) {
     return(xml_nodeset(unlist(recursive = FALSE, res)))

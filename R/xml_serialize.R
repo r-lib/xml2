@@ -22,7 +22,14 @@ xml_serialize.xml_document <- function(object, connection, ...) {
     connection <- file(connection, "w", raw = TRUE)
     on.exit(close(connection))
   }
-  serialize(structure(as.character(object, ...), doc_type = doc_type(object), class = "xml_serialized_document"), connection)
+  serialize(
+    structure(
+      as.character(object, ...),
+      doc_type = doc_type(object),
+      class = "xml_serialized_document"
+    ),
+    connection
+  )
 }
 
 #' @export
@@ -32,7 +39,10 @@ xml_serialize.xml_node <- function(object, connection, ...) {
     on.exit(close(connection))
   }
   x <- as_xml_document(object)
-  serialize(structure(as.character(x, ...), class = "xml_serialized_node"), connection)
+  serialize(
+    structure(as.character(x, ...), class = "xml_serialized_node"),
+    connection
+  )
 }
 
 #' @export
@@ -42,7 +52,10 @@ xml_serialize.xml_nodeset <- function(object, connection, ...) {
     on.exit(close(connection))
   }
   x <- as_xml_document(object, "root")
-  serialize(structure(as.character(x, ...), class = "xml_serialized_nodeset"), connection)
+  serialize(
+    structure(as.character(x, ...), class = "xml_serialized_nodeset"),
+    connection
+  )
 }
 
 #' @rdname xml_serialize

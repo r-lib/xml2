@@ -16,9 +16,18 @@ test_that("xml_child() errors if more than one search is given", {
 
 test_that("xml_child() errors if search is not numeric or character", {
   expect_error(xml_child(x, TRUE), "`search` must be `numeric` or `character`")
-  expect_error(xml_child(x, as.factor("test")), "`search` must be `numeric` or `character`")
-  expect_error(xml_child(x, raw(1)), "`search` must be `numeric` or `character`")
-  expect_error(xml_child(x, list(1)), "`search` must be `numeric` or `character`")
+  expect_error(
+    xml_child(x, as.factor("test")),
+    "`search` must be `numeric` or `character`"
+  )
+  expect_error(
+    xml_child(x, raw(1)),
+    "`search` must be `numeric` or `character`"
+  )
+  expect_error(
+    xml_child(x, list(1)),
+    "`search` must be `numeric` or `character`"
+  )
 })
 
 test_that("xml_length", {
