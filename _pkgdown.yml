@@ -6,57 +6,58 @@ template:
 
   includes:
     in_header: |
+      <script src="https://cdn.jsdelivr.net/gh/posit-dev/supported-by-posit/js/badge.min.js" data-max-height="43" data-light-bg="#666f76" data-light-fg="#f9f9f9"></script>
       <script defer data-domain="xml2.r-lib.org,all.tidyverse.org" src="https://plausible.io/js/plausible.js"></script>
 
 development:
   mode: auto
 
 reference:
-  - title: Read and write documents
-    contents:
-    - starts_with("read_")
-    - starts_with("write_")
-    - starts_with("download_")
+- title: Read and write documents
+  contents:
+  - starts_with("read_")
+  - starts_with("write_")
+  - starts_with("download_")
 
-  - title: Class coercion
-    contents:
-    - starts_with("as_")
+- title: Class coercion
+  contents:
+  - starts_with("as_")
 
-  - title: URL manipulation
-    contents:
-    - starts_with("url_")
+- title: URL manipulation
+  contents:
+  - starts_with("url_")
 
-  - title: Create and modify and document
-    contents:
-    - starts_with("xml_new")
-    - starts_with("xml_add")
-    - starts_with("xml_set")
-    - xml_cdata
-    - xml_comment
-    - xml_dtd
-    - xml_ns_strip
-    - xml_replace
-    - xml_remove
+- title: Create and modify and document
+  contents:
+  - starts_with("xml_new")
+  - starts_with("xml_add")
+  - starts_with("xml_set")
+  - xml_cdata
+  - xml_comment
+  - xml_dtd
+  - xml_ns_strip
+  - xml_replace
+  - xml_remove
 
-  - title: Search and navigate a document
-    contents:
-    - starts_with("xml_find")
-    - starts_with("xml_attr")
-    - xml_path
+- title: Search and navigate a document
+  contents:
+  - starts_with("xml_find")
+  - starts_with("xml_attr")
+  - xml_path
 
-  - title: Inspect a document
-    contents:
-    - starts_with("xml_ns")
-    - xml_children
-    - ends_with("structure")
-    - xml_type
-    - xml_url
-    - xml_validate
+- title: Inspect a document
+  contents:
+  - starts_with("xml_ns")
+  - xml_children
+  - ends_with("structure")
+  - xml_type
+  - xml_url
+  - xml_validate
 
-  - title: Utilities
-    contents:
-    - ends_with("serialize")
-    - xml2_example
+- title: Utilities
+  contents:
+  - ends_with("serialize")
+  - xml2_example
 
 news:
   releases:
