@@ -1,3 +1,7 @@
+# xml2 1.4.1
+
+* Remove a test that broke with libxml2 2.15
+
 # xml2 1.4.0
 
 * read_html() now allows huge elements by default (#455) 
