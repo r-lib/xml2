@@ -1,6 +1,7 @@
 #include <Rinternals.h>
 #include <libxml/parser.h>
 #include <libxml/HTMLparser.h>
+#include <libxml/parserInternals.h>
 #include "xml2_types.h"
 #include "xml2_utils.h"
 #include <cstring>
@@ -178,6 +179,14 @@ extern "C" SEXP  xml_parse_options_() {
 #undef HAS_IGNORE_ENC
 }
 
+static xmlParserErrors myResourceLoader(void *ctxt, const char *url, const char *publicId,
+ xmlResourceType type, xmlParserInputFlags flags, xmlParserInput **out){
+  REprintf("Trying to load: %s\n", url);
+
+  //return XML_ERR_OK;
+  return XML_ERR_INTERNAL_ERROR;
+}
+
 // [[export]]
 extern "C" SEXP doc_parse_file(
     SEXP path_sxp,
@@ -189,6 +198,7 @@ extern "C" SEXP doc_parse_file(
   const char* encoding = CHAR(STRING_ELT(encoding_sxp, 0));
   bool as_html = LOGICAL(as_html_sxp)[0];
   int options = INTEGER(options_sxp)[0];
+
   xmlDoc* pDoc;
   if (as_html) {
     pDoc = htmlReadFile(
@@ -197,11 +207,14 @@ extern "C" SEXP doc_parse_file(
       options
     );
   } else {
-    pDoc = xmlReadFile(
+    xmlParserCtxtPtr ctxt = xmlCreateFileParserCtxt(path);
+    xmlCtxtSetResourceLoader(ctxt, myResourceLoader, NULL);
+    pDoc = xmlCtxtReadFile(ctxt,
       path,
       encoding[0] == '\0' ? NULL : encoding,
       options
     );
+    xmlFreeParserCtxt(ctxt);
   }
 
   if (pDoc == NULL) {
