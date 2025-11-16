@@ -13,6 +13,6 @@ xml_save_options <- function() {
 download_file_callback <- function(url){
   tmp <- tempfile()
   on.exit(unlink(tmp))
-  download.file(url, tmp, quiet = TRUE)
+  utils::download.file(url, tmp, quiet = TRUE)
   readBin(tmp, raw(), file.info(tmp)$size)
 }
