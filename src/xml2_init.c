@@ -51,6 +51,8 @@ void handleGenericError(void *ctx, const char *fmt, ...){
   Rf_error("%s", buffer);
 }
 
+#if LIBXML_VERSION >= 21500
+
 xmlParserInput *download_file_callback(const char *url){
   SEXP arg = PROTECT(Rf_mkString(url));
   SEXP expr = PROTECT(Rf_install("download_file_callback"));
@@ -78,6 +80,8 @@ static xmlParserInputPtr myExternalEntityLoader(const char *URL, const char *ID,
   return NULL;
 }
 
+#endif
+
 
 void init_libxml2_library(void) {
   // Check that header and libs are compatible
@@ -88,6 +92,8 @@ void init_libxml2_library(void) {
   xmlSetGenericErrorFunc(NULL, handleGenericError);
 
   // Set custom download callback
+#if LIBXML_VERSION >= 21500
   defaultLoader = xmlGetExternalEntityLoader();
   xmlSetExternalEntityLoader(myExternalEntityLoader);
+#endif
 }
