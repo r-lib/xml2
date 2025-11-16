@@ -225,7 +225,7 @@ rm(bees)
 gc()
 #>           used (Mb) gc trigger (Mb) max used (Mb)
 #> Ncells  649826 34.8    1470957 78.6  1288572 68.9
-#> Vcells 1165065  8.9    8388608 64.0  2656491 20.3
+#> Vcells 1165069  8.9    8388608 64.0  2656491 20.3
 ```
 
 ### Namespaces
