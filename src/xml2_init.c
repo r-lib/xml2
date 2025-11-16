@@ -4,6 +4,8 @@
 #include <libxml/parser.h>
 #include <string.h>
 
+static xmlExternalEntityLoader defaultLoader = NULL;
+
 /* * *
  * Author: Nick Wellnhofer <wellnhofer@aevum.de>
  * Date:   Tue, 24 Oct 2023 15:02:36 +0200
@@ -49,6 +51,38 @@ void handleGenericError(void *ctx, const char *fmt, ...){
   Rf_error("%s", buffer);
 }
 
+#if LIBXML_VERSION >= 21500
+
+xmlParserInput *download_file_callback(const char *url){
+  SEXP arg = PROTECT(Rf_mkString(url));
+  SEXP expr = PROTECT(Rf_install("download_file_callback"));
+  SEXP call = PROTECT(Rf_lang2(expr, arg));
+  SEXP env = R_FindNamespace(Rf_mkString("xml2"));
+  int err = 1;
+  SEXP out = PROTECT(R_tryEvalSilent(call, env, &err));
+  if(err) return NULL;
+  xmlParserInputFlags flags = XML_INPUT_BUF_STATIC | XML_INPUT_USE_SYS_CATALOG;
+  xmlParserInput *buf = xmlNewInputFromMemory(url, RAW(out), Rf_length(out), flags);
+  //xmlParserInputBuffer *buf = xmlParserInputBufferCreateMem((char*) RAW(out), Rf_length(out), XML_CHAR_ENCODING_UTF8);
+  UNPROTECT(4);
+  return buf;
+}
+
+static xmlParserInputPtr myExternalEntityLoader(const char *URL, const char *ID, xmlParserCtxtPtr ctxt){
+  if (URL && (strncmp(URL, "http://", 7) == 0 || strncmp(URL, "https://", 8) == 0)) {
+    //REprintf("Fetching external resource %s\n", URL);
+    xmlParserInput *buf = download_file_callback(URL);
+    if(buf) return buf;
+  }
+  // Fallback to default behavior
+  if (defaultLoader)
+    return defaultLoader(URL, ID, ctxt);
+  return NULL;
+}
+
+#endif
+
+
 void init_libxml2_library(void) {
   // Check that header and libs are compatible
   LIBXML_TEST_VERSION
@@ -56,5 +90,10 @@ void init_libxml2_library(void) {
   xmlInitParser();
   xmlSetStructuredErrorFunc(NULL, handleStructuredError);
   xmlSetGenericErrorFunc(NULL, handleGenericError);
-}
 
+  // Set custom download callback
+#if LIBXML_VERSION >= 21500
+  defaultLoader = xmlGetExternalEntityLoader();
+  xmlSetExternalEntityLoader(myExternalEntityLoader);
+#endif
+}

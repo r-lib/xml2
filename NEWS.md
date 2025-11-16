@@ -1,3 +1,7 @@
+# xml2 1.5.0
+
+* Experimental custom myExternalEntityLoader on libxml2 2.15 and up.
+
 # xml2 1.4.1
 
 * Remove a test that broke with libxml2 2.15
