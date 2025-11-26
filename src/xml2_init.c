@@ -28,8 +28,11 @@ void handleStructuredError(void* userData, xmlError* error) {
 #ifdef __APPLE__
   xmlParserCtxt *ctxt = error->ctxt;
   static unsigned char icns[5] = { 'i', 'c', 'n', 's', '\0' };
-  if(error->code == XML_ERR_DOCUMENT_EMPTY && ctxt->input && ctxt->input->base && xmlStrcmp(ctxt->input->base, icns) == 0){
-    return;
+  static unsigned char mm[3] = { 'M', 'M', '\0' };
+  if(error->code == XML_ERR_DOCUMENT_EMPTY && ctxt->input && ctxt->input->base){
+    if(!xmlStrcmp(ctxt->input->base, icns) || !xmlStrcmp(ctxt->input->base, mm)){
+      return;
+    }
   }
 #endif
 
