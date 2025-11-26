@@ -2,6 +2,8 @@
 
 ## xml2 1.5.0
 
+CRAN release: 2025-11-17
+
 - Experimental custom myExternalEntityLoader on libxml2 2.15 and up.
 
 ## xml2 1.4.1
