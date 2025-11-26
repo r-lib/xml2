@@ -13,3 +13,6 @@ windows
 docs/
 Makefile
 configure.log
+.deps
+autobrew
+
