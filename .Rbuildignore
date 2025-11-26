@@ -27,3 +27,5 @@ windows
 ^configure.log$
 ^[.]?air[.]toml$
 ^\.vscode$
+^\.deps$
+autobrew

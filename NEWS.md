@@ -1,3 +1,7 @@
+# xml2 1.5.1
+
+* Avoid shared libxml2 on MacOS because this reveals bugs in R.app (#471)
+
 # xml2 1.5.0
 
 * Experimental custom myExternalEntityLoader on libxml2 2.15 and up.
