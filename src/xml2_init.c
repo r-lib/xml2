@@ -4,8 +4,6 @@
 #include <libxml/parser.h>
 #include <string.h>
 
-static xmlExternalEntityLoader defaultLoader = NULL;
-
 /* * *
  * Author: Nick Wellnhofer <wellnhofer@aevum.de>
  * Date:   Tue, 24 Oct 2023 15:02:36 +0200
@@ -55,6 +53,8 @@ void handleGenericError(void *ctx, const char *fmt, ...){
 }
 
 #if LIBXML_VERSION >= 21500
+
+static xmlExternalEntityLoader defaultLoader = NULL;
 
 xmlParserInput *download_file_callback(const char *url){
   SEXP arg = PROTECT(Rf_mkString(url));
