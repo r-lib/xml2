@@ -1,5 +1,10 @@
 # Changelog
 
+## xml2 1.5.1
+
+- Avoid shared libxml2 on MacOS because this reveals bugs in R.app
+  ([\#471](https://github.com/r-lib/xml2/issues/471))
+
 ## xml2 1.5.0
 
 CRAN release: 2025-11-17

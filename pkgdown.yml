@@ -3,7 +3,7 @@ pkgdown: 2.2.0
 pkgdown_sha: ~
 articles:
   modification: modification.html
-last_built: 2025-11-26T12:25Z
+last_built: 2025-11-26T13:57Z
 urls:
   reference: http://xml2.r-lib.org/reference
   article: http://xml2.r-lib.org/articles
