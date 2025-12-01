@@ -22,7 +22,8 @@ void handleStructuredError(void* userData, xmlError* error) {
     error->message[len-1] = '\0';
   }
 
-  //Workaround for https://github.com/r-lib/xml2/issues/458
+  //Workarounds for xml bugs in R.app https://github.com/r-lib/xml2/issues/458
+  //Another solution is to use a static libxml2
 #ifdef __APPLE__
   xmlParserCtxt *ctxt = error->ctxt;
   static unsigned char icns[5] = { 'i', 'c', 'n', 's', '\0' };
