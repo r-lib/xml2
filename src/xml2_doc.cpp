@@ -1,5 +1,7 @@
 #include <Rinternals.h>
+#include <libxml/encoding.h> // xmlCharEncoding, xmlGetCharEncodingName, xmlParseCharEncoding
 #include <libxml/parser.h>
+#include <libxml/xmlstring.h> // xmlChar, xmlStrdup
 #include <libxml/HTMLparser.h>
 #include "xml2_types.h"
 #include "xml2_utils.h"
