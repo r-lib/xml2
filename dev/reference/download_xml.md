@@ -5,7 +5,7 @@ with added support for https, ftps, gzip, etc. Default behavior is
 identical to
 [`download.file()`](https://rdrr.io/r/utils/download.file.html), but
 request can be fully configured by passing a custom
-[`curl::handle()`](https://rdrr.io/pkg/curl/man/handle.html).
+[`curl::handle()`](https://jeroen.r-universe.dev/curl/reference/handle.html).
 
 ## Usage
 
@@ -66,12 +66,12 @@ The `curl_download` function does support resuming and removes the
 temporary file if the download did not complete successfully. For a more
 advanced download interface which supports concurrent requests and
 resuming large files, have a look at the
-[multi_download](https://rdrr.io/pkg/curl/man/multi_download.html)
+[multi_download](https://jeroen.r-universe.dev/curl/reference/multi_download.html)
 function.
 
 ## See also
 
-[curl_download](https://rdrr.io/pkg/curl/man/curl_download.html)
+[curl_download](https://jeroen.r-universe.dev/curl/reference/curl_download.html)
 
 ## Examples
 

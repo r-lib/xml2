@@ -49,7 +49,8 @@ read_xml(
   A string can be either a path, a url or literal xml. Urls will be
   converted into connections either using
   [`base::url`](https://rdrr.io/r/base/connections.html) or, if
-  installed, [`curl::curl`](https://rdrr.io/pkg/curl/man/curl.html).
+  installed,
+  [`curl::curl`](https://jeroen.r-universe.dev/curl/reference/curl.html).
   Local paths ending in `.gz`, `.bz2`, `.xz`, `.zip` will be
   automatically uncompressed.
 
