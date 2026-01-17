@@ -53,7 +53,7 @@ void handleGenericError(void *ctx, const char *fmt, ...){
   Rf_error("%s", buffer);
 }
 
-#if LIBXML_VERSION >= 21500
+#if LIBXML_VERSION >= 21404
 
 static xmlExternalEntityLoader defaultLoader = NULL;
 
@@ -65,7 +65,10 @@ xmlParserInput *download_file_callback(const char *url){
   int err = 1;
   SEXP out = PROTECT(R_tryEvalSilent(call, env, &err));
   if(err) return NULL;
-  xmlParserInputFlags flags = XML_INPUT_BUF_STATIC | XML_INPUT_USE_SYS_CATALOG;
+  xmlParserInputFlags flags = XML_INPUT_BUF_STATIC;
+#if LIBXML_VERSION >= 21500
+  flags |= XML_INPUT_USE_SYS_CATALOG;
+#endif
   xmlParserInput *buf = xmlNewInputFromMemory(url, RAW(out), Rf_length(out), flags);
   //xmlParserInputBuffer *buf = xmlParserInputBufferCreateMem((char*) RAW(out), Rf_length(out), XML_CHAR_ENCODING_UTF8);
   UNPROTECT(4);
@@ -96,7 +99,7 @@ void init_libxml2_library(void) {
   xmlSetGenericErrorFunc(NULL, handleGenericError);
 
   // Set custom download callback
-#if LIBXML_VERSION >= 21500
+#if LIBXML_VERSION >= 21404
   defaultLoader = xmlGetExternalEntityLoader();
   xmlSetExternalEntityLoader(myExternalEntityLoader);
 #endif
