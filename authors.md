@@ -19,13 +19,13 @@
 Source:
 [`DESCRIPTION`](https://github.com/r-lib/xml2/blob/main/DESCRIPTION)
 
-Wickham H, Hester J, Ooms J (2025). *xml2: Parse XML*. R package version
-1.5.1, <https://xml2.r-lib.org>.
+Wickham H, Hester J, Ooms J (2026). *xml2: Parse XML*. R package version
+1.5.2, <https://xml2.r-lib.org>.
 
     @Manual{,
       title = {xml2: Parse XML},
       author = {Hadley Wickham and Jim Hester and Jeroen Ooms},
-      year = {2025},
-      note = {R package version 1.5.1},
+      year = {2026},
+      note = {R package version 1.5.2},
       url = {https://xml2.r-lib.org},
     }
