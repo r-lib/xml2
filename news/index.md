@@ -2,6 +2,8 @@
 
 ## xml2 1.5.2
 
+CRAN release: 2026-01-17
+
 - Enable the myExternalEntityLoader also on libxml 2.14.4 for MacOS
 
 ## xml2 1.5.1

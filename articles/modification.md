@@ -198,8 +198,8 @@ xml_remove(x1)
 rm(x1)
 gc()
 #>           used (Mb) gc trigger (Mb) max used (Mb)
-#> Ncells  650329 34.8    1473617 78.7  1297985 69.4
-#> Vcells 1166066  8.9    8388608 64.0  2678610 20.5
+#> Ncells  650330 34.8    1473568 78.7  1297940 69.4
+#> Vcells 1166067  8.9    8388608 64.0  2674512 20.5
 
 x2
 #> {xml_node}
@@ -224,8 +224,8 @@ xml_remove(xml_child(x), free = TRUE)
 rm(bees)
 gc()
 #>           used (Mb) gc trigger (Mb) max used (Mb)
-#> Ncells  650392 34.8    1473617 78.7  1297985 69.4
-#> Vcells 1166310  8.9    8388608 64.0  2678610 20.5
+#> Ncells  650393 34.8    1473568 78.7  1297940 69.4
+#> Vcells 1166311  8.9    8388608 64.0  2674512 20.5
 ```
 
 ### Namespaces
