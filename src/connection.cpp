@@ -1,4 +1,6 @@
 #include <Rinternals.h>
+#include <algorithm> // std::copy
+#include <cstddef> // size_t
 #include <iterator>
 #include <vector>
 #include "xml2_utils.h"

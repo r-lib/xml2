@@ -1,9 +1,14 @@
+#include <R_ext/Arith.h> // R_PosInf
+#include <R_ext/Error.h> // Rf_error
 #include <Rinternals.h>
+#include <libxml/xmlstring.h> // xmlChar
 #include <libxml/xpath.h>
 #include <libxml/xpathInternals.h>
 #include <libxml/tree.h>
 #include "xml2_types.h"
 #include <algorithm>
+#include <climits> // INT_MAX
+#include <cstddef> // NULL
 
 class XmlSeeker {
   xmlXPathContext* context_;

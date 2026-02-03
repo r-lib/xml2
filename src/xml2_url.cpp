@@ -1,5 +1,11 @@
+#include <R_ext/Arith.h> // NA_INTEGER
+#include <R_ext/Error.h> // Rf_error
 #include <Rinternals.h>
 #include <libxml/uri.h>
+#include <libxml/xmlmemory.h> // xmlFree
+#include <libxml/xmlstring.h> // xmlChar
+#include <libxml/xmlversion.h> // LIBXML_VERSION
+#include <cstddef> // NULL
 #include "xml2_utils.h"
 
 // [[export]]

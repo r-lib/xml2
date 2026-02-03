@@ -1,8 +1,12 @@
 #ifndef __XML2_XML_UTILS__
 #define __XML2_XML_UTILS__
 
+#include <R_ext/Error.h> // Rf_error
 #include <Rinternals.h>
 #include <libxml/tree.h>
+#include <libxml/xmlmemory.h> // xmlFree
+#include <libxml/xmlstring.h> // xmlChar
+#include <cstddef> // NULL, size_t
 #include <map>
 #include <string>
 

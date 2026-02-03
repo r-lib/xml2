@@ -1,10 +1,13 @@
+#include <R_ext/Error.h> // Rf_error
+#include <R_ext/Arith.h> // NA_INTEGER
 #include <Rinternals.h>
 #include <libxml/tree.h>
-#include <fstream>
-#include <sstream>
-#include <vector>
-#include <string>
+#include <libxml/xmlstring.h> // xmlChar, xmlStrEqual
+#include <algorithm> // std::equal
+#include <cstddef> // NULL, size_t
 #include <set>
+#include <string>
+#include <vector>
 
 #include "xml2_types.h"
 #include "xml2_utils.h"

@@ -1,7 +1,12 @@
+#include <R_ext/Error.h> // Rf_error
 #include <Rinternals.h>
 #include <libxml/tree.h>
 #include <libxml/HTMLtree.h>
+#include <libxml/xmlIO.h> // xmlOutputWriteCallback
+#include <libxml/xmlmemory.h> // xmlFree
 #include <libxml/xmlsave.h>
+#include <libxml/xmlversion.h> // LIBXML_VERSION
+#include <cstddef> // NULL, size_t
 
 #include "connection.h"
 #include "xml2_types.h"

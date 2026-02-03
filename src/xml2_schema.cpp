@@ -1,5 +1,8 @@
 #include <Rinternals.h>
+#include <libxml/xmlerror.h> // xmlError
 #include <libxml/xmlschemas.h>
+#include <libxml/xmlversion.h> // LIBXML_VERSION
+#include <cstddef> // size_t
 #include <vector>
 #include <string>
 

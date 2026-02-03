@@ -1,11 +1,14 @@
+#include <R_ext/Error.h> // Rf_error
 #include <Rinternals.h>
 #include <libxml/encoding.h> // xmlCharEncoding, xmlGetCharEncodingName, xmlParseCharEncoding
 #include <libxml/parser.h>
 #include <libxml/xmlstring.h> // xmlChar, xmlStrdup
+#include <libxml/xmlversion.h> // LIBXML_VERSION
 #include <libxml/HTMLparser.h>
 #include "xml2_types.h"
 #include "xml2_utils.h"
 #include <cstring>
+#include <string> // std::string
 
 // [[export]]
 extern "C" SEXP  xml_parse_options_() {

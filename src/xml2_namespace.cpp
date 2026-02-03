@@ -1,5 +1,8 @@
+#include <R_ext/Error.h> // Rf_error
 #include <Rinternals.h>
 #include <libxml/tree.h>
+#include <libxml/xmlversion.h> // LIBXML_DOTTED_VERSION
+#include <cstddef> // NULL
 
 #include "xml2_types.h"
 #include "xml2_utils.h"

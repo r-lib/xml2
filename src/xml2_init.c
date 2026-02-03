@@ -1,7 +1,10 @@
+#include <R_ext/Error.h> // Rf_error, Rf_warning
 #include <Rinternals.h>
 #include <libxml/xmlversion.h>
 #include <libxml/xmlerror.h>
 #include <libxml/parser.h>
+#include <stdarg.h> // va_start
+#include <stdio.h> // BUFSIZ, vsnprintf
 #include <string.h>
 
 /* * *

@@ -1,5 +1,6 @@
 #include <Rinternals.h>
 #include <stdlib.h> // for NULL
+#include <R_ext/Boolean.h> // FALSE
 #include <R_ext/Rdynload.h>
 #include <R_ext/Visibility.h>
 
