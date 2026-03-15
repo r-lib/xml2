@@ -70,5 +70,4 @@ Collate:
     'xml_type.R'
     'xml_url.R'
     'xml_write.R'
-    'zzz.R'
 Config/testthat/edition: 3
