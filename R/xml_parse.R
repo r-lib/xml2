@@ -30,7 +30,9 @@
 #' @param encoding Specify a default encoding for the document. Unless
 #'   otherwise specified XML documents are assumed to be in UTF-8 or
 #'   UTF-16. If the document is not UTF-8/16, and lacks an explicit
-#'   encoding directive, this allows you to supply a default.
+#'   encoding directive, this allows you to supply a default. For
+#'   `read_html()` the default is `"UTF-8"` since the vast majority of
+#'   modern web pages are UTF-8 encoded.
 #' @param ... Additional arguments passed on to methods.
 #' @param as_html Optionally parse an xml file as if it's html.
 #' @param base_url When loading from a connection, raw vector or literal
@@ -74,7 +76,7 @@ read_xml <- function(
 #' @rdname read_xml
 read_html <- function(
   x,
-  encoding = "",
+  encoding = "UTF-8",
   ...,
   options = c("RECOVER", "NOERROR", "NOBLANKS", "HUGE")
 ) {
@@ -84,7 +86,7 @@ read_html <- function(
 #' @export
 read_html.default <- function(
   x,
-  encoding = "",
+  encoding = "UTF-8",
   ...,
   options = c("RECOVER", "NOERROR", "NOBLANKS", "HUGE")
 ) {
@@ -102,7 +104,7 @@ read_html.default <- function(
 #' @export
 read_html.response <- function(
   x,
-  encoding = "",
+  encoding = "UTF-8",
   options = c("RECOVER", "NOERROR", "NOBLANKS"),
   ...
 ) {

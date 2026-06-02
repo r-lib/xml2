@@ -1,5 +1,8 @@
 # xml2 1.5.2
 
+* `read_html()` now defaults to `encoding = "UTF-8"` to prevent double-encoding
+  of UTF-8 content on Windows with codepage 65001 (#490).
+
 * Enable the myExternalEntityLoader also on libxml 2.14.4 for MacOS
 
 # xml2 1.5.1
