@@ -7,8 +7,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Node Modification • xml2</title>
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/Source_Sans_Pro-0.4.10/font.css" rel="stylesheet">
+<link href="../deps/bootstrap-5.3.8/bootstrap.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="../deps/Source_Sans_Pro-0.4.10/font.css" rel="stylesheet">
 <link href="../deps/Source_Code_Pro-0.4.10/font.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
@@ -71,7 +71,7 @@
       <h1>Node Modification</h1>
                         <h4 data-toc-skip class="author">Jim Hester</h4>
             
-            <h4 data-toc-skip class="date">2026-03-15</h4>
+            <h4 data-toc-skip class="date">2026-06-02</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/r-lib/xml2/blob/main/vignettes/modification.Rmd" class="external-link"><code>vignettes/modification.Rmd</code></a></small>
       <div class="d-none name"><code>modification.Rmd</code></div>
@@ -272,8 +272,8 @@ objects pointing to the node are still valid.</p>
 <span><span class="fu"><a href="https://rdrr.io/r/base/rm.html" class="external-link">rm</a></span><span class="op">(</span><span class="va">x1</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/gc.html" class="external-link">gc</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt;           used (Mb) gc trigger (Mb) max used (Mb)</span></span>
-<span><span class="co">#&gt; Ncells  650552 34.8    1474447 78.8  1300770 69.5</span></span>
-<span><span class="co">#&gt; Vcells 1166399  8.9    8388608 64.0  2702743 20.7</span></span>
+<span><span class="co">#&gt; Ncells  654763   35    1479134   79  1320523 70.6</span></span>
+<span><span class="co">#&gt; Vcells 1172100    9    8388608   64  2708490 20.7</span></span>
 <span></span>
 <span><span class="va">x2</span></span>
 <span><span class="co">#&gt; {xml_node}</span></span>
@@ -296,19 +296,19 @@ for example</p>
 <span><span class="fu"><a href="https://rdrr.io/r/base/rm.html" class="external-link">rm</a></span><span class="op">(</span><span class="va">bees</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/gc.html" class="external-link">gc</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt;           used (Mb) gc trigger (Mb) max used (Mb)</span></span>
-<span><span class="co">#&gt; Ncells  650615 34.8    1474447 78.8  1300770 69.5</span></span>
-<span><span class="co">#&gt; Vcells 1166643  9.0    8388608 64.0  2702743 20.7</span></span></code></pre></div>
+<span><span class="co">#&gt; Ncells  654823   35    1479134   79  1320523 70.6</span></span>
+<span><span class="co">#&gt; Vcells 1172339    9    8388608   64  2708490 20.7</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="namespaces">Namespaces<a class="anchor" aria-label="anchor" href="#namespaces"></a>
 </h3>
 <p>We want to construct a document with the following namespace layout.
 (From <a href="https://stackoverflow.com/questions/32939229/creating-xml-in-r-with-namespaces/32941524#32941524" class="external-link uri">https://stackoverflow.com/questions/32939229/creating-xml-in-r-with-namespaces/32941524#32941524</a>).</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="fu">&lt;?xml</span><span class="ot"> version</span> <span class="ot">=</span> <span class="st">"1.0"</span><span class="ot"> encoding=</span><span class="st">"UTF-8"</span><span class="fu">?&gt;</span></span>
-<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a>&lt;<span class="kw">sld</span><span class="ot"> xmlns=</span><span class="st">"http://www.opengis.net/sld"</span></span>
-<span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a><span class="ot">     xmlns:ogc=</span><span class="st">"http://www.opengis.net/ogc"</span></span>
-<span id="cb9-4"><a href="#cb9-4" tabindex="-1"></a><span class="ot">     xmlns:se=</span><span class="st">"http://www.opengis.net/se"</span></span>
-<span id="cb9-5"><a href="#cb9-5" tabindex="-1"></a><span class="ot">     version=</span><span class="st">"1.1.0"</span> &gt;</span>
+<div class="sourceCode" id="cb9"><pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="fu">&lt;?xml</span> <span class="ot">version</span> <span class="ot">=</span> <span class="st">"1.0"</span> <span class="ot">encoding=</span><span class="st">"UTF-8"</span><span class="fu">?&gt;</span></span>
+<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a>&lt;<span class="kw">sld</span> <span class="ot">xmlns=</span><span class="st">"http://www.opengis.net/sld"</span></span>
+<span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a>     <span class="ot">xmlns:ogc=</span><span class="st">"http://www.opengis.net/ogc"</span></span>
+<span id="cb9-4"><a href="#cb9-4" tabindex="-1"></a>     <span class="ot">xmlns:se=</span><span class="st">"http://www.opengis.net/se"</span></span>
+<span id="cb9-5"><a href="#cb9-5" tabindex="-1"></a>     <span class="ot">version=</span><span class="st">"1.1.0"</span> &gt;</span>
 <span id="cb9-6"><a href="#cb9-6" tabindex="-1"></a>&lt;<span class="kw">layer</span>&gt;</span>
 <span id="cb9-7"><a href="#cb9-7" tabindex="-1"></a>&lt;<span class="kw">se:Name</span>&gt;My Layer&lt;/<span class="kw">se:Name</span>&gt;</span>
 <span id="cb9-8"><a href="#cb9-8" tabindex="-1"></a>&lt;/<span class="kw">layer</span>&gt;</span>
