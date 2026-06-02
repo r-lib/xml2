@@ -115,6 +115,15 @@ test_that("read_html works with non-ASCII encodings", {
   )
 })
 
+test_that("read_html defaults to UTF-8 encoding for raw bytes", {
+  # Regression test: UTF-8 HTML passed as raw bytes should not be double-encoded
+  # (previously broken on Windows codepage 65001 when encoding defaulted to "")
+  html_utf8 <- charToRaw("<html><body>\u00c4pfel</body></html>")
+  res <- read_html(html_utf8)
+  expect_equal(xml_text(xml_find_first(res, "//body")), "\u00c4pfel")
+})
+
+
 test_that("read_xml and read_html fail with > 1 input", {
   expect_snapshot(error = TRUE, {
     read_xml(c("foo", "bar"))
