@@ -62,21 +62,23 @@ public:
           SET_STRING_ELT(names, 0, Rf_mkChar("node"));
           SET_STRING_ELT(names, 1, Rf_mkChar("doc"));
 
+          SEXP xml_node_class = PROTECT(Rf_mkString("xml_node"));
+
           for (int i = 0; i < n; i++) {
             SEXP ret = PROTECT(Rf_allocVector(VECSXP, 2));
 
-            SET_VECTOR_ELT(ret, 0, XPtrNode(nodes->nodeTab[i]));
+            SET_VECTOR_ELT(ret, 0, R_MakeExternalPtr((void*) nodes->nodeTab[i], R_NilValue, R_NilValue));
             SET_VECTOR_ELT(ret, 1, doc_);
 
             Rf_setAttrib(ret, R_NamesSymbol, names);
-            Rf_setAttrib(ret, R_ClassSymbol, Rf_mkString("xml_node"));
+            Rf_setAttrib(ret, R_ClassSymbol, xml_node_class);
 
             SET_VECTOR_ELT(out, i, ret);
 
             UNPROTECT(1);
           }
 
-          UNPROTECT(2);
+          UNPROTECT(3);
           return out;
         }
       case XPATH_NUMBER: { return Rf_ScalarReal(result_->floatval); }
