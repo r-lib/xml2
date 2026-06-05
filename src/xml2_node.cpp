@@ -5,6 +5,8 @@
 #include <vector>
 #include <string>
 #include <set>
+#include <map>
+#include <cstdio>
 
 #include "xml2_types.h"
 #include "xml2_utils.h"
@@ -777,6 +779,227 @@ SEXP node_path_impl(SEXP x) {
   return out;
 }
 
+static bool path_same_namespace_name(const xmlNode* cur, const xmlNode* other, bool generic) {
+  if (other->type != XML_ELEMENT_NODE) {
+    return false;
+  }
+
+  if (generic) {
+    return true;
+  }
+
+  if (!xmlStrEqual(cur->name, other->name)) {
+    return false;
+  }
+
+  return (other->ns == cur->ns) ||
+    (other->ns != NULL && cur->ns != NULL &&
+     xmlStrEqual(other->ns->prefix, cur->ns->prefix));
+}
+
+static int path_node_occurrence(const xmlNode* cur) {
+  const xmlNode* tmp;
+  int occur = 0;
+
+  switch (cur->type) {
+  case XML_ELEMENT_NODE: {
+    bool generic = cur->ns && cur->ns->prefix == NULL;
+
+    for (tmp = cur->prev; tmp != NULL; tmp = tmp->prev) {
+      if (path_same_namespace_name(cur, tmp, generic)) {
+        occur++;
+      }
+    }
+
+    if (occur == 0) {
+      for (tmp = cur->next; tmp != NULL && occur == 0; tmp = tmp->next) {
+        if (path_same_namespace_name(cur, tmp, generic)) {
+          occur++;
+        }
+      }
+      if (occur != 0) {
+        occur = 1;
+      }
+    } else {
+      occur++;
+    }
+    break;
+  }
+  case XML_COMMENT_NODE:
+    for (tmp = cur->prev; tmp != NULL; tmp = tmp->prev) {
+      if (tmp->type == XML_COMMENT_NODE) {
+        occur++;
+      }
+    }
+
+    if (occur == 0) {
+      for (tmp = cur->next; tmp != NULL && occur == 0; tmp = tmp->next) {
+        if (tmp->type == XML_COMMENT_NODE) {
+          occur++;
+        }
+      }
+      if (occur != 0) {
+        occur = 1;
+      }
+    } else {
+      occur++;
+    }
+    break;
+  case XML_TEXT_NODE:
+  case XML_CDATA_SECTION_NODE:
+    for (tmp = cur->prev; tmp != NULL; tmp = tmp->prev) {
+      if (tmp->type == XML_TEXT_NODE || tmp->type == XML_CDATA_SECTION_NODE) {
+        occur++;
+      }
+    }
+
+    if (occur == 0) {
+      for (tmp = cur->next; tmp != NULL; tmp = tmp->next) {
+        if (tmp->type == XML_TEXT_NODE || tmp->type == XML_CDATA_SECTION_NODE) {
+          occur = 1;
+          break;
+        }
+      }
+    } else {
+      occur++;
+    }
+    break;
+  case XML_PI_NODE:
+    for (tmp = cur->prev; tmp != NULL; tmp = tmp->prev) {
+      if (tmp->type == XML_PI_NODE && xmlStrEqual(cur->name, tmp->name)) {
+        occur++;
+      }
+    }
+
+    if (occur == 0) {
+      for (tmp = cur->next; tmp != NULL && occur == 0; tmp = tmp->next) {
+        if (tmp->type == XML_PI_NODE && xmlStrEqual(cur->name, tmp->name)) {
+          occur++;
+        }
+      }
+      if (occur != 0) {
+        occur = 1;
+      }
+    } else {
+      occur++;
+    }
+    break;
+  default:
+    break;
+  }
+
+  return occur;
+}
+
+static bool path_node_segment(const xmlNode* cur, std::string* segment) {
+  switch (cur->type) {
+  case XML_ELEMENT_NODE:
+    *segment += "/";
+    if (cur->ns) {
+      if (cur->ns->prefix != NULL) {
+        *segment += Xml2String(cur->ns->prefix).asStdString();
+        *segment += ":";
+        *segment += Xml2String(cur->name).asStdString();
+      } else {
+        *segment += "*";
+      }
+    } else {
+      *segment += Xml2String(cur->name).asStdString();
+    }
+    break;
+  case XML_COMMENT_NODE:
+    *segment += "/comment()";
+    break;
+  case XML_TEXT_NODE:
+  case XML_CDATA_SECTION_NODE:
+    *segment += "/text()";
+    break;
+  case XML_PI_NODE:
+    *segment += "/processing-instruction('";
+    *segment += Xml2String(cur->name).asStdString();
+    *segment += "')";
+    break;
+  case XML_ATTRIBUTE_NODE:
+    *segment += "/@";
+    if (cur->ns && cur->ns->prefix != NULL) {
+      *segment += Xml2String(cur->ns->prefix).asStdString();
+      *segment += ":";
+    }
+    *segment += Xml2String(cur->name).asStdString();
+    break;
+  default:
+    return false;
+  }
+
+  int occur = path_node_occurrence(cur);
+  if (occur > 0) {
+    char tmpbuf[30];
+    snprintf(tmpbuf, sizeof(tmpbuf), "[%d]", occur);
+    *segment += tmpbuf;
+  }
+
+  return true;
+}
+
+typedef std::map<const xmlNode*, std::string> NodePathCache;
+
+static bool path_cacheable_node(const xmlNode* node) {
+  return node->type == XML_DOCUMENT_NODE ||
+    node->type == XML_HTML_DOCUMENT_NODE ||
+    node->type == XML_ELEMENT_NODE;
+}
+
+static bool node_path_cached(const xmlNode* node, NodePathCache* cache, std::string* out) {
+  if (node == NULL || node->type == XML_NAMESPACE_DECL) {
+    return false;
+  }
+
+  bool cacheable = path_cacheable_node(node);
+  if (cacheable) {
+    NodePathCache::const_iterator cached = cache->find(node);
+    if (cached != cache->end()) {
+      *out = cached->second;
+      return true;
+    }
+  }
+
+  if (node->type == XML_DOCUMENT_NODE || node->type == XML_HTML_DOCUMENT_NODE) {
+    *out = "/";
+    (*cache)[node] = *out;
+    return true;
+  }
+
+  std::string parent_path;
+  const xmlNode* parent = node->parent;
+  if (parent != NULL &&
+      parent->type != XML_DOCUMENT_NODE &&
+      parent->type != XML_HTML_DOCUMENT_NODE) {
+    if (!node_path_cached(parent, cache, &parent_path)) {
+      return false;
+    }
+  }
+
+  std::string segment;
+  if (!path_node_segment(node, &segment)) {
+    return false;
+  }
+
+  *out = parent_path + segment;
+  if (cacheable) {
+    (*cache)[node] = *out;
+  }
+  return true;
+}
+
+static SEXP node_path_string(const xmlNode* node, NodePathCache* cache) {
+  std::string path;
+  if (node_path_cached(node, cache, &path)) {
+    return Rf_mkCharCE(path.c_str(), CE_UTF8);
+  }
+
+  return Xml2String(xmlGetNodePath(node)).asRString();
+}
+
 // [[export]]
 extern "C" SEXP node_path(SEXP x) {
   BEGIN_CPP
@@ -789,13 +1012,21 @@ extern "C" SEXP node_path(SEXP x) {
     return Rf_ScalarString(node_path_impl(x));
     break;
   case NodeType::nodeset: {
-    int n = Rf_xlength(x);
+    R_xlen_t n = Rf_xlength(x);
 
     SEXP out = PROTECT(Rf_allocVector(STRSXP, n));
+    NodePathCache cache;
 
-    for (int i = 0; i < n; ++i) {
+    for (R_xlen_t i = 0; i < n; ++i) {
       SEXP x_i = VECTOR_ELT(x, i);
-      SEXP name_i = node_path_impl(x_i);
+      SEXP name_i;
+      if (getNodeType(x_i) == NodeType::missing) {
+        name_i = NA_STRING;
+      } else {
+        SEXP node_sxp = VECTOR_ELT(x_i, 0);
+        XPtrNode node(node_sxp);
+        name_i = node_path_string(node.checked_get(), &cache);
+      }
       SET_STRING_ELT(out, i, name_i);
     }
 
