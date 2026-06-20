@@ -11,7 +11,10 @@
 #' @param .copy whether to copy the `.value` before replacing. If this is `FALSE`
 #'   then the node will be moved from it's current location.
 #' @param .where to add the new node, for `xml_add_child` the position
-#' after which to add, use `0` for the first child. For
+#' after which to add, use `0` for the first child. The default, `NULL`,
+#' appends after the last child without having to enumerate the existing
+#' children first, which keeps repeated appends fast (O(1) per call) even for
+#' nodes with many children. For
 #' `xml_add_sibling` either \sQuote{"before"} or \sQuote{"after"}
 #' indicating if the new node should be before or after `.x`.
 #' @param ... If named attributes or namespaces to set on the node, if unnamed
@@ -184,7 +187,7 @@ xml_add_child <- function(
   .x,
   .value,
   ...,
-  .where = length(xml_children(.x)),
+  .where = NULL,
   .copy = TRUE
 ) {
   UseMethod("xml_add_child")
@@ -195,24 +198,30 @@ xml_add_child.xml_node <- function(
   .x,
   .value,
   ...,
-  .where = length(xml_children(.x)),
+  .where = NULL,
   .copy = inherits(.value, "xml_node")
 ) {
   node <- create_node(.value, .parent = .x, .copy = .copy, ...)
 
-  if (.where == 0L) {
+  if (is.null(.where) || is.infinite(.where)) {
+    # Appending at the end is the common case, e.g. when building a document one
+    # child at a time. libxml2's append is O(1), but counting the existing
+    # children would otherwise make building a node with n children O(n^2). The
+    # `NULL` default short-circuits to the fast append path without counting at
+    # all.
+    .Call(node_append_child, .x$node, node$node)
+  } else if (.where == 0L) {
     if (.Call(node_has_children, .x$node, TRUE)) {
       .Call(node_prepend_child, .x$node, node$node)
     } else {
       .Call(node_append_child, .x$node, node$node)
     }
+  } else if (.where >= xml_length(.x)) {
+    # An explicit finite `.where` past the end also appends; xml_length()
+    # counts in C without materialising the children as R objects.
+    .Call(node_append_child, .x$node, node$node)
   } else {
-    num_children <- length(xml_children(.x))
-    if (.where >= num_children) {
-      .Call(node_append_child, .x$node, node$node)
-    } else {
-      .Call(node_append_sibling, xml_child(.x, search = .where)$node, node$node)
-    }
+    .Call(node_append_sibling, xml_child(.x, search = .where)$node, node$node)
   }
 
   invisible(node)
@@ -223,7 +232,7 @@ xml_add_child.xml_document <- function(
   .x,
   .value,
   ...,
-  .where = length(xml_children(.x)),
+  .where = NULL,
   .copy = inherits(.value, "xml_node")
 ) {
   if (inherits(.x, "xml_node")) {
@@ -245,7 +254,7 @@ xml_add_child.xml_nodeset <- function(
   .x,
   .value,
   ...,
-  .where = length(xml_children(.x)),
+  .where = NULL,
   .copy = TRUE
 ) {
   if (length(.x) == 0) {
@@ -257,7 +266,14 @@ xml_add_child.xml_nodeset <- function(
     .value <- list(.value)
   }
 
-  res <- Map(xml_add_child, .x, .value, ..., .where = .where, .copy = .copy)
+  # `.where = NULL` must not be forwarded as a Map() argument: Map() would
+  # treat it as a zero-length vector to recycle over and drop every element.
+  # Letting each call fall back to its own NULL default appends, as intended.
+  if (is.null(.where)) {
+    res <- Map(xml_add_child, .x, .value, ..., .copy = .copy)
+  } else {
+    res <- Map(xml_add_child, .x, .value, ..., .where = .where, .copy = .copy)
+  }
   invisible(make_nodeset(res, res[[1]]$doc))
 }
 

@@ -12,7 +12,7 @@ xml_replace(.x, .value, ..., .copy = TRUE)
 
 xml_add_sibling(.x, .value, ..., .where = c("after", "before"), .copy = TRUE)
 
-xml_add_child(.x, .value, ..., .where = length(xml_children(.x)), .copy = TRUE)
+xml_add_child(.x, .value, ..., .where = NULL, .copy = TRUE)
 
 xml_add_parent(.x, .value, ...)
 
@@ -30,7 +30,10 @@ text to assign to the node.}
 then the node will be moved from it's current location.}
 
 \item{.where}{to add the new node, for \code{xml_add_child} the position
-after which to add, use \code{0} for the first child. For
+after which to add, use \code{0} for the first child. The default, \code{NULL},
+appends after the last child without having to enumerate the existing
+children first, which keeps repeated appends fast (O(1) per call) even for
+nodes with many children. For
 \code{xml_add_sibling} either \sQuote{"before"} or \sQuote{"after"}
 indicating if the new node should be before or after \code{.x}.}
 
