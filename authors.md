@@ -17,7 +17,7 @@
 ## Citation
 
 Source:
-[`DESCRIPTION`](https://github.com/r-lib/xml2/blob/main/DESCRIPTION)
+[`DESCRIPTION`](https://github.com/r-lib/xml2/blob/v1.6.0/DESCRIPTION)
 
 Wickham H, Hester J, Ooms J (2026). *xml2: Parse XML*. R package version
 1.6.0, <https://xml2.r-lib.org>.
