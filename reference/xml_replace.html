@@ -66,7 +66,7 @@ node from the tree.</p>
 <span></span>
 <span><span class="fu">xml_add_sibling</span><span class="op">(</span><span class="va">.x</span>, <span class="va">.value</span>, <span class="va">...</span>, .where <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"after"</span>, <span class="st">"before"</span><span class="op">)</span>, .copy <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">xml_add_child</span><span class="op">(</span><span class="va">.x</span>, <span class="va">.value</span>, <span class="va">...</span>, .where <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="fu"><a href="xml_children.html">xml_children</a></span><span class="op">(</span><span class="va">.x</span><span class="op">)</span><span class="op">)</span>, .copy <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="fu">xml_add_child</span><span class="op">(</span><span class="va">.x</span>, <span class="va">.value</span>, <span class="va">...</span>, .where <span class="op">=</span> <span class="cn">NULL</span>, .copy <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">xml_add_parent</span><span class="op">(</span><span class="va">.x</span>, <span class="va">.value</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
@@ -97,7 +97,10 @@ then the node will be moved from it's current location.</p></dd>
 
 <dt id="arg--where">.where<a class="anchor" aria-label="anchor" href="#arg--where"></a></dt>
 <dd><p>to add the new node, for <code>xml_add_child</code> the position
-after which to add, use <code>0</code> for the first child. For
+after which to add, use <code>0</code> for the first child. The default, <code>NULL</code>,
+appends after the last child without having to enumerate the existing
+children first, which keeps repeated appends fast (O(1) per call) even for
+nodes with many children. For
 <code>xml_add_sibling</code> either ‘"before"’ or ‘"after"’
 indicating if the new node should be before or after <code>.x</code>.</p></dd>
 

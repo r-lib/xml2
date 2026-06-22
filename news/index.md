@@ -4,6 +4,10 @@
 
 CRAN release: 2026-01-17
 
+- [`xml_add_child()`](http://xml2.r-lib.org/reference/xml_replace.md)
+  without `.where` argument is now much faster. The default is now
+  `NULL` and still means “append after the last child”.
+
 - [`read_html()`](http://xml2.r-lib.org/reference/read_xml.md) now
   defaults to `encoding = "UTF-8"` to prevent double-encoding of UTF-8
   content on Windows with codepage 65001
