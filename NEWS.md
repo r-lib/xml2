@@ -1,10 +1,12 @@
-# xml2 1.5.2
+# xml2 1.6.0
 
 * `xml_add_child()` without `.where` argument is now much faster. The default
   is now `NULL` and still means "append after the last child".
 
 * `read_html()` now defaults to `encoding = "UTF-8"` to prevent double-encoding
   of UTF-8 content on Windows with codepage 65001 (#490).
+
+# xml2 1.5.2
 
 * Enable the myExternalEntityLoader also on libxml 2.14.4 for MacOS
 

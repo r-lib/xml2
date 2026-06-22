@@ -29,3 +29,5 @@ windows
 ^\.vscode$
 ^\.deps$
 autobrew
+^\.positai$
+^\.claude$
