@@ -86,7 +86,7 @@ xml_find_all.xml_missing <- function(x, xpath, ns = xml_ns(x), ...) {
 #' @export
 xml_find_all.xml_node <- function(x, xpath, ns = xml_ns(x), ...) {
   nodes <- .Call(xpath_search, x$node, x$doc, xpath, ns, Inf)
-  xml_nodeset(nodes)
+  xml_nodeset(nodes, deduplicate = FALSE)
 }
 
 #' @param flatten A logical indicating whether to return a single, flattened

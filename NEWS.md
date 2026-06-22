@@ -3,6 +3,9 @@
 * `xml_add_child()` without `.where` argument is now much faster. The default
   is now `NULL` and still means "append after the last child".
 
+* `xml_path()` is faster for large node sets with shared ancestor paths, and
+  `xml_find_all()` materializes large node-set results more efficiently.
+
 * `read_html()` now defaults to `encoding = "UTF-8"` to prevent double-encoding
   of UTF-8 content on Windows with codepage 65001 (#490).
 

@@ -61,6 +61,21 @@ test_that("xml_find_all returns nodeset or list of nodesets based on flatten", {
   expect_s3_class(z[[1L]], "xml_nodeset")
 })
 
+test_that("xml_find_all on a single node returns unique xpath node sets", {
+  x <- read_xml("<root><a/><a/><b><a/></b></root>")
+
+  nodes <- xml_find_all(x, "//* | //a | //a")
+
+  expect_false(any(.Call(nodes_duplicated, unclass(nodes))))
+  expect_identical(xml_path(nodes), c(
+    "/root",
+    "/root/a[1]",
+    "/root/a[2]",
+    "/root/b",
+    "/root/b/a"
+  ))
+})
+
 # Find num ---------------------------------------------------------------------
 test_that("xml_find_num errors with non numeric results", {
   x <- read_xml("<x><y/><y/></x>")
