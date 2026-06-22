@@ -243,6 +243,25 @@ test_that("xml_add_child can insert anywhere in the child list", {
   expect_equal(c("w", "x", "y", "z"), xml_name(xml_children(x)))
 })
 
+test_that("xml_add_child appends in order with the default .where", {
+  # Appending many children one at a time must keep insertion order and stay
+  # linear; the default `.where = NULL` skips the per-call child count that used
+  # to make this O(n^2).
+  x <- read_xml("<a/>")
+  n <- 200
+  for (i in seq_len(n)) {
+    xml_add_child(x, "c", as.character(i))
+  }
+
+  kids <- xml_children(x)
+  expect_length(kids, n)
+  expect_equal(xml_text(kids), as.character(seq_len(n)))
+
+  # An explicit large finite .where also appends at the end
+  xml_add_child(x, "c", as.character(n + 1), .where = 1000)
+  expect_equal(xml_text(xml_children(x)), as.character(seq_len(n + 1)))
+})
+
 test_that("xml_add_child can insert anywhere in a nodeset", {
   x <- read_xml(
     "<body>
