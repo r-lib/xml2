@@ -16,6 +16,7 @@ modify additional text nodes you need to select them explicitly with
 `/text()`.
 
 ``` r
+
 x <- read_xml("<p>This is some <b>text</b>. This is more.</p>")
 xml_text(x)
 #> [1] "This is some text. This is more."
@@ -48,6 +49,7 @@ both cases using `NULL` as the value will remove the attribute
 completely.
 
 ``` r
+
 x <- read_xml("<a href='invalid!'>xml2</a>")
 xml_attr(x, "href")
 #> [1] "invalid!"
@@ -87,6 +89,7 @@ Node names are modified with
 [`xml_name()`](http://xml2.r-lib.org/dev/reference/xml_name.md).
 
 ``` r
+
 x <- read_xml("<a><b/></a>")
 x
 #> {xml_document}
@@ -111,6 +114,7 @@ insertion.
 ### Replacing existing nodes
 
 ``` r
+
 x <- read_xml("<parent><child>1</child><child>2<child>3</child></child></parent>")
 children <- xml_children(x)
 t1 <- children[[1]]
@@ -130,6 +134,7 @@ x
 ### Add a sibling
 
 ``` r
+
 x <- read_xml("<parent><child>1</child><child>2<child>3</child></child></parent>")
 children <- xml_children(x)
 t1 <- children[[1]]
@@ -156,6 +161,7 @@ x
 ### Add a child
 
 ``` r
+
 x <- read_xml("<parent><child>1</child><child>2<child>3</child></child></parent>")
 children <- xml_children(x)
 t1 <- children[[1]]
@@ -187,6 +193,7 @@ memory for the node, so R objects pointing to the node are still valid.
 This allows code like the following to work without crashing R
 
 ``` r
+
 x <- read_xml("<foo><bar><baz/></bar></foo>")
 x1 <- x |>
   xml_children() |>
@@ -199,8 +206,8 @@ xml_remove(x1)
 rm(x1)
 gc()
 #>           used (Mb) gc trigger (Mb) max used (Mb)
-#> Ncells  649762 34.8    1470957 78.6  1288574 68.9
-#> Vcells 1164831  8.9    8388608 64.0  2656588 20.3
+#> Ncells  659669 35.3    1480574 79.1  1349559 72.1
+#> Vcells 1178763  9.0    8388608 64.0  2748310 21.0
 
 x2
 #> {xml_node}
@@ -218,6 +225,7 @@ no longer valid.
 In particular `xml_find_*()` results are easy to overlook, for example
 
 ``` r
+
 x <- read_xml("<a><b /><b><b /></b></a>")
 bees <- xml_find_all(x, "//b")
 xml_remove(xml_child(x), free = TRUE)
@@ -225,8 +233,8 @@ xml_remove(xml_child(x), free = TRUE)
 rm(bees)
 gc()
 #>           used (Mb) gc trigger (Mb) max used (Mb)
-#> Ncells  649828 34.8    1470957 78.6  1288574 68.9
-#> Vcells 1165080  8.9    8388608 64.0  2656588 20.3
+#> Ncells  659717 35.3    1480574 79.1  1349559 72.1
+#> Vcells 1178982  9.0    8388608 64.0  2748310 21.0
 ```
 
 ### Namespaces
@@ -248,6 +256,7 @@ We want to construct a document with the following namespace layout.
 ```
 
 ``` r
+
 d <- xml_new_root("sld",
   "xmlns" = "http://www.opengis.net/sld",
   "xmlns:ogc" = "http://www.opengis.net/ogc",

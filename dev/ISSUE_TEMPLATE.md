@@ -7,6 +7,7 @@
 Session Info
 
 ``` r
+
 devtools::session_info() # Paste output below
 #> output
 ```

@@ -1,5 +1,20 @@
 # Changelog
 
+## xml2 1.5.2
+
+CRAN release: 2026-01-17
+
+- [`xml_add_child()`](http://xml2.r-lib.org/dev/reference/xml_replace.md)
+  without `.where` argument is now much faster. The default is now
+  `NULL` and still means “append after the last child”.
+
+- [`read_html()`](http://xml2.r-lib.org/dev/reference/read_xml.md) now
+  defaults to `encoding = "UTF-8"` to prevent double-encoding of UTF-8
+  content on Windows with codepage 65001
+  ([\#490](https://github.com/r-lib/xml2/issues/490)).
+
+- Enable the myExternalEntityLoader also on libxml 2.14.4 for MacOS
+
 ## xml2 1.5.1
 
 CRAN release: 2025-12-01

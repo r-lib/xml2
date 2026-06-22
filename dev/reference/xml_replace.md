@@ -12,7 +12,7 @@ xml_replace(.x, .value, ..., .copy = TRUE)
 
 xml_add_sibling(.x, .value, ..., .where = c("after", "before"), .copy = TRUE)
 
-xml_add_child(.x, .value, ..., .where = length(xml_children(.x)), .copy = TRUE)
+xml_add_child(.x, .value, ..., .where = NULL, .copy = TRUE)
 
 xml_add_parent(.x, .value, ...)
 
@@ -42,9 +42,11 @@ xml_remove(.x, free = FALSE)
 - .where:
 
   to add the new node, for `xml_add_child` the position after which to
-  add, use `0` for the first child. For `xml_add_sibling` either
-  ‘"before"’ or ‘"after"’ indicating if the new node should be before or
-  after `.x`.
+  add, use `0` for the first child. The default, `NULL`, appends after
+  the last child without having to enumerate the existing children
+  first, which keeps repeated appends fast (O(1) per call) even for
+  nodes with many children. For `xml_add_sibling` either ‘"before"’ or
+  ‘"after"’ indicating if the new node should be before or after `.x`.
 
 - free:
 
