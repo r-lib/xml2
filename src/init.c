@@ -70,6 +70,7 @@ extern SEXP url_unescape_(SEXP);
 extern SEXP xml_parse_options_(void);
 extern SEXP xml_save_options_(void);
 extern SEXP xpath_search(SEXP, SEXP, SEXP, SEXP, SEXP);
+extern SEXP xpath_search_atomic(SEXP, SEXP, SEXP, SEXP);
 
 static const R_CallMethodDef CallEntries[] = {
     {"doc_has_root",              (DL_FUNC) &doc_has_root,              1},
@@ -134,6 +135,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"xml_parse_options_",        (DL_FUNC) &xml_parse_options_,        0},
     {"xml_save_options_",         (DL_FUNC) &xml_save_options_,         0},
     {"xpath_search",              (DL_FUNC) &xpath_search,              5},
+    {"xpath_search_atomic",       (DL_FUNC) &xpath_search_atomic,       4},
     {NULL, NULL, 0}
 };
 

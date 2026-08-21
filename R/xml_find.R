@@ -178,7 +178,7 @@ xml_find_num.xml_nodeset <- function(x, xpath, ns = xml_ns(x)) {
     return(numeric())
   }
 
-  vapply(x, function(x) xml_find_num(x, xpath = xpath, ns = ns), numeric(1))
+  .Call(xpath_search_atomic, x, xpath, ns, 3L)
 }
 
 #' @export
@@ -205,7 +205,7 @@ xml_find_int.xml_nodeset <- function(x, xpath, ns = xml_ns(x)) {
     return(integer())
   }
 
-  vapply(x, function(x) xml_find_int(x, xpath = xpath, ns = ns), integer(1))
+  .Call(xpath_search_atomic, x, xpath, ns, 4L)
 }
 
 #' @export
@@ -232,7 +232,7 @@ xml_find_chr.xml_nodeset <- function(x, xpath, ns = xml_ns(x)) {
     return(character())
   }
 
-  vapply(x, function(x) xml_find_chr(x, xpath = xpath, ns = ns), character(1))
+  .Call(xpath_search_atomic, x, xpath, ns, 1L)
 }
 
 #' @export
@@ -259,7 +259,7 @@ xml_find_lgl.xml_nodeset <- function(x, xpath, ns = xml_ns(x)) {
     return(logical())
   }
 
-  vapply(x, function(x) xml_find_lgl(x, xpath = xpath, ns = ns), logical(1))
+  .Call(xpath_search_atomic, x, xpath, ns, 2L)
 }
 
 #' @export

@@ -4,6 +4,7 @@
 #include <libxml/tree.h>
 #include "xml2_types.h"
 #include <algorithm>
+#include <cmath>
 
 class XmlSeeker {
   xmlXPathContext* context_;
@@ -18,10 +19,10 @@ public:
     context_->node = node;
   }
 
-  void registerNamespace(SEXP nsMap) {
+  static bool registerNamespace(xmlXPathContext* context, SEXP nsMap) {
     R_xlen_t n = Rf_xlength(nsMap);
     if (n == 0) {
-      return;
+      return true;
     }
 
     SEXP prefix = Rf_getAttrib(nsMap, R_NamesSymbol);
@@ -30,8 +31,15 @@ public:
       xmlChar* prefixI = (xmlChar*) CHAR(STRING_ELT(prefix, i));
       xmlChar* urlI = (xmlChar*) CHAR(STRING_ELT(nsMap, i));
 
-      if (xmlXPathRegisterNs(context_, prefixI, urlI) != 0)
-        Rf_error("Failed to register namespace (%s <-> %s)", prefixI, urlI);
+      if (xmlXPathRegisterNs(context, prefixI, urlI) != 0)
+        return false;
+    }
+    return true;
+  }
+
+  void registerNamespace(SEXP nsMap) {
+    if (!registerNamespace(context_, nsMap)) {
+      Rf_error("Failed to register namespace");
     }
   }
 
@@ -117,4 +125,158 @@ extern "C" SEXP xpath_search(SEXP node_sxp, SEXP doc_sxp, SEXP xpath_sxp, SEXP n
   XmlSeeker seeker(doc, node.checked_get());
   seeker.registerNamespace(nsMap_sxp);
   return seeker.search(xpath, num_results);
+}
+
+// [[export]]
+extern "C" SEXP xpath_search_atomic(SEXP nodeset_sxp, SEXP xpath_sxp, SEXP nsMap_sxp, SEXP type_sxp) {
+  if (TYPEOF(xpath_sxp) != STRSXP || Rf_xlength(xpath_sxp) == 0) {
+    Rf_error("XPath must be a string");
+  }
+  const char* xpath = CHAR(STRING_ELT(xpath_sxp, 0));
+  int target_type = INTEGER(type_sxp)[0];
+
+  xmlXPathCompExprPtr comp = xmlXPathCompile((const xmlChar*)xpath);
+  if (comp == NULL) {
+    Rf_error("Invalid XPath: %s", xpath);
+  }
+
+  int n = Rf_xlength(nodeset_sxp);
+  SEXP out = R_NilValue;
+  switch (target_type) {
+    case 1: out = PROTECT(Rf_allocVector(STRSXP, n)); break;
+    case 2: out = PROTECT(Rf_allocVector(LGLSXP, n)); break;
+    case 3: out = PROTECT(Rf_allocVector(REALSXP, n)); break;
+    case 4: out = PROTECT(Rf_allocVector(INTSXP, n)); break;
+    default:
+      xmlXPathFreeCompExpr(comp);
+      Rf_error("Unknown target type %d", target_type);
+  }
+
+  xmlDocPtr current_doc = NULL;
+  xmlXPathContextPtr context = NULL;
+
+  for (int i = 0; i < n; ++i) {
+    SEXP x_i = VECTOR_ELT(nodeset_sxp, i);
+    if (TYPEOF(x_i) != VECSXP || Rf_xlength(x_i) < 2) {
+      if (context != NULL) xmlXPathFreeContext(context);
+      xmlXPathFreeCompExpr(comp);
+      UNPROTECT(1);
+      Rf_error("nodeset element %d is not a valid xml_node", i + 1);
+    }
+    SEXP node_sxp = VECTOR_ELT(x_i, 0);
+    SEXP doc_sxp = VECTOR_ELT(x_i, 1);
+
+    if (TYPEOF(node_sxp) != EXTPTRSXP || TYPEOF(doc_sxp) != EXTPTRSXP) {
+      if (context != NULL) xmlXPathFreeContext(context);
+      xmlXPathFreeCompExpr(comp);
+      UNPROTECT(1);
+      Rf_error("nodeset element %d has invalid external pointer", i + 1);
+    }
+
+    xmlNodePtr node = (xmlNodePtr) R_ExternalPtrAddr(node_sxp);
+    xmlDocPtr doc = (xmlDocPtr) R_ExternalPtrAddr(doc_sxp);
+    if (node == NULL || doc == NULL) {
+      if (context != NULL) xmlXPathFreeContext(context);
+      xmlXPathFreeCompExpr(comp);
+      UNPROTECT(1);
+      Rf_error("external pointer is not valid");
+    }
+
+    if (doc != current_doc || context == NULL) {
+      if (context != NULL) {
+        xmlXPathFreeContext(context);
+      }
+      current_doc = doc;
+      context = xmlXPathNewContext(current_doc);
+      if (context == NULL) {
+        xmlXPathFreeCompExpr(comp);
+        UNPROTECT(1);
+        Rf_error("Failed to create XPath context");
+      }
+      if (!XmlSeeker::registerNamespace(context, nsMap_sxp)) {
+        xmlXPathFreeContext(context);
+        xmlXPathFreeCompExpr(comp);
+        UNPROTECT(1);
+        Rf_error("Failed to register namespace");
+      }
+    }
+    context->node = node;
+
+    xmlXPathObjectPtr res = xmlXPathCompiledEval(comp, context);
+    if (res == NULL) {
+      if (context != NULL) xmlXPathFreeContext(context);
+      xmlXPathFreeCompExpr(comp);
+      UNPROTECT(1);
+      Rf_error("Evaluation of XPath `%s` failed on node %d", xpath, i + 1);
+    }
+
+    switch (target_type) {
+      case 1: // CHR
+        if (res->type == XPATH_STRING) {
+          SET_STRING_ELT(out, i, Rf_mkCharCE((char*)res->stringval, CE_UTF8));
+        } else {
+          int type = res->type;
+          xmlXPathFreeObject(res);
+          if (context != NULL) xmlXPathFreeContext(context);
+          xmlXPathFreeCompExpr(comp);
+          UNPROTECT(1);
+          Rf_error("Result of XPath `%s` is not a string (type: %d)", xpath, type);
+        }
+        break;
+      case 2: // LGL
+        if (res->type == XPATH_BOOLEAN) {
+          LOGICAL(out)[i] = res->boolval ? 1 : 0;
+        } else {
+          int type = res->type;
+          xmlXPathFreeObject(res);
+          if (context != NULL) xmlXPathFreeContext(context);
+          xmlXPathFreeCompExpr(comp);
+          UNPROTECT(1);
+          Rf_error("Result of XPath `%s` is not a logical (type: %d)", xpath, type);
+        }
+        break;
+      case 3: // NUM
+        if (res->type == XPATH_NUMBER) {
+          REAL(out)[i] = res->floatval;
+        } else {
+          int type = res->type;
+          xmlXPathFreeObject(res);
+          if (context != NULL) xmlXPathFreeContext(context);
+          xmlXPathFreeCompExpr(comp);
+          UNPROTECT(1);
+          Rf_error("Result of XPath `%s` is not a number (type: %d)", xpath, type);
+        }
+        break;
+      case 4: // INT
+        if (res->type == XPATH_NUMBER) {
+          double val = res->floatval;
+          if (std::isnan(val) || val == std::floor(val)) {
+            INTEGER(out)[i] = (int)val;
+          } else {
+            xmlXPathFreeObject(res);
+            if (context != NULL) xmlXPathFreeContext(context);
+            xmlXPathFreeCompExpr(comp);
+            UNPROTECT(1);
+            Rf_error("Result of XPath `%s` is not an integer", xpath);
+          }
+        } else {
+          int type = res->type;
+          xmlXPathFreeObject(res);
+          if (context != NULL) xmlXPathFreeContext(context);
+          xmlXPathFreeCompExpr(comp);
+          UNPROTECT(1);
+          Rf_error("Result of XPath `%s` is not a whole number (type: %d)", xpath, type);
+        }
+        break;
+    }
+    xmlXPathFreeObject(res);
+  }
+
+  if (context != NULL) {
+    xmlXPathFreeContext(context);
+  }
+  xmlXPathFreeCompExpr(comp);
+  UNPROTECT(1); // out
+
+  return out;
 }
