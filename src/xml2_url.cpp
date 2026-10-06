@@ -59,6 +59,7 @@ extern "C" SEXP url_parse_(SEXP x_sxp) {
     const char* raw = Rf_translateCharUTF8(STRING_ELT(x_sxp, i));
     xmlURI* uri = xmlParseURI(raw);
     if (uri == NULL) {
+      INTEGER(port)[i] = NA_INTEGER;
       continue;
     }
 
