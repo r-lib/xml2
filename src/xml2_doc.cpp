@@ -7,6 +7,8 @@
 #include "xml2_utils.h"
 #include <cstring>
 
+extern "C" int xml2_parse_nowarning;
+
 // [[export]]
 extern "C" SEXP  xml_parse_options_() {
 
@@ -192,6 +194,7 @@ extern "C" SEXP doc_parse_file(
   bool as_html = LOGICAL(as_html_sxp)[0];
   int options = INTEGER(options_sxp)[0];
   xmlDoc* pDoc;
+  xml2_parse_nowarning = (options & XML_PARSE_NOWARNING) != 0;
   if (as_html) {
     pDoc = htmlReadFile(
       path,
@@ -205,6 +208,7 @@ extern "C" SEXP doc_parse_file(
       options
     );
   }
+  xml2_parse_nowarning = 0;
 
   if (pDoc == NULL) {
     Rf_error("Failed to parse %s", path);
@@ -228,6 +232,7 @@ extern "C" SEXP doc_parse_raw(
   int options = INTEGER(options_sxp)[0];
 
   xmlDoc* pDoc;
+  xml2_parse_nowarning = (options & XML_PARSE_NOWARNING) != 0;
   if (as_html) {
     pDoc = htmlReadMemory(
       (const char *) RAW(x),
@@ -245,6 +250,7 @@ extern "C" SEXP doc_parse_raw(
       options
     );
   }
+  xml2_parse_nowarning = 0;
 
   if (pDoc == NULL) {
     Rf_error("Failed to parse text");

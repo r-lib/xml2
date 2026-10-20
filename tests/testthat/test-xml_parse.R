@@ -74,6 +74,19 @@ test_that("read_html properly passes parser arguments", {
   )
 })
 
+test_that("read_xml NOWARNING suppresses namespace warnings", {
+  expect_warning(read_xml("<w:t></w:t>"), "Namespace prefix")
+  expect_warning(read_xml("<w:t></w:t>", options = "NOWARNING"), NA)
+  expect_warning(
+    read_xml("<a x:b='1'/>", options = c("RECOVER", "NOERROR", "NOWARNING")),
+    NA
+  )
+  expect_warning(read_xml("<a xmlns='rel'/>", options = "NOWARNING"), NA)
+
+  doc <- read_xml("<w:t></w:t>", options = "NOWARNING")
+  expect_equal(xml_name(doc), "w:t")
+})
+
 test_that("read_xml works with httr response objects", {
   skip("httpbin is unreliable")
   x <- read_xml(httr::GET("http://httpbin.org/xml"))

@@ -4,6 +4,9 @@
 #include <libxml/parser.h>
 #include <string.h>
 
+// libxml2 < 2.13 does not record XML_PARSE_NOWARNING in ctxt->options
+int xml2_parse_nowarning = 0;
+
 /* * *
  * Author: Nick Wellnhofer <wellnhofer@aevum.de>
  * Date:   Tue, 24 Oct 2023 15:02:36 +0200
@@ -22,10 +25,19 @@ void handleStructuredError(void* userData, xmlError* error) {
     error->message[len-1] = '\0';
   }
 
+  xmlParserCtxt *ctxt = error->ctxt;
+
+  if (error->level <= 2 && ctxt &&
+      (error->domain == XML_FROM_PARSER ||
+       error->domain == XML_FROM_NAMESPACE ||
+       error->domain == XML_FROM_HTML) &&
+      (xml2_parse_nowarning || (ctxt->options & XML_PARSE_NOWARNING))) {
+    return;
+  }
+
   //Workarounds for xml bugs in R.app https://github.com/r-lib/xml2/issues/458
   //Another solution is to use a static libxml2
 #ifdef __APPLE__
-  xmlParserCtxt *ctxt = error->ctxt;
   static unsigned char icns[5] = { 'i', 'c', 'n', 's', '\0' };
   static unsigned char mm[3] = { 'M', 'M', '\0' };
   if(error->code == XML_ERR_DOCUMENT_EMPTY && ctxt->input && ctxt->input->base){
@@ -38,6 +50,7 @@ void handleStructuredError(void* userData, xmlError* error) {
   if (error->level <= 2) {
     Rf_warning("%s [%i]", error->message, (int) error->code);
   } else {
+    xml2_parse_nowarning = 0;
     Rf_error("%s [%i]", error->message, (int) error->code);
   }
 }

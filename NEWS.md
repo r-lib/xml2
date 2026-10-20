@@ -1,3 +1,8 @@
+# xml2 (development version)
+
+* `read_xml()` now honours `options = "NOWARNING"` for parser and
+  namespace diagnostics (#385, @taekop).
+
 # xml2 1.6.0
 
 * `xml_add_child()` without `.where` argument is now much faster. The default
