@@ -76,7 +76,13 @@ xmlParserInput *download_file_callback(const char *url){
 }
 
 static xmlParserInputPtr myExternalEntityLoader(const char *URL, const char *ID, xmlParserCtxtPtr ctxt){
-  if (URL && (strncmp(URL, "http://", 7) == 0 || strncmp(URL, "https://", 8) == 0)) {
+  // Only use R's download.file() for http(s) when the caller has not forbidden
+  // network access. When XML_PARSE_NONET is set we skip the custom downloader and
+  // fall through to the default loader, which honours NONET (and refuses to fetch
+  // network resources). Otherwise NONET has no effect on this branch, which allows
+  // a malicious document to drive outbound requests (SSRF) regardless of the option.
+  int nonet = (ctxt != NULL) && (ctxt->options & XML_PARSE_NONET);
+  if (!nonet && URL && (strncmp(URL, "http://", 7) == 0 || strncmp(URL, "https://", 8) == 0)) {
     //REprintf("Fetching external resource %s\n", URL);
     xmlParserInput *buf = download_file_callback(URL);
     if(buf) return buf;

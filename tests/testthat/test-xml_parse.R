@@ -136,6 +136,35 @@ test_that("read_xml and read_html fail with > 1 input", {
 #  expect_s3_class(res, "xml_document")
 #})
 
+test_that("NONET stops the external entity loader fetching http(s) resources", {
+  # The custom external entity loader is only installed on libxml2 >= 2.14.4.
+  skip_if(libxml2_version() < "2.14.4")
+
+  calls <- 0L
+  local_mocked_bindings(
+    download_file_callback = function(url) {
+      calls <<- calls + 1L
+      NULL
+    }
+  )
+
+  # A parameter entity pointing at an http(s) URL; the port is irrelevant because
+  # the download callback is mocked and never actually connects.
+  xml <- '<!DOCTYPE r [<!ENTITY % ext SYSTEM "http://127.0.0.1:1/x"> %ext; ]><r/>'
+
+  # Without NONET the http(s) entity is fetched via download.file().
+  suppressWarnings(try(read_xml(xml, options = c("NOENT", "DTDLOAD")), silent = TRUE))
+  expect_gt(calls, 0L)
+
+  # With NONET the http(s) branch must be skipped: no outbound request is made.
+  calls <- 0L
+  suppressWarnings(try(
+    read_xml(xml, options = c("NOENT", "DTDLOAD", "NONET")),
+    silent = TRUE
+  ))
+  expect_identical(calls, 0L)
+})
+
 test_that("read_xml from a textConnection", {
   s <- '<?xml version="1.0" encoding="UTF-8"?>\n<outer>\n<inner>Inner</inner>\n</outer>'
   con <- textConnection(s)

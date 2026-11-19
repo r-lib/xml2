@@ -1,3 +1,7 @@
+# xml2 (development version)
+
+* The external entity loader now honours the `NONET` option, so `http(s)://` entities are no longer fetched via `download.file()` when `NONET` is set, closing a bypass that allowed outbound requests (SSRF) and local file reads (XXE) for documents parsed with `NOENT` + `DTDLOAD`.
+
 # xml2 1.6.0
 
 * `xml_add_child()` without `.where` argument is now much faster. The default
